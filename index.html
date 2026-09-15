@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Monstrão</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Monstrão">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#12131A;
+    --surface:#1B1D27;
+    --surface-2:#22242F;
+    --ink:#F4F5FA;
+    --muted:#8D90A8;
+    --rule:#2E3040;
+    --fuel:#FFB238;
+    --fuel-soft:rgba(255,178,56,0.14);
+    --burn:#2DD4E8;
+    --burn-soft:rgba(45,212,232,0.14);
+    --deficit:#4ADE80;
+    --deficit-soft:rgba(74,222,128,0.16);
+    --surplus:#FF5C7A;
+    --surplus-soft:rgba(255,92,122,0.16);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 12% 0%, rgba(45,212,232,0.16), transparent 42%),
+      radial-gradient(circle at 88% 18%, rgba(255,178,56,0.13), transparent 40%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding:28px 18px 60px;
+  }
+  .wrap{max-width:460px;margin:0 auto;}
+
+  .eyebrow{
+    font-size:13px;
+    color:var(--burn);
+    margin:0 0 4px;
+    font-weight:600;
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:32px;
+    margin:0 0 24px;
+    letter-spacing:-0.01em;
+    background:linear-gradient(90deg,var(--fuel),var(--burn));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    display:inline-block;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:16px;
+  }
+
+  .field-row{display:flex;gap:12px;margin-bottom:12px;}
+  .field{flex:1;}
+  label{
+    display:block;
+    font-size:12.5px;
+    color:var(--muted);
+    margin-bottom:6px;
+    font-weight:600;
+  }
+  input[type=number], input[type=date]{
+    width:100%;
+    font-family:'Inter',sans-serif;
+    font-size:17px;
+    font-weight:600;
+    padding:10px 11px;
+    border:1.5px solid var(--rule);
+    border-radius:9px;
+    background:var(--surface-2);
+    color:var(--ink);
+    color-scheme:dark;
+  }
+  input:focus{outline:none;border-color:var(--burn);box-shadow:0 0 0 3px var(--burn-soft);}
+  #consumed:focus{border-color:var(--fuel);box-shadow:0 0 0 3px var(--fuel-soft);}
+
+  button{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    border:none;
+    border-radius:10px;
+    padding:12px 16px;
+    cursor:pointer;
+  }
+  .btn-primary{
+    width:100%;
+    background:linear-gradient(90deg,var(--fuel),var(--burn));
+    color:#0D0E13;
+  }
+  .btn-primary:active{filter:brightness(0.92);}
+  .btn-primary:disabled{opacity:0.5;cursor:default;}
+
+  .balance-card{
+    text-align:left;
+    padding:22px 20px;
+    border-width:1.5px;
+  }
+  .balance-label{font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600;}
+  .balance-figure{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:48px;
+    font-weight:700;
+    line-height:1;
+    letter-spacing:-0.01em;
+  }
+  .balance-figure.pos{color:var(--deficit);}
+  .balance-figure.neg{color:var(--surplus);}
+  .balance-unit{font-size:16px;font-weight:600;color:var(--muted);margin-left:6px;}
+  .balance-sub{font-size:13px;color:var(--muted);margin-top:8px;}
+  .tag{
+    display:inline-block;
+    font-size:13px;
+    font-weight:700;
+    padding:4px 12px;
+    border-radius:100px;
+    margin-top:10px;
+  }
+  .tag.deficit{background:var(--deficit-soft);color:var(--deficit);}
+  .tag.surplus{background:var(--surplus-soft);color:var(--surplus);}
+
+  .avg-row{
+    display:flex;
+    gap:10px;
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid var(--rule);
+  }
+  .avg-item{flex:1;}
+  .avg-num{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;}
+  .avg-name{font-size:11.5px;color:var(--muted);margin-top:2px;}
+
+  h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:18px;
+    font-weight:700;
+    margin:0 0 12px;
+  }
+
+  .period-tiles{display:flex;gap:12px;margin-bottom:18px;}
+  .period-tile{flex:1;background:var(--surface-2);border:1px solid var(--rule);border-radius:10px;padding:12px 14px;}
+  .period-tile-label{font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:600;}
+  .period-tile-figure{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;}
+  .period-tile-figure.net-pos{color:var(--deficit);}
+  .period-tile-figure.net-neg{color:var(--surplus);}
+  .period-tile-sub{font-size:11.5px;color:var(--muted);margin-top:2px;}
+
+  .month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  .month-nav-btn{
+    background:var(--surface-2);border:1px solid var(--rule);color:var(--ink);
+    width:34px;height:34px;border-radius:9px;font-size:17px;line-height:1;
+    display:flex;align-items:center;justify-content:center;padding:0;
+  }
+  .month-nav-btn:disabled{opacity:0.35;cursor:default;}
+  .month-nav-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;}
+
+  .month-summary{
+    display:flex;gap:12px;margin-bottom:16px;
+  }
+  .month-summary .period-tile{background:var(--surface);}
+
+  .week-list{border-top:1px solid var(--rule);}
+  .week-row{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:9px 0;border-bottom:1px solid var(--rule);
+  }
+  .week-row:last-child{border-bottom:none;}
+  .week-range{font-size:13.5px;color:var(--ink);font-weight:600;}
+  .week-days{font-size:11.5px;color:var(--muted);margin-left:6px;}
+
+  canvas{width:100% !important;max-height:220px;}
+
+  table{width:100%;border-collapse:collapse;}
+  th{
+    text-align:right;
+    font-size:11.5px;
+    color:var(--muted);
+    font-weight:600;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--rule);
+  }
+  th:first-child, td:first-child{text-align:left;}
+  td{
+    text-align:right;
+    font-size:14.5px;
+    padding:9px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  tr:last-child td{border-bottom:none;}
+  .net-pos{color:var(--deficit);font-weight:700;}
+  .net-neg{color:var(--surplus);font-weight:700;}
+  .del-btn{
+    background:none;border:none;color:var(--muted);
+    font-size:13px;padding:2px 4px;cursor:pointer;
+  }
+  .del-btn:hover{color:var(--surplus);}
+
+  .btn-row{display:flex;gap:10px;}
+  .btn-secondary{
+    flex:1;
+    background:var(--surface-2);
+    border:1.5px solid var(--rule);
+    color:var(--ink);
+  }
+  .btn-secondary:active{filter:brightness(1.15);}
+  input[type=file]{display:none;}
+
+  .empty{
+    color:var(--muted);
+    font-size:14px;
+    text-align:center;
+    padding:20px 0;
+  }
+  .status{
+    font-size:12.5px;
+    color:var(--muted);
+    text-align:center;
+    margin-top:6px;
+    min-height:16px;
+    font-weight:600;
+  }
+  .status.error{color:var(--surplus);}
+  .status.success{color:var(--deficit);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Fuel in · burn out</p>
+  <h1>Monstrão 💪</h1>
+
+  <div class="card">
+    <div class="field-row">
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="date" id="date">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="consumed" style="color:var(--fuel)">Consumed</label>
+        <input type="number" id="consumed" placeholder="kcal" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="burned" style="color:var(--burn)">Burned (Whoop)</label>
+        <input type="number" id="burned" placeholder="kcal" inputmode="numeric">
+      </div>
+    </div>
+    <button class="btn-primary" id="saveBtn">Save entry</button>
+    <p class="status" id="status"></p>
+  </div>
+
+  <div class="card balance-card">
+    <div class="balance-label" id="balanceLabel">Today's balance</div>
+    <div>
+      <span class="balance-figure" id="balanceFigure">—</span>
+      <span class="balance-unit">kcal</span>
+    </div>
+    <span class="tag" id="balanceTag" style="display:none;"></span>
+    <div class="avg-row">
+      <div class="avg-item">
+        <div class="avg-num" id="avg7">—</div>
+        <div class="avg-name">7-day avg net</div>
+      </div>
+      <div class="avg-item">
+        <div class="avg-num" id="avg30">—</div>
+        <div class="avg-name">30-day avg net</div>
+      </div>
+      <div class="avg-item">
+        <div class="avg-num" id="totalDays">—</div>
+        <div class="avg-name">days logged</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Weekly &amp; monthly balance</h2>
+    <div class="period-tiles">
+      <div class="period-tile">
+        <div class="period-tile-label">This week</div>
+        <div class="period-tile-figure" id="thisWeekFigure">—</div>
+        <div class="period-tile-sub" id="thisWeekSub"></div>
+      </div>
+      <div class="period-tile">
+        <div class="period-tile-label">This month</div>
+        <div class="period-tile-figure" id="thisMonthFigure">—</div>
+        <div class="period-tile-sub" id="thisMonthSub"></div>
+      </div>
+    </div>
+
+    <div class="month-nav">
+      <button class="month-nav-btn" id="prevMonthBtn" aria-label="Previous month">‹</button>
+      <div class="month-nav-title" id="monthNavTitle">—</div>
+      <button class="month-nav-btn" id="nextMonthBtn" aria-label="Next month">›</button>
+    </div>
+    <div class="month-summary">
+      <div class="period-tile">
+        <div class="period-tile-label">Month total</div>
+        <div class="period-tile-figure" id="monthTotalFigure">—</div>
+        <div class="period-tile-sub" id="monthTotalSub"></div>
+      </div>
+      <div class="period-tile">
+        <div class="period-tile-label">Avg / logged day</div>
+        <div class="period-tile-figure" id="monthAvgFigure">—</div>
+      </div>
+    </div>
+    <div class="week-list" id="weekList"></div>
+  </div>
+
+  <div class="card">
+    <h2>Trend</h2>
+    <canvas id="chart"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>History</h2>
+    <div id="tableWrap"></div>
+  </div>
+
+  <div class="card">
+    <h2>Backup</h2>
+    <div class="btn-row">
+      <button class="btn-secondary" id="exportBtn">Export backup</button>
+      <button class="btn-secondary" id="importBtn">Import backup</button>
+    </div>
+    <input type="file" id="importFile" accept="application/json">
+    <p class="status" id="backupStatus"></p>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'calorie-log';
+let entries = {}; // { 'YYYY-MM-DD': { consumed, burned } }
+let chart = null;
+
+function todayStr(){
+  const d = new Date();
+  const off = d.getTimezoneOffset();
+  const local = new Date(d.getTime() - off*60000);
+  return local.toISOString().slice(0,10);
+}
+
+function fmtDate(iso){
+  const [y,m,d] = iso.split('-');
+  const dt = new Date(y, m-1, d);
+  return dt.toLocaleDateString(undefined, { month:'short', day:'numeric' });
+}
+
+async function loadEntries(){
+  try{
+    if(window.storage){
+      const res = await window.storage.get(STORAGE_KEY, false);
+      entries = res && res.value ? JSON.parse(res.value) : {};
+      return;
+    }
+  }catch(e){ /* fall through to local storage */ }
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    entries = raw ? JSON.parse(raw) : {};
+  }catch(e){
+    entries = {};
+  }
+}
+
+async function persist(){
+  if(window.storage){
+    try{
+      await window.storage.set(STORAGE_KEY, JSON.stringify(entries), false);
+      return;
+    }catch(e){ /* fall through to local storage */ }
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+}
+
+function sortedDates(){
+  return Object.keys(entries).sort();
+}
+
+function net(e){ return e.consumed - e.burned; } // negative = deficit, positive = surplus
+
+function renderBalance(){
+  const dateInput = document.getElementById('date').value;
+  const label = document.getElementById('balanceLabel');
+  const figure = document.getElementById('balanceFigure');
+  const tag = document.getElementById('balanceTag');
+
+  const isToday = dateInput === todayStr();
+  label.textContent = isToday ? "Today's balance" : fmtDate(dateInput) + "'s balance";
+
+  const e = entries[dateInput];
+  if(!e){
+    figure.textContent = '—';
+    figure.className = 'balance-figure';
+    tag.style.display = 'none';
+  } else {
+    const n = net(e);
+    figure.textContent = (n > 0 ? '+' : '') + n;
+    figure.className = 'balance-figure ' + (n <= 0 ? 'pos' : 'neg');
+    tag.style.display = 'inline-block';
+    if(n <= 0){
+      tag.textContent = '🔥 Deficit';
+      tag.className = 'tag deficit';
+    } else {
+      tag.textContent = '⚡ Surplus';
+      tag.className = 'tag surplus';
+    }
+  }
+
+  const dates = sortedDates();
+  const last7 = dates.slice(-7);
+  const last30 = dates.slice(-30);
+  const avg = (arr) => arr.length ? Math.round(arr.reduce((s,d)=>s+net(entries[d]),0)/arr.length) : null;
+  const a7 = avg(last7), a30 = avg(last30);
+  document.getElementById('avg7').textContent = a7 === null ? '—' : (a7>0?'+':'')+a7;
+  document.getElementById('avg30').textContent = a30 === null ? '—' : (a30>0?'+':'')+a30;
+  document.getElementById('totalDays').textContent = dates.length;
+}
+
+function renderChart(){
+  try{
+    if(typeof Chart === 'undefined'){
+      const el = document.getElementById('chart');
+      if(el && el.parentElement) el.parentElement.innerHTML = '<h2>Trend</h2><div class="empty">Chart unavailable in this preview — open the hosted link to see it.</div>';
+      return;
+    }
+    const dates = sortedDates().slice(-60);
+    const ctx = document.getElementById('chart');
+    const data = {
+    labels: dates.map(fmtDate),
+    datasets: [
+      {
+        label: 'Consumed',
+        data: dates.map(d=>entries[d].consumed),
+        borderColor: '#FFB238',
+        backgroundColor: 'transparent',
+        tension: 0.25,
+        pointRadius: 2,
+        borderWidth: 2.5
+      },
+      {
+        label: 'Burned',
+        data: dates.map(d=>entries[d].burned),
+        borderColor: '#2DD4E8',
+        backgroundColor: 'transparent',
+        tension: 0.25,
+        pointRadius: 2,
+        borderWidth: 2.5
+      },
+      {
+        label: 'Net',
+        data: dates.map(d=>net(entries[d])),
+        borderColor: '#4ADE80',
+        backgroundColor: 'rgba(74,222,128,0.12)',
+        tension: 0.25,
+        pointRadius: 2,
+        borderWidth: 2.5,
+        fill: true,
+        yAxisID: 'y1'
+      }
+    ]
+  };
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'bottom', labels: { color:'#F4F5FA', font: { family:'Inter', size: 11, weight:600 }, boxWidth: 10, padding: 12 } }
+    },
+    scales: {
+      x: { ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 }, grid: { display:false } },
+      y: { ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 } }, grid: { color: '#2E3040' } },
+      y1: { display:false }
+    }
+  };
+  if(chart){ chart.data = data; chart.options = options; chart.update(); }
+  else { chart = new Chart(ctx, { type:'line', data, options }); }
+  }catch(e){ /* chart failed to render; rest of the app still works */ }
+}
+
+function renderTable(){
+  const wrap = document.getElementById('tableWrap');
+  const dates = sortedDates().slice().reverse();
+  if(!dates.length){
+    wrap.innerHTML = '<div class="empty">No entries yet — log today above to start.</div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Date</th><th>In</th><th>Out</th><th>Net</th><th></th></tr></thead><tbody>';
+  for(const d of dates){
+    const e = entries[d];
+    const n = net(e);
+    const netClass = n <= 0 ? 'net-pos' : 'net-neg';
+    html += `<tr>
+      <td>${fmtDate(d)}</td>
+      <td>${e.consumed}</td>
+      <td>${e.burned}</td>
+      <td class="${netClass}">${n>0?'+':''}${n}</td>
+      <td><button class="del-btn" data-date="${d}">Remove</button></td>
+    </tr>`;
+  }
+  html += '</tbody></table>';
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('.del-btn').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      delete entries[btn.dataset.date];
+      await persist();
+      renderAll();
+    });
+  });
+}
+
+function parseISO(iso){
+  const [y,m,d] = iso.split('-').map(Number);
+  return new Date(y, m-1, d);
+}
+function toISO(dateObj){
+  const y = dateObj.getFullYear();
+  const m = String(dateObj.getMonth()+1).padStart(2,'0');
+  const d = String(dateObj.getDate()).padStart(2,'0');
+  return `${y}-${m}-${d}`;
+}
+function mondayOf(dateObj){
+  const d = new Date(dateObj);
+  const day = d.getDay();
+  const diff = (day === 0 ? -6 : 1 - day);
+  d.setDate(d.getDate() + diff);
+  d.setHours(0,0,0,0);
+  return d;
+}
+function weekRangeLabel(monday){
+  const sunday = new Date(monday);
+  sunday.setDate(sunday.getDate() + 6);
+  const startStr = monday.toLocaleDateString(undefined, { month:'short', day:'numeric' });
+  const endStr = monday.getMonth() === sunday.getMonth()
+    ? String(sunday.getDate())
+    : sunday.toLocaleDateString(undefined, { month:'short', day:'numeric' });
+  return `${startStr}–${endStr}`;
+}
+function sumNet(dateList){
+  return dateList.reduce((s,d)=>s+net(entries[d]),0);
+}
+function setFigure(el, value, subEl, subText){
+  if(value === null){
+    el.textContent = '—';
+    el.className = 'period-tile-figure';
+  } else {
+    el.textContent = (value>0?'+':'') + value;
+    el.className = 'period-tile-figure ' + (value<=0 ? 'net-pos' : 'net-neg');
+  }
+  if(subEl) subEl.textContent = subText || '';
+}
+
+let viewYear, viewMonth; // month browser state (0-indexed month)
+
+function renderPeriods(){
+  const allDates = sortedDates();
+  const today = new Date();
+
+  // This week (Mon-Sun containing today)
+  const monday = mondayOf(today);
+  const weekDates = allDates.filter(d=>{
+    const dt = parseISO(d);
+    return dt >= monday && dt <= new Date(monday.getFullYear(),monday.getMonth(),monday.getDate()+6);
+  });
+  setFigure(
+    document.getElementById('thisWeekFigure'),
+    weekDates.length ? sumNet(weekDates) : null,
+    document.getElementById('thisWeekSub'),
+    weekDates.length ? `${weekDates.length} day${weekDates.length===1?'':'s'} logged` : 'No entries yet'
+  );
+
+  // This month (calendar month containing today)
+  const tY = today.getFullYear(), tM = today.getMonth();
+  const thisMonthDates = allDates.filter(d=>{
+    const dt = parseISO(d);
+    return dt.getFullYear()===tY && dt.getMonth()===tM;
+  });
+  setFigure(
+    document.getElementById('thisMonthFigure'),
+    thisMonthDates.length ? sumNet(thisMonthDates) : null,
+    document.getElementById('thisMonthSub'),
+    thisMonthDates.length ? `${thisMonthDates.length} day${thisMonthDates.length===1?'':'s'} logged` : 'No entries yet'
+  );
+
+  // Month browser
+  const label = new Date(viewYear, viewMonth, 1).toLocaleDateString(undefined, { month:'long', year:'numeric' });
+  document.getElementById('monthNavTitle').textContent = label;
+  document.getElementById('nextMonthBtn').disabled = (viewYear===tY && viewMonth===tM);
+
+  const monthDates = allDates.filter(d=>{
+    const dt = parseISO(d);
+    return dt.getFullYear()===viewYear && dt.getMonth()===viewMonth;
+  });
+  const monthTotal = monthDates.length ? sumNet(monthDates) : null;
+  setFigure(
+    document.getElementById('monthTotalFigure'),
+    monthTotal,
+    document.getElementById('monthTotalSub'),
+    monthDates.length ? `${monthDates.length} day${monthDates.length===1?'':'s'} logged` : 'No entries'
+  );
+  const avgEl = document.getElementById('monthAvgFigure');
+  if(monthDates.length){
+    const avg = Math.round(monthTotal / monthDates.length);
+    avgEl.textContent = (avg>0?'+':'') + avg;
+    avgEl.className = 'period-tile-figure ' + (avg<=0?'net-pos':'net-neg');
+  } else {
+    avgEl.textContent = '—';
+    avgEl.className = 'period-tile-figure';
+  }
+
+  // Weekly breakdown within the viewed month
+  const weekList = document.getElementById('weekList');
+  if(!monthDates.length){
+    weekList.innerHTML = '<div class="empty">No entries logged this month.</div>';
+  } else {
+    const groups = {}; // mondayISO -> [dates]
+    monthDates.forEach(d=>{
+      const mKey = toISO(mondayOf(parseISO(d)));
+      (groups[mKey] = groups[mKey] || []).push(d);
+    });
+    const weekKeys = Object.keys(groups).sort();
+    let html = '';
+    for(const wk of weekKeys){
+      const dates = groups[wk];
+      const total = sumNet(dates);
+      const cls = total<=0 ? 'net-pos' : 'net-neg';
+      html += `<div class="week-row">
+        <div><span class="week-range">${weekRangeLabel(parseISO(wk))}</span><span class="week-days">${dates.length} day${dates.length===1?'':'s'}</span></div>
+        <div class="${cls}">${total>0?'+':''}${total}</div>
+      </div>`;
+    }
+    weekList.innerHTML = html;
+  }
+}
+
+function renderAll(){
+  renderBalance();
+  renderPeriods();
+  renderChart();
+  renderTable();
+}
+
+function loadFormForDate(d){
+  const e = entries[d];
+  document.getElementById('consumed').value = e ? e.consumed : '';
+  document.getElementById('burned').value = e ? e.burned : '';
+}
+
+async function init(){
+  const dateInput = document.getElementById('date');
+  dateInput.value = todayStr();
+  dateInput.max = todayStr();
+
+  const status = document.getElementById('status');
+
+  const now = new Date();
+  viewYear = now.getFullYear();
+  viewMonth = now.getMonth();
+
+  dateInput.addEventListener('change', ()=>{
+    loadFormForDate(dateInput.value);
+    renderBalance();
+  });
+
+  document.getElementById('prevMonthBtn').addEventListener('click', ()=>{
+    viewMonth--;
+    if(viewMonth < 0){ viewMonth = 11; viewYear--; }
+    renderPeriods();
+  });
+  document.getElementById('nextMonthBtn').addEventListener('click', ()=>{
+    viewMonth++;
+    if(viewMonth > 11){ viewMonth = 0; viewYear++; }
+    renderPeriods();
+  });
+
+  const backupStatus = document.getElementById('backupStatus');
+  document.getElementById('exportBtn').addEventListener('click', ()=>{
+    const blob = new Blob([JSON.stringify(entries, null, 2)], { type:'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `monstrao-backup-${todayStr()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    backupStatus.textContent = 'Backup downloaded.';
+    setTimeout(()=>{ backupStatus.textContent=''; }, 2000);
+  });
+
+  const importFile = document.getElementById('importFile');
+  document.getElementById('importBtn').addEventListener('click', ()=> importFile.click());
+  importFile.addEventListener('change', async (ev)=>{
+    const file = ev.target.files[0];
+    if(!file) return;
+    try{
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      const merged = { ...entries, ...parsed };
+      entries = merged;
+      await persist();
+      renderAll();
+      backupStatus.textContent = 'Backup imported and merged.';
+    }catch(e){
+      backupStatus.textContent = 'Could not read that file.';
+    }
+    setTimeout(()=>{ backupStatus.textContent=''; }, 2500);
+    importFile.value = '';
+  });
+
+  document.getElementById('saveBtn').addEventListener('click', async ()=>{
+    let d = dateInput.value;
+    if(!d){ d = todayStr(); dateInput.value = d; }
+    const consumedInput = document.getElementById('consumed');
+    const burnedInput = document.getElementById('burned');
+    const c = parseInt(consumedInput.value, 10);
+    const b = parseInt(burnedInput.value, 10);
+    consumedInput.style.borderColor = '';
+    burnedInput.style.borderColor = '';
+    if(isNaN(c) || isNaN(b)){
+      status.textContent = '⚠️ Enter both Consumed and Burned to save.';
+      status.className = 'status error';
+      if(isNaN(c)) consumedInput.style.borderColor = 'var(--surplus)';
+      if(isNaN(b)) burnedInput.style.borderColor = 'var(--surplus)';
+      return;
+    }
+    entries[d] = { consumed: c, burned: b };
+    try{
+      await persist();
+      status.textContent = '✅ Saved.';
+      status.className = 'status success';
+      setTimeout(()=>{ status.textContent=''; status.className='status'; }, 1800);
+      renderAll();
+    }catch(e){
+      status.textContent = 'Could not save — try again.';
+      status.className = 'status error';
+    }
+  });
+
+  await loadEntries();
+  loadFormForDate(dateInput.value);
+  renderAll();
+}
+
+init();
+</script>
+</body>
+</html>

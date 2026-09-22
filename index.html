@@ -43,12 +43,7 @@
   }
   .wrap{max-width:460px;margin:0 auto;}
 
-  .eyebrow{
-    font-size:13px;
-    color:var(--burn);
-    margin:0 0 4px;
-    font-weight:600;
-  }
+  .eyebrow{font-size:13px;color:var(--burn);margin:0 0 4px;font-weight:600;}
   h1{
     font-family:'Space Grotesk',sans-serif;
     font-weight:700;
@@ -69,20 +64,15 @@
     padding:20px;
     margin-bottom:16px;
   }
+  .card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  h2{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin:0;}
+  .card-sub{font-size:12px;color:var(--muted);margin:2px 0 14px;}
 
-  .field-row{display:flex;gap:12px;margin-bottom:12px;}
-  .field{flex:1;}
-  label{
-    display:block;
-    font-size:12.5px;
-    color:var(--muted);
-    margin-bottom:6px;
-    font-weight:600;
-  }
-  input[type=number], input[type=date]{
+  label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px;font-weight:600;}
+  input[type=number], input[type=date], input[type=text]{
     width:100%;
     font-family:'Inter',sans-serif;
-    font-size:17px;
+    font-size:16px;
     font-weight:600;
     padding:10px 11px;
     border:1.5px solid var(--rule);
@@ -92,7 +82,8 @@
     color-scheme:dark;
   }
   input:focus{outline:none;border-color:var(--burn);box-shadow:0 0 0 3px var(--burn-soft);}
-  #consumed:focus{border-color:var(--fuel);box-shadow:0 0 0 3px var(--fuel-soft);}
+  .field-row{display:flex;gap:12px;margin-bottom:12px;}
+  .field{flex:1;}
 
   button{
     font-family:'Inter',sans-serif;
@@ -103,59 +94,59 @@
     padding:12px 16px;
     cursor:pointer;
   }
-  .btn-primary{
-    width:100%;
-    background:linear-gradient(90deg,var(--fuel),var(--burn));
-    color:#0D0E13;
-  }
+  .btn-primary{width:100%;background:linear-gradient(90deg,var(--fuel),var(--burn));color:#0D0E13;}
+  .btn-primary.burn-variant{background:linear-gradient(90deg,var(--burn),#7C6CFF);}
   .btn-primary:active{filter:brightness(0.92);}
   .btn-primary:disabled{opacity:0.5;cursor:default;}
+  .btn-small{
+    font-size:13px;padding:8px 12px;background:var(--surface-2);
+    border:1.5px solid var(--rule);color:var(--ink);border-radius:8px;
+  }
+  .btn-small:active{filter:brightness(1.15);}
+  .btn-add{background:var(--fuel);color:#241800;font-size:14px;padding:10px 14px;border-radius:8px;white-space:nowrap;}
 
-  .balance-card{
-    text-align:left;
-    padding:22px 20px;
-    border-width:1.5px;
+  .mode-toggle{display:flex;gap:8px;margin-bottom:14px;}
+  .mode-btn{
+    flex:1;background:var(--surface-2);border:1.5px solid var(--rule);color:var(--muted);
+    padding:9px;border-radius:9px;font-size:13.5px;font-weight:700;
   }
+  .mode-btn.active{background:var(--fuel-soft);border-color:var(--fuel);color:var(--fuel);}
+
+  .item-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--rule);}
+  .item-row:last-child{border-bottom:none;}
+  .item-desc{flex:1;font-size:14.5px;}
+  .item-cal{font-size:14.5px;font-weight:700;color:var(--fuel);min-width:60px;text-align:right;}
+  .item-del{background:none;border:none;color:var(--muted);font-size:18px;padding:0 2px;cursor:pointer;line-height:1;}
+  .item-del:hover{color:var(--surplus);}
+  .add-item-row{display:flex;gap:8px;margin-top:10px;}
+  .add-item-row input[type=text]{flex:2;}
+  .add-item-row input[type=number]{flex:1;}
+  .items-total{
+    display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;
+    border-top:1.5px solid var(--rule);font-weight:700;font-size:14.5px;
+  }
+  .items-total span:last-child{color:var(--fuel);}
+  .clear-note{
+    font-size:12.5px;color:var(--muted);background:var(--surface-2);border-radius:8px;
+    padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;
+  }
+
+  .balance-card{text-align:left;padding:22px 20px;border-width:1.5px;}
   .balance-label{font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600;}
-  .balance-figure{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:48px;
-    font-weight:700;
-    line-height:1;
-    letter-spacing:-0.01em;
-  }
+  .balance-figure{font-family:'Space Grotesk',sans-serif;font-size:48px;font-weight:700;line-height:1;letter-spacing:-0.01em;}
   .balance-figure.pos{color:var(--deficit);}
   .balance-figure.neg{color:var(--surplus);}
+  .balance-figure.na{color:var(--muted);font-size:32px;}
   .balance-unit{font-size:16px;font-weight:600;color:var(--muted);margin-left:6px;}
-  .balance-sub{font-size:13px;color:var(--muted);margin-top:8px;}
-  .tag{
-    display:inline-block;
-    font-size:13px;
-    font-weight:700;
-    padding:4px 12px;
-    border-radius:100px;
-    margin-top:10px;
-  }
+  .tag{display:inline-block;font-size:13px;font-weight:700;padding:4px 12px;border-radius:100px;margin-top:10px;}
   .tag.deficit{background:var(--deficit-soft);color:var(--deficit);}
   .tag.surplus{background:var(--surplus-soft);color:var(--surplus);}
+  .tag.pending{background:var(--surface-2);color:var(--muted);}
 
-  .avg-row{
-    display:flex;
-    gap:10px;
-    margin-top:14px;
-    padding-top:14px;
-    border-top:1px solid var(--rule);
-  }
+  .avg-row{display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--rule);}
   .avg-item{flex:1;}
   .avg-num{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;}
   .avg-name{font-size:11.5px;color:var(--muted);margin-top:2px;}
-
-  h2{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:18px;
-    font-weight:700;
-    margin:0 0 12px;
-  }
 
   .period-tiles{display:flex;gap:12px;margin-bottom:18px;}
   .period-tile{flex:1;background:var(--surface-2);border:1px solid var(--rule);border-radius:10px;padding:12px 14px;}
@@ -173,74 +164,57 @@
   }
   .month-nav-btn:disabled{opacity:0.35;cursor:default;}
   .month-nav-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;}
-
-  .month-summary{
-    display:flex;gap:12px;margin-bottom:16px;
-  }
+  .month-summary{display:flex;gap:12px;margin-bottom:16px;}
   .month-summary .period-tile{background:var(--surface);}
 
   .week-list{border-top:1px solid var(--rule);}
-  .week-row{
-    display:flex;justify-content:space-between;align-items:baseline;
-    padding:9px 0;border-bottom:1px solid var(--rule);
-  }
+  .week-row{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--rule);}
   .week-row:last-child{border-bottom:none;}
   .week-range{font-size:13.5px;color:var(--ink);font-weight:600;}
   .week-days{font-size:11.5px;color:var(--muted);margin-left:6px;}
 
+  .range-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+  .range-btn{
+    background:var(--surface-2);border:1.5px solid var(--rule);color:var(--muted);
+    padding:6px 11px;border-radius:100px;font-size:12.5px;font-weight:700;
+  }
+  .range-btn.active{background:var(--burn-soft);border-color:var(--burn);color:var(--burn);}
   canvas{width:100% !important;max-height:220px;}
+  .chart-title{font-size:13px;color:var(--muted);font-weight:700;margin:18px 0 8px;}
+  .chart-title:first-child{margin-top:0;}
 
-  table{width:100%;border-collapse:collapse;}
-  th{
-    text-align:right;
-    font-size:11.5px;
-    color:var(--muted);
-    font-weight:600;
-    padding-bottom:8px;
-    border-bottom:1px solid var(--rule);
-  }
-  th:first-child, td:first-child{text-align:left;}
-  td{
-    text-align:right;
-    font-size:14.5px;
-    padding:9px 0;
-    border-bottom:1px solid var(--rule);
-  }
-  tr:last-child td{border-bottom:none;}
-  .net-pos{color:var(--deficit);font-weight:700;}
-  .net-neg{color:var(--surplus);font-weight:700;}
-  .del-btn{
-    background:none;border:none;color:var(--muted);
-    font-size:13px;padding:2px 4px;cursor:pointer;
-  }
-  .del-btn:hover{color:var(--surplus);}
-
-  .btn-row{display:flex;gap:10px;}
-  .btn-secondary{
-    flex:1;
-    background:var(--surface-2);
-    border:1.5px solid var(--rule);
-    color:var(--ink);
-  }
-  .btn-secondary:active{filter:brightness(1.15);}
-  input[type=file]{display:none;}
-
-  .empty{
-    color:var(--muted);
-    font-size:14px;
-    text-align:center;
-    padding:20px 0;
-  }
-  .status{
-    font-size:12.5px;
-    color:var(--muted);
-    text-align:center;
-    margin-top:6px;
-    min-height:16px;
-    font-weight:600;
-  }
+  .empty{color:var(--muted);font-size:14px;text-align:center;padding:20px 0;}
+  .status{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px;min-height:16px;font-weight:600;}
   .status.error{color:var(--surplus);}
   .status.success{color:var(--deficit);}
+
+  .hist-row{border-bottom:1px solid var(--rule);}
+  .hist-row:last-child{border-bottom:none;}
+  .hist-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:11px 0;cursor:pointer;gap:8px;
+  }
+  .hist-date{font-size:14px;font-weight:700;flex:1.1;}
+  .hist-col{font-size:13.5px;color:var(--ink);flex:0.8;text-align:right;}
+  .hist-col.muted-col{color:var(--muted);}
+  .hist-net{font-weight:700;flex:0.8;text-align:right;}
+  .hist-chev{color:var(--muted);font-size:13px;width:16px;text-align:right;transition:transform 0.15s;}
+  .hist-row.open .hist-chev{transform:rotate(90deg);}
+  .hist-detail{display:none;padding:4px 0 16px;}
+  .hist-row.open .hist-detail{display:block;}
+  .hist-section-label{font-size:11.5px;color:var(--muted);font-weight:700;margin:10px 0 6px;}
+  .hist-section-label:first-child{margin-top:0;}
+  .hist-item-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+  .hist-item-row input[type=text]{flex:1.6;font-size:13.5px;padding:7px 9px;font-weight:500;}
+  .hist-item-row input[type=number]{flex:1;font-size:13.5px;padding:7px 9px;}
+  .hist-burned-row{display:flex;align-items:center;gap:8px;}
+  .hist-burned-row input[type=number]{flex:1;font-size:13.5px;padding:7px 9px;}
+  .hist-actions{display:flex;justify-content:space-between;margin-top:12px;}
+
+  .btn-row{display:flex;gap:10px;}
+  .btn-secondary{flex:1;background:var(--surface-2);border:1.5px solid var(--rule);color:var(--ink);}
+  .btn-secondary:active{filter:brightness(1.15);}
+  input[type=file]{display:none;}
 </style>
 </head>
 <body>
@@ -249,31 +223,65 @@
   <h1>Monstrão 💪</h1>
 
   <div class="card">
+    <div class="card-head"><h2>Log food</h2></div>
     <div class="field-row">
       <div class="field">
-        <label for="date">Date</label>
-        <input type="date" id="date">
+        <label for="foodDate">Date</label>
+        <input type="date" id="foodDate">
       </div>
     </div>
+    <div class="mode-toggle">
+      <button class="mode-btn" id="modeItemsBtn" type="button">Add items</button>
+      <button class="mode-btn" id="modeTotalBtn" type="button">Daily total</button>
+    </div>
+
+    <div id="itemsView">
+      <div id="itemsList"></div>
+      <div class="add-item-row">
+        <input type="text" id="itemDesc" placeholder="e.g. Chicken breast">
+        <input type="number" id="itemCal" placeholder="kcal" inputmode="numeric">
+        <button class="btn-add" id="addItemBtn" type="button">Add</button>
+      </div>
+      <div class="items-total" id="itemsTotalRow" style="display:none;">
+        <span>Total logged</span><span id="itemsTotalVal">0</span>
+      </div>
+    </div>
+
+    <div id="totalView" style="display:none;">
+      <div class="field-row">
+        <div class="field">
+          <label for="dayTotalInput">Total consumed</label>
+          <input type="number" id="dayTotalInput" placeholder="kcal" inputmode="numeric">
+        </div>
+      </div>
+      <button class="btn-primary" id="saveTotalBtn" type="button">Save total</button>
+    </div>
+
+    <p class="status" id="foodStatus"></p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Log burn</h2></div>
+    <p class="card-sub">Whoop's number is usually only accurate the next day — default date is yesterday.</p>
     <div class="field-row">
       <div class="field">
-        <label for="consumed" style="color:var(--fuel)">Consumed</label>
-        <input type="number" id="consumed" placeholder="kcal" inputmode="numeric">
+        <label for="burnDate">Date</label>
+        <input type="date" id="burnDate">
       </div>
       <div class="field">
-        <label for="burned" style="color:var(--burn)">Burned (Whoop)</label>
-        <input type="number" id="burned" placeholder="kcal" inputmode="numeric">
+        <label for="burnedInput">Calories burned</label>
+        <input type="number" id="burnedInput" placeholder="kcal" inputmode="numeric">
       </div>
     </div>
-    <button class="btn-primary" id="saveBtn">Save entry</button>
-    <p class="status" id="status"></p>
+    <button class="btn-primary burn-variant" id="saveBurnBtn" type="button">Save burn</button>
+    <p class="status" id="burnStatus"></p>
   </div>
 
   <div class="card balance-card">
     <div class="balance-label" id="balanceLabel">Today's balance</div>
     <div>
       <span class="balance-figure" id="balanceFigure">—</span>
-      <span class="balance-unit">kcal</span>
+      <span class="balance-unit" id="balanceUnit"></span>
     </div>
     <span class="tag" id="balanceTag" style="display:none;"></span>
     <div class="avg-row">
@@ -287,14 +295,14 @@
       </div>
       <div class="avg-item">
         <div class="avg-num" id="totalDays">—</div>
-        <div class="avg-name">days logged</div>
+        <div class="avg-name">complete days</div>
       </div>
     </div>
   </div>
 
   <div class="card">
     <h2>Weekly &amp; monthly balance</h2>
-    <div class="period-tiles">
+    <div class="period-tiles" style="margin-top:14px;">
       <div class="period-tile">
         <div class="period-tile-label">This week</div>
         <div class="period-tile-figure" id="thisWeekFigure">—</div>
@@ -308,9 +316,9 @@
     </div>
 
     <div class="month-nav">
-      <button class="month-nav-btn" id="prevMonthBtn" aria-label="Previous month">‹</button>
+      <button class="month-nav-btn" id="prevMonthBtn" aria-label="Previous month" type="button">‹</button>
       <div class="month-nav-title" id="monthNavTitle">—</div>
-      <button class="month-nav-btn" id="nextMonthBtn" aria-label="Next month">›</button>
+      <button class="month-nav-btn" id="nextMonthBtn" aria-label="Next month" type="button">›</button>
     </div>
     <div class="month-summary">
       <div class="period-tile">
@@ -319,7 +327,7 @@
         <div class="period-tile-sub" id="monthTotalSub"></div>
       </div>
       <div class="period-tile">
-        <div class="period-tile-label">Avg / logged day</div>
+        <div class="period-tile-label">Avg / complete day</div>
         <div class="period-tile-figure" id="monthAvgFigure">—</div>
       </div>
     </div>
@@ -328,7 +336,17 @@
 
   <div class="card">
     <h2>Trend</h2>
+    <div class="range-row" id="rangeRow">
+      <button class="range-btn" data-range="30d" type="button">30 days</button>
+      <button class="range-btn" data-range="3m" type="button">3 months</button>
+      <button class="range-btn" data-range="6m" type="button">6 months</button>
+      <button class="range-btn" data-range="1y" type="button">1 year</button>
+      <button class="range-btn" data-range="all" type="button">All</button>
+    </div>
+    <div class="chart-title">Intake vs. burn</div>
     <canvas id="chart"></canvas>
+    <div class="chart-title">Daily deficit / surplus</div>
+    <canvas id="netChart"></canvas>
   </div>
 
   <div class="card">
@@ -339,203 +357,48 @@
   <div class="card">
     <h2>Backup</h2>
     <div class="btn-row">
-      <button class="btn-secondary" id="exportBtn">Export backup</button>
-      <button class="btn-secondary" id="importBtn">Import backup</button>
+      <button class="btn-secondary" id="exportBtn" type="button">Export backup</button>
+      <button class="btn-secondary" id="importBtn" type="button">Import backup</button>
     </div>
     <input type="file" id="importFile" accept="application/json">
     <p class="status" id="backupStatus"></p>
   </div>
 </div>
-
 <script>
 const STORAGE_KEY = 'calorie-log';
-let entries = {}; // { 'YYYY-MM-DD': { consumed, burned } }
-let chart = null;
+let entries = {}; // { 'YYYY-MM-DD': { mode: 'items'|'simple'|null, items: [{id,desc,cal}]|null, total: number|null, burned: number|null } }
+let chart = null, netChart = null;
+let chartRange = '30d';
+let expandedDate = null;
 
+// ---------- date helpers ----------
 function todayStr(){
   const d = new Date();
   const off = d.getTimezoneOffset();
   const local = new Date(d.getTime() - off*60000);
   return local.toISOString().slice(0,10);
 }
-
-function fmtDate(iso){
-  const [y,m,d] = iso.split('-');
-  const dt = new Date(y, m-1, d);
-  return dt.toLocaleDateString(undefined, { month:'short', day:'numeric' });
+function yesterdayStr(){
+  const d = new Date();
+  d.setDate(d.getDate()-1);
+  const off = d.getTimezoneOffset();
+  const local = new Date(d.getTime() - off*60000);
+  return local.toISOString().slice(0,10);
 }
-
-async function loadEntries(){
-  try{
-    if(window.storage){
-      const res = await window.storage.get(STORAGE_KEY, false);
-      entries = res && res.value ? JSON.parse(res.value) : {};
-      return;
-    }
-  }catch(e){ /* fall through to local storage */ }
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    entries = raw ? JSON.parse(raw) : {};
-  }catch(e){
-    entries = {};
-  }
-}
-
-async function persist(){
-  if(window.storage){
-    try{
-      await window.storage.set(STORAGE_KEY, JSON.stringify(entries), false);
-      return;
-    }catch(e){ /* fall through to local storage */ }
-  }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-}
-
-function sortedDates(){
-  return Object.keys(entries).sort();
-}
-
-function net(e){ return e.consumed - e.burned; } // negative = deficit, positive = surplus
-
-function renderBalance(){
-  const dateInput = document.getElementById('date').value;
-  const label = document.getElementById('balanceLabel');
-  const figure = document.getElementById('balanceFigure');
-  const tag = document.getElementById('balanceTag');
-
-  const isToday = dateInput === todayStr();
-  label.textContent = isToday ? "Today's balance" : fmtDate(dateInput) + "'s balance";
-
-  const e = entries[dateInput];
-  if(!e){
-    figure.textContent = '—';
-    figure.className = 'balance-figure';
-    tag.style.display = 'none';
-  } else {
-    const n = net(e);
-    figure.textContent = (n > 0 ? '+' : '') + n;
-    figure.className = 'balance-figure ' + (n <= 0 ? 'pos' : 'neg');
-    tag.style.display = 'inline-block';
-    if(n <= 0){
-      tag.textContent = '🔥 Deficit';
-      tag.className = 'tag deficit';
-    } else {
-      tag.textContent = '⚡ Surplus';
-      tag.className = 'tag surplus';
-    }
-  }
-
-  const dates = sortedDates();
-  const last7 = dates.slice(-7);
-  const last30 = dates.slice(-30);
-  const avg = (arr) => arr.length ? Math.round(arr.reduce((s,d)=>s+net(entries[d]),0)/arr.length) : null;
-  const a7 = avg(last7), a30 = avg(last30);
-  document.getElementById('avg7').textContent = a7 === null ? '—' : (a7>0?'+':'')+a7;
-  document.getElementById('avg30').textContent = a30 === null ? '—' : (a30>0?'+':'')+a30;
-  document.getElementById('totalDays').textContent = dates.length;
-}
-
-function renderChart(){
-  try{
-    if(typeof Chart === 'undefined'){
-      const el = document.getElementById('chart');
-      if(el && el.parentElement) el.parentElement.innerHTML = '<h2>Trend</h2><div class="empty">Chart unavailable in this preview — open the hosted link to see it.</div>';
-      return;
-    }
-    const dates = sortedDates().slice(-60);
-    const ctx = document.getElementById('chart');
-    const data = {
-    labels: dates.map(fmtDate),
-    datasets: [
-      {
-        label: 'Consumed',
-        data: dates.map(d=>entries[d].consumed),
-        borderColor: '#FFB238',
-        backgroundColor: 'transparent',
-        tension: 0.25,
-        pointRadius: 2,
-        borderWidth: 2.5
-      },
-      {
-        label: 'Burned',
-        data: dates.map(d=>entries[d].burned),
-        borderColor: '#2DD4E8',
-        backgroundColor: 'transparent',
-        tension: 0.25,
-        pointRadius: 2,
-        borderWidth: 2.5
-      },
-      {
-        label: 'Net',
-        data: dates.map(d=>net(entries[d])),
-        borderColor: '#4ADE80',
-        backgroundColor: 'rgba(74,222,128,0.12)',
-        tension: 0.25,
-        pointRadius: 2,
-        borderWidth: 2.5,
-        fill: true,
-        yAxisID: 'y1'
-      }
-    ]
-  };
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    interaction: { mode: 'index', intersect: false },
-    plugins: {
-      legend: { position: 'bottom', labels: { color:'#F4F5FA', font: { family:'Inter', size: 11, weight:600 }, boxWidth: 10, padding: 12 } }
-    },
-    scales: {
-      x: { ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 }, grid: { display:false } },
-      y: { ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 } }, grid: { color: '#2E3040' } },
-      y1: { display:false }
-    }
-  };
-  if(chart){ chart.data = data; chart.options = options; chart.update(); }
-  else { chart = new Chart(ctx, { type:'line', data, options }); }
-  }catch(e){ /* chart failed to render; rest of the app still works */ }
-}
-
-function renderTable(){
-  const wrap = document.getElementById('tableWrap');
-  const dates = sortedDates().slice().reverse();
-  if(!dates.length){
-    wrap.innerHTML = '<div class="empty">No entries yet — log today above to start.</div>';
-    return;
-  }
-  let html = '<table><thead><tr><th>Date</th><th>In</th><th>Out</th><th>Net</th><th></th></tr></thead><tbody>';
-  for(const d of dates){
-    const e = entries[d];
-    const n = net(e);
-    const netClass = n <= 0 ? 'net-pos' : 'net-neg';
-    html += `<tr>
-      <td>${fmtDate(d)}</td>
-      <td>${e.consumed}</td>
-      <td>${e.burned}</td>
-      <td class="${netClass}">${n>0?'+':''}${n}</td>
-      <td><button class="del-btn" data-date="${d}">Remove</button></td>
-    </tr>`;
-  }
-  html += '</tbody></table>';
-  wrap.innerHTML = html;
-  wrap.querySelectorAll('.del-btn').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      delete entries[btn.dataset.date];
-      await persist();
-      renderAll();
-    });
-  });
-}
-
 function parseISO(iso){
-  const [y,m,d] = iso.split('-').map(Number);
-  return new Date(y, m-1, d);
+  const [y,m,dd] = iso.split('-').map(Number);
+  return new Date(y, m-1, dd);
 }
 function toISO(dateObj){
   const y = dateObj.getFullYear();
   const m = String(dateObj.getMonth()+1).padStart(2,'0');
-  const d = String(dateObj.getDate()).padStart(2,'0');
-  return `${y}-${m}-${d}`;
+  const dd = String(dateObj.getDate()).padStart(2,'0');
+  return `${y}-${m}-${dd}`;
+}
+function fmtDate(iso){
+  const [y,m,d] = iso.split('-');
+  const dt = new Date(y, m-1, d);
+  return dt.toLocaleDateString(undefined, { month:'short', day:'numeric' });
 }
 function mondayOf(dateObj){
   const d = new Date(dateObj);
@@ -554,9 +417,110 @@ function weekRangeLabel(monday){
     : sunday.toLocaleDateString(undefined, { month:'short', day:'numeric' });
   return `${startStr}–${endStr}`;
 }
-function sumNet(dateList){
-  return dateList.reduce((s,d)=>s+net(entries[d]),0);
+function genId(){ return Math.random().toString(36).slice(2,10); }
+
+// ---------- data model helpers ----------
+function blankEntry(){ return { mode:null, items:null, total:null, burned:null }; }
+function consumedTotal(e){
+  if(!e) return null;
+  if(e.mode === 'items') return (e.items||[]).reduce((s,i)=>s+i.cal,0);
+  if(e.mode === 'simple') return (typeof e.total==='number') ? e.total : null;
+  return null;
 }
+function hasBurned(e){ return !!e && typeof e.burned === 'number'; }
+function net(e){
+  const c = consumedTotal(e);
+  if(c == null || !hasBurned(e)) return null;
+  return c - e.burned; // negative = deficit, positive = surplus
+}
+function sortedDates(){ return Object.keys(entries).sort(); }
+
+function migrateEntry(v){
+  if(v && typeof v === 'object' && !('mode' in v) && (typeof v.consumed === 'number' || typeof v.burned === 'number')){
+    return {
+      mode: typeof v.consumed === 'number' ? 'simple' : null,
+      items: null,
+      total: typeof v.consumed === 'number' ? v.consumed : null,
+      burned: typeof v.burned === 'number' ? v.burned : null
+    };
+  }
+  return v;
+}
+
+// ---------- storage ----------
+async function loadEntries(){
+  let raw = null;
+  try{
+    if(window.storage){
+      const res = await window.storage.get(STORAGE_KEY, false);
+      raw = res && res.value ? res.value : null;
+    }
+  }catch(e){ /* fall through */ }
+  if(raw == null){
+    try{ raw = localStorage.getItem(STORAGE_KEY); }catch(e){ raw = null; }
+  }
+  entries = raw ? JSON.parse(raw) : {};
+  for(const d in entries){ entries[d] = migrateEntry(entries[d]); }
+}
+async function persist(){
+  const json = JSON.stringify(entries);
+  if(window.storage){
+    try{ await window.storage.set(STORAGE_KEY, json, false); return; }catch(e){ /* fall through */ }
+  }
+  localStorage.setItem(STORAGE_KEY, json);
+}
+
+// ---------- rendering: balance ----------
+function renderBalance(){
+  const dateInput = document.getElementById('foodDate');
+  const dateVal = dateInput.value || todayStr();
+  const label = document.getElementById('balanceLabel');
+  const figure = document.getElementById('balanceFigure');
+  const unit = document.getElementById('balanceUnit');
+  const tag = document.getElementById('balanceTag');
+
+  const isToday = dateVal === todayStr();
+  label.textContent = isToday ? "Today's balance" : fmtDate(dateVal) + "'s balance";
+
+  const e = entries[dateVal];
+  const c = consumedTotal(e);
+  const b = hasBurned(e) ? e.burned : null;
+  const n = net(e);
+
+  if(n == null){
+    figure.className = 'balance-figure na';
+    unit.textContent = '';
+    if(c == null && b == null){
+      figure.textContent = 'No data';
+    } else if(c == null){
+      figure.textContent = 'Awaiting food';
+    } else {
+      figure.textContent = 'Awaiting burn';
+    }
+    tag.style.display = 'inline-block';
+    tag.className = 'tag pending';
+    tag.textContent = c==null && b==null ? 'Not logged' : 'Incomplete';
+  } else {
+    figure.textContent = (n > 0 ? '+' : '') + n;
+    figure.className = 'balance-figure ' + (n <= 0 ? 'pos' : 'neg');
+    unit.textContent = 'kcal';
+    tag.style.display = 'inline-block';
+    if(n <= 0){ tag.textContent = '🔥 Deficit'; tag.className = 'tag deficit'; }
+    else { tag.textContent = '⚡ Surplus'; tag.className = 'tag surplus'; }
+  }
+
+  const dates = sortedDates().filter(d=>net(entries[d])!=null);
+  const last7 = dates.slice(-7);
+  const last30 = dates.slice(-30);
+  const avg = (arr) => arr.length ? Math.round(arr.reduce((s,d)=>s+net(entries[d]),0)/arr.length) : null;
+  const a7 = avg(last7), a30 = avg(last30);
+  document.getElementById('avg7').textContent = a7 === null ? '—' : (a7>0?'+':'')+a7;
+  document.getElementById('avg30').textContent = a30 === null ? '—' : (a30>0?'+':'')+a30;
+  document.getElementById('totalDays').textContent = dates.length;
+}
+
+// ---------- rendering: periods ----------
+function sumNet(dateList){ return dateList.reduce((s,d)=>s+net(entries[d]),0); }
 function setFigure(el, value, subEl, subText){
   if(value === null){
     el.textContent = '—';
@@ -568,53 +532,42 @@ function setFigure(el, value, subEl, subText){
   if(subEl) subEl.textContent = subText || '';
 }
 
-let viewYear, viewMonth; // month browser state (0-indexed month)
+let viewYear, viewMonth;
 
 function renderPeriods(){
-  const allDates = sortedDates();
+  const allDates = sortedDates().filter(d=>net(entries[d])!=null);
   const today = new Date();
 
-  // This week (Mon-Sun containing today)
   const monday = mondayOf(today);
-  const weekDates = allDates.filter(d=>{
-    const dt = parseISO(d);
-    return dt >= monday && dt <= new Date(monday.getFullYear(),monday.getMonth(),monday.getDate()+6);
-  });
+  const weekEnd = new Date(monday.getFullYear(),monday.getMonth(),monday.getDate()+6);
+  const weekDates = allDates.filter(d=>{ const dt=parseISO(d); return dt>=monday && dt<=weekEnd; });
   setFigure(
     document.getElementById('thisWeekFigure'),
     weekDates.length ? sumNet(weekDates) : null,
     document.getElementById('thisWeekSub'),
-    weekDates.length ? `${weekDates.length} day${weekDates.length===1?'':'s'} logged` : 'No entries yet'
+    weekDates.length ? `${weekDates.length} complete day${weekDates.length===1?'':'s'}` : 'No complete days yet'
   );
 
-  // This month (calendar month containing today)
   const tY = today.getFullYear(), tM = today.getMonth();
-  const thisMonthDates = allDates.filter(d=>{
-    const dt = parseISO(d);
-    return dt.getFullYear()===tY && dt.getMonth()===tM;
-  });
+  const thisMonthDates = allDates.filter(d=>{ const dt=parseISO(d); return dt.getFullYear()===tY && dt.getMonth()===tM; });
   setFigure(
     document.getElementById('thisMonthFigure'),
     thisMonthDates.length ? sumNet(thisMonthDates) : null,
     document.getElementById('thisMonthSub'),
-    thisMonthDates.length ? `${thisMonthDates.length} day${thisMonthDates.length===1?'':'s'} logged` : 'No entries yet'
+    thisMonthDates.length ? `${thisMonthDates.length} complete day${thisMonthDates.length===1?'':'s'}` : 'No complete days yet'
   );
 
-  // Month browser
   const label = new Date(viewYear, viewMonth, 1).toLocaleDateString(undefined, { month:'long', year:'numeric' });
   document.getElementById('monthNavTitle').textContent = label;
   document.getElementById('nextMonthBtn').disabled = (viewYear===tY && viewMonth===tM);
 
-  const monthDates = allDates.filter(d=>{
-    const dt = parseISO(d);
-    return dt.getFullYear()===viewYear && dt.getMonth()===viewMonth;
-  });
+  const monthDates = allDates.filter(d=>{ const dt=parseISO(d); return dt.getFullYear()===viewYear && dt.getMonth()===viewMonth; });
   const monthTotal = monthDates.length ? sumNet(monthDates) : null;
   setFigure(
     document.getElementById('monthTotalFigure'),
     monthTotal,
     document.getElementById('monthTotalSub'),
-    monthDates.length ? `${monthDates.length} day${monthDates.length===1?'':'s'} logged` : 'No entries'
+    monthDates.length ? `${monthDates.length} complete day${monthDates.length===1?'':'s'}` : 'No complete days'
   );
   const avgEl = document.getElementById('monthAvgFigure');
   if(monthDates.length){
@@ -626,12 +579,11 @@ function renderPeriods(){
     avgEl.className = 'period-tile-figure';
   }
 
-  // Weekly breakdown within the viewed month
   const weekList = document.getElementById('weekList');
   if(!monthDates.length){
-    weekList.innerHTML = '<div class="empty">No entries logged this month.</div>';
+    weekList.innerHTML = '<div class="empty">No complete days this month.</div>';
   } else {
-    const groups = {}; // mondayISO -> [dates]
+    const groups = {};
     monthDates.forEach(d=>{
       const mKey = toISO(mondayOf(parseISO(d)));
       (groups[mKey] = groups[mKey] || []).push(d);
@@ -651,6 +603,265 @@ function renderPeriods(){
   }
 }
 
+// ---------- rendering: charts ----------
+function filterDatesByRange(allDates, rangeKey){
+  if(rangeKey === 'all') return allDates;
+  const daysMap = { '30d':30, '3m':92, '6m':183, '1y':365 };
+  const n = daysMap[rangeKey] || 30;
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - n);
+  return allDates.filter(d => parseISO(d) >= cutoff);
+}
+
+function renderChart(){
+  document.querySelectorAll('.range-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.range === chartRange);
+  });
+  try{
+    if(typeof Chart === 'undefined'){
+      const el = document.getElementById('chart');
+      if(el && el.parentElement) {
+        const note = document.createElement('div');
+        note.className = 'empty';
+        note.textContent = 'Charts unavailable in this preview — open the hosted link to see them.';
+        el.replaceWith(note);
+      }
+      const el2 = document.getElementById('netChart');
+      if(el2) el2.style.display = 'none';
+      return;
+    }
+    const allDates = sortedDates();
+    const dates = filterDatesByRange(allDates, chartRange);
+    const ctx = document.getElementById('chart');
+    const data = {
+      labels: dates.map(fmtDate),
+      datasets: [
+        {
+          label: 'Consumed',
+          data: dates.map(d=>consumedTotal(entries[d])),
+          borderColor: '#FFB238',
+          backgroundColor: 'transparent',
+          tension: 0.25,
+          pointRadius: 2,
+          borderWidth: 2.5,
+          spanGaps: true
+        },
+        {
+          label: 'Burned',
+          data: dates.map(d=> hasBurned(entries[d]) ? entries[d].burned : null),
+          borderColor: '#2DD4E8',
+          backgroundColor: 'transparent',
+          tension: 0.25,
+          pointRadius: 2,
+          borderWidth: 2.5,
+          spanGaps: true
+        }
+      ]
+    };
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { color:'#F4F5FA', font: { family:'Inter', size: 11, weight:600 }, boxWidth: 10, padding: 12 } }
+      },
+      scales: {
+        x: { ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 }, grid: { display:false } },
+        y: { ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 } }, grid: { color: '#2E3040' } }
+      }
+    };
+    if(chart){ chart.data = data; chart.options = options; chart.update(); }
+    else { chart = new Chart(ctx, { type:'line', data, options }); }
+
+    const netDates = dates.filter(d=>net(entries[d])!=null);
+    const netCtx = document.getElementById('netChart');
+    const netData = {
+      labels: netDates.map(fmtDate),
+      datasets: [{
+        label: 'Net (negative = deficit)',
+        data: netDates.map(d=>net(entries[d])),
+        backgroundColor: netDates.map(d=> net(entries[d])<=0 ? 'rgba(74,222,128,0.75)' : 'rgba(255,92,122,0.75)'),
+        borderRadius: 3,
+        maxBarThickness: 18
+      }]
+    };
+    const netOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display:false }
+      },
+      scales: {
+        x: { ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 }, grid: { display:false } },
+        y: { ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 } }, grid: { color: '#2E3040' } }
+      }
+    };
+    if(netChart){ netChart.data = netData; netChart.options = netOptions; netChart.update(); }
+    else { netChart = new Chart(netCtx, { type:'bar', data: netData, options: netOptions }); }
+  }catch(e){ /* charts failed; rest of the app still works */ }
+}
+
+// ---------- rendering: history ----------
+function renderTable(){
+  const wrap = document.getElementById('tableWrap');
+  const dates = sortedDates().slice().reverse();
+  if(!dates.length){
+    wrap.innerHTML = '<div class="empty">No entries yet — log food or a burn above to start.</div>';
+    return;
+  }
+  let html = '';
+  for(const d of dates){
+    const e = entries[d];
+    const c = consumedTotal(e);
+    const b = hasBurned(e) ? e.burned : null;
+    const n = net(e);
+    const netTxt = n==null ? '—' : (n>0?'+':'')+n;
+    const netCls = n==null ? 'hist-col muted-col' : ('hist-net ' + (n<=0?'net-pos':'net-neg'));
+    const open = (d === expandedDate) ? ' open' : '';
+    html += `<div class="hist-row${open}" data-date="${d}">
+      <div class="hist-head" data-toggle="${d}">
+        <div class="hist-date">${fmtDate(d)}</div>
+        <div class="hist-col">${c==null?'—':c}</div>
+        <div class="hist-col">${b==null?'—':b}</div>
+        <div class="${netCls}">${netTxt}</div>
+        <div class="hist-chev">›</div>
+      </div>
+      <div class="hist-detail">${d===expandedDate ? renderDetail(d,e) : ''}</div>
+    </div>`;
+  }
+  wrap.innerHTML = html;
+
+  wrap.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const dt = el.dataset.toggle;
+      expandedDate = (expandedDate === dt) ? null : dt;
+      renderTable();
+    });
+  });
+  wireDetailEvents();
+}
+
+function renderDetail(d, e){
+  const mode = e ? e.mode : null;
+  let html = '';
+  if(mode === 'items'){
+    html += `<div class="hist-section-label">Items</div>`;
+    (e.items||[]).forEach(it=>{
+      html += `<div class="hist-item-row" data-item="${it.id}">
+        <input type="text" class="hist-item-desc" value="${(it.desc||'').replace(/"/g,'&quot;')}">
+        <input type="number" class="hist-item-cal" value="${it.cal}">
+        <button class="item-del" data-del-item="${it.id}" type="button">✕</button>
+      </div>`;
+    });
+    html += `<div class="add-item-row" style="margin-top:8px;">
+      <input type="text" class="hist-new-desc" placeholder="Add item">
+      <input type="number" class="hist-new-cal" placeholder="kcal" inputmode="numeric">
+      <button class="btn-add" data-add-item type="button">Add</button>
+    </div>`;
+  } else if(mode === 'simple'){
+    html += `<div class="hist-section-label">Daily total</div>
+      <div class="hist-burned-row">
+        <input type="number" class="hist-total-input" value="${e.total}">
+      </div>`;
+  } else {
+    html += `<div class="hist-section-label">Food</div><div class="card-sub" style="margin:0;">Not logged.</div>`;
+  }
+  html += `<div class="hist-section-label">Burned</div>
+    <div class="hist-burned-row">
+      <input type="number" class="hist-burned-input" value="${e && hasBurned(e) ? e.burned : ''}" placeholder="kcal">
+    </div>`;
+  html += `<div class="hist-actions">
+    <button class="btn-small" data-delete-day type="button">Delete day</button>
+  </div>`;
+  return html;
+}
+
+function wireDetailEvents(){
+  if(!expandedDate) return;
+  const row = document.querySelector(`.hist-row[data-date="${expandedDate}"]`);
+  if(!row) return;
+  const d = expandedDate;
+
+  row.querySelectorAll('[data-del-item]').forEach(btn=>{
+    btn.addEventListener('click', async (ev)=>{
+      ev.stopPropagation();
+      const id = btn.dataset.delItem;
+      entries[d].items = (entries[d].items||[]).filter(it=>it.id!==id);
+      await persist();
+      renderAll();
+    });
+  });
+
+  row.querySelectorAll('.hist-item-desc, .hist-item-cal').forEach(input=>{
+    input.addEventListener('click', ev=>ev.stopPropagation());
+    input.addEventListener('change', async ()=>{
+      const itemRow = input.closest('[data-item]');
+      const id = itemRow.dataset.item;
+      const item = (entries[d].items||[]).find(it=>it.id===id);
+      if(!item) return;
+      const descVal = itemRow.querySelector('.hist-item-desc').value.trim();
+      const calVal = parseInt(itemRow.querySelector('.hist-item-cal').value, 10);
+      if(descVal) item.desc = descVal;
+      if(!isNaN(calVal)) item.cal = calVal;
+      await persist();
+      renderAll();
+    });
+  });
+
+  const addBtn = row.querySelector('[data-add-item]');
+  if(addBtn){
+    addBtn.addEventListener('click', async (ev)=>{
+      ev.stopPropagation();
+      const descInput = row.querySelector('.hist-new-desc');
+      const calInput = row.querySelector('.hist-new-cal');
+      const desc = descInput.value.trim();
+      const cal = parseInt(calInput.value, 10);
+      if(!desc || isNaN(cal)) return;
+      if(!entries[d]) entries[d] = blankEntry();
+      if(entries[d].mode !== 'items'){ entries[d].mode = 'items'; entries[d].items = entries[d].items || []; }
+      entries[d].items.push({ id: genId(), desc, cal });
+      await persist();
+      renderAll();
+    });
+  }
+
+  const totalInput = row.querySelector('.hist-total-input');
+  if(totalInput){
+    totalInput.addEventListener('click', ev=>ev.stopPropagation());
+    totalInput.addEventListener('change', async ()=>{
+      const val = parseInt(totalInput.value, 10);
+      if(isNaN(val)) return;
+      entries[d].total = val;
+      await persist();
+      renderAll();
+    });
+  }
+
+  const burnedInput = row.querySelector('.hist-burned-input');
+  if(burnedInput){
+    burnedInput.addEventListener('click', ev=>ev.stopPropagation());
+    burnedInput.addEventListener('change', async ()=>{
+      const val = parseInt(burnedInput.value, 10);
+      if(!entries[d]) entries[d] = blankEntry();
+      entries[d].burned = isNaN(val) ? null : val;
+      await persist();
+      renderAll();
+    });
+  }
+
+  const delBtn = row.querySelector('[data-delete-day]');
+  if(delBtn){
+    delBtn.addEventListener('click', async (ev)=>{
+      ev.stopPropagation();
+      delete entries[d];
+      expandedDate = null;
+      await persist();
+      renderAll();
+    });
+  }
+}
+
+// ---------- render all ----------
 function renderAll(){
   renderBalance();
   renderPeriods();
@@ -658,37 +869,181 @@ function renderAll(){
   renderTable();
 }
 
-function loadFormForDate(d){
+// ---------- food logging: mode + items ----------
+let foodMode = 'items';
+
+function renderFoodForm(){
+  const d = document.getElementById('foodDate').value || todayStr();
   const e = entries[d];
-  document.getElementById('consumed').value = e ? e.consumed : '';
-  document.getElementById('burned').value = e ? e.burned : '';
+  const itemsView = document.getElementById('itemsView');
+  const totalView = document.getElementById('totalView');
+  const modeItemsBtn = document.getElementById('modeItemsBtn');
+  const modeTotalBtn = document.getElementById('modeTotalBtn');
+
+  if(e && e.mode === 'simple'){ foodMode = 'simple'; }
+  else if(e && e.mode === 'items'){ foodMode = 'items'; }
+
+  modeItemsBtn.classList.toggle('active', foodMode === 'items');
+  modeTotalBtn.classList.toggle('active', foodMode === 'simple');
+  itemsView.style.display = foodMode === 'items' ? '' : 'none';
+  totalView.style.display = foodMode === 'simple' ? '' : 'none';
+
+  if(foodMode === 'items'){
+    const items = (e && e.mode === 'items') ? (e.items||[]) : [];
+    const list = document.getElementById('itemsList');
+    const totalRow = document.getElementById('itemsTotalRow');
+    if(e && e.mode === 'simple'){
+      list.innerHTML = `<div class="clear-note">This day has a manual total (${e.total} kcal).
+        <button class="btn-small" id="clearTotalForItemsBtn" type="button">Clear it</button></div>`;
+      totalRow.style.display = 'none';
+      const btn = document.getElementById('clearTotalForItemsBtn');
+      if(btn) btn.addEventListener('click', async ()=>{
+        entries[d].mode = 'items'; entries[d].items = []; entries[d].total = null;
+        await persist(); renderAll(); renderFoodForm();
+      });
+    } else if(!items.length){
+      list.innerHTML = '<div class="empty" style="padding:6px 0;">No items yet today.</div>';
+      totalRow.style.display = 'none';
+    } else {
+      list.innerHTML = items.map(it => `
+        <div class="item-row" data-item="${it.id}">
+          <div class="item-desc">${it.desc}</div>
+          <div class="item-cal">${it.cal} kcal</div>
+          <button class="item-del" data-del-item="${it.id}" type="button">✕</button>
+        </div>`).join('');
+      totalRow.style.display = 'flex';
+      document.getElementById('itemsTotalVal').textContent = items.reduce((s,i)=>s+i.cal,0);
+      list.querySelectorAll('[data-del-item]').forEach(btn=>{
+        btn.addEventListener('click', async ()=>{
+          entries[d].items = entries[d].items.filter(it=>it.id!==btn.dataset.delItem);
+          await persist(); renderAll(); renderFoodForm();
+        });
+      });
+    }
+  } else {
+    const totalInput = document.getElementById('dayTotalInput');
+    const saveBtn = document.getElementById('saveTotalBtn');
+    if(e && e.mode === 'items' && (e.items||[]).length){
+      totalInput.disabled = true;
+      totalInput.value = '';
+      totalInput.placeholder = `${e.items.length} item(s) logged`;
+      saveBtn.disabled = true;
+    } else {
+      totalInput.disabled = false;
+      saveBtn.disabled = false;
+      totalInput.value = (e && e.mode==='simple' && e.total!=null) ? e.total : '';
+      totalInput.placeholder = 'kcal';
+    }
+  }
 }
 
+// ---------- init ----------
 async function init(){
-  const dateInput = document.getElementById('date');
-  dateInput.value = todayStr();
-  dateInput.max = todayStr();
+  const foodDateInput = document.getElementById('foodDate');
+  foodDateInput.value = todayStr();
+  foodDateInput.max = todayStr();
 
-  const status = document.getElementById('status');
+  const burnDateInput = document.getElementById('burnDate');
+  burnDateInput.value = yesterdayStr();
+  burnDateInput.max = todayStr();
+
+  const foodStatus = document.getElementById('foodStatus');
+  const burnStatus = document.getElementById('burnStatus');
 
   const now = new Date();
   viewYear = now.getFullYear();
   viewMonth = now.getMonth();
 
-  dateInput.addEventListener('change', ()=>{
-    loadFormForDate(dateInput.value);
-    renderBalance();
+  // -- wire every control up front, before any async load/render --
+  foodDateInput.addEventListener('change', ()=>{ renderFoodForm(); renderBalance(); });
+
+  document.getElementById('modeItemsBtn').addEventListener('click', ()=>{ foodMode='items'; renderFoodForm(); });
+  document.getElementById('modeTotalBtn').addEventListener('click', ()=>{ foodMode='simple'; renderFoodForm(); });
+
+  document.getElementById('addItemBtn').addEventListener('click', async ()=>{
+    const d = foodDateInput.value || todayStr();
+    const descInput = document.getElementById('itemDesc');
+    const calInput = document.getElementById('itemCal');
+    const desc = descInput.value.trim();
+    const cal = parseInt(calInput.value, 10);
+    if(!desc || isNaN(cal)){
+      foodStatus.textContent = '⚠️ Enter a description and calories.';
+      foodStatus.className = 'status error';
+      return;
+    }
+    if(!entries[d]) entries[d] = blankEntry();
+    if(entries[d].mode === 'simple'){
+      foodStatus.textContent = '⚠️ This day has a manual total — clear it first.';
+      foodStatus.className = 'status error';
+      return;
+    }
+    entries[d].mode = 'items';
+    entries[d].items = entries[d].items || [];
+    entries[d].items.push({ id: genId(), desc, cal });
+    await persist();
+    descInput.value = ''; calInput.value = '';
+    foodStatus.textContent = '✅ Item added.';
+    foodStatus.className = 'status success';
+    setTimeout(()=>{ foodStatus.textContent=''; foodStatus.className='status'; }, 1400);
+    renderAll(); renderFoodForm();
+  });
+
+  document.getElementById('saveTotalBtn').addEventListener('click', async ()=>{
+    const d = foodDateInput.value || todayStr();
+    const totalInput = document.getElementById('dayTotalInput');
+    const val = parseInt(totalInput.value, 10);
+    if(isNaN(val)){
+      foodStatus.textContent = '⚠️ Enter a total.';
+      foodStatus.className = 'status error';
+      return;
+    }
+    if(!entries[d]) entries[d] = blankEntry();
+    if(entries[d].mode === 'items' && (entries[d].items||[]).length){
+      foodStatus.textContent = '⚠️ This day already has items — clear them first.';
+      foodStatus.className = 'status error';
+      return;
+    }
+    entries[d].mode = 'simple';
+    entries[d].total = val;
+    entries[d].items = null;
+    await persist();
+    foodStatus.textContent = '✅ Saved.';
+    foodStatus.className = 'status success';
+    setTimeout(()=>{ foodStatus.textContent=''; foodStatus.className='status'; }, 1400);
+    renderAll(); renderFoodForm();
+  });
+
+  document.getElementById('saveBurnBtn').addEventListener('click', async ()=>{
+    const d = burnDateInput.value || yesterdayStr();
+    const val = parseInt(document.getElementById('burnedInput').value, 10);
+    if(isNaN(val)){
+      burnStatus.textContent = '⚠️ Enter calories burned.';
+      burnStatus.className = 'status error';
+      return;
+    }
+    if(!entries[d]) entries[d] = blankEntry();
+    entries[d].burned = val;
+    await persist();
+    burnStatus.textContent = '✅ Saved.';
+    burnStatus.className = 'status success';
+    setTimeout(()=>{ burnStatus.textContent=''; burnStatus.className='status'; }, 1400);
+    renderAll();
   });
 
   document.getElementById('prevMonthBtn').addEventListener('click', ()=>{
-    viewMonth--;
-    if(viewMonth < 0){ viewMonth = 11; viewYear--; }
+    viewMonth--; if(viewMonth < 0){ viewMonth = 11; viewYear--; }
     renderPeriods();
   });
   document.getElementById('nextMonthBtn').addEventListener('click', ()=>{
-    viewMonth++;
-    if(viewMonth > 11){ viewMonth = 0; viewYear++; }
+    viewMonth++; if(viewMonth > 11){ viewMonth = 0; viewYear++; }
     renderPeriods();
+  });
+
+  document.getElementById('rangeRow').addEventListener('click', (ev)=>{
+    const btn = ev.target.closest('.range-btn');
+    if(!btn) return;
+    chartRange = btn.dataset.range;
+    renderChart();
   });
 
   const backupStatus = document.getElementById('backupStatus');
@@ -712,10 +1067,26 @@ async function init(){
     try{
       const text = await file.text();
       const parsed = JSON.parse(text);
-      const merged = { ...entries, ...parsed };
-      entries = merged;
+      for(const [date, val] of Object.entries(parsed)){
+        if(val && typeof val === 'object' && 'mode' in val){
+          if(!entries[date]){ entries[date] = val; }
+          else {
+            const cur = entries[date];
+            if(!cur.mode && val.mode){ cur.mode = val.mode; cur.items = val.items; cur.total = val.total; }
+            if(cur.burned == null && val.burned != null){ cur.burned = val.burned; }
+          }
+        } else if(val && typeof val.consumed === 'number'){
+          if(!entries[date]){
+            entries[date] = { mode:'simple', items:null, total: val.consumed, burned: (typeof val.burned==='number'? val.burned : null) };
+          } else {
+            const cur = entries[date];
+            if(!cur.mode){ cur.mode='simple'; cur.total=val.consumed; cur.items=null; }
+            if(cur.burned == null && typeof val.burned==='number'){ cur.burned = val.burned; }
+          }
+        }
+      }
       await persist();
-      renderAll();
+      renderAll(); renderFoodForm();
       backupStatus.textContent = 'Backup imported and merged.';
     }catch(e){
       backupStatus.textContent = 'Could not read that file.';
@@ -724,41 +1095,14 @@ async function init(){
     importFile.value = '';
   });
 
-  document.getElementById('saveBtn').addEventListener('click', async ()=>{
-    let d = dateInput.value;
-    if(!d){ d = todayStr(); dateInput.value = d; }
-    const consumedInput = document.getElementById('consumed');
-    const burnedInput = document.getElementById('burned');
-    const c = parseInt(consumedInput.value, 10);
-    const b = parseInt(burnedInput.value, 10);
-    consumedInput.style.borderColor = '';
-    burnedInput.style.borderColor = '';
-    if(isNaN(c) || isNaN(b)){
-      status.textContent = '⚠️ Enter both Consumed and Burned to save.';
-      status.className = 'status error';
-      if(isNaN(c)) consumedInput.style.borderColor = 'var(--surplus)';
-      if(isNaN(b)) burnedInput.style.borderColor = 'var(--surplus)';
-      return;
-    }
-    entries[d] = { consumed: c, burned: b };
-    try{
-      await persist();
-      status.textContent = '✅ Saved.';
-      status.className = 'status success';
-      setTimeout(()=>{ status.textContent=''; status.className='status'; }, 1800);
-      renderAll();
-    }catch(e){
-      status.textContent = 'Could not save — try again.';
-      status.className = 'status error';
-    }
-  });
-
+  // -- now load data and do the first render --
   await loadEntries();
-  loadFormForDate(dateInput.value);
   renderAll();
+  renderFoodForm();
 }
 
 init();
+
 </script>
 </body>
 </html>

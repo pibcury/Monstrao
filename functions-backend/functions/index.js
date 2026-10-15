@@ -100,7 +100,8 @@ exports.estimateCalories = onRequest(
         },
         body: JSON.stringify({
           model: MODEL,
-          max_tokens: 200,
+          max_tokens: 300,
+          thinking: { type: 'disabled' },
           system: SYSTEM_PROMPT,
           messages: [{ role: 'user', content: description }]
         })
@@ -123,7 +124,13 @@ exports.estimateCalories = onRequest(
         const jsonMatch = raw.match(/\{[\s\S]*\}/);
         parsed = JSON.parse(jsonMatch ? jsonMatch[0] : raw);
       } catch (e) {
-        logger.error('Could not parse model output', raw);
+        logger.error('Could not parse model output', {
+          raw,
+          rawLength: raw.length,
+          stopReason: data.stop_reason,
+          contentTypes: (data.content || []).map((b) => b.type),
+          fullResponse: JSON.stringify(data).slice(0, 2000)
+        });
         res.status(502).json({ error: 'Calorie estimate failed — could not read the AI response.' });
         return;
       }

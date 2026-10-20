@@ -1,0 +1,3341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Monstrão</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Monstrão">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAARVElEQVR4nO2deXAc1ZnA3+tzenpu3fct2ZJlZCQfsfERGZbYTjDHZjmyBidrshsWUmtI7WJYljuJTWUrQAypGHCSClCkSCg72SKQTTDr4HizxDE+sLFsofsyOufqnulj/xiXIsvT0kjqft09837lP1ySpvtNz29ef/2O74Pl1fUAg0kGYXYDMNYFy4HRBMuB0QTLgdEEy4HRBMuB0QTLgdEEy4HRBMuB0QTLgdEEy4HRBMuB0QTLgdEEy4HRBMuB0QTLgdEEy4HRBMuB0QTLgdEEy4HRBMuB0QTLgdEEy4HRBMuB0QTLgdEEy4HRBMuB0QTLgdEEy4HRhDK7AcZSVsCuXubOz2LGQtKfToROX4iY3SI7kbZyMDTx8NeLv7I5myTh5A/PdUR/8PrAfx0eVRTVxLbZBZiW+TlyA/S+x6qW1vJJf9veI7zwxsBbvxvBisxMGspRW8a98mR1US4z85+dbIs89kL3sTMhNK2yI+kmR0uD66XHq70uMpU/VlXw5rvD33mpZzQoGd0wO5JWTyutK70//XZNimYAACAEX74+690f1X9+hdfQhtmU9Ok5vrDG94OHKqeGn6mjquDltwaf2d8Xiyu6N8y+pEnP0brC+9yueZoBAIAQ7Lg5783v1RXkzBKpZBTpIMeaZe4X/r2SpuZpxiSNtc5fPb94ZaNbl1alAbaXY1El98NHqlhGnzeS5aNe/W7NXVtzdTma3bG3HPlZzCuPV7ucqUagqUCS8LFvlDz6jRKCWGhXZHdsLIeTJfY/VW1QlLB9a+5zD1YwtI2vz8Kx65uHEDzzrfJFFZxxp9iyzv/Tb1fznJ7dkr2wqxz33Jq/ea3f6LOsbHT/5Gmdb1s2wpZyrFji3nlnIZpzNde7Xttd63On7QzlDNhPDr+HenZXBYkwWmysce57rNLB2u9aLRCbvWEIwZ77y/OzaMTnbWlw713AIJtNsZkc22/MvXaVOfMgrau8u3YUmXJqs7CTHA1Vzge/VmxiA752Y96G5Rk0RWcbOZwO4vmHKhhat45djEjBDz6b+J+L8UEhxZdACHbvLHNmTPBhm/e5a0dJRZFDxwP2fBKWw5IiyOGPxiKnx1U5pVVhuQH6mmaPjs2wMvaQY8US9x1bsvU9pjLFhlhvNHR0OB5KaclPz0BM35ZYFhvI4WCJ3TvLdH90ZbjL3rscluJds69Nb+sSznyaKUvYbSDHzm0F5UWs7od1eaZPyjD5s9+29r7er2bMqmSry7G01vkPN+cZcWQ+cNmgp6PKRQVmmcM7cjx48NCIEY2xJpaWg6bgnvuNGgx18BTBX/KDzmEdVa6Z/350QvrW9zoyp9sAFpdjxy15deV6PqFMw1HmTPxHicqx3qiqvYA0Iir/+MSF/ouZEoomsO58Un42fe9tBYaegilySuPxWG9UDkmR0+PgDKRzWCbPQeWwcMpIeVRUdvzH+f87lXE7XKwrx8N3lzg5gzs2CJwNXqaQi/VG4xdFNa7EB4X4oAAISGcxVBYbc9Edw/FH93b95WzY2JZYEovKsXyJa8s6w5drJKD8DOVngArkYDx+UYwPCHJYil8U4xdFAMB9+wc7RzN0y5MV5SAJ8OS9ZRDxDCgEpIcmPbSjyqVE5YQc8RFRkDIpBL0cKwak27caG4fOCsGRbKnT1ewHK7Ku3xDI2JXGltvx5nWTh15e4vNYqEv79fujO/d8KqU2+ZJOWK7n+OfbCixlBgDgi+v9e+4vM7sVJmAtOYrymDu/lGN2K5Jw08asmzZmmd0K1FhLjgfuLNRr75ruPHAXoiXN1sFCn8TiSm5rq3W/nbkBmrTQ1UKBhd7uzm2FVn4sOHEuLGdYfgarhH6LK7lrV/kMOrgQU44cD539NNI9IE6EZAAAzxE+N1VV6lhWx1eVOlKZ23vzt8MGNc+yWEWO+24vMGLUq28o9vzr/QffG4kImt96niNXLXVtXOlrXenLy0p+QfqGYgfey6DJ+gSWGOeoLefefrFe93vKwUOju77fMYMW04AQLKnm1zW717V4mhe7JnepyLJ6+7+dy8CJN0vI8cwD5X97nc6h6M/f+ezB73fOe/mFy0k21jhrSh0uJ3n4WPBkWyZOvJkvh99N/fHVRn2fYD9uj9z4zbPxDJ4W0QXzn1a+fH227mMbj+7txmYsHPPluGljQN8DHj0R/PB0xsUHRmCyHJXFDt0TsPwi8545DcJkOYxY0fOHY0Hdj5mZmC6HzveUc53RgeHMWgZsHGbKUVHs0H1Rz/GMXOxpEGbKscWApF7nu1PdMo+ZFVPlMCDgON+F5dAN0+QoK2SNSBR5vhPLoRumyXHtSp/uxxRiSm+GbUozFNPkaF2pf/6k4TEJV+bSEXPkcDnJ5Utm2bg8DyaCsu7HzGTMkWNds2fhFTCuJCxk6NY0gzBHjo0G3FMAACSZoXmoDcKElWAEAQ1K2EiZ5wZNQSdHqCpILENMD0yQY0k1F/Aacl6/kbuhWIaoKXVUl3JlhUxxHluUy2R5Ka+b9nvIaQkwZVmdCMsjY9LwRHxoWOroE9p7xAvd0U86BDFmpzXKJsixZplRqRpzAzSEQMfkOzWljuYGV0s931TnKi9mU8wxRJLQ76H8HqoKXDY5EJfU0xcix8+GD/954shHQUG0uigmyLF6qVFF1BgaFuWyPYPiQg7COYgNLZ71y73rW7z6JlmnKdhUxzfV8du35iYWxB98b/idI2OWtQS1HAxNtDTq/xA7SX0VNz85SBKub/bcsCFw3RofghzFDoZoXeFpXeEJhpWDh4Zf+uVgR++CnDYC1HJcvZh3GLnhsaXe9e6RsTm9JDdA3/qF7Ns3ZZtSN9TNE1/ZknPbpuzf/GHsudf6z3VE0bdBC9RyrFlmbGHOa+YS0BTmMnffknfbpmxDfU0FkoBb1vk3rfUf+P3wUz/qHRmPm9ueBKjlMGJgdCqLKrncAD00MsvF9bupf9lWeMfmbMqAsbh5Q0Bw08asDcu9Dz3b+ZsPxsxuDtpBMJIAjbW8oaeAEFxz9UydE4Rg2xdzf/9yw5035FjKjEn8HurFR6qe/map6bWhkJ5+UYUTQay3vsWn9auiPOZn36l94t4Sq+WHuZI7Nue8vqc24EVdk2oqSOVYttjYbiPB+hZP0lwJrSu9b7/QsLrJNtXIm+r4N/+ztiRP/7zvKYJWjkUo5PC6yOb66Qbce3vBvseq3bz5+3TmREWR42ffrckJmNN/IL1YRgcck2xc9ddnFgjBw18vfuAuSyf/mIHSAnb/k+bUPkYnB8sQlQZUxkhK6wrf5P8furt4hzF1F5DRUOU0JWMdOjlqyzhkpTerSx25ARoA8HfXZ9vdjASb1/pv0TsRwaygkwNx3tmltc6ltc6n7ytFeVJDefyekvxspMEHQjkMWGs+Ay0Nrt07y605kjE/eI68fxvSwrbo5CgvRNpzfPXGPCO2PpjLzdcFUH7H0MlRWoB0WkvHCrTWgSTgPbcaW4NmKojkgBCU5Js2mJNObLrGh2zYFJEcAS/FmT1TkB7QFLzlWp1TE2iB6APLMnWOIM3YjKpMESI5DF36m2k01jh9bhTXE9ltBe8o0Q2SgJ+7ythlMQkQyeFFYnrm0NyAQg5En1mWMRtV0oD4RVGJSKSLpgIMSPnpu7IYxaARos/MzePbynRURQ3/eVQavZQzgspi+SYfTG36qQqJHIhuK4ZXiLUhwrnQpBkAAGlYFLsiKb62KI+hjJ/FRCUHHuS4HDksid3Tc9tJw6luXSEJ6HIa3hkj6znwbeUyomcmwBXbNlO8pyTgnYZ/dojkwMOjU4n1C9JIkvRUdP4cJtUQrA3DMQdqFFGJnp248uekh2by5xBm0mkTc+T6TdhpaE0ip8bVeJKd09xid+qPsgCgSASCQg6SAEV5WA4AABAuhJJGnUwhR3nndomCkbSQoziPNSIDmO2IDwrChSS1PiBDcLVz200Ti6tpIkdJAV7JAaTRWOTUeNJfORu8cI47udu6orJseFJNFHKUZvwyH2k0Hj42qib7OJliJ50z5+tztj3V4bKFgGL4vNgyAYc8IYmdYSWmUD6aKXYSSB6w40Ni5ORYUjNIN83VzWd75kefoEjjgUKOUmvcVqTRePjYSOJDkoZFsSPMlvFsOQ+Ni4dUIFwICu3Jq3wQLMEv889p4OvSUVXw26OjC27c7CDpOXIt0XMI5yemfn1VWRXaQ2J3hC1xsqXOud71Z0UJy5GPx6fOnkwFkpBf5icc8znpiU/CA5+hyO6CQg6LBKRysoEBNa4I7SGhI8zkO5gijtJjPEaNK2JnROgIA41E7JCEfJOP9Mxz6eQb7362gNbNAcPlIElokWQYBEfIyUafAABAUWN90VhflOBIpoCjc1jSQ89pSOrSYaKy2BOJdUdU7cKliT6DCszTwuEx6a3fISqcbvjH5nGmmL3TcBxV7vDx0Sunu6aiRGWhPSS0hyBN0FkMFWAJN0k6KUhr9/+KKgclaSwWGxDk2XJ5QZrgm3wL6Z9+fGAIWWpKw+XwWWYNGJ3D8sv80TMTSnT24SM1rsQGhNjApdI+BEsQPEUwBKAgJKEqq0AFqqgogiyHpZmFm4T00PxVPmIBE2ad/eK+XwzO++VzxfBPjjM7Ud9U6GyWWp0d64oInWF1LpmmFVFRxAWV+WFLnFydGyysF310bxfKBNmGy6Gk+LVCBSQhW8GzZc5YnyC0hxTB+EFoJ+lc7KWyFhrq/uTA0PsfJpnONQ7j5bBmEQECMsUcU8TF+qKxnqg0bkjxL8gQjjKeLXcCuNCw6y9nI0/v69GlValjuByCaE07AAAAQMAUcUwRJ4ekWF80PiikEo6kAsGRbDnPFHLzGOO6ks4+8Z+eOB/XfgIyCMPl6B2KxeKqxfe8ky6Kq3VztW45GI8PidJoTB6PJx3wnhmCJek8B53HUr457DOYmb6h2N/vaps17a4RGC6HrIDOfrGmFGlyjnlDumnSTQMAgAqk8ZgclJSQJEckJSwrMWX6oBYEhIMkHCTpokgPTXpo0kXp5USC813CVx85v8A6EPMGxXPmh6dCdpHjr0BA+RjKd1kUqcpqYnQLEhAAAA3uDj84HrznqQsmln5C8Zz58luDgq0qFGkBSUiwBMESkIaGmiEr6otvDGx/uM3comAo5LjQLWzb1YYLiadIz2Dsjn9t27O/VzJ+Oc/MwPLqejRnIkm4+irPlvW+v/mcD2dkSEosrr70y8G9r/VHrFG7CZ0cUykrYBtr+fpKrrSALc1nC3MZn5tElqXUgqgqeOfI2O5XeixVr8kcOZLCc6TPQ3p5yuchCQJ6eLKunLthQ6AcVd5jU0ho8eyrfWfbLVSjKYGF5NCitozbvNZ/83UBE+sHGEEoIv/q0OiPDwyd67ScFglsIEcCgoArlri+tMG/ttlja0tkRT16InTwvZFfvz8SESwRW2hhGzmmUprPrLnas6bJs7rJbZfYNi6p//tR8L//NP724VFThjvngS3lmIQg4OIKbnWTe2kt31DNlRU6LLKwKIGqgrbO6NGToT8enzh8LBjWaeIGGfaWYxo8R9ZXcQ1VzoZqZ0Ols7rMgX6n3eCwdOp8+FRb5GRb+NjH4dGghLgBOpJWckyDIGBugCrJZ0vymZJ8tiSPKc5nS/LYbD+98IlAWVZ7h2LdA2JXf6yzX+zqF7sHxM5+MRi2WfcwA+ksxww4WMLLk1435XGRHhfpdVEeF8mxyY0R4+pESE78C4blibA8EZbMHdhGgz2iOd0RREUQlUGbBIZmYaEFnhirgeXAaILlwGiC5cBoguXAaILlwGiC5cBoguXAaILlwGiC5cBoguXAaILlwGiC5cBoguXAaILlwGiC5cBoguXAaILlwGiC5cBoguXAaILlwGiC5cBoguXAaILlwGiC5cBoguXAaILlwGiC5cBoguXAaPL/B/sT2pDchgMAAAAASUVORK5CYII=">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<style>
+  :root{
+    --bg:#12131A;
+    --bg-rgb:18,19,26;
+    --surface:#1B1D27;
+    --surface-2:#22242F;
+    --ink:#F4F5FA;
+    --muted:#8D90A8;
+    --rule:#2E3040;
+    --fuel:#FFB238;
+    --fuel-soft:rgba(255,178,56,0.14);
+    --burn:#2DD4E8;
+    --burn-soft:rgba(45,212,232,0.14);
+    --deficit:#4ADE80;
+    --deficit-soft:rgba(74,222,128,0.16);
+    --surplus:#FF5C7A;
+    --surplus-soft:rgba(255,92,122,0.16);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  html{background:var(--bg);}
+  body{
+    background:transparent;
+    color:var(--ink);
+    font-family:'Inter',-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding:max(44px, calc(env(safe-area-inset-top) + 24px)) 18px max(60px, calc(env(safe-area-inset-bottom) + 40px));
+  }
+  /* ambient glow layer: fixed behind everything, drifts slowly (transform only) */
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    background:
+      radial-gradient(circle at 14% 4%, rgba(45,212,232,0.17), transparent 40%),
+      radial-gradient(circle at 88% 22%, rgba(255,178,56,0.13), transparent 38%),
+      radial-gradient(circle at 40% 92%, rgba(124,108,255,0.09), transparent 40%);
+    transform:scale(1.25);
+    animation:ambientDrift 26s ease-in-out infinite alternate;
+    will-change:transform;
+  }
+  @keyframes ambientDrift{
+    0%{transform:scale(1.25) translate3d(-4%,-3%,0) rotate(0deg);}
+    100%{transform:scale(1.25) translate3d(4%,3%,0) rotate(6deg);}
+  }
+  .wrap{max-width:460px;margin:0 auto;}
+
+  .eyebrow{font-size:14.5px;color:var(--burn);margin:0 0 6px;font-weight:600;}
+  .header-stats{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums;margin:0 0 10px;}
+  .header-stat{display:inline-flex;align-items:center;gap:3px;}
+  .header-stat-emoji{font-size:12px;line-height:1;}
+  .header-stat-sep{opacity:.5;}
+  #streakVal, #totalDaysVal{color:var(--ink);}
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:38px;
+    margin:0 0 24px;
+    letter-spacing:-0.01em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .title-word{
+    background:linear-gradient(90deg,var(--fuel),var(--burn),var(--fuel));
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:gradientShift 6s ease-in-out infinite alternate;
+  }
+  /* the signature: the bicep flexes on load and whenever a save succeeds (tap it, too) */
+  .flex-arm{
+    display:inline-block;
+    line-height:1;
+    background:linear-gradient(160deg,var(--burn),#7C6CFF);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    transform-origin:22% 88%;
+    cursor:pointer;
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .flex-arm.flexing{animation:armFlex 0.95s cubic-bezier(.34,1.56,.64,1);}
+  @keyframes armFlex{
+    0%{transform:rotate(0deg) scale(1);}
+    16%{transform:rotate(-16deg) scale(1.3);}
+    30%{transform:rotate(-7deg) scale(1.18);}
+    46%{transform:rotate(-16deg) scale(1.32);}
+    100%{transform:rotate(0deg) scale(1);}
+  }
+
+  @keyframes gradientShift{ 0%{background-position:0% 50%;} 100%{background-position:100% 50%;} }
+
+  /* ---------- mini header: a small, separately-mounted bar fixed to the top of the screen.
+     It is NOT a shrunk version of the real header sitting on top of it via sticky/scroll
+     trickery — it's a second, constant-size element that only fades its opacity in/out. Because
+     a position:fixed element reserves no space in the document, showing/hiding it can never
+     change page layout or scroll height, so it can't feed back into the scroll position that
+     triggers it (which is what caused the earlier flicker/scroll-lock with the sticky approach).
+     The real header above (eyebrow/title/ring) is just normal content now — no sticky, no resize,
+     it scrolls away like anything else. ---------- */
+  .mini-header{
+    position:fixed;
+    top:env(safe-area-inset-top, 0px);
+    left:0; right:0;
+    z-index:60;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:7px 18px;
+    background:rgba(var(--bg-rgb),0.94);
+    box-shadow:0 8px 20px -10px rgba(0,0,0,0.5);
+    opacity:0;
+    transform:translateY(-6px);
+    pointer-events:none;
+    transition:opacity .22s ease, transform .22s ease;
+  }
+  .mini-header.visible{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .mini-arm{
+    font-size:22px;
+    line-height:1;
+    display:inline-block;
+    background:linear-gradient(160deg,var(--burn),#7C6CFF);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .mini-ring{position:relative;width:40px;height:40px;flex-shrink:0;}
+  .mini-ring-svg{width:100%;height:100%;transform:rotate(-90deg);display:block;}
+  .mini-ring-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+  .mini-ring-center span{
+    font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
+    color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-0.02em;
+  }
+  @keyframes cardIn{ from{opacity:0; transform:translateY(14px) scale(0.985);} to{opacity:1; transform:none;} }
+  .wrap > *{ animation:cardIn 0.55s cubic-bezier(.22,1,.36,1) both; }
+  .wrap > *:nth-child(1){animation-delay:0s;}
+  .wrap > *:nth-child(2){animation-delay:0.04s;}
+  .wrap > *:nth-child(3){animation-delay:0.08s;}
+  .wrap > *:nth-child(4){animation-delay:0.12s;}
+  .wrap > *:nth-child(5){animation-delay:0.16s;}
+  .wrap > *:nth-child(6){animation-delay:0.20s;}
+  .wrap > *:nth-child(7){animation-delay:0.24s;}
+  .wrap > *:nth-child(8){animation-delay:0.28s;}
+  .wrap > *:nth-child(9){animation-delay:0.32s;}
+  .wrap > *:nth-child(10){animation-delay:0.36s;}
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration:0.001ms !important;
+      animation-iteration-count:1 !important;
+      animation-delay:0s !important;
+      transition-duration:0.001ms !important;
+    }
+    h1, .title-word, .flex-arm, body::before{ animation:none !important; }
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:16px;
+  }
+  /* action cards get a lit top edge in their color; analysis cards stay quiet */
+  .card.card-fuel{
+    background:
+      linear-gradient(90deg, var(--fuel), rgba(255,178,56,0) 78%) top left / 100% 2px no-repeat,
+      radial-gradient(140% 70% at 0% 0%, rgba(255,178,56,0.07), transparent 55%),
+      var(--surface);
+  }
+  .card.card-burn{
+    background:
+      linear-gradient(90deg, var(--burn), rgba(45,212,232,0) 78%) top left / 100% 2px no-repeat,
+      radial-gradient(140% 70% at 0% 0%, rgba(45,212,232,0.07), transparent 55%),
+      var(--surface);
+  }
+  .card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  h2{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin:0;}
+  .card-sub{font-size:12px;color:var(--muted);margin:2px 0 14px;}
+
+  label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px;font-weight:600;}
+  input[type=number], input[type=date], input[type=time], input[type=text], textarea{
+    width:100%;
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    font-weight:600;
+    padding:10px 11px;
+    border:1.5px solid var(--rule);
+    border-radius:9px;
+    background:var(--surface-2);
+    color:var(--ink);
+    color-scheme:dark;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  input:focus, textarea:focus{outline:none;border-color:var(--burn);box-shadow:0 0 0 3px var(--burn-soft);}
+  input[type=date], input[type=time]{
+    -webkit-appearance:none;
+    appearance:none;
+    width:100%;
+    max-width:100%;
+    padding:10px 8px;
+    font-size:15px;
+  }
+  textarea{
+    font-weight:500;
+    resize:vertical;
+    min-height:76px;
+    line-height:1.4;
+    font-family:'Inter',sans-serif;
+  }
+  .field-row{display:flex;gap:12px;margin-bottom:12px;}
+  .field{flex:1;min-width:0;max-width:100%;}
+
+  button{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    border:none;
+    border-radius:10px;
+    padding:12px 16px;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    transition:transform .24s cubic-bezier(.34,1.56,.64,1), filter .15s ease,
+               background-color .25s ease, border-color .25s ease, color .25s ease;
+  }
+  button:active{ transform:scale(0.95); transition-duration:.08s; }
+  button:focus-visible{ outline:2px solid var(--burn); outline-offset:2px; }
+  .btn-primary{width:100%;background:linear-gradient(90deg,var(--fuel),var(--burn));color:#0D0E13;}
+  .btn-primary.burn-variant{background:linear-gradient(90deg,var(--burn),#7C6CFF);}
+  .btn-primary.btn-overwrite{background:linear-gradient(90deg,var(--surplus),#FF8A3D);}
+  .btn-primary:active{filter:brightness(0.92);}
+  .btn-primary:disabled{opacity:0.5;cursor:default;}
+  .btn-small{
+    font-size:13px;padding:8px 12px;background:var(--surface-2);
+    border:1.5px solid var(--rule);color:var(--ink);border-radius:8px;
+  }
+  .btn-small:active{filter:brightness(1.15);}
+  .btn-add{background:var(--fuel);color:#241800;font-size:14px;padding:10px 14px;border-radius:8px;white-space:nowrap;}
+
+  .mode-toggle{display:flex;gap:8px;margin-bottom:14px;}
+  .mode-btn{
+    flex:1;background:var(--surface-2);border:1.5px solid var(--rule);color:var(--muted);
+    padding:9px;border-radius:9px;font-size:13.5px;font-weight:700;
+  }
+  .mode-btn.active{background:var(--fuel-soft);border-color:var(--fuel);color:var(--fuel);}
+  .mode-btn:disabled{opacity:0.4;cursor:not-allowed;}
+  .ai-sparkle{flex-shrink:0;}
+
+  /* small header above the food input: a line of text + a single link-style button that
+     flips between "Ask AI" (sparkle) and "Manual entry" — replaces the old two-way toggle */
+  .food-input-head{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;
+  }
+  .food-input-head > span{font-size:12.5px;color:var(--muted);font-weight:600;}
+  .food-input-switch{
+    background:none;border:none;color:var(--burn);font-size:12.5px;font-weight:700;
+    padding:2px 0;display:flex;align-items:center;gap:5px;cursor:pointer;flex-shrink:0;
+  }
+  .food-input-switch:active{filter:brightness(1.3);}
+  .food-input-switch.manual-mode{color:var(--muted);}
+
+  /* textarea with the voice/photo icon buttons tucked inside its bottom-right corner,
+     and room reserved at the bottom so typed text never runs under them */
+  .ai-desc-wrap{position:relative;}
+  .ai-desc-wrap textarea{padding-bottom:40px;}
+  .ai-desc-clear{
+    position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;
+    background:var(--surface-2);border:1.5px solid var(--rule);color:var(--muted);
+    font-size:11px;line-height:1;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;padding:0;
+  }
+  .ai-desc-clear:active{filter:brightness(1.2);}
+  .ai-desc-tools{position:absolute;bottom:8px;right:8px;display:flex;gap:6px;}
+  .ai-desc-icon-btn{
+    width:30px;height:30px;border-radius:50%;flex-shrink:0;padding:0;
+    background:var(--surface);border:1.5px solid var(--rule);color:var(--muted);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .ai-desc-icon-btn svg{flex-shrink:0;}
+  .ai-desc-icon-btn.active{background:var(--burn-soft);border-color:var(--burn);color:var(--burn);}
+  .ai-desc-icon-btn.listening{background:var(--surplus-soft);border-color:var(--surplus);color:var(--surplus);}
+  .ai-desc-icon-btn:disabled{opacity:0.4;cursor:not-allowed;}
+  .ai-photo-preview{position:relative;display:inline-block;margin-top:10px;}
+  .ai-photo-preview img{
+    display:block;max-width:120px;max-height:120px;border-radius:10px;
+    border:1.5px solid var(--rule);object-fit:cover;
+  }
+  .ai-photo-remove{
+    position:absolute;top:-7px;right:-7px;width:22px;height:22px;border-radius:50%;
+    background:var(--surplus);color:#2a0b12;border:none;font-size:12px;line-height:1;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+
+  /* ---------- today ring: outer = colored tier zones (always visible), inner = today's fill ---------- */
+  .ring-section{display:flex;flex-direction:column;align-items:center;gap:10px;margin:2px 0 22px;}
+  .ring-wrap{position:relative;width:168px;height:168px;flex-shrink:0;}
+  .ring-svg{width:100%;height:100%;transform:rotate(-90deg);display:block;}
+  .ring-track{fill:none;stroke:var(--rule);stroke-width:9;}
+  .ring-zone{fill:none;stroke-width:9;transition:stroke-dasharray .6s ease, stroke-dashoffset .6s ease;}
+  .ring-zone-low{stroke:var(--deficit);}
+  .ring-zone-medium{stroke:var(--fuel);}
+  .ring-zone-high{stroke:var(--surplus);}
+  .ring-progress-track{fill:none;stroke:rgba(244,245,250,0.12);stroke-width:6;}
+  .ring-progress{fill:none;stroke:var(--ink);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .7s cubic-bezier(.34,1.05,.4,1);}
+  .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+  .ring-figure{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;line-height:1;letter-spacing:-0.01em;font-variant-numeric:tabular-nums;}
+  .ring-unit{font-size:11px;color:var(--muted);margin-top:3px;}
+  .ring-sub{font-size:12.5px;color:var(--muted);text-align:center;max-width:270px;}
+  .ring-tier-label{font-weight:700;}
+  .ring-tier-label.tier-low{color:var(--deficit);}
+  .ring-tier-label.tier-medium{color:var(--fuel);}
+  .ring-legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .ring-legend-item{display:flex;align-items:center;gap:5px;}
+  .ring-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .ring-legend-dot.low{background:var(--deficit);}
+  .ring-legend-dot.medium{background:var(--fuel);}
+  .ring-legend-dot.high{background:var(--surplus);}
+  .ring-tier-label.tier-high{color:var(--surplus);}
+
+  /* ---------- collapsible "Log burn" summary ---------- */
+  .burn-summary-row{
+    width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:none;border:none;padding:0;text-align:left;cursor:pointer;color:var(--ink);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .burn-summary-title{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;flex-shrink:0;}
+  .burn-summary-val{font-size:13.5px;font-weight:700;color:var(--burn);flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .burn-chevron{color:var(--muted);font-size:19px;flex-shrink:0;transition:transform .25s;}
+  .burn-chevron.open{transform:rotate(90deg);}
+  #burnFormWrap{margin-top:14px;}
+  #foodFormWrap{margin-top:14px;}
+
+  .item-row{display:flex;align-items:flex-start;gap:8px;padding:9px 0;border-bottom:1px solid var(--rule);position:relative;isolation:isolate;}
+  .item-row:last-child{border-bottom:none;}
+  .item-desc{flex:1;min-width:0;font-size:14.5px;overflow-wrap:break-word;padding-top:1px;}
+  .item-cal{font-size:14.5px;font-weight:700;color:var(--fuel);min-width:60px;text-align:right;}
+  .item-cal-wrap{display:flex;align-items:baseline;gap:3px;flex-shrink:0;padding-top:1px;}
+  input.item-cal-input{
+    width:58px !important;text-align:right;font-size:14.5px;font-weight:700;color:var(--fuel);
+    background:transparent;border:none;border-bottom:1.5px solid transparent;
+    padding:0 1px 1px;-webkit-appearance:none;appearance:none;flex-shrink:0;
+  }
+  .item-cal-input:focus{outline:none;border-bottom-color:var(--fuel);}
+  .item-cal-unit{font-size:12px;color:var(--muted);font-weight:600;}
+  .item-del{background:none;border:none;color:var(--muted);font-size:18px;padding:0 2px;cursor:pointer;line-height:1;flex-shrink:0;}
+  .item-del:hover{color:var(--surplus);}
+  .add-item-row{display:flex;gap:8px;margin-top:10px;}
+  .add-item-row input[type=text]{flex:2;}
+  .add-item-row input[type=number]{flex:1;}
+  .items-total{
+    display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;
+    border-top:1.5px solid var(--rule);font-weight:700;font-size:14.5px;
+  }
+  .items-total span:last-child{color:var(--fuel);display:inline-block;transform-origin:right center;font-variant-numeric:tabular-nums;}
+  .suggest-section{margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);}
+  .suggest-heading{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.03em;display:flex;align-items:center;gap:5px;}
+  .suggest-heading svg{flex-shrink:0;width:12px;height:12px;}
+  .suggest-row{display:flex;align-items:center;gap:8px;padding:7px 0;}
+  .suggest-desc{flex:1;min-width:0;font-size:14px;overflow-wrap:break-word;}
+  .suggest-cal-wrap{display:flex;align-items:baseline;gap:3px;flex-shrink:0;}
+  input.suggest-cal-input{width:58px !important;text-align:right;font-size:14px;font-weight:700;color:var(--fuel);padding:6px 7px !important;}
+  .suggest-cal-unit{font-size:11px;color:var(--muted);}
+  .suggest-add{
+    background:var(--fuel);color:#241800;width:30px;height:30px;border-radius:50%;
+    font-size:18px;font-weight:700;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    line-height:1;padding:0;
+  }
+  .suggest-add:active{filter:brightness(1.15);}
+
+  .clear-note{
+    font-size:12.5px;color:var(--muted);background:var(--surface-2);border-radius:8px;
+    padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;
+  }
+
+  .balance-card{text-align:left;padding:22px 20px;border-width:1.5px;}
+  .balance-label{font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600;}
+  .balance-figure{font-family:'Space Grotesk',sans-serif;font-size:48px;font-weight:700;line-height:1;letter-spacing:-0.01em;}
+  .balance-figure.pos{color:var(--deficit);}
+  .balance-figure.neg{color:var(--surplus);}
+  .balance-figure.na{color:var(--muted);font-size:32px;}
+  .balance-unit{font-size:16px;font-weight:600;color:var(--muted);margin-left:6px;}
+  .tag{display:inline-block;font-size:13px;font-weight:700;padding:4px 12px;border-radius:100px;margin-top:10px;}
+  .tag.deficit{background:var(--deficit-soft);color:var(--deficit);}
+  .tag.surplus{background:var(--surplus-soft);color:var(--surplus);}
+  .tag.pending{background:var(--surface-2);color:var(--muted);}
+
+  .avg-row{display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--rule);}
+  .avg-item{flex:1;}
+  .avg-num{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;}
+  .avg-name{font-size:11.5px;color:var(--muted);margin-top:2px;}
+
+  /* net figures elsewhere (history rows) share these colors */
+  .hist-net.net-pos{color:var(--deficit);}
+  .hist-net.net-neg{color:var(--surplus);}
+
+  .month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  .month-nav-btn{
+    background:var(--surface-2);border:1px solid var(--rule);color:var(--ink);
+    width:34px;height:34px;border-radius:9px;font-size:17px;line-height:1;
+    display:flex;align-items:center;justify-content:center;padding:0;
+  }
+  .month-nav-btn:disabled{opacity:0.35;cursor:default;}
+  .month-nav-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;display:inline-block;}
+
+  .range-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+  .range-btn{
+    background:var(--surface-2);border:1.5px solid var(--rule);color:var(--muted);
+    padding:6px 11px;border-radius:100px;font-size:12.5px;font-weight:700;
+  }
+  .range-btn.active{background:var(--burn-soft);border-color:var(--burn);color:var(--burn);}
+  canvas{
+    width:100% !important;max-height:220px;
+    /* iOS Safari's long-press "touch and hold" callout (selection/copy popup, save-image menu)
+       is a native WebKit gesture that -webkit-touch-callout is the only reliable way to suppress —
+       preventDefault() on our own pointer events doesn't stop it, since it isn't driven by them */
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .chart-title{font-size:13px;color:var(--muted);font-weight:700;margin:18px 0 8px;}
+  .chart-title:first-child{margin-top:0;}
+
+  .empty{color:var(--muted);font-size:14px;text-align:center;padding:20px 0;}
+  .status{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px;min-height:16px;font-weight:600;}
+  .status.error{color:var(--surplus);}
+  .status.success{color:var(--deficit);}
+
+  .hist-row{border-bottom:1px solid var(--rule);}
+  .hist-row.weekend{background:rgba(141,144,168,0.08);margin:0 -20px;padding:0 20px;}
+  .hist-row:last-child{border-bottom:none;}
+  .hist-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:11px 0;cursor:pointer;gap:5px;
+    -webkit-tap-highlight-color:transparent;transition:opacity .15s ease;
+  }
+  .hist-head:active{opacity:.6;}
+  .hist-date{font-size:13px;font-weight:700;flex:1.15;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .hist-col{font-size:12.5px;color:var(--ink);flex:0.62;min-width:0;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .hist-col.muted-col{color:var(--muted);}
+  .hist-net{font-weight:700;font-size:13px;flex:0.62;min-width:0;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .hist-chev{color:var(--muted);font-size:12px;width:11px;flex-shrink:0;text-align:right;transition:transform 0.15s;}
+  .hist-row.open .hist-chev{transform:rotate(90deg);animation:chevOpen .32s cubic-bezier(.34,1.56,.64,1);color:var(--burn);}
+  @keyframes chevOpen{ from{transform:rotate(0deg);} to{transform:rotate(90deg);} }
+  .hist-header{
+    display:flex;align-items:center;gap:5px;padding-bottom:8px;
+    border-bottom:1.5px solid var(--rule);margin-bottom:2px;
+  }
+  .hist-header .hist-date, .hist-header .hist-col, .hist-header .hist-net{
+    font-size:10.5px;font-weight:700;color:var(--muted);text-transform:none;
+  }
+  /* the open day gets its own tinted, rounded panel so it reads as clearly distinct from the
+     rest of the (closed) list above and below it */
+  .hist-row.open{
+    background:linear-gradient(180deg, rgba(45,212,232,0.10), rgba(45,212,232,0.03));
+    margin:0 -20px;padding:0 20px;border-radius:10px;
+    border-bottom:1px solid transparent;
+  }
+  .hist-row.open .hist-head{border-bottom:1px solid var(--rule);}
+  .hist-detail{display:none;padding:10px 0 16px;}
+  .hist-row.open .hist-detail{display:block;animation:detailIn 0.2s ease;}
+  @keyframes detailIn{ from{opacity:0; transform:translateY(-4px);} to{opacity:1; transform:translateY(0);} }
+  .hist-scroll{max-height:420px;overflow-y:auto;overflow-x:hidden;}
+  .hist-section-label{font-size:11.5px;color:var(--muted);font-weight:700;margin:10px 0 6px;}
+  .hist-section-label:first-child{margin-top:0;}
+  /* item rows inside the open day reuse .item-row's own look (same spacing/colors as the
+     Logged card), just with an editable description so past entries can be corrected */
+  .item-row.hist-item-row{padding:8px 0;}
+  input.item-desc-input{
+    flex:1;min-width:0;font-size:14.5px;font-weight:500;color:var(--ink);
+    background:transparent;border:none;border-bottom:1.5px solid transparent;
+    padding:1px 2px 1px 0;
+    -webkit-appearance:none;appearance:none;color-scheme:dark;
+  }
+  input.item-desc-input:focus{outline:none;border-bottom-color:var(--rule);}
+  /* the line that sets "Burned" apart from the food items above it */
+  .hist-divider{border-top:1.5px solid var(--rule);margin:14px 0 2px;}
+  .hist-actions{display:flex;justify-content:space-between;margin-top:12px;}
+
+  .btn-row{display:flex;gap:10px;}
+  .btn-secondary{flex:1;background:var(--surface-2);border:1.5px solid var(--rule);color:var(--ink);}
+  .btn-secondary:active{filter:brightness(1.15);}
+  input[type=file]{display:none;}
+  h2 + .range-row, h2 + .month-nav{margin-top:14px;}
+  #weightStatus{margin:6px 0 8px;}
+
+  /* ---------- motion layer (classes added by the presentation script at the bottom) ---------- */
+  /* sliding highlight for range chips and mode toggles; only active once the script adds .has-pill,
+     so without it the original active styles above still apply */
+  .has-pill{position:relative;}
+  .has-pill > button{position:relative;z-index:1;}
+  .seg-pill{
+    position:absolute;top:0;left:0;z-index:0;pointer-events:none;opacity:0;
+    transition:transform .4s cubic-bezier(.34,1.3,.64,1), width .4s cubic-bezier(.34,1.3,.64,1),
+               height .3s ease, opacity .2s ease;
+  }
+  .range-row.has-pill .range-btn{background:transparent;}
+  .range-row.has-pill .range-btn.active{border-color:transparent;}
+  .range-row .seg-pill{
+    border-radius:100px;background:var(--burn-soft);border:1.5px solid var(--burn);
+    box-shadow:0 0 16px rgba(45,212,232,0.22);
+  }
+  .mode-toggle.has-pill{
+    background:var(--surface-2);border:1.5px solid var(--rule);border-radius:12px;padding:3px;gap:3px;
+  }
+  .mode-toggle.has-pill .mode-btn{background:transparent;border-color:transparent;padding:8px;}
+  .mode-toggle .seg-pill{
+    border-radius:9px;background:var(--fuel-soft);border:1.5px solid var(--fuel);
+    box-shadow:0 0 16px rgba(255,178,56,0.16);
+  }
+
+  /* rows arriving: from above by default, sideways when you change month */
+  @keyframes fxEnter{ from{opacity:0;transform:translateY(-6px);} to{opacity:1;transform:none;} }
+  @keyframes fxEnterL{ from{opacity:0;transform:translateX(-18px);} to{opacity:1;transform:none;} }
+  @keyframes fxEnterR{ from{opacity:0;transform:translateX(18px);} to{opacity:1;transform:none;} }
+  .fx-enter{animation:fxEnter .42s cubic-bezier(.22,1,.36,1) both;}
+  .fx-enter-l{animation:fxEnterL .42s cubic-bezier(.22,1,.36,1) both;}
+  .fx-enter-r{animation:fxEnterR .42s cubic-bezier(.22,1,.36,1) both;}
+
+  /* a freshly added food item glows amber, then settles */
+  .item-row.fx-flash::before{
+    content:'';position:absolute;top:2px;bottom:2px;left:-10px;right:-10px;z-index:-1;
+    border-radius:10px;background:var(--fuel-soft);pointer-events:none;
+    animation:flashFade 1.3s ease-out forwards;
+  }
+  @keyframes flashFade{ 0%{opacity:0;} 15%{opacity:1;} 100%{opacity:0;} }
+
+  /* numbers pulse as they finish counting */
+  @keyframes numBump{ 0%{transform:scale(1);} 35%{transform:scale(1.1);} 100%{transform:scale(1);} }
+  .fx-bump{animation:numBump .55s cubic-bezier(.34,1.56,.64,1);}
+
+  /* status messages pop in */
+  @keyframes statusPop{ 0%{opacity:0;transform:translateY(5px) scale(.96);} 60%{opacity:1;transform:translateY(0) scale(1.03);} 100%{opacity:1;transform:none;} }
+  .status.fx-pop{animation:statusPop .42s cubic-bezier(.34,1.56,.64,1);}
+</style>
+</head>
+<body>
+<div class="mini-header" id="miniHeader" aria-hidden="true">
+  <span class="mini-arm">💪</span>
+  <div class="mini-ring">
+    <svg viewBox="0 0 120 120" class="mini-ring-svg" aria-hidden="true">
+      <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+      <circle class="ring-zone ring-zone-low" id="miniRingZoneLow" cx="60" cy="60" r="52"></circle>
+      <circle class="ring-zone ring-zone-medium" id="miniRingZoneMedium" cx="60" cy="60" r="52"></circle>
+      <circle class="ring-zone ring-zone-high" id="miniRingZoneHigh" cx="60" cy="60" r="52"></circle>
+      <circle class="ring-progress-track" cx="60" cy="60" r="40"></circle>
+      <circle class="ring-progress" id="miniRingFill" cx="60" cy="60" r="40"></circle>
+    </svg>
+    <div class="mini-ring-center"><span id="miniRingFigure">0</span></div>
+  </div>
+</div>
+<div class="wrap">
+  <div class="app-header" id="appHeader">
+    <div class="app-header-inner">
+      <p class="eyebrow">Fuel in · burn out</p>
+      <h1><span class="title-word">Monstrão</span><span class="flex-arm" aria-hidden="true">💪</span></h1>
+
+      <div class="header-stats" id="headerStats">
+        <span class="header-stat"><span class="header-stat-emoji">🔥</span><span id="streakVal">0</span>-day streak</span>
+        <span class="header-stat-sep">·</span>
+        <span class="header-stat"><span id="totalDaysVal">0</span> days logged</span>
+      </div>
+
+      <div class="ring-section" id="ringSection">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120" class="ring-svg" aria-hidden="true">
+            <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+            <circle class="ring-zone ring-zone-low" id="ringZoneLow" cx="60" cy="60" r="52"></circle>
+            <circle class="ring-zone ring-zone-medium" id="ringZoneMedium" cx="60" cy="60" r="52"></circle>
+            <circle class="ring-zone ring-zone-high" id="ringZoneHigh" cx="60" cy="60" r="52"></circle>
+            <circle class="ring-progress-track" cx="60" cy="60" r="40"></circle>
+            <circle class="ring-progress" id="ringFill" cx="60" cy="60" r="40"></circle>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-figure" id="ringFigure">0</div>
+            <div class="ring-unit">kcal today</div>
+          </div>
+        </div>
+        <div class="ring-sub" id="ringSub">Log a few days to see how today compares to your average.</div>
+        <div class="ring-legend" id="ringLegend"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-fuel">
+    <button class="burn-summary-row" id="foodSummaryBtn" type="button">
+      <span class="burn-summary-title">🍽️ The Food</span>
+      <span class="burn-summary-val" id="foodSummaryVal">—</span>
+      <span class="burn-chevron" id="foodChevron">›</span>
+    </button>
+    <div id="foodFormWrap" style="display:none;">
+    <div class="field-row">
+      <div class="field">
+        <label for="foodDate">Date</label>
+        <input type="date" id="foodDate">
+      </div>
+    </div>
+
+    <div id="itemsView">
+      <div class="clear-note" id="itemsClearNote" style="display:none;">
+        <span class="clear-note-text"></span>
+        <button class="btn-small" id="clearTotalForItemsBtn" type="button">Clear it</button>
+      </div>
+
+      <div class="food-input-head" id="foodInputHead">
+        <span id="foodInputHeadLabel">Describe what you ate</span>
+        <button class="food-input-switch" id="inputSwitchBtn" type="button"></button>
+      </div>
+
+      <div id="manualInputView" style="display:none;">
+        <div class="add-item-row">
+          <input type="text" id="itemDesc" placeholder="e.g. Chicken breast">
+          <input type="number" id="itemCal" placeholder="kcal" inputmode="numeric">
+          <button class="btn-add" id="addItemBtn" type="button">Add</button>
+        </div>
+      </div>
+
+      <div id="aiInputView">
+        <div class="ai-desc-wrap">
+          <textarea id="aiDesc" rows="3" placeholder="e.g. Grilled chicken breast, about 6oz, with a tablespoon of olive oil and a side of steamed broccoli"></textarea>
+          <button class="ai-desc-clear" id="aiDescClearBtn" type="button" aria-label="Clear text">✕</button>
+          <div class="ai-desc-tools">
+            <button class="ai-desc-icon-btn" id="aiMicBtn" type="button" aria-label="Voice input">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="2" width="6" height="12" rx="3"/>
+                <path d="M5 10a7 7 0 0 0 14 0"/>
+                <path d="M12 17v4M9 21h6"/>
+              </svg>
+            </button>
+            <button class="ai-desc-icon-btn" id="aiPhotoBtn" type="button" aria-label="Add photo">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z"/>
+                <circle cx="12" cy="13" r="3.5"/>
+              </svg>
+            </button>
+          </div>
+          <input type="file" id="aiPhotoInput" accept="image/*">
+        </div>
+
+        <div id="aiPhotoPreview" class="ai-photo-preview" style="display:none;">
+          <img id="aiPhotoThumb" alt="Selected food photo">
+          <button class="ai-photo-remove" id="aiPhotoRemoveBtn" type="button" aria-label="Remove photo">✕</button>
+        </div>
+
+        <button class="btn-primary burn-variant" id="aiEstimateBtn" type="button" style="margin-top:10px;">Estimate calories</button>
+        <p class="status" id="aiStatus"></p>
+        <div id="aiResult" style="display:none;">
+          <div class="field-row" style="margin-top:2px;">
+            <div class="field">
+              <label for="aiLabelInput">Item</label>
+              <input type="text" id="aiLabelInput">
+            </div>
+            <div class="field" style="flex:0 0 92px;">
+              <label for="aiCalInput">kcal</label>
+              <input type="number" id="aiCalInput" inputmode="numeric">
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn-secondary" id="aiRetryBtn" type="button">Try again</button>
+            <button class="btn-add" id="aiAddBtn" type="button" style="flex:1;">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="status" id="foodStatus"></p>
+
+    <div class="suggest-section" id="suggestSection" style="display:none;">
+      <div class="suggest-heading">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2.5c.3 0 .57.2.65.49l1.36 4.7a4.2 4.2 0 0 0 2.87 2.87l4.7 1.36a.68.68 0 0 1 0 1.3l-4.7 1.36a4.2 4.2 0 0 0-2.87 2.87l-1.36 4.7a.68.68 0 0 1-1.3 0l-1.36-4.7a4.2 4.2 0 0 0-2.87-2.87l-4.7-1.36a.68.68 0 0 1 0-1.3l4.7-1.36a4.2 4.2 0 0 0 2.87-2.87l1.36-4.7c.08-.29.35-.49.65-.49Z"/>
+          <path d="M19 2c.22 0 .41.14.48.35l.42 1.26 1.26.42c.21.07.35.26.35.48s-.14.41-.35.48l-1.26.42-.42 1.26a.5.5 0 0 1-.96 0l-.42-1.26-1.26-.42A.5.5 0 0 1 16.5 4.5c0-.22.14-.41.35-.48l1.26-.42.42-1.26c.07-.21.26-.35.47-.35Z"/>
+        </svg>
+        <span>AI Recommended</span>
+      </div>
+      <div id="suggestList"></div>
+    </div>
+    </div>
+  </div>
+
+  <div class="card" id="loggedCard">
+    <div class="card-head"><h2>Logged</h2></div>
+    <p class="card-sub" id="loggedSub"></p>
+    <div id="itemsList"></div>
+    <div class="items-total" id="itemsTotalRow" style="display:none;">
+      <span>Total logged</span><span id="itemsTotalVal">0</span>
+    </div>
+    <div class="items-total" id="simpleTotalRow" style="display:none;">
+      <span>Daily total</span><span id="simpleTotalVal">0</span>
+    </div>
+    <div class="empty" id="loggedEmptyMsg" style="padding:6px 0;">Nothing logged yet.</div>
+  </div>
+
+  <div class="card card-burn">
+    <button class="burn-summary-row" id="burnSummaryBtn" type="button">
+      <span class="burn-summary-title">⚡ The Burn</span>
+      <span class="burn-summary-val" id="burnSummaryVal">—</span>
+      <span class="burn-chevron" id="burnChevron">›</span>
+    </button>
+    <div id="burnFormWrap" style="display:none;">
+      <p class="card-sub">Whoop's number is usually only accurate the next day — default date is yesterday.</p>
+      <div class="field-row">
+        <div class="field">
+          <label for="burnDate">Date</label>
+          <input type="date" id="burnDate">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="burnedInput">Calories burned</label>
+          <input type="number" id="burnedInput" placeholder="kcal" inputmode="numeric">
+        </div>
+      </div>
+      <button class="btn-primary burn-variant" id="saveBurnBtn" type="button">Save burn</button>
+      <p class="status" id="burnStatus"></p>
+    </div>
+  </div>
+
+  <div class="card card-burn">
+    <button class="burn-summary-row" id="weightSummaryBtn" type="button">
+      <span class="burn-summary-title">⚖️ The Weight</span>
+      <span class="burn-summary-val" id="weightSummaryVal">—</span>
+      <span class="burn-chevron" id="weightChevron">›</span>
+    </button>
+    <div id="weightFormWrap" style="display:none;">
+      <div class="field-row">
+        <div class="field">
+          <label for="weightDateInput">Date</label>
+          <input type="date" id="weightDateInput">
+        </div>
+      </div>
+
+      <div id="weightEntriesList"></div>
+      <div class="empty" id="weightEntriesEmpty" style="padding:6px 0;">No readings for this date.</div>
+
+      <div class="mode-toggle" id="weightInputModeRow" style="margin-top:12px;">
+        <button class="mode-btn active" id="weightManualModeBtn" type="button">Manual entry</button>
+        <button class="mode-btn" id="weightCsvModeBtn" type="button">Import CSV</button>
+      </div>
+
+      <div id="weightManualView">
+        <div class="field-row">
+          <div class="field" style="flex:0 0 110px;">
+            <label for="weightValueInput">Weight (lb)</label>
+            <input type="number" id="weightValueInput" placeholder="e.g. 182.4" inputmode="decimal" step="0.1">
+          </div>
+          <div class="field" style="flex:0 0 100px;">
+            <label for="weightTimeInput">Time</label>
+            <input type="time" id="weightTimeInput">
+          </div>
+        </div>
+        <button class="btn-primary burn-variant" id="saveWeightBtn" type="button">Save weight</button>
+      </div>
+
+      <div id="weightCsvView" style="display:none;">
+        <p class="card-sub" style="margin:0 0 10px;">Import a scale export — a CSV with a date/time column and a weight column (e.g. "182.4 lb").</p>
+        <div class="btn-row">
+          <button class="btn-secondary" id="importWeightBtn" type="button">Choose CSV file</button>
+        </div>
+        <input type="file" id="importWeightFile" accept=".csv,text/csv">
+      </div>
+      <p class="status" id="weightStatus"></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Trends</h2>
+    <div class="mode-toggle" id="trendGranRow">
+      <button class="mode-btn" data-gran="daily" type="button">Daily</button>
+      <button class="mode-btn" data-gran="weekly" type="button">Weekly</button>
+      <button class="mode-btn" data-gran="monthly" type="button">Monthly</button>
+    </div>
+    <div class="range-row" id="trendRangeRow">
+      <button class="range-btn" data-range="30d" type="button">30 days</button>
+      <button class="range-btn" data-range="3m" type="button">3 months</button>
+      <button class="range-btn" data-range="6m" type="button">6 months</button>
+      <button class="range-btn" data-range="1y" type="button">1 year</button>
+      <button class="range-btn" data-range="all" type="button">All</button>
+    </div>
+    <div class="chart-title" id="trendChartTitle">Consumed vs. burned</div>
+    <canvas id="chart"></canvas>
+    <div class="chart-title" id="trendNetChartTitle">Deficit / surplus</div>
+    <canvas id="netChart"></canvas>
+    <div class="chart-title">Weight</div>
+    <div class="empty" id="weightEmpty" style="display:none;">No weight data yet — log one above, in "Log weight".</div>
+    <div id="weightChartsWrap">
+      <canvas id="weightChart"></canvas>
+    </div>
+  </div>
+
+  <div class="card card-burn">
+    <button class="burn-summary-row" id="historySummaryBtn" type="button">
+      <span class="burn-summary-title">📅 Daily History</span>
+      <span class="burn-summary-val" id="historySummaryVal">—</span>
+      <span class="burn-chevron" id="historyChevron">›</span>
+    </button>
+    <div id="historyFormWrap" style="display:none;">
+      <div class="month-nav" id="histMonthNav" style="margin-top:14px;">
+        <button class="month-nav-btn" id="prevHistMonthBtn" aria-label="Previous month" type="button">‹</button>
+        <div class="month-nav-title" id="histMonthNavTitle">—</div>
+        <button class="month-nav-btn" id="nextHistMonthBtn" aria-label="Next month" type="button">›</button>
+      </div>
+      <div class="hist-header">
+        <div class="hist-date">Date</div>
+        <div class="hist-col">In</div>
+        <div class="hist-col">Out</div>
+        <div class="hist-net">Net</div>
+        <div class="hist-chev"></div>
+      </div>
+      <div class="hist-scroll" id="histScroll"><div id="tableWrap"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Backup</h2>
+    <div class="btn-row">
+      <button class="btn-secondary" id="exportBtn" type="button">Export backup</button>
+      <button class="btn-secondary" id="importBtn" type="button">Import backup</button>
+    </div>
+    <input type="file" id="importFile" accept="application/json">
+    <p class="status" id="backupStatus"></p>
+  </div>
+</div>
+<script>
+const STORAGE_KEY = 'calorie-log';
+let entries = {}; // { 'YYYY-MM-DD': { mode: 'items'|'simple'|null, items: [{id,desc,cal}]|null, total: number|null, burned: number|null } }
+let chart = null, netChart = null;
+let trendGranularity = 'daily'; // 'daily'|'weekly'|'monthly'
+let trendRange = '30d';
+let expandedDate = null;
+let histViewYear, histViewMonth;
+
+const WEIGHT_KEY = 'weight-log';
+let weightReadings = {}; // { 'YYYY-MM-DDTHH:MM': { value:number, unit:'lb'|'kg' } }
+let weightChart = null;
+
+// ---------- Firebase (cloud sync) ----------
+const firebaseConfig = {
+  apiKey: "AIzaSyCVDazJWswDmu_f5Z07hBbt91pqvaNEAH0",
+  authDomain: "monstrao-e04ac.firebaseapp.com",
+  projectId: "monstrao-e04ac",
+  storageBucket: "monstrao-e04ac.firebasestorage.app",
+  messagingSenderId: "1014975507147",
+  appId: "1:1014975507147:web:2dd655c5ba2b27f461494e"
+};
+let fbDb = null;
+let authReadyPromise = null;
+try{
+  firebase.initializeApp(firebaseConfig);
+  fbDb = firebase.firestore();
+  // Persist the offline write queue (and read cache) to IndexedDB instead of memory-only,
+  // so an entry logged while offline survives a reload/app-kill and still flushes once back online.
+  // Must be called before any other Firestore call. synchronizeTabs lets multiple open tabs share it
+  // instead of failing with "already open elsewhere".
+  fbDb.enablePersistence({ synchronizeTabs: true }).catch(()=>{
+    /* unsupported browser or similar — app still works, just without the durable offline queue */
+  });
+}catch(e){ /* Firebase failed to init — app falls back to local storage below */ }
+
+function ensureAuth(){
+  if(!fbDb) return Promise.reject(new Error('firebase not initialized'));
+  if(authReadyPromise) return authReadyPromise;
+  authReadyPromise = new Promise((resolve, reject)=>{
+    const timer = setTimeout(()=>reject(new Error('auth timeout')), 8000);
+    const unsub = firebase.auth().onAuthStateChanged(user=>{
+      if(user){ clearTimeout(timer); unsub(); resolve(user); }
+    }, err=>{ clearTimeout(timer); reject(err); });
+    firebase.auth().signInAnonymously().catch(err=>{ clearTimeout(timer); reject(err); });
+  });
+  return authReadyPromise;
+}
+
+// ---------- date helpers ----------
+function todayStr(){
+  const d = new Date();
+  const off = d.getTimezoneOffset();
+  const local = new Date(d.getTime() - off*60000);
+  return local.toISOString().slice(0,10);
+}
+function yesterdayStr(){
+  const d = new Date();
+  d.setDate(d.getDate()-1);
+  const off = d.getTimezoneOffset();
+  const local = new Date(d.getTime() - off*60000);
+  return local.toISOString().slice(0,10);
+}
+function parseISO(iso){
+  const [y,m,dd] = iso.split('-').map(Number);
+  return new Date(y, m-1, dd);
+}
+function toISO(dateObj){
+  const y = dateObj.getFullYear();
+  const m = String(dateObj.getMonth()+1).padStart(2,'0');
+  const dd = String(dateObj.getDate()).padStart(2,'0');
+  return `${y}-${m}-${dd}`;
+}
+function fmtDate(iso){
+  const [y,m,d] = iso.split('-');
+  const dt = new Date(y, m-1, d);
+  return dt.toLocaleDateString(undefined, { month:'short', day:'numeric' });
+}
+function mondayOf(dateObj){
+  const d = new Date(dateObj);
+  const day = d.getDay();
+  const diff = (day === 0 ? -6 : 1 - day);
+  d.setDate(d.getDate() + diff);
+  d.setHours(0,0,0,0);
+  return d;
+}
+function weekRangeLabel(monday){
+  const sunday = new Date(monday);
+  sunday.setDate(sunday.getDate() + 6);
+  const startStr = monday.toLocaleDateString(undefined, { month:'short', day:'numeric' });
+  const endStr = monday.getMonth() === sunday.getMonth()
+    ? String(sunday.getDate())
+    : sunday.toLocaleDateString(undefined, { month:'short', day:'numeric' });
+  return `${startStr}–${endStr}`;
+}
+function genId(){ return Math.random().toString(36).slice(2,10); }
+
+// ---------- data model helpers ----------
+function blankEntry(){ return { mode:null, items:null, total:null, burned:null }; }
+function consumedTotal(e){
+  if(!e) return null;
+  if(e.mode === 'items') return (e.items||[]).reduce((s,i)=>s+i.cal,0);
+  if(e.mode === 'simple') return (typeof e.total==='number') ? e.total : null;
+  return null;
+}
+function hasBurned(e){ return !!e && typeof e.burned === 'number'; }
+function net(e){
+  const c = consumedTotal(e);
+  if(c == null || !hasBurned(e)) return null;
+  return c - e.burned; // negative = deficit, positive = surplus
+}
+function sortedDates(){ return Object.keys(entries).sort(); }
+// dates with food/burn data OR a weight reading — a day logged only via Log weight still counts
+function allLoggedDates(){
+  const s = new Set(sortedDates());
+  Object.keys(weightReadings).forEach(ts => s.add(ts.slice(0,10)));
+  return Array.from(s).sort();
+}
+// current consecutive-day streak ending today (or yesterday, so an in-progress streak doesn't
+// zero out before today gets logged)
+function computeStreak(loggedDates){
+  const set = new Set(loggedDates);
+  if(!set.size) return 0;
+  let cursor = set.has(todayStr()) ? todayStr() : yesterdayStr();
+  let streak = 0;
+  while(set.has(cursor)){
+    streak++;
+    const dt = parseISO(cursor);
+    dt.setDate(dt.getDate() - 1);
+    cursor = toISO(dt);
+  }
+  return streak;
+}
+function renderHeaderStats(){
+  const streakEl = document.getElementById('streakVal');
+  const totalEl = document.getElementById('totalDaysVal');
+  if(!streakEl || !totalEl) return;
+  const dates = allLoggedDates();
+  streakEl.textContent = computeStreak(dates);
+  totalEl.textContent = dates.length;
+}
+
+// ---------- "frequently at this time" suggestions: pure local heuristics, no API call ----------
+// Clusters logged items by description similarity (so "chicken breast" and "grilled chicken
+// breast, 6oz" count as the same food), then scores each cluster for right now by how close its
+// past occurrences were to this time of day (gaussian, wraps midnight) and how recent they were
+// (exponential half-life) — no network call, recomputed instantly on every render.
+const SUGGEST_LOOKBACK_DAYS = 90;      // ignore items older than this
+const SUGGEST_TIME_SIGMA_MIN = 90;     // how tightly "same time of day" is defined, in minutes
+const SUGGEST_RECENCY_HALFLIFE_DAYS = 14; // an occurrence's influence halves every N days
+const SUGGEST_SIMILARITY_THRESHOLD = 0.6; // min similarity to merge two descriptions into one cluster
+const SUGGEST_MIN_OCCURRENCES = 2;     // a cluster needs at least this many hits to be suggested
+const SUGGEST_MIN_SCORE = 0.05;        // drop near-zero matches (wrong time of day entirely)
+
+const SUGGEST_FILLER_WORDS = new Set([
+  'oz','ounce','ounces','g','gram','grams','kg','ml','l','liter','cup','cups','tbsp','tablespoon',
+  'tablespoons','tsp','teaspoon','teaspoons','slice','slices','piece','pieces','serving','servings',
+  'small','medium','large','about','approx','approximately','a','an','the','with','of','and'
+]);
+
+function suggestNormalizeTokens(desc){
+  const cleaned = desc.toLowerCase().replace(/[^\w\s]/g, ' ');
+  return cleaned.split(/\s+/).filter(t => t && !SUGGEST_FILLER_WORDS.has(t) && !/^\d+(\.\d+)?$/.test(t));
+}
+
+function suggestJaccard(aTokens, bTokens){
+  const a = new Set(aTokens), b = new Set(bTokens);
+  if(!a.size && !b.size) return 1;
+  let inter = 0;
+  for(const t of a) if(b.has(t)) inter++;
+  const union = a.size + b.size - inter;
+  return union ? inter / union : 0;
+}
+
+// classic edit-distance similarity (0..1) — catches near-identical spellings/typos that token
+// overlap alone would miss, e.g. "quesadila" vs "quesadilla"
+function suggestLevRatio(a, b){
+  if(a === b) return 1;
+  const al = a.length, bl = b.length;
+  if(!al || !bl) return 0;
+  const dp = new Array(bl + 1);
+  for(let j = 0; j <= bl; j++) dp[j] = j;
+  for(let i = 1; i <= al; i++){
+    let prev = dp[0]; dp[0] = i;
+    for(let j = 1; j <= bl; j++){
+      const tmp = dp[j];
+      dp[j] = a[i-1] === b[j-1] ? prev : 1 + Math.min(prev, dp[j], dp[j-1]);
+      prev = tmp;
+    }
+  }
+  return 1 - dp[bl] / Math.max(al, bl);
+}
+
+function suggestSimilarity(aDesc, bDesc, aTokens, bTokens){
+  return Math.max(
+    suggestJaccard(aTokens, bTokens),
+    suggestLevRatio(aDesc.toLowerCase().trim(), bDesc.toLowerCase().trim())
+  );
+}
+
+function suggestCollectOccurrences(){
+  const cutoff = Date.now() - SUGGEST_LOOKBACK_DAYS * 86400000;
+  const out = [];
+  for(const d of sortedDates()){
+    const e = entries[d];
+    if(!e || e.mode !== 'items' || !e.items) continue;
+    for(const it of e.items){
+      if(typeof it.ts === 'number' && it.ts >= cutoff) out.push(it);
+    }
+  }
+  return out;
+}
+
+// greedy single-pass clustering: each item joins the most similar existing cluster if it clears
+// the threshold, otherwise starts a new one. Good enough at this data size (dozens-hundreds of
+// items) without needing a real clustering library.
+function suggestClusterItems(occurrences){
+  const clusters = [];
+  for(const it of occurrences){
+    const tokens = suggestNormalizeTokens(it.desc);
+    let best = null, bestScore = 0;
+    for(const c of clusters){
+      const score = suggestSimilarity(it.desc, c.descRep, tokens, c.tokensRep);
+      if(score > bestScore){ bestScore = score; best = c; }
+    }
+    if(best && bestScore >= SUGGEST_SIMILARITY_THRESHOLD){
+      best.items.push(it);
+    } else {
+      clusters.push({ descRep: it.desc, tokensRep: tokens, items: [it] });
+    }
+  }
+  return clusters;
+}
+
+// the cluster's display description is whichever exact wording was used most often within it
+// (tie-broken by most recent) — not just the first one seen
+function suggestPickRepresentativeDesc(items){
+  const counts = new Map();
+  for(const it of items){
+    const key = it.desc.trim();
+    const rec = counts.get(key) || { count: 0, lastTs: 0, desc: key };
+    rec.count++;
+    rec.lastTs = Math.max(rec.lastTs, it.ts);
+    counts.set(key, rec);
+  }
+  let best = null;
+  for(const rec of counts.values()){
+    if(!best || rec.count > best.count || (rec.count === best.count && rec.lastTs > best.lastTs)) best = rec;
+  }
+  return best.desc;
+}
+
+function suggestCircularMinuteDiff(a, b){
+  const d = Math.abs(a - b) % 1440;
+  return Math.min(d, 1440 - d);
+}
+
+function suggestScoreCluster(cluster, nowMinutes, nowMs){
+  let score = 0;
+  for(const it of cluster.items){
+    const itDate = new Date(it.ts);
+    const itMinutes = itDate.getHours() * 60 + itDate.getMinutes();
+    const timeDiff = suggestCircularMinuteDiff(itMinutes, nowMinutes);
+    const timeWeight = Math.exp(-(timeDiff * timeDiff) / (2 * SUGGEST_TIME_SIGMA_MIN * SUGGEST_TIME_SIGMA_MIN));
+    const ageDays = Math.max(0, (nowMs - it.ts) / 86400000);
+    const recencyWeight = Math.pow(0.5, ageDays / SUGGEST_RECENCY_HALFLIFE_DAYS);
+    score += timeWeight * recencyWeight;
+  }
+  return score;
+}
+
+// ---------- optional once-daily cleanup pass (see maybeRefreshSuggestionCleanup below) ----------
+// Merges clusters the local text-similarity matcher missed, and swaps in a tidier label/calorie
+// figure, using the groups a once-daily server call already worked out. Purely a quality nudge on
+// top of the local clustering above — if there's no cleanup cached for today (offline, not yet run,
+// or too little history), this is a no-op and the original clusters pass through unchanged.
+let suggestionCleanup = null; // { date: 'YYYY-MM-DD', groups: [{desc, cal, memberKeys}] } | null
+
+function applySuggestionCleanup(clusters){
+  if(!suggestionCleanup || suggestionCleanup.date !== todayStr() || !Array.isArray(suggestionCleanup.groups)){
+    return clusters;
+  }
+  const keyToGroup = new Map();
+  suggestionCleanup.groups.forEach(g=>{
+    if(g && typeof g.desc === 'string' && Number.isFinite(g.cal) && Array.isArray(g.memberKeys)){
+      g.memberKeys.forEach(k=>{ if(typeof k === 'string') keyToGroup.set(k, g); });
+    }
+  });
+  if(!keyToGroup.size) return clusters;
+
+  const merged = [];
+  const groupToMerged = new Map();
+  clusters.forEach(c=>{
+    const g = keyToGroup.get(c.descRep);
+    if(!g){ merged.push(c); return; }
+    let m = groupToMerged.get(g);
+    if(!m){
+      m = { items: [], descRep: g.desc, cleanCal: g.cal };
+      groupToMerged.set(g, m);
+      merged.push(m);
+    }
+    m.items = m.items.concat(c.items);
+  });
+  return merged;
+}
+
+function computeFoodSuggestions(){
+  const occurrences = suggestCollectOccurrences();
+  if(occurrences.length < SUGGEST_MIN_OCCURRENCES) return [];
+
+  const clusters = applySuggestionCleanup(suggestClusterItems(occurrences));
+  const now = new Date();
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  const nowMs = now.getTime();
+
+  return clusters
+    .filter(c => c.items.length >= SUGGEST_MIN_OCCURRENCES)
+    .map(c => {
+      const mostRecent = c.items.reduce((a, b) => (b.ts > a.ts ? b : a));
+      return {
+        desc: ('cleanCal' in c) ? c.descRep : suggestPickRepresentativeDesc(c.items),
+        cal: ('cleanCal' in c) ? c.cleanCal : mostRecent.cal,
+        score: suggestScoreCluster(c, nowMinutes, nowMs)
+      };
+    })
+    .filter(s => s.score >= SUGGEST_MIN_SCORE)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+}
+
+// ---------- today ring: today's consumed total vs. a trailing-30-day (else all-time) average ----------
+// outer ring (r=52) shows the three tier zones as fixed colored arcs; inner ring (r=40) fills toward
+// today's total. Both are plain circles with stroke-dasharray/offset used to draw partial arcs.
+const RING_R_OUTER = 52;
+const RING_CIRC_OUTER = 2 * Math.PI * RING_R_OUTER;
+const RING_R_INNER = 40;
+const RING_CIRC_INNER = 2 * Math.PI * RING_R_INNER;
+
+function calorieBaseline(){
+  const todayKey = todayStr();
+  const history = sortedDates().filter(d => d !== todayKey);
+  const window = history.slice(-30); // trailing 30 logged days; falls back to all of them below 30
+  const pool = window.length ? window : history;
+  const vals = pool.map(d => consumedTotal(entries[d])).filter(v => typeof v === 'number');
+  if(!vals.length) return null;
+  const n = vals.length;
+  const mean = vals.reduce((s,v)=>s+v,0) / n;
+  const variance = vals.reduce((s,v)=>s+(v-mean)*(v-mean),0) / n;
+  return { mean, sd: Math.sqrt(variance), n };
+}
+
+// sets a circle element to draw just the arc from startFrac to endFrac (0..1 of the full circumference)
+function setRingArc(el, startFrac, endFrac, circ){
+  const s = Math.max(0, Math.min(1, startFrac));
+  const e = Math.max(0, Math.min(1, endFrac));
+  const len = Math.max(0, (e - s) * circ);
+  el.setAttribute('stroke-dasharray', `${len} ${circ - len}`);
+  el.setAttribute('stroke-dashoffset', String(-s * circ));
+}
+
+function renderRing(){
+  const zoneLow = document.getElementById('ringZoneLow');
+  const zoneMedium = document.getElementById('ringZoneMedium');
+  const zoneHigh = document.getElementById('ringZoneHigh');
+  const fill = document.getElementById('ringFill');
+  const figure = document.getElementById('ringFigure');
+  const sub = document.getElementById('ringSub');
+  const legend = document.getElementById('ringLegend');
+  if(!zoneLow || !zoneMedium || !zoneHigh || !fill || !figure || !sub || !legend) return;
+
+  const today = consumedTotal(entries[todayStr()]) || 0;
+  figure.textContent = today.toLocaleString();
+
+  const baseline = calorieBaseline();
+
+  if(!baseline || baseline.n < 3){
+    // not enough history yet — no tier zones to show, just a plain fill toward a placeholder max
+    setRingArc(zoneLow, 0, 0, RING_CIRC_OUTER);
+    setRingArc(zoneMedium, 0, 0, RING_CIRC_OUTER);
+    setRingArc(zoneHigh, 0, 0, RING_CIRC_OUTER);
+    const max = Math.max(today, 2000);
+    const frac = max ? Math.min(today / max, 1) : 0;
+    fill.setAttribute('stroke-dasharray', `${RING_CIRC_INNER} ${RING_CIRC_INNER}`);
+    fill.setAttribute('stroke-dashoffset', String(RING_CIRC_INNER * (1 - frac)));
+    sub.innerHTML = 'Log a few more days to see how today compares to your average.';
+    legend.innerHTML = '';
+  } else {
+    const { mean, sd } = baseline;
+    const lowBound = Math.max(0, mean - 0.5 * sd);
+    const highBound = mean + 0.5 * sd;
+    let tier = 'tier-medium', tierLabel = 'Medium';
+    if(today < lowBound){ tier = 'tier-low'; tierLabel = 'Low'; }
+    else if(today > highBound){ tier = 'tier-high'; tierLabel = 'High'; }
+
+    // ringMax is only the ring's visual full-circle reference (the high zone has no real ceiling —
+    // it just fills the rest of the circle, and the legend below spells out that it's open-ended)
+    const ringMax = sd > 0 ? (mean + 1.5 * sd) : (mean > 0 ? mean * 1.3 : 2000);
+    const fracLow = ringMax ? lowBound / ringMax : 0;
+    const fracHigh = ringMax ? highBound / ringMax : 1;
+
+    setRingArc(zoneLow, 0, fracLow, RING_CIRC_OUTER);
+    setRingArc(zoneMedium, fracLow, fracHigh, RING_CIRC_OUTER);
+    setRingArc(zoneHigh, fracHigh, 1, RING_CIRC_OUTER);
+
+    const frac = ringMax ? Math.min(today / ringMax, 1) : 0;
+    fill.setAttribute('stroke-dasharray', `${RING_CIRC_INNER} ${RING_CIRC_INNER}`);
+    fill.setAttribute('stroke-dashoffset', String(RING_CIRC_INNER * (1 - frac)));
+
+    sub.innerHTML = `<span class="ring-tier-label ${tier}">${tierLabel} day</span> · avg ${Math.round(mean).toLocaleString()} kcal`;
+    legend.innerHTML = `
+      <span class="ring-legend-item"><span class="ring-legend-dot low"></span>under ${Math.round(lowBound).toLocaleString()}</span>
+      <span class="ring-legend-item"><span class="ring-legend-dot medium"></span>${Math.round(lowBound).toLocaleString()}–${Math.round(highBound).toLocaleString()}</span>
+      <span class="ring-legend-item"><span class="ring-legend-dot high"></span>${Math.round(highBound).toLocaleString()}+</span>
+    `;
+  }
+
+  // mirror the same zone arcs + fill + figure into the small fixed mini-ring (shown once the user
+  // has scrolled past the top) — just copies the attributes the block above already computed
+  const miniFigure = document.getElementById('miniRingFigure');
+  if(miniFigure) miniFigure.textContent = figure.textContent;
+  [
+    [zoneLow, document.getElementById('miniRingZoneLow')],
+    [zoneMedium, document.getElementById('miniRingZoneMedium')],
+    [zoneHigh, document.getElementById('miniRingZoneHigh')],
+    [fill, document.getElementById('miniRingFill')]
+  ].forEach(([src, dst])=>{
+    if(!dst) return;
+    dst.setAttribute('stroke-dasharray', src.getAttribute('stroke-dasharray'));
+    dst.setAttribute('stroke-dashoffset', src.getAttribute('stroke-dashoffset'));
+  });
+}
+
+// ---------- collapsible "The Food" card ----------
+let foodExpanded = false;
+function renderFoodSummary(d, e){
+  const valEl = document.getElementById('foodSummaryVal');
+  const wrap = document.getElementById('foodFormWrap');
+  const chevron = document.getElementById('foodChevron');
+  if(!valEl) return;
+  const label = d === todayStr() ? 'Today' : (d === yesterdayStr() ? 'Yesterday' : fmtDate(d));
+  if(e && e.mode === 'items' && (e.items||[]).length){
+    const total = e.items.reduce((s,i)=>s+i.cal,0);
+    valEl.textContent = `${label}: ${e.items.length} item${e.items.length===1?'':'s'} · ${total} kcal`;
+  } else if(e && e.mode === 'simple' && e.total != null){
+    valEl.textContent = `${label}: ${e.total} kcal (manual)`;
+  } else {
+    valEl.textContent = `${label}: not logged`;
+  }
+  if(wrap) wrap.style.display = foodExpanded ? '' : 'none';
+  if(chevron) chevron.classList.toggle('open', foodExpanded);
+}
+
+// ---------- collapsible "The Burn" card ----------
+let burnExpanded = false;
+function renderBurnCard(){
+  const valEl = document.getElementById('burnSummaryVal');
+  const dateInput = document.getElementById('burnDate');
+  if(!valEl || !dateInput) return;
+  const d = dateInput.value || yesterdayStr();
+  const e = entries[d];
+  const label = d === yesterdayStr() ? 'Yesterday' : (d === todayStr() ? 'Today' : fmtDate(d));
+  const already = hasBurned(e);
+  valEl.textContent = already ? `${label}: ${e.burned.toLocaleString()} kcal` : `${label}: not logged`;
+
+  const saveBtn = document.getElementById('saveBurnBtn');
+  if(saveBtn){
+    saveBtn.textContent = already ? 'Overwrite burn' : 'Save burn';
+    saveBtn.classList.toggle('btn-overwrite', already);
+  }
+
+  const wrap = document.getElementById('burnFormWrap');
+  const chevron = document.getElementById('burnChevron');
+  if(wrap) wrap.style.display = burnExpanded ? '' : 'none';
+  if(chevron) chevron.classList.toggle('open', burnExpanded);
+}
+
+// ---------- collapsible "Log weight" card ----------
+let weightExpanded = false;
+let weightInputMode = 'manual'; // 'manual'|'csv'
+
+// "14:05" -> "2:05 PM" (readings are keyed "YYYY-MM-DDTHH:MM[:SS]")
+function weightTimeLabel(ts){
+  const timePart = (ts.split('T')[1] || '');
+  const [hh, mm] = timePart.split(':');
+  const h = parseInt(hh, 10);
+  if(isNaN(h)) return '';
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  const h12 = ((h + 11) % 12) + 1;
+  return `${h12}:${mm} ${ampm}`;
+}
+function currentHHMM(){
+  const now = new Date();
+  return String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+}
+// moves a weight reading to a new time on the same date, re-keying weightReadings (handles same-minute
+// collisions with a numeric suffix); returns the entry's new key
+function retimeWeightEntry(oldTs, newTime){
+  if(!weightReadings[oldTs] || !newTime) return oldTs;
+  const date = oldTs.slice(0,10);
+  let newTs = `${date}T${newTime}`;
+  if(newTs === oldTs) return oldTs;
+  let suffix = 0;
+  while(weightReadings[newTs]){ suffix++; newTs = `${date}T${newTime}:${String(suffix).padStart(2,'0')}`; }
+  weightReadings[newTs] = weightReadings[oldTs];
+  delete weightReadings[oldTs];
+  return newTs;
+}
+
+function renderWeightCard(){
+  const dateInput = document.getElementById('weightDateInput');
+  const valEl = document.getElementById('weightSummaryVal');
+  if(!valEl || !dateInput) return;
+  const d = dateInput.value || todayStr();
+  const label = d === todayStr() ? 'Today' : (d === yesterdayStr() ? 'Yesterday' : fmtDate(d));
+
+  const dayKeys = Object.keys(weightReadings).filter(ts => ts.slice(0,10) === d).sort();
+
+  if(dayKeys.length === 1){
+    const r = weightReadings[dayKeys[0]];
+    valEl.textContent = `${label}: ${r.value} ${r.unit}`;
+  } else if(dayKeys.length > 1){
+    const unit = weightReadings[dayKeys[0]].unit;
+    const avg = Math.round((dayKeys.reduce((s,ts)=>s+weightReadings[ts].value,0) / dayKeys.length) * 10) / 10;
+    valEl.textContent = `${label}: ${dayKeys.length} readings · avg ${avg} ${unit}`;
+  } else {
+    valEl.textContent = `${label}: not logged`;
+  }
+
+  const wrap = document.getElementById('weightFormWrap');
+  const chevron = document.getElementById('weightChevron');
+  if(wrap) wrap.style.display = weightExpanded ? '' : 'none';
+  if(chevron) chevron.classList.toggle('open', weightExpanded);
+
+  const list = document.getElementById('weightEntriesList');
+  const emptyMsg = document.getElementById('weightEntriesEmpty');
+  if(list && emptyMsg){
+    if(dayKeys.length){
+      list.innerHTML = dayKeys.map(ts=>{
+        const r = weightReadings[ts];
+        return `<div class="item-row" data-weight="${ts}">
+          <input type="time" class="item-desc-input" data-weight-time="${ts}" value="${ts.slice(11,16)}">
+          <div class="item-cal-wrap">
+            <input type="number" class="item-cal-input" data-weight-value="${ts}" value="${r.value}" step="0.1" inputmode="decimal">
+            <span class="item-cal-unit">${r.unit}</span>
+          </div>
+          <button class="item-del" data-weight-del="${ts}" type="button">✕</button>
+        </div>`;
+      }).join('');
+      emptyMsg.style.display = 'none';
+      list.querySelectorAll('[data-weight-del]').forEach(btn=>{
+        btn.addEventListener('click', async ()=>{
+          haptic();
+          delete weightReadings[btn.dataset.weightDel];
+          await persistWeights();
+          renderWeightChart();
+          renderWeightCard();
+        });
+      });
+      list.querySelectorAll('[data-weight-value]').forEach(inp=>{
+        inp.addEventListener('change', async ()=>{
+          const ts = inp.dataset.weightValue;
+          const val = parseFloat(inp.value);
+          if(isNaN(val) || !weightReadings[ts]){ inp.value = weightReadings[ts] ? weightReadings[ts].value : ''; return; }
+          weightReadings[ts].value = val;
+          await persistWeights();
+          renderWeightChart();
+          renderWeightCard();
+        });
+      });
+      list.querySelectorAll('[data-weight-time]').forEach(inp=>{
+        inp.addEventListener('change', async ()=>{
+          retimeWeightEntry(inp.dataset.weightTime, inp.value);
+          await persistWeights();
+          renderWeightChart();
+          renderWeightCard();
+        });
+      });
+    } else {
+      list.innerHTML = '';
+      emptyMsg.style.display = '';
+    }
+  }
+
+  const manualBtn = document.getElementById('weightManualModeBtn');
+  const csvBtn = document.getElementById('weightCsvModeBtn');
+  const manualView = document.getElementById('weightManualView');
+  const csvView = document.getElementById('weightCsvView');
+  if(manualBtn && csvBtn && manualView && csvView){
+    manualBtn.classList.toggle('active', weightInputMode === 'manual');
+    csvBtn.classList.toggle('active', weightInputMode === 'csv');
+    manualView.style.display = weightInputMode === 'manual' ? '' : 'none';
+    csvView.style.display = weightInputMode === 'csv' ? '' : 'none';
+  }
+  const valueLabel = document.querySelector('label[for="weightValueInput"]');
+  if(valueLabel) valueLabel.textContent = `Weight (${weightUnit()})`;
+}
+
+// ---------- collapsible "History" card ----------
+let historyExpanded = false;
+function renderHistoryCard(){
+  const valEl = document.getElementById('historySummaryVal');
+  if(!valEl) return;
+  const n = allLoggedDates().length;
+  valEl.textContent = n ? `${n} day${n===1?'':'s'} logged` : 'Nothing logged yet';
+
+  const wrap = document.getElementById('historyFormWrap');
+  const chevron = document.getElementById('historyChevron');
+  if(wrap) wrap.style.display = historyExpanded ? '' : 'none';
+  if(chevron) chevron.classList.toggle('open', historyExpanded);
+}
+
+function migrateEntry(v){
+  if(v && typeof v === 'object' && !('mode' in v) && (typeof v.consumed === 'number' || typeof v.burned === 'number')){
+    return {
+      mode: typeof v.consumed === 'number' ? 'simple' : null,
+      items: null,
+      total: typeof v.consumed === 'number' ? v.consumed : null,
+      burned: typeof v.burned === 'number' ? v.burned : null
+    };
+  }
+  return v;
+}
+
+// ---------- storage ----------
+function loadLocalRaw(key){
+  let raw = null;
+  try{ raw = localStorage.getItem(key); }catch(e){ raw = null; }
+  return raw;
+}
+
+async function loadEntries(){
+  try{
+    await ensureAuth();
+    const docRef = fbDb.collection('monstrao').doc('entries');
+    const snap = await docRef.get();
+    if(snap.exists){
+      const data = snap.data();
+      entries = (data && data.json) ? JSON.parse(data.json) : {};
+    } else {
+      // first run on this cloud project — migrate whatever is in local storage up to Firestore
+      const raw = loadLocalRaw(STORAGE_KEY);
+      entries = raw ? JSON.parse(raw) : {};
+      await docRef.set({ json: JSON.stringify(entries), updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+    }
+    for(const d in entries){ entries[d] = migrateEntry(entries[d]); }
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }catch(e){}
+  }catch(e){
+    // Firestore unreachable — fall back to whatever is stored locally so the app still works
+    const raw = loadLocalRaw(STORAGE_KEY);
+    entries = raw ? JSON.parse(raw) : {};
+    for(const d in entries){ entries[d] = migrateEntry(entries[d]); }
+  }
+}
+async function persist(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }catch(e){}
+  // Local copy is already saved above, so the UI can move on right away. The Firestore write
+  // itself is NOT awaited: while offline, Firestore's write queue (enablePersistence) only
+  // resolves this promise once the write reaches the server, which can hang for a long time —
+  // awaiting it here made every save look frozen until connectivity returned. It still happens,
+  // queued and in order, just in the background.
+  const snapshot = JSON.stringify(entries);
+  ensureAuth()
+    .then(()=> fbDb.collection('monstrao').doc('entries').set({
+      json: snapshot,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }))
+    .catch(()=>{ /* offline or Firestore unreachable — local copy above still saved */ });
+}
+
+async function loadWeights(){
+  try{
+    await ensureAuth();
+    const docRef = fbDb.collection('monstrao').doc('weights');
+    const snap = await docRef.get();
+    if(snap.exists){
+      const data = snap.data();
+      weightReadings = (data && data.json) ? JSON.parse(data.json) : {};
+    } else {
+      const raw = loadLocalRaw(WEIGHT_KEY);
+      weightReadings = raw ? JSON.parse(raw) : {};
+      await docRef.set({ json: JSON.stringify(weightReadings), updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+    }
+    try{ localStorage.setItem(WEIGHT_KEY, JSON.stringify(weightReadings)); }catch(e){}
+  }catch(e){
+    const raw = loadLocalRaw(WEIGHT_KEY);
+    weightReadings = raw ? JSON.parse(raw) : {};
+  }
+}
+async function persistWeights(){
+  try{ localStorage.setItem(WEIGHT_KEY, JSON.stringify(weightReadings)); }catch(e){}
+  // Same reasoning as persist(): don't block the caller on the network round trip.
+  const snapshot = JSON.stringify(weightReadings);
+  ensureAuth()
+    .then(()=> fbDb.collection('monstrao').doc('weights').set({
+      json: snapshot,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }))
+    .catch(()=>{ /* offline or Firestore unreachable — local copy above still saved */ });
+}
+
+// ---------- live sync across open sessions/devices ----------
+// loadEntries()/loadWeights() above only fetch once, on startup — a second open tab or device
+// never saw later changes until it was closed and reopened. These two listeners subscribe to the
+// same two documents and keep pulling new data in as it arrives (including the server's confirmation
+// of this session's own writes), re-rendering only when the content actually changed, and only when
+// the person isn't mid-edit in a text field so an incoming update can't yank their input away.
+function isEditingField(){
+  const el = document.activeElement;
+  return !!(el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA'));
+}
+function attachLiveSync(){
+  if(!fbDb) return;
+  try{
+    fbDb.collection('monstrao').doc('entries').onSnapshot(snap=>{
+      if(!snap.exists) return;
+      const data = snap.data();
+      if(!data || !data.json) return;
+      let incoming;
+      try{ incoming = JSON.parse(data.json); }catch(e){ return; }
+      for(const d in incoming){ incoming[d] = migrateEntry(incoming[d]); }
+      const incomingStr = JSON.stringify(incoming);
+      if(incomingStr === JSON.stringify(entries)) return; // our own write echoing back, or no real change
+      entries = incoming;
+      try{ localStorage.setItem(STORAGE_KEY, incomingStr); }catch(e){}
+      if(isEditingField()) return; // don't redraw out from under an in-progress edit; next render will catch up
+      renderAll();
+      renderFoodForm();
+    }, ()=>{ /* listener error — the one-time load already done above still works */ });
+
+    fbDb.collection('monstrao').doc('weights').onSnapshot(snap=>{
+      if(!snap.exists) return;
+      const data = snap.data();
+      if(!data || !data.json) return;
+      let incoming;
+      try{ incoming = JSON.parse(data.json); }catch(e){ return; }
+      const incomingStr = JSON.stringify(incoming);
+      if(incomingStr === JSON.stringify(weightReadings)) return;
+      weightReadings = incoming;
+      try{ localStorage.setItem(WEIGHT_KEY, incomingStr); }catch(e){}
+      if(isEditingField()) return;
+      renderWeightChart();
+      renderWeightCard();
+    }, ()=>{ /* listener error — the one-time load already done above still works */ });
+  }catch(e){ /* onSnapshot unsupported or failed — app still works via the one-time load */ }
+}
+
+// ---------- weight CSV import ----------
+function parseCSVLine(line){
+  const out = []; let cur = ''; let inQ = false;
+  for(let i=0;i<line.length;i++){
+    const ch = line[i];
+    if(inQ){
+      if(ch === '"'){
+        if(line[i+1] === '"'){ cur += '"'; i++; }
+        else { inQ = false; }
+      } else cur += ch;
+    } else {
+      if(ch === '"'){ inQ = true; }
+      else if(ch === ','){ out.push(cur); cur = ''; }
+      else cur += ch;
+    }
+  }
+  out.push(cur);
+  return out;
+}
+function parseWeightCSV(text){
+  const lines = text.split(/\r?\n/).filter(l => l.trim().length);
+  const readings = {};
+  for(let i=1;i<lines.length;i++){ // skip header row
+    const fields = parseCSVLine(lines[i]);
+    if(fields.length < 2) continue;
+    const timeStr = (fields[0]||'').trim();
+    const weightStr = (fields[1]||'').trim();
+    if(!weightStr || weightStr === '--') continue;
+    const wm = weightStr.match(/^([\d.]+)\s*(lb|kg)$/i);
+    if(!wm) continue;
+    const value = parseFloat(wm[1]);
+    const unit = wm[2].toLowerCase();
+    const dm = timeStr.match(/^(\d{2})\/(\d{2})\/(\d{4}),?\s+(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    if(!dm) continue;
+    const mm = dm[1], dd = dm[2], yyyy = dm[3];
+    let hh = parseInt(dm[4], 10);
+    const min = dm[5];
+    const ampm = dm[6];
+    if(/pm/i.test(ampm) && hh !== 12) hh += 12;
+    if(/am/i.test(ampm) && hh === 12) hh = 0;
+    const ts = `${yyyy}-${mm}-${dd}T${String(hh).padStart(2,'0')}:${min}`;
+    readings[ts] = { value, unit };
+  }
+  return readings;
+}
+function dailyWeightMap(){
+  const buckets = {};
+  for(const ts in weightReadings){
+    const r = weightReadings[ts];
+    const date = ts.slice(0,10);
+    if(!buckets[date]) buckets[date] = { sum:0, count:0, unit:r.unit };
+    buckets[date].sum += r.value;
+    buckets[date].count += 1;
+    buckets[date].unit = r.unit;
+  }
+  const out = {};
+  for(const date in buckets){
+    out[date] = { avg: buckets[date].sum / buckets[date].count, unit: buckets[date].unit };
+  }
+  return out;
+}
+function weightUnit(){
+  const keys = Object.keys(weightReadings).sort();
+  if(!keys.length) return 'lb';
+  return weightReadings[keys[keys.length-1]].unit || 'lb';
+}
+function aggregateWeightByWeek(dates, wMap){
+  const weeks = {};
+  dates.forEach(d=>{
+    const wk = toISO(mondayOf(parseISO(d)));
+    if(!weeks[wk]) weeks[wk] = { weightVals:[], netVals:[] };
+    if(wMap[d]) weeks[wk].weightVals.push(wMap[d].avg);
+    const n = net(entries[d]);
+    if(n != null) weeks[wk].netVals.push(n);
+  });
+  const keys = Object.keys(weeks).sort();
+  return keys.map(wk=>{
+    const w = weeks[wk];
+    return {
+      key: wk,
+      label: weekRangeLabel(parseISO(wk)),
+      weight: w.weightVals.length ? (w.weightVals.reduce((s,v)=>s+v,0)/w.weightVals.length) : null,
+      net: w.netVals.length ? w.netVals.reduce((s,v)=>s+v,0) : null
+    };
+  });
+}
+function aggregateWeightByMonth(dates, wMap){
+  const months = {};
+  dates.forEach(d=>{
+    const key = monthKey(d);
+    if(!months[key]) months[key] = { weightVals:[], netVals:[] };
+    if(wMap[d]) months[key].weightVals.push(wMap[d].avg);
+    const n = net(entries[d]);
+    if(n != null) months[key].netVals.push(n);
+  });
+  const keys = Object.keys(months).sort();
+  return keys.map(key=>{
+    const m = months[key];
+    return {
+      key,
+      label: monthLabel(key),
+      weight: m.weightVals.length ? (m.weightVals.reduce((s,v)=>s+v,0)/m.weightVals.length) : null,
+      net: m.netVals.length ? m.netVals.reduce((s,v)=>s+v,0) : null
+    };
+  });
+}
+
+// ---------- rendering: charts ----------
+function filterDatesByRange(allDates, rangeKey){
+  if(rangeKey === 'all') return allDates;
+  const daysMap = { '30d':30, '3m':92, '6m':183, '1y':365 };
+  const n = daysMap[rangeKey] || 30;
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - n);
+  return allDates.filter(d => parseISO(d) >= cutoff);
+}
+
+function isWeekend(iso){
+  const day = parseISO(iso).getDay();
+  return day === 0 || day === 6;
+}
+
+let weekendPluginRegistered = false;
+function ensureWeekendPlugin(){
+  if(weekendPluginRegistered || typeof Chart === 'undefined') return;
+  Chart.register({
+    id: 'weekendShading',
+    beforeDatasetsDraw(c){
+      const dates = c.$dates;
+      if(!dates || !dates.length) return;
+      const { ctx, chartArea, scales } = c;
+      if(!chartArea || !scales.x) return;
+      ctx.save();
+      ctx.fillStyle = 'rgba(141,144,168,0.10)';
+      const n = dates.length;
+      const bandWidth = chartArea.width / n;
+      dates.forEach((d, i)=>{
+        if(!isWeekend(d)) return;
+        const center = scales.x.getPixelForValue(i);
+        let left = center - bandWidth/2;
+        let right = center + bandWidth/2;
+        left = Math.max(left, chartArea.left);
+        right = Math.min(right, chartArea.right);
+        if(right > left) ctx.fillRect(left, chartArea.top, right - left, chartArea.height);
+      });
+      ctx.restore();
+    }
+  });
+  weekendPluginRegistered = true;
+}
+
+function dailyXTicks(rangeKey){
+  if(rangeKey === '30d'){
+    return { color:'#8D90A8', font: { family:'Inter', size: 9 }, maxRotation: 90, minRotation: 90, autoSkip: false };
+  }
+  return { color:'#8D90A8', font: { family:'Inter', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 };
+}
+
+// ---------- rendering: trends (daily / weekly / monthly, consumed vs burned + net) ----------
+function monthKey(iso){ return iso.slice(0,7); } // 'YYYY-MM'
+function monthLabel(key){
+  const [y,m] = key.split('-').map(Number);
+  return new Date(y, m-1, 1).toLocaleDateString(undefined, { month:'short', year:'numeric' });
+}
+function aggregateByWeek(dates){
+  const weeks = {}; // monday-ISO key -> { consumedVals:[], burnedVals:[], netVals:[] }
+  dates.forEach(d=>{
+    const key = toISO(mondayOf(parseISO(d)));
+    if(!weeks[key]) weeks[key] = { consumedVals:[], burnedVals:[], netVals:[] };
+    const e = entries[d];
+    const c = consumedTotal(e);
+    if(c != null) weeks[key].consumedVals.push(c);
+    if(hasBurned(e)) weeks[key].burnedVals.push(e.burned);
+    const n = net(e);
+    if(n != null) weeks[key].netVals.push(n);
+  });
+  const keys = Object.keys(weeks).sort();
+  const avg = (arr)=> arr.length ? Math.round(arr.reduce((s,v)=>s+v,0)/arr.length) : null;
+  const total = (arr)=> arr.length ? arr.reduce((s,v)=>s+v,0) : null;
+  return keys.map(key=>{
+    const w = weeks[key];
+    return {
+      key,
+      label: weekRangeLabel(parseISO(key)),
+      avgConsumed: avg(w.consumedVals),
+      avgBurned: avg(w.burnedVals),
+      totalNet: total(w.netVals),
+      completeDays: w.netVals.length
+    };
+  });
+}
+function aggregateByMonth(dates){
+  const months = {}; // key -> { consumedVals:[], burnedVals:[], netVals:[] }
+  dates.forEach(d=>{
+    const key = monthKey(d);
+    if(!months[key]) months[key] = { consumedVals:[], burnedVals:[], netVals:[] };
+    const e = entries[d];
+    const c = consumedTotal(e);
+    if(c != null) months[key].consumedVals.push(c);
+    if(hasBurned(e)) months[key].burnedVals.push(e.burned);
+    const n = net(e);
+    if(n != null) months[key].netVals.push(n);
+  });
+  const keys = Object.keys(months).sort();
+  const avg = (arr)=> arr.length ? Math.round(arr.reduce((s,v)=>s+v,0)/arr.length) : null;
+  const total = (arr)=> arr.length ? arr.reduce((s,v)=>s+v,0) : null;
+  return keys.map(key=>{
+    const m = months[key];
+    return {
+      key,
+      label: monthLabel(key),
+      avgConsumed: avg(m.consumedVals),
+      avgBurned: avg(m.burnedVals),
+      totalNet: total(m.netVals),
+      completeDays: m.netVals.length
+    };
+  });
+}
+function renderTrendChart(){
+  document.querySelectorAll('#trendGranRow .mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.gran === trendGranularity);
+  });
+  document.querySelectorAll('#trendRangeRow .range-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.range === trendRange);
+  });
+  const titleEl = document.getElementById('trendChartTitle');
+  const netTitleEl = document.getElementById('trendNetChartTitle');
+  if(titleEl){
+    const suffix = trendGranularity === 'daily' ? '' : ' (avg/day)';
+    titleEl.innerHTML = `<span style="color:#FFB238">Consumed</span> vs. <span style="color:#2DD4E8">burned</span>${suffix}`;
+  }
+  if(netTitleEl) netTitleEl.textContent = trendGranularity === 'daily' ? 'Daily deficit / surplus' : (trendGranularity === 'weekly' ? 'Weekly deficit / surplus' : 'Monthly deficit / surplus');
+  try{
+    if(typeof Chart === 'undefined'){
+      const el = document.getElementById('chart');
+      if(el && el.parentElement) {
+        const note = document.createElement('div');
+        note.className = 'empty';
+        note.textContent = 'Charts unavailable in this preview — open the hosted link to see them.';
+        el.replaceWith(note);
+      }
+      const el2 = document.getElementById('netChart');
+      if(el2) el2.style.display = 'none';
+      return;
+    }
+    ensureWeekendPlugin();
+    const allDates = sortedDates();
+    const dates = filterDatesByRange(allDates, trendRange);
+
+    let labels, consumedVals, burnedVals, netLabels, netVals, netDays, xDates, tickFn;
+    if(trendGranularity === 'daily'){
+      labels = dates.map(fmtDate);
+      consumedVals = dates.map(d=>consumedTotal(entries[d]));
+      burnedVals = dates.map(d=> hasBurned(entries[d]) ? entries[d].burned : null);
+      const netDates = dates.filter(d=>net(entries[d])!=null);
+      netLabels = netDates.map(fmtDate);
+      netVals = netDates.map(d=>net(entries[d]));
+      netDays = null; // daily bars are already a single day — no avg/day to add
+      xDates = dates;
+      tickFn = dailyXTicks(trendRange);
+    } else {
+      const buckets = trendGranularity === 'weekly' ? aggregateByWeek(dates) : aggregateByMonth(dates);
+      labels = buckets.map(b=>b.label);
+      consumedVals = buckets.map(b=>b.avgConsumed);
+      burnedVals = buckets.map(b=>b.avgBurned);
+      const netBuckets = buckets.filter(b=>b.totalNet != null);
+      netLabels = netBuckets.map(b=>b.label);
+      netVals = netBuckets.map(b=>b.totalNet);
+      netDays = netBuckets.map(b=>b.completeDays);
+      xDates = null;
+      tickFn = { color:'#8D90A8', font: { family:'Inter', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 };
+    }
+
+    const ctx = document.getElementById('chart');
+    const data = {
+      labels,
+      datasets: [
+        {
+          label: 'Consumed',
+          data: consumedVals,
+          borderColor: '#FFB238',
+          backgroundColor: 'transparent',
+          tension: 0.25,
+          pointRadius: trendGranularity === 'daily' ? 2 : 3,
+          borderWidth: 2.5,
+          spanGaps: true
+        },
+        {
+          label: 'Burned',
+          data: burnedVals,
+          borderColor: '#2DD4E8',
+          backgroundColor: 'transparent',
+          tension: 0.25,
+          pointRadius: trendGranularity === 'daily' ? 2 : 3,
+          borderWidth: 2.5,
+          spanGaps: true
+        }
+      ]
+    };
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      events: [], // tooltips are driven entirely by our own press-and-hold handler below
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: true }
+      },
+      scales: {
+        x: { ticks: tickFn, grid: { display:false } },
+        y: {
+          ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 } },
+          grid: { color: '#2E3040' },
+          title: { display:true, text: 'kcal', color:'#8D90A8', font: { family:'Inter', size: 10 } }
+        }
+      }
+    };
+    if(chart){ chart.data = data; chart.options = options; chart.$dates = xDates; chart.update(); }
+    else { chart = new Chart(ctx, { type:'line', data, options }); chart.$dates = xDates; }
+
+    const netCtx = document.getElementById('netChart');
+    const netData = {
+      labels: netLabels,
+      datasets: [{
+        label: 'Net (negative = deficit)',
+        data: netVals,
+        backgroundColor: netVals.map(v=> v<=0 ? 'rgba(74,222,128,0.75)' : 'rgba(255,92,122,0.75)'),
+        borderRadius: 3,
+        maxBarThickness: trendGranularity === 'daily' ? 18 : 28
+      }]
+    };
+    const netOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      events: [],
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display:false },
+        tooltip: {
+          enabled: true,
+          callbacks: {
+            label(context){
+              const v = context.parsed.y;
+              const base = `Net: ${v>0?'+':''}${v} kcal`;
+              const days = netChart && netChart.$completeDays ? netChart.$completeDays[context.dataIndex] : null;
+              if(!days) return base;
+              const avg = Math.round(v / days);
+              return [base, `Avg: ${avg>0?'+':''}${avg} kcal/day`];
+            }
+          }
+        }
+      },
+      scales: {
+        x: { ticks: tickFn, grid: { display:false } },
+        y: {
+          ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 } },
+          grid: { color: '#2E3040' },
+          title: { display:true, text: 'kcal', color:'#8D90A8', font: { family:'Inter', size: 10 } }
+        }
+      }
+    };
+    if(netChart){
+      netChart.data = netData; netChart.options = netOptions;
+      netChart.$dates = trendGranularity === 'daily' ? xDates : null;
+      netChart.$completeDays = netDays;
+      netChart.update();
+    } else {
+      netChart = new Chart(netCtx, { type:'bar', data: netData, options: netOptions });
+      netChart.$dates = trendGranularity === 'daily' ? xDates : null;
+      netChart.$completeDays = netDays;
+    }
+  }catch(e){ /* charts failed; rest of the app still works */ }
+}
+
+// ---------- rendering: weight vs balance ----------
+function renderWeightChart(){
+  // Weight now shares the Trends card's own granularity/range controls instead of its own.
+  const emptyEl = document.getElementById('weightEmpty');
+  const wrapEl = document.getElementById('weightChartsWrap');
+  const hasWeight = Object.keys(weightReadings).length > 0;
+  if(!hasWeight){
+    emptyEl.textContent = 'No weight data yet — log one above, in "Log weight".';
+    emptyEl.style.display = '';
+    wrapEl.style.display = 'none';
+    return;
+  }
+  if(typeof Chart === 'undefined'){
+    emptyEl.textContent = 'Charts unavailable in this preview — open the hosted link to see them.';
+    emptyEl.style.display = '';
+    wrapEl.style.display = 'none';
+    return;
+  }
+  emptyEl.style.display = 'none';
+  wrapEl.style.display = '';
+  try{
+    ensureWeekendPlugin();
+    const wMap = dailyWeightMap();
+    const unit = weightUnit();
+    const allDates = Array.from(new Set([
+      ...Object.keys(wMap),
+      ...sortedDates().filter(d=>net(entries[d])!=null)
+    ])).sort();
+    const dates = filterDatesByRange(allDates, trendRange);
+
+    let labels, weightVals, xDates;
+    const tickFn = trendGranularity === 'daily'
+      ? dailyXTicks(trendRange)
+      : { color:'#8D90A8', font:{ family:'Inter', size:10 }, maxRotation:0, autoSkip:true, maxTicksLimit:8 };
+
+    if(trendGranularity === 'daily'){
+      labels = dates.map(fmtDate);
+      weightVals = dates.map(d => wMap[d] ? Math.round(wMap[d].avg*10)/10 : null);
+      xDates = dates;
+    } else if(trendGranularity === 'weekly'){
+      const weeks = aggregateWeightByWeek(dates, wMap);
+      labels = weeks.map(w=>w.label);
+      weightVals = weeks.map(w => w.weight!=null ? Math.round(w.weight*10)/10 : null);
+      xDates = null;
+    } else {
+      const months = aggregateWeightByMonth(dates, wMap);
+      labels = months.map(m=>m.label);
+      weightVals = months.map(m => m.weight!=null ? Math.round(m.weight*10)/10 : null);
+      xDates = null;
+    }
+
+    const ctx = document.getElementById('weightChart');
+    const data = {
+      labels,
+      datasets: [{
+        label: `Weight (${unit})`,
+        data: weightVals,
+        borderColor: '#7C6CFF',
+        backgroundColor: 'transparent',
+        tension: 0.3,
+        pointRadius: trendGranularity === 'daily' ? 2 : 3,
+        borderWidth: 2.5,
+        spanGaps: true
+      }]
+    };
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      events: [],
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { display:false }, tooltip: { enabled: true } },
+      scales: {
+        x: { ticks: tickFn, grid: { display:false } },
+        y: {
+          ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 } },
+          grid: { color: '#2E3040' },
+          title: { display:true, text: unit, color:'#8D90A8', font: { family:'Inter', size: 10 } }
+        }
+      }
+    };
+    if(weightChart){ weightChart.data = data; weightChart.options = options; weightChart.$dates = xDates; weightChart.update(); }
+    else { weightChart = new Chart(ctx, { type:'line', data, options }); weightChart.$dates = xDates; }
+  }catch(e){ /* charts failed; rest of the app still works */ }
+}
+
+// ---------- rendering: history ----------
+function renderTable(){
+  const wrap = document.getElementById('tableWrap');
+  const today = new Date();
+  const label = new Date(histViewYear, histViewMonth, 1).toLocaleDateString(undefined, { month:'long', year:'numeric' });
+  document.getElementById('histMonthNavTitle').textContent = label;
+  document.getElementById('nextHistMonthBtn').disabled = (histViewYear===today.getFullYear() && histViewMonth===today.getMonth());
+
+  const dates = allLoggedDates().filter(d=>{
+    const dt = parseISO(d);
+    return dt.getFullYear()===histViewYear && dt.getMonth()===histViewMonth;
+  }).reverse();
+  if(!dates.length){
+    wrap.innerHTML = '<div class="empty">No entries this month.</div>';
+    return;
+  }
+  let html = '';
+  for(const d of dates){
+    const e = entries[d];
+    const c = consumedTotal(e);
+    const b = hasBurned(e) ? e.burned : null;
+    const n = net(e);
+    const netTxt = n==null ? '—' : (n>0?'+':'')+n;
+    const netCls = n==null ? 'hist-col muted-col' : ('hist-net ' + (n<=0?'net-pos':'net-neg'));
+    const open = (d === expandedDate) ? ' open' : '';
+    const weekendCls = isWeekend(d) ? ' weekend' : '';
+    html += `<div class="hist-row${open}${weekendCls}" data-date="${d}">
+      <div class="hist-head" data-toggle="${d}">
+        <div class="hist-date">${fmtDate(d)}</div>
+        <div class="hist-col">${c==null?'—':c}</div>
+        <div class="hist-col">${b==null?'—':b}</div>
+        <div class="${netCls}">${netTxt}</div>
+        <div class="hist-chev">›</div>
+      </div>
+      <div class="hist-detail">${d===expandedDate ? renderDetail(d,e) : ''}</div>
+    </div>`;
+  }
+  wrap.innerHTML = html;
+
+  wrap.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const dt = el.dataset.toggle;
+      expandedDate = (expandedDate === dt) ? null : dt;
+      renderTable();
+    });
+  });
+  wireDetailEvents();
+}
+
+// The expanded day detail mirrors the "Logged" card's own item-row look (same editable fields,
+// same width/color pattern), so a day you reopen in History feels like the same list you built it
+// with. Burned calories get their own row in the same style, but set off from the food items by a
+// clear divider — they're a different kind of entry, not one more food item.
+function renderDetail(d, e){
+  const mode = e ? e.mode : null;
+  let html = '';
+  if(mode === 'items'){
+    html += `<div class="hist-section-label">Food</div>`;
+    (e.items||[]).forEach(it=>{
+      html += `<div class="item-row hist-item-row" data-item="${it.id}">
+        <input type="text" class="item-desc-input" data-desc-item="${it.id}" value="${(it.desc||'').replace(/"/g,'&quot;')}">
+        <div class="item-cal-wrap">
+          <input type="number" class="item-cal-input" data-cal-item="${it.id}" value="${it.cal}" inputmode="numeric">
+          <span class="item-cal-unit">kcal</span>
+        </div>
+        <button class="item-del" data-del-item="${it.id}" type="button">✕</button>
+      </div>`;
+    });
+  } else if(mode === 'simple'){
+    html += `<div class="hist-section-label">Daily total (legacy)</div>
+      <div class="item-row hist-item-row">
+        <div class="item-desc">Manual total</div>
+        <div class="item-cal-wrap">
+          <input type="number" class="hist-total-input" value="${e.total}">
+          <span class="item-cal-unit">kcal</span>
+        </div>
+      </div>`;
+  } else {
+    html += `<div class="hist-section-label">Food</div><div class="card-sub" style="margin:0;">Not logged.</div>`;
+  }
+  html += `<div class="hist-divider"></div>
+    <div class="hist-section-label">Burned</div>
+    <div class="item-row hist-item-row">
+      <div class="item-desc">Calories burned</div>
+      <div class="item-cal-wrap">
+        <input type="number" class="item-cal-input hist-burned-input" value="${e && hasBurned(e) ? e.burned : ''}" placeholder="—" inputmode="numeric">
+        <span class="item-cal-unit">kcal</span>
+      </div>
+    </div>`;
+  const dayWeightKeys = Object.keys(weightReadings).filter(ts => ts.slice(0,10) === d).sort();
+  html += `<div class="hist-divider"></div><div class="hist-section-label">Weight</div>`;
+  if(dayWeightKeys.length){
+    dayWeightKeys.forEach(ts=>{
+      const r = weightReadings[ts];
+      html += `<div class="item-row hist-item-row" data-weight-row="${ts}">
+        <input type="time" class="item-desc-input" data-hist-weight-time="${ts}" value="${ts.slice(11,16)}">
+        <div class="item-cal-wrap">
+          <input type="number" class="item-cal-input" data-hist-weight="${ts}" value="${r.value}" step="0.1" inputmode="decimal">
+          <span class="item-cal-unit">${r.unit}</span>
+        </div>
+        <button class="item-del" data-hist-weight-del="${ts}" type="button">✕</button>
+      </div>`;
+    });
+  } else {
+    html += `<div class="card-sub" style="margin:0;">Not logged.</div>`;
+  }
+  html += `<div class="hist-actions">
+    <button class="btn-small" data-delete-day type="button">Delete day</button>
+  </div>`;
+  return html;
+}
+
+function wireDetailEvents(){
+  if(!expandedDate) return;
+  const row = document.querySelector(`.hist-row[data-date="${expandedDate}"]`);
+  if(!row) return;
+  const d = expandedDate;
+
+  row.querySelectorAll('[data-del-item]').forEach(btn=>{
+    btn.addEventListener('click', async (ev)=>{
+      ev.stopPropagation();
+      const id = btn.dataset.delItem;
+      entries[d].items = (entries[d].items||[]).filter(it=>it.id!==id);
+      await persist();
+      renderAll();
+    });
+  });
+
+  row.querySelectorAll('[data-desc-item], [data-cal-item]').forEach(input=>{
+    input.addEventListener('click', ev=>ev.stopPropagation());
+    input.addEventListener('change', async ()=>{
+      const itemRow = input.closest('[data-item]');
+      if(!itemRow) return;
+      const id = itemRow.dataset.item;
+      const item = (entries[d].items||[]).find(it=>it.id===id);
+      if(!item) return;
+      const descVal = itemRow.querySelector('[data-desc-item]').value.trim();
+      const calVal = parseInt(itemRow.querySelector('[data-cal-item]').value, 10);
+      if(descVal) item.desc = descVal;
+      if(!isNaN(calVal)) item.cal = calVal;
+      await persist();
+      renderAll();
+    });
+  });
+
+  const totalInput = row.querySelector('.hist-total-input');
+  if(totalInput){
+    totalInput.addEventListener('click', ev=>ev.stopPropagation());
+    totalInput.addEventListener('change', async ()=>{
+      const val = parseInt(totalInput.value, 10);
+      if(isNaN(val)) return;
+      entries[d].total = val;
+      await persist();
+      renderAll();
+    });
+  }
+
+  const burnedInput = row.querySelector('.hist-burned-input');
+  if(burnedInput){
+    burnedInput.addEventListener('click', ev=>ev.stopPropagation());
+    burnedInput.addEventListener('change', async ()=>{
+      const val = parseInt(burnedInput.value, 10);
+      if(!entries[d]) entries[d] = blankEntry();
+      entries[d].burned = isNaN(val) ? null : val;
+      await persist();
+      renderAll();
+    });
+  }
+
+  row.querySelectorAll('[data-hist-weight-del]').forEach(btn=>{
+    btn.addEventListener('click', async (ev)=>{
+      ev.stopPropagation();
+      delete weightReadings[btn.dataset.histWeightDel];
+      await persistWeights();
+      renderAll();
+    });
+  });
+
+  row.querySelectorAll('[data-hist-weight]').forEach(inp=>{
+    inp.addEventListener('click', ev=>ev.stopPropagation());
+    inp.addEventListener('change', async ()=>{
+      const ts = inp.dataset.histWeight;
+      const val = parseFloat(inp.value);
+      if(isNaN(val) || !weightReadings[ts]){ inp.value = weightReadings[ts] ? weightReadings[ts].value : ''; return; }
+      weightReadings[ts].value = val;
+      await persistWeights();
+      renderAll();
+    });
+  });
+
+  row.querySelectorAll('[data-hist-weight-time]').forEach(inp=>{
+    inp.addEventListener('click', ev=>ev.stopPropagation());
+    inp.addEventListener('change', async ()=>{
+      retimeWeightEntry(inp.dataset.histWeightTime, inp.value);
+      await persistWeights();
+      renderAll();
+    });
+  });
+
+  const delBtn = row.querySelector('[data-delete-day]');
+  if(delBtn){
+    delBtn.addEventListener('click', async (ev)=>{
+      ev.stopPropagation();
+      delete entries[d];
+      expandedDate = null;
+      await persist();
+      renderAll();
+    });
+  }
+}
+
+// ---------- render all ----------
+function renderAll(){
+  renderTrendChart();
+  renderWeightChart();
+  renderTable();
+  renderRing();
+  renderBurnCard();
+  renderWeightCard();
+  renderHistoryCard();
+  renderHeaderStats();
+}
+
+// ---------- haptic feedback (silently no-ops where unsupported) ----------
+function haptic(ms){
+  try{ if(navigator.vibrate) navigator.vibrate(ms || 10); }catch(e){}
+}
+
+// ---------- press-and-hold chart tooltips (replaces the old tap-to-persist behavior) ----------
+// Press and hold a bar/point to show its label; sliding to another bar/point while still holding
+// switches the label (with a light haptic tick); releasing hides it. Each chart's own `events:[]`
+// option hands all interaction to this handler, driven through Chart.js's own tooltip/hover state
+// (setActiveElements) so the label keeps the app's existing tooltip styling.
+function setupPressHoldChart(canvasId, getChart){
+  const canvas = document.getElementById(canvasId);
+  if(!canvas) return;
+  let holding = false;
+  let lastIndex = null;
+
+  function indexAt(clientX, clientY){
+    const chart = getChart();
+    if(!chart) return null;
+    const rect = canvas.getBoundingClientRect();
+    const x = clientX - rect.left, y = clientY - rect.top;
+    const els = chart.getElementsAtEventForMode({ x, y }, 'index', { intersect: false }, true);
+    return els.length ? els[0].index : null;
+  }
+  function showIndex(index){
+    const chart = getChart();
+    if(!chart) return;
+    const active = [];
+    chart.data.datasets.forEach((ds, di)=>{ if(ds.data[index] != null) active.push({ datasetIndex: di, index }); });
+    if(!active.length) return;
+    chart.tooltip.setActiveElements(active, { x: 0, y: 0 });
+    chart.setActiveElements(active);
+    chart.update();
+  }
+  function hide(){
+    const chart = getChart();
+    if(!chart) return;
+    chart.tooltip.setActiveElements([], { x: 0, y: 0 });
+    chart.setActiveElements([]);
+    chart.update();
+  }
+  function onDown(ev){
+    const idx = indexAt(ev.clientX, ev.clientY);
+    if(idx == null) return;
+    holding = true;
+    lastIndex = idx;
+    haptic();
+    showIndex(idx);
+    ev.preventDefault();
+  }
+  function onMove(ev){
+    if(!holding) return;
+    const idx = indexAt(ev.clientX, ev.clientY);
+    if(idx == null || idx === lastIndex) return;
+    lastIndex = idx;
+    haptic(8);
+    showIndex(idx);
+    ev.preventDefault();
+  }
+  function onUp(){
+    if(!holding) return;
+    holding = false;
+    lastIndex = null;
+    hide();
+  }
+  canvas.style.touchAction = 'none';
+  canvas.addEventListener('pointerdown', onDown);
+  canvas.addEventListener('pointermove', onMove);
+  canvas.addEventListener('pointerup', onUp);
+  canvas.addEventListener('pointercancel', onUp);
+  canvas.addEventListener('pointerleave', onUp);
+}
+
+// ---------- food logging: mode + items ----------
+let inputMode = 'ai'; // 'ai'|'manual' — which input UI shows inside the items view; AI is the default
+
+// ---------- AI calorie estimate (calls a Firebase Cloud Function; the function holds the Claude API key) ----------
+const AI_ESTIMATE_URL = 'https://us-central1-monstrao-e04ac.cloudfunctions.net/estimateCalories';
+async function requestCalorieEstimate(description, photo){
+  await ensureAuth();
+  const user = firebase.auth().currentUser;
+  if(!user) throw new Error('Not signed in yet — try again in a moment.');
+  const token = await user.getIdToken();
+  const payload = { description };
+  if(photo) payload.image = { data: photo.base64, mediaType: photo.mediaType };
+  const resp = await fetch(AI_ESTIMATE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+    body: JSON.stringify(payload)
+  });
+  let body = null;
+  try{ body = await resp.json(); }catch(e){ /* non-JSON error response */ }
+  if(!resp.ok){
+    throw new Error((body && body.error) ? body.error : `Estimate failed (${resp.status}).`);
+  }
+  if(!body || typeof body.calories !== 'number' || !body.label){
+    throw new Error('Got an unusable response — try again.');
+  }
+  return body; // { label, calories }
+}
+
+// ---------- once-daily cleanup pass for "AI Recommended" (see applySuggestionCleanup above) ----------
+const SUGGESTION_CLEANUP_URL = 'https://us-central1-monstrao-e04ac.cloudfunctions.net/cleanupFoodSuggestions';
+const CLEANUP_MAX_CLUSTERS = 40; // caps the payload (and the token cost) regardless of history length
+
+async function loadSuggestionCleanup(){
+  try{
+    await ensureAuth();
+    const snap = await fbDb.collection('monstrao').doc('suggestionCleanup').get();
+    if(snap.exists){
+      const data = snap.data();
+      const parsed = (data && data.json) ? JSON.parse(data.json) : null;
+      if(parsed && typeof parsed.date === 'string' && Array.isArray(parsed.groups)) suggestionCleanup = parsed;
+    }
+  }catch(e){ /* offline, or nothing cached yet — fine, the local heuristic works unchanged */ }
+}
+
+// Builds the compact digest sent to the cleanup call: one row per locally-clustered food (not raw
+// log items), so the payload stays small and bounded no matter how many months of history exist.
+function buildSuggestionClusterDigest(){
+  const occurrences = suggestCollectOccurrences();
+  const clusters = suggestClusterItems(occurrences);
+  return clusters
+    .filter(c => c.items.length >= SUGGEST_MIN_OCCURRENCES)
+    .map(c=>{
+      const mostRecent = c.items.reduce((a,b)=> b.ts > a.ts ? b : a);
+      const avgCal = Math.round(c.items.reduce((s,i)=>s+i.cal,0) / c.items.length);
+      return {
+        key: c.descRep,
+        count: c.items.length,
+        avgCal,
+        lastCal: mostRecent.cal,
+        lastSeen: new Date(mostRecent.ts).toISOString().slice(0,10)
+      };
+    })
+    .sort((a,b)=> b.count - a.count)
+    .slice(0, CLEANUP_MAX_CLUSTERS);
+}
+
+// Fire-and-forget: called once at startup. No-ops (silently) if today's cleanup is already cached
+// — including one another device already fetched today, via the shared Firestore doc — if there
+// isn't enough distinct history yet to be worth a pass, or if the network/function is unreachable.
+// Never blocks or delays the suggestions already showing from the local heuristic.
+async function maybeRefreshSuggestionCleanup(){
+  const today = todayStr();
+  if(suggestionCleanup && suggestionCleanup.date === today) return;
+  const digest = buildSuggestionClusterDigest();
+  if(digest.length < 3) return;
+  try{
+    await ensureAuth();
+    const user = firebase.auth().currentUser;
+    if(!user) return;
+    const token = await user.getIdToken();
+    const resp = await fetch(SUGGESTION_CLEANUP_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ clusters: digest })
+    });
+    if(!resp.ok) return;
+    const body = await resp.json();
+    if(!body || !Array.isArray(body.groups)) return;
+    suggestionCleanup = { date: today, groups: body.groups };
+    fbDb.collection('monstrao').doc('suggestionCleanup').set({
+      json: JSON.stringify(suggestionCleanup),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(()=>{});
+    renderFoodForm(); // re-render suggestions now that a cleaned-up pool is available
+  }catch(e){ /* offline or function unreachable — local heuristic keeps working unchanged */ }
+}
+
+// ---------- rendering: "frequently at this time" quick-add suggestions ----------
+function renderSuggestions(d, e){
+  const section = document.getElementById('suggestSection');
+  const list = document.getElementById('suggestList');
+  if(!section || !list) return;
+
+  // only meaningful for today, while actively adding items (not a manual-total day, not another
+  // date being backfilled — "now" only means something when you're logging as you go)
+  const isToday = d === todayStr();
+  const blockedByManualTotal = !!(e && e.mode === 'simple');
+  if(!isToday || blockedByManualTotal){
+    section.style.display = 'none';
+    list.innerHTML = '';
+    return;
+  }
+
+  const suggestions = computeFoodSuggestions();
+  if(!suggestions.length){
+    section.style.display = 'none';
+    list.innerHTML = '';
+    return;
+  }
+
+  section.style.display = '';
+  list.innerHTML = suggestions.map((s, i) => `
+    <div class="suggest-row">
+      <div class="suggest-desc">${s.desc}</div>
+      <div class="suggest-cal-wrap">
+        <input type="number" class="suggest-cal-input" data-suggest-cal="${i}" value="${s.cal}" inputmode="numeric">
+        <span class="suggest-cal-unit">kcal</span>
+      </div>
+      <button class="suggest-add" data-suggest-add="${i}" type="button" aria-label="Add ${s.desc}">+</button>
+    </div>`).join('');
+
+  list.querySelectorAll('[data-suggest-add]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const idx = Number(btn.dataset.suggestAdd);
+      const s = suggestions[idx];
+      const calInput = list.querySelector(`[data-suggest-cal="${idx}"]`);
+      const cal = parseInt(calInput.value, 10);
+      if(isNaN(cal)) return;
+      const dd = document.getElementById('foodDate').value || todayStr();
+      if(!entries[dd]) entries[dd] = blankEntry();
+      if(entries[dd].mode === 'simple') return; // guarded by visibility above, but don't risk clobbering a manual total
+      entries[dd].mode = 'items';
+      entries[dd].items = entries[dd].items || [];
+      entries[dd].items.push({ id: genId(), desc: s.desc, cal, ts: Date.now() });
+      await persist();
+      renderAll();
+      renderFoodForm();
+    });
+  });
+}
+
+// Builds the little sparkle/manual label for the input-mode switch button, matching the
+// "AI Recommended" sparkle icon used elsewhere.
+function inputSwitchHTML(toMode){
+  if(toMode === 'manual'){
+    return 'Manual entry';
+  }
+  return `<svg class="ai-sparkle" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true">
+      <path d="M12 2.5c.3 0 .57.2.65.49l1.36 4.7a4.2 4.2 0 0 0 2.87 2.87l4.7 1.36a.68.68 0 0 1 0 1.3l-4.7 1.36a4.2 4.2 0 0 0-2.87 2.87l-1.36 4.7a.68.68 0 0 1-1.3 0l-1.36-4.7a4.2 4.2 0 0 0-2.87-2.87l-4.7-1.36a.68.68 0 0 1 0-1.3l4.7-1.36a4.2 4.2 0 0 0 2.87-2.87l1.36-4.7c.08-.29.35-.49.65-.49Z"/>
+      <path d="M19 2c.22 0 .41.14.48.35l.42 1.26 1.26.42c.21.07.35.26.35.48s-.14.41-.35.48l-1.26.42-.42 1.26a.5.5 0 0 1-.96 0l-.42-1.26-1.26-.42A.5.5 0 0 1 16.5 4.5c0-.22.14-.41.35-.48l1.26-.42.42-1.26c.07-.21.26-.35.47-.35Z"/>
+    </svg><span>Ask AI</span>`;
+}
+
+function renderFoodForm(){
+  const d = document.getElementById('foodDate').value || todayStr();
+  const e = entries[d];
+  renderFoodSummary(d, e);
+
+  // the items list itself lives in the "Logged" card below (renderLoggedCard); this card only
+  // decides which input UI to show: the "already has a manual total" note (a legacy daily total
+  // from before that feature was removed — still editable from History), or the AI/manual input.
+  const clearNote = document.getElementById('itemsClearNote');
+  const head = document.getElementById('foodInputHead');
+  const switchBtn = document.getElementById('inputSwitchBtn');
+  const manualView = document.getElementById('manualInputView');
+  const aiView = document.getElementById('aiInputView');
+
+  if(e && e.mode === 'simple'){
+    if(clearNote){
+      clearNote.style.display = 'flex';
+      const txt = clearNote.querySelector('.clear-note-text');
+      if(txt) txt.textContent = `This day has a manual total (${e.total} kcal).`;
+    }
+    head.style.display = 'none';
+    manualView.style.display = 'none';
+    aiView.style.display = 'none';
+  } else {
+    if(clearNote) clearNote.style.display = 'none';
+    head.style.display = '';
+    manualView.style.display = (inputMode === 'manual') ? '' : 'none';
+    aiView.style.display = (inputMode === 'ai') ? '' : 'none';
+    document.getElementById('foodInputHeadLabel').textContent =
+      inputMode === 'ai' ? 'Describe what you ate' : 'Add an item';
+    switchBtn.innerHTML = inputSwitchHTML(inputMode === 'ai' ? 'manual' : 'ai');
+    switchBtn.classList.toggle('manual-mode', inputMode === 'ai');
+  }
+
+  renderLoggedCard(d, e);
+  renderSuggestions(d, e);
+}
+
+// ---------- rendering: the "Logged" card (items list / daily total for the selected food date) ----------
+function renderLoggedCard(d, e){
+  const sub = document.getElementById('loggedSub');
+  if(sub) sub.textContent = (d === todayStr()) ? 'Today' : fmtDate(d);
+
+  const list = document.getElementById('itemsList');
+  const totalRow = document.getElementById('itemsTotalRow');
+  const simpleRow = document.getElementById('simpleTotalRow');
+  const emptyMsg = document.getElementById('loggedEmptyMsg');
+  if(!list || !totalRow || !simpleRow || !emptyMsg) return;
+
+  if(e && e.mode === 'items' && (e.items||[]).length){
+    const items = e.items;
+    list.innerHTML = items.map(it => `
+      <div class="item-row" data-item="${it.id}">
+        <div class="item-desc">${it.desc}</div>
+        <div class="item-cal-wrap">
+          <input type="number" class="item-cal-input" data-cal-item="${it.id}" value="${it.cal}" inputmode="numeric">
+          <span class="item-cal-unit">kcal</span>
+        </div>
+        <button class="item-del" data-del-item="${it.id}" type="button">✕</button>
+      </div>`).join('');
+    totalRow.style.display = 'flex';
+    simpleRow.style.display = 'none';
+    emptyMsg.style.display = 'none';
+    document.getElementById('itemsTotalVal').textContent = items.reduce((s,i)=>s+i.cal,0);
+    list.querySelectorAll('[data-del-item]').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        entries[d].items = entries[d].items.filter(it=>it.id!==btn.dataset.delItem);
+        await persist(); renderAll(); renderFoodForm();
+      });
+    });
+    list.querySelectorAll('[data-cal-item]').forEach(inp=>{
+      inp.addEventListener('change', async ()=>{
+        const val = parseInt(inp.value, 10);
+        if(isNaN(val)){ inp.value = (entries[d].items.find(it=>it.id===inp.dataset.calItem)||{}).cal ?? ''; return; }
+        const item = entries[d].items.find(it=>it.id===inp.dataset.calItem);
+        if(!item) return;
+        item.cal = val;
+        await persist(); renderAll(); renderFoodForm();
+      });
+    });
+  } else if(e && e.mode === 'simple' && e.total != null){
+    list.innerHTML = '';
+    totalRow.style.display = 'none';
+    simpleRow.style.display = 'flex';
+    emptyMsg.style.display = 'none';
+    document.getElementById('simpleTotalVal').textContent = e.total;
+  } else {
+    list.innerHTML = '';
+    totalRow.style.display = 'none';
+    simpleRow.style.display = 'none';
+    emptyMsg.style.display = '';
+  }
+}
+
+// ---------- init ----------
+async function init(){
+  const foodDateInput = document.getElementById('foodDate');
+  foodDateInput.value = todayStr();
+  foodDateInput.max = todayStr();
+
+  const burnDateInput = document.getElementById('burnDate');
+  burnDateInput.value = yesterdayStr();
+  burnDateInput.max = todayStr();
+  burnDateInput.addEventListener('change', ()=>{ renderBurnCard(); });
+
+  document.getElementById('burnSummaryBtn').addEventListener('click', ()=>{
+    burnExpanded = !burnExpanded;
+    renderBurnCard();
+  });
+
+  const foodStatus = document.getElementById('foodStatus');
+  const burnStatus = document.getElementById('burnStatus');
+
+  const now = new Date();
+  histViewYear = now.getFullYear();
+  histViewMonth = now.getMonth();
+
+  // -- wire every control up front, before any async load/render --
+  foodDateInput.addEventListener('change', ()=>{ renderFoodForm(); });
+
+  document.getElementById('foodSummaryBtn').addEventListener('click', ()=>{
+    haptic();
+    foodExpanded = !foodExpanded;
+    renderFoodForm();
+  });
+
+  document.getElementById('clearTotalForItemsBtn').addEventListener('click', async ()=>{
+    const d = foodDateInput.value || todayStr();
+    if(!entries[d]) entries[d] = blankEntry();
+    entries[d].mode = 'items'; entries[d].items = []; entries[d].total = null;
+    await persist(); renderAll(); renderFoodForm();
+  });
+
+  document.getElementById('inputSwitchBtn').addEventListener('click', ()=>{
+    haptic();
+    inputMode = (inputMode === 'ai') ? 'manual' : 'ai';
+    renderFoodForm();
+  });
+
+  // ---- AI estimate flow: describe / speak / photograph -> estimate -> edit/approve -> add as an ordinary item ----
+  const aiDesc = document.getElementById('aiDesc');
+  const aiStatus = document.getElementById('aiStatus');
+  const aiResult = document.getElementById('aiResult');
+  const aiLabelInput = document.getElementById('aiLabelInput');
+  const aiCalInput = document.getElementById('aiCalInput');
+  const aiEstimateBtn = document.getElementById('aiEstimateBtn');
+
+  function resetAiResult(){
+    aiResult.style.display = 'none';
+    aiLabelInput.value = ''; aiCalInput.value = '';
+  }
+
+  // guarded status setter: cancels any pending auto-clear from a PREVIOUS message before showing a
+  // new one, so a slow-to-expire old timeout can never wipe out a newer message on this same line.
+  let aiStatusTimer = null;
+  function setAiStatus(text, cls, autoClearMs){
+    if(aiStatusTimer){ clearTimeout(aiStatusTimer); aiStatusTimer = null; }
+    aiStatus.textContent = text;
+    aiStatus.className = 'status' + (cls ? ' ' + cls : '');
+    if(autoClearMs){
+      aiStatusTimer = setTimeout(()=>{ aiStatus.textContent=''; aiStatus.className='status'; aiStatusTimer=null; }, autoClearMs);
+    }
+  }
+
+  // -- voice input: Web Speech API fills aiDesc live; purely client-side, nothing sent anywhere --
+  const aiMicBtn = document.getElementById('aiMicBtn');
+  const SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let micListening = false;
+  let micBaseText = '';
+  let stopMic = () => {}; // overwritten below when voice is supported; safe no-op otherwise
+
+  if(!SpeechRecognitionCtor){
+    aiMicBtn.disabled = true;
+    aiMicBtn.title = 'Voice input is not supported on this browser.';
+  } else {
+    const recognition = new SpeechRecognitionCtor();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+      micListening = true;
+      aiMicBtn.classList.add('listening');
+    };
+    recognition.onresult = (event) => {
+      let interim = '';
+      let finalChunk = '';
+      for(let i = event.resultIndex; i < event.results.length; i++){
+        const transcript = event.results[i][0].transcript;
+        if(event.results[i].isFinal) finalChunk += transcript + ' ';
+        else interim += transcript;
+      }
+      if(finalChunk) micBaseText = (micBaseText + finalChunk);
+      aiDesc.value = (micBaseText + interim).trim();
+    };
+    recognition.onerror = (event) => {
+      if(event.error === 'not-allowed'){
+        setAiStatus('⚠️ Microphone access denied — allow it in Safari settings for this site.', 'error', 4000);
+      } else if(event.error !== 'no-speech' && event.error !== 'aborted'){
+        setAiStatus('⚠️ Voice input error: ' + event.error, 'error', 3000);
+      }
+    };
+    recognition.onend = () => {
+      micListening = false;
+      aiMicBtn.classList.remove('listening');
+    };
+
+    aiMicBtn.addEventListener('click', () => {
+      if(micListening){
+        recognition.stop();
+      } else {
+        micBaseText = aiDesc.value ? aiDesc.value.trim() + ' ' : '';
+        try{ recognition.start(); }catch(e){ /* already running — ignore */ }
+      }
+    });
+
+    stopMic = () => { if(micListening) recognition.stop(); };
+  }
+
+  // -- photo input: pick/capture -> resize client-side to a small JPEG -> preview + hold for upload --
+  const aiPhotoBtn = document.getElementById('aiPhotoBtn');
+  const aiPhotoInput = document.getElementById('aiPhotoInput');
+  const aiPhotoPreview = document.getElementById('aiPhotoPreview');
+  const aiPhotoThumb = document.getElementById('aiPhotoThumb');
+  const aiPhotoRemoveBtn = document.getElementById('aiPhotoRemoveBtn');
+  let selectedPhoto = null; // { base64, mediaType }
+
+  function clearSelectedPhoto(){
+    selectedPhoto = null;
+    aiPhotoPreview.style.display = 'none';
+    aiPhotoThumb.src = '';
+    aiPhotoInput.value = '';
+  }
+
+  function resizeImageToJpeg(file){
+    return new Promise((resolve, reject) => {
+      const objectUrl = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const MAX_EDGE = 1024;
+        const scale = Math.min(1, MAX_EDGE / Math.max(img.width, img.height));
+        const w = Math.max(1, Math.round(img.width * scale));
+        const h = Math.max(1, Math.round(img.height * scale));
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(objectUrl);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        resolve({ dataUrl, base64: dataUrl.split(',')[1], mediaType: 'image/jpeg' });
+      };
+      img.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error('decode failed')); };
+      img.src = objectUrl;
+    });
+  }
+
+  function readFileAsDataUrl(file){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  aiPhotoBtn.addEventListener('click', () => aiPhotoInput.click());
+  aiPhotoRemoveBtn.addEventListener('click', clearSelectedPhoto);
+
+  aiPhotoInput.addEventListener('change', async () => {
+    const file = aiPhotoInput.files && aiPhotoInput.files[0];
+    if(!file) return;
+    try{
+      const resized = await resizeImageToJpeg(file);
+      selectedPhoto = { base64: resized.base64, mediaType: resized.mediaType };
+      aiPhotoThumb.src = resized.dataUrl;
+      aiPhotoPreview.style.display = '';
+    }catch(e){
+      // canvas couldn't decode it (e.g. a HEIC the browser won't draw) — fall back to sending the
+      // original file as-is rather than blocking the feature; worst case the API rejects the format.
+      try{
+        const dataUrl = await readFileAsDataUrl(file);
+        selectedPhoto = { base64: dataUrl.split(',')[1], mediaType: file.type || 'image/jpeg' };
+        aiPhotoThumb.src = dataUrl;
+        aiPhotoPreview.style.display = '';
+      }catch(e2){
+        setAiStatus('⚠️ Could not read that photo — try a different one.', 'error', 3000);
+      }
+    }
+  });
+
+  document.getElementById('aiDescClearBtn').addEventListener('click', () => {
+    stopMic();
+    aiDesc.value = '';
+    aiDesc.focus();
+  });
+
+  aiEstimateBtn.addEventListener('click', async ()=>{
+    stopMic();
+    const description = aiDesc.value.trim();
+    if(!description && !selectedPhoto){
+      setAiStatus('⚠️ Describe the food or add a photo.', 'error');
+      return;
+    }
+    resetAiResult();
+    aiEstimateBtn.disabled = true;
+    setAiStatus('Estimating…');
+    try{
+      const { label, calories } = await requestCalorieEstimate(description, selectedPhoto);
+      aiLabelInput.value = label;
+      aiCalInput.value = calories;
+      aiResult.style.display = '';
+      setAiStatus('');
+    }catch(err){
+      setAiStatus('⚠️ ' + (err && err.message ? err.message : 'Estimate failed.'), 'error');
+    }
+    aiEstimateBtn.disabled = false;
+  });
+
+  document.getElementById('aiRetryBtn').addEventListener('click', ()=>{
+    stopMic();
+    aiDesc.value = '';
+    clearSelectedPhoto();
+    resetAiResult();
+    setAiStatus('');
+  });
+
+  document.getElementById('aiAddBtn').addEventListener('click', async ()=>{
+    const d = foodDateInput.value || todayStr();
+    const desc = aiLabelInput.value.trim();
+    const cal = parseInt(aiCalInput.value, 10);
+    if(!desc || isNaN(cal)){
+      setAiStatus('⚠️ Enter a description and calories.', 'error');
+      return;
+    }
+    if(!entries[d]) entries[d] = blankEntry();
+    if(entries[d].mode === 'simple'){
+      setAiStatus('⚠️ This day has a manual total — clear it first.', 'error');
+      return;
+    }
+    entries[d].mode = 'items';
+    entries[d].items = entries[d].items || [];
+    entries[d].items.push({ id: genId(), desc, cal, ts: Date.now() });
+    await persist();
+    aiDesc.value = '';
+    clearSelectedPhoto();
+    resetAiResult();
+    setAiStatus('✅ Item added.', 'success', 1400);
+    renderAll(); renderFoodForm();
+  });
+
+  document.getElementById('addItemBtn').addEventListener('click', async ()=>{
+    const d = foodDateInput.value || todayStr();
+    const descInput = document.getElementById('itemDesc');
+    const calInput = document.getElementById('itemCal');
+    const desc = descInput.value.trim();
+    const cal = parseInt(calInput.value, 10);
+    if(!desc || isNaN(cal)){
+      foodStatus.textContent = '⚠️ Enter a description and calories.';
+      foodStatus.className = 'status error';
+      return;
+    }
+    if(!entries[d]) entries[d] = blankEntry();
+    if(entries[d].mode === 'simple'){
+      foodStatus.textContent = '⚠️ This day has a manual total — clear it first.';
+      foodStatus.className = 'status error';
+      return;
+    }
+    entries[d].mode = 'items';
+    entries[d].items = entries[d].items || [];
+    entries[d].items.push({ id: genId(), desc, cal, ts: Date.now() });
+    await persist();
+    descInput.value = ''; calInput.value = '';
+    foodStatus.textContent = '✅ Item added.';
+    foodStatus.className = 'status success';
+    setTimeout(()=>{ foodStatus.textContent=''; foodStatus.className='status'; }, 1400);
+    renderAll(); renderFoodForm();
+  });
+
+  document.getElementById('saveBurnBtn').addEventListener('click', async ()=>{
+    const d = burnDateInput.value || yesterdayStr();
+    const val = parseInt(document.getElementById('burnedInput').value, 10);
+    if(isNaN(val)){
+      burnStatus.textContent = '⚠️ Enter calories burned.';
+      burnStatus.className = 'status error';
+      return;
+    }
+    if(!entries[d]) entries[d] = blankEntry();
+    entries[d].burned = val;
+    await persist();
+    burnStatus.textContent = '✅ Saved.';
+    burnStatus.className = 'status success';
+    setTimeout(()=>{ burnStatus.textContent=''; burnStatus.className='status'; }, 1400);
+    burnExpanded = false;
+    renderAll();
+  });
+
+  // Weight now lives inside the Trends card and follows its granularity/range toggles.
+  document.getElementById('trendGranRow').addEventListener('click', (ev)=>{
+    const btn = ev.target.closest('.mode-btn');
+    if(!btn) return;
+    haptic();
+    trendGranularity = btn.dataset.gran;
+    renderTrendChart();
+    renderWeightChart();
+  });
+
+  document.getElementById('trendRangeRow').addEventListener('click', (ev)=>{
+    const btn = ev.target.closest('.range-btn');
+    if(!btn) return;
+    haptic();
+    trendRange = btn.dataset.range;
+    renderTrendChart();
+    renderWeightChart();
+  });
+
+  const weightStatus = document.getElementById('weightStatus');
+  const importWeightFile = document.getElementById('importWeightFile');
+  document.getElementById('importWeightBtn').addEventListener('click', ()=> importWeightFile.click());
+  importWeightFile.addEventListener('change', async (ev)=>{
+    const file = ev.target.files[0];
+    if(!file) return;
+    try{
+      const text = await file.text();
+      const parsed = parseWeightCSV(text);
+      let added = 0;
+      for(const ts in parsed){
+        if(!weightReadings[ts]){ weightReadings[ts] = parsed[ts]; added++; }
+      }
+      await persistWeights();
+      renderWeightChart();
+      renderWeightCard();
+      weightStatus.textContent = added
+        ? `✅ Imported ${added} new reading${added===1?'':'s'}.`
+        : 'No new readings found — already up to date.';
+      weightStatus.className = 'status success';
+    }catch(e){
+      weightStatus.textContent = 'Could not read that file.';
+      weightStatus.className = 'status error';
+    }
+    setTimeout(()=>{ weightStatus.textContent=''; weightStatus.className='status'; }, 3000);
+    importWeightFile.value = '';
+  });
+
+  // ---- collapsible "The Weight" card: manual entry or CSV import ----
+  const weightDateInput = document.getElementById('weightDateInput');
+  const weightTimeInput = document.getElementById('weightTimeInput');
+  weightDateInput.value = todayStr();
+  weightDateInput.max = todayStr();
+  weightTimeInput.value = currentHHMM();
+  weightDateInput.addEventListener('change', ()=>{ renderWeightCard(); });
+
+  document.getElementById('weightSummaryBtn').addEventListener('click', ()=>{
+    haptic();
+    weightExpanded = !weightExpanded;
+    if(weightExpanded && !weightTimeInput.value) weightTimeInput.value = currentHHMM();
+    renderWeightCard();
+  });
+
+  document.getElementById('historySummaryBtn').addEventListener('click', ()=>{
+    haptic();
+    historyExpanded = !historyExpanded;
+    renderHistoryCard();
+  });
+
+  document.getElementById('weightManualModeBtn').addEventListener('click', ()=>{
+    haptic();
+    weightInputMode = 'manual';
+    if(!weightTimeInput.value) weightTimeInput.value = currentHHMM();
+    renderWeightCard();
+  });
+  document.getElementById('weightCsvModeBtn').addEventListener('click', ()=>{
+    haptic();
+    weightInputMode = 'csv';
+    renderWeightCard();
+  });
+
+  document.getElementById('saveWeightBtn').addEventListener('click', async ()=>{
+    const d = weightDateInput.value || todayStr();
+    const val = parseFloat(document.getElementById('weightValueInput').value);
+    if(isNaN(val)){
+      weightStatus.textContent = '⚠️ Enter a weight.';
+      weightStatus.className = 'status error';
+      return;
+    }
+    // key by the chosen date + the time field (defaults to now, but the user can back-date it);
+    // a numeric suffix keeps multiple readings in the same minute from colliding
+    const time = weightTimeInput.value || currentHHMM();
+    let ts = `${d}T${time}`;
+    let suffix = 0;
+    while(weightReadings[ts]){ suffix++; ts = `${d}T${time}:${String(suffix).padStart(2,'0')}`; }
+    weightReadings[ts] = { value: val, unit: weightUnit() };
+    await persistWeights();
+    document.getElementById('weightValueInput').value = '';
+    weightTimeInput.value = currentHHMM();
+    weightStatus.textContent = '✅ Saved.';
+    weightStatus.className = 'status success';
+    setTimeout(()=>{ weightStatus.textContent=''; weightStatus.className='status'; }, 1400);
+    renderWeightChart();
+    renderWeightCard();
+  });
+
+  document.getElementById('prevHistMonthBtn').addEventListener('click', ()=>{
+    histViewMonth--; if(histViewMonth < 0){ histViewMonth = 11; histViewYear--; }
+    renderTable();
+  });
+  document.getElementById('nextHistMonthBtn').addEventListener('click', ()=>{
+    histViewMonth++; if(histViewMonth > 11){ histViewMonth = 0; histViewYear++; }
+    renderTable();
+  });
+
+  const backupStatus = document.getElementById('backupStatus');
+  document.getElementById('exportBtn').addEventListener('click', ()=>{
+    const blob = new Blob([JSON.stringify(entries, null, 2)], { type:'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `monstrao-backup-${todayStr()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    backupStatus.textContent = 'Backup downloaded.';
+    setTimeout(()=>{ backupStatus.textContent=''; }, 2000);
+  });
+
+  const importFile = document.getElementById('importFile');
+  document.getElementById('importBtn').addEventListener('click', ()=> importFile.click());
+  importFile.addEventListener('change', async (ev)=>{
+    const file = ev.target.files[0];
+    if(!file) return;
+    try{
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      for(const [date, val] of Object.entries(parsed)){
+        if(val && typeof val === 'object' && 'mode' in val){
+          if(!entries[date]){ entries[date] = val; }
+          else {
+            const cur = entries[date];
+            if(!cur.mode && val.mode){ cur.mode = val.mode; cur.items = val.items; cur.total = val.total; }
+            if(cur.burned == null && val.burned != null){ cur.burned = val.burned; }
+          }
+        } else if(val && typeof val.consumed === 'number'){
+          if(!entries[date]){
+            entries[date] = { mode:'simple', items:null, total: val.consumed, burned: (typeof val.burned==='number'? val.burned : null) };
+          } else {
+            const cur = entries[date];
+            if(!cur.mode){ cur.mode='simple'; cur.total=val.consumed; cur.items=null; }
+            if(cur.burned == null && typeof val.burned==='number'){ cur.burned = val.burned; }
+          }
+        }
+      }
+      await persist();
+      renderAll(); renderFoodForm();
+      backupStatus.textContent = 'Backup imported and merged.';
+    }catch(e){
+      backupStatus.textContent = 'Could not read that file.';
+    }
+    setTimeout(()=>{ backupStatus.textContent=''; }, 2500);
+    importFile.value = '';
+  });
+
+  // -- now load data and do the first render --
+  await loadEntries();
+  await loadWeights();
+  await loadSuggestionCleanup();
+  renderAll();
+  renderFoodForm();
+  attachLiveSync();
+  maybeRefreshSuggestionCleanup(); // fire-and-forget; re-renders suggestions on success
+
+  setupPressHoldChart('chart', ()=>chart);
+  setupPressHoldChart('netChart', ()=>netChart);
+  setupPressHoldChart('weightChart', ()=>weightChart);
+}
+
+init();
+
+</script>
+<script>
+/* ===================== Presentation layer (UI only) =====================
+   Watches the page and adds animation classes. It never reads or writes app
+   data (entries, weights, storage, Firebase), never removes or replaces app
+   listeners, and every part is wrapped in try/catch so a failure here can't
+   affect the app. It runs after init() has registered all app listeners. */
+(function(){
+  'use strict';
+  var reduce = false;
+  try{ reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }catch(e){}
+  function safe(fn){ try{ fn(); }catch(e){ /* presentation only, ignore */ } }
+  function restart(el, cls){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+
+  // which way the last month-nav tap went ('l' = previous, 'r' = next), consumed by the row/title watchers
+  var navDir = { hist:'' };
+  var addArmed = false; // true between tapping Add and the item list re-rendering
+
+  // ---- 1. The flexing bicep: on load, after every successful save, and on tap ----
+  var arm = document.querySelector('.flex-arm');
+  function flex(){ if(arm && !reduce) restart(arm, 'flexing'); }
+  safe(function(){
+    if(!arm) return;
+    arm.addEventListener('click', flex);
+    arm.addEventListener('animationend', function(e){ if(e.animationName === 'armFlex') arm.classList.remove('flexing'); });
+    setTimeout(flex, 750);
+  });
+
+  // ---- 2. Charts: glowing lines, smoother easing, tooltips in the app's colors ----
+  safe(function(){
+    if(typeof Chart === 'undefined') return;
+    if(reduce){ Chart.defaults.animation = false; }
+    else { Chart.defaults.animation.duration = 900; Chart.defaults.animation.easing = 'easeOutQuart'; }
+    var tt = Chart.defaults.plugins.tooltip;
+    tt.backgroundColor = 'rgba(27,29,39,0.96)';
+    tt.borderColor = '#2E3040';
+    tt.borderWidth = 1;
+    tt.cornerRadius = 10;
+    tt.padding = 10;
+    tt.titleColor = '#8D90A8';
+    tt.bodyColor = '#F4F5FA';
+    tt.titleFont = { family:'Inter', size:11, weight:600 };
+    tt.bodyFont = { family:'Space Grotesk', size:13, weight:700 };
+    tt.usePointStyle = true;
+    tt.boxPadding = 4;
+    Chart.defaults.elements.point.hoverRadius = 6;
+    Chart.defaults.elements.point.hoverBorderWidth = 2;
+    Chart.register({
+      id: 'fxGlow',
+      beforeDatasetDraw: function(c, args){
+        c.$fxGlow = false;
+        if(!c.config || c.config.type !== 'line') return;
+        var ds = c.data.datasets[args.index];
+        if(!ds || typeof ds.borderColor !== 'string') return;
+        c.ctx.save();
+        c.ctx.shadowColor = ds.borderColor;
+        c.ctx.shadowBlur = 12;
+        c.$fxGlow = true;
+      },
+      afterDatasetDraw: function(c){
+        if(c.$fxGlow){ c.ctx.restore(); c.$fxGlow = false; }
+      }
+    });
+    // normally the charts are drawn later (after data loads); if any already exist, redraw them with the new look
+    var existing = [];
+    try{ existing = [chart, netChart, weightChart, weightNetChart]; }catch(e){}
+    existing.forEach(function(c){ if(c && typeof c.update === 'function') safe(function(){ c.update(); }); });
+  });
+
+  // ---- 3. Numbers tick up like a scoreboard, then settle on exactly the value the app wrote ----
+  function counter(el, signed){
+    if(!el) return;
+    var shown = null, raf = 0;
+    function parse(s){ var m = /^([+\-]?)(\d+)$/.exec(String(s || '').trim()); return m ? parseInt(m[1] + m[2], 10) : null; }
+    function fmt(v){ return (signed && v > 0 ? '+' : '') + v; }
+    var obs = new MutationObserver(function(){ safe(handle); });
+    function write(s){ el.textContent = s; obs.takeRecords(); } // our own writes don't re-trigger the observer
+    function handle(){
+      var target = el.textContent;   // the app's value: this is what we always end on
+      var to = parse(target);
+      if(raf){ cancelAnimationFrame(raf); raf = 0; }
+      if(to === null){ shown = null; return; }
+      var from = shown === null ? 0 : shown;
+      if(reduce || from === to){ shown = to; return; }
+      var dur = Math.min(1000, 380 + Math.abs(to - from) * 0.35);
+      var t0 = 0;
+      write(fmt(from));
+      function step(now){
+        if(!t0) t0 = now;
+        var p = Math.min(1, (now - t0) / dur);
+        var v = Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3)));
+        if(p < 1){ shown = v; write(fmt(v)); raf = requestAnimationFrame(step); }
+        else { raf = 0; shown = to; write(target); restart(el, 'fx-bump'); }
+      }
+      raf = requestAnimationFrame(step);
+    }
+    obs.observe(el, { childList:true, characterData:true, subtree:true });
+    if(parse(el.textContent) !== null) handle();
+  }
+  safe(function(){
+    counter(document.getElementById('itemsTotalVal'), false);
+  });
+
+  // ---- 4. Remember month-nav direction and Add taps (capture phase: only sets flags, never blocks) ----
+  safe(function(){
+    document.addEventListener('click', function(e){
+      var b = e.target && e.target.closest ? e.target.closest('button') : null;
+      if(!b) return;
+      if(b.id === 'addItemBtn'){ addArmed = true; return; }
+      if(b.id === 'prevHistMonthBtn') navDir.hist = 'l';
+      else if(b.id === 'nextHistMonthBtn') navDir.hist = 'r';
+      else return;
+      setTimeout(function(){ navDir.hist = ''; }, 0);
+    }, true);
+    document.addEventListener('change', function(e){
+      if(e.target && e.target.id === 'foodDate') addArmed = false;
+    }, true);
+  });
+
+  // ---- 5. New rows slide in (sideways after a month change); already-seen rows stay still ----
+  function watchRows(container, rowSel, keyOf, dirKey, onBatch){
+    if(!container) return;
+    var seen = {}, first = true;
+    function apply(){
+      var rows = container.querySelectorAll(rowSel);
+      var dir = dirKey ? navDir[dirKey] : '';
+      var cls = dir === 'l' ? 'fx-enter-l' : dir === 'r' ? 'fx-enter-r' : 'fx-enter';
+      var fresh = [];
+      for(var i = 0; i < rows.length; i++){
+        var k = keyOf(rows[i]);
+        if(k == null || seen[k]) continue;
+        seen[k] = true;
+        fresh.push(rows[i]);
+      }
+      if(!reduce){
+        fresh.forEach(function(r, idx){
+          r.style.animationDelay = (Math.min(idx, 12) * 35) + 'ms';
+          r.classList.add(cls);
+        });
+      }
+      if(onBatch) onBatch(fresh, first);
+      first = false;
+    }
+    new MutationObserver(function(){ safe(apply); }).observe(container, { childList:true });
+    safe(apply);
+  }
+  safe(function(){
+    watchRows(document.getElementById('itemsList'), '.item-row',
+      function(r){ return r.getAttribute('data-item'); }, '',
+      function(fresh, first){
+        if(addArmed && !first && !reduce && fresh.length === 1) fresh[0].classList.add('fx-flash');
+        addArmed = false;
+      });
+    watchRows(document.getElementById('tableWrap'), '.hist-row',
+      function(r){ return r.getAttribute('data-date'); }, 'hist');
+  });
+
+  // ---- 6. Month titles slide the same way as the rows ----
+  function watchTitle(el, dirKey){
+    if(!el) return;
+    var last = el.textContent;
+    new MutationObserver(function(){ safe(function(){
+      var t = el.textContent;
+      if(t === last) return;
+      var wasBlank = !last || last === '—';
+      last = t;
+      if(reduce || wasBlank) return;
+      var dir = navDir[dirKey];
+      el.classList.remove('fx-enter', 'fx-enter-l', 'fx-enter-r');
+      void el.offsetWidth;
+      el.classList.add(dir === 'l' ? 'fx-enter-l' : dir === 'r' ? 'fx-enter-r' : 'fx-enter');
+    }); }).observe(el, { childList:true, characterData:true, subtree:true });
+  }
+  safe(function(){
+    watchTitle(document.getElementById('histMonthNavTitle'), 'hist');
+  });
+
+  // ---- 7. Status messages pop in; a success makes the bicep flex ----
+  safe(function(){
+    ['foodStatus', 'burnStatus', 'weightStatus', 'backupStatus'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      var last = el.textContent;
+      new MutationObserver(function(){ safe(function(){
+        var t = el.textContent;
+        if(t && t !== last){
+          if(!reduce) restart(el, 'fx-pop');
+          if(el.classList.contains('success')) flex();
+        }
+        last = t;
+      }); }).observe(el, { childList:true, characterData:true, subtree:true });
+    });
+  });
+
+  // ---- 8. Sliding highlight behind the selected range chip / mode button ----
+  var pills = [];
+  function setupPill(container){
+    if(!container || container.querySelector('.seg-pill')) return;
+    var btnSel = container.classList.contains('mode-toggle') ? '.mode-btn' : '.range-btn';
+    var pill = document.createElement('span');
+    pill.className = 'seg-pill';
+    pill.setAttribute('aria-hidden', 'true');
+    container.insertBefore(pill, container.firstChild);
+    container.classList.add('has-pill');
+    var placed = false;
+    function place(instant){
+      var active = container.querySelector(btnSel + '.active');
+      if(!active || !active.offsetWidth){ pill.style.opacity = '0'; return; }
+      var snap = instant || !placed || reduce;
+      if(snap) pill.style.transition = 'none';
+      pill.style.width = active.offsetWidth + 'px';
+      pill.style.height = active.offsetHeight + 'px';
+      pill.style.transform = 'translate(' + active.offsetLeft + 'px,' + active.offsetTop + 'px)';
+      pill.style.opacity = '1';
+      if(snap){ void pill.offsetWidth; pill.style.transition = ''; }
+      placed = true;
+    }
+    new MutationObserver(function(){ safe(function(){ place(false); }); })
+      .observe(container, { attributes:true, subtree:true, attributeFilter:['class'] });
+    pills.push(place);
+    place(true);
+  }
+  safe(function(){
+    document.querySelectorAll('.range-row, .mode-toggle').forEach(function(c){ safe(function(){ setupPill(c); }); });
+    function replaceAll(){ pills.forEach(function(p){ safe(function(){ p(true); }); }); }
+    window.addEventListener('resize', replaceAll);
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(replaceAll, function(){});
+  });
+
+  // ---- 9. A small mini header (icon + mini ring) fades in once scrolled past the top, fades
+  //         back out near the top. This is a SEPARATE, constant-size, position:fixed element
+  //         (#miniHeader) — not a shrunk/sticky version of the real header. A fixed element
+  //         reserves no space in the document, so toggling its opacity can never change page
+  //         layout or scroll height, which is what makes this immune to the flicker/scroll-lock
+  //         the earlier sticky+resize approach had (that approach changed the header's own
+  //         height as it "collapsed," which perturbed scroll position, which could re-trigger
+  //         the toggle — a feedback loop). Nothing here can feed back into itself. ----
+  safe(function(){
+    var mini = document.getElementById('miniHeader');
+    if(!mini) return;
+    var visible = false, ticking = false;
+    function apply(){
+      ticking = false;
+      var y = window.scrollY || document.documentElement.scrollTop || 0;
+      if(!visible && y > 90){ visible = true; mini.classList.add('visible'); }
+      else if(visible && y < 60){ visible = false; mini.classList.remove('visible'); }
+    }
+    window.addEventListener('scroll', function(){
+      if(ticking) return;
+      ticking = true;
+      requestAnimationFrame(apply);
+    }, { passive:true });
+    apply();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
   "name": "functions",
-  "description": "Cloud Functions for Monstr\u00e3o",
+  "description": "Cloud Functions for Monstrão",
   "main": "index.js",
   "engines": {
     "node": "22"
@@ -9,5 +9,9 @@
     "firebase-admin": "^13.0.0",
     "firebase-functions": "^6.1.0"
   },
-  "private": true
+  "private": true,
+  "allowScripts": {
+    "@firebase/util@1.15.3": true,
+    "protobufjs@7.6.6": true
+  }
 }

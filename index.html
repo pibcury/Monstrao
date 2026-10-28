@@ -2901,8 +2901,8 @@ function aggregateWeightByMonth(dates, wMap){
 const HORIZON_DAYS = { week: 7, month: 30, year: 365 };
 const HORIZON_BUCKET = { week: null, month: 'week', year: 'month' };
 // Trends periods are calendar periods — a Mon–Sun week, a calendar month, a calendar year — and
-// trendOffset steps back through them (0 = the current one). Today is still excluded everywhere
-// in Trends: it's almost always a partial day, so averaging it in would be misleading.
+// trendOffset steps back through them (0 = the current one). Today is included and labelled
+// "Today" on the charts: with a wearable connected its burn is live, so the day reads in progress.
 function trendRange(horizon, offset){
   const now = new Date(); now.setHours(0,0,0,0);
   let start, end;
@@ -2936,8 +2936,10 @@ function trendPeriodLabel(horizon, offset){
 function filterDatesByHorizon(allDates, horizon){
   const r = trendRange(horizon, trendOffset);
   const today = todayStr();
-  return allDates.filter(d => d !== today && d >= r.start && d <= r.end);
+  return allDates.filter(d => d <= today && d >= r.start && d <= r.end);
 }
+// Chart x-axis label: today's point reads "Today" so it's clearly the day in progress.
+function trendLabel(d){ return d === todayStr() ? 'Today' : fmtDate(d); }
 // The earliest logged date (food, burn or weight) — the back arrow stops once a period would
 // start entirely before any data exists.
 function earliestLoggedDate(){
@@ -3216,7 +3218,7 @@ function renderConsumedChart(){
     const bucketType = HORIZON_BUCKET[trendHorizon];
     const allDates = sortedDates();
     const dates = filterDatesByHorizon(allDates, trendHorizon);
-    const labels = dates.map(fmtDate);
+    const labels = dates.map(trendLabel);
     const consumedVals = dates.map(d=>consumedTotal(entries[d]));
     const tickFn = horizonXTicks(trendHorizon, dates);
     const avgConsumed = avgOf(consumedVals);
@@ -3274,7 +3276,7 @@ function renderBurnedChart(){
     const bucketType = HORIZON_BUCKET[trendHorizon];
     const allDates = sortedDates();
     const dates = filterDatesByHorizon(allDates, trendHorizon);
-    const labels = dates.map(fmtDate);
+    const labels = dates.map(trendLabel);
     const burnedVals = dates.map(d=> hasBurned(entries[d]) ? entries[d].burned : null);
     const tickFn = horizonXTicks(trendHorizon, dates);
     const avgBurned = avgOf(burnedVals);
@@ -3334,7 +3336,7 @@ function renderNetChart(){
     const bucketType = HORIZON_BUCKET[trendHorizon];
     const allDates = sortedDates();
     const dates = filterDatesByHorizon(allDates, trendHorizon);
-    const labels = dates.map(fmtDate);
+    const labels = dates.map(trendLabel);
     const netVals = dates.map(d=> net(entries[d]));
     const tickFn = horizonXTicks(trendHorizon, dates);
     const avgNet = avgOf(netVals);
@@ -3431,7 +3433,7 @@ function renderQualityChart(){
     const bucketType = HORIZON_BUCKET[trendHorizon];
     const allDates = sortedDates();
     const dates = filterDatesByHorizon(allDates, trendHorizon);
-    const labels = dates.map(fmtDate);
+    const labels = dates.map(trendLabel);
     const qualityVals = dates.map(d => { const v = dietQualityForDate(d); return v == null ? null : Math.round(v*10)/10; });
     const tickFn = horizonXTicks(trendHorizon, dates);
     const avgQ = avgOf(qualityVals);
@@ -3498,7 +3500,7 @@ function renderProteinChart(){
     const bucketType = HORIZON_BUCKET[trendHorizon];
     const allDates = sortedDates();
     const dates = filterDatesByHorizon(allDates, trendHorizon);
-    const labels = dates.map(fmtDate);
+    const labels = dates.map(trendLabel);
     const proteinVals = dates.map(d => consumedProtein(entries[d]));
     const tickFn = horizonXTicks(trendHorizon, dates);
     const avgProtein = avgOf(proteinVals);
@@ -3604,7 +3606,7 @@ function renderWeightChart(){
     const dates = filterDatesByHorizon(allDates, trendHorizon);
 
     const weightVals = dates.map(d => wMap[d] ? Math.round(wMap[d].avg*10)/10 : null);
-    const labels = dates.map(fmtDate);
+    const labels = dates.map(trendLabel);
     const tickFn = horizonXTicks(trendHorizon, dates);
     const avgWeight = avgOf(weightVals);
 
@@ -5216,6 +5218,9 @@ function bootAuth(){
       showAuth('form');
       return;
     }
+    // A leftover anonymous sign-in from the single-user version of the app: not a real account.
+    // Drop it quietly; the sign-out fires this listener again with no user, which shows the form.
+    if(user.isAnonymous || !user.email){ firebase.auth().signOut(); return; }
     startSession(user);
   });
 }

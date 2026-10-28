@@ -1,0 +1,30 @@
+rules_version = '2';
+// Monstrão — multi-user security rules.
+//  * Each person can read/write only their own app data, and only once their account is approved.
+//  * The "wearable" doc is written by the server (WHOOP sync); users can read it but not edit it.
+//  * Account records, usage, invites, config, OAuth tokens and the old shared data are server-only.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isSelf(uid) { return signedIn() && request.auth.uid == uid; }
+    function isActive(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data.status == 'active';
+    }
+
+    match /users/{uid} {
+      allow read: if isSelf(uid);
+      allow write: if false;
+
+      match /data/{doc} {
+        allow read: if isSelf(uid) && isActive(uid);
+        allow write: if isSelf(uid) && isActive(uid) && doc != 'wearable';
+      }
+    }
+
+    // everything else (users/{uid}/private, usage, statsDaily, invites, config, whoopStates,
+    // and the legacy shared monstrao/* docs) is reachable only through Cloud Functions
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -290,6 +290,10 @@ function page(title, body){
 // =====================================================================================
 exports.api = onCall({ region: REGION }, async (request) => {
   if(!request.auth) throw new HttpsError('unauthenticated', 'Please sign in.');
+  // Anonymous sign-ins (left over from the single-user app) are not accounts: never create a
+  // record for them, so they can't show up as "waiting" members.
+  const provider = request.auth.token.firebase && request.auth.token.firebase.sign_in_provider;
+  if(provider === 'anonymous' || !request.auth.token.email) throw new HttpsError('unauthenticated', 'Please sign in with your email.');
   const uid = request.auth.uid;
   const email = (request.auth.token.email || '').toLowerCase();
   const p = request.data || {};

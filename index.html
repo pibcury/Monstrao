@@ -1096,6 +1096,84 @@
   .adm-copy span{font-size:11px;color:var(--muted);}
   .adm-copy code{font-size:11.5px;background:var(--surface-2);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;word-break:break-all;-webkit-user-select:all;user-select:all;}
   .adm-card > input{margin-bottom:8px;}
+
+  /* ===================== Oct 28 pass ===================== */
+  /* header: streak, then the date selector right under it */
+  .header-stats{margin:0 0 10px;}
+  .app-header-inner > .date-selector{margin:0 0 16px;}
+  /* rings: goal + signed difference */
+  .metric-goal{gap:0 3px;font-size:10.5px;flex-wrap:wrap;letter-spacing:-0.01em;}
+  .metric-goal > *{white-space:nowrap;}
+  .metric{padding-left:3px;padding-right:3px;}
+  .header-stats, .header-stat{font-variant-numeric:normal;}
+  #streakVal{font-variant-numeric:tabular-nums;}
+  .mg-diff{font-weight:700;font-variant-numeric:tabular-nums;}
+  .metric-goal .mg-under, .dq-now-lbl .mg-under{color:#C9CCD6;}
+  .dq-now-lbl .mg-over{color:var(--surplus);}
+  .dq-now-lbl .mg-hit{color:var(--accent);}
+  .dq-now-lbl{display:flex;justify-content:flex-end;gap:5px;}
+  /* calorie quality ruler: a plain 0–100% scale */
+  .dq{padding:14px 14px 11px;}
+  .dq-head{align-items:center;}
+  .dq-title{font-size:13px;}
+  .dq-now-val{display:flex;align-items:baseline;justify-content:flex-end;gap:5px;font-size:22px;}
+  .dq-now-unit{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:var(--muted);letter-spacing:0;}
+  .dq-scale, #dqScaleT{padding:12px 0 0;}
+  .dq-track{position:relative;height:12px;border-radius:6px;background:rgba(76,141,255,0.16);}
+  .dq-fill{border-radius:6px;transition:width .9s cubic-bezier(.34,1.05,.4,1);}
+  .dq-fill.joined{border-radius:6px 0 0 6px;}
+  .dq-fill.full{box-shadow:none;}
+  .dq-over{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:0 6px 6px 0;background:rgba(244,245,250,0.6);opacity:0;
+    transition:width .9s cubic-bezier(.34,1.05,.4,1), left .6s ease, opacity .3s;}
+  .dq-goal-tick{position:absolute;top:-4px;bottom:-4px;width:2px;margin-left:-1px;border-radius:1px;background:var(--ink);transition:left .6s ease;}
+  .dq-axis{display:flex;justify-content:space-between;margin-top:6px;font-size:9.5px;font-weight:600;color:#5E6372;font-variant-numeric:tabular-nums;}
+  /* floating top bar ruler */
+  .mini-dq-lbl{width:88px;}
+  .mini-dq-fill{border-radius:4px;}
+  .mini-dq-fill.joined{border-radius:4px 0 0 4px;}
+  .mini-dq-fill.full{box-shadow:none;}
+  .mini-dq-over{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:0 4px 4px 0;background:rgba(244,245,250,0.6);opacity:0;transition:width .6s ease, opacity .3s;}
+  .mini-dq-tick{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;border-radius:1px;background:var(--ink);}
+  /* your goals */
+  .my-goals{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;width:100%;margin-top:14px;padding:0;background:none;border:0;cursor:pointer;}
+  .mg-chip{display:inline-flex;align-items:center;gap:7px;padding:7px 13px 7px 10px;border-radius:999px;
+    background:rgba(76,141,255,0.08);border:1px solid rgba(76,141,255,0.22);color:var(--ink);font-size:12.5px;font-weight:600;white-space:nowrap;}
+  .mg-ico{width:17px;height:17px;color:var(--accent);flex-shrink:0;}
+  .my-goals:active .mg-chip{background:rgba(76,141,255,0.16);}
+  .wk:empty{display:none;}
+  /* running balance (week on the main page; week/month/year in Trends) */
+  .wk{width:100%;margin-top:12px;padding:13px 14px 8px;border-radius:18px;background:rgba(255,255,255,0.025);border:1px solid rgba(244,245,250,0.07);}
+  .wk-head{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .wk-title{font-size:13px;font-weight:700;color:var(--ink);}
+  .wk-now{text-align:right;}
+  .wk-val{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;color:var(--ink);}
+  .wk-val small{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:var(--muted);margin-left:4px;letter-spacing:0;}
+  .wk-val.def, .mini-dq-val.def{color:var(--deficit);}
+  .wk-val.sur, .mini-dq-val.sur{color:var(--surplus);}
+  .wk-goal{display:flex;align-items:center;justify-content:flex-end;gap:5px;font-size:11px;color:var(--muted);font-weight:600;margin-top:5px;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .wk-goal b{color:var(--ink);font-weight:700;}
+  .wk-dash{display:inline-block;width:14px;height:0;border-top:1.5px dashed rgba(244,245,250,0.6);}
+  .wk-svg{display:block;width:100%;height:auto;margin-top:8px;overflow:visible;}
+  .wk-svg text{font-family:'Inter',sans-serif;}
+  .mini-wk{margin-top:7px;}
+  .mini-wk-svg{flex:1;min-width:0;height:22px;overflow:visible;}
+  /* History page */
+  #historyOverlay .month-nav{margin:0 0 12px;}
+  .hist-scroll.hist-scroll-page, .hist-scroll.hist-scroll-page.hist-scroll-expanded{max-height:none;overflow:visible;}
+  /* Export page */
+  .exp-group{margin-bottom:22px;}
+  .exp-formats{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .exp-format{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:13px 13px 12px;border-radius:14px;
+    background:var(--surface);border:1.5px solid var(--rule);color:var(--ink);cursor:pointer;}
+  .exp-format b{font-family:'Sora',sans-serif;font-size:15px;font-weight:600;}
+  .exp-format small{font-size:11.5px;color:var(--muted);font-weight:500;line-height:1.35;}
+  .exp-format.active{background:var(--accent-soft);border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;}
+  .exp-presets{display:flex;gap:8px;margin-bottom:12px;}
+  .exp-presets .mode-btn{flex:1;padding:9px 4px;font-size:12.5px;}
+  .exp-range{gap:10px;}
+  .exp-range input[type=date]{width:100%;color-scheme:dark;}
+  .exp-count{font-size:12px;color:var(--muted);margin:2px 0 0;}
+  #exportBtn:disabled{opacity:.45;}
 </style>
 </head>
 <body>
@@ -1138,9 +1216,14 @@
       </div>
     </div>
     <div class="mini-dq">
-      <span class="mini-dq-lbl">Diet quality</span>
-      <div class="mini-dq-track"><div class="mini-dq-fill" id="miniDqFill"></div><div class="mini-dq-dot" id="miniDqDot"></div></div>
+      <span class="mini-dq-lbl">Calorie quality</span>
+      <div class="mini-dq-track"><div class="mini-dq-fill" id="miniDqFill"></div><div class="mini-dq-over" id="miniDqOver"></div><div class="mini-dq-tick" id="miniDqTick"></div></div>
       <span class="mini-dq-val" id="miniDqVal">—</span>
+    </div>
+    <div class="mini-dq mini-wk">
+      <span class="mini-dq-lbl">Week balance</span>
+      <svg class="mini-wk-svg" id="miniWkSvg" viewBox="0 0 200 22" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <span class="mini-dq-val" id="miniWkVal">—</span>
     </div>
   </div>
 </div>
@@ -1156,7 +1239,9 @@
       <div class="app-menu-account" id="menuAccountLine"></div>
       <button class="app-menu-item" id="openProfileBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span><b>Profile</b><small>Name, age, height, weight</small></span></button>
       <button class="app-menu-item" id="openGoalsBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span><span><b>Goals</b><small>Your daily targets</small></span></button>
+      <button class="app-menu-item" id="openHistoryBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span><b>History</b><small>Every day you’ve logged</small></span></button>
       <button class="app-menu-item" id="openWearablesBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 6l.6-3h4.8L15 6M9 18l.6 3h4.8L15 18M12 9.5V12l1.6 1.2"/></svg></span><span><b>Wearables</b><small>Sync burn from WHOOP</small></span></button>
+      <button class="app-menu-item" id="openExportBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19.5h14"/></svg></span><span><b>Export data</b><small>CSV or JSON, any dates</small></span></button>
       <button class="app-menu-item" id="openAdminBtn" type="button" style="display:none;"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></span><span><b>Admin console</b><small>Members, invites, usage</small></span></button>
       <button class="app-menu-item app-menu-signout" id="signOutBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4"/></svg></span><span><b>Sign out</b></span></button>
     </div>
@@ -1166,9 +1251,16 @@
 
       <div class="header-stats" id="headerStats">
         <span class="header-stat"><span id="streakVal">0</span>-day streak</span>
-        <span class="header-stat-sep">·</span>
-        <span class="header-stat"><span id="totalDaysVal">0</span> days logged</span>
       </div>
+      <div class="date-selector" id="globalDateSelector">
+          <button class="date-nav-btn" id="dateSelPrevBtn" type="button" aria-label="Previous day">‹</button>
+          <label class="date-sel-pick" id="dateSelPick">
+            <span class="date-sel-label" id="dateSelLabel">Today</span>
+            <svg class="date-sel-ico" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+            <input type="date" id="dateSelInput" class="date-sel-input" aria-label="Pick a date">
+          </label>
+          <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
+        </div>
 
       <div class="ring-section" id="ringSection">
         <div class="metrics-panel">
@@ -1180,7 +1272,6 @@
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
           <circle class="mring-prog" id="mProgCal" cx="60" cy="60" r="50"></circle>
           <circle class="mring-over" id="mOverCal" cx="60" cy="60" r="50"></circle>
-          <circle class="mring-avg" id="mAvgCal" cx="110" cy="60" r="6.5"></circle>
           </svg>
           <div class="mring-center">
             <div class="mring-fig" id="mFigCal">—</div>
@@ -1188,7 +1279,6 @@
           </div>
         </div>
         <div class="metric-goal" id="mGoalCal"></div>
-        <div class="metric-avg" id="mAvgTxtCal"></div>
       </div>
       <div class="metric metric-protein">
         <div class="metric-name"><i class="metric-swatch"></i>Protein</div>
@@ -1197,7 +1287,6 @@
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
           <circle class="mring-prog" id="mProgProtein" cx="60" cy="60" r="50"></circle>
           <circle class="mring-over" id="mOverProtein" cx="60" cy="60" r="50"></circle>
-          <circle class="mring-avg" id="mAvgProtein" cx="110" cy="60" r="6.5"></circle>
           </svg>
           <div class="mring-center">
             <div class="mring-fig" id="mFigProtein">—</div>
@@ -1205,7 +1294,6 @@
           </div>
         </div>
         <div class="metric-goal" id="mGoalProtein"></div>
-        <div class="metric-avg" id="mAvgTxtProtein"></div>
       </div>
       <div class="metric metric-burn">
         <div class="metric-name"><i class="metric-swatch"></i>Burn</div>
@@ -1214,7 +1302,6 @@
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
           <circle class="mring-prog" id="mProgBurn" cx="60" cy="60" r="50"></circle>
           <circle class="mring-over" id="mOverBurn" cx="60" cy="60" r="50"></circle>
-          <circle class="mring-avg" id="mAvgBurn" cx="110" cy="60" r="6.5"></circle>
           </svg>
           <div class="mring-center">
             <div class="mring-fig" id="mFigBurn">—</div>
@@ -1222,47 +1309,33 @@
           </div>
         </div>
         <div class="metric-goal" id="mGoalBurn"></div>
-        <div class="metric-avg" id="mAvgTxtBurn"></div>
       </div>
     </div>
     <button class="goal-cta" id="goalCtaBtn" type="button" style="display:none;">Set your goals to see your targets <span aria-hidden="true">›</span></button>
     <div class="dq" id="dq">
       <div class="dq-head">
-        <div class="dq-titles">
-          <div class="dq-title"><i class="metric-swatch dq-swatch"></i>Diet quality</div>
-          <div class="dq-sub">% of your calories that came from protein</div>
-        </div>
+        <div class="dq-title">Calorie quality</div>
         <div class="dq-now">
-          <div class="dq-now-val" id="dqVal">—</div>
+          <div class="dq-now-val"><span id="dqVal">—</span><span class="dq-now-unit">protein</span></div>
           <div class="dq-now-lbl" id="dqStatus"></div>
         </div>
       </div>
       <div class="dq-scale" id="dqScale">
-        <div class="dq-track">
-          <div class="dq-fill" id="dqFill"></div>
-          <div class="dq-avg-dot" id="dqAvgDot"></div>
-        </div>
-        <div class="dq-flag dq-flag-avg" id="dqAvgFlag"></div>
+        <div class="dq-track"><div class="dq-fill" id="dqFill"></div><div class="dq-over" id="dqOver"></div><div class="dq-goal-tick" id="dqTick"></div></div>
+        <div class="dq-axis"><span>0%</span><span>50%</span><span>100%</span></div>
       </div>
     </div>
+    <div class="wk" id="weekBalance"></div>
+    <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
   </div>
 
-        <div class="date-selector" id="globalDateSelector">
-          <button class="date-nav-btn" id="dateSelPrevBtn" type="button" aria-label="Previous day">‹</button>
-          <label class="date-sel-pick" id="dateSelPick">
-            <span class="date-sel-label" id="dateSelLabel">Today</span>
-            <svg class="date-sel-ico" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
-            <input type="date" id="dateSelInput" class="date-sel-input" aria-label="Pick a date">
-          </label>
-          <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
-        </div>
       </div>
     </div>
   </div>
 
   <div class="card card-fuel">
     <button class="burn-summary-row" id="foodSummaryBtn" type="button">
-      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 21V3c-2.2 1.3-3.3 4-3.3 7.5V13H17"/></svg>The Food</span>
+      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 21V3c-2.2 1.3-3.3 4-3.3 7.5V13H17"/></svg>Food</span>
       <span class="burn-summary-val" id="foodSummaryVal">—</span>
       <span class="burn-chevron" id="foodChevron">›</span>
     </button>
@@ -1354,7 +1427,7 @@
 
   <div class="card card-burn">
     <button class="burn-summary-row" id="burnSummaryBtn" type="button">
-      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c.7 3.5 5.5 5.6 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.4 2.7-5.6.3 2 1.3 3.2 2.7 3.6-.3-3.4-.7-6.2.1-9.3z"/></svg>The Burn</span>
+      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c.7 3.5 5.5 5.6 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.4 2.7-5.6.3 2 1.3 3.2 2.7 3.6-.3-3.4-.7-6.2.1-9.3z"/></svg>Burn</span>
       <span class="burn-summary-val" id="burnSummaryVal">—</span>
       <span class="burn-chevron" id="burnChevron">›</span>
     </button>
@@ -1377,7 +1450,7 @@
 
   <div class="card card-burn">
     <button class="burn-summary-row" id="weightSummaryBtn" type="button">
-      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M7.5 10.5a6 6 0 0 1 9 0M12 11l2-3"/></svg>The Weight</span>
+      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M7.5 10.5a6 6 0 0 1 9 0M12 11l2-3"/></svg>Weight</span>
       <span class="burn-summary-val" id="weightSummaryVal">—</span>
       <span class="burn-chevron" id="weightChevron">›</span>
     </button>
@@ -1422,7 +1495,7 @@
 
   <div class="card">
     <button class="burn-summary-row" id="trendsSummaryBtn" type="button">
-      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/></svg>The Trends</span>
+      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/></svg>Trends</span>
       <span class="burn-chevron" id="trendsChevron">›</span>
     </button>
     <div id="trendsFormWrap" style="display:none;">
@@ -1455,7 +1528,6 @@
           </div>
         </div>
         <div class="metric-goal" id="mGoalCalT"></div>
-        <div class="metric-avg" id="mAvgTxtCalT"></div>
       </div>
       <div class="metric metric-protein">
         <div class="metric-name"><i class="metric-swatch"></i>Protein</div>
@@ -1471,7 +1543,6 @@
           </div>
         </div>
         <div class="metric-goal" id="mGoalProteinT"></div>
-        <div class="metric-avg" id="mAvgTxtProteinT"></div>
       </div>
       <div class="metric metric-burn">
         <div class="metric-name"><i class="metric-swatch"></i>Burn</div>
@@ -1487,26 +1558,22 @@
           </div>
         </div>
         <div class="metric-goal" id="mGoalBurnT"></div>
-        <div class="metric-avg" id="mAvgTxtBurnT"></div>
       </div>
     </div>
     <div class="dq" id="dqT">
       <div class="dq-head">
-        <div class="dq-titles">
-          <div class="dq-title"><i class="metric-swatch dq-swatch"></i>Diet quality</div>
-          <div class="dq-sub">% of your calories that came from protein</div>
-        </div>
+        <div class="dq-title">Calorie quality</div>
         <div class="dq-now">
-          <div class="dq-now-val" id="dqValT">—</div>
+          <div class="dq-now-val"><span id="dqValT">—</span><span class="dq-now-unit">protein</span></div>
           <div class="dq-now-lbl" id="dqStatusT"></div>
         </div>
       </div>
       <div class="dq-scale" id="dqScaleT">
-        <div class="dq-track">
-          <div class="dq-fill" id="dqFillT"></div>
-        </div>
+        <div class="dq-track"><div class="dq-fill" id="dqFillT"></div><div class="dq-over" id="dqOverT"></div><div class="dq-goal-tick" id="dqTickT"></div></div>
+        <div class="dq-axis"><span>0%</span><span>50%</span><span>100%</span></div>
       </div>
     </div>
+    <div class="wk" id="weekBalanceT"></div>
   </div>
       </div>
 
@@ -1548,7 +1615,7 @@
 
       <div class="trend-chart-block" id="blockQuality">
         <button class="chart-collapse-btn" id="toggleQualityBtn" type="button">
-          <span class="chart-name">Diet quality</span>
+          <span class="chart-name">Calorie quality</span>
           <span class="chart-stats" id="trendQualityChartTitle"></span>
           <span class="burn-chevron" id="qualityChevron">›</span>
         </button>
@@ -1571,36 +1638,59 @@
     </div>
   </div>
 
-  <div class="card card-burn">
-    <button class="burn-summary-row" id="historySummaryBtn" type="button">
-      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Daily History</span>
-      <span class="burn-summary-val" id="historySummaryVal">—</span>
-      <span class="burn-chevron" id="historyChevron">›</span>
-    </button>
-    <div id="historyFormWrap" style="display:none;">
-      <div class="month-nav" id="histMonthNav" style="margin-top:14px;">
-        <button class="month-nav-btn" id="prevHistMonthBtn" aria-label="Previous month" type="button">‹</button>
-        <div class="month-nav-title" id="histMonthNavTitle">—</div>
-        <button class="month-nav-btn" id="nextHistMonthBtn" aria-label="Next month" type="button">›</button>
-      </div>
-      <div class="hist-header">
-        <div class="hist-date">Date</div>
-        <div class="hist-col">In</div>
-        <div class="hist-col">Out</div>
-        <div class="hist-net">Net</div>
-        <div class="hist-chev"></div>
-      </div>
-      <div class="hist-scroll" id="histScroll"><div id="tableWrap"></div></div>
-    </div>
-  </div>
+</div>
 
-  <div class="card">
-    <h2>Backup</h2>
-    <div class="btn-row">
-      <button class="btn-secondary" id="exportBtn" type="button">Export backup</button>
-      <button class="btn-secondary" id="importBtn" type="button">Import backup</button>
+<!-- ============ History ============ -->
+<div class="page-overlay" id="historyOverlay" style="display:none;">
+  <div class="overlay-topbar">
+    <button class="overlay-back" id="historyBackBtn" type="button" aria-label="Back">Back</button>
+    <div class="overlay-title">History</div>
+  </div>
+  <div class="overlay-scroll">
+    <div class="month-nav" id="histMonthNav">
+      <button class="month-nav-btn" id="prevHistMonthBtn" aria-label="Previous month" type="button">‹</button>
+      <div class="month-nav-title" id="histMonthNavTitle">—</div>
+      <button class="month-nav-btn" id="nextHistMonthBtn" aria-label="Next month" type="button">›</button>
     </div>
-    <input type="file" id="importFile" accept="application/json">
+    <div class="hist-header">
+      <div class="hist-date">Date</div>
+      <div class="hist-col">In</div>
+      <div class="hist-col">Out</div>
+      <div class="hist-net">Net</div>
+      <div class="hist-chev"></div>
+    </div>
+    <div class="hist-scroll hist-scroll-page" id="histScroll"><div id="tableWrap"></div></div>
+  </div>
+</div>
+
+<!-- ============ Export data ============ -->
+<div class="page-overlay" id="exportOverlay" style="display:none;">
+  <div class="overlay-topbar">
+    <button class="overlay-back" id="exportBackBtn" type="button" aria-label="Back">Back</button>
+    <div class="overlay-title">Export data</div>
+  </div>
+  <div class="overlay-scroll">
+    <div class="exp-group">
+      <div class="goal-group-title">Format</div>
+      <div class="exp-formats" id="expFormatRow">
+        <button class="exp-format active" data-format="csv" type="button"><b>CSV</b><small>One row per day — opens in Excel, Numbers or Sheets</small></button>
+        <button class="exp-format" data-format="json" type="button"><b>JSON</b><small>Everything, raw — every food item and weigh-in</small></button>
+      </div>
+    </div>
+    <div class="exp-group">
+      <div class="goal-group-title">Dates</div>
+      <div class="exp-presets" id="expPresetRow">
+        <button class="mode-btn" data-preset="30" type="button">Last 30 days</button>
+        <button class="mode-btn" data-preset="year" type="button">This year</button>
+        <button class="mode-btn active" data-preset="all" type="button">All time</button>
+      </div>
+      <div class="field-row exp-range">
+        <div class="field"><label for="expFrom">From</label><input type="date" id="expFrom"></div>
+        <div class="field"><label for="expTo">To</label><input type="date" id="expTo"></div>
+      </div>
+      <p class="exp-count" id="expCount"></p>
+    </div>
+    <button class="btn-primary burn-variant" id="exportBtn" type="button">Download</button>
     <p class="status" id="backupStatus"></p>
   </div>
 </div>
@@ -1647,7 +1737,7 @@
           </div>
         </div>
       </div>
-      <p class="card-sub" style="margin-top:8px;">Automatically superseded once you log a newer weight in "The Weight" card — this is just the starting point.</p>
+      <p class="card-sub" style="margin-top:8px;">Automatically superseded once you log a newer weight in the Weight card — this is just the starting point.</p>
       <div class="field-row" style="margin-top:14px;">
         <div class="field">
           <label>Sex</label>
@@ -1967,11 +2057,8 @@ function computeStreak(loggedDates){
 }
 function renderHeaderStats(){
   const streakEl = document.getElementById('streakVal');
-  const totalEl = document.getElementById('totalDaysVal');
-  if(!streakEl || !totalEl) return;
-  const dates = allLoggedDates();
-  streakEl.textContent = computeStreak(dates);
-  totalEl.textContent = dates.length;
+  if(!streakEl) return;
+  streakEl.textContent = computeStreak(allLoggedDates());
 }
 
 // ---------- today ring: today's consumed total vs. a trailing-30-day (else all-time) average ----------
@@ -2030,10 +2117,8 @@ function fmtN(v){ return (v == null || isNaN(v)) ? '—' : Math.round(v).toLocal
 function renderMetricRing(key, s, o){
   const prog = document.getElementById(`mProg${key}${s}`);
   const over = document.getElementById(`mOver${key}${s}`);
-  const dot = document.getElementById(`mAvg${key}${s}`);
   const fig = document.getElementById(`mFig${key}${s}`);
   const goalEl = document.getElementById(`mGoal${key}${s}`);
-  const avgEl = document.getElementById(`mAvgTxt${key}${s}`);
   if(!prog || !fig) return;
 
   const ref = o.goal || o.placeholder;
@@ -2048,31 +2133,13 @@ function renderMetricRing(key, s, o){
   }
   fig.textContent = fmtN(o.value);
 
-  if(goalEl){
-    if(o.goal){
-      let cls = '', extra = '';
-      if(o.value != null && o.value > o.goal){
-        cls = o.overIsBad ? 'mg-over' : 'mg-hit';
-        extra = ` <span class="${cls}">+${fmtN(o.value - o.goal)}</span>`;
-      } else if(o.value != null && o.value >= o.goal * 0.98){
-        extra = ' <span class="mg-hit">✓</span>';
-      }
-      goalEl.innerHTML = `Goal <b>${fmtN(o.goal)}</b>${extra}`;
-    } else {
-      goalEl.innerHTML = 'Goal <b>—</b>';
-    }
-  }
-
-  if(dot){
-    if(o.avg != null && ref){
-      const af = Math.max(0, Math.min(o.avg / ref, 0.999));
-      const th = af * 2 * Math.PI;
-      dot.setAttribute('cx', (60 + MRING_R * Math.cos(th)).toFixed(2));
-      dot.setAttribute('cy', (60 + MRING_R * Math.sin(th)).toFixed(2));
-      dot.style.opacity = '1';
-    } else dot.style.opacity = '0';
-  }
-  if(avgEl) avgEl.innerHTML = o.avgHTML || '';
+  if(goalEl) goalEl.innerHTML = goalDiffHTML(o.value, o.goal, o.overIsBad, '');
+}
+// "−506" / "+120" with a real minus sign.
+function signedN(v){ const r = Math.round(v); return (r > 0 ? '+' : r < 0 ? '−' : '±') + Math.abs(r).toLocaleString(); }
+// Under every ring and ruler: just the goal.
+function goalDiffHTML(value, goal, overIsBad, goalUnit){
+  return goal == null ? 'Goal <b>—</b>' : `Goal <b>${fmtN(goal)}${goalUnit || ''}</b>`;
 }
 
 // Copies a main-page ring into its small counterpart in the fixed mini header.
@@ -2119,40 +2186,37 @@ function placeFlag(flag, scale, pct){
   flag.style.left = center + 'px';
   flag.style.setProperty('--ptr', (w / 2 + (truePx - center)) + 'px');
 }
-// s: '' (main) or 'T' (Trends). o: { value, goal, avg }
+// s: '' (main) or 'T' (Trends). o: { value, goal }
+// The ruler is a plain 0–100% scale: protein's share of the day's calories fills it from the left.
+// Like the rings, the fill is blue up to the goal (marked by a tick) and white beyond it.
 function renderDietRuler(s, o){
   const valEl = document.getElementById('dqVal' + s);
   if(!valEl) return;
-  const scale = document.getElementById('dqScale' + s);
-  const ref = o.goal || DQ_PLACEHOLDER;
-  const pct = v => (v == null) ? 0 : Math.max(0, Math.min(100, (v / ref) * 100));
-
-  valEl.textContent = (o.value != null) ? Math.round(o.value) + '%' : '—';
+  const v = o.value, g = o.goal;
+  valEl.textContent = (v != null) ? Math.round(v) + '%' : '—';
   const goalEl = document.getElementById('dqStatus' + s);
-  if(goalEl) goalEl.innerHTML = `Goal <b>${o.goal != null ? o.goal + '%' : '—'}</b>`;
-
-  const fill = document.getElementById('dqFill' + s);
-  fill.style.width = pct(o.value) + '%';
-  fill.classList.toggle('full', o.goal != null && o.value != null && o.value >= o.goal);
-
-  const avgDot = document.getElementById('dqAvgDot' + s);
-  const avgFlag = document.getElementById('dqAvgFlag' + s);
-  if(avgDot && avgFlag){
-    if(o.avg != null){
-      avgDot.style.display = '';
-      avgDot.style.left = pct(o.avg) + '%';
-      avgFlag.textContent = `7-day avg ${Math.round(o.avg)}%`;
-    } else {
-      avgDot.style.display = 'none';
-      avgFlag.textContent = '';
-    }
-    placeFlag(avgFlag, scale, pct(o.avg));
+  if(goalEl) goalEl.innerHTML = goalDiffHTML(v, g, false, '%');
+  paintQualityTrack(document.getElementById('dqFill' + s), document.getElementById('dqOver' + s), document.getElementById('dqTick' + s), v, g);
+}
+function paintQualityTrack(fill, over, tick, v, g){
+  if(!fill) return;
+  const clamp = x => Math.max(0, Math.min(100, x || 0));
+  const vp = clamp(v), gp = (g != null) ? clamp(g) : null;
+  const past = gp != null && vp > gp;
+  fill.style.width = (past ? gp : vp) + '%';
+  fill.classList.toggle('joined', past);
+  fill.classList.toggle('full', gp != null && v != null && v >= g);
+  if(over){
+    over.style.left = (gp != null ? gp : 0) + '%';
+    over.style.width = past ? (vp - gp) + '%' : '0%';
+    over.style.opacity = past ? '1' : '0';
+  }
+  if(tick){
+    tick.style.display = gp != null ? '' : 'none';
+    if(gp != null) tick.style.left = gp + '%';
   }
 }
 
-function avgLineHTML(avg, unitSuffix){
-  return `<i class="avg-swatch"></i>7d avg <b>${fmtN(avg)}${avg != null ? unitSuffix : ''}</b>`;
-}
 
 // The main-page rings follow the shared date selector ("today" = whatever day it's on). Burn
 // shows "—" rather than 0 when unlogged — it's normally logged a day late.
@@ -2162,59 +2226,199 @@ function renderRing(){
   const cal = consumedTotal(entries[d]);
   const protein = consumedProtein(entries[d]);
   const burn = hasBurned(entries[d]) ? entries[d].burned : null;
-  const avgCal = trailingAvg(iso => consumedTotal(entries[iso]), 7);
-  const avgProtein = trailingAvg(iso => consumedProtein(entries[iso]), 7);
-  const avgBurn = trailingAvg(iso => hasBurned(entries[iso]) ? entries[iso].burned : null, 7);
   const calOverIsBad = !(userGoals && userGoals.weightGoal === 'gain');
 
-  renderMetricRing('Cal', '', { value: cal != null ? cal : 0, goal: t && t.calorieTarget, avg: avgCal,
-    placeholder: 2000, overIsBad: calOverIsBad, avgHTML: avgLineHTML(avgCal, '') });
-  renderMetricRing('Protein', '', { value: protein != null ? protein : 0, goal: t && t.proteinTarget, avg: avgProtein,
-    placeholder: 120, overIsBad: false, avgHTML: avgLineHTML(avgProtein, 'g') });
-  renderMetricRing('Burn', '', { value: burn, goal: t && t.burnTarget, avg: avgBurn,
-    placeholder: 2200, overIsBad: false, avgHTML: avgLineHTML(avgBurn, '') });
+  renderMetricRing('Cal', '', { value: cal != null ? cal : 0, goal: t && t.calorieTarget,
+    placeholder: 2000, overIsBad: calOverIsBad });
+  renderMetricRing('Protein', '', { value: protein != null ? protein : 0, goal: t && t.proteinTarget,
+    placeholder: 120, overIsBad: false });
+  renderMetricRing('Burn', '', { value: burn, goal: t && t.burnTarget,
+    placeholder: 2200, overIsBad: false });
   ['Cal','Protein','Burn'].forEach(mirrorMiniRing);
 
   const cta = document.getElementById('goalCtaBtn');
   if(cta) cta.style.display = t ? 'none' : '';
 
-  renderDietRuler('', {
-    value: dietQualityForDate(d),
-    avg: trailingAvg(dietQualityForDate, 7, 1),
-    goal: t ? t.qualityTarget : null
-  });
+  renderDietRuler('', { value: dietQualityForDate(d), goal: t ? t.qualityTarget : null });
   mirrorMiniRuler();
+  renderWeekBalance('');
+  renderMyGoals();
 }
-// Copies the main diet-quality ruler (fill, 7-day dot, value) into the floating top bar's compact version.
+// The floating top bar's compact calorie-quality ruler: same scale, fill and goal tick as the main one.
 function mirrorMiniRuler(){
-  const fill = document.getElementById('dqFill'), mFill = document.getElementById('miniDqFill');
-  const dot = document.getElementById('dqAvgDot'), mDot = document.getElementById('miniDqDot');
+  const t = computeTargets();
+  paintQualityTrack(document.getElementById('miniDqFill'), document.getElementById('miniDqOver'), document.getElementById('miniDqTick'),
+    dietQualityForDate(selectedDate), t ? t.qualityTarget : null);
   const val = document.getElementById('dqVal'), mVal = document.getElementById('miniDqVal');
-  if(fill && mFill){ mFill.style.width = fill.style.width || '0%'; mFill.classList.toggle('full', fill.classList.contains('full')); }
-  if(dot && mDot){ mDot.style.left = dot.style.left || '0%'; mDot.style.display = dot.style.display; }
   if(val && mVal) mVal.textContent = val.textContent;
+}
+
+// ---------- your goals, at the bottom of the rings area ----------
+const GOAL_ICONS = {
+  lose: '<path d="M3.5 7l6 6 4-4 7 7"/><path d="M14.5 16h6v-6"/>',
+  maintain: '<path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7l-2.6 6.2a3 3 0 0 0 5.2 0z"/><path d="M19 7l-2.6 6.2a3 3 0 0 0 5.2 0z"/>',
+  gain: '<path d="M3.5 17l6-6 4 4 7-7"/><path d="M14.5 8h6v6"/>',
+  mmaintain: '<path d="M6.5 7.5v9M17.5 7.5v9M3.5 10v4M20.5 10v4M6.5 12h11"/>',
+  mgain: '<path d="M5.5 9v8M15.5 9v8M3 11.5v3M18 11.5v3M5.5 13h10"/><path d="M19.5 3v5M17 5.5h5"/>'
+};
+function goalIcon(k){ return `<svg class="mg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${GOAL_ICONS[k]}</svg>`; }
+function renderMyGoals(){
+  const el = document.getElementById('myGoals');
+  if(!el) return;
+  const w = { lose:['lose','Lose weight'], maintain:['maintain','Maintain weight'], gain:['gain','Gain weight'] }[userGoals.weightGoal];
+  const m = { maintain:['mmaintain','Maintain muscle'], gain:['mgain','Build muscle'] }[userGoals.muscleGoal];
+  const parts = [w, m].filter(Boolean);
+  if(!parts.length){ el.style.display = 'none'; return; }
+  el.innerHTML = parts.map(([ico, txt]) => `<span class="mg-chip">${goalIcon(ico)}<span>${txt}</span></span>`).join('');
+  el.setAttribute('aria-label', 'Your goals: ' + parts.map(p => p[1]).join(', ') + '. Tap to change.');
+  el.style.display = '';
+}
+
+// ---------- running deficit / surplus ("balance") ----------
+// For each day in a range: net = consumed − burned (negative = deficit), counted only once both are
+// logged; the running total carries the period forward day by day. Days not logged yet add nothing.
+// The goal pace is the daily goal gap (calorie target − burn target, e.g. −500 when losing) per day.
+function balanceSeries(startISO, endISO){
+  const t = computeTargets();
+  const today = todayStr();
+  const days = [];
+  let run = 0, counted = 0;
+  for(const dt = parseISO(startISO); toISO(dt) <= endISO; dt.setDate(dt.getDate() + 1)){
+    const iso = toISO(dt);
+    const e = entries[iso];
+    const n = iso <= today ? net(e) : null;
+    if(n != null){ run += n; counted++; }
+    days.push({ iso, net: n, cum: iso <= today ? run : null, future: iso > today,
+      live: iso === today && n != null && e.burnSource === 'whoop' && !e.burnFinal });
+  }
+  const daily = t ? t.calorieTarget - t.burnTarget : null;
+  return { days, total: counted ? run : null, counted, daily, pace: daily != null ? daily * counted : null };
+}
+const WK_LETTERS = ['M','T','W','T','F','S','S'];
+const MONTH_LETTERS = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+// The chart: a line carrying the running total from 0 at the start of the period, green below zero
+// (deficit) and red above (surplus), against a dashed straight goal-pace line across the period.
+// Today, while WHOOP is still counting, ends in a dashed segment and a blue dot.
+function balanceSVG(ser, o){
+  const W = 320, H = o.H, N = ser.days.length, padX = 6, top = 6, bot = H - 17;
+  const xs = i => padX + i * (W - 2 * padX) / N;
+  const past = ser.days.filter(d => !d.future);
+  const pts = [[xs(0), 0]].concat(past.map((d, i) => [xs(i + 1), d.cum]));
+  const paceEnd = ser.daily != null ? ser.daily * N : null;
+  const vals = [0].concat(pts.map(p => p[1]));
+  if(paceEnd != null) vals.push(paceEnd);
+  const lo = Math.min(...vals), hi = Math.max(...vals), span = (hi - lo) || 1;
+  const y = v => top + (hi - v) / span * (bot - top);
+  const P = pts.map(p => [p[0], y(p[1])]);
+  const path = arr => arr.map((q, i) => (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' ');
+  const y0 = y(0).toFixed(1);
+  const uid = 'b' + o.key;
+  const last = past[past.length - 1];
+  const live = !!(last && last.live);
+  const good = ser.total == null || ser.total <= 0;
+  const col = good ? '#4ADE80' : '#FF5C7A';
+  const solid = live && P.length > 2 ? P.slice(0, -1) : P;
+  let g = '';
+  g += `<defs><clipPath id="${uid}dn"><rect x="0" y="${y0}" width="${W}" height="${H}"/></clipPath>` +
+       `<clipPath id="${uid}up"><rect x="0" y="0" width="${W}" height="${y0}"/></clipPath>` +
+       `<linearGradient id="${uid}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ADE80" stop-opacity="0.05"/><stop offset="1" stop-color="#4ADE80" stop-opacity="0.28"/></linearGradient></defs>`;
+  g += `<line x1="0" x2="${W}" y1="${y0}" y2="${y0}" stroke="rgba(244,245,250,0.22)" stroke-width="1"/>`;
+  if(P.length > 1){
+    const area = `${path(P)} L${P[P.length - 1][0].toFixed(1)} ${y0} L${P[0][0].toFixed(1)} ${y0} Z`;
+    g += `<path d="${area}" fill="url(#${uid}g)" clip-path="url(#${uid}dn)"/>`;
+    g += `<path d="${area}" fill="rgba(255,92,122,0.20)" clip-path="url(#${uid}up)"/>`;
+  }
+  if(paceEnd != null) g += `<path d="M${xs(0).toFixed(1)} ${y0} L${xs(N).toFixed(1)} ${y(paceEnd).toFixed(1)}" fill="none" stroke="rgba(244,245,250,0.5)" stroke-width="1.4" stroke-dasharray="3 4"/>`;
+  if(P.length > 1){
+    g += `<path d="${path(solid)}" fill="none" stroke="${col}" stroke-width="${N > 40 ? 1.8 : 2.4}" stroke-linejoin="round" stroke-linecap="round"/>`;
+    if(live && P.length > 2) g += `<path d="${path(P.slice(-2))}" fill="none" stroke="${col}" stroke-width="2.4" stroke-dasharray="2 4" stroke-linecap="round"/>`;
+  }
+  if(N <= 7){
+    past.forEach((d, i) => {
+      if(d.net == null || (live && i === past.length - 1)) return;
+      g += `<circle cx="${P[i + 1][0].toFixed(1)}" cy="${P[i + 1][1].toFixed(1)}" r="3" fill="#0E1014" stroke="${col}" stroke-width="2"/>`;
+    });
+  }
+  if(live){
+    const q = P[P.length - 1];
+    g += `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="7.5" fill="rgba(76,141,255,0.22)"/><circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="3.8" fill="#4C8DFF" stroke="#0E1014" stroke-width="1.6"/>`;
+  }
+  // x labels: weekday letters, every 7th day of a month, or month initials
+  const lab = (i, t, on) => `<text x="${((xs(i) + xs(i + 1)) / 2).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${on ? '#F4F5F7' : '#8B90A0'}">${t}</text>`;
+  if(o.labels === 'week') ser.days.forEach((d, i) => { g += lab(i, WK_LETTERS[i], d.iso === o.selected); });
+  else if(o.labels === 'month') ser.days.forEach((d, i) => { const dn = +d.iso.slice(8); if(dn % 7 === 1) g += lab(i, dn, false); });
+  else ser.days.forEach((d, i) => { if(d.iso.slice(8) === '15') g += lab(i, MONTH_LETTERS[+d.iso.slice(5, 7) - 1], false); });
+  return `<svg class="wk-svg" viewBox="0 0 ${W} ${H}" aria-hidden="true">${g}</svg>`;
+}
+function balanceHeadHTML(title, ser){
+  const v = ser.total;
+  const cls = v == null ? '' : (v <= 0 ? 'def' : 'sur');
+  return `<div class="wk-head"><div class="wk-title">${title}</div>
+    <div class="wk-now"><div class="wk-val ${cls}">${v == null ? '—' : signedN(v)}<small>kcal</small></div>
+    <div class="wk-goal"><i class="wk-dash"></i>Goal <b>${ser.pace != null ? (ser.pace === 0 ? '0' : signedN(ser.pace)) : '—'}</b></div></div></div>`;
+}
+// s: '' = main page (the Mon–Sun week around the selected date) or 'T' = the Trends period.
+function renderWeekBalance(s){
+  const el = document.getElementById(s ? 'weekBalanceT' : 'weekBalance');
+  if(!el) return;
+  let ser, title, labels;
+  if(s){
+    const r = trendRange(trendHorizon, trendOffset);
+    ser = balanceSeries(r.start, r.end);
+    title = { week:'Week balance', month:'Month balance', year:'Year balance' }[trendHorizon];
+    labels = trendHorizon;
+  } else {
+    const mon = mondayOf(parseISO(selectedDate));
+    const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
+    ser = balanceSeries(toISO(mon), toISO(sun));
+    title = 'Week balance'; labels = 'week';
+    mirrorMiniBalance(ser);
+  }
+  el.innerHTML = balanceHeadHTML(title, ser) + balanceSVG(ser, { H: s ? 78 : 70, labels, selected: s ? null : selectedDate, key: s || 'm' });
+}
+// The floating top bar's version: just the line, the goal pace and the running total.
+function mirrorMiniBalance(ser){
+  const svg = document.getElementById('miniWkSvg'), val = document.getElementById('miniWkVal');
+  if(!svg || !val) return;
+  const W = 200, H = 22, N = ser.days.length;
+  const past = ser.days.filter(d => !d.future);
+  const pts = [0].concat(past.map(d => d.cum));
+  const paceEnd = ser.daily != null ? ser.daily * N : null;
+  const vals = pts.slice(); if(paceEnd != null) vals.push(paceEnd);
+  const lo = Math.min(0, ...vals), hi = Math.max(0, ...vals), span = (hi - lo) || 1;
+  const y = v => (2 + (hi - v) / span * (H - 4)).toFixed(1);
+  const x = i => (i * W / N).toFixed(1);
+  const col = (ser.total == null || ser.total <= 0) ? '#4ADE80' : '#FF5C7A';
+  let g = `<line x1="0" x2="${W}" y1="${y(0)}" y2="${y(0)}" stroke="rgba(244,245,250,0.22)" stroke-width="1" vector-effect="non-scaling-stroke"/>`;
+  if(paceEnd != null) g += `<path d="M0 ${y(0)} L${W} ${y(paceEnd)}" fill="none" stroke="rgba(244,245,250,0.45)" stroke-width="1.2" stroke-dasharray="2 3" vector-effect="non-scaling-stroke"/>`;
+  if(pts.length > 1) g += `<path d="${pts.map((v, i) => (i ? 'L' : 'M') + x(i) + ' ' + y(v)).join(' ')}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
+  svg.innerHTML = g;
+  val.textContent = ser.total == null ? '—' : signedN(ser.total);
+  val.className = 'mini-dq-val ' + (ser.total == null ? '' : (ser.total <= 0 ? 'def' : 'sur'));
 }
 
 // ---------- collapsible "The Food" card ----------
 let foodExpanded = false;
-// Collapsed summary always reflects the real calendar "today" + trailing 7-day average — same
-// language as the Burn/Weight cards — regardless of which date the shared selector is currently on.
+// Collapsed summaries follow the shared date selector: "Today", "Yesterday", or the date itself.
+function dayLabel(iso){
+  if(iso === todayStr()) return 'Today';
+  if(iso === yesterdayStr()) return 'Yesterday';
+  return parseISO(iso).toLocaleDateString(undefined, { weekday:'short', month:'short', day:'numeric' });
+}
 function renderFoodSummary(d, e){
   const valEl = document.getElementById('foodSummaryVal');
   const wrap = document.getElementById('foodFormWrap');
   const chevron = document.getElementById('foodChevron');
   if(!valEl) return;
 
-  const todayEntry = entries[todayStr()];
-  const todayCal = todayEntry ? consumedTotal(todayEntry) : null;
-  const todayProtein = todayEntry ? consumedProtein(todayEntry) : null;
-  const avgCal = trailingAvg(iso => { const v = consumedTotal(entries[iso]); return typeof v === 'number' ? v : null; }, 7);
-  const avgProtein = trailingAvg(iso => { const v = consumedProtein(entries[iso]); return typeof v === 'number' ? v : null; }, 7);
+  const se = entries[selectedDate];
+  const dayCal = se ? consumedTotal(se) : null;
+  const dayProtein = se ? consumedProtein(se) : null;
 
   // kcal and protein each get their own line (a bit taller, but nothing can clip)
   valEl.innerHTML = summaryGridHTML([
-    { label:'Today', alert: todayCal == null, values:[
-      `${fmtN(todayCal)} kcal`, `${fmtN(todayProtein)} g protein` ] }
+    { label: dayLabel(selectedDate), alert: dayCal == null, values:[
+      `${fmtN(dayCal)} kcal`, `${fmtN(dayProtein)} g protein` ] }
   ]);
 
   if(wrap) wrap.style.display = foodExpanded ? '' : 'none';
@@ -2239,9 +2443,11 @@ let burnExpanded = false;
 // Trailing N-day average of whatever values exist over the last N calendar days — gaps just
 // don't count toward the average (rather than averaging in a zero). valueForDateFn takes an
 // ISO date string and returns a number or null/undefined.
-function trailingAvg(valueForDateFn, days, decimals){
+// With endISO, the window is the N days ending on (and including) that date instead.
+function trailingAvg(valueForDateFn, days, decimals, endISO){
   const vals = [];
-  const dt = new Date();
+  const dt = endISO ? parseISO(endISO) : new Date();
+  if(endISO) dt.setDate(dt.getDate() + 1);
   for(let i=1;i<=days;i++){
     dt.setDate(dt.getDate() - 1); // step back one more day each iteration
     const v = valueForDateFn(toISO(dt));
@@ -2282,13 +2488,11 @@ function renderBurnMissingAlert(){
 function renderBurnCard(){
   const valEl = document.getElementById('burnSummaryVal');
   if(!valEl) return;
-  const todayBurn = hasBurned(entries[todayStr()]) ? entries[todayStr()].burned : null;
-  const avg7 = trailingAvg(iso => hasBurned(entries[iso]) ? entries[iso].burned : null, 7);
-
-  const te = entries[todayStr()];
-  const liveToday = te && te.burnSource === 'whoop' && !te.burnFinal;
+  const de = entries[selectedDate];
+  const dayBurn = hasBurned(de) ? de.burned : null;
+  const live = de && de.burnSource === 'whoop' && !de.burnFinal && selectedDate === todayStr();
   valEl.innerHTML = summaryGridHTML([
-    { label: liveToday ? 'Today · live' : 'Today', alert: todayBurn == null, values:[ `${fmtN(todayBurn)} kcal` ] }
+    { label: dayLabel(selectedDate) + (live ? ' · live' : ''), alert: dayBurn == null, values:[ `${fmtN(dayBurn)} kcal` ] }
   ]);
   const srcNote = document.getElementById('burnSourceNote');
   if(srcNote){
@@ -2368,12 +2572,11 @@ function renderWeightCard(){
   const d = selectedDate;
   const unit = weightUnit();
   const wMap = dailyWeightMap();
-  const avg7 = trailingAvg(iso => wMap[iso] ? wMap[iso].avg : null, 7, 1);
-  const todayLogged = !!wMap[todayStr()];
-
-  const todayW = todayLogged ? Math.round(wMap[todayStr()].avg*10)/10 : null;
+  const avg7 = trailingAvg(iso => wMap[iso] ? wMap[iso].avg : null, 7, 1, d);
+  const dayLogged = !!wMap[d];
+  const dayW = dayLogged ? Math.round(wMap[d].avg*10)/10 : null;
   valEl.innerHTML = summaryGridHTML([
-    { label:'Today', alert: !todayLogged, values:[ `${todayW != null ? todayW : '—'} ${unit}` ] },
+    { label: dayLabel(d), alert: !dayLogged, values:[ `${dayW != null ? dayW : '—'} ${unit}` ] },
     { label:'7d avg', dim:true, values:[ `${avg7 != null ? avg7 : '—'} ${unit}` ] }
   ]);
 
@@ -2448,18 +2651,12 @@ function renderWeightCard(){
   if(valueLabel) valueLabel.textContent = `Weight (${weightUnit()})`;
 }
 
-// ---------- collapsible "History" card ----------
-let historyExpanded = false;
-function renderHistoryCard(){
-  const valEl = document.getElementById('historySummaryVal');
-  if(!valEl) return;
-  const n = allLoggedDates().length;
-  valEl.textContent = n ? `${n} day${n===1?'':'s'} logged` : 'Nothing logged yet';
-
-  const wrap = document.getElementById('historyFormWrap');
-  const chevron = document.getElementById('historyChevron');
-  if(wrap) wrap.style.display = historyExpanded ? '' : 'none';
-  if(chevron) chevron.classList.toggle('open', historyExpanded);
+// ---------- History (a page in the menu) ----------
+function openHistory(){
+  const today = new Date();
+  histViewYear = today.getFullYear(); histViewMonth = today.getMonth();
+  renderTable();
+  document.getElementById('historyOverlay').style.display = 'flex';
 }
 
 function migrateEntry(v){
@@ -2700,7 +2897,7 @@ function targetsMethodologyHTML(t){
     <p><b>Calorie target</b> ${t.calorieTarget} kcal/day — adjusted from TDEE to ${wgLabel}, with a safety floor so it never drops too low.</p>
     <p><b>Protein target</b> ${t.proteinTarget} g/day — ${t.proteinPerKg} g per kg of bodyweight, the range the sports-nutrition literature (ISSN/ACSM) backs for your goal to ${mgLabel} while you ${wgLabel}.</p>
     <p><b>Burn target</b> ${t.burnTarget} kcal/day — your estimated total daily energy expenditure at this activity level; a directional guide, not a clinical measurement.</p>
-    <p><b>Diet quality target</b> ${t.qualityTarget}% of calories from protein — simply your protein target's calories (×4) divided by your calorie target.</p>
+    <p><b>Calorie quality target</b> ${t.qualityTarget}% of calories from protein — simply your protein target's calories (×4) divided by your calorie target.</p>
   `;
 }
 
@@ -2899,7 +3096,7 @@ function aggregateWeightByMonth(dates, wMap){
 // Month (last 30 days) or Year (last 365 days). All three always show daily data points; Month
 // and Year additionally overlay a flat average line per week/month (see bucketIndices below).
 const HORIZON_DAYS = { week: 7, month: 30, year: 365 };
-const HORIZON_BUCKET = { week: null, month: 'week', year: 'month' };
+const HORIZON_BUCKET = { week: null, month: null, year: null }; // period-average lines removed: they read as targets
 // Trends periods are calendar periods — a Mon–Sun week, a calendar month, a calendar year — and
 // trendOffset steps back through them (0 = the current one). Today is included and labelled
 // "Today" on the charts: with a wearable connected its burn is live, so the day reads in progress.
@@ -3194,13 +3391,13 @@ function renderTrendsRingAndRuler(){
   const pro = pick(d => consumedProtein(entries[d]));
   const brn = pick(d => hasBurned(entries[d]) ? entries[d].burned : null);
   const q = pick(dietQualityForDate);
-  const daysHTML = n => n ? `avg of <b>${n}</b> day${n === 1 ? '' : 's'}` : 'no data yet';
   const calOverIsBad = !(userGoals && userGoals.weightGoal === 'gain');
 
-  renderMetricRing('Cal', 'T', { value: avgOf(cal), goal: t && t.calorieTarget, placeholder: 2000, overIsBad: calOverIsBad, avgHTML: daysHTML(cal.length) });
-  renderMetricRing('Protein', 'T', { value: avgOf(pro), goal: t && t.proteinTarget, placeholder: 120, overIsBad: false, avgHTML: daysHTML(pro.length) });
-  renderMetricRing('Burn', 'T', { value: avgOf(brn), goal: t && t.burnTarget, placeholder: 2200, overIsBad: false, avgHTML: daysHTML(brn.length) });
-  renderDietRuler('T', { value: avgOf(q), goal: t ? t.qualityTarget : null, avg: null });
+  renderMetricRing('Cal', 'T', { value: avgOf(cal), goal: t && t.calorieTarget, placeholder: 2000, overIsBad: calOverIsBad });
+  renderMetricRing('Protein', 'T', { value: avgOf(pro), goal: t && t.proteinTarget, placeholder: 120, overIsBad: false });
+  renderMetricRing('Burn', 'T', { value: avgOf(brn), goal: t && t.burnTarget, placeholder: 2200, overIsBad: false });
+  renderDietRuler('T', { value: avgOf(q), goal: t ? t.qualityTarget : null });
+  renderWeekBalance('T');
 }
 
 // ---------- rendering: consumed / burned (split from the old single "consumed vs. burned" chart) ----------
@@ -3456,7 +3653,7 @@ function renderQualityChart(){
 
     const ctx = document.getElementById('qualityChart');
     const datasets = [
-      { type:'bar', label:'Diet quality', data: qualityVals, backgroundColor:'rgba(76,141,255,0.72)', borderRadius:4,
+      { type:'bar', label:'Calorie quality', data: qualityVals, backgroundColor:'rgba(76,141,255,0.72)', borderRadius:4,
         maxBarThickness: trendHorizon==='week'?22:(trendHorizon==='month'?14:6) },
       ...overlayDatasets.map(ds=>({ ...ds, type:'line' }))
     ];
@@ -3934,7 +4131,6 @@ function renderAll(){
   renderFoodForm();
   renderBurnCard();
   renderWeightCard();
-  renderHistoryCard();
   renderHeaderStats();
 }
 
@@ -4034,7 +4230,7 @@ function clearHoldHighlight(chart){
 // Renders the held index's date + value(s) into the chart's own title element, in place of the
 // period-average text it normally shows — set by each render function via chart.$holdInfo =
 // { titleEl, labels, series:[{color, decimals, suffix, showSign, vals}, ...] }.
-function holdTitleHTML(info, index){
+function holdTitleHTML(info, index, dates){
   const parts = info.series.map(s=>{
     const v = s.vals[index];
     const color = typeof s.color === 'function' ? s.color(v) : s.color;
@@ -4046,7 +4242,9 @@ function holdTitleHTML(info, index){
     }
     return `<b style="color:${color}">${text}</b>`;
   });
-  const label = info.labels[index] != null ? info.labels[index] : '';
+  const iso = dates && dates[index];
+  const label = iso ? parseISO(iso).toLocaleDateString(undefined, { weekday:'long', month:'short', day:'numeric' }) + (iso === todayStr() ? ' · today' : '')
+    : (info.labels[index] != null ? info.labels[index] : '');
   return `<span class="cs-line cs-date">${label}</span><span class="cs-line">${parts.join(info.joiner || ' / ')}</span>`;
 }
 // Right-hand stats of a Trends chart header — one line per figure so nothing ever clips.
@@ -4088,7 +4286,7 @@ function setupChartTooltip(canvasId, getChart){
     const info = chart.$holdInfo;
     if(info && info.titleEl){
       if(info.baseHTML == null) info.baseHTML = info.titleEl.innerHTML;
-      info.titleEl.innerHTML = holdTitleHTML(info, index);
+      info.titleEl.innerHTML = holdTitleHTML(info, index, chart.$dates);
     }
     chart.update();
   }
@@ -4735,12 +4933,6 @@ async function init(){
     renderWeightCard();
   });
 
-  document.getElementById('historySummaryBtn').addEventListener('click', ()=>{
-    haptic();
-    historyExpanded = !historyExpanded;
-    renderHistoryCard();
-  });
-
   document.getElementById('weightManualModeBtn').addEventListener('click', ()=>{
     haptic();
     weightInputMode = 'manual';
@@ -4787,54 +4979,7 @@ async function init(){
     renderTable();
   });
 
-  const backupStatus = document.getElementById('backupStatus');
-  document.getElementById('exportBtn').addEventListener('click', ()=>{
-    const blob = new Blob([JSON.stringify(entries, null, 2)], { type:'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `monstrao-backup-${todayStr()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-    backupStatus.textContent = 'Backup downloaded.';
-    setTimeout(()=>{ backupStatus.textContent=''; }, 2000);
-  });
-
-  const importFile = document.getElementById('importFile');
-  document.getElementById('importBtn').addEventListener('click', ()=> importFile.click());
-  importFile.addEventListener('change', async (ev)=>{
-    const file = ev.target.files[0];
-    if(!file) return;
-    try{
-      const text = await file.text();
-      const parsed = JSON.parse(text);
-      for(const [date, val] of Object.entries(parsed)){
-        if(val && typeof val === 'object' && 'mode' in val){
-          if(!entries[date]){ entries[date] = val; }
-          else {
-            const cur = entries[date];
-            if(!cur.mode && val.mode){ cur.mode = val.mode; cur.items = val.items; cur.total = val.total; }
-            if(cur.burned == null && val.burned != null){ cur.burned = val.burned; }
-          }
-        } else if(val && typeof val.consumed === 'number'){
-          if(!entries[date]){
-            entries[date] = { mode:'simple', items:null, total: val.consumed, burned: (typeof val.burned==='number'? val.burned : null) };
-          } else {
-            const cur = entries[date];
-            if(!cur.mode){ cur.mode='simple'; cur.total=val.consumed; cur.items=null; }
-            if(cur.burned == null && typeof val.burned==='number'){ cur.burned = val.burned; }
-          }
-        }
-      }
-      await persist();
-      renderAll(); renderFoodForm();
-      backupStatus.textContent = 'Backup imported and merged.';
-    }catch(e){
-      backupStatus.textContent = 'Could not read that file.';
-    }
-    setTimeout(()=>{ backupStatus.textContent=''; }, 2500);
-    importFile.value = '';
-  });
+  wireExport();
 
   // ---- menu + profile/goals overlays ----
   const appMenuBtn = document.getElementById('appMenuBtn');
@@ -4984,6 +5129,7 @@ async function init(){
     methodologyToggleBtn.textContent = open ? 'How we calculated this ▾' : 'How we calculated this ▴';
   });
 
+  document.getElementById('myGoals').addEventListener('click', ()=>{ haptic(); document.getElementById('openGoalsBtn').click(); });
   document.getElementById('openGoalsBtn').addEventListener('click', ()=>{
     setMenuOpen(false); haptic();
     fillGoalsForm();
@@ -4992,6 +5138,8 @@ async function init(){
   });
   document.getElementById('goalsBackBtn').addEventListener('click', ()=>{ goalsOverlay.style.display = 'none'; renderAll(); });
   document.getElementById('openWearablesBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openWearables(); });
+  document.getElementById('openHistoryBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openHistory(); });
+  document.getElementById('openExportBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openExport(); });
   document.getElementById('wearablesBackBtn').addEventListener('click', ()=>{ document.getElementById('wearablesOverlay').style.display = 'none'; wearablesMsg = null; });
   document.getElementById('wearablesBody').addEventListener('click', (ev)=>{ const b = ev.target.closest('[data-wear]'); if(b) wearablesAction(b.dataset.wear, b); });
   document.getElementById('openAdminBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openAdmin(); });
@@ -5226,6 +5374,105 @@ function bootAuth(){
 }
 
 // =====================================================================================
+// Export data — CSV (one row per day) or JSON (everything raw), for any date range
+// =====================================================================================
+let exportFormat = 'csv';
+function exportDates(from, to){
+  const set = new Set(sortedDates().filter(d => { const e = entries[d]; return consumedTotal(e) != null || hasBurned(e); }));
+  Object.keys(weightReadings).forEach(ts => set.add(ts.slice(0,10)));
+  return Array.from(set).filter(d => (!from || d >= from) && (!to || d <= to)).sort();
+}
+function earliestAnyDate(){ const d = exportDates(); return d[0] || todayStr(); }
+function setExportPreset(p){
+  const to = todayStr();
+  let from = earliestAnyDate();
+  if(p === '30'){ const dt = new Date(); dt.setDate(dt.getDate() - 29); from = toISO(dt); }
+  if(p === 'year') from = `${new Date().getFullYear()}-01-01`;
+  document.getElementById('expFrom').value = from;
+  document.getElementById('expTo').value = to;
+  document.querySelectorAll('#expPresetRow .mode-btn').forEach(b => b.classList.toggle('active', b.dataset.preset === p));
+  updateExportCount();
+}
+function updateExportCount(){
+  const from = document.getElementById('expFrom').value, to = document.getElementById('expTo').value;
+  const n = (from && to && from > to) ? 0 : exportDates(from, to).length;
+  const el = document.getElementById('expCount');
+  el.textContent = (from && to && from > to) ? '“From” is after “To”.' : (n ? `${n} day${n === 1 ? '' : 's'} with data in this range.` : 'No data in this range.');
+  document.getElementById('exportBtn').disabled = !n;
+}
+function openExport(){
+  document.querySelectorAll('#expFormatRow .exp-format').forEach(b => b.classList.toggle('active', b.dataset.format === exportFormat));
+  setExportPreset('all');
+  document.getElementById('backupStatus').textContent = '';
+  document.getElementById('exportOverlay').style.display = 'flex';
+}
+function csvCell(v){
+  if(v == null) return '';
+  const t = String(v);
+  return /[",\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
+}
+function buildExportCSV(dates){
+  const wMap = dailyWeightMap();
+  const unit = weightUnit();
+  const head = ['date','weekday','calories_kcal','protein_g','burned_kcal','burn_source','net_kcal','calorie_quality_pct',`weight_${unit}`,'foods'];
+  const rows = dates.map(d => {
+    const e = entries[d];
+    const cal = consumedTotal(e), pro = consumedProtein(e), n = net(e), q = dietQualityForDate(d);
+    const items = (e && e.mode === 'items' && e.items) ? e.items.map(it => `${it.desc || 'Item'} (${it.cal} kcal, ${typeof it.protein === 'number' ? it.protein : 0} g)`).join('; ') : '';
+    return [d, parseISO(d).toLocaleDateString('en-US', { weekday:'long' }),
+      cal != null ? Math.round(cal) : null, pro != null ? Math.round(pro) : null,
+      hasBurned(e) ? Math.round(e.burned) : null, hasBurned(e) ? (e.burnSource === 'whoop' ? 'WHOOP' : 'manual') : null,
+      n != null ? Math.round(n) : null, q != null ? Math.round(q * 10) / 10 : null,
+      wMap[d] ? Math.round(wMap[d].avg * 10) / 10 : null, items].map(csvCell).join(',');
+  });
+  return '\ufeff' + [head.join(','), ...rows].join('\r\n'); // BOM so Excel reads accents correctly
+}
+function buildExportJSON(dates, from, to){
+  const set = new Set(dates);
+  const ent = {}, w = {};
+  dates.forEach(d => { if(entries[d]) ent[d] = entries[d]; });
+  Object.keys(weightReadings).sort().forEach(ts => { if(set.has(ts.slice(0,10))) w[ts] = weightReadings[ts]; });
+  return JSON.stringify({ app: 'Monstrão', exportedAt: new Date().toISOString(), from, to,
+    profile: userProfile, goals: userGoals, entries: ent, weights: w }, null, 2);
+}
+function downloadText(text, name, type){
+  const blob = new Blob([text], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+function wireExport(){
+  document.getElementById('historyBackBtn').addEventListener('click', ()=>{ document.getElementById('historyOverlay').style.display = 'none'; expandedDate = null; });
+  document.getElementById('exportBackBtn').addEventListener('click', ()=>{ document.getElementById('exportOverlay').style.display = 'none'; });
+  document.getElementById('expFormatRow').addEventListener('click', (ev)=>{
+    const b = ev.target.closest('.exp-format'); if(!b) return;
+    haptic(); exportFormat = b.dataset.format;
+    document.querySelectorAll('#expFormatRow .exp-format').forEach(x => x.classList.toggle('active', x === b));
+  });
+  document.getElementById('expPresetRow').addEventListener('click', (ev)=>{
+    const b = ev.target.closest('.mode-btn'); if(!b) return;
+    haptic(); setExportPreset(b.dataset.preset);
+  });
+  ['expFrom','expTo'].forEach(id => document.getElementById(id).addEventListener('change', ()=>{
+    document.querySelectorAll('#expPresetRow .mode-btn').forEach(b => b.classList.remove('active'));
+    updateExportCount();
+  }));
+  document.getElementById('exportBtn').addEventListener('click', ()=>{
+    const from = document.getElementById('expFrom').value, to = document.getElementById('expTo').value;
+    const dates = exportDates(from, to);
+    if(!dates.length) return;
+    const name = `monstrao-${from}-to-${to}`;
+    if(exportFormat === 'json') downloadText(buildExportJSON(dates, from, to), name + '.json', 'application/json');
+    else downloadText(buildExportCSV(dates), name + '.csv', 'text/csv;charset=utf-8');
+    const st = document.getElementById('backupStatus');
+    st.textContent = `Downloaded ${dates.length} day${dates.length === 1 ? '' : 's'} as ${exportFormat.toUpperCase()}.`;
+    st.className = 'status success';
+  });
+}
+
+// =====================================================================================
 // Wearables page
 // =====================================================================================
 let wearablesMsg = null;
@@ -5264,10 +5511,8 @@ function renderWearables(){
       body: 'Connect once and your calorie burn comes straight from WHOOP — live during the day, final the next morning.',
       actions: '<button class="btn-primary" data-wear="connect" type="button">Connect WHOOP</button>' });
   }
-  const oura = wearableCard({ name:'Oura', logo:'O', status:'Coming later', statusCls:'muted', dim:true,
-    body:'Possible through Oura’s official API. Needs an Oura membership, and the ring only shares data after it syncs with the Oura app.' });
-  const google = wearableCard({ name:'Fitbit / Google', logo:'G', status:'Coming later', statusCls:'muted', dim:true,
-    body:'Fitbit’s own API shuts down on Nov 2, 2026. Its replacement, Google’s Health API, treats this data as restricted and can require a paid security review before an app like this can use it.' });
+  const oura = wearableCard({ name:'Oura', logo:'O', status:'Coming soon', statusCls:'muted', dim:true });
+  const google = wearableCard({ name:'Fitbit', logo:'F', status:'Coming soon', statusCls:'muted', dim:true });
   body.innerHTML = (wearablesMsg ? `<p class="status ${wearablesMsg.error ? 'error' : 'success'}" style="margin:0 0 14px;">${escapeHtml(wearablesMsg.text)}</p>` : '') + whoop + oura + google;
 }
 async function wearablesAction(act, btn){

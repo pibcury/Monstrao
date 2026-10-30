@@ -2379,7 +2379,8 @@ function renderMyGoals(){
 // For each day in a range: net = consumed − burned (negative = deficit), counted only once both are
 // logged; the running total carries the period forward day by day. Days not logged yet add nothing.
 // The goal pace is the daily goal gap (calorie target − burn target, e.g. −500 when losing) per day.
-// kind 'protein': the same running total, of grams eaten, against protein goal × days.
+// kind 'protein': the same idea in grams — each logged day adds (protein eaten − protein goal), so the
+// goal is the zero line and the running total shows how far over or under it the period is.
 function balanceSeries(startISO, endISO, kind){
   const t = computeTargets();
   const isP = kind === 'protein';
@@ -2389,13 +2390,15 @@ function balanceSeries(startISO, endISO, kind){
   for(const dt = parseISO(startISO); toISO(dt) <= endISO; dt.setDate(dt.getDate() + 1)){
     const iso = toISO(dt);
     const e = entries[iso];
-    const n = iso > today ? null : (isP ? (consumedTotal(e) != null ? (consumedProtein(e) || 0) : null) : net(e));
+    const n = iso > today ? null
+      : (isP ? ((t && consumedTotal(e) != null) ? (consumedProtein(e) || 0) - t.proteinTarget : null) : net(e));
     if(n != null){ run += n; counted++; }
     days.push({ iso, net: n, cum: iso <= today ? run : null, future: iso > today,
       live: !isP && iso === today && n != null && (e.burnSource === 'whoop' || e.burnSource === 'calc') && !e.burnFinal });
   }
-  const daily = t ? (isP ? t.proteinTarget : t.calorieTarget - t.burnTarget) : null;
-  return { kind: isP ? 'protein' : 'cal', days, total: counted ? run : null, counted, daily, pace: daily != null ? daily * counted : null };
+  const daily = t ? (isP ? 0 : t.calorieTarget - t.burnTarget) : null;
+  return { kind: isP ? 'protein' : 'cal', days, total: counted ? run : null, counted, daily,
+    pace: daily != null ? daily * counted : null, goal: (isP && t) ? t.proteinTarget : null };
 }
 const WK_LETTERS = ['M','T','W','T','F','S','S'];
 const MONTH_LETTERS = ['J','F','M','A','M','J','J','A','S','O','N','D'];
@@ -2419,25 +2422,29 @@ function balanceSVG(ser, o){
   const last = past[past.length - 1];
   const live = !!(last && last.live);
   const isP = ser.kind === 'protein';
-  const good = ser.total == null || ser.total <= 0;
-  const col = isP ? '#4C8DFF' : (good ? '#4ADE80' : '#FF5C7A');
+  const good = ser.total == null || (isP ? ser.total >= 0 : ser.total <= 0);
+  const col = good ? '#4ADE80' : '#FF5C7A';
   const solid = live && P.length > 2 ? P.slice(0, -1) : P;
   let g = '';
   g += `<defs><clipPath id="${uid}dn"><rect x="0" y="${y0}" width="${W}" height="${H}"/></clipPath>` +
        `<clipPath id="${uid}up"><rect x="0" y="0" width="${W}" height="${y0}"/></clipPath>` +
        `<linearGradient id="${uid}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ADE80" stop-opacity="0.05"/><stop offset="1" stop-color="#4ADE80" stop-opacity="0.28"/></linearGradient></defs>`;
-  g += `<line x1="0" x2="${W}" y1="${y0}" y2="${y0}" stroke="rgba(244,245,250,0.22)" stroke-width="1"/>`;
+  // protein: the zero line IS the goal, so it's drawn dashed like the calorie goal-pace line
+  g += isP
+    ? `<line x1="${xs(0).toFixed(1)}" x2="${xs(N).toFixed(1)}" y1="${y0}" y2="${y0}" stroke="rgba(244,245,250,0.5)" stroke-width="1.4" stroke-dasharray="3 4"/>`
+    : `<line x1="0" x2="${W}" y1="${y0}" y2="${y0}" stroke="rgba(244,245,250,0.22)" stroke-width="1"/>`;
   if(P.length > 1){
     const area = `${path(P)} L${P[P.length - 1][0].toFixed(1)} ${y0} L${P[0][0].toFixed(1)} ${y0} Z`;
     if(isP){
-      g += `<linearGradient id="${uid}p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4C8DFF" stop-opacity="0.26"/><stop offset="1" stop-color="#4C8DFF" stop-opacity="0.03"/></linearGradient>`;
-      g += `<path d="${area}" fill="url(#${uid}p)"/>`;
+      g += `<linearGradient id="${uid}p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ADE80" stop-opacity="0.28"/><stop offset="1" stop-color="#4ADE80" stop-opacity="0.05"/></linearGradient>`;
+      g += `<path d="${area}" fill="url(#${uid}p)" clip-path="url(#${uid}up)"/>`;
+      g += `<path d="${area}" fill="rgba(255,92,122,0.20)" clip-path="url(#${uid}dn)"/>`;
     } else {
       g += `<path d="${area}" fill="url(#${uid}g)" clip-path="url(#${uid}dn)"/>`;
       g += `<path d="${area}" fill="rgba(255,92,122,0.20)" clip-path="url(#${uid}up)"/>`;
     }
   }
-  if(paceEnd != null) g += `<path d="M${xs(0).toFixed(1)} ${y0} L${xs(N).toFixed(1)} ${y(paceEnd).toFixed(1)}" fill="none" stroke="rgba(244,245,250,0.5)" stroke-width="1.4" stroke-dasharray="3 4"/>`;
+  if(paceEnd != null && !isP) g += `<path d="M${xs(0).toFixed(1)} ${y0} L${xs(N).toFixed(1)} ${y(paceEnd).toFixed(1)}" fill="none" stroke="rgba(244,245,250,0.5)" stroke-width="1.4" stroke-dasharray="3 4"/>`;
   if(P.length > 1){
     g += `<path d="${path(solid)}" fill="none" stroke="${col}" stroke-width="${N > 40 ? 1.8 : 2.4}" stroke-linejoin="round" stroke-linecap="round"/>`;
     if(live && P.length > 2) g += `<path d="${path(P.slice(-2))}" fill="none" stroke="${col}" stroke-width="2.4" stroke-dasharray="2 4" stroke-linecap="round"/>`;
@@ -2462,9 +2469,10 @@ function balanceSVG(ser, o){
 function balanceHeadHTML(title, ser){
   const v = ser.total;
   if(ser.kind === 'protein'){
+    const pcls = v == null ? '' : (v >= 0 ? 'def' : 'sur');
     return `<div class="wk-head"><div class="wk-title">${title}</div>
-      <div class="wk-now"><div class="wk-val pro">${fmtN(v)}<small>g</small></div>
-      <div class="wk-goal"><i class="wk-dash"></i>Goal <b>${ser.pace != null ? fmtN(ser.pace) + ' g' : '—'}</b></div></div></div>`;
+      <div class="wk-now"><div class="wk-val ${pcls}">${v == null ? '—' : signedN(v)}<small>g</small></div>
+      <div class="wk-goal"><i class="wk-dash"></i>Goal <b>${ser.goal != null ? fmtN(ser.goal * ser.counted) + ' g' : '—'}</b></div></div></div>`;
   }
   const cls = v == null ? '' : (v <= 0 ? 'def' : 'sur');
   return `<div class="wk-head"><div class="wk-title">${title}</div>
@@ -2491,7 +2499,7 @@ function renderWeekBalance(s){
   el.innerHTML = balanceHeadHTML('Calorie balance', ser) + balanceSVG(ser, { ...o, key: (s || 'm') + 'c' });
   if(pel){
     const pser = balanceSeries(start, end, 'protein');
-    pel.innerHTML = balanceHeadHTML('Protein balance', pser) + balanceSVG(pser, { ...o, key: (s || 'm') + 'p' });
+    pel.innerHTML = balanceHeadHTML('Protein balance vs. goal', pser) + balanceSVG(pser, { ...o, key: (s || 'm') + 'p' });
   }
 }
 // The floating top bar's version: just the line, the goal pace and the running total.

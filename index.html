@@ -1157,6 +1157,47 @@
   .wk-svg text{font-family:'Inter',sans-serif;}
   .mini-wk{margin-top:7px;}
   .mini-wk-svg{flex:1;min-width:0;height:22px;overflow:visible;}
+  /* ===================== Oct 29 pass ===================== */
+  /* main page: rings + ruler share one "Today" card */
+  #ringSection .today-card{width:100%;padding:12px 10px 12px;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(244,245,250,0.08);}
+  #ringSection .today-card .metric{background:none;border:0;padding:2px 2px 0;}
+  #ringSection .today-card .dq{background:none;border:0;border-top:1px solid rgba(244,245,250,0.07);border-radius:0;margin-top:12px;padding:12px 4px 0;}
+  #ringSection .today-card .goal-cta{margin:10px 0 0;}
+  .wk-val.pro{color:var(--accent);}
+  /* burn ring: where the number comes from, plus "Log" / the day's activity */
+  .burn-src{margin-left:5px;font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  .burn-src:empty{display:none;}
+  #mUnitBurn{margin-top:3px;}
+  .burn-act{position:relative;display:inline-flex;align-items:center;gap:3px;padding:2px 6px 2px 7px;margin:0;border-radius:8px;
+    background:rgba(76,141,255,0.14);color:var(--ink);font-size:9.5px;font-weight:700;white-space:nowrap;cursor:pointer;}
+  .burn-act svg{width:8px;height:5px;color:var(--accent);}
+  .burn-act select{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;cursor:pointer;-webkit-appearance:none;appearance:none;}
+  .burn-log-btn{display:inline-flex;align-items:center;gap:0;padding:2px 7px;border-radius:8px;border:0;background:rgba(255,159,67,0.14);color:var(--ink);font-size:10px;font-weight:700;cursor:pointer;}
+  .burn-log-btn .warn-dot{width:6px;height:6px;margin-right:4px;vertical-align:0;}
+  .cs-src{color:var(--muted);font-weight:600;}
+  /* Profile: daily burn */
+  .burn-mode-card{margin-top:14px;}
+  .bm-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .burn-mode-card .status:empty{display:none;}
+  .bm-wear{display:block;width:100%;margin-top:12px;padding:12px 0 0;background:none;border:0;border-radius:0;box-shadow:none;border-top:1px solid var(--rule);color:var(--muted);font-size:12.5px;font-weight:600;text-align:left;cursor:pointer;}
+  .bm-wear b{color:var(--accent);}
+  .bm-locked{display:flex;flex-direction:column;gap:4px;padding:12px 13px;border-radius:14px;background:var(--accent-soft);border:1.5px solid var(--accent);}
+  .bm-locked b{font-family:'Sora',sans-serif;font-weight:600;font-size:15px;}
+  .bm-locked span{font-size:12px;color:var(--muted);line-height:1.4;}
+  /* Goals: pace + editable targets */
+  .goal-pill-rate{flex-direction:column;gap:1px;padding:11px 8px;}
+  .goal-pill-rate b{font-family:'Sora',sans-serif;font-weight:600;font-size:15px;}
+  .goal-pill-rate small{font-size:11px;color:var(--muted);font-weight:600;}
+  input.target-input{width:100%;padding:0;margin:0;border:0;background:none;text-align:center;color:var(--ink);
+    font-family:'Sora',sans-serif;font-weight:700;font-size:22px;line-height:1.15;-moz-appearance:textfield;border-radius:8px;}
+  input.target-input::-webkit-outer-spin-button, input.target-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  input.target-input:focus{outline:none;background:rgba(76,141,255,0.12);box-shadow:0 0 0 1.5px var(--accent);}
+  .tt-edited{display:none;color:var(--accent);margin-left:3px;}
+  .target-tile.edited .tt-edited{display:inline;}
+  .target-tile.edited input.target-input{color:var(--accent);}
+  .targets-hint{font-size:11.5px;color:var(--muted);text-align:center;margin:10px 0 0;}
+  .targets-reset{display:block;margin:10px auto 0;}
+  .methodology-text a{color:var(--accent);}
   /* History page */
   #historyOverlay .month-nav{margin:0 0 12px;}
   .hist-scroll.hist-scroll-page, .hist-scroll.hist-scroll-page.hist-scroll-expanded{max-height:none;overflow:visible;}
@@ -1221,7 +1262,7 @@
       <span class="mini-dq-val" id="miniDqVal">—</span>
     </div>
     <div class="mini-dq mini-wk">
-      <span class="mini-dq-lbl">Week balance</span>
+      <span class="mini-dq-lbl">Calorie balance</span>
       <svg class="mini-wk-svg" id="miniWkSvg" viewBox="0 0 200 22" preserveAspectRatio="none" aria-hidden="true"></svg>
       <span class="mini-dq-val" id="miniWkVal">—</span>
     </div>
@@ -1264,6 +1305,7 @@
 
       <div class="ring-section" id="ringSection">
         <div class="metrics-panel">
+    <div class="today-card">
     <div class="metrics">
       <div class="metric metric-cal">
         <div class="metric-name"><i class="metric-swatch"></i>Calories</div>
@@ -1296,7 +1338,7 @@
         <div class="metric-goal" id="mGoalProtein"></div>
       </div>
       <div class="metric metric-burn">
-        <div class="metric-name"><i class="metric-swatch"></i>Burn</div>
+        <div class="metric-name"><i class="metric-swatch"></i>Burn<span class="burn-src" id="burnSrcTag"></span></div>
         <div class="mring">
           <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
@@ -1305,7 +1347,7 @@
           </svg>
           <div class="mring-center">
             <div class="mring-fig" id="mFigBurn">—</div>
-            <div class="mring-unit">kcal</div>
+            <div class="mring-unit" id="mUnitBurn">kcal</div>
           </div>
         </div>
         <div class="metric-goal" id="mGoalBurn"></div>
@@ -1325,7 +1367,9 @@
         <div class="dq-axis"><span>0%</span><span>50%</span><span>100%</span></div>
       </div>
     </div>
+    </div>
     <div class="wk" id="weekBalance"></div>
+    <div class="wk wk-protein" id="proteinBalance"></div>
     <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
   </div>
 
@@ -1574,6 +1618,7 @@
       </div>
     </div>
     <div class="wk" id="weekBalanceT"></div>
+    <div class="wk wk-protein" id="proteinBalanceT"></div>
   </div>
       </div>
 
@@ -1751,6 +1796,10 @@
       <button class="btn-primary burn-variant" id="saveProfileBtn" type="button" style="margin-top:18px;">Save profile</button>
       <p class="status" id="profileStatus"></p>
     </div>
+    <div class="overlay-card burn-mode-card">
+      <div class="goal-group-title">Daily burn</div>
+      <div id="burnModeBody"></div>
+    </div>
   </div>
 </div>
 
@@ -1767,6 +1816,13 @@
         <button class="goal-pill" data-weight-goal="lose" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7l6 6 4-4 7 7"/><path d="M14.5 16h6v-6"/></svg>Lose</button>
         <button class="goal-pill" data-weight-goal="maintain" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7l-2.6 6.2a3 3 0 0 0 5.2 0z"/><path d="M19 7l-2.6 6.2a3 3 0 0 0 5.2 0z"/></svg>Maintain</button>
         <button class="goal-pill" data-weight-goal="gain" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 17l6-6 4 4 7-7"/><path d="M14.5 8h6v6"/></svg>Gain</button>
+      </div>
+    </div>
+    <div class="goal-group goal-rate" id="weightRateGroup" style="display:none;">
+      <div class="goal-group-title" id="weightRateTitle">Pace</div>
+      <div class="goal-pill-row" id="weightRateRow">
+        <button class="goal-pill goal-pill-rate" data-rate="0.5" type="button"><b>0.5 lb</b><small>per week</small></button>
+        <button class="goal-pill goal-pill-rate" data-rate="1" type="button"><b>1 lb</b><small>per week</small></button>
       </div>
     </div>
     <div class="goal-group">
@@ -1791,25 +1847,27 @@
       <div class="targets-grid">
         <div class="target-tile target-tile-cal">
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 21V3c-2.2 1.3-3.3 4-3.3 7.5V13H17"/></svg></div>
-          <div class="target-tile-value" id="targetCalVal">—</div>
-          <div class="target-tile-label">kcal</div>
+          <input class="target-tile-value target-input" id="targetCalVal" data-target="calorie" type="number" inputmode="numeric" aria-label="kcal target">
+          <div class="target-tile-label">kcal<span class="tt-edited" data-edited="calorie">· yours</span></div>
         </div>
         <div class="target-tile target-tile-protein">
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.6 3.4a5 5 0 0 1 .3 9.9c-1.2.1-2.3-.2-3.2-.8l-4.5 4.5a2.1 2.1 0 1 1-2.8 2.8 2.1 2.1 0 1 1-1.2-3.6l4.5-4.5a5 5 0 0 1 6.9-8.3z"/></svg></div>
-          <div class="target-tile-value" id="targetProteinVal">—</div>
-          <div class="target-tile-label">g protein</div>
+          <input class="target-tile-value target-input" id="targetProteinVal" data-target="protein" type="number" inputmode="numeric" aria-label="g protein target">
+          <div class="target-tile-label">g protein<span class="tt-edited" data-edited="protein">· yours</span></div>
         </div>
         <div class="target-tile target-tile-burn">
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c.7 3.5 5.5 5.6 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.4 2.7-5.6.3 2 1.3 3.2 2.7 3.6-.3-3.4-.7-6.2.1-9.3z"/></svg></div>
-          <div class="target-tile-value" id="targetBurnVal">—</div>
-          <div class="target-tile-label">kcal burn</div>
+          <input class="target-tile-value target-input" id="targetBurnVal" data-target="burn" type="number" inputmode="numeric" aria-label="kcal burn target">
+          <div class="target-tile-label">kcal burn<span class="tt-edited" data-edited="burn">· yours</span></div>
         </div>
         <div class="target-tile target-tile-quality">
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.3"/><circle cx="17" cy="17" r="2.3"/></svg></div>
-          <div class="target-tile-value" id="targetQualityVal">—</div>
-          <div class="target-tile-label">% cal. from protein</div>
+          <input class="target-tile-value target-input" id="targetQualityVal" data-target="quality" type="number" inputmode="numeric" aria-label="% cal. from protein target">
+          <div class="target-tile-label">% cal. from protein<span class="tt-edited" data-edited="quality">· yours</span></div>
         </div>
       </div>
+      <p class="targets-hint" id="targetsHint">Tap a number to set your own.</p>
+      <button class="btn-small targets-reset" id="targetsResetBtn" type="button" style="display:none;">Reset to calculated</button>
       <button class="methodology-toggle" id="methodologyToggleBtn" type="button">How we calculated this ▾</button>
       <div class="methodology-text" id="methodologyText" style="display:none;"></div>
     </div>
@@ -1905,7 +1963,7 @@ let GOALS_KEY = 'user-goals';
 // asked to enter, but the standard calorie/protein-target formula requires it).
 let userProfile = { name:null, dob:null, heightIn:null, heightUnit:'in', initialWeightLb:null, initialWeightUnit:'lb', sex:'female' };
 // weightGoal: 'lose'|'maintain'|'gain'; activity: 'sedentary'|'light'|'moderate'|'very'; muscleGoal: 'maintain'|'gain'
-let userGoals = { weightGoal:null, activity:null, muscleGoal:null };
+let userGoals = { weightGoal:null, activity:null, muscleGoal:null, weightRate:null, custom:{} };
 
 // ---------- Firebase (cloud sync) ----------
 const firebaseConfig = {
@@ -2234,16 +2292,59 @@ function renderRing(){
     placeholder: 120, overIsBad: false });
   renderMetricRing('Burn', '', { value: burn, goal: t && t.burnTarget,
     placeholder: 2200, overIsBad: false });
+  renderBurnRingExtras(d);
   ['Cal','Protein','Burn'].forEach(mirrorMiniRing);
 
   const cta = document.getElementById('goalCtaBtn');
-  if(cta) cta.style.display = t ? 'none' : '';
+  if(cta){
+    const gap = t ? null : setupGap();
+    cta.style.display = gap ? '' : 'none';
+    if(gap){ cta.innerHTML = `${gap.text} <span aria-hidden="true">›</span>`; cta.dataset.open = gap.page; }
+  }
 
   renderDietRuler('', { value: dietQualityForDate(d), goal: t ? t.qualityTarget : null });
   mirrorMiniRuler();
   renderWeekBalance('');
   renderMyGoals();
 }
+// Under the Burn label, a tiny tag says where the number comes from. In the center: "Log" when it's
+// a manual day with nothing logged yet, or the day's activity level when the app is estimating.
+function renderBurnRingExtras(d){
+  const tag = document.getElementById('burnSrcTag'), unit = document.getElementById('mUnitBurn');
+  if(!tag || !unit) return;
+  const mode = burnMode(), e = entries[d];
+  const has = hasBurned(e);
+  tag.textContent = has ? burnSourceLabel(e) : (mode === 'whoop' ? 'WHOOP' : (mode === 'calc' ? 'Estimated' : ''));
+  if(mode === 'calc' && (!has || e.burnSource === 'calc')){
+    const a = dayActivity(d);
+    unit.innerHTML = `<label class="burn-act"><span>${DAY_ACTIVITY[a].label}</span><svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>` +
+      `<select id="burnActSel" aria-label="Activity level for this day">${Object.entries(DAY_ACTIVITY).map(([k, v]) => `<option value="${k}"${k === a ? ' selected' : ''}>${v.label}</option>`).join('')}</select></label>`;
+  } else if(mode === 'manual' && !has){
+    unit.innerHTML = '<button class="burn-log-btn" id="burnLogBtn" type="button"><i class="warn-dot"></i>Log</button>';
+  } else {
+    unit.textContent = 'kcal';
+  }
+}
+
+// What's still missing before targets can be worked out, in plain words, and which page fixes it.
+// Profile comes first: goals can't produce numbers without it.
+function setupGap(){
+  const list = a => a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
+  const prof = [];
+  if(!userProfile.dob) prof.push('date of birth');
+  if(!userProfile.heightIn) prof.push('height');
+  if(currentWeightLb() == null) prof.push('weight');
+  const goals = [];
+  if(!userGoals.weightGoal) goals.push('weight goal');
+  if(!userGoals.activity) goals.push('activity level');
+  if(!userGoals.muscleGoal) goals.push('muscle goal');
+  if(!prof.length && !goals.length) return null;
+  if(prof.length === 3 && goals.length === 3) return { page: 'profile', text: 'Finish setting up: add your profile, then your goals' };
+  if(prof.length) return { page: 'profile', text: `Add your ${list(prof)}${goals.length ? ', then your goals,' : ''} to see your targets` };
+  if(goals.length === 1) return { page: 'goals', text: `Pick ${goals[0] === 'activity level' ? 'an' : 'a'} ${goals[0]} to see your targets` };
+  return { page: 'goals', text: `Pick your ${list(goals)} to see your targets` };
+}
+
 // The floating top bar's compact calorie-quality ruler: same scale, fill and goal tick as the main one.
 function mirrorMiniRuler(){
   const t = computeTargets();
@@ -2278,21 +2379,23 @@ function renderMyGoals(){
 // For each day in a range: net = consumed − burned (negative = deficit), counted only once both are
 // logged; the running total carries the period forward day by day. Days not logged yet add nothing.
 // The goal pace is the daily goal gap (calorie target − burn target, e.g. −500 when losing) per day.
-function balanceSeries(startISO, endISO){
+// kind 'protein': the same running total, of grams eaten, against protein goal × days.
+function balanceSeries(startISO, endISO, kind){
   const t = computeTargets();
+  const isP = kind === 'protein';
   const today = todayStr();
   const days = [];
   let run = 0, counted = 0;
   for(const dt = parseISO(startISO); toISO(dt) <= endISO; dt.setDate(dt.getDate() + 1)){
     const iso = toISO(dt);
     const e = entries[iso];
-    const n = iso <= today ? net(e) : null;
+    const n = iso > today ? null : (isP ? (consumedTotal(e) != null ? (consumedProtein(e) || 0) : null) : net(e));
     if(n != null){ run += n; counted++; }
     days.push({ iso, net: n, cum: iso <= today ? run : null, future: iso > today,
-      live: iso === today && n != null && e.burnSource === 'whoop' && !e.burnFinal });
+      live: !isP && iso === today && n != null && (e.burnSource === 'whoop' || e.burnSource === 'calc') && !e.burnFinal });
   }
-  const daily = t ? t.calorieTarget - t.burnTarget : null;
-  return { days, total: counted ? run : null, counted, daily, pace: daily != null ? daily * counted : null };
+  const daily = t ? (isP ? t.proteinTarget : t.calorieTarget - t.burnTarget) : null;
+  return { kind: isP ? 'protein' : 'cal', days, total: counted ? run : null, counted, daily, pace: daily != null ? daily * counted : null };
 }
 const WK_LETTERS = ['M','T','W','T','F','S','S'];
 const MONTH_LETTERS = ['J','F','M','A','M','J','J','A','S','O','N','D'];
@@ -2315,8 +2418,9 @@ function balanceSVG(ser, o){
   const uid = 'b' + o.key;
   const last = past[past.length - 1];
   const live = !!(last && last.live);
+  const isP = ser.kind === 'protein';
   const good = ser.total == null || ser.total <= 0;
-  const col = good ? '#4ADE80' : '#FF5C7A';
+  const col = isP ? '#4C8DFF' : (good ? '#4ADE80' : '#FF5C7A');
   const solid = live && P.length > 2 ? P.slice(0, -1) : P;
   let g = '';
   g += `<defs><clipPath id="${uid}dn"><rect x="0" y="${y0}" width="${W}" height="${H}"/></clipPath>` +
@@ -2325,8 +2429,13 @@ function balanceSVG(ser, o){
   g += `<line x1="0" x2="${W}" y1="${y0}" y2="${y0}" stroke="rgba(244,245,250,0.22)" stroke-width="1"/>`;
   if(P.length > 1){
     const area = `${path(P)} L${P[P.length - 1][0].toFixed(1)} ${y0} L${P[0][0].toFixed(1)} ${y0} Z`;
-    g += `<path d="${area}" fill="url(#${uid}g)" clip-path="url(#${uid}dn)"/>`;
-    g += `<path d="${area}" fill="rgba(255,92,122,0.20)" clip-path="url(#${uid}up)"/>`;
+    if(isP){
+      g += `<linearGradient id="${uid}p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4C8DFF" stop-opacity="0.26"/><stop offset="1" stop-color="#4C8DFF" stop-opacity="0.03"/></linearGradient>`;
+      g += `<path d="${area}" fill="url(#${uid}p)"/>`;
+    } else {
+      g += `<path d="${area}" fill="url(#${uid}g)" clip-path="url(#${uid}dn)"/>`;
+      g += `<path d="${area}" fill="rgba(255,92,122,0.20)" clip-path="url(#${uid}up)"/>`;
+    }
   }
   if(paceEnd != null) g += `<path d="M${xs(0).toFixed(1)} ${y0} L${xs(N).toFixed(1)} ${y(paceEnd).toFixed(1)}" fill="none" stroke="rgba(244,245,250,0.5)" stroke-width="1.4" stroke-dasharray="3 4"/>`;
   if(P.length > 1){
@@ -2352,6 +2461,11 @@ function balanceSVG(ser, o){
 }
 function balanceHeadHTML(title, ser){
   const v = ser.total;
+  if(ser.kind === 'protein'){
+    return `<div class="wk-head"><div class="wk-title">${title}</div>
+      <div class="wk-now"><div class="wk-val pro">${fmtN(v)}<small>g</small></div>
+      <div class="wk-goal"><i class="wk-dash"></i>Goal <b>${ser.pace != null ? fmtN(ser.pace) + ' g' : '—'}</b></div></div></div>`;
+  }
   const cls = v == null ? '' : (v <= 0 ? 'def' : 'sur');
   return `<div class="wk-head"><div class="wk-title">${title}</div>
     <div class="wk-now"><div class="wk-val ${cls}">${v == null ? '—' : signedN(v)}<small>kcal</small></div>
@@ -2360,21 +2474,25 @@ function balanceHeadHTML(title, ser){
 // s: '' = main page (the Mon–Sun week around the selected date) or 'T' = the Trends period.
 function renderWeekBalance(s){
   const el = document.getElementById(s ? 'weekBalanceT' : 'weekBalance');
+  const pel = document.getElementById(s ? 'proteinBalanceT' : 'proteinBalance');
   if(!el) return;
-  let ser, title, labels;
+  let start, end, labels;
   if(s){
     const r = trendRange(trendHorizon, trendOffset);
-    ser = balanceSeries(r.start, r.end);
-    title = { week:'Week balance', month:'Month balance', year:'Year balance' }[trendHorizon];
-    labels = trendHorizon;
+    start = r.start; end = r.end; labels = trendHorizon;
   } else {
     const mon = mondayOf(parseISO(selectedDate));
     const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
-    ser = balanceSeries(toISO(mon), toISO(sun));
-    title = 'Week balance'; labels = 'week';
-    mirrorMiniBalance(ser);
+    start = toISO(mon); end = toISO(sun); labels = 'week';
   }
-  el.innerHTML = balanceHeadHTML(title, ser) + balanceSVG(ser, { H: s ? 78 : 70, labels, selected: s ? null : selectedDate, key: s || 'm' });
+  const ser = balanceSeries(start, end);
+  if(!s) mirrorMiniBalance(ser);
+  const o = { H: s ? 78 : 70, labels, selected: s ? null : selectedDate };
+  el.innerHTML = balanceHeadHTML('Calorie balance', ser) + balanceSVG(ser, { ...o, key: (s || 'm') + 'c' });
+  if(pel){
+    const pser = balanceSeries(start, end, 'protein');
+    pel.innerHTML = balanceHeadHTML('Protein balance', pser) + balanceSVG(pser, { ...o, key: (s || 'm') + 'p' });
+  }
 }
 // The floating top bar's version: just the line, the goal pace and the running total.
 function mirrorMiniBalance(ser){
@@ -2461,6 +2579,7 @@ function trailingAvg(valueForDateFn, days, decimals, endISO){
 // burn logged yet — surfaced in the expanded card so they can be filled in right there.
 function burnMissingDays(){
   const missing = [];
+  if(burnMode() === 'calc') return missing; // every day has an estimate
   const dt = new Date();
   for(let i=1;i<=7;i++){
     dt.setDate(dt.getDate() - 1);
@@ -2498,7 +2617,10 @@ function renderBurnCard(){
   if(srcNote){
     const se = entries[selectedDate];
     const connected = sessionInfo && sessionInfo.whoop && sessionInfo.whoop.connected;
-    if(se && se.burnSource === 'whoop'){
+    if(se && se.burnSource === 'calc'){
+      srcNote.textContent = `Estimated from your profile and a ${DAY_ACTIVITY[dayActivity(selectedDate)].label.toLowerCase()} day (change it on the Burn ring). Typing a number below replaces it.`;
+      srcNote.style.display = '';
+    } else if(se && se.burnSource === 'whoop'){
       srcNote.textContent = se.burnFinal
         ? 'From WHOOP — final for this day. Typing a number below replaces it.'
         : 'From WHOOP — live, keeps updating until WHOOP closes the day. Typing a number below replaces it.';
@@ -2517,7 +2639,7 @@ function renderBurnCard(){
   if(burnedInput && document.activeElement !== burnedInput) burnedInput.value = already ? e.burned : '';
   const saveBtn = document.getElementById('saveBurnBtn');
   if(saveBtn){
-    const fromWearable = already && e.burnSource === 'whoop';
+    const fromWearable = already && (e.burnSource === 'whoop' || e.burnSource === 'calc');
     saveBtn.textContent = fromWearable ? 'Use my number instead' : (already ? 'Overwrite burn' : 'Save burn');
     saveBtn.classList.toggle('btn-overwrite', already && !fromWearable);
   }
@@ -2835,6 +2957,14 @@ const ACTIVITY_MULTIPLIERS = { sedentary:1.2, light:1.375, moderate:1.55, very:1
 const ACTIVITY_LABELS = { sedentary:'Sedentary', light:'Lightly active', moderate:'Moderately active', very:'Very active' };
 // Rough same-tier "typical daily burn" used only as a sanity-check target for the burn ring —
 // directional, not a clinical prediction (actual burn still comes from logged Whoop/tracker data).
+// Weekly pace for losing/gaining: 0.5 or 1 lb. ~3,500 kcal ≈ 1 lb of body weight, so the daily
+// deficit/surplus is pace × 500 kcal. Defaults keep earlier targets: 1 lb when losing, 0.5 when gaining.
+function weightRate(){
+  const r = parseFloat(userGoals.weightRate);
+  if(r === 0.5 || r === 1) return r;
+  return userGoals.weightGoal === 'gain' ? 0.5 : 1;
+}
+const CAL_FLOOR = { female: 1200, male: 1500 }; // lower end of the AHA/ACC/TOS intake ranges
 function computeTargets(){
   const hasProfile = userProfile.dob && userProfile.heightIn && (currentWeightLb() != null);
   const hasGoals = userGoals.weightGoal && userGoals.activity && userGoals.muscleGoal;
@@ -2852,11 +2982,15 @@ function computeTargets(){
   const activityMult = ACTIVITY_MULTIPLIERS[userGoals.activity] || 1.2;
   const tdee = bmr * activityMult;
 
-  let calorieTarget;
+  const rate = (userGoals.weightGoal === 'maintain') ? 0 : weightRate();
+  const dailyDelta = rate * 3500 / 7; // 250 or 500 kcal
+  const floor = CAL_FLOOR[userProfile.sex === 'male' ? 'male' : 'female'];
+  let calorieTarget, floored = false;
   if(userGoals.weightGoal === 'lose'){
-    calorieTarget = Math.max(tdee - 500, bmr * 1.1, 1200); // safety floor
+    calorieTarget = tdee - dailyDelta;
+    if(calorieTarget < floor){ calorieTarget = floor; floored = true; }
   } else if(userGoals.weightGoal === 'gain'){
-    calorieTarget = tdee + 350;
+    calorieTarget = tdee + dailyDelta;
   } else {
     calorieTarget = tdee;
   }
@@ -2872,32 +3006,76 @@ function computeTargets(){
   } else {
     proteinPerKg = 1.4; // general maintenance
   }
-  const proteinTarget = Math.round(proteinPerKg * weightKg);
+  const calc = {
+    calorie: Math.round(calorieTarget),
+    protein: Math.round(proteinPerKg * weightKg),
+    burn: Math.round(tdee)
+  };
+  calc.quality = Math.round(((calc.protein * 4) / calc.calorie) * 100);
 
-  const burnTarget = Math.round(tdee);
-  const qualityTarget = Math.round(((proteinTarget * 4) / calorieTarget) * 100);
+  // Numbers the person typed on the Goals page win; calorie quality follows the final calorie and
+  // protein targets unless it was typed too.
+  const cu = userGoals.custom || {};
+  const pick = k => (typeof cu[k] === 'number' && cu[k] > 0) ? cu[k] : null;
+  const calorieT = pick('calorie') || calc.calorie;
+  const proteinT = pick('protein') || calc.protein;
+  const burnT = pick('burn') || calc.burn;
+  const qualityT = pick('quality') || Math.round(((proteinT * 4) / calorieT) * 100);
 
   return {
-    calorieTarget: Math.round(calorieTarget),
-    proteinTarget,
-    burnTarget,
-    qualityTarget,
+    calorieTarget: calorieT,
+    proteinTarget: proteinT,
+    burnTarget: burnT,
+    qualityTarget: qualityT,
+    calc, custom: { calorie: !!pick('calorie'), protein: !!pick('protein'), burn: !!pick('burn'), quality: !!pick('quality') },
     bmr: Math.round(bmr),
     tdee: Math.round(tdee),
+    rate, dailyDelta: Math.round(dailyDelta), floor, floored,
     age, weightLb: Math.round(weightLb*10)/10, proteinPerKg, activityMult
   };
 }
 function targetsMethodologyHTML(t){
   if(!t) return '';
-  const wgLabel = { lose:'lose weight', maintain:'maintain weight', gain:'gain weight' }[userGoals.weightGoal] || '';
+  const wg = userGoals.weightGoal;
   const mgLabel = { maintain:'maintain muscle', gain:'build muscle' }[userGoals.muscleGoal] || '';
+  const wgLabel = { lose:'lose weight', maintain:'maintain weight', gain:'gain weight' }[wg] || '';
+  const link = (href, txt) => `<a href="${href}" target="_blank" rel="noopener">${txt}</a>`;
+  const AHA = link('https://www.acc.org/Latest-in-Cardiology/Journal-Scans/2014/07/10/16/17/2013-AHA-ACC-TOS-Guideline-for-the-Management-of-Overweight', 'AHA/ACC/TOS 2013 obesity guideline');
+  const HALL = link('https://pubmed.ncbi.nlm.nih.gov/17848938/', 'Hall, 2008');
+  const HALL11 = link('https://pmc.ncbi.nlm.nih.gov/articles/PMC3880593', 'Hall et al., Lancet 2011');
+  const IRAKI = link('https://pubmed.ncbi.nlm.nih.gov/31247944/', 'Iraki et al., 2019');
+  const yours = k => t.custom[k] ? ` <i>You set this yourself; the calculated number is ${t.calc[k]}${k === 'quality' ? '%' : ''}.</i>` : '';
+  let pace = '';
+  if(wg === 'lose'){
+    pace = `
+    <p><b>Your pace: ${t.rate} lb a week = ${t.dailyDelta} kcal a day below your TDEE.</b> Roughly 3,500 kcal of energy deficit
+      corresponds to about 1 lb of body weight, so 0.5 lb a week is about 250 kcal a day and 1 lb a week about 500. The ${AHA}
+      recommends a 500–750 kcal a day deficit for weight loss, which puts 1 lb a week at the gentle end of that range and 0.5 lb
+      below it — slower, but easier to stick with.</p>
+    <p>The 3,500 kcal rule is a fair guide for the first weeks but overstates loss over months, mainly because your body burns
+      less as you get lighter (${HALL11}). How much energy each pound holds also depends on body fat — it fits people with more fat
+      best and overstates the deficit needed for leaner people (${HALL}). The app recalculates from your latest weigh-in, so your
+      target follows you down; still, expect the scale to slow over time.</p>
+    <p><b>Safety floor:</b> your calorie target never drops below ${t.floor.toLocaleString()} kcal a day, the low end of the guideline’s
+      intake range for ${userProfile.sex === 'male' ? 'men (1,500–1,800)' : 'women (1,200–1,500)'}.${t.floored ? ' <b>Your target is sitting on this floor, so your real pace will be slower than the one you picked.</b>' : ''}</p>`;
+  } else if(wg === 'gain'){
+    const pct = Math.round(t.dailyDelta / t.tdee * 100);
+    const bw = Math.round(t.rate / t.weightLb * 1000) / 10;
+    pace = `
+    <p><b>Your pace: ${t.rate} lb a week = ${t.dailyDelta} kcal a day above your TDEE.</b> Using the same ~3,500 kcal per pound,
+      0.5 lb a week is about +250 kcal a day and 1 lb a week about +500.</p>
+    <p>For building muscle without piling on fat, a review of the research (${IRAKI}) suggests a 10–20% calorie surplus aimed at
+      gaining about 0.25–0.5% of body weight a week, with more experienced lifters at the slower end. For you, +${t.dailyDelta} kcal is
+      about ${pct}% above your TDEE and ${t.rate} lb is about ${bw}% of your body weight a week${bw > 0.5 ? ' — above that range, so expect a bigger share of the gain to be fat' : ' — inside that range'}.</p>`;
+  }
   return `
     <p><b>BMR</b> ${t.bmr} kcal/day — Mifflin-St Jeor equation, from your weight (${t.weightLb} lb), height, age (${t.age}) and sex.</p>
     <p><b>TDEE</b> ${t.tdee} kcal/day — BMR × ${t.activityMult} activity multiplier (${ACTIVITY_LABELS[userGoals.activity]}).</p>
-    <p><b>Calorie target</b> ${t.calorieTarget} kcal/day — adjusted from TDEE to ${wgLabel}, with a safety floor so it never drops too low.</p>
-    <p><b>Protein target</b> ${t.proteinTarget} g/day — ${t.proteinPerKg} g per kg of bodyweight, the range the sports-nutrition literature (ISSN/ACSM) backs for your goal to ${mgLabel} while you ${wgLabel}.</p>
-    <p><b>Burn target</b> ${t.burnTarget} kcal/day — your estimated total daily energy expenditure at this activity level; a directional guide, not a clinical measurement.</p>
-    <p><b>Calorie quality target</b> ${t.qualityTarget}% of calories from protein — simply your protein target's calories (×4) divided by your calorie target.</p>
+    <p><b>Calorie target</b> ${t.calorieTarget} kcal/day — ${wg === 'maintain' ? 'your TDEE, to maintain weight' : `your TDEE ${wg === 'lose' ? 'minus' : 'plus'} ${t.dailyDelta} kcal a day`}.${yours('calorie')}</p>
+    ${pace}
+    <p><b>Protein target</b> ${t.proteinTarget} g/day — ${t.proteinPerKg} g per kg of bodyweight, the range the sports-nutrition literature (ISSN/ACSM) backs for your goal to ${mgLabel} while you ${wgLabel}.${yours('protein')}</p>
+    <p><b>Burn target</b> ${t.burnTarget} kcal/day — your estimated total daily energy expenditure at this activity level; a directional guide, not a clinical measurement.${yours('burn')}</p>
+    <p><b>Calorie quality target</b> ${t.qualityTarget}% of calories from protein — your protein target’s calories (×4) divided by your calorie target.${yours('quality')}</p>
   `;
 }
 
@@ -2918,12 +3096,73 @@ function mergeWearable(){
     const w = wearableData[d];
     if(!w || typeof w.kcal !== 'number') continue;
     const e = entries[d];
-    if(e && typeof e.burned === 'number' && e.burnSource !== 'whoop') continue; // typed by hand — keep it
+    if(e && typeof e.burned === 'number' && e.burnSource !== 'whoop' && e.burnSource !== 'calc') continue; // typed by hand — keep it
     if(!entries[d]) entries[d] = blankEntry();
     entries[d].burned = w.kcal;
     entries[d].burnSource = 'whoop';
     entries[d].burnFinal = !!w.final;
   }
+}
+
+// ---------- where each day's burn comes from ----------
+// 'whoop' when a wearable is connected (no other choice then); otherwise what the person picked on
+// the Profile page: 'manual' (they log it in the Burn card) or 'calc' (the app estimates it).
+function burnMode(){
+  if(sessionInfo && sessionInfo.whoop && sessionInfo.whoop.connected) return 'whoop';
+  return userProfile.burnMode === 'calc' ? 'calc' : 'manual';
+}
+// The activity level someone tags a day with (estimated burn only). Separate from the activity level
+// on the Goals page, which only sets targets.
+const DAY_ACTIVITY = {
+  sedentary: { mult: 1.2,   label: 'Sedentary' },
+  light:     { mult: 1.375, label: 'Light' },
+  moderate:  { mult: 1.55,  label: 'Moderate' },
+  very:      { mult: 1.725, label: 'Very active' }
+};
+function dayActivity(iso){ const e = entries[iso]; return (e && DAY_ACTIVITY[e.activity]) ? e.activity : 'sedentary'; }
+function bmrNow(){
+  const w = currentWeightLb(), age = ageFromDob(userProfile.dob);
+  if(!w || !userProfile.heightIn || age == null) return null;
+  return 10 * w * 0.453592 + 6.25 * userProfile.heightIn * 2.54 - 5 * age + (userProfile.sex === 'male' ? 5 : -161);
+}
+// Estimated burn: BMR (Mifflin-St Jeor) × the day's activity multiplier. Today only counts the part
+// of the day that has passed, so it grows hour by hour like a wearable's live number.
+function estimatedBurn(iso){
+  const bmr = bmrNow();
+  if(bmr == null) return null;
+  let full = bmr * DAY_ACTIVITY[dayActivity(iso)].mult;
+  if(iso === todayStr()){
+    const now = new Date(), mid = new Date(now); mid.setHours(0,0,0,0);
+    full *= Math.min(1, (now - mid) / 86400000);
+  }
+  return Math.round(full);
+}
+// Keeps every day's burn in line with the current mode: wearable numbers first, estimates where the
+// app is estimating, and nothing invented in manual mode. A number someone typed always stays.
+function syncDerivedBurns(){
+  mergeWearable();
+  const mode = burnMode(), today = todayStr();
+  for(const d in entries){
+    const e = entries[d];
+    if(e && e.burnSource === 'calc' && mode !== 'calc'){ e.burned = null; delete e.burnSource; delete e.burnFinal; }
+  }
+  if(mode !== 'calc') return;
+  const days = new Set(Object.keys(entries).filter(d => d <= today && (consumedTotal(entries[d]) != null || entries[d].activity)));
+  days.add(today);
+  days.forEach(d => {
+    const e = entries[d];
+    if(e && typeof e.burned === 'number' && e.burnSource !== 'calc') return; // typed or from a wearable
+    const v = estimatedBurn(d);
+    if(v == null) return;
+    if(!entries[d]) entries[d] = blankEntry();
+    entries[d].burned = v;
+    entries[d].burnSource = 'calc';
+    entries[d].burnFinal = d < today;
+  });
+}
+function burnSourceLabel(e){
+  if(!e || typeof e.burned !== 'number') return '';
+  return e.burnSource === 'whoop' ? 'WHOOP' : (e.burnSource === 'calc' ? 'Estimated' : 'Logged');
 }
 
 // ---------- live sync across open sessions/devices ----------
@@ -2949,7 +3188,7 @@ function attachLiveSync(){
       const incomingStr = JSON.stringify(incoming);
       if(incomingStr === JSON.stringify(entries)) return; // our own write echoing back, or no real change
       entries = incoming;
-      mergeWearable();
+      syncDerivedBurns();
       try{ localStorage.setItem(STORAGE_KEY, incomingStr); }catch(e){}
       if(isEditingField()) return; // don't redraw out from under an in-progress edit; next render will catch up
       renderAll();
@@ -2977,7 +3216,7 @@ function attachLiveSync(){
       try{ incoming = JSON.parse(snap.data().json || '{}'); }catch(e){ return; }
       if(JSON.stringify(incoming) === JSON.stringify(wearableData)) return;
       wearableData = incoming;
-      mergeWearable();
+      syncDerivedBurns();
       if(isEditingField()) return;
       renderAll();
     }, ()=>{});
@@ -3513,7 +3752,8 @@ function renderBurnedChart(){
              title:{ display:true, text:'kcal', color:'#8D90A8', font:{ family:'Inter', size:10 } } }
       }
     };
-    const holdInfo = { titleEl, baseHTML: null, labels, series: [ { color:'#4C8DFF', decimals:0, suffix:' kcal', vals: burnedVals } ] };
+    const holdInfo = { titleEl, baseHTML: null, labels, series: [ { color:'#4C8DFF', decimals:0, suffix:' kcal', vals: burnedVals } ],
+      note: i => burnSourceLabel(entries[dates[i]]) };
     if(burnedChart){
       burnedChart.data = data; burnedChart.options = options; burnedChart.$dates = dates;
       burnedChart.$avgSegments = segGroups; burnedChart.$holdInfo = holdInfo; burnedChart.update();
@@ -4067,7 +4307,7 @@ function wireDetailEvents(){
       const val = parseInt(burnedInput.value, 10);
       if(!entries[d]) entries[d] = blankEntry();
       entries[d].burned = isNaN(val) ? null : val;
-      if(isNaN(val)){ delete entries[d].burnSource; mergeWearable(); } else entries[d].burnSource = 'manual';
+      if(isNaN(val)){ delete entries[d].burnSource; syncDerivedBurns(); } else entries[d].burnSource = 'manual';
       await persist();
       renderAll();
     });
@@ -4245,7 +4485,8 @@ function holdTitleHTML(info, index, dates){
   const iso = dates && dates[index];
   const label = iso ? parseISO(iso).toLocaleDateString(undefined, { weekday:'long', month:'short', day:'numeric' }) + (iso === todayStr() ? ' · today' : '')
     : (info.labels[index] != null ? info.labels[index] : '');
-  return `<span class="cs-line cs-date">${label}</span><span class="cs-line">${parts.join(info.joiner || ' / ')}</span>`;
+  const note = info.note ? info.note(index) : '';
+  return `<span class="cs-line cs-date">${label}</span><span class="cs-line">${parts.join(info.joiner || ' / ')}${note ? ` <span class="cs-src">· ${note}</span>` : ''}</span>`;
 }
 // Right-hand stats of a Trends chart header — one line per figure so nothing ever clips.
 function chartStatsHTML(lines){
@@ -5057,9 +5298,38 @@ async function init(){
     userProfile.sex = b.dataset.sex;
   });
 
+  function renderBurnModeSection(){
+    const body = document.getElementById('burnModeBody');
+    if(!body) return;
+    const mode = burnMode();
+    if(mode === 'whoop'){
+      body.innerHTML = `<div class="bm-locked"><b>From WHOOP</b><span>Your burn syncs from WHOOP automatically. To log it yourself or have it estimated, disconnect WHOOP in Wearables.</span></div>`;
+      return;
+    }
+    const opt = (k, title, sub) => `<button class="exp-format bm-opt${mode === k ? ' active' : ''}" data-burn-mode="${k}" type="button"><b>${title}</b><small>${sub}</small></button>`;
+    body.innerHTML = `<div class="bm-opts">` +
+      opt('manual', 'I’ll log it', 'Type your burn into the Burn card each day.') +
+      opt('calc', 'Estimate it', 'From your profile and the activity you tag each day — sedentary unless you change it.') +
+      `</div><button class="bm-wear" id="bmWearBtn" type="button">Have a wearable? <b>Connect it</b> ›</button>` +
+      `<p class="status" id="burnModeStatus"></p>`;
+  }
+  document.getElementById('burnModeBody').addEventListener('click', async (ev)=>{
+    if(ev.target.closest('#bmWearBtn')){ haptic(); openWearables(); return; }
+    const b = ev.target.closest('[data-burn-mode]'); if(!b) return;
+    haptic();
+    userProfile.burnMode = b.dataset.burnMode;
+    await persistProfile();
+    syncDerivedBurns();
+    await persist();
+    renderBurnModeSection();
+    renderAll();
+    const st = document.getElementById('burnModeStatus');
+    if(st){ st.textContent = userProfile.burnMode === 'calc' ? 'The app will estimate your burn.' : 'You’ll log your burn yourself.'; st.className = 'status success'; }
+  });
   document.getElementById('openProfileBtn').addEventListener('click', ()=>{
     setMenuOpen(false); haptic();
     fillProfileForm();
+    renderBurnModeSection();
     profileOverlay.style.display = 'flex';
   });
   document.getElementById('profileBackBtn').addEventListener('click', ()=>{ profileOverlay.style.display = 'none'; renderAll(); });
@@ -5087,7 +5357,40 @@ async function init(){
   const methodologyToggleBtn = document.getElementById('methodologyToggleBtn');
   const methodologyText = document.getElementById('methodologyText');
 
+  const weightRateRow = document.getElementById('weightRateRow');
+  function renderRateRow(){
+    const wg = userGoals.weightGoal;
+    const show = wg === 'lose' || wg === 'gain';
+    document.getElementById('weightRateGroup').style.display = show ? '' : 'none';
+    if(!show) return;
+    document.getElementById('weightRateTitle').textContent = wg === 'lose' ? 'How fast to lose' : 'How fast to gain';
+    const r = weightRate();
+    weightRateRow.querySelectorAll('.goal-pill').forEach(b=> b.classList.toggle('active', parseFloat(b.dataset.rate) === r));
+  }
+  weightRateRow.addEventListener('click', (ev)=>{
+    const b = ev.target.closest('.goal-pill'); if(!b) return;
+    haptic();
+    userGoals.weightRate = parseFloat(b.dataset.rate);
+    renderRateRow(); renderGoalsTargets();
+  });
+  document.querySelectorAll('.target-input').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      const k = inp.dataset.target, v = parseFloat(inp.value);
+      if(!userGoals.custom) userGoals.custom = {};
+      const t = computeTargets();
+      if(isNaN(v) || v <= 0 || (t && Math.round(v) === t.calc[k])) delete userGoals.custom[k];
+      else userGoals.custom[k] = Math.round(v);
+      renderGoalsTargets();
+    });
+    inp.addEventListener('focus', ()=> inp.select());
+  });
+  document.getElementById('targetsResetBtn').addEventListener('click', ()=>{
+    haptic();
+    userGoals.custom = {};
+    renderGoalsTargets();
+  });
   function fillGoalsForm(){
+    renderRateRow();
     weightGoalRow.querySelectorAll('.goal-pill').forEach(b=> b.classList.toggle('active', b.dataset.weightGoal === userGoals.weightGoal));
     activityGoalRow.querySelectorAll('.goal-pill').forEach(b=> b.classList.toggle('active', b.dataset.activity === userGoals.activity));
     muscleGoalRow.querySelectorAll('.goal-pill').forEach(b=> b.classList.toggle('active', b.dataset.muscleGoal === userGoals.muscleGoal));
@@ -5098,14 +5401,20 @@ async function init(){
     const proEl = document.getElementById('targetProteinVal');
     const burnEl = document.getElementById('targetBurnVal');
     const qualEl = document.getElementById('targetQualityVal');
+    const els = { calorie: calEl, protein: proEl, burn: burnEl, quality: qualEl };
+    const resetBtn = document.getElementById('targetsResetBtn');
     if(t){
-      calEl.textContent = t.calorieTarget;
-      proEl.textContent = t.proteinTarget;
-      burnEl.textContent = t.burnTarget;
-      qualEl.textContent = t.qualityTarget + '%';
+      const vals = { calorie: t.calorieTarget, protein: t.proteinTarget, burn: t.burnTarget, quality: t.qualityTarget };
+      Object.keys(els).forEach(k=>{
+        if(document.activeElement !== els[k]) els[k].value = vals[k];
+        els[k].disabled = false;
+        els[k].closest('.target-tile').classList.toggle('edited', !!t.custom[k]);
+      });
+      resetBtn.style.display = Object.values(t.custom).some(Boolean) ? '' : 'none';
       methodologyText.innerHTML = targetsMethodologyHTML(t);
     } else {
-      calEl.textContent = '—'; proEl.textContent = '—'; burnEl.textContent = '—'; qualEl.textContent = '—';
+      Object.values(els).forEach(el=>{ el.value = ''; el.placeholder = '—'; el.disabled = true; el.closest('.target-tile').classList.remove('edited'); });
+      resetBtn.style.display = 'none';
       methodologyText.innerHTML = '<p>Fill in your profile (height, weight, date of birth) and pick all three goals above to see your targets.</p>';
     }
   }
@@ -5116,6 +5425,7 @@ async function init(){
       row.querySelectorAll('.goal-pill').forEach(x=>x.classList.remove('active'));
       b.classList.add('active');
       userGoals[stateKey] = b.dataset[datasetKey];
+      if(stateKey === 'weightGoal') renderRateRow();
       renderGoalsTargets();
     });
   }
@@ -5129,6 +5439,23 @@ async function init(){
     methodologyToggleBtn.textContent = open ? 'How we calculated this ▾' : 'How we calculated this ▴';
   });
 
+  document.getElementById('ringSection').addEventListener('click', (ev)=>{
+    if(!ev.target.closest('#burnLogBtn')) return;
+    haptic();
+    burnExpanded = true; renderBurnCard();
+    document.getElementById('burnSummaryBtn').scrollIntoView({ behavior:'smooth', block:'start' });
+    setTimeout(()=>{ const i = document.getElementById('burnedInput'); if(i) i.focus({ preventScroll:true }); }, 450);
+  });
+  document.getElementById('ringSection').addEventListener('change', async (ev)=>{
+    if(ev.target.id !== 'burnActSel') return;
+    haptic();
+    const d = selectedDate;
+    if(!entries[d]) entries[d] = blankEntry();
+    entries[d].activity = ev.target.value;
+    syncDerivedBurns();
+    await persist();
+    renderAll();
+  });
   document.getElementById('myGoals').addEventListener('click', ()=>{ haptic(); document.getElementById('openGoalsBtn').click(); });
   document.getElementById('openGoalsBtn').addEventListener('click', ()=>{
     setMenuOpen(false); haptic();
@@ -5152,7 +5479,9 @@ async function init(){
     setMenuOpen(false);
     if(typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) firebase.auth().signOut();
   });
-  document.getElementById('goalCtaBtn').addEventListener('click', ()=>{ document.getElementById('openGoalsBtn').click(); });
+  document.getElementById('goalCtaBtn').addEventListener('click', (ev)=>{
+    document.getElementById(ev.currentTarget.dataset.open === 'profile' ? 'openProfileBtn' : 'openGoalsBtn').click();
+  });
   document.getElementById('saveGoalsBtn').addEventListener('click', async ()=>{
     haptic();
     await persistGoals();
@@ -5178,7 +5507,10 @@ async function init(){
   await loadProfile();
   await loadGoals();
   await loadWearable();
-  mergeWearable();
+  syncDerivedBurns();
+  // estimated burn keeps growing through the day
+  setInterval(()=>{ if(burnMode() === 'calc' && !isEditingField()){ syncDerivedBurns(); renderRing(); renderBurnCard(); } }, 5 * 60000);
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && burnMode() === 'calc'){ syncDerivedBurns(); renderAll(); } });
   if(!userProfile.name && authDisplayName()){ userProfile.name = authDisplayName(); persistProfile(); }
   renderAll();
   renderFoodForm();
@@ -5538,7 +5870,8 @@ async function wearablesAction(act, btn){
   }
   btn.disabled = false;
   renderWearables();
-  renderBurnCard();
+  syncDerivedBurns();
+  renderAll();
 }
 
 // =====================================================================================

@@ -9,11 +9,14 @@
  *                           password and moves the pre-multi-user data into it.
  *  whoopCallback     HTTPS  OAuth redirect target for "Connect WHOOP".
  *  whoopSyncAll      Scheduled every 30 min: pulls each connected user's WHOOP calories.
+ *  chat              HTTPS (streaming)  Monstrão AI chat — Claude with tools over the user's own data
+ *                           (see chat.js). No caps yet; usage and cost are logged.
  *
  * Firestore layout
  *  users/{uid}                    account record (status, role, usage totals) — server-written
  *  users/{uid}/data/{name}        the user's app data: entries, weights, profile, goals, wearable
  *  users/{uid}/private/whoop      WHOOP OAuth tokens — server only, never readable by any client
+ *  users/{uid}/private/chat       Monstrão AI memory: recent messages + remembered notes — server only
  *  usage/{uid}/days/{YYYY-MM-DD}  per-user daily AI usage (calls, tokens, searches, cost)
  *  statsDaily/{YYYY-MM-DD}        app-wide daily stats (active users, AI calls, cost, sign-ups)
  *  invites/{email}                invited emails (auto-approved on sign-up)
@@ -30,6 +33,7 @@ const { getAuth } = require('firebase-admin/auth');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
 const logger = require('firebase-functions/logger');
 const crypto = require('crypto');
+const { makeChatHandler, chatAction } = require('./chat');
 
 initializeApp();
 const db = getFirestore();
@@ -88,11 +92,11 @@ function costOf(usage){
 // =====================================================================================
 // estimateCalories
 // =====================================================================================
-const SYSTEM_PROMPT = `You estimate calories and protein for a single food entry in a personal diet-tracking app.
-You may be given a text description, a photo of the food, or both. Use whatever you're given to figure out the calorie count and protein content, then reply with ONLY a JSON object as your final message, no other text, no markdown fences, in exactly this shape:
-{"label": "short food name, max 40 characters", "calories": 000, "protein": 0}
+const SYSTEM_PROMPT = `You estimate calories and macronutrients (protein, carbohydrate, fat) for a single food entry in a personal diet-tracking app.
+You may be given a text description, a photo of the food, or both. Use whatever you're given to figure out the calories and macros, then reply with ONLY a JSON object as your final message, no other text, no markdown fences, in exactly this shape:
+{"label": "short food name, max 40 characters", "calories": 000, "protein": 0, "carbs": 0, "fat": 0}
 "calories" must be your best-effort whole-number estimate of total calories for the portion described and/or shown.
-"protein" must be your best-effort whole-number estimate of total protein in grams for the same portion.
+"protein", "carbs" and "fat" must be your best-effort whole-number estimates in grams for the same portion. Keep them consistent with the calories: protein × 4 + carbs × 4 + fat × 9 should land close to "calories" (fibre and alcohol explain small gaps).
 "label" must be a short, human-readable name for the item suitable as a food-log entry title.
 If given only a photo with no text, estimate from the photo alone — identify the food, judge the portion size as best you can from the image, and still return your best single-number estimate rather than refusing.
 If the description is vague, still return your best single-number estimate rather than refusing or asking a follow-up question.
@@ -211,9 +215,8 @@ exports.estimateCalories = onRequest(
         res.status(502).json({ error: 'Calorie estimate failed — got an unusable response.' });
         return;
       }
-      let protein = Math.round(Number(parsed.protein));
-      if(!Number.isFinite(protein) || protein < 0) protein = 0;
-      res.status(200).json({ label, calories, protein });
+      const grams = (v) => { const n = Math.round(Number(v)); return Number.isFinite(n) && n >= 0 ? n : 0; };
+      res.status(200).json({ label, calories, protein: grams(parsed.protein), carbs: grams(parsed.carbs), fat: grams(parsed.fat) });
     } catch(e){
       logger.error('estimateCalories failed', e);
       res.status(502).json({ error: 'Calorie estimate failed — could not reach the AI service.' });
@@ -308,6 +311,12 @@ exports.api = onCall({ region: REGION }, async (request) => {
   if(action.startsWith('whoop.')){
     if(me.status !== 'active') throw new HttpsError('permission-denied', 'Your account is waiting for approval.');
     return whoopAction(uid, action, p);
+  }
+  if(action.startsWith('chat.')){
+    if(me.status !== 'active') throw new HttpsError('permission-denied', 'Your account is waiting for approval.');
+    const out = await chatAction(db, uid, action, p);
+    if(!out) throw new HttpsError('invalid-argument', `Unknown action: ${action}`);
+    return out;
   }
   if(action.startsWith('admin.')){
     if(!isAdminRole(me.role)) throw new HttpsError('permission-denied', 'Admins only.');
@@ -572,6 +581,18 @@ async function whoopAction(uid, action, p){
     default: throw new HttpsError('invalid-argument', `Unknown action: ${action}`);
   }
 }
+
+// =====================================================================================
+// chat — Monstrão AI (streams server-sent events; the logic lives in chat.js)
+// =====================================================================================
+exports.chat = onRequest(
+  { secrets: [anthropicApiKey], region: REGION, cors: true, timeoutSeconds: 120, memory: '512MiB' },
+  makeChatHandler({
+    db, FieldValue, logger, dayKey, verifyBearer, model: MODEL,
+    apiKey: () => anthropicApiKey.value(),
+    prices: { input: PRICE_INPUT_PER_MTOK, output: PRICE_OUTPUT_PER_MTOK }
+  })
+);
 
 exports.whoopCallback = onRequest({ region: REGION }, async (req, res) => {
   const { code, state, error } = req.query;

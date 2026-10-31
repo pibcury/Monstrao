@@ -156,49 +156,6 @@
 
   @keyframes gradientShift{ 0%{background-position:0% 50%;} 100%{background-position:100% 50%;} }
 
-  /* ---------- mini header: a small, separately-mounted bar fixed to the top of the screen.
-     It is NOT a shrunk version of the real header sitting on top of it via sticky/scroll
-     trickery — it's a second, constant-size element that only fades its opacity in/out. Because
-     a position:fixed element reserves no space in the document, showing/hiding it can never
-     change page layout or scroll height, so it can't feed back into the scroll position that
-     triggers it (which is what caused the earlier flicker/scroll-lock with the sticky approach).
-     The real header above (eyebrow/title/ring) is just normal content now — no sticky, no resize,
-     it scrolls away like anything else. ---------- */
-  .mini-header{
-    position:fixed;
-    top:env(safe-area-inset-top, 0px);
-    left:0; right:0;
-    z-index:60;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:16px;
-    padding:12px 23px;
-    background:rgba(var(--bg-rgb),0.94);
-    box-shadow:0 8px 20px -10px rgba(0,0,0,0.5);
-    opacity:0;
-    transform:translateY(-6px);
-    pointer-events:none;
-    transition:opacity .22s ease, transform .22s ease;
-  }
-  .mini-header.visible{ opacity:1; transform:translateY(0); pointer-events:auto; }
-  .mini-arm{
-    font-size:36px;
-    line-height:1;
-    display:inline-block;
-    background:linear-gradient(160deg,var(--burn),#4C8DFF);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .mini-rings-row{display:flex;gap:10px;}
-  .mini-ring{position:relative;width:68px;height:68px;flex-shrink:0;}
-  .mini-ring-dual{width:54px;height:54px;}
-  .mini-ring-svg{width:100%;height:100%;transform:rotate(-90deg);display:block;}
-  .mini-ring-center{position:absolute;inset:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .mini-ring-center span{
-    font-family:'Sora',sans-serif;font-size:18px;font-weight:700;
-    color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-0.02em;
-    white-space:nowrap;line-height:1;
-  }
   @keyframes cardIn{ from{opacity:0; transform:translateY(14px) scale(0.985);} to{opacity:1; transform:none;} }
   .wrap > *{ animation:cardIn 0.55s cubic-bezier(.22,1,.36,1) both; }
   .wrap > *:nth-child(1){animation-delay:0s;}
@@ -910,8 +867,6 @@
   @keyframes armFlex{
     0%{transform:scale(1);} 30%{transform:scale(1.12) rotate(-6deg);} 55%{transform:scale(0.96) rotate(2deg);} 100%{transform:scale(1);}
   }
-  .mini-arm.brand-tile{width:34px;height:34px;border-radius:10px;font-size:0;box-shadow:none;}
-  .mini-arm.brand-tile svg{width:25px;height:25px;}
 
   /* titles & icons */
   .burn-summary-title{display:inline-flex;align-items:center;font-family:'Sora',sans-serif;font-weight:600;letter-spacing:-0.02em;}
@@ -957,7 +912,6 @@
     color:transparent;-webkit-text-fill-color:transparent;
     transform:translateY(1px);
   }
-  .mini-arm.brand-tile .tile-emoji{font-size:19px;}
   /* goals page icons: same monoline style as the card titles */
   .goal-pill-ico{width:24px;height:24px;color:var(--muted);flex-shrink:0;transition:color .2s ease;}
   .goal-pill.active .goal-pill-ico{color:var(--accent);}
@@ -965,25 +919,9 @@
   .target-tile-icon{display:flex;justify-content:center;margin-bottom:6px;font-size:0;}
   .tt-ico{width:20px;height:20px;color:var(--accent);}
   /* floating top bar v2: thicker, bigger rings with labels, plus the diet-quality ruler */
-  .mini-header{display:block;padding:10px 16px 12px;}
-  .mini-inner{max-width:430px;margin:0 auto;}
-  .mini-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
-  .mini-top .mini-arm.brand-tile{width:40px;height:40px;border-radius:12px;margin-top:12px;}
-  .mini-top .mini-arm.brand-tile .tile-emoji{font-size:23px;}
-  .mini-metric{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:0;}
-  .mini-ring.mini-ring-dual{width:62px;height:62px;}
-  .mini-lbl{font-size:10.5px;font-weight:600;color:var(--muted);white-space:nowrap;}
-  .mini-dq{display:flex;align-items:center;gap:10px;margin-top:10px;}
-  .mini-dq-lbl{font-size:10.5px;font-weight:600;color:var(--muted);white-space:nowrap;flex-shrink:0;}
-  .mini-dq-track{position:relative;flex:1;height:8px;border-radius:4px;background:rgba(76,141,255,0.16);}
-  .mini-dq-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:4px;background:var(--accent);transition:width .6s ease;}
-  .mini-dq-fill.full{box-shadow:0 0 8px rgba(76,141,255,0.55);}
-  .mini-dq-dot{position:absolute;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:var(--bg);border:2.5px solid var(--ink);box-sizing:border-box;}
-  .mini-dq-val{font-family:'Sora',sans-serif;font-size:13px;font-weight:600;color:var(--ink);min-width:34px;text-align:right;font-variant-numeric:tabular-nums;}
   /* Trends: step back/forward through weeks, months, years */
   .period-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin:-2px 0 12px;}
   .period-label{font-family:'Sora',sans-serif;font-weight:600;font-size:14.5px;min-width:130px;text-align:center;letter-spacing:-0.01em;}
-  .mini-header{background:rgba(var(--bg-rgb),0.985);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule);}
 
   /* ===================== accounts ===================== */
   input[type=email], input[type=password]{
@@ -1128,12 +1066,6 @@
   .dq-goal-tick{position:absolute;top:-4px;bottom:-4px;width:2px;margin-left:-1px;border-radius:1px;background:var(--ink);transition:left .6s ease;}
   .dq-axis{display:flex;justify-content:space-between;margin-top:6px;font-size:9.5px;font-weight:600;color:#5E6372;font-variant-numeric:tabular-nums;}
   /* floating top bar ruler */
-  .mini-dq-lbl{width:88px;}
-  .mini-dq-fill{border-radius:4px;}
-  .mini-dq-fill.joined{border-radius:4px 0 0 4px;}
-  .mini-dq-fill.full{box-shadow:none;}
-  .mini-dq-over{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:0 4px 4px 0;background:rgba(244,245,250,0.6);opacity:0;transition:width .6s ease, opacity .3s;}
-  .mini-dq-tick{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;border-radius:1px;background:var(--ink);}
   /* your goals */
   .my-goals{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;width:100%;margin-top:14px;padding:0;background:none;border:0;cursor:pointer;}
   .mg-chip{display:inline-flex;align-items:center;gap:7px;padding:7px 13px 7px 10px;border-radius:999px;
@@ -1148,15 +1080,13 @@
   .wk-now{text-align:right;}
   .wk-val{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;color:var(--ink);}
   .wk-val small{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:var(--muted);margin-left:4px;letter-spacing:0;}
-  .wk-val.def, .mini-dq-val.def{color:var(--deficit);}
-  .wk-val.sur, .mini-dq-val.sur{color:var(--surplus);}
+  .wk-val.def{color:var(--deficit);}
+  .wk-val.sur{color:var(--surplus);}
   .wk-goal{display:flex;align-items:center;justify-content:flex-end;gap:5px;font-size:11px;color:var(--muted);font-weight:600;margin-top:5px;white-space:nowrap;font-variant-numeric:tabular-nums;}
   .wk-goal b{color:var(--ink);font-weight:700;}
   .wk-dash{display:inline-block;width:14px;height:0;border-top:1.5px dashed rgba(244,245,250,0.6);}
   .wk-svg{display:block;width:100%;height:auto;margin-top:8px;overflow:visible;}
   .wk-svg text{font-family:'Inter',sans-serif;}
-  .mini-wk{margin-top:7px;}
-  .mini-wk-svg{flex:1;min-width:0;height:22px;overflow:visible;}
   /* ===================== Oct 29 pass ===================== */
   /* main page: rings + ruler share one "Today" card */
   #ringSection .today-card{width:100%;padding:12px 10px 12px;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(244,245,250,0.08);}
@@ -1198,6 +1128,228 @@
   .targets-hint{font-size:11.5px;color:var(--muted);text-align:center;margin:10px 0 0;}
   .targets-reset{display:block;margin:10px auto 0;}
   .methodology-text a{color:var(--accent);}
+  /* ===================== Oct 30 pass ===================== */
+  .targets-grid-macros{margin-top:10px;}
+  .targets-grid-macros input.target-input{font-size:19px;}
+  .targets-check{font-size:12px;color:var(--warn);text-align:center;margin:10px 0 0;}
+  .track-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .track-chip{display:inline-flex;align-items:center;gap:7px;padding:8px 14px 8px 11px;border-radius:999px;cursor:pointer;
+    background:var(--surface-2);border:1.5px solid var(--rule);color:var(--muted);font-size:13px;font-weight:600;transition:all .2s ease;}
+  .track-chip .mg-ico{color:var(--muted);transition:color .2s ease;}
+  .track-chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--ink);}
+  .track-chip.on .mg-ico{color:var(--accent);}
+  .track-chip.locked{cursor:default;opacity:.85;}
+  /* Today card v2: calories + burn on top, macros below, a ruler per macro */
+  .today-card .metrics-top{grid-template-columns:1fr 1fr;gap:10px;}
+  .today-card .metrics-top .mring{max-width:118px;}
+  .today-card .metrics-top .mring-fig{font-size:clamp(17px,5.4vw,22px);}
+  .today-card .metrics-macros{margin-top:12px;padding-top:12px;border-top:1px solid rgba(244,245,250,0.07);grid-template-columns:repeat(3,minmax(0,1fr));}
+  .today-card .metrics-macros[data-n="1"]{grid-template-columns:minmax(0,1fr);}
+  .today-card .metrics-macros[data-n="1"] .metric{max-width:150px;margin:0 auto;width:100%;}
+  .today-card .metrics-macros[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .today-card .metrics-macros .mring{max-width:86px;}
+  .today-card .metrics-macros .mring-fig{font-size:clamp(13px,4vw,16px);}
+  .today-card .metrics-macros .mring-svg circle{stroke-width:11;}
+  #ringSection .today-card .dq, #trendRingSection .today-card .dq{background:none;border:0;border-top:1px solid rgba(244,245,250,0.07);border-radius:0;margin-top:12px;padding:12px 4px 0;}
+  #trendRingSection .today-card{width:100%;padding:12px 10px 12px;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(244,245,250,0.08);}
+  #trendRingSection .today-card .metric{background:none;border:0;padding:2px 2px 0;}
+  .dq-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+  .dq-row{margin-top:10px;}
+  .dq-row-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px;}
+  .dq-name{font-size:12px;font-weight:600;color:var(--muted);}
+  .dq-figs{display:inline-flex;align-items:baseline;gap:8px;font-variant-numeric:tabular-nums;}
+  .dq-num{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--accent);}
+  .dq-goal{font-size:11px;color:var(--muted);font-weight:600;}
+  .dq-goal b{color:var(--ink);}
+  .dq-track{height:9px;border-radius:5px;}
+  .dq-fill{border-radius:5px;}
+  .dq-fill.joined{border-radius:5px 0 0 5px;}
+  .dq-over{border-radius:0 5px 5px 0;}
+  .dq-goal-tick{top:-3px;bottom:-3px;}
+  .dq .dq-axis{margin-top:7px;}
+  /* top bar: up to five rings; thin rulers per macro */
+  .metric{--m:var(--accent);--m-soft:transparent;}
+  /* balance cards: Total / vs. goal switch */
+  .balances{width:100%;}
+  .balances .wk{margin-top:12px;}
+  .wk-head{align-items:flex-start;}
+  .wk-left{display:flex;flex-direction:column;gap:8px;min-width:0;}
+  .wk-mode{color:var(--muted);font-weight:600;}
+  .wk-toggle{position:relative;display:inline-grid;grid-template-columns:1fr 1fr;align-self:flex-start;padding:2px;border-radius:999px;
+    background:rgba(244,245,250,0.06);border:1px solid rgba(244,245,250,0.08);}
+  .wk-toggle button{position:relative;z-index:1;border:0;background:none;padding:4px 11px;font-size:11px;font-weight:700;letter-spacing:.01em;
+    color:var(--muted);cursor:pointer;border-radius:999px;transition:color .25s ease;white-space:nowrap;}
+  .wk-toggle button.on{color:var(--ink);}
+  .wk-toggle-thumb{position:absolute;top:2px;bottom:2px;left:2px;width:calc(50% - 2px);border-radius:999px;background:var(--accent-soft);
+    box-shadow:inset 0 0 0 1px rgba(76,141,255,0.55);transition:transform .35s cubic-bezier(.34,1.3,.5,1);}
+  .wk-toggle:has(button[data-bmode="goal"].on) .wk-toggle-thumb{transform:translateX(100%);}
+  .wk-swap .wk-mode, .wk-swap .wk-val{animation:wkSwap .45s ease;}
+  @keyframes wkSwap{0%{opacity:0;transform:translateY(4px);}100%{opacity:1;transform:none;}}
+  .wk-val.pro{color:var(--accent);}
+  /* collapsed Food / Burn / Weight cards: title only */
+  #foodSummaryVal, #burnSummaryVal, #weightSummaryVal{display:none;}
+  /* nutrient fields (AI result + manual entry) */
+  .food-desc-input{width:100%;margin-top:2px;}
+  .nutri-grid{display:grid;gap:8px;margin:12px 0 12px;}
+  .nf{display:flex;flex-direction:column;gap:5px;margin:0;min-width:0;}
+  .nf-lbl{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.01em;}
+  .nf input{width:100%;min-width:0;text-align:center;font-family:'Sora',sans-serif;font-weight:600;font-size:16px;padding:10px 4px;}
+  .btn-add-wide{width:100%;padding:12px;}
+  /* food items editor */
+  .ie{margin-top:4px;}
+  .ie-totals{display:grid;gap:6px;margin:0 0 6px;position:sticky;top:0;}
+  .ie-tot{display:flex;flex-direction:column;align-items:center;gap:1px;padding:9px 2px 8px;border-radius:12px;background:rgba(76,141,255,0.08);border:1px solid rgba(76,141,255,0.18);min-width:0;}
+  .ie-tot b{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .ie-tot b small{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--muted);margin-left:1px;}
+  .ie-tot span{font-size:10.5px;font-weight:600;color:var(--muted);text-transform:lowercase;}
+  .ie-row{padding:10px 0 9px;border-bottom:1px solid var(--rule);}
+  .ie-row:last-child{border-bottom:0;}
+  .ie-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+  textarea.ie-desc{flex:1;min-width:0;background:none;border:0;padding:2px 0;font-size:15px;font-weight:600;line-height:1.3;color:var(--ink);border-radius:6px;font-family:'Inter',sans-serif;resize:none;overflow:hidden;min-height:0;box-shadow:none;}
+  .ie-top{align-items:flex-start;}
+  textarea.ie-desc:focus{outline:none;background:rgba(244,245,250,0.05);box-shadow:0 0 0 6px rgba(244,245,250,0.05);}
+  .ie-del{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:0;background:rgba(244,245,250,0.05);color:var(--muted);font-size:12px;cursor:pointer;}
+  .ie-del:active{background:var(--surplus-soft);color:var(--surplus);}
+  .ie-nums{display:grid;gap:6px;}
+  input.ie-num{width:100%;min-width:0;text-align:center;padding:6px 2px;border-radius:9px;border:1px solid transparent;background:rgba(244,245,250,0.04);
+    color:var(--accent);font-family:'Sora',sans-serif;font-weight:600;font-size:16px;font-variant-numeric:tabular-nums;-moz-appearance:textfield;}
+  input.ie-num::-webkit-outer-spin-button, input.ie-num::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  input.ie-num:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);color:var(--ink);}
+  .hist-detail .ie{margin-bottom:6px;}
+  /* Burn ring: the day's activity chip + its bottom sheet */
+  .burn-act{position:relative;display:inline-flex;align-items:center;gap:4px;padding:3px 7px 3px 6px;margin:0;border-radius:999px;border:1px solid rgba(76,141,255,0.45);
+    background:rgba(76,141,255,0.14);color:var(--ink);font-size:10px;font-weight:700;white-space:nowrap;cursor:pointer;line-height:1.1;}
+  .burn-act:active{background:rgba(76,141,255,0.26);}
+  .burn-act-ico{width:11px;height:11px;color:var(--accent);flex-shrink:0;}
+  .burn-act-chev{width:7px;height:5px;color:var(--accent);}
+  .sheet-scrim{position:fixed;inset:0;z-index:400;display:none;align-items:flex-end;justify-content:center;background:rgba(5,6,9,0);transition:background .25s ease;}
+  .sheet-scrim.open{background:rgba(5,6,9,0.62);}
+  .sheet{width:100%;max-width:480px;background:var(--surface);border:1px solid var(--rule);border-bottom:0;border-radius:22px 22px 0 0;
+    padding:10px 16px calc(env(safe-area-inset-bottom, 0px) + 18px);transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.9,.3,1);}
+  .sheet-scrim.open .sheet{transform:none;}
+  .sheet-grab{width:38px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 14px;}
+  .sheet-title{font-family:'Sora',sans-serif;font-weight:600;font-size:17px;letter-spacing:-0.01em;}
+  .sheet-sub{font-size:12px;color:var(--muted);margin:4px 0 14px;}
+  .act-list{display:flex;flex-direction:column;gap:8px;}
+  .act-opt{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid var(--rule);background:var(--surface-2);color:var(--ink);text-align:left;cursor:pointer;transition:all .18s ease;}
+  .act-opt.on{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1px var(--accent) inset;}
+  .act-ico-wrap{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(244,245,250,0.05);flex-shrink:0;}
+  .act-opt.on .act-ico-wrap{background:rgba(76,141,255,0.18);}
+  .act-ico{width:20px;height:20px;color:var(--muted);}
+  .act-opt.on .act-ico{color:var(--accent);}
+  .act-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+  .act-txt b{font-size:14px;font-weight:700;}
+  .act-txt small{font-size:11.5px;color:var(--muted);font-weight:500;}
+  .act-kcal{font-family:'Sora',sans-serif;font-weight:600;font-size:14px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .act-kcal small{display:block;font-family:'Inter',sans-serif;font-size:10px;color:var(--muted);font-weight:600;}
+  body.sheet-open{overflow:hidden;}
+  /* ---- Monstrão AI: floating button, chat page ---- */
+  .ai-fab{position:fixed;z-index:70;right:max(16px, calc((100vw - 460px) / 2 + 2px));bottom:calc(env(safe-area-inset-bottom, 0px) + 16px);
+    display:flex;align-items:center;gap:0;height:52px;padding:0 15px;border-radius:26px;border:1px solid rgba(255,255,255,0.16);
+    background:linear-gradient(160deg,#5A97FF 0%,#3B7BF5 58%,#2F68DB 100%);color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:14px;
+    box-shadow:0 14px 30px -10px rgba(47,104,219,0.75),0 3px 10px rgba(0,0,0,0.35);cursor:pointer;
+    transition:transform .3s cubic-bezier(.2,.9,.3,1),opacity .25s ease,padding .3s ease;}
+  .ai-fab:active{transform:scale(0.94);}
+  .ai-fab svg{width:21px;height:21px;flex-shrink:0;}
+  .ai-fab-lbl{max-width:140px;overflow:hidden;white-space:nowrap;padding-left:8px;transition:max-width .32s ease,opacity .2s ease,padding .32s ease;}
+  .ai-fab.compact{padding:0 15px;}
+  .ai-fab.compact .ai-fab-lbl{max-width:0;opacity:0;padding-left:0;}
+  .ai-fab.hide{opacity:0;transform:translateY(24px) scale(0.9);pointer-events:none;}
+  body.ai-on .wrap{padding-bottom:44px;}
+  .app-menu-item.menu-ai .app-menu-ico{color:var(--accent);}
+  .trend-ask{display:flex;align-items:center;justify-content:center;gap:6px;margin:-4px auto 14px;padding:7px 13px;border-radius:999px;
+    border:1px solid rgba(76,141,255,0.35);background:rgba(76,141,255,0.10);color:var(--ink);font-size:12.5px;font-weight:600;cursor:pointer;}
+  .trend-ask svg{width:13px;height:13px;color:var(--accent);}
+  .trend-ask:active{background:rgba(76,141,255,0.22);}
+
+  .chat-overlay{overflow:hidden;}
+  .chat-overlay::before{content:'';position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 60% at 50% -10%, rgba(76,141,255,0.16), transparent 60%);}
+  .chat-topbar{z-index:2;}
+  .chat-title{display:flex;align-items:center;gap:7px;}
+  .chat-title svg{width:16px;height:16px;color:var(--accent);}
+  .chat-new{position:absolute;right:12px;bottom:9px;width:40px;height:40px;padding:0;border-radius:20px;background:var(--surface-2);
+    border:1.5px solid rgba(244,245,250,0.14);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .chat-new svg{width:18px;height:18px;}
+  .chat-new:disabled{opacity:0.35;}
+  .chat-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;position:relative;z-index:1;overscroll-behavior:contain;}
+  .chat-inner{max-width:460px;margin:0 auto;padding:18px 18px 12px;box-sizing:border-box;min-height:100%;display:flex;flex-direction:column;}
+  .chat-log{display:flex;flex-direction:column;gap:16px;}
+
+  .chat-empty{flex:1;display:flex;flex-direction:column;justify-content:center;padding:10px 0 6px;animation:chatIn .45s ease both;}
+  .chat-orb{width:58px;height:58px;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:18px;
+    background:linear-gradient(160deg,#5A97FF 0%,#3B7BF5 60%,#2F68DB 100%);box-shadow:0 0 0 6px rgba(76,141,255,0.10),0 16px 40px -12px rgba(76,141,255,0.8);
+    animation:orbBreath 4.5s ease-in-out infinite;}
+  .chat-orb svg{width:28px;height:28px;}
+  @keyframes orbBreath{0%,100%{box-shadow:0 0 0 6px rgba(76,141,255,0.10),0 16px 40px -12px rgba(76,141,255,0.8);}50%{box-shadow:0 0 0 11px rgba(76,141,255,0.05),0 18px 46px -10px rgba(76,141,255,0.95);}}
+  .chat-hello{font-family:'Sora',sans-serif;font-weight:700;font-size:25px;letter-spacing:-0.02em;line-height:1.15;margin:0;}
+  .chat-sub{color:var(--muted);font-size:14px;line-height:1.5;margin:8px 0 22px;max-width:330px;}
+  .chat-sugs{display:flex;flex-direction:column;gap:8px;}
+  .chat-sug{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 14px;border-radius:15px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--rule);color:var(--ink);font-size:14px;font-weight:600;line-height:1.3;
+    transition:transform .15s ease,background .2s ease,border-color .2s ease;animation:chatIn .4s ease both;}
+  .chat-sug:active{transform:scale(0.98);background:var(--surface-2);border-color:rgba(76,141,255,0.45);}
+  .chat-sug-ico{width:30px;height:30px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(76,141,255,0.12);color:var(--accent);}
+  .chat-sug-ico svg{width:16px;height:16px;}
+  .chat-sug-txt{flex:1;}
+  .chat-sug-go{width:14px;height:14px;color:var(--muted);flex-shrink:0;}
+  .chat-mem{margin-top:18px;font-size:12px;color:var(--muted);}
+  .chat-mem-btn{background:none;border:0;padding:4px 0;color:var(--muted);font:inherit;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+  .chat-mem-btn svg{width:13px;height:13px;}
+  .chat-mem-list{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;}
+  .chat-mem-list li{display:flex;align-items:flex-start;gap:8px;padding:9px 10px 9px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--rule);color:var(--ink);font-size:13px;line-height:1.4;}
+  .chat-mem-list li span{flex:1;}
+  .chat-mem-x{background:none;border:0;border-radius:6px;color:var(--muted);font-size:16px;line-height:1;padding:0 2px;cursor:pointer;}
+
+  .chat-day{align-self:center;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);opacity:.8;margin:4px 0 -4px;}
+  .cm{animation:chatIn .32s cubic-bezier(.2,.9,.3,1) both;}
+  @keyframes chatIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .cm-user{align-self:flex-end;max-width:84%;padding:10px 14px;border-radius:20px 20px 6px 20px;white-space:pre-wrap;word-wrap:break-word;
+    background:linear-gradient(160deg,#4C8DFF,#3474EE);color:#fff;font-size:15px;line-height:1.42;box-shadow:0 8px 20px -12px rgba(52,116,238,0.9);}
+  .cm-ai{align-self:stretch;font-size:15px;line-height:1.58;color:var(--ink);word-wrap:break-word;}
+  .cm-ai p{margin:0 0 10px;}
+  .cm-ai p:last-child,.cm-ai ul:last-child,.cm-ai ol:last-child{margin-bottom:0;}
+  .cm-ai strong{font-weight:700;color:#fff;}
+  .cm-ai em{font-style:italic;color:#DDE3F5;}
+  .cm-ai code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:var(--surface-2);padding:1px 5px;border-radius:5px;}
+  .cm-ai ul,.cm-ai ol{margin:0 0 10px;padding-left:20px;}
+  .cm-ai li{margin:4px 0;padding-left:2px;}
+  .cm-ai li::marker{color:var(--accent);}
+  .cm-ai.stopped .cm-body::after{content:'Stopped';display:block;margin-top:6px;font-size:12px;color:var(--muted);}
+  .cm-caret{display:inline-block;width:8px;height:8px;margin-left:5px;border-radius:50%;background:var(--accent);vertical-align:middle;
+    box-shadow:0 0 10px rgba(76,141,255,0.9);animation:caretPulse 1s ease-in-out infinite;}
+  @keyframes caretPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.7);}}
+  .cm-status{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;margin-top:2px;}
+  .cm-body:not(:empty) + .cm-status{margin-top:10px;}
+  .cm-status svg{width:15px;height:15px;color:var(--accent);flex-shrink:0;animation:sparkSpin 2.4s linear infinite;}
+  @keyframes sparkSpin{to{transform:rotate(360deg);}}
+  .cm-status span{background:linear-gradient(90deg,var(--muted) 0%,var(--muted) 35%,#F4F5FA 50%,var(--muted) 65%,var(--muted) 100%);background-size:220% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 1.7s linear infinite;}
+  @keyframes shimmer{from{background-position:110% 0;}to{background-position:-110% 0;}}
+  .cm-err{display:flex;align-items:center;gap:10px;margin-top:4px;padding:10px 12px;border-radius:12px;background:var(--surplus-soft);color:#FFC2CD;font-size:13px;line-height:1.4;}
+  .cm-err span{flex:1;}
+  .cm-err button{background:rgba(255,255,255,0.1);border:0;color:#fff;font-weight:700;font-size:12.5px;padding:6px 11px;border-radius:999px;cursor:pointer;}
+
+  .chat-dock{position:relative;z-index:2;flex-shrink:0;padding:8px 14px calc(env(safe-area-inset-bottom, 0px) + 8px);
+    background:linear-gradient(to bottom, rgba(var(--bg-rgb),0), rgba(var(--bg-rgb),0.96) 22%);}
+  .chat-overlay.kb .chat-dock{padding-bottom:8px;}
+  .chat-composer{max-width:460px;margin:0 auto;display:flex;align-items:flex-end;gap:6px;padding:5px 5px 5px 16px;border-radius:26px;
+    background:var(--surface-2);border:1.5px solid var(--rule);box-shadow:0 10px 30px -14px rgba(0,0,0,0.7);transition:border-color .2s ease,box-shadow .2s ease;}
+  .chat-composer:focus-within{border-color:rgba(76,141,255,0.55);box-shadow:0 0 0 4px rgba(76,141,255,0.10),0 10px 30px -14px rgba(0,0,0,0.7);}
+  .chat-composer textarea{flex:1;min-width:0;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:500 16px/1.4 'Inter',sans-serif;
+    padding:9px 0;max-height:132px;margin:0;min-height:0;width:auto;border-radius:0;box-shadow:none;}
+  .chat-composer textarea:focus{border:0;box-shadow:none;}
+  .chat-composer textarea::placeholder{color:var(--muted);}
+  .chat-ibtn{width:38px;height:38px;padding:0;border-radius:19px;border:0;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s ease;}
+  .chat-ibtn svg{width:19px;height:19px;}
+  .chat-mic{background:transparent;color:var(--muted);}
+  .chat-mic.listening{color:#fff;background:var(--surplus);animation:caretPulse 1.2s ease-in-out infinite;}
+  .chat-send{background:var(--accent);color:#fff;}
+  .chat-send:disabled{background:rgba(244,245,250,0.08);color:var(--muted);cursor:default;}
+  .chat-send.stop{background:var(--ink);color:var(--bg);}
+  .chat-fine{text-align:center;font-size:10.5px;color:var(--muted);opacity:.75;margin-top:7px;}
+  .chat-overlay.kb .chat-fine{display:none;}
+  body.chat-open{overflow:hidden;}
   /* History page */
   #historyOverlay .month-nav{margin:0 0 12px;}
   .hist-scroll.hist-scroll-page, .hist-scroll.hist-scroll-page.hist-scroll-expanded{max-height:none;overflow:visible;}
@@ -1218,56 +1370,6 @@
 </style>
 </head>
 <body>
-<div class="mini-header" id="miniHeader" aria-hidden="true">
-  <div class="mini-inner">
-    <div class="mini-top">
-      <span class="mini-arm brand-tile" aria-hidden="true"><span class="tile-emoji">💪</span></span>
-      <div class="mini-metric">
-        <div class="mini-ring mini-ring-dual metric-cal">
-          <svg viewBox="0 0 120 120" class="mini-ring-svg" aria-hidden="true">
-            <circle class="mring-track" cx="60" cy="60" r="50"></circle>
-            <circle class="mring-prog" id="miniProgCal" cx="60" cy="60" r="50"></circle>
-            <circle class="mring-over" id="miniOverCal" cx="60" cy="60" r="50"></circle>
-          </svg>
-          <div class="mini-ring-center"><span id="miniFigCal">0</span></div>
-        </div>
-        <span class="mini-lbl">Calories</span>
-      </div>
-      <div class="mini-metric">
-        <div class="mini-ring mini-ring-dual metric-protein">
-          <svg viewBox="0 0 120 120" class="mini-ring-svg" aria-hidden="true">
-            <circle class="mring-track" cx="60" cy="60" r="50"></circle>
-            <circle class="mring-prog" id="miniProgProtein" cx="60" cy="60" r="50"></circle>
-            <circle class="mring-over" id="miniOverProtein" cx="60" cy="60" r="50"></circle>
-          </svg>
-          <div class="mini-ring-center"><span id="miniFigProtein">0</span></div>
-        </div>
-        <span class="mini-lbl">Protein</span>
-      </div>
-      <div class="mini-metric">
-        <div class="mini-ring mini-ring-dual metric-burn">
-          <svg viewBox="0 0 120 120" class="mini-ring-svg" aria-hidden="true">
-            <circle class="mring-track" cx="60" cy="60" r="50"></circle>
-            <circle class="mring-prog" id="miniProgBurn" cx="60" cy="60" r="50"></circle>
-            <circle class="mring-over" id="miniOverBurn" cx="60" cy="60" r="50"></circle>
-          </svg>
-          <div class="mini-ring-center"><span id="miniFigBurn">0</span></div>
-        </div>
-        <span class="mini-lbl">Burn</span>
-      </div>
-    </div>
-    <div class="mini-dq">
-      <span class="mini-dq-lbl">Calorie quality</span>
-      <div class="mini-dq-track"><div class="mini-dq-fill" id="miniDqFill"></div><div class="mini-dq-over" id="miniDqOver"></div><div class="mini-dq-tick" id="miniDqTick"></div></div>
-      <span class="mini-dq-val" id="miniDqVal">—</span>
-    </div>
-    <div class="mini-dq mini-wk">
-      <span class="mini-dq-lbl">Calorie balance</span>
-      <svg class="mini-wk-svg" id="miniWkSvg" viewBox="0 0 200 22" preserveAspectRatio="none" aria-hidden="true"></svg>
-      <span class="mini-dq-val" id="miniWkVal">—</span>
-    </div>
-  </div>
-</div>
 <div class="wrap">
   <div class="app-header" id="appHeader">
     <button class="app-menu-btn" id="appMenuBtn" type="button" aria-label="Open menu" aria-haspopup="true">
@@ -1278,6 +1380,7 @@
     </button>
     <div class="app-menu-dropdown" id="appMenuDropdown" style="display:none;">
       <div class="app-menu-account" id="menuAccountLine"></div>
+      <button class="app-menu-item menu-ai" id="openChatBtn" type="button" style="display:none;"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg></span><span><b>Monstrão AI</b><small>Ask about your data</small></span></button>
       <button class="app-menu-item" id="openProfileBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span><b>Profile</b><small>Name, age, height, weight</small></span></button>
       <button class="app-menu-item" id="openGoalsBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span><span><b>Goals</b><small>Your daily targets</small></span></button>
       <button class="app-menu-item" id="openHistoryBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span><b>History</b><small>Every day you’ve logged</small></span></button>
@@ -1302,13 +1405,14 @@
           </label>
           <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
         </div>
+      <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
 
       <div class="ring-section" id="ringSection">
         <div class="metrics-panel">
     <div class="today-card">
-    <div class="metrics">
+    <div class="metrics metrics-top">
       <div class="metric metric-cal">
-        <div class="metric-name"><i class="metric-swatch"></i>Calories</div>
+        <div class="metric-name">Calories</div>
         <div class="mring">
           <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
@@ -1322,23 +1426,8 @@
         </div>
         <div class="metric-goal" id="mGoalCal"></div>
       </div>
-      <div class="metric metric-protein">
-        <div class="metric-name"><i class="metric-swatch"></i>Protein</div>
-        <div class="mring">
-          <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
-          <circle class="mring-track" cx="60" cy="60" r="50"></circle>
-          <circle class="mring-prog" id="mProgProtein" cx="60" cy="60" r="50"></circle>
-          <circle class="mring-over" id="mOverProtein" cx="60" cy="60" r="50"></circle>
-          </svg>
-          <div class="mring-center">
-            <div class="mring-fig" id="mFigProtein">—</div>
-            <div class="mring-unit">g</div>
-          </div>
-        </div>
-        <div class="metric-goal" id="mGoalProtein"></div>
-      </div>
       <div class="metric metric-burn">
-        <div class="metric-name"><i class="metric-swatch"></i>Burn<span class="burn-src" id="burnSrcTag"></span></div>
+        <div class="metric-name">Burn<span class="burn-src" id="burnSrcTag"></span></div>
         <div class="mring">
           <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
@@ -1353,24 +1442,57 @@
         <div class="metric-goal" id="mGoalBurn"></div>
       </div>
     </div>
-    <button class="goal-cta" id="goalCtaBtn" type="button" style="display:none;">Set your goals to see your targets <span aria-hidden="true">›</span></button>
-    <div class="dq" id="dq">
-      <div class="dq-head">
-        <div class="dq-title">Calorie quality</div>
-        <div class="dq-now">
-          <div class="dq-now-val"><span id="dqVal">—</span><span class="dq-now-unit">protein</span></div>
-          <div class="dq-now-lbl" id="dqStatus"></div>
+    <div class="metrics metrics-macros" id="macroRings">
+      <div class="metric metric-protein" data-macro="protein">
+        <div class="metric-name">Protein</div>
+        <div class="mring">
+          <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
+          <circle class="mring-track" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-prog" id="mProgProtein" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-over" id="mOverProtein" cx="60" cy="60" r="50"></circle>
+          </svg>
+          <div class="mring-center">
+            <div class="mring-fig" id="mFigProtein">—</div>
+            <div class="mring-unit">g</div>
+          </div>
         </div>
+        <div class="metric-goal" id="mGoalProtein"></div>
       </div>
-      <div class="dq-scale" id="dqScale">
-        <div class="dq-track"><div class="dq-fill" id="dqFill"></div><div class="dq-over" id="dqOver"></div><div class="dq-goal-tick" id="dqTick"></div></div>
-        <div class="dq-axis"><span>0%</span><span>50%</span><span>100%</span></div>
+      <div class="metric metric-carbs" data-macro="carbs">
+        <div class="metric-name">Carbs</div>
+        <div class="mring">
+          <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
+          <circle class="mring-track" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-prog" id="mProgCarbs" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-over" id="mOverCarbs" cx="60" cy="60" r="50"></circle>
+          </svg>
+          <div class="mring-center">
+            <div class="mring-fig" id="mFigCarbs">—</div>
+            <div class="mring-unit">g</div>
+          </div>
+        </div>
+        <div class="metric-goal" id="mGoalCarbs"></div>
+      </div>
+      <div class="metric metric-fat" data-macro="fat">
+        <div class="metric-name">Fat</div>
+        <div class="mring">
+          <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
+          <circle class="mring-track" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-prog" id="mProgFat" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-over" id="mOverFat" cx="60" cy="60" r="50"></circle>
+          </svg>
+          <div class="mring-center">
+            <div class="mring-fig" id="mFigFat">—</div>
+            <div class="mring-unit">g</div>
+          </div>
+        </div>
+        <div class="metric-goal" id="mGoalFat"></div>
       </div>
     </div>
+    <button class="goal-cta" id="goalCtaBtn" type="button" style="display:none;">Set your goals to see your targets <span aria-hidden="true">›</span></button>
+    <div class="dq" id="dq"></div>
     </div>
-    <div class="wk" id="weekBalance"></div>
-    <div class="wk wk-protein" id="proteinBalance"></div>
-    <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
+    <div class="balances" id="balances"></div>
   </div>
 
       </div>
@@ -1396,12 +1518,9 @@
       </div>
 
       <div id="manualInputView" style="display:none;">
-        <div class="add-item-row">
-          <input type="text" id="itemDesc" placeholder="e.g. Chicken breast">
-          <input type="number" id="itemCal" placeholder="kcal" inputmode="numeric">
-          <input type="number" id="itemProtein" placeholder="g protein" inputmode="numeric">
-          <button class="btn-add" id="addItemBtn" type="button">Add</button>
-        </div>
+        <input type="text" id="itemDesc" class="food-desc-input" placeholder="e.g. Chicken breast, 6 oz">
+        <div class="nutri-grid" id="manualNutri"></div>
+        <button class="btn-add btn-add-wide" id="addItemBtn" type="button">Add</button>
       </div>
 
       <div id="aiInputView">
@@ -1438,16 +1557,7 @@
             <label for="aiLabelInput">Item</label>
             <textarea id="aiLabelInput" class="ai-label-textarea" rows="2"></textarea>
           </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="aiCalInput">kcal</label>
-              <input type="number" id="aiCalInput" inputmode="numeric">
-            </div>
-            <div class="field">
-              <label for="aiProteinInput">protein g</label>
-              <input type="number" id="aiProteinInput" inputmode="numeric">
-            </div>
-          </div>
+          <div class="nutri-grid" id="aiNutri"></div>
           <div class="btn-row">
             <button class="btn-secondary" id="aiRetryBtn" type="button">Try again</button>
             <button class="btn-add" id="aiAddBtn" type="button" style="flex:1;">Add</button>
@@ -1462,7 +1572,6 @@
 
     <div class="logged-today-head">
       <span class="logged-today-title" id="loggedSub">Logged today</span>
-      <span class="logged-today-total" id="loggedTodayTotalWrap" style="display:none;"><span id="loggedTodayTotal">0</span> kcal · <span id="loggedTodayProtein">0</span>g protein</span>
     </div>
     <div id="itemsList"></div>
     <div class="empty" id="loggedEmptyMsg" style="padding:6px 0;">Nothing logged yet.</div>
@@ -1553,13 +1662,15 @@
         <div class="period-label" id="trendPeriodLabel">This week</div>
         <button class="date-nav-btn" id="trendNextBtn" type="button" aria-label="Next period">›</button>
       </div>
+      <button class="trend-ask" id="trendAskBtn" type="button" style="display:none;"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span id="trendAskLbl">Ask about this week</span></button>
 
       <!-- same ring+ruler language as the main page, one layer lighter: target + period average only -->
       <div class="ring-section ring-section-trend" id="trendRingSection">
         <div class="metrics-panel">
-    <div class="metrics">
+    <div class="today-card">
+    <div class="metrics metrics-top">
       <div class="metric metric-cal">
-        <div class="metric-name"><i class="metric-swatch"></i>Calories</div>
+        <div class="metric-name">Calories</div>
         <div class="mring">
           <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
@@ -1573,23 +1684,8 @@
         </div>
         <div class="metric-goal" id="mGoalCalT"></div>
       </div>
-      <div class="metric metric-protein">
-        <div class="metric-name"><i class="metric-swatch"></i>Protein</div>
-        <div class="mring">
-          <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
-          <circle class="mring-track" cx="60" cy="60" r="50"></circle>
-          <circle class="mring-prog" id="mProgProteinT" cx="60" cy="60" r="50"></circle>
-          <circle class="mring-over" id="mOverProteinT" cx="60" cy="60" r="50"></circle>
-          </svg>
-          <div class="mring-center">
-            <div class="mring-fig" id="mFigProteinT">—</div>
-            <div class="mring-unit">g</div>
-          </div>
-        </div>
-        <div class="metric-goal" id="mGoalProteinT"></div>
-      </div>
       <div class="metric metric-burn">
-        <div class="metric-name"><i class="metric-swatch"></i>Burn</div>
+        <div class="metric-name">Burn</div>
         <div class="mring">
           <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
@@ -1604,82 +1700,127 @@
         <div class="metric-goal" id="mGoalBurnT"></div>
       </div>
     </div>
-    <div class="dq" id="dqT">
-      <div class="dq-head">
-        <div class="dq-title">Calorie quality</div>
-        <div class="dq-now">
-          <div class="dq-now-val"><span id="dqValT">—</span><span class="dq-now-unit">protein</span></div>
-          <div class="dq-now-lbl" id="dqStatusT"></div>
+    <div class="metrics metrics-macros" id="macroRingsT">
+      <div class="metric metric-protein" data-macro="protein">
+        <div class="metric-name">Protein</div>
+        <div class="mring">
+          <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
+          <circle class="mring-track" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-prog" id="mProgProteinT" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-over" id="mOverProteinT" cx="60" cy="60" r="50"></circle>
+          </svg>
+          <div class="mring-center">
+            <div class="mring-fig" id="mFigProteinT">—</div>
+            <div class="mring-unit">g</div>
+          </div>
         </div>
+        <div class="metric-goal" id="mGoalProteinT"></div>
       </div>
-      <div class="dq-scale" id="dqScaleT">
-        <div class="dq-track"><div class="dq-fill" id="dqFillT"></div><div class="dq-over" id="dqOverT"></div><div class="dq-goal-tick" id="dqTickT"></div></div>
-        <div class="dq-axis"><span>0%</span><span>50%</span><span>100%</span></div>
+      <div class="metric metric-carbs" data-macro="carbs">
+        <div class="metric-name">Carbs</div>
+        <div class="mring">
+          <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
+          <circle class="mring-track" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-prog" id="mProgCarbsT" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-over" id="mOverCarbsT" cx="60" cy="60" r="50"></circle>
+          </svg>
+          <div class="mring-center">
+            <div class="mring-fig" id="mFigCarbsT">—</div>
+            <div class="mring-unit">g</div>
+          </div>
+        </div>
+        <div class="metric-goal" id="mGoalCarbsT"></div>
+      </div>
+      <div class="metric metric-fat" data-macro="fat">
+        <div class="metric-name">Fat</div>
+        <div class="mring">
+          <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
+          <circle class="mring-track" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-prog" id="mProgFatT" cx="60" cy="60" r="50"></circle>
+          <circle class="mring-over" id="mOverFatT" cx="60" cy="60" r="50"></circle>
+          </svg>
+          <div class="mring-center">
+            <div class="mring-fig" id="mFigFatT">—</div>
+            <div class="mring-unit">g</div>
+          </div>
+        </div>
+        <div class="metric-goal" id="mGoalFatT"></div>
       </div>
     </div>
-    <div class="wk" id="weekBalanceT"></div>
-    <div class="wk wk-protein" id="proteinBalanceT"></div>
+    <div class="dq" id="dqT"></div>
+    </div>
+    <div class="balances" id="balancesT"></div>
   </div>
-      </div>
-
-      <div class="trend-chart-block" id="blockConsumed">
-        <button class="chart-collapse-btn" id="toggleConsumedBtn" type="button">
-          <span class="chart-name">Consumed</span>
-          <span class="chart-stats" id="trendConsumedChartTitle"></span>
-          <span class="burn-chevron" id="consumedChevron">›</span>
-        </button>
-        <div id="consumedChartWrap" style="display:none;"><canvas id="consumedChart"></canvas></div>
-      </div>
-
-      <div class="trend-chart-block" id="blockBurned">
-        <button class="chart-collapse-btn" id="toggleBurnedBtn" type="button">
-          <span class="chart-name">Burned</span>
-          <span class="chart-stats" id="trendBurnedChartTitle"></span>
-          <span class="burn-chevron" id="burnedChevron">›</span>
-        </button>
-        <div id="burnedChartWrap" style="display:none;"><canvas id="burnedChart"></canvas></div>
-      </div>
-
-      <div class="trend-chart-block" id="blockNet">
-        <button class="chart-collapse-btn" id="toggleNetBtn" type="button">
-          <span class="chart-name">Deficit / surplus</span>
-          <span class="chart-stats" id="trendNetChartTitle"></span>
-          <span class="burn-chevron" id="netChevron">›</span>
-        </button>
-        <div id="netChartWrap" style="display:none;"><canvas id="netChart"></canvas></div>
-      </div>
-
-      <div class="trend-chart-block" id="blockProtein">
-        <button class="chart-collapse-btn" id="toggleProteinBtn" type="button">
-          <span class="chart-name">Protein</span>
-          <span class="chart-stats" id="trendProteinChartTitle"></span>
-          <span class="burn-chevron" id="proteinChevron">›</span>
-        </button>
-        <div id="proteinChartWrap" style="display:none;"><canvas id="proteinChart"></canvas></div>
-      </div>
-
-      <div class="trend-chart-block" id="blockQuality">
-        <button class="chart-collapse-btn" id="toggleQualityBtn" type="button">
-          <span class="chart-name">Calorie quality</span>
-          <span class="chart-stats" id="trendQualityChartTitle"></span>
-          <span class="burn-chevron" id="qualityChevron">›</span>
-        </button>
-        <div id="qualityChartWrap" style="display:none;"><canvas id="qualityChart"></canvas></div>
       </div>
 
       <div class="trend-chart-block" id="blockWeight">
         <button class="chart-collapse-btn" id="toggleWeightBtn" type="button">
           <span class="chart-name">Weight</span>
           <span class="chart-stats" id="trendWeightChartTitle"></span>
-          <span class="burn-chevron" id="weightChevronT">›</span>
+          <span class="burn-chevron open" id="weightChevronT">›</span>
         </button>
-        <div id="weightChartOuterWrap" style="display:none;">
+        <div id="weightChartOuterWrap">
           <div class="empty" id="weightEmpty" style="display:none;">No weight data yet — log one above, in "Log weight".</div>
           <div id="weightChartsWrap">
             <canvas id="weightChart"></canvas>
           </div>
         </div>
       </div>
+
+      <div class="trend-chart-block" id="blockConsumed">
+        <button class="chart-collapse-btn" id="toggleConsumedBtn" type="button">
+          <span class="chart-name">Consumed</span>
+          <span class="chart-stats" id="trendConsumedChartTitle"></span>
+          <span class="burn-chevron open" id="consumedChevron">›</span>
+        </button>
+        <div id="consumedChartWrap"><canvas id="consumedChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockBurned">
+        <button class="chart-collapse-btn" id="toggleBurnedBtn" type="button">
+          <span class="chart-name">Burned</span>
+          <span class="chart-stats" id="trendBurnedChartTitle"></span>
+          <span class="burn-chevron open" id="burnedChevron">›</span>
+        </button>
+        <div id="burnedChartWrap"><canvas id="burnedChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockNet">
+        <button class="chart-collapse-btn" id="toggleNetBtn" type="button">
+          <span class="chart-name">Deficit / surplus</span>
+          <span class="chart-stats" id="trendNetChartTitle"></span>
+          <span class="burn-chevron open" id="netChevron">›</span>
+        </button>
+        <div id="netChartWrap"><canvas id="netChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockProtein" data-macro="protein">
+        <button class="chart-collapse-btn" id="toggleProteinBtn" type="button">
+          <span class="chart-name">Protein</span>
+          <span class="chart-stats" id="trendProteinChartTitle"></span>
+          <span class="burn-chevron open" id="proteinChevron">›</span>
+        </button>
+        <div id="proteinChartWrap"><canvas id="proteinChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockCarbs" data-macro="carbs">
+        <button class="chart-collapse-btn" id="toggleCarbsBtn" type="button">
+          <span class="chart-name">Carbs</span>
+          <span class="chart-stats" id="trendCarbsChartTitle"></span>
+          <span class="burn-chevron open" id="carbsChevron">›</span>
+        </button>
+        <div id="carbsChartWrap"><canvas id="carbsChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockFat" data-macro="fat">
+        <button class="chart-collapse-btn" id="toggleFatBtn" type="button">
+          <span class="chart-name">Fat</span>
+          <span class="chart-stats" id="trendFatChartTitle"></span>
+          <span class="burn-chevron open" id="fatChevron">›</span>
+        </button>
+        <div id="fatChartWrap"><canvas id="fatChart"></canvas></div>
+      </div>
+
     </div>
   </div>
 
@@ -1797,6 +1938,16 @@
       <p class="status" id="profileStatus"></p>
     </div>
     <div class="overlay-card burn-mode-card">
+      <div class="goal-group-title">What you track</div>
+      <p class="card-sub" style="margin:0 0 12px;">Calories always. Pick the macros you want rings, rulers and balances for.</p>
+      <div class="track-row" id="trackRow">
+        <span class="track-chip on locked"><svg class="mg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 21V3c-2.2 1.3-3.3 4-3.3 7.5V13H17"/></svg>Calories</span>
+        <button class="track-chip" data-track="protein" type="button"><svg class="mg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.6 3.4a5 5 0 0 1 .3 9.9c-1.2.1-2.3-.2-3.2-.8l-4.5 4.5a2.1 2.1 0 1 1-2.8 2.8 2.1 2.1 0 1 1-1.2-3.6l4.5-4.5a5 5 0 0 1 6.9-8.3z"/></svg>Protein</button>
+        <button class="track-chip" data-track="carbs" type="button"><svg class="mg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21V9"/><path d="M12 9c0-3 2-5 5-5 0 3-2 5-5 5zM12 9c0-3-2-5-5-5 0 3 2 5 5 5z"/><path d="M12 15c0-3 2-5 5-5 0 3-2 5-5 5zM12 15c0-3-2-5-5-5 0 3 2 5 5 5z"/></svg>Carbs</button>
+        <button class="track-chip" data-track="fat" type="button"><svg class="mg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c3 4 6 7.2 6 10.5a6 6 0 0 1-12 0c0-3.3 3-6.5 6-10.5z"/><path d="M9.5 14.5a2.6 2.6 0 0 0 2.5 2.4"/></svg>Fat</button>
+      </div>
+    </div>
+    <div class="overlay-card burn-mode-card">
       <div class="goal-group-title">Daily burn</div>
       <div id="burnModeBody"></div>
     </div>
@@ -1850,22 +2001,30 @@
           <input class="target-tile-value target-input" id="targetCalVal" data-target="calorie" type="number" inputmode="numeric" aria-label="kcal target">
           <div class="target-tile-label">kcal<span class="tt-edited" data-edited="calorie">· yours</span></div>
         </div>
-        <div class="target-tile target-tile-protein">
-          <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.6 3.4a5 5 0 0 1 .3 9.9c-1.2.1-2.3-.2-3.2-.8l-4.5 4.5a2.1 2.1 0 1 1-2.8 2.8 2.1 2.1 0 1 1-1.2-3.6l4.5-4.5a5 5 0 0 1 6.9-8.3z"/></svg></div>
-          <input class="target-tile-value target-input" id="targetProteinVal" data-target="protein" type="number" inputmode="numeric" aria-label="g protein target">
-          <div class="target-tile-label">g protein<span class="tt-edited" data-edited="protein">· yours</span></div>
-        </div>
         <div class="target-tile target-tile-burn">
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c.7 3.5 5.5 5.6 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.4 2.7-5.6.3 2 1.3 3.2 2.7 3.6-.3-3.4-.7-6.2.1-9.3z"/></svg></div>
           <input class="target-tile-value target-input" id="targetBurnVal" data-target="burn" type="number" inputmode="numeric" aria-label="kcal burn target">
           <div class="target-tile-label">kcal burn<span class="tt-edited" data-edited="burn">· yours</span></div>
         </div>
-        <div class="target-tile target-tile-quality">
-          <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.3"/><circle cx="17" cy="17" r="2.3"/></svg></div>
-          <input class="target-tile-value target-input" id="targetQualityVal" data-target="quality" type="number" inputmode="numeric" aria-label="% cal. from protein target">
-          <div class="target-tile-label">% cal. from protein<span class="tt-edited" data-edited="quality">· yours</span></div>
+      </div>
+      <div class="targets-grid targets-grid-macros" id="targetsMacros">
+        <div class="target-tile target-tile-protein" data-macro-tile="protein">
+          <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.6 3.4a5 5 0 0 1 .3 9.9c-1.2.1-2.3-.2-3.2-.8l-4.5 4.5a2.1 2.1 0 1 1-2.8 2.8 2.1 2.1 0 1 1-1.2-3.6l4.5-4.5a5 5 0 0 1 6.9-8.3z"/></svg></div>
+          <input class="target-tile-value target-input" id="targetProteinVal" data-target="protein" type="number" inputmode="numeric" aria-label="g protein target">
+          <div class="target-tile-label">g protein<span class="tt-edited" data-edited="protein">· yours</span></div>
+        </div>
+        <div class="target-tile target-tile-carbs" data-macro-tile="carbs">
+          <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21V9"/><path d="M12 9c0-3 2-5 5-5 0 3-2 5-5 5zM12 9c0-3-2-5-5-5 0 3 2 5 5 5z"/><path d="M12 15c0-3 2-5 5-5 0 3-2 5-5 5zM12 15c0-3-2-5-5-5 0 3 2 5 5 5z"/></svg></div>
+          <input class="target-tile-value target-input" id="targetCarbsVal" data-target="carbs" type="number" inputmode="numeric" aria-label="g carbs target">
+          <div class="target-tile-label">g carbs<span class="tt-edited" data-edited="carbs">· yours</span></div>
+        </div>
+        <div class="target-tile target-tile-fat" data-macro-tile="fat">
+          <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c3 4 6 7.2 6 10.5a6 6 0 0 1-12 0c0-3.3 3-6.5 6-10.5z"/><path d="M9.5 14.5a2.6 2.6 0 0 0 2.5 2.4"/></svg></div>
+          <input class="target-tile-value target-input" id="targetFatVal" data-target="fat" type="number" inputmode="numeric" aria-label="g fat target">
+          <div class="target-tile-label">g fat<span class="tt-edited" data-edited="fat">· yours</span></div>
         </div>
       </div>
+      <p class="targets-check" id="targetsCheck" style="display:none;"></p>
       <p class="targets-hint" id="targetsHint">Tap a number to set your own.</p>
       <button class="btn-small targets-reset" id="targetsResetBtn" type="button" style="display:none;">Reset to calculated</button>
       <button class="methodology-toggle" id="methodologyToggleBtn" type="button">How we calculated this ▾</button>
@@ -1941,7 +2100,7 @@
 <script>
 let STORAGE_KEY = 'calorie-log';
 let entries = {}; // { 'YYYY-MM-DD': { mode: 'items'|'simple'|null, items: [{id,desc,cal,protein}]|null, total: number|null, proteinTotal: number|null, burned: number|null } }
-let consumedChart = null, burnedChart = null, netChart = null, proteinChart = null, qualityChart = null;
+let consumedChart = null, burnedChart = null, netChart = null;
 let trendHorizon = 'week'; // 'week'|'month'|'year'
 let trendOffset = 0;       // 0 = current period, 1 = the one before it, …
 let expandedDate = null;
@@ -2085,6 +2244,38 @@ function consumedProtein(e){
   if(e.mode === 'simple') return (typeof e.proteinTotal==='number') ? e.proteinTotal : null;
   return null;
 }
+// ---------- macros: protein, carbs, fat ----------
+// Calories are always tracked; each person picks which macros they also track (Profile). Items
+// carry grams per macro (it.protein / it.carbs / it.fat); a day where no item has that macro has no
+// data for it (null), never zero. kcal per gram: protein 4, carbs 4, fat 9.
+const MACROS = ['protein', 'carbs', 'fat'];
+const MACRO_INFO = {
+  protein: { label: 'Protein', key: 'Protein', kcal: 4 },
+  carbs:   { label: 'Carbs',   key: 'Carbs',   kcal: 4 },
+  fat:     { label: 'Fat',     key: 'Fat',     kcal: 9 }
+};
+function trackedMacros(){
+  const t = userProfile.track;
+  return Array.isArray(t) ? MACROS.filter(m => t.includes(m)) : ['protein'];
+}
+function consumedMacro(e, m){
+  if(m === 'protein') return consumedProtein(e);
+  if(!e) return null;
+  if(e.mode === 'items'){
+    const items = (e.items || []).filter(i => typeof i[m] === 'number');
+    return items.length ? items.reduce((s, i) => s + i[m], 0) : null;
+  }
+  if(e.mode === 'simple') return (typeof e[m + 'Total'] === 'number') ? e[m + 'Total'] : null;
+  return null;
+}
+// share of the day's calories that came from a macro, in %
+function macroShareForDate(iso, m){
+  const e = entries[iso];
+  if(!e) return null;
+  const cal = consumedTotal(e), g = consumedMacro(e, m);
+  if(!cal || g == null) return null;
+  return g * MACRO_INFO[m].kcal / cal * 100;
+}
 function hasBurned(e){ return !!e && typeof e.burned === 'number'; }
 function net(e){
   const c = consumedTotal(e);
@@ -2200,35 +2391,10 @@ function goalDiffHTML(value, goal, overIsBad, goalUnit){
   return goal == null ? 'Goal <b>—</b>' : `Goal <b>${fmtN(goal)}${goalUnit || ''}</b>`;
 }
 
-// Copies a main-page ring into its small counterpart in the fixed mini header.
-function mirrorMiniRing(key){
-  [['mProg','miniProg'], ['mOver','miniOver']].forEach(([src, dst])=>{
-    const a = document.getElementById(src + key), b = document.getElementById(dst + key);
-    if(!a || !b) return;
-    b.setAttribute('stroke-dasharray', a.getAttribute('stroke-dasharray') || `0 ${MRING_C}`);
-    b.setAttribute('stroke-dashoffset', '0');
-    b.style.opacity = a.style.opacity;
-    b.style.stroke = a.style.stroke;
-    b.style.strokeOpacity = a.style.strokeOpacity;
-  });
-  const fig = document.getElementById('mFig' + key), mini = document.getElementById('miniFig' + key);
-  if(fig && mini){
-    mini.textContent = fig.textContent;
-    const digits = mini.textContent.replace(/[^0-9]/g, '').length;
-    mini.style.fontSize = digits >= 5 ? '11px' : (digits === 4 ? '13px' : '16px');
-  }
-}
 
 // Daily "diet quality": what % of the day's calories came from protein. Null when either figure
 // is missing so a no-data day is never averaged in as a zero.
-function dietQualityForDate(iso){
-  const e = entries[iso];
-  if(!e) return null;
-  const cal = consumedTotal(e);
-  const protein = consumedProtein(e);
-  if(!cal || protein == null) return null;
-  return (protein * 4 / cal) * 100;
-}
+function dietQualityForDate(iso){ return macroShareForDate(iso, 'protein'); }
 
 // The ruler works exactly like the rings: the bar fills up to your GOAL (full bar = goal hit),
 // in one color, and the white-outlined dot marks the 7-day average. Without goals set yet, a 30%
@@ -2244,17 +2410,44 @@ function placeFlag(flag, scale, pct){
   flag.style.left = center + 'px';
   flag.style.setProperty('--ptr', (w / 2 + (truePx - center)) + 'px');
 }
-// s: '' (main) or 'T' (Trends). o: { value, goal }
-// The ruler is a plain 0–100% scale: protein's share of the day's calories fills it from the left.
-// Like the rings, the fill is blue up to the goal (marked by a tick) and white beyond it.
-function renderDietRuler(s, o){
-  const valEl = document.getElementById('dqVal' + s);
-  if(!valEl) return;
-  const v = o.value, g = o.goal;
-  valEl.textContent = (v != null) ? Math.round(v) + '%' : '—';
-  const goalEl = document.getElementById('dqStatus' + s);
-  if(goalEl) goalEl.innerHTML = goalDiffHTML(v, g, false, '%');
-  paintQualityTrack(document.getElementById('dqFill' + s), document.getElementById('dqOver' + s), document.getElementById('dqTick' + s), v, g);
+const MACRO_PLACEHOLDER = { protein: 120, carbs: 250, fat: 70 };
+// Shows the rings (main, Trends, top bar) for the macros this person tracks and hides the rest.
+function showTrackedMacros(){
+  const tracked = trackedMacros();
+  document.querySelectorAll('[data-macro]').forEach(el => { el.style.display = tracked.includes(el.dataset.macro) ? '' : 'none'; });
+  ['macroRings', 'macroRingsT'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.style.display = tracked.length ? '' : 'none';
+    el.dataset.n = tracked.length;
+  });
+}
+// Calorie quality: one 0–100% ruler per tracked macro — that macro's share of the calories eaten —
+// filled blue up to its goal share (the tick) and white past it, like the rings. The goal share
+// comes from the gram targets, so it's never set on its own. s: '' (main) or 'T' (Trends).
+function renderQualityList(s, shares, t){
+  const el = document.getElementById('dq' + s);
+  if(!el) return;
+  const tracked = trackedMacros();
+  if(!tracked.length){ el.style.display = 'none'; el.innerHTML = ''; el.dataset.sig = ''; return; }
+  el.style.display = '';
+  const sig = tracked.join(',');
+  if(el.dataset.sig !== sig){
+    el.dataset.sig = sig;
+    el.innerHTML = '<div class="dq-title">Calorie quality</div>' + tracked.map(m => `
+      <div class="dq-row" data-q="${m}">
+        <div class="dq-row-head"><span class="dq-name">${MACRO_INFO[m].label}</span>
+          <span class="dq-figs"><b class="dq-num"></b><span class="dq-goal"></span></span></div>
+        <div class="dq-track"><div class="dq-fill"></div><div class="dq-over"></div><div class="dq-goal-tick"></div></div>
+      </div>`).join('') + '<div class="dq-axis"><span>0%</span><span>50%</span><span>100%</span></div>';
+  }
+  tracked.forEach(m => {
+    const row = el.querySelector(`[data-q="${m}"]`);
+    const v = shares[m], g = t ? t.qualityTargets[m] : null;
+    row.querySelector('.dq-num').textContent = v != null ? Math.round(v) + '%' : '—';
+    row.querySelector('.dq-goal').innerHTML = `Goal <b>${g != null ? g + '%' : '—'}</b>`;
+    paintQualityTrack(row.querySelector('.dq-fill'), row.querySelector('.dq-over'), row.querySelector('.dq-goal-tick'), v, g);
+  });
 }
 function paintQualityTrack(fill, over, tick, v, g){
   if(!fill) return;
@@ -2282,18 +2475,21 @@ function renderRing(){
   const d = selectedDate;
   const t = computeTargets();
   const cal = consumedTotal(entries[d]);
-  const protein = consumedProtein(entries[d]);
   const burn = hasBurned(entries[d]) ? entries[d].burned : null;
   const calOverIsBad = !(userGoals && userGoals.weightGoal === 'gain');
+  const tracked = trackedMacros();
+  showTrackedMacros();
 
   renderMetricRing('Cal', '', { value: cal != null ? cal : 0, goal: t && t.calorieTarget,
     placeholder: 2000, overIsBad: calOverIsBad });
-  renderMetricRing('Protein', '', { value: protein != null ? protein : 0, goal: t && t.proteinTarget,
-    placeholder: 120, overIsBad: false });
   renderMetricRing('Burn', '', { value: burn, goal: t && t.burnTarget,
     placeholder: 2200, overIsBad: false });
+  tracked.forEach(m => {
+    const v = consumedMacro(entries[d], m);
+    renderMetricRing(MACRO_INFO[m].key, '', { value: v != null ? v : 0, goal: macroTarget(m, t),
+      placeholder: MACRO_PLACEHOLDER[m], overIsBad: m !== 'protein' && calOverIsBad });
+  });
   renderBurnRingExtras(d);
-  ['Cal','Protein','Burn'].forEach(mirrorMiniRing);
 
   const cta = document.getElementById('goalCtaBtn');
   if(cta){
@@ -2302,9 +2498,10 @@ function renderRing(){
     if(gap){ cta.innerHTML = `${gap.text} <span aria-hidden="true">›</span>`; cta.dataset.open = gap.page; }
   }
 
-  renderDietRuler('', { value: dietQualityForDate(d), goal: t ? t.qualityTarget : null });
-  mirrorMiniRuler();
-  renderWeekBalance('');
+  const shares = {};
+  tracked.forEach(m => { shares[m] = macroShareForDate(d, m); });
+  renderQualityList('', shares, t);
+  renderBalances('');
   renderMyGoals();
 }
 // Under the Burn label, a tiny tag says where the number comes from. In the center: "Log" when it's
@@ -2317,8 +2514,7 @@ function renderBurnRingExtras(d){
   tag.textContent = has ? burnSourceLabel(e) : (mode === 'whoop' ? 'WHOOP' : (mode === 'calc' ? 'Estimated' : ''));
   if(mode === 'calc' && (!has || e.burnSource === 'calc')){
     const a = dayActivity(d);
-    unit.innerHTML = `<label class="burn-act"><span>${DAY_ACTIVITY[a].label}</span><svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>` +
-      `<select id="burnActSel" aria-label="Activity level for this day">${Object.entries(DAY_ACTIVITY).map(([k, v]) => `<option value="${k}"${k === a ? ' selected' : ''}>${v.label}</option>`).join('')}</select></label>`;
+    unit.innerHTML = `<button class="burn-act" id="burnActBtn" type="button" aria-haspopup="dialog" aria-label="Activity level: ${DAY_ACTIVITY[a].label}. Change">${actIcon(a, 'burn-act-ico')}<span>${DAY_ACTIVITY[a].label}</span><svg class="burn-act-chev" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
   } else if(mode === 'manual' && !has){
     unit.innerHTML = '<button class="burn-log-btn" id="burnLogBtn" type="button"><i class="warn-dot"></i>Log</button>';
   } else {
@@ -2345,15 +2541,6 @@ function setupGap(){
   return { page: 'goals', text: `Pick your ${list(goals)} to see your targets` };
 }
 
-// The floating top bar's compact calorie-quality ruler: same scale, fill and goal tick as the main one.
-function mirrorMiniRuler(){
-  const t = computeTargets();
-  paintQualityTrack(document.getElementById('miniDqFill'), document.getElementById('miniDqOver'), document.getElementById('miniDqTick'),
-    dietQualityForDate(selectedDate), t ? t.qualityTarget : null);
-  const val = document.getElementById('dqVal'), mVal = document.getElementById('miniDqVal');
-  if(val && mVal) mVal.textContent = val.textContent;
-}
-
 // ---------- your goals, at the bottom of the rings area ----------
 const GOAL_ICONS = {
   lose: '<path d="M3.5 7l6 6 4-4 7 7"/><path d="M14.5 16h6v-6"/>',
@@ -2375,115 +2562,131 @@ function renderMyGoals(){
   el.style.display = '';
 }
 
-// ---------- running deficit / surplus ("balance") ----------
-// For each day in a range: net = consumed − burned (negative = deficit), counted only once both are
-// logged; the running total carries the period forward day by day. Days not logged yet add nothing.
-// The goal pace is the daily goal gap (calorie target − burn target, e.g. −500 when losing) per day.
-// kind 'protein': the same idea in grams — each logged day adds (protein eaten − protein goal), so the
-// goal is the zero line and the running total shows how far over or under it the period is.
+// ---------- balances: running totals for calories and each tracked macro ----------
+// Calories: each logged day adds its net (consumed − burned; negative = deficit). A macro: each
+// logged day adds the grams eaten. Days not logged add nothing, and the goal only builds on logged
+// days (daily goal × days counted), so a skipped day never counts against anyone.
+// Two views, toggled per card: "total" draws the running total from a true zero, with the goal pace
+// as a dashed line; "vs. goal" subtracts the goal pace, so the dashed goal becomes the zero line and
+// the line shows how far ahead or behind the goal the period is.
 function balanceSeries(startISO, endISO, kind){
   const t = computeTargets();
-  const isP = kind === 'protein';
   const today = todayStr();
+  const daily = t ? (kind === 'cal' ? t.calorieTarget - t.burnTarget : macroTarget(kind, t)) : null;
   const days = [];
   let run = 0, counted = 0;
   for(const dt = parseISO(startISO); toISO(dt) <= endISO; dt.setDate(dt.getDate() + 1)){
     const iso = toISO(dt);
     const e = entries[iso];
-    const n = iso > today ? null
-      : (isP ? ((t && consumedTotal(e) != null) ? (consumedProtein(e) || 0) - t.proteinTarget : null) : net(e));
+    const n = iso > today ? null : (kind === 'cal' ? net(e) : consumedMacro(e, kind));
     if(n != null){ run += n; counted++; }
-    days.push({ iso, net: n, cum: iso <= today ? run : null, future: iso > today,
-      live: !isP && iso === today && n != null && (e.burnSource === 'whoop' || e.burnSource === 'calc') && !e.burnFinal });
+    days.push({ iso, net: n, cum: iso <= today ? run : null, pace: daily != null ? daily * counted : null, future: iso > today,
+      live: iso === today && n != null && !!e && (e.burnSource === 'whoop' || e.burnSource === 'calc') && !e.burnFinal });
   }
-  const daily = t ? (isP ? 0 : t.calorieTarget - t.burnTarget) : null;
-  return { kind: isP ? 'protein' : 'cal', days, total: counted ? run : null, counted, daily,
-    pace: daily != null ? daily * counted : null, goal: (isP && t) ? t.proteinTarget : null };
+  return { kind, days, daily, counted, total: counted ? run : null, goalTotal: daily != null ? daily * counted : null };
 }
+const BALANCE_NAME = { cal: 'Calorie', protein: 'Protein', carbs: 'Carbs', fat: 'Fat' };
+const balanceUnit = k => k === 'cal' ? 'kcal' : 'g';
+// Which side of the goal is good: under it for calories, carbs and fat; over it for protein.
+const balanceGoodLow = k => k !== 'protein';
+let balanceModes = { cal: 'total', protein: 'goal', carbs: 'goal', fat: 'goal' };
+try{ Object.assign(balanceModes, JSON.parse(localStorage.getItem('balance-modes') || '{}')); }catch(e){}
 const WK_LETTERS = ['M','T','W','T','F','S','S'];
 const MONTH_LETTERS = ['J','F','M','A','M','J','J','A','S','O','N','D'];
-// The chart: a line carrying the running total from 0 at the start of the period, green below zero
-// (deficit) and red above (surplus), against a dashed straight goal-pace line across the period.
-// Today, while WHOOP is still counting, ends in a dashed segment and a blue dot.
-function balanceSVG(ser, o){
-  const W = 320, H = o.H, N = ser.days.length, padX = 6, top = 6, bot = H - 17;
+// Draws a balance chart at blend tm (0 = total, 1 = vs. goal; in between while it animates).
+// Each point is (running total − tm × goal so far); the dashed goal line is (goal so far × (1 − tm)),
+// so it folds down onto the zero line as the view switches. Colours cross-fade between the views:
+// total — calories green below zero, red above; macros in blue · vs. goal — green on the good side.
+function balanceSVG(ser, o, tm){
+  const W = 320, H = o.H, N = ser.days.length, padX = 6, y0top = 6, bot = H - 17;
   const xs = i => padX + i * (W - 2 * padX) / N;
   const past = ser.days.filter(d => !d.future);
-  const pts = [[xs(0), 0]].concat(past.map((d, i) => [xs(i + 1), d.cum]));
-  const paceEnd = ser.daily != null ? ser.daily * N : null;
-  const vals = [0].concat(pts.map(p => p[1]));
-  if(paceEnd != null) vals.push(paceEnd);
+  const lastPace = past.length ? past[past.length - 1].pace : 0;
+  const disp = [0].concat(past.map(d => d.cum - tm * (d.pace || 0)));
+  const ref = ser.daily == null ? null : [0].concat(ser.days.map((d, i) =>
+    (d.future ? (lastPace || 0) + ser.daily * (i + 1 - past.length) : d.pace) * (1 - tm)));
+  const vals = [0].concat(disp, ref || []);
   const lo = Math.min(...vals), hi = Math.max(...vals), span = (hi - lo) || 1;
-  const y = v => top + (hi - v) / span * (bot - top);
-  const P = pts.map(p => [p[0], y(p[1])]);
+  const y = v => y0top + (hi - v) / span * (bot - y0top);
+  const P = disp.map((v, i) => [xs(i), y(v)]);
   const path = arr => arr.map((q, i) => (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' ');
-  const y0 = y(0).toFixed(1);
+  const zy = y(0).toFixed(1);
   const uid = 'b' + o.key;
   const last = past[past.length - 1];
   const live = !!(last && last.live);
-  const isP = ser.kind === 'protein';
-  const good = ser.total == null || (isP ? ser.total >= 0 : ser.total <= 0);
-  const col = good ? '#4ADE80' : '#FF5C7A';
-  const solid = live && P.length > 2 ? P.slice(0, -1) : P;
-  let g = '';
-  g += `<defs><clipPath id="${uid}dn"><rect x="0" y="${y0}" width="${W}" height="${H}"/></clipPath>` +
-       `<clipPath id="${uid}up"><rect x="0" y="0" width="${W}" height="${y0}"/></clipPath>` +
-       `<linearGradient id="${uid}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ADE80" stop-opacity="0.05"/><stop offset="1" stop-color="#4ADE80" stop-opacity="0.28"/></linearGradient></defs>`;
-  // protein: the zero line IS the goal, so it's drawn dashed like the calorie goal-pace line
-  g += isP
-    ? `<line x1="${xs(0).toFixed(1)}" x2="${xs(N).toFixed(1)}" y1="${y0}" y2="${y0}" stroke="rgba(244,245,250,0.5)" stroke-width="1.4" stroke-dasharray="3 4"/>`
-    : `<line x1="0" x2="${W}" y1="${y0}" y2="${y0}" stroke="rgba(244,245,250,0.22)" stroke-width="1"/>`;
+  const isCal = ser.kind === 'cal', goodLow = balanceGoodLow(ser.kind);
+  const endV = disp[disp.length - 1];
+  const GREEN = '#4ADE80', RED = '#FF5C7A', BLUE = '#4C8DFF';
+  const totalCol = isCal ? ((ser.total == null || ser.total <= 0) ? GREEN : RED) : BLUE;
+  const goalDiff = ser.total == null || ser.goalTotal == null ? null : ser.total - ser.goalTotal;
+  const goalCol = goalDiff == null ? BLUE : ((goodLow ? goalDiff <= 0 : goalDiff >= 0) ? GREEN : RED);
+  const lineCol = tm < 0.5 ? totalCol : goalCol;
+  let g = `<defs><clipPath id="${uid}dn"><rect x="0" y="${zy}" width="${W}" height="${H}"/></clipPath>` +
+    `<clipPath id="${uid}up"><rect x="0" y="0" width="${W}" height="${zy}"/></clipPath>` +
+    `<linearGradient id="${uid}gd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${GREEN}" stop-opacity="0.05"/><stop offset="1" stop-color="${GREEN}" stop-opacity="0.28"/></linearGradient>` +
+    `<linearGradient id="${uid}gu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${GREEN}" stop-opacity="0.28"/><stop offset="1" stop-color="${GREEN}" stop-opacity="0.05"/></linearGradient>` +
+    `<linearGradient id="${uid}bl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${BLUE}" stop-opacity="0.26"/><stop offset="1" stop-color="${BLUE}" stop-opacity="0.03"/></linearGradient></defs>`;
+  g += `<line x1="0" x2="${W}" y1="${zy}" y2="${zy}" stroke="rgba(244,245,250,${(0.22 + 0.28 * tm).toFixed(2)})" stroke-width="1" ${tm > 0.5 ? 'stroke-dasharray="3 4"' : ''}/>`;
   if(P.length > 1){
-    const area = `${path(P)} L${P[P.length - 1][0].toFixed(1)} ${y0} L${P[0][0].toFixed(1)} ${y0} Z`;
-    if(isP){
-      g += `<linearGradient id="${uid}p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ADE80" stop-opacity="0.28"/><stop offset="1" stop-color="#4ADE80" stop-opacity="0.05"/></linearGradient>`;
-      g += `<path d="${area}" fill="url(#${uid}p)" clip-path="url(#${uid}up)"/>`;
-      g += `<path d="${area}" fill="rgba(255,92,122,0.20)" clip-path="url(#${uid}dn)"/>`;
+    const area = `${path(P)} L${P[P.length - 1][0].toFixed(1)} ${zy} L${P[0][0].toFixed(1)} ${zy} Z`;
+    const a1 = (1 - tm).toFixed(3), a2 = tm.toFixed(3);
+    if(isCal){ // total view: deficit green below zero, surplus red above
+      g += `<g opacity="${a1}"><path d="${area}" fill="url(#${uid}gd)" clip-path="url(#${uid}dn)"/><path d="${area}" fill="rgba(255,92,122,0.2)" clip-path="url(#${uid}up)"/></g>`;
     } else {
-      g += `<path d="${area}" fill="url(#${uid}g)" clip-path="url(#${uid}dn)"/>`;
-      g += `<path d="${area}" fill="rgba(255,92,122,0.20)" clip-path="url(#${uid}up)"/>`;
+      g += `<g opacity="${a1}"><path d="${area}" fill="url(#${uid}bl)"/></g>`;
     }
+    g += goodLow
+      ? `<g opacity="${a2}"><path d="${area}" fill="url(#${uid}gd)" clip-path="url(#${uid}dn)"/><path d="${area}" fill="rgba(255,92,122,0.2)" clip-path="url(#${uid}up)"/></g>`
+      : `<g opacity="${a2}"><path d="${area}" fill="url(#${uid}gu)" clip-path="url(#${uid}up)"/><path d="${area}" fill="rgba(255,92,122,0.2)" clip-path="url(#${uid}dn)"/></g>`;
   }
-  if(paceEnd != null && !isP) g += `<path d="M${xs(0).toFixed(1)} ${y0} L${xs(N).toFixed(1)} ${y(paceEnd).toFixed(1)}" fill="none" stroke="rgba(244,245,250,0.5)" stroke-width="1.4" stroke-dasharray="3 4"/>`;
+  if(ref && tm < 0.999){
+    const R = ref.map((v, i) => [xs(i), y(v)]);
+    g += `<path d="${path(R)}" fill="none" stroke="rgba(244,245,250,${(0.5 * (1 - tm)).toFixed(2)})" stroke-width="1.4" stroke-dasharray="3 4"/>`;
+  }
+  const solid = live && P.length > 2 ? P.slice(0, -1) : P;
   if(P.length > 1){
-    g += `<path d="${path(solid)}" fill="none" stroke="${col}" stroke-width="${N > 40 ? 1.8 : 2.4}" stroke-linejoin="round" stroke-linecap="round"/>`;
-    if(live && P.length > 2) g += `<path d="${path(P.slice(-2))}" fill="none" stroke="${col}" stroke-width="2.4" stroke-dasharray="2 4" stroke-linecap="round"/>`;
+    g += `<path d="${path(solid)}" fill="none" stroke="${lineCol}" stroke-width="${N > 40 ? 1.8 : 2.4}" stroke-linejoin="round" stroke-linecap="round"/>`;
+    if(live && P.length > 2) g += `<path d="${path(P.slice(-2))}" fill="none" stroke="${lineCol}" stroke-width="2.4" stroke-dasharray="2 4" stroke-linecap="round"/>`;
   }
   if(N <= 7){
     past.forEach((d, i) => {
       if(d.net == null || (live && i === past.length - 1)) return;
-      g += `<circle cx="${P[i + 1][0].toFixed(1)}" cy="${P[i + 1][1].toFixed(1)}" r="3" fill="#0E1014" stroke="${col}" stroke-width="2"/>`;
+      g += `<circle cx="${P[i + 1][0].toFixed(1)}" cy="${P[i + 1][1].toFixed(1)}" r="3" fill="#0E1014" stroke="${lineCol}" stroke-width="2"/>`;
     });
   }
   if(live){
     const q = P[P.length - 1];
     g += `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="7.5" fill="rgba(76,141,255,0.22)"/><circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="3.8" fill="#4C8DFF" stroke="#0E1014" stroke-width="1.6"/>`;
   }
-  // x labels: weekday letters, every 7th day of a month, or month initials
-  const lab = (i, t, on) => `<text x="${((xs(i) + xs(i + 1)) / 2).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${on ? '#F4F5F7' : '#8B90A0'}">${t}</text>`;
+  const lab = (i, txt, on) => `<text x="${((xs(i) + xs(i + 1)) / 2).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${on ? '#F4F5F7' : '#8B90A0'}">${txt}</text>`;
   if(o.labels === 'week') ser.days.forEach((d, i) => { g += lab(i, WK_LETTERS[i], d.iso === o.selected); });
   else if(o.labels === 'month') ser.days.forEach((d, i) => { const dn = +d.iso.slice(8); if(dn % 7 === 1) g += lab(i, dn, false); });
   else ser.days.forEach((d, i) => { if(d.iso.slice(8) === '15') g += lab(i, MONTH_LETTERS[+d.iso.slice(5, 7) - 1], false); });
   return `<svg class="wk-svg" viewBox="0 0 ${W} ${H}" aria-hidden="true">${g}</svg>`;
 }
-function balanceHeadHTML(title, ser){
-  const v = ser.total;
-  if(ser.kind === 'protein'){
-    const pcls = v == null ? '' : (v >= 0 ? 'def' : 'sur');
-    return `<div class="wk-head"><div class="wk-title">${title}</div>
-      <div class="wk-now"><div class="wk-val ${pcls}">${v == null ? '—' : signedN(v)}<small>g</small></div>
-      <div class="wk-goal"><i class="wk-dash"></i>Goal <b>${ser.goal != null ? fmtN(ser.goal * ser.counted) + ' g' : '—'}</b></div></div></div>`;
+function balanceGoalText(k, v){ return v == null ? '—' : (k === 'cal' ? (v === 0 ? '0' : signedN(v)) : fmtN(v) + ' g'); }
+// The header: title, the Total / vs. goal switch, the number for the view, and the goal so far.
+function balanceHeadHTML(ser, mode){
+  const k = ser.kind, unit = balanceUnit(k), goodLow = balanceGoodLow(k);
+  let val = '—', cls = '';
+  if(mode === 'goal'){
+    if(ser.total != null && ser.goalTotal != null){
+      const d = ser.total - ser.goalTotal;
+      val = signedN(d); cls = (goodLow ? d <= 0 : d >= 0) ? 'def' : 'sur';
+    }
+  } else if(ser.total != null){
+    if(k === 'cal'){ val = signedN(ser.total); cls = ser.total <= 0 ? 'def' : 'sur'; }
+    else { val = fmtN(ser.total); cls = 'pro'; }
   }
-  const cls = v == null ? '' : (v <= 0 ? 'def' : 'sur');
-  return `<div class="wk-head"><div class="wk-title">${title}</div>
-    <div class="wk-now"><div class="wk-val ${cls}">${v == null ? '—' : signedN(v)}<small>kcal</small></div>
-    <div class="wk-goal"><i class="wk-dash"></i>Goal <b>${ser.pace != null ? (ser.pace === 0 ? '0' : signedN(ser.pace)) : '—'}</b></div></div></div>`;
+  return `<div class="wk-head"><div class="wk-left"><div class="wk-title">${BALANCE_NAME[k]} balance <span class="wk-mode">${mode === 'goal' ? 'vs. goal' : 'total'}</span></div>
+      <div class="wk-toggle" role="group" aria-label="View"><button type="button" data-bmode="total" class="${mode === 'total' ? 'on' : ''}">Total</button><button type="button" data-bmode="goal" class="${mode === 'goal' ? 'on' : ''}">vs. goal</button><i class="wk-toggle-thumb"></i></div></div>
+    <div class="wk-now"><div class="wk-val ${cls}">${val}<small>${unit}</small></div>
+    <div class="wk-goal"><i class="wk-dash"></i>Goal <b>${balanceGoalText(k, ser.goalTotal)}</b></div></div></div>`;
 }
 // s: '' = main page (the Mon–Sun week around the selected date) or 'T' = the Trends period.
-function renderWeekBalance(s){
-  const el = document.getElementById(s ? 'weekBalanceT' : 'weekBalance');
-  const pel = document.getElementById(s ? 'proteinBalanceT' : 'proteinBalance');
-  if(!el) return;
+function renderBalances(s){
+  const box = document.getElementById(s ? 'balancesT' : 'balances');
+  if(!box) return;
   let start, end, labels;
   if(s){
     const r = trendRange(trendHorizon, trendOffset);
@@ -2493,35 +2696,52 @@ function renderWeekBalance(s){
     const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
     start = toISO(mon); end = toISO(sun); labels = 'week';
   }
-  const ser = balanceSeries(start, end);
-  if(!s) mirrorMiniBalance(ser);
-  const o = { H: s ? 78 : 70, labels, selected: s ? null : selectedDate };
-  el.innerHTML = balanceHeadHTML('Calorie balance', ser) + balanceSVG(ser, { ...o, key: (s || 'm') + 'c' });
-  if(pel){
-    const pser = balanceSeries(start, end, 'protein');
-    pel.innerHTML = balanceHeadHTML('Protein balance vs. goal', pser) + balanceSVG(pser, { ...o, key: (s || 'm') + 'p' });
+  const kinds = ['cal'].concat(trackedMacros());
+  if(box.dataset.sig !== kinds.join(',')){
+    box.dataset.sig = kinds.join(',');
+    box.innerHTML = kinds.map(k => `<div class="wk" data-kind="${k}"><div class="wk-headbox"></div><div class="wk-chart"></div></div>`).join('');
   }
+  kinds.forEach(k => {
+    const card = box.querySelector(`[data-kind="${k}"]`);
+    const ser = balanceSeries(start, end, k);
+    const mode = balanceModes[k] === 'goal' ? 'goal' : 'total';
+    card._ser = ser;
+    card._o = { H: s ? 78 : 70, labels, selected: s ? null : selectedDate, key: (s || 'm') + k };
+    card._tm = mode === 'goal' ? 1 : 0;
+    card.querySelector('.wk-headbox').innerHTML = balanceHeadHTML(ser, mode);
+    card.querySelector('.wk-chart').innerHTML = balanceSVG(ser, card._o, card._tm);
+  });
 }
-// The floating top bar's version: just the line, the goal pace and the running total.
-function mirrorMiniBalance(ser){
-  const svg = document.getElementById('miniWkSvg'), val = document.getElementById('miniWkVal');
-  if(!svg || !val) return;
-  const W = 200, H = 22, N = ser.days.length;
-  const past = ser.days.filter(d => !d.future);
-  const pts = [0].concat(past.map(d => d.cum));
-  const paceEnd = ser.daily != null ? ser.daily * N : null;
-  const vals = pts.slice(); if(paceEnd != null) vals.push(paceEnd);
-  const lo = Math.min(0, ...vals), hi = Math.max(0, ...vals), span = (hi - lo) || 1;
-  const y = v => (2 + (hi - v) / span * (H - 4)).toFixed(1);
-  const x = i => (i * W / N).toFixed(1);
-  const col = (ser.total == null || ser.total <= 0) ? '#4ADE80' : '#FF5C7A';
-  let g = `<line x1="0" x2="${W}" y1="${y(0)}" y2="${y(0)}" stroke="rgba(244,245,250,0.22)" stroke-width="1" vector-effect="non-scaling-stroke"/>`;
-  if(paceEnd != null) g += `<path d="M0 ${y(0)} L${W} ${y(paceEnd)}" fill="none" stroke="rgba(244,245,250,0.45)" stroke-width="1.2" stroke-dasharray="2 3" vector-effect="non-scaling-stroke"/>`;
-  if(pts.length > 1) g += `<path d="${pts.map((v, i) => (i ? 'L' : 'M') + x(i) + ' ' + y(v)).join(' ')}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
-  svg.innerHTML = g;
-  val.textContent = ser.total == null ? '—' : signedN(ser.total);
-  val.className = 'mini-dq-val ' + (ser.total == null ? '' : (ser.total <= 0 ? 'def' : 'sur'));
+function renderWeekBalance(s){ renderBalances(s); }
+// Switching view: the header updates at once; the chart morphs over ~0.55 s.
+function switchBalanceMode(card, mode){
+  const k = card.dataset.kind;
+  if(!card._ser || (balanceModes[k] === 'goal' ? 'goal' : 'total') === mode) return;
+  balanceModes[k] = mode;
+  try{ localStorage.setItem('balance-modes', JSON.stringify(balanceModes)); }catch(e){}
+  const head = card.querySelector('.wk-headbox');
+  head.innerHTML = balanceHeadHTML(card._ser, mode);
+  head.classList.remove('wk-swap'); void head.offsetWidth; head.classList.add('wk-swap');
+  const from = card._tm, to = mode === 'goal' ? 1 : 0, t0 = performance.now(), dur = 550;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ease = x => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  cancelAnimationFrame(card._raf);
+  const step = now => {
+    const f = reduce ? 1 : Math.min(1, (now - t0) / dur);
+    card._tm = from + (to - from) * ease(f);
+    card.querySelector('.wk-chart').innerHTML = balanceSVG(card._ser, card._o, card._tm);
+    if(f < 1) card._raf = requestAnimationFrame(step);
+  };
+  card._raf = requestAnimationFrame(step);
 }
+document.addEventListener('click', (ev)=>{
+  const b = ev.target.closest('.wk-toggle [data-bmode]');
+  if(!b) return;
+  haptic();
+  const card = b.closest('.wk');
+  // the same nutrient's card on the main page and in Trends share one setting
+  document.querySelectorAll(`.wk[data-kind="${card.dataset.kind}"]`).forEach(c => switchBalanceMode(c, b.dataset.bmode));
+});
 
 // ---------- collapsible "The Food" card ----------
 let foodExpanded = false;
@@ -2666,7 +2886,7 @@ let weightInputMode = 'manual'; // 'manual'|'csv'
 
 // ---------- collapsible "The Trends" card + its individual charts ----------
 let trendsExpanded = false;
-let chartBlockState = { consumed:false, burned:false, net:false, protein:false, quality:false, weight:false };
+let chartBlockState = { consumed:true, burned:true, net:true, protein:true, carbs:true, fat:true, weight:true }; // all open when Trends opens
 
 // "14:05" -> "2:05 PM" (readings are keyed "YYYY-MM-DDTHH:MM[:SS]")
 function weightTimeLabel(ts){
@@ -2973,6 +3193,19 @@ function weightRate(){
   return userGoals.weightGoal === 'gain' ? 0.5 : 1;
 }
 const CAL_FLOOR = { female: 1200, male: 1500 }; // lower end of the AHA/ACC/TOS intake ranges
+// Fat at 25% of calories (inside the 20–35% acceptable range), carbs take the rest. If that leaves
+// carbs under 130 g a day (the adult RDA), fat gives way down to 20% before carbs go lower.
+function macroTarget(m, t){ return t ? ({ protein: t.proteinTarget, carbs: t.carbsTarget, fat: t.fatTarget })[m] : null; }
+function macroSplit(cal, proteinG, fatFixed){
+  let fat = fatFixed != null ? fatFixed : cal * 0.25 / 9, floorHit = false;
+  let carbs = (cal - proteinG * 4 - fat * 9) / 4;
+  if(fatFixed == null && carbs < 130){
+    fat = Math.max(cal * 0.20 / 9, (cal - proteinG * 4 - 130 * 4) / 9);
+    carbs = (cal - proteinG * 4 - fat * 9) / 4;
+    floorHit = true;
+  }
+  return { fat: Math.round(fat), carbs: Math.max(0, Math.round(carbs)), fatPct: Math.round(fat * 9 / cal * 100), floorHit };
+}
 function computeTargets(){
   const hasProfile = userProfile.dob && userProfile.heightIn && (currentWeightLb() != null);
   const hasGoals = userGoals.weightGoal && userGoals.activity && userGoals.muscleGoal;
@@ -3014,28 +3247,34 @@ function computeTargets(){
   } else {
     proteinPerKg = 1.4; // general maintenance
   }
-  const calc = {
-    calorie: Math.round(calorieTarget),
-    protein: Math.round(proteinPerKg * weightKg),
-    burn: Math.round(tdee)
-  };
-  calc.quality = Math.round(((calc.protein * 4) / calc.calorie) * 100);
-
-  // Numbers the person typed on the Goals page win; calorie quality follows the final calorie and
-  // protein targets unless it was typed too.
+  // Fat and carbs fill the calories that protein leaves (see macroSplit). Numbers the person typed on
+  // the Goals page win, and whatever wasn't typed is recalculated around them so the macros keep
+  // adding up to the calorie target.
   const cu = userGoals.custom || {};
   const pick = k => (typeof cu[k] === 'number' && cu[k] > 0) ? cu[k] : null;
+  const calc = { calorie: Math.round(calorieTarget), protein: Math.round(proteinPerKg * weightKg), burn: Math.round(tdee) };
+  const calcSplit = macroSplit(calc.calorie, calc.protein, null);
+  calc.fat = calcSplit.fat; calc.carbs = calcSplit.carbs;
+
   const calorieT = pick('calorie') || calc.calorie;
   const proteinT = pick('protein') || calc.protein;
   const burnT = pick('burn') || calc.burn;
-  const qualityT = pick('quality') || Math.round(((proteinT * 4) / calorieT) * 100);
+  const split = macroSplit(calorieT, proteinT, pick('fat'));
+  const fatT = pick('fat') || split.fat;
+  const carbsT = pick('carbs') || split.carbs;
+  const share = (g, k) => Math.round(g * k / calorieT * 100);
+  const qualityTargets = { protein: share(proteinT, 4), carbs: share(carbsT, 4), fat: share(fatT, 9) };
+  const macroKcal = proteinT * 4 + carbsT * 4 + fatT * 9;
 
   return {
     calorieTarget: calorieT,
     proteinTarget: proteinT,
+    carbsTarget: carbsT,
+    fatTarget: fatT,
     burnTarget: burnT,
-    qualityTarget: qualityT,
-    calc, custom: { calorie: !!pick('calorie'), protein: !!pick('protein'), burn: !!pick('burn'), quality: !!pick('quality') },
+    qualityTarget: qualityTargets.protein,
+    qualityTargets, macroKcal, fatPct: split.fatPct, carbFloorHit: split.floorHit,
+    calc, custom: { calorie: !!pick('calorie'), protein: !!pick('protein'), burn: !!pick('burn'), carbs: !!pick('carbs'), fat: !!pick('fat') },
     bmr: Math.round(bmr),
     tdee: Math.round(tdee),
     rate, dailyDelta: Math.round(dailyDelta), floor, floored,
@@ -3052,7 +3291,8 @@ function targetsMethodologyHTML(t){
   const HALL = link('https://pubmed.ncbi.nlm.nih.gov/17848938/', 'Hall, 2008');
   const HALL11 = link('https://pmc.ncbi.nlm.nih.gov/articles/PMC3880593', 'Hall et al., Lancet 2011');
   const IRAKI = link('https://pubmed.ncbi.nlm.nih.gov/31247944/', 'Iraki et al., 2019');
-  const yours = k => t.custom[k] ? ` <i>You set this yourself; the calculated number is ${t.calc[k]}${k === 'quality' ? '%' : ''}.</i>` : '';
+  const AMDR = link('https://mtsu.pressbooks.pub/nutrition2/chapter/2-4-dietary-reference-intakes/', 'Dietary Reference Intakes');
+  const yours = k => t.custom[k] ? ` <i>You set this yourself; the calculated number is ${t.calc[k]}.</i>` : '';
   let pace = '';
   if(wg === 'lose'){
     pace = `
@@ -3082,8 +3322,10 @@ function targetsMethodologyHTML(t){
     <p><b>Calorie target</b> ${t.calorieTarget} kcal/day — ${wg === 'maintain' ? 'your TDEE, to maintain weight' : `your TDEE ${wg === 'lose' ? 'minus' : 'plus'} ${t.dailyDelta} kcal a day`}.${yours('calorie')}</p>
     ${pace}
     <p><b>Protein target</b> ${t.proteinTarget} g/day — ${t.proteinPerKg} g per kg of bodyweight, the range the sports-nutrition literature (ISSN/ACSM) backs for your goal to ${mgLabel} while you ${wgLabel}.${yours('protein')}</p>
+    <p><b>Fat target</b> ${t.fatTarget} g/day — ${t.fatPct}% of your calories. The National Academies' acceptable range for adults is 20–35% of calories from fat, 45–65% from carbohydrate and 10–35% from protein (${AMDR}); the app starts fat at 25%, the lower-middle of its range, leaving room for protein and carbs.${yours('fat')}</p>
+    <p><b>Carbs target</b> ${t.carbsTarget} g/day — whatever calories are left once protein (×4) and fat (×9) are counted, at 4 kcal a gram. The app keeps carbs at or above 130 g a day, the adult recommended minimum, by lowering fat toward 20% first${t.carbFloorHit ? ' — which it did for you' : ''}. A high protein target pushes carbs toward the low end of their range; that's expected when building or keeping muscle.${yours('carbs')}</p>
     <p><b>Burn target</b> ${t.burnTarget} kcal/day — your estimated total daily energy expenditure at this activity level; a directional guide, not a clinical measurement.${yours('burn')}</p>
-    <p><b>Calorie quality target</b> ${t.qualityTarget}% of calories from protein — your protein target’s calories (×4) divided by your calorie target.${yours('quality')}</p>
+    <p><b>Calorie quality</b> isn't a goal of its own: it's each macro's share of your calories, worked out from the targets above — protein ${t.qualityTargets.protein}%, carbs ${t.qualityTargets.carbs}%, fat ${t.qualityTargets.fat}%.</p>
   `;
 }
 
@@ -3122,11 +3364,67 @@ function burnMode(){
 // The activity level someone tags a day with (estimated burn only). Separate from the activity level
 // on the Goals page, which only sets targets.
 const DAY_ACTIVITY = {
-  sedentary: { mult: 1.2,   label: 'Sedentary' },
-  light:     { mult: 1.375, label: 'Light' },
-  moderate:  { mult: 1.55,  label: 'Moderate' },
-  very:      { mult: 1.725, label: 'Very active' }
+  sedentary: { mult: 1.2,   label: 'Sedentary',   hint: 'Mostly sitting, little walking' },
+  light:     { mult: 1.375, label: 'Light',       hint: 'On your feet a fair bit, or a walk' },
+  moderate:  { mult: 1.55,  label: 'Moderate',    hint: 'A workout, or an active job' },
+  very:      { mult: 1.725, label: 'Very active', hint: 'Hard training or heavy physical work' }
 };
+const ACT_ICONS = {
+  sedentary: '<path d="M5.5 10V8a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v2"/><path d="M3.5 18v-5a2 2 0 0 1 4 0v1h9v-1a2 2 0 0 1 4 0v5z"/><path d="M5.5 18v2M18.5 18v2"/>',
+  light: '<circle cx="13" cy="4.2" r="1.9"/><path d="M12.6 8.5l-1.6 6.5 3 2.5v4"/><path d="M11 15l-2 6"/><path d="M12.6 8.5l-3.4 2.4-.9 3.2"/><path d="M12.6 8.5l2.4 3.4 2.8.6"/>',
+  moderate: '<circle cx="15.2" cy="4.2" r="1.9"/><path d="M13.6 8.6l-2.6 6.1 3.4 2.6-1 4"/><path d="M11 14.7l-2.2 3.6-4.3.6"/><path d="M13.6 8.6l-4.1 1.1-2.1 3"/><path d="M13.6 8.6l2.4 3.4 3.6.6"/>',
+  very: '<path d="M12 2.5c.7 3.5 5.5 5.6 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.4 2.7-5.6.3 2 1.3 3.2 2.7 3.6-.3-3.4-.7-6.2.1-9.3z"/>'
+};
+function actIcon(k, cls){ return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ACT_ICONS[k]}</svg>`; }
+// The day's activity picker: a bottom sheet with the four levels, what each means, and the estimate
+// each would give for that day, so the choice is concrete.
+function openActivitySheet(){
+  const d = selectedDate, cur = dayActivity(d), bmr = bmrNow();
+  let el = document.getElementById('actSheet');
+  if(!el){ el = document.createElement('div'); el.id = 'actSheet'; el.className = 'sheet-scrim'; document.body.appendChild(el); }
+  const isToday = d === todayStr();
+  el.innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="actSheetTitle">
+    <div class="sheet-grab"></div>
+    <div class="sheet-title" id="actSheetTitle">How active was ${isToday ? 'today' : dayLabel(d)}?</div>
+    <div class="sheet-sub">Sets the estimated burn for this day only. Your goals don't change.</div>
+    <div class="act-list">${Object.entries(DAY_ACTIVITY).map(([k, v]) => `
+      <button class="act-opt${k === cur ? ' on' : ''}" data-act="${k}" type="button">
+        <span class="act-ico-wrap">${actIcon(k, 'act-ico')}</span>
+        <span class="act-txt"><b>${v.label}</b><small>${v.hint}</small></span>
+        <span class="act-kcal">${bmr ? Math.round(bmr * v.mult).toLocaleString() : '—'}<small>kcal${isToday ? ' / day' : ''}</small></span>
+      </button>`).join('')}</div>
+  </div>`;
+  el.style.display = 'flex';
+  requestAnimationFrame(() => el.classList.add('open'));
+  document.body.classList.add('sheet-open');
+}
+function closeActivitySheet(){
+  const el = document.getElementById('actSheet');
+  if(!el) return;
+  el.classList.remove('open');
+  document.body.classList.remove('sheet-open');
+  setTimeout(() => { el.style.display = 'none'; }, 260);
+}
+document.addEventListener('click', async (ev)=>{
+  if(ev.target.closest('#burnActBtn')){ haptic(); openActivitySheet(); return; }
+  const sheet = document.getElementById('actSheet');
+  if(!sheet || sheet.style.display !== 'flex') return;
+  const opt = ev.target.closest('[data-act]');
+  if(opt){
+    haptic();
+    const d = selectedDate;
+    if(!entries[d]) entries[d] = blankEntry();
+    entries[d].activity = opt.dataset.act;
+    sheet.querySelectorAll('.act-opt').forEach(b => b.classList.toggle('on', b === opt));
+    syncDerivedBurns();
+    await persist();
+    renderAll();
+    setTimeout(closeActivitySheet, 160);
+    return;
+  }
+  if(ev.target === sheet) closeActivitySheet();
+});
+document.addEventListener('keydown', (ev)=>{ if(ev.key === 'Escape') closeActivitySheet(); });
 function dayActivity(iso){ const e = entries[iso]; return (e && DAY_ACTIVITY[e.activity]) ? e.activity : 'sedentary'; }
 function bmrNow(){
   const w = currentWeightLb(), age = ageFromDob(userProfile.dob);
@@ -3398,6 +3696,8 @@ function renderTrendPeriodNav(){
   label.textContent = trendPeriodLabel(trendHorizon, trendOffset);
   document.getElementById('trendNextBtn').disabled = trendOffset <= 0;
   document.getElementById('trendPrevBtn').disabled = trendRange(trendHorizon, trendOffset + 1).end < earliestLoggedDate();
+  const ask = document.getElementById('trendAskLbl');
+  if(ask && typeof trendAskLabel === 'function') ask.textContent = trendAskLabel();
 }
 function renderTrendsAll(){
   renderTrendPeriodNav();
@@ -3406,7 +3706,6 @@ function renderTrendsAll(){
   renderBurnedChart();
   renderNetChart();
   renderProteinChart();
-  renderQualityChart();
   renderWeightChart();
 }
 // Groups a (horizon-filtered, chronological) dates array into consecutive runs sharing the same
@@ -3635,16 +3934,21 @@ function renderTrendsRingAndRuler(){
   const t = computeTargets();
   const pick = fn => dates.map(fn).filter(v => v != null);
   const cal = pick(d => consumedTotal(entries[d]));
-  const pro = pick(d => consumedProtein(entries[d]));
   const brn = pick(d => hasBurned(entries[d]) ? entries[d].burned : null);
-  const q = pick(dietQualityForDate);
   const calOverIsBad = !(userGoals && userGoals.weightGoal === 'gain');
+  const tracked = trackedMacros();
+  showTrackedMacros();
 
   renderMetricRing('Cal', 'T', { value: avgOf(cal), goal: t && t.calorieTarget, placeholder: 2000, overIsBad: calOverIsBad });
-  renderMetricRing('Protein', 'T', { value: avgOf(pro), goal: t && t.proteinTarget, placeholder: 120, overIsBad: false });
   renderMetricRing('Burn', 'T', { value: avgOf(brn), goal: t && t.burnTarget, placeholder: 2200, overIsBad: false });
-  renderDietRuler('T', { value: avgOf(q), goal: t ? t.qualityTarget : null });
-  renderWeekBalance('T');
+  const shares = {};
+  tracked.forEach(m => {
+    renderMetricRing(MACRO_INFO[m].key, 'T', { value: avgOf(pick(d => consumedMacro(entries[d], m))), goal: macroTarget(m, t),
+      placeholder: MACRO_PLACEHOLDER[m], overIsBad: m !== 'protein' && calOverIsBad });
+    shares[m] = avgOf(pick(d => macroShareForDate(d, m)));
+  });
+  renderQualityList('T', shares, t);
+  renderBalances('T');
 }
 
 // ---------- rendering: consumed / burned (split from the old single "consumed vs. burned" chart) ----------
@@ -3870,73 +4174,22 @@ function renderNetChart(){
 }
 
 // ---------- rendering: diet quality over time (protein calories / total calories) ----------
-function renderQualityChart(){
-  const titleEl = document.getElementById('trendQualityChartTitle');
-  try{
-    if(typeof Chart === 'undefined'){ const el = document.getElementById('qualityChart'); if(el) el.style.display = 'none'; return; }
-    ensureWeekendPlugin(); ensureAvgLabelPlugin();
-    const bucketType = HORIZON_BUCKET[trendHorizon];
-    const allDates = sortedDates();
-    const dates = filterDatesByHorizon(allDates, trendHorizon);
-    const labels = dates.map(trendLabel);
-    const qualityVals = dates.map(d => { const v = dietQualityForDate(d); return v == null ? null : Math.round(v*10)/10; });
-    const tickFn = horizonXTicks(trendHorizon, dates);
-    const avgQ = avgOf(qualityVals);
-    const t = computeTargets();
-    const target = t ? t.qualityTarget : null;
-
-    if(titleEl){
-      titleEl.innerHTML = chartStatsHTML([
-        `avg <b style="color:#4C8DFF">${avgQ != null ? Math.round(avgQ) + '%' : '—'}</b>`,
-        `goal <b>${target != null ? target + '%' : '—'}</b>`
-      ]);
-    }
-
-    let overlayDatasets = [], segs = [];
-    if(bucketType){
-      const o = buildAvgOverlay(dates, bucketType, qualityVals, '#FFFFFF', 1, '%');
-      overlayDatasets = o.datasets; segs = o.segments;
-    }
-    const targetDs = buildTargetOverlay(dates, target, '#F4F5FA');
-
-    const ctx = document.getElementById('qualityChart');
-    const datasets = [
-      { type:'bar', label:'Calorie quality', data: qualityVals, backgroundColor:'rgba(76,141,255,0.72)', borderRadius:4,
-        maxBarThickness: trendHorizon==='week'?22:(trendHorizon==='month'?14:6) },
-      ...overlayDatasets.map(ds=>({ ...ds, type:'line' }))
-    ];
-    if(targetDs) datasets.push(targetDs);
-    const segGroups = bucketType ? segs.map(s=>[s]) : null;
-    const data = { labels, datasets };
-    const options = {
-      responsive: true, maintainAspectRatio: false, events: [],
-      interaction: { mode: 'index', intersect: false },
-      plugins: { legend: { display:false }, tooltip: { enabled: false, callbacks: { label(context){ const v = context.parsed.y; return v==null ? undefined : `${v}%`; } } } },
-      scales: {
-        x: { ticks: tickFn, grid: { display:false } },
-        y: { ticks:{ color:'#8D90A8', font:{ family:'Inter', size:10 } }, grid:{ color:'#2E3040' },
-             title:{ display:true, text:'%', color:'#8D90A8', font:{ family:'Inter', size:10 } } }
-      }
-    };
-    const holdInfo = { titleEl, baseHTML: null, labels, series: [ { color:'#4C8DFF', decimals:1, suffix:'%', vals: qualityVals } ] };
-    if(qualityChart){
-      qualityChart.data = data; qualityChart.options = options; qualityChart.$dates = dates;
-      qualityChart.$avgSegments = segGroups; qualityChart.$holdInfo = holdInfo; qualityChart.update();
-    } else {
-      qualityChart = new Chart(ctx, { type:'bar', data, options });
-      qualityChart.$dates = dates; qualityChart.$avgSegments = segGroups; qualityChart.$holdInfo = holdInfo;
-    }
-  }catch(e){ /* charts failed; rest of the app still works */ }
-}
 
 // ---------- rendering: protein intake ----------
 // Shares the Trends card's Week/Month/Year horizon toggle and the same hold-to-inspect/floating-
 // average-overlay treatment as the Deficit/surplus and Weight charts below it.
-function renderProteinChart(){
-  const titleEl = document.getElementById('trendProteinChartTitle');
+// Protein, carbs and fat share one chart builder: daily grams as bars, the goal as a line, and
+// weekly/monthly averages on Month/Year. Only macros this person tracks get a chart.
+const macroCharts = { protein: null, carbs: null, fat: null };
+function renderProteinChart(){ MACROS.forEach(renderMacroChart); }
+function renderMacroChart(m){
+  const info = MACRO_INFO[m];
+  const titleEl = document.getElementById('trend' + info.key + 'ChartTitle');
+  if(!trackedMacros().includes(m)) return;
+  let proteinChart = macroCharts[m];
   try{
     if(typeof Chart === 'undefined'){
-      const el = document.getElementById('proteinChart');
+      const el = document.getElementById(m + 'Chart');
       if(el) el.style.display = 'none';
       return;
     }
@@ -3946,7 +4199,7 @@ function renderProteinChart(){
     const allDates = sortedDates();
     const dates = filterDatesByHorizon(allDates, trendHorizon);
     const labels = dates.map(trendLabel);
-    const proteinVals = dates.map(d => consumedProtein(entries[d]));
+    const proteinVals = dates.map(d => consumedMacro(entries[d], m));
     const tickFn = horizonXTicks(trendHorizon, dates);
     const avgProtein = avgOf(proteinVals);
 
@@ -3954,7 +4207,7 @@ function renderProteinChart(){
       const pt = computeTargets();
       titleEl.innerHTML = chartStatsHTML([
         `avg <b style="color:#4C8DFF">${fmtN(avgProtein)}</b>${avgProtein != null ? ' g' : ''}`,
-        `goal <b>${fmtN(pt && pt.proteinTarget)}</b>${pt ? ' g' : ''}`
+        `goal <b>${fmtN(macroTarget(m, pt))}</b>${pt ? ' g' : ''}`
       ]);
     }
 
@@ -3964,12 +4217,12 @@ function renderProteinChart(){
       overlayDatasets = o.datasets; segs = o.segments;
     }
     const t = computeTargets();
-    const targetDs = buildTargetOverlay(dates, t ? t.proteinTarget : null, '#F4F5FA');
+    const targetDs = buildTargetOverlay(dates, macroTarget(m, t), '#F4F5FA');
 
-    const ctx = document.getElementById('proteinChart');
+    const ctx = document.getElementById(m + 'Chart');
     const datasets = [{
       type: 'bar',
-      label: 'Protein',
+      label: info.label,
       data: proteinVals,
       backgroundColor: 'rgba(76,141,255,0.75)',
       borderRadius: 3,
@@ -4006,7 +4259,7 @@ function renderProteinChart(){
       proteinChart.$holdInfo = proteinHoldInfo;
       proteinChart.update();
     } else {
-      proteinChart = new Chart(ctx, { type:'bar', data, options });
+      proteinChart = macroCharts[m] = new Chart(ctx, { type:'bar', data, options });
       proteinChart.$dates = dates;
       proteinChart.$avgSegments = segGroups;
       proteinChart.$holdInfo = proteinHoldInfo;
@@ -4165,6 +4418,7 @@ function renderTable(){
     });
   });
   wireDetailEvents();
+  requestAnimationFrame(() => fitItemNames(wrap));
 }
 
 // The expanded day detail mirrors the "Logged" card's own item-row look (same editable fields,
@@ -4175,21 +4429,7 @@ function renderDetail(d, e){
   const mode = e ? e.mode : null;
   let html = '';
   if(mode === 'items'){
-    html += `<div class="hist-section-label">Food</div>`;
-    (e.items||[]).forEach(it=>{
-      html += `<div class="item-row hist-item-row" data-item="${it.id}">
-        <input type="text" class="item-desc-input" data-desc-item="${it.id}" value="${(it.desc||'').replace(/"/g,'&quot;')}">
-        <div class="item-cal-wrap">
-          <input type="number" class="item-cal-input" data-cal-item="${it.id}" value="${it.cal}" inputmode="numeric">
-          <span class="item-cal-unit">kcal</span>
-        </div>
-        <div class="item-cal-wrap">
-          <input type="number" class="item-cal-input item-protein-input" data-protein-item="${it.id}" value="${typeof it.protein==='number'?it.protein:0}" inputmode="numeric">
-          <span class="item-cal-unit">g</span>
-        </div>
-        <button class="item-del" data-del-item="${it.id}" type="button">✕</button>
-      </div>`;
-    });
+    html += `<div class="hist-section-label">Food</div>` + itemsEditorHTML(d, e.items || []);
   } else if(mode === 'simple'){
     html += `<div class="hist-section-label">Daily total (legacy)</div>
       <div class="item-row hist-item-row">
@@ -4372,7 +4612,6 @@ function renderAll(){
   renderNetChart();
   renderWeightChart();
   renderProteinChart();
-  renderQualityChart();
   renderTable();
   renderDateSelector();
   renderRing();
@@ -4648,7 +4887,7 @@ async function requestCalorieEstimate(description, photo){
   }
   // protein is a newer field on the server — tolerate an old/cached function deploy without it
   if(typeof body.protein !== 'number') body.protein = 0;
-  return body; // { label, calories, protein }
+  return body; // { label, calories, protein, carbs?, fat? }
 }
 
 // Builds the little sparkle/manual label for the input-mode switch button.
@@ -4666,6 +4905,8 @@ function renderFoodForm(){
   const d = selectedDate;
   const e = entries[d];
   renderFoodSummary(d, e);
+  renderNutriFields('manualNutri');
+  renderNutriFields('aiNutri');
 
   // the items list itself lives in the "Logged" card below (renderLoggedCard); this card only
   // decides which input UI to show: the "already has a manual total" note (a legacy daily total
@@ -4699,73 +4940,107 @@ function renderFoodForm(){
   renderLoggedCard(d, e);
 }
 
+// ---------- nutrient fields (AI result + manual entry): calories plus each tracked macro ----------
+const NUTRI_LABEL = { cal: 'kcal', protein: 'protein g', carbs: 'carbs g', fat: 'fat g' };
+function nutriKeys(){ return ['cal'].concat(trackedMacros()); }
+function renderNutriFields(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+  const keys = nutriKeys();
+  if(box.dataset.sig === keys.join(',')) return;
+  const keep = {};
+  box.querySelectorAll('input[data-nf]').forEach(i => { keep[i.dataset.nf] = i.value; });
+  box.dataset.sig = keys.join(',');
+  box.style.gridTemplateColumns = `repeat(${keys.length}, minmax(0, 1fr))`;
+  box.innerHTML = keys.map(k => `<label class="nf"><span class="nf-lbl">${NUTRI_LABEL[k]}</span>
+    <input type="number" inputmode="numeric" data-nf="${k}" value="${keep[k] != null ? keep[k] : ''}" placeholder="0"></label>`).join('');
+}
+function readNutri(boxId){
+  const out = {};
+  document.querySelectorAll(`#${boxId} input[data-nf]`).forEach(i => { out[i.dataset.nf] = parseInt(i.value, 10); });
+  return out;
+}
+function setNutri(boxId, vals){
+  document.querySelectorAll(`#${boxId} input[data-nf]`).forEach(i => { const v = vals[i.dataset.nf]; i.value = (typeof v === 'number') ? v : ''; });
+}
+// A new food item from nutrient fields: calories required; tracked macros default to 0; anything the
+// AI returned for an untracked macro is kept too, so turning that macro on later has data.
+function itemFromNutri(desc, n, extra){
+  const it = { id: genId(), desc, cal: n.cal, ts: Date.now() };
+  MACROS.forEach(m => {
+    if(typeof n[m] === 'number' && !isNaN(n[m])) it[m] = n[m];
+    else if(extra && typeof extra[m] === 'number') it[m] = extra[m];
+    else if(trackedMacros().includes(m)) it[m] = 0;
+  });
+  return it;
+}
+
+// ---------- the food items editor (Food card + History) ----------
+// The day's totals sit on top as tiles, one per nutrient; they double as the column headings for the
+// numbers under each item, so every number lines up and nothing needs its own label.
+function itemsEditorHTML(d, items){
+  const keys = nutriKeys();
+  const cols = `grid-template-columns:repeat(${keys.length}, minmax(0, 1fr))`;
+  const sum = k => items.reduce((s, it) => s + (Number(k === 'cal' ? it.cal : it[k]) || 0), 0);
+  const unitWord = { cal: 'kcal', protein: 'protein', carbs: 'carbs', fat: 'fat' };
+  const head = `<div class="ie-totals" style="${cols}">${keys.map(k => `<div class="ie-tot"><b>${fmtN(sum(k))}${k === 'cal' ? '' : '<small>g</small>'}</b><span>${unitWord[k]}</span></div>`).join('')}</div>`;
+  const rows = items.map(it => `<div class="ie-row" data-item="${it.id}">
+      <div class="ie-top"><textarea class="ie-desc" data-ie="desc" rows="1" aria-label="Item">${escapeHtml(it.desc || '')}</textarea>
+        <button class="ie-del" data-ie-del type="button" aria-label="Delete item">✕</button></div>
+      <div class="ie-nums" style="${cols}">${keys.map(k => {
+        const v = k === 'cal' ? it.cal : it[k];
+        return `<input class="ie-num" data-ie="${k}" type="number" inputmode="numeric" value="${typeof v === 'number' ? v : ''}" placeholder="—" aria-label="${NUTRI_LABEL[k]}">`;
+      }).join('')}</div></div>`).join('');
+  return `<div class="ie" data-date="${d}">${head}${rows}</div>`;
+}
+// long item names wrap onto more lines instead of being cut off
+function fitItemNames(root){ (root || document).querySelectorAll('textarea.ie-desc').forEach(t => { t.style.height = 'auto'; t.style.height = t.scrollHeight + 'px'; }); }
+document.addEventListener('input', (ev)=>{ if(ev.target.matches && ev.target.matches('textarea.ie-desc')) fitItemNames(ev.target.parentNode); });
+document.addEventListener('keydown', (ev)=>{ if(ev.key === 'Enter' && ev.target.matches && ev.target.matches('textarea.ie-desc')){ ev.preventDefault(); ev.target.blur(); } });
+document.addEventListener('change', async (ev)=>{
+  const inp = ev.target.closest('.ie [data-ie]');
+  if(!inp) return;
+  const d = inp.closest('.ie').dataset.date, id = inp.closest('[data-item]').dataset.item;
+  const item = entries[d] && (entries[d].items || []).find(it => it.id === id);
+  if(!item) return;
+  const f = inp.dataset.ie;
+  if(f === 'desc'){ const v = inp.value.trim(); if(v) item.desc = v; else inp.value = item.desc; }
+  else {
+    const v = parseInt(inp.value, 10);
+    if(isNaN(v) || v < 0){ const cur = f === 'cal' ? item.cal : item[f]; inp.value = typeof cur === 'number' ? cur : ''; return; }
+    if(f === 'cal') item.cal = v; else item[f] = v;
+  }
+  await persist(); renderAll(); renderFoodForm();
+});
+document.addEventListener('click', async (ev)=>{
+  const btn = ev.target.closest('.ie [data-ie-del]');
+  if(!btn) return;
+  ev.stopPropagation();
+  haptic();
+  const d = btn.closest('.ie').dataset.date, id = btn.closest('[data-item]').dataset.item;
+  if(!entries[d]) return;
+  entries[d].items = (entries[d].items || []).filter(it => it.id !== id);
+  await persist(); renderAll(); renderFoodForm();
+});
+
 // ---------- rendering: the "Logged" card (items list / daily total for the selected food date) ----------
 function renderLoggedCard(d, e){
   const sub = document.getElementById('loggedSub');
   if(sub) sub.textContent = (d === todayStr()) ? 'Logged today' : `Logged — ${fmtDate(d)}`;
-  const totalEl = document.getElementById('loggedTodayTotal');
-  const proteinEl = document.getElementById('loggedTodayProtein');
-  const totalWrap = document.getElementById('loggedTodayTotalWrap');
 
   const list = document.getElementById('itemsList');
   const emptyMsg = document.getElementById('loggedEmptyMsg');
   if(!list || !emptyMsg) return;
 
   if(e && e.mode === 'items' && (e.items||[]).length){
-    const items = e.items;
-    list.innerHTML = items.map(it => `
-      <div class="item-row" data-item="${it.id}">
-        <div class="item-desc">${it.desc}</div>
-        <div class="item-cal-wrap">
-          <input type="number" class="item-cal-input" data-cal-item="${it.id}" value="${it.cal}" inputmode="numeric">
-          <span class="item-cal-unit">kcal</span>
-        </div>
-        <div class="item-cal-wrap">
-          <input type="number" class="item-cal-input item-protein-input" data-protein-item="${it.id}" value="${typeof it.protein==='number'?it.protein:0}" inputmode="numeric">
-          <span class="item-cal-unit">g</span>
-        </div>
-        <button class="item-del" data-del-item="${it.id}" type="button">✕</button>
-      </div>`).join('');
+    if(!(document.activeElement && list.contains(document.activeElement))){ list.innerHTML = itemsEditorHTML(d, e.items); requestAnimationFrame(() => fitItemNames(list)); }
     emptyMsg.style.display = 'none';
-    if(totalEl) totalEl.textContent = items.reduce((s,i)=>s+i.cal,0);
-    if(proteinEl) proteinEl.textContent = items.reduce((s,i)=>s+(typeof i.protein==='number'?i.protein:0),0);
-    if(totalWrap) totalWrap.style.display = '';
-    list.querySelectorAll('[data-del-item]').forEach(btn=>{
-      btn.addEventListener('click', async ()=>{
-        entries[d].items = entries[d].items.filter(it=>it.id!==btn.dataset.delItem);
-        await persist(); renderAll(); renderFoodForm();
-      });
-    });
-    list.querySelectorAll('[data-cal-item]').forEach(inp=>{
-      inp.addEventListener('change', async ()=>{
-        const val = parseInt(inp.value, 10);
-        if(isNaN(val)){ inp.value = (entries[d].items.find(it=>it.id===inp.dataset.calItem)||{}).cal ?? ''; return; }
-        const item = entries[d].items.find(it=>it.id===inp.dataset.calItem);
-        if(!item) return;
-        item.cal = val;
-        await persist(); renderAll(); renderFoodForm();
-      });
-    });
-    list.querySelectorAll('[data-protein-item]').forEach(inp=>{
-      inp.addEventListener('change', async ()=>{
-        const val = parseInt(inp.value, 10);
-        const item = entries[d].items.find(it=>it.id===inp.dataset.proteinItem);
-        if(!item) return;
-        if(isNaN(val)){ inp.value = typeof item.protein==='number' ? item.protein : 0; return; }
-        item.protein = val;
-        await persist(); renderAll(); renderFoodForm();
-      });
-    });
   } else if(e && e.mode === 'simple' && e.total != null){
-    list.innerHTML = '';
+    list.innerHTML = `<div class="ie"><div class="ie-totals" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="ie-tot"><b>${fmtN(e.total)}</b><span>kcal</span></div><div class="ie-tot"><b>${fmtN(e.proteinTotal)}<small>g</small></b><span>protein</span></div></div></div>`;
     emptyMsg.style.display = 'none';
-    if(totalEl) totalEl.textContent = e.total;
-    if(proteinEl) proteinEl.textContent = (typeof e.proteinTotal==='number') ? e.proteinTotal : 0;
-    if(totalWrap) totalWrap.style.display = '';
   } else {
     list.innerHTML = '';
     emptyMsg.style.display = '';
-    if(totalWrap) totalWrap.style.display = 'none';
   }
 }
 
@@ -4835,13 +5110,12 @@ async function init(){
   const aiStatus = document.getElementById('aiStatus');
   const aiResult = document.getElementById('aiResult');
   const aiLabelInput = document.getElementById('aiLabelInput');
-  const aiCalInput = document.getElementById('aiCalInput');
-  const aiProteinInput = document.getElementById('aiProteinInput');
+  let lastAiEstimate = null;
   const aiEstimateBtn = document.getElementById('aiEstimateBtn');
 
   function resetAiResult(){
     aiResult.style.display = 'none';
-    aiLabelInput.value = ''; aiCalInput.value = ''; aiProteinInput.value = '';
+    aiLabelInput.value = ''; setNutri('aiNutri', {}); lastAiEstimate = null;
   }
 
   // guarded status setter: cancels any pending auto-clear from a PREVIOUS message before showing a
@@ -4999,10 +5273,10 @@ async function init(){
     aiEstimateBtn.disabled = true;
     setAiStatus('Estimating…');
     try{
-      const { label, calories, protein } = await requestCalorieEstimate(description, selectedPhoto);
-      aiLabelInput.value = label;
-      aiCalInput.value = calories;
-      aiProteinInput.value = protein;
+      const est = await requestCalorieEstimate(description, selectedPhoto);
+      lastAiEstimate = est;
+      aiLabelInput.value = est.label;
+      setNutri('aiNutri', { cal: est.calories, protein: est.protein, carbs: est.carbs, fat: est.fat });
       aiResult.style.display = '';
       // grow the textarea to fit the whole returned description instead of clipping it
       aiLabelInput.style.height = 'auto';
@@ -5025,8 +5299,8 @@ async function init(){
   document.getElementById('aiAddBtn').addEventListener('click', async ()=>{
     const d = selectedDate;
     const desc = aiLabelInput.value.trim();
-    const cal = parseInt(aiCalInput.value, 10);
-    const protein = parseInt(aiProteinInput.value, 10);
+    const n = readNutri('aiNutri');
+    const cal = n.cal;
     if(!desc || isNaN(cal)){
       setAiStatus('Enter a description and calories.', 'error');
       return;
@@ -5038,7 +5312,7 @@ async function init(){
     }
     entries[d].mode = 'items';
     entries[d].items = entries[d].items || [];
-    entries[d].items.push({ id: genId(), desc, cal, protein: isNaN(protein)?0:protein, ts: Date.now() });
+    entries[d].items.push(itemFromNutri(desc, n, lastAiEstimate));
     await persist();
     aiDesc.value = '';
     clearSelectedPhoto();
@@ -5050,11 +5324,9 @@ async function init(){
   document.getElementById('addItemBtn').addEventListener('click', async ()=>{
     const d = selectedDate;
     const descInput = document.getElementById('itemDesc');
-    const calInput = document.getElementById('itemCal');
-    const proteinInput = document.getElementById('itemProtein');
     const desc = descInput.value.trim();
-    const cal = parseInt(calInput.value, 10);
-    const protein = parseInt(proteinInput.value, 10);
+    const n = readNutri('manualNutri');
+    const cal = n.cal;
     if(!desc || isNaN(cal)){
       foodStatus.textContent = 'Enter a description and calories.';
       foodStatus.className = 'status error';
@@ -5068,9 +5340,9 @@ async function init(){
     }
     entries[d].mode = 'items';
     entries[d].items = entries[d].items || [];
-    entries[d].items.push({ id: genId(), desc, cal, protein: isNaN(protein)?0:protein, ts: Date.now() });
+    entries[d].items.push(itemFromNutri(desc, n, null));
     await persist();
-    descInput.value = ''; calInput.value = ''; proteinInput.value = '';
+    descInput.value = ''; setNutri('manualNutri', {});
     foodStatus.textContent = 'Item added.';
     foodStatus.className = 'status success';
     setTimeout(()=>{ foodStatus.textContent=''; foodStatus.className='status'; }, 1400);
@@ -5104,7 +5376,7 @@ async function init(){
     if(trendsExpanded){
       // the charts were rendered while this card sat at display:none, so Chart.js had zero-size
       // canvases to lay out against — nudge each one to re-measure now that it's actually visible.
-      [consumedChart, burnedChart, netChart, proteinChart, qualityChart, weightChart].forEach(c=>{
+      [consumedChart, burnedChart, netChart, macroCharts.protein, macroCharts.carbs, macroCharts.fat, weightChart].forEach(c=>{
         if(c && typeof c.resize === 'function') c.resize();
       });
       renderTrendsRingAndRuler(); // ruler labels measure their own width, which is 0 while hidden
@@ -5112,7 +5384,7 @@ async function init(){
   });
 
   const chartByKey = { consumed:()=>consumedChart, burned:()=>burnedChart, net:()=>netChart,
-                       protein:()=>proteinChart, quality:()=>qualityChart, weight:()=>weightChart };
+                       protein:()=>macroCharts.protein, carbs:()=>macroCharts.carbs, fat:()=>macroCharts.fat, weight:()=>weightChart };
   function wireChartBlockToggle(toggleBtnId, chevronId, wrapId, key){
     document.getElementById(toggleBtnId).addEventListener('click', ()=>{
       haptic();
@@ -5128,7 +5400,8 @@ async function init(){
   wireChartBlockToggle('toggleBurnedBtn', 'burnedChevron', 'burnedChartWrap', 'burned');
   wireChartBlockToggle('toggleNetBtn', 'netChevron', 'netChartWrap', 'net');
   wireChartBlockToggle('toggleProteinBtn', 'proteinChevron', 'proteinChartWrap', 'protein');
-  wireChartBlockToggle('toggleQualityBtn', 'qualityChevron', 'qualityChartWrap', 'quality');
+  wireChartBlockToggle('toggleCarbsBtn', 'carbsChevron', 'carbsChartWrap', 'carbs');
+  wireChartBlockToggle('toggleFatBtn', 'fatChevron', 'fatChartWrap', 'fat');
   wireChartBlockToggle('toggleWeightBtn', 'weightChevronT', 'weightChartOuterWrap', 'weight');
 
   // Weight now lives inside the Trends card and follows its single Week/Month/Year horizon toggle.
@@ -5306,6 +5579,20 @@ async function init(){
     userProfile.sex = b.dataset.sex;
   });
 
+  function renderTrackRow(){
+    const tracked = trackedMacros();
+    document.querySelectorAll('#trackRow [data-track]').forEach(b => b.classList.toggle('on', tracked.includes(b.dataset.track)));
+  }
+  document.getElementById('trackRow').addEventListener('click', async (ev)=>{
+    const b = ev.target.closest('[data-track]'); if(!b) return;
+    haptic();
+    const set = new Set(trackedMacros());
+    if(set.has(b.dataset.track)) set.delete(b.dataset.track); else set.add(b.dataset.track);
+    userProfile.track = MACROS.filter(m => set.has(m));
+    renderTrackRow();
+    await persistProfile();
+    renderAll();
+  });
   function renderBurnModeSection(){
     const body = document.getElementById('burnModeBody');
     if(!body) return;
@@ -5337,6 +5624,7 @@ async function init(){
   document.getElementById('openProfileBtn').addEventListener('click', ()=>{
     setMenuOpen(false); haptic();
     fillProfileForm();
+    renderTrackRow();
     renderBurnModeSection();
     profileOverlay.style.display = 'flex';
   });
@@ -5408,11 +5696,21 @@ async function init(){
     const calEl = document.getElementById('targetCalVal');
     const proEl = document.getElementById('targetProteinVal');
     const burnEl = document.getElementById('targetBurnVal');
-    const qualEl = document.getElementById('targetQualityVal');
-    const els = { calorie: calEl, protein: proEl, burn: burnEl, quality: qualEl };
+    const carbsEl = document.getElementById('targetCarbsVal');
+    const fatEl = document.getElementById('targetFatVal');
+    const els = { calorie: calEl, protein: proEl, burn: burnEl, carbs: carbsEl, fat: fatEl };
     const resetBtn = document.getElementById('targetsResetBtn');
+    const tracked = trackedMacros();
+    document.querySelectorAll('[data-macro-tile]').forEach(tile => { tile.style.display = tracked.includes(tile.dataset.macroTile) ? '' : 'none'; });
+    document.getElementById('targetsMacros').style.display = tracked.length ? '' : 'none';
+    document.getElementById('targetsMacros').style.gridTemplateColumns = `repeat(${Math.max(1, tracked.length)}, 1fr)`;
+    const check = document.getElementById('targetsCheck');
+    if(t && Math.abs(t.macroKcal - t.calorieTarget) > 25){
+      check.textContent = `Your protein, carbs and fat add up to ${Math.round(t.macroKcal).toLocaleString()} kcal, not ${t.calorieTarget.toLocaleString()}. Adjust one, or reset.`;
+      check.style.display = '';
+    } else check.style.display = 'none';
     if(t){
-      const vals = { calorie: t.calorieTarget, protein: t.proteinTarget, burn: t.burnTarget, quality: t.qualityTarget };
+      const vals = { calorie: t.calorieTarget, protein: t.proteinTarget, burn: t.burnTarget, carbs: t.carbsTarget, fat: t.fatTarget };
       Object.keys(els).forEach(k=>{
         if(document.activeElement !== els[k]) els[k].value = vals[k];
         els[k].disabled = false;
@@ -5453,16 +5751,6 @@ async function init(){
     burnExpanded = true; renderBurnCard();
     document.getElementById('burnSummaryBtn').scrollIntoView({ behavior:'smooth', block:'start' });
     setTimeout(()=>{ const i = document.getElementById('burnedInput'); if(i) i.focus({ preventScroll:true }); }, 450);
-  });
-  document.getElementById('ringSection').addEventListener('change', async (ev)=>{
-    if(ev.target.id !== 'burnActSel') return;
-    haptic();
-    const d = selectedDate;
-    if(!entries[d]) entries[d] = blankEntry();
-    entries[d].activity = ev.target.value;
-    syncDerivedBurns();
-    await persist();
-    renderAll();
   });
   document.getElementById('myGoals').addEventListener('click', ()=>{ haptic(); document.getElementById('openGoalsBtn').click(); });
   document.getElementById('openGoalsBtn').addEventListener('click', ()=>{
@@ -5528,8 +5816,9 @@ async function init(){
   setupChartTooltip('consumedChart', ()=>consumedChart);
   setupChartTooltip('burnedChart', ()=>burnedChart);
   setupChartTooltip('netChart', ()=>netChart);
-  setupChartTooltip('proteinChart', ()=>proteinChart);
-  setupChartTooltip('qualityChart', ()=>qualityChart);
+  setupChartTooltip('proteinChart', ()=>macroCharts.protein);
+  setupChartTooltip('carbsChart', ()=>macroCharts.carbs);
+  setupChartTooltip('fatChart', ()=>macroCharts.fat);
   setupChartTooltip('weightChart', ()=>weightChart);
 }
 
@@ -5630,6 +5919,7 @@ async function startSession(user){
   namespaceLocalKeys(user.uid);
   applySessionToUI(user);
   showAuth(null);
+  if(window.refreshChatEntry) refreshChatEntry();
   if(!appStarted){
     appStarted = true;
     await init();
@@ -5754,14 +6044,15 @@ function csvCell(v){
 function buildExportCSV(dates){
   const wMap = dailyWeightMap();
   const unit = weightUnit();
-  const head = ['date','weekday','calories_kcal','protein_g','burned_kcal','burn_source','net_kcal','calorie_quality_pct',`weight_${unit}`,'foods'];
+  const head = ['date','weekday','calories_kcal','protein_g','carbs_g','fat_g','burned_kcal','burn_source','net_kcal','calorie_quality_pct',`weight_${unit}`,'foods'];
   const rows = dates.map(d => {
     const e = entries[d];
     const cal = consumedTotal(e), pro = consumedProtein(e), n = net(e), q = dietQualityForDate(d);
-    const items = (e && e.mode === 'items' && e.items) ? e.items.map(it => `${it.desc || 'Item'} (${it.cal} kcal, ${typeof it.protein === 'number' ? it.protein : 0} g)`).join('; ') : '';
+    const items = (e && e.mode === 'items' && e.items) ? e.items.map(it => `${it.desc || 'Item'} (${it.cal} kcal` + ['protein','carbs','fat'].filter(m => typeof it[m] === 'number').map(m => `, ${it[m]} g ${m}`).join('') + ')').join('; ') : '';
     return [d, parseISO(d).toLocaleDateString('en-US', { weekday:'long' }),
       cal != null ? Math.round(cal) : null, pro != null ? Math.round(pro) : null,
-      hasBurned(e) ? Math.round(e.burned) : null, hasBurned(e) ? (e.burnSource === 'whoop' ? 'WHOOP' : 'manual') : null,
+      consumedMacro(e, 'carbs') != null ? Math.round(consumedMacro(e, 'carbs')) : null, consumedMacro(e, 'fat') != null ? Math.round(consumedMacro(e, 'fat')) : null,
+      hasBurned(e) ? Math.round(e.burned) : null, hasBurned(e) ? burnSourceLabel(e) : null,
       n != null ? Math.round(n) : null, q != null ? Math.round(q * 10) / 10 : null,
       wMap[d] ? Math.round(wMap[d].avg * 10) / 10 : null, items].map(csvCell).join(',');
   });
@@ -6345,32 +6636,476 @@ bootAuth();
     if(document.fonts && document.fonts.ready) document.fonts.ready.then(replaceAll, function(){});
   });
 
-  // ---- 9. A small mini header (icon + mini ring) fades in once scrolled past the top, fades
-  //         back out near the top. This is a SEPARATE, constant-size, position:fixed element
-  //         (#miniHeader) — not a shrunk/sticky version of the real header. A fixed element
-  //         reserves no space in the document, so toggling its opacity can never change page
-  //         layout or scroll height, which is what makes this immune to the flicker/scroll-lock
-  //         the earlier sticky+resize approach had (that approach changed the header's own
-  //         height as it "collapsed," which perturbed scroll position, which could re-trigger
-  //         the toggle — a feedback loop). Nothing here can feed back into itself. ----
-  safe(function(){
-    var mini = document.getElementById('miniHeader');
-    if(!mini) return;
-    var visible = false, ticking = false;
-    function apply(){
-      ticking = false;
-      var y = window.scrollY || document.documentElement.scrollTop || 0;
-      if(!visible && y > 90){ visible = true; mini.classList.add('visible'); }
-      else if(visible && y < 60){ visible = false; mini.classList.remove('visible'); }
-    }
-    window.addEventListener('scroll', function(){
-      if(ticking) return;
-      ticking = true;
-      requestAnimationFrame(apply);
-    }, { passive:true });
-    apply();
-  });
 })();
+</script>
+<!-- Monstrão AI: floating button + chat page -->
+<button class="ai-fab hide" id="aiFab" type="button" aria-label="Ask Monstrão AI"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span class="ai-fab-lbl">Ask Monstrão</span></button>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="icoSpark" viewBox="0 0 24 24"><path d="M12 2.5c.3 0 .57.2.65.49l1.36 4.7a4.2 4.2 0 0 0 2.87 2.87l4.7 1.36a.68.68 0 0 1 0 1.3l-4.7 1.36a4.2 4.2 0 0 0-2.87 2.87l-1.36 4.7a.68.68 0 0 1-1.3 0l-1.36-4.7a4.2 4.2 0 0 0-2.87-2.87l-4.7-1.36a.68.68 0 0 1 0-1.3l4.7-1.36a4.2 4.2 0 0 0 2.87-2.87l1.36-4.7c.08-.29.35-.49.65-.49Z"/><path d="M19 2c.22 0 .41.14.48.35l.42 1.26 1.26.42c.21.07.35.26.35.48s-.14.41-.35.48l-1.26.42-.42 1.26a.5.5 0 0 1-.96 0l-.42-1.26-1.26-.42A.5.5 0 0 1 16.5 4.5c0-.22.14-.41.35-.48l1.26-.42.42-1.26c.07-.21.26-.35.47-.35Z"/></symbol>
+  </defs>
+</svg>
+<div class="page-overlay chat-overlay" id="chatOverlay" style="display:none;" role="dialog" aria-label="Monstrão AI">
+  <div class="overlay-topbar chat-topbar">
+    <button class="overlay-back" id="chatBackBtn" type="button" aria-label="Back">Back</button>
+    <div class="overlay-title chat-title"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg>Monstrão AI</div>
+    <button class="chat-new" id="chatNewBtn" type="button" aria-label="New chat" title="New chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h8"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+  </div>
+  <div class="chat-scroll" id="chatScroll">
+    <div class="chat-inner">
+      <div class="chat-empty" id="chatEmpty"></div>
+      <div class="chat-log" id="chatLog" aria-live="polite"></div>
+    </div>
+  </div>
+  <div class="chat-dock">
+    <form class="chat-composer" id="chatForm" autocomplete="off">
+      <textarea id="chatInput" rows="1" placeholder="Ask Monstrão anything" enterkeyhint="send" aria-label="Message Monstrão AI"></textarea>
+      <button class="chat-ibtn chat-mic" id="chatMicBtn" type="button" aria-label="Speak your question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
+      <button class="chat-ibtn chat-send" id="chatSendBtn" type="submit" aria-label="Send" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+    </form>
+    <div class="chat-fine">Monstrão AI can make mistakes · Not medical advice</div>
+  </div>
+</div>
+<script>
+// =====================================================================================
+// Monstrão AI — chat
+// The server (Cloud Function `chat`) does the work: it gives Claude tools over this person's
+// data, runs the numbers, keeps the conversation + remembered notes, and streams the answer
+// back as server-sent events. This side is the UI: the page, the composer, smooth word-by-word
+// rendering, and the context the server can't know (today's date here, the targets on screen).
+// =====================================================================================
+(function(){
+  const CHAT_URL = 'https://us-central1-monstrao-e04ac.cloudfunctions.net/chat';
+  const $ = (id) => document.getElementById(id);
+  const overlay = $('chatOverlay'), scroller = $('chatScroll'), log = $('chatLog'), empty = $('chatEmpty');
+  const input = $('chatInput'), form = $('chatForm'), sendBtn = $('chatSendBtn'), micBtn = $('chatMicBtn'), fab = $('aiFab');
+  const SPARK = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg>';
+  const ICO = {
+    week: '<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14h3"/>',
+    compare: '<path d="M7 4v16M17 4v16M3.5 8.5L7 5l3.5 3.5M13.5 15.5L17 19l3.5-3.5"/>',
+    foods: '<path d="M4 11h16a8 8 0 0 1-16 0Z"/><path d="M9 7c0-1.5 1-2 1-3.5M13 7c0-1.5 1-2 1-3.5"/>',
+    weight: '<path d="M4 18l5-6 4 3 7-8"/><path d="M15 7h5v5"/>',
+    protein: '<path d="M14.5 4.5a5 5 0 0 1 0 7.1l-3.6 3.6-3.5-3.5 3.6-3.6a5 5 0 0 1 3.5-3.6Z"/><path d="M7.4 11.7L4.6 14.5a2 2 0 1 0 2.9 2.9l-.6.6M9.5 16.6l-2.8 2.8"/>',
+    weekend: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/>',
+    today: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>'
+  };
+  const svg = (k) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[k]}</svg>`;
+
+  let chatUid = null, loaded = false, loading = null;
+  let thread = [];          // [{role, text, at}]
+  let notes = [];
+  let busy = false, abortCtl = null, stick = true, memOpen = false;
+
+  // ---------- who can use it ----------
+  function available(){ return !!(typeof fbFns !== 'undefined' && fbFns && sessionInfo && sessionInfo.status === 'active'); }
+  window.refreshChatEntry = function(){
+    const on = available();
+    document.body.classList.toggle('ai-on', on);
+    fab.classList.toggle('hide', !on || document.body.classList.contains('typing'));
+    const m = $('openChatBtn'); if(m) m.style.display = on ? '' : 'none';
+    const t = $('trendAskBtn'); if(t) t.style.display = on ? '' : 'none';
+    const u = firebase.auth && firebase.auth().currentUser;
+    const uid = u ? u.uid : null;
+    if(uid !== chatUid){ chatUid = uid; loaded = false; loading = null; thread = []; notes = []; log.innerHTML = ''; }
+  };
+
+  // ---------- context the server can't know ----------
+  function chatContext(){
+    const tr = trackedMacros();
+    const t = computeTargets();
+    const targets = {};
+    if(t){
+      targets.calories = Math.round(t.calorieTarget); targets.burn = Math.round(t.burnTarget);
+      if(tr.includes('protein')) targets.protein_g = Math.round(t.proteinTarget);
+      if(tr.includes('carbs')) targets.carbs_g = Math.round(t.carbsTarget);
+      if(tr.includes('fat')) targets.fat_g = Math.round(t.fatTarget);
+    }
+    const now = new Date(), mid = new Date(now); mid.setHours(0, 0, 0, 0);
+    return { today: todayStr(), selectedDate, tracked: tr, targets, burnMode: burnMode(), dayFraction: Math.round((now - mid) / 86400000 * 1000) / 1000 };
+  }
+
+  // ---------- suggested questions ----------
+  function suggestions(){
+    const tr = trackedMacros(), hour = new Date().getHours();
+    const hasWeights = Object.keys(weightReadings || {}).length >= 3;
+    const t = computeTargets();
+    const out = [];
+    const todayE = entries[todayStr()];
+    if(todayE && consumedTotal(todayE) != null && hour >= 14 && t && tr.includes('protein')) out.push({ i: 'protein', q: 'What could I eat tonight to hit my protein goal?' });
+    else out.push({ i: 'week', q: 'How did my week go?' });
+    out.push({ i: 'compare', q: 'Compare this week with last week' });
+    if(hasWeights && userGoals.weightGoal && userGoals.weightGoal !== 'maintain') out.push({ i: 'weight', q: 'Am I on pace for my weight goal?' });
+    else out.push({ i: 'weekend', q: 'Do I eat differently on weekends?' });
+    out.push({ i: 'foods', q: 'Where do most of my calories come from?' });
+    if(out[0].i === 'protein') out.splice(1, 0, { i: 'week', q: 'How did my week go?' });
+    return out.slice(0, 4);
+  }
+  function renderEmpty(){
+    const name = (userProfile.name || '').trim().split(/\s+/)[0];
+    const h = new Date().getHours();
+    const hi = h < 5 ? 'Up late' : h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+    empty.innerHTML = `
+      <div class="chat-orb">${SPARK}</div>
+      <h2 class="chat-hello">${escapeHtml(hi)}${name ? ', ' + escapeHtml(name) : ''}</h2>
+      <p class="chat-sub">Ask me about your eating, burn and weight. I read your log and do the math.</p>
+      <div class="chat-sugs">${suggestions().map((s, k) => `<button class="chat-sug" type="button" data-q="${escapeHtml(s.q)}" style="animation-delay:${60 + k * 55}ms"><span class="chat-sug-ico">${svg(s.i)}</span><span class="chat-sug-txt">${escapeHtml(s.q)}</span><svg class="chat-sug-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></button>`).join('')}</div>
+      ${notes.length ? `<div class="chat-mem"><button class="chat-mem-btn" type="button" data-mem="toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0-3.5 10.9V17h7v-3.1A6 6 0 0 0 12 3ZM9.5 20.5h5"/></svg>Remembers ${notes.length} thing${notes.length === 1 ? '' : 's'} about you · ${memOpen ? 'Hide' : 'See'}</button>
+        ${memOpen ? `<ul class="chat-mem-list">${notes.map((n, i) => `<li><span>${escapeHtml(n)}</span><button class="chat-mem-x" type="button" data-forget="${i}" aria-label="Forget this">×</button></li>`).join('')}</ul>` : ''}</div>` : ''}`;
+  }
+  function showEmpty(on){
+    if(on){ renderEmpty(); empty.style.display = ''; } else empty.style.display = 'none';
+    $('chatNewBtn').disabled = on && !busy;
+  }
+
+  // ---------- markdown (bold, italics, lists, inline code) ----------
+  function inline(t){
+    return escapeHtml(t)
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/(^|[^*\w])\*(?!\s)([^*\n]+?)\*(?!\*)/g, '$1<em>$2</em>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>');
+  }
+  function md(src, streaming){
+    let s = String(src || '').replace(/\r/g, '');
+    if(streaming){ const c = (s.match(/\*\*/g) || []).length; if(c % 2){ const k = s.lastIndexOf('**'); s = s.slice(0, k) + s.slice(k + 2); } }
+    let html = '', para = [], list = null;
+    const flushP = () => { if(para.length){ html += '<p>' + para.map(inline).join('<br>') + '</p>'; para = []; } };
+    const flushL = () => { if(list){ html += `<${list.t}>` + list.items.map((i) => '<li>' + inline(i) + '</li>').join('') + `</${list.t}>`; list = null; } };
+    for(const raw of s.split('\n')){
+      const line = raw.replace(/\s+$/, ''); let m;
+      if(!line.trim()){ flushP(); flushL(); continue; }
+      if((m = line.match(/^\s*[-*•]\s+(.*)$/))){ flushP(); if(!list || list.t !== 'ul'){ flushL(); list = { t: 'ul', items: [] }; } list.items.push(m[1]); continue; }
+      if((m = line.match(/^\s*\d+[.)]\s+(.*)$/))){ flushP(); if(!list || list.t !== 'ol'){ flushL(); list = { t: 'ol', items: [] }; } list.items.push(m[1]); continue; }
+      if((m = line.match(/^#{1,4}\s+(.*)$/))){ flushP(); flushL(); html += '<p><strong>' + inline(m[1]) + '</strong></p>'; continue; }
+      if(/^\s*(---|\*\*\*)\s*$/.test(line)){ flushP(); flushL(); continue; }
+      flushL(); para.push(line);
+    }
+    flushP(); flushL();
+    return html;
+  }
+  const CARET = '<span class="cm-caret" aria-hidden="true"></span>';
+  function withCaret(html){
+    if(!html) return CARET;
+    return /(<\/p>|<\/li><\/ul>|<\/li><\/ol>)$/.test(html) ? html.replace(/(<\/p>|<\/li><\/ul>|<\/li><\/ol>)$/, CARET + '$1') : html + CARET;
+  }
+
+  // ---------- the log ----------
+  function dayLabel(ms){
+    const d = new Date(ms), iso = toISO(d), today = todayStr();
+    if(iso === today) return 'Today';
+    const y = new Date(); y.setDate(y.getDate() - 1);
+    if(iso === toISO(y)) return 'Yesterday';
+    return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+  let lastDay = null;
+  function maybeDay(ms){
+    const l = dayLabel(ms || Date.now());
+    if(l === lastDay) return;
+    lastDay = l;
+    const el = document.createElement('div'); el.className = 'chat-day'; el.textContent = l; log.appendChild(el);
+  }
+  function addUser(text, at){
+    maybeDay(at);
+    const el = document.createElement('div'); el.className = 'cm cm-user'; el.textContent = text; log.appendChild(el);
+    return el;
+  }
+  function addAi(text, at){
+    maybeDay(at);
+    const el = document.createElement('div'); el.className = 'cm cm-ai';
+    el.innerHTML = '<div class="cm-body"></div><div class="cm-status" style="display:none"></div>';
+    if(text != null) el.querySelector('.cm-body').innerHTML = md(text, false);
+    log.appendChild(el);
+    return el;
+  }
+  function setStatus(el, text){
+    const s = el.querySelector('.cm-status');
+    if(!text){ s.style.display = 'none'; s.innerHTML = ''; return; }
+    s.innerHTML = SPARK + '<span></span>'; s.querySelector('span').textContent = text; s.style.display = '';
+    follow();
+  }
+  function renderThread(){
+    log.innerHTML = ''; lastDay = null;
+    thread.forEach((m) => m.role === 'user' ? addUser(m.text, m.at) : addAi(m.text, m.at));
+    showEmpty(!thread.length);
+    requestAnimationFrame(() => { scroller.scrollTop = scroller.scrollHeight; stick = true; });
+  }
+  function follow(){ if(stick) scroller.scrollTop = scroller.scrollHeight; }
+  scroller.addEventListener('scroll', () => { stick = scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight < 60; }, { passive: true });
+
+  // ---------- smooth streaming: releases text a word or two per frame, faster when it falls behind ----------
+  function streamer(el){
+    const body = el.querySelector('.cm-body');
+    let full = '', shown = 0, raf = null, finished = false, onDrain = null;
+    const paint = (live) => { body.innerHTML = live ? (shown ? withCaret(md(full.slice(0, shown), true)) : '') : md(full, false); follow(); };
+    const tick = () => {
+      raf = null;
+      const backlog = full.length - shown;
+      if(backlog > 0){
+        let end = shown + Math.max(2, Math.ceil(backlog / 10));
+        const sp = full.indexOf(' ', end);
+        end = (sp >= 0 && sp - end < 10) ? sp + 1 : Math.min(full.length, end);
+        shown = Math.min(full.length, end);
+        paint(true);
+      }
+      if(shown < full.length) raf = requestAnimationFrame(tick);
+      else if(finished){ paint(false); if(onDrain){ const f = onDrain; onDrain = null; f(); } }
+    };
+    paint(true);
+    return {
+      push(t){ if(!t) return; full += t; setStatus(el, ''); if(!raf) raf = requestAnimationFrame(tick); },
+      text(){ return full; },
+      finish(){ finished = true; return new Promise((res) => { if(shown >= full.length){ paint(false); res(); } else { onDrain = res; if(!raf) raf = requestAnimationFrame(tick); } }); },
+      cut(){ finished = true; full = full.slice(0, shown); if(raf) cancelAnimationFrame(raf); raf = null; paint(false); }
+    };
+  }
+
+  // ---------- sending ----------
+  function setBusy(on){
+    busy = on;
+    sendBtn.classList.toggle('stop', on);
+    sendBtn.setAttribute('aria-label', on ? 'Stop' : 'Send');
+    sendBtn.innerHTML = on
+      ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2.2"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';
+    syncSend();
+    $('chatNewBtn').disabled = !on && !thread.length;
+  }
+  function syncSend(){ sendBtn.disabled = !busy && !input.value.trim(); }
+  function grow(){ input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 132) + 'px'; }
+
+  async function send(text){
+    text = String(text || '').trim();
+    if(!text || busy) return;
+    stopMic();
+    haptic(8);
+    showEmpty(false);
+    input.value = ''; grow();
+    const at = Date.now();
+    addUser(text, at);
+    thread.push({ role: 'user', text, at });
+    const el = addAi(null, at);
+    setStatus(el, 'Thinking…');
+    stick = true; follow();
+    const st = streamer(el);
+    setBusy(true);
+    abortCtl = new AbortController();
+    let failed = null, stopped = false;
+    try {
+      await ensureAuth();
+      const token = await firebase.auth().currentUser.getIdToken();
+      const resp = await fetch(CHAT_URL, {
+        method: 'POST', signal: abortCtl.signal,
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ message: text, context: chatContext() })
+      });
+      if(!resp.ok){
+        let b = null; try { b = await resp.json(); } catch(e){}
+        throw new Error((b && b.error) || `Monstrão AI isn’t reachable right now (${resp.status}).`);
+      }
+      const handle = (ev) => {
+        if(ev.type === 'text') st.push(ev.text);
+        else if(ev.type === 'status') setStatus(el, ev.text);
+        else if(ev.type === 'error') throw new Error(ev.message || 'Something went wrong.');
+      };
+      const parse = (chunk) => {
+        const line = chunk.split('\n').find((l) => l.startsWith('data:'));
+        if(!line) return;
+        let ev; try { ev = JSON.parse(line.slice(5).trim()); } catch(e){ return; }
+        handle(ev);
+      };
+      if(resp.body && resp.body.getReader){
+        const reader = resp.body.getReader(), dec = new TextDecoder(); let buf = '';
+        for(;;){
+          const { value, done } = await reader.read();
+          if(done) break;
+          buf += dec.decode(value, { stream: true });
+          let k; while((k = buf.indexOf('\n\n')) >= 0){ const c = buf.slice(0, k); buf = buf.slice(k + 2); parse(c); }
+        }
+        if(buf.trim()) parse(buf);
+      } else {
+        (await resp.text()).split('\n\n').forEach(parse);
+      }
+    } catch(e){
+      if(e && e.name === 'AbortError') stopped = true;
+      else failed = (e && e.message) || 'Something went wrong.';
+    }
+    setStatus(el, '');
+    if(stopped){ st.cut(); el.classList.add('stopped'); }
+    else await st.finish();
+    const answer = st.text().trim();
+    if(failed && answer){
+      const err = document.createElement('div'); err.className = 'cm-err'; err.innerHTML = '<span></span>';
+      err.querySelector('span').textContent = 'The answer was cut off. ' + failed; el.appendChild(err);
+    }
+    if(failed && !answer){
+      el.querySelector('.cm-body').innerHTML = '';
+      const err = document.createElement('div'); err.className = 'cm-err';
+      err.innerHTML = `<span></span><button type="button">Retry</button>`;
+      err.querySelector('span').textContent = failed;
+      err.querySelector('button').addEventListener('click', () => { el.remove(); const u = log.querySelectorAll('.cm-user'); const last = u[u.length - 1]; if(last) last.remove(); thread.pop(); send(text); });
+      el.appendChild(err);
+      follow();
+    } else if(answer){
+      thread.push({ role: 'assistant', text: answer, at: Date.now() });
+    }
+    if(!failed && !stopped) refreshNotesSoon();
+    abortCtl = null;
+    setBusy(false);
+  }
+  // a `remember` call may have added a note — refresh quietly so the empty page is current
+  let notesTimer = null;
+  function refreshNotesSoon(){
+    clearTimeout(notesTimer);
+    notesTimer = setTimeout(() => { callApi('chat.history').then((h) => { notes = h.notes || []; }).catch(() => {}); }, 1500);
+  }
+
+  // ---------- open / close ----------
+  async function loadHistory(){
+    if(loaded) return;
+    if(!loading) loading = callApi('chat.history').then((h) => {
+      loaded = true;
+      if(!thread.length){ thread = (h.messages || []).map((m) => ({ role: m.role, text: m.text, at: m.at })); }
+      notes = h.notes || [];
+      if(!busy) renderThread();
+    }).catch(() => { loading = null; });
+    return loading;
+  }
+  function fitViewport(){
+    if(overlay.style.display === 'none') return;
+    const vv = window.visualViewport;
+    if(!vv){ return; }
+    overlay.style.top = vv.offsetTop + 'px';
+    overlay.style.height = vv.height + 'px';
+    overlay.style.bottom = 'auto';
+    overlay.classList.toggle('kb', window.innerHeight - vv.height > 120);
+    follow();
+  }
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize', fitViewport);
+    window.visualViewport.addEventListener('scroll', fitViewport);
+  }
+  window.openChat = function(opts){
+    if(!available()) return;
+    opts = opts || {};
+    overlay.style.display = 'flex';
+    document.body.classList.add('chat-open');
+    fitViewport();
+    if(!thread.length && !busy) showEmpty(true);
+    else if(!log.children.length) renderThread();
+    loadHistory();
+    if(opts.ask) setTimeout(() => send(opts.ask), 180);
+    else if(window.matchMedia('(hover: hover)').matches) setTimeout(() => input.focus(), 120);
+    requestAnimationFrame(() => { scroller.scrollTop = scroller.scrollHeight; });
+  };
+  function closeChat(){
+    stopMic();
+    input.blur();
+    overlay.style.display = 'none';
+    overlay.style.top = overlay.style.height = overlay.style.bottom = '';
+    document.body.classList.remove('chat-open');
+  }
+
+  // ---------- wiring ----------
+  $('chatBackBtn').addEventListener('click', () => { haptic(); closeChat(); });
+  document.addEventListener('keydown', (ev) => { if(ev.key === 'Escape' && overlay.style.display !== 'none') closeChat(); });
+  $('chatNewBtn').addEventListener('click', async () => {
+    haptic();
+    if(abortCtl) abortCtl.abort();
+    thread = []; log.innerHTML = ''; lastDay = null; memOpen = false;
+    showEmpty(true);
+    try { await callApi('chat.clear'); } catch(e){}
+  });
+  form.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    if(busy){ if(abortCtl) abortCtl.abort(); return; }
+    send(input.value);
+  });
+  input.addEventListener('input', () => { grow(); syncSend(); });
+  input.addEventListener('keydown', (ev) => {
+    if(ev.key === 'Enter' && !ev.shiftKey && !ev.isComposing){ ev.preventDefault(); if(!busy) send(input.value); }
+  });
+  empty.addEventListener('click', async (ev) => {
+    const s = ev.target.closest('[data-q]');
+    if(s){ send(s.dataset.q); return; }
+    if(ev.target.closest('[data-mem]')){ haptic(); memOpen = !memOpen; renderEmpty(); return; }
+    const f = ev.target.closest('[data-forget]');
+    if(f){
+      haptic();
+      const i = +f.dataset.forget;
+      notes = notes.filter((_, k) => k !== i); renderEmpty();
+      try { const r = await callApi('chat.forget', { index: i }); notes = r.notes || notes; renderEmpty(); } catch(e){}
+    }
+  });
+
+  // floating button: shows its label at the top of the page, shrinks to the icon once you scroll
+  fab.addEventListener('click', () => { haptic(); openChat(); });
+  let fabTick = false;
+  window.addEventListener('scroll', () => {
+    if(fabTick) return; fabTick = true;
+    requestAnimationFrame(() => { fabTick = false; fab.classList.toggle('compact', (window.scrollY || 0) > 140); });
+  }, { passive: true });
+  // keep it out of the way while typing on the main page (iOS floats fixed elements over the keyboard)
+  document.addEventListener('focusin', (ev) => {
+    if(overlay.contains(ev.target)) return;
+    if(ev.target.matches && ev.target.matches('input:not([type=checkbox]):not([type=radio]):not([type=date]), textarea')){ document.body.classList.add('typing'); fab.classList.add('hide'); }
+  });
+  document.addEventListener('focusout', () => {
+    setTimeout(() => {
+      const a = document.activeElement;
+      if(a && a.matches && a.matches('input, textarea') && !overlay.contains(a)) return;
+      document.body.classList.remove('typing'); refreshChatEntry();
+    }, 60);
+  });
+
+  // menu item + Trends shortcut
+  const menuBtn = $('openChatBtn');
+  if(menuBtn) menuBtn.addEventListener('click', () => {
+    $('appMenuDropdown').style.display = 'none'; $('appMenuBtn').classList.remove('open'); $('appMenuBtn').setAttribute('aria-expanded', 'false');
+    haptic(); openChat();
+  });
+  const trendBtn = $('trendAskBtn');
+  if(trendBtn) trendBtn.addEventListener('click', () => { haptic(); openChat({ ask: trendQuestion() }); });
+
+  // ---------- voice ----------
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let rec = null, listening = false, base = '';
+  function stopMic(){ if(rec && listening){ try { rec.stop(); } catch(e){} } }
+  if(!SR){ micBtn.style.display = 'none'; }
+  else {
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = navigator.language || 'en-US';
+    rec.onstart = () => { listening = true; micBtn.classList.add('listening'); };
+    rec.onend = () => { listening = false; micBtn.classList.remove('listening'); };
+    rec.onerror = () => {};
+    rec.onresult = (e) => {
+      let interim = '', fin = '';
+      for(let i = e.resultIndex; i < e.results.length; i++){ const t = e.results[i][0].transcript; if(e.results[i].isFinal) fin += t + ' '; else interim += t; }
+      if(fin) base += fin;
+      input.value = (base + interim).trim(); grow(); syncSend();
+    };
+    micBtn.addEventListener('click', () => {
+      haptic();
+      if(listening){ rec.stop(); return; }
+      base = input.value ? input.value.trim() + ' ' : '';
+      try { rec.start(); } catch(e){}
+    });
+  }
+})();
+
+// The question the Trends shortcut asks, in words that match the period on screen.
+function trendQuestion(){
+  const r = trendRange(trendHorizon, trendOffset);
+  const o = trendOffset;
+  let p;
+  if(trendHorizon === 'month') p = o === 0 ? 'this month' : r.startDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  else if(trendHorizon === 'year') p = o === 0 ? 'this year' : String(r.startDate.getFullYear());
+  else p = o === 0 ? 'this week' : o === 1 ? 'last week' : 'the week of ' + r.startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return `How did ${p} go?`;
+}
+function trendAskLabel(){
+  const o = trendOffset;
+  if(trendHorizon === 'month') return o === 0 ? 'Ask about this month' : 'Ask about ' + trendRange(trendHorizon, o).startDate.toLocaleDateString('en-US', { month: 'long' });
+  if(trendHorizon === 'year') return o === 0 ? 'Ask about this year' : 'Ask about ' + trendRange(trendHorizon, o).startDate.getFullYear();
+  return o === 0 ? 'Ask about this week' : o === 1 ? 'Ask about last week' : 'Ask about ' + trendPeriodLabel(trendHorizon, o);
+}
 </script>
 </body>
 </html>

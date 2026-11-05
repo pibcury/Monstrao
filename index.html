@@ -960,19 +960,127 @@
 
   .burn-source-note{font-size:12px;color:var(--muted);background:var(--accent-soft);border-radius:10px;padding:9px 11px;margin:0 0 14px;line-height:1.45;}
 
-  /* ===================== wearables ===================== */
-  .wear-card{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:16px;margin-bottom:12px;}
-  .wear-card.dim{opacity:.72;}
-  .wear-head{display:flex;align-items:center;gap:12px;}
-  .wear-logo{width:40px;height:40px;border-radius:12px;background:var(--surface-2);border:1px solid var(--rule);
-    display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:700;font-size:17px;color:var(--ink);flex-shrink:0;}
-  .wear-name{font-family:'Sora',sans-serif;font-weight:600;font-size:15.5px;letter-spacing:-0.01em;}
-  .wear-status{font-size:12px;color:var(--muted);margin-top:2px;}
-  .wear-status.ok{color:var(--accent);}
-  .wear-body{font-size:13px;color:var(--muted);line-height:1.5;margin:12px 0 0;}
-  .wear-err{color:var(--surplus);}
-  .wear-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
-  .wear-actions .btn-primary{width:100%;}
+  /* ===================== Apple Health page ===================== */
+  .ah-ico{width:16px;height:16px;flex-shrink:0;vertical-align:-3px;}
+  .ah-hero{display:flex;align-items:center;gap:14px;margin:2px 0 12px;}
+  .ah-tile{width:54px;height:54px;border-radius:15px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -10px rgba(255,55,95,0.55);flex-shrink:0;}
+  .ah-tile .ah-ico{width:32px;height:32px;}
+  .ah-title{font-family:'Sora',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em;}
+  .ah-status{font-size:12.5px;color:var(--muted);margin-top:2px;font-weight:600;}
+  .ah-status.ok{color:var(--deficit);}
+  .ah-intro{font-size:13.5px;line-height:1.55;color:var(--muted);margin:0 0 16px;}
+  .ah-intro b{color:var(--ink);}
+  .ah-steps{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .ah-step{display:flex;gap:12px;background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:14px;}
+  .ah-step > div{flex:1;min-width:0;}
+  .ah-step b{font-size:14.5px;}
+  .ah-step p{font-size:12.8px;line-height:1.5;color:var(--muted);margin:5px 0 0;}
+  .ah-step p b{font-size:inherit;color:var(--ink);}
+  .ah-num{width:26px;height:26px;border-radius:13px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:13px;}
+  .ah-step.done .ah-num{background:rgba(74,222,128,0.16);color:var(--deficit);}
+  .ah-key{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 8px 8px 12px;border-radius:12px;background:var(--surface-2);border:1px dashed var(--rule);}
+  .ah-key code{flex:1;min-width:0;font:600 13.5px/1.3 ui-monospace,Menlo,monospace;color:var(--ink);word-break:break-all;user-select:all;-webkit-user-select:all;}
+  .ah-add{display:block;text-align:center;text-decoration:none;margin-top:10px;width:100%;box-sizing:border-box;}
+  .ah-wait{display:flex;align-items:center;gap:8px;color:var(--accent) !important;font-weight:600;}
+  .ah-wait i{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:caretPulse 1s ease-in-out infinite;}
+  .ah-use{display:flex;align-items:center;gap:10px;padding:12px 12px 12px 14px;margin-bottom:12px;border-radius:14px;background:var(--accent-soft);border:1px solid rgba(76,141,255,0.35);font-size:13px;}
+  .ah-use span{flex:1;}
+  .ah-card{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:14px;margin-bottom:12px;}
+  .ah-card-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;}
+  .ah-card-h small{color:var(--muted);font-size:12px;}
+  .ah-day{display:grid;grid-template-columns:92px 50px 1fr 44px;align-items:center;gap:8px;padding:6px 0;font-size:12.8px;position:relative;}
+  .ah-day em{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right;font-size:12px;}
+  .ah-src{display:flex;flex-direction:column;gap:8px;}
+  .ah-src-opt{display:flex;flex-direction:column;gap:3px;text-align:left;padding:11px 12px;border-radius:12px;border:1.5px solid var(--rule);background:var(--surface-2);color:var(--ink);cursor:pointer;}
+  .ah-src-opt b{font-size:13.5px;} .ah-src-opt small{font-size:11.8px;color:var(--muted);line-height:1.4;}
+  .ah-src-opt.on{border-color:var(--accent);background:var(--accent-soft);}
+  .ah-day span{color:var(--muted);font-weight:600;}
+  .ah-day b{text-align:right;font-variant-numeric:tabular-nums;}
+  .ah-day .ah-bar{height:6px;border-radius:3px;background:rgba(255,55,95,0.12);overflow:hidden;display:block;}
+  .ah-day .ah-bar i{display:block;height:100%;border-radius:3px;background:#FF375F;}
+  .ah-day.off{opacity:.45;}
+  .ah-day.off small{position:absolute;right:56px;font-size:10px;color:var(--muted);}
+  .ah-foot{font-size:11.5px;color:var(--muted);margin:8px 0 0;}
+  .ah-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;background:none;border:0;padding:10px 2px;color:var(--ink);font-size:13.5px;font-weight:700;cursor:pointer;}
+  .ah-toggle span{color:var(--muted);}
+  .ah-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:6px;}
+  /* Profile: daily burn */
+  .bm-formula{display:flex;align-items:stretch;gap:6px;margin:4px 0 10px;}
+  .bm-formula span{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px;border-radius:12px;background:var(--surface-2);font-size:11.5px;color:var(--muted);font-weight:600;text-align:center;}
+  .bm-formula span b{font-size:12.5px;color:var(--ink);}
+  .bm-formula i{font-style:normal;align-self:center;color:var(--muted);font-weight:700;}
+  .bm-explain{font-size:12.5px;line-height:1.5;color:var(--muted);margin:0 0 12px;}
+  .bm-explain.small{font-size:11.5px;margin:10px 0 0;}
+  .bm-opts2{display:flex;flex-direction:column;gap:8px;}
+  .bm-opt2{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 14px;border-radius:14px;background:var(--surface-2);border:1.5px solid var(--rule);color:var(--ink);cursor:pointer;transition:all .18s ease;}
+  .bm-opt2.active{border-color:var(--accent);background:var(--accent-soft);}
+  .bm-ico{width:36px;height:36px;border-radius:11px;background:rgba(244,245,250,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .bm-ico .ah-ico{width:20px;height:20px;}
+  .bm-act-ico{width:20px;height:20px;color:var(--accent);}
+  .bm-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+  .bm-txt b{font-size:14px;display:flex;align-items:center;gap:8px;}
+  .bm-txt b em{font-style:normal;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(74,222,128,0.14);color:var(--deficit);}
+  .bm-txt small{font-size:11.8px;color:var(--muted);line-height:1.4;font-weight:500;}
+  .bm-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--rule);flex-shrink:0;box-sizing:border-box;}
+  .bm-opt2.active .bm-radio{border:5px solid var(--accent);}
+  /* Burn card: base + active */
+  .bc-top{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:2px 0 10px;}
+  .bc-when{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+  .bc-src{font-size:13px;color:var(--ink);margin-top:3px;font-weight:600;}
+  .bc-total{font-family:'Sora',sans-serif;font-weight:700;font-size:30px;letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums;}
+  .bc-total small{font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);font-weight:600;margin-left:4px;letter-spacing:0;}
+  .bc-bar{display:flex;height:12px;border-radius:6px;overflow:hidden;gap:2px;margin-bottom:12px;background:rgba(244,245,250,0.05);}
+  .bc-bar i:first-child{border-radius:6px 0 0 6px;} .bc-bar i:last-child{border-radius:0 6px 6px 0;}
+  .bc-row{position:relative;}
+  .bc-pen{flex-shrink:0;width:30px;height:30px;margin:-4px -4px 0 0;padding:0;border-radius:15px;border:0;background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .bc-pen svg{width:15px;height:15px;}
+  .bc-pen:active{background:rgba(244,245,250,0.08);color:var(--ink);}
+  .bc-edited{font-style:normal;font-size:10px;font-weight:700;margin-left:7px;padding:2px 6px;border-radius:999px;background:rgba(255,159,67,0.15);color:var(--warn);vertical-align:1px;}
+  .bc-num.muted{color:var(--muted);font-size:13px;}
+  .bc-main small .ah-ico{width:12px;height:12px;margin-right:3px;vertical-align:-2px;}
+  .bc-info-btn{display:block;margin:10px 0 0;background:none;border:0;padding:4px 0;color:var(--accent);font-size:12.5px;font-weight:700;cursor:pointer;}
+  .bc-info{margin-top:6px;padding:12px 13px;border-radius:12px;background:var(--surface-2);font-size:12.3px;line-height:1.5;color:var(--muted);}
+  .bc-info p{margin:0 0 8px;} .bc-info p:last-child{margin:0;} .bc-info b{color:var(--ink);} .bc-info a{color:var(--accent);}
+  .bc-bar i{display:block;height:100%;transition:width .5s ease;}
+  .bc-bar.dim, .bc-rows.dim{opacity:.45;}
+  .bc-rows{border:1px solid var(--rule);border-radius:14px;overflow:hidden;}
+  .bc-row{display:flex;align-items:flex-start;gap:10px;padding:12px;}
+  .bc-row + .bc-row{border-top:1px solid var(--rule);}
+  .bc-dot{width:10px;height:10px;border-radius:3px;margin-top:4px;flex-shrink:0;}
+  .bc-dot.base{background:#4C8DFF;} .bc-dot.act{background:#FF375F;}
+  .bc-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+  .bc-main b{font-size:14px;}
+  .bc-main small{font-size:12px;color:var(--muted);line-height:1.4;}
+  .bc-main small.bc-calc{font-variant-numeric:tabular-nums;opacity:.85;}
+  .bc-ah{display:inline-flex;align-items:center;gap:3px;color:var(--ink);font-weight:600;}
+  .bc-ah .ah-ico{width:12px;height:12px;}
+  .bc-num{font-family:'Sora',sans-serif;font-weight:600;font-size:16px;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .bc-acts{display:flex;gap:14px;margin-top:4px;}
+  .bc-link{align-self:flex-start;background:none;border:0;padding:2px 0;color:var(--accent);font-size:12.5px;font-weight:700;cursor:pointer;border-radius:4px;}
+  .bc-extra{padding:0 12px 12px 32px;}
+  .bc-row + .bc-extra{margin-top:-4px;}
+  .bc-levels{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+  .bc-level{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px;border-radius:11px;border:1.5px solid var(--rule);background:var(--surface-2);color:var(--muted);font-size:10.5px;font-weight:700;cursor:pointer;line-height:1.1;}
+  .bc-level.on{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);}
+  .bc-level-ico{width:17px;height:17px;}
+  .bc-level.on .bc-level-ico{color:var(--accent);}
+  .bc-edit{display:flex;align-items:center;gap:6px;margin-top:8px;}
+  .bc-edit input{width:88px;margin:0;padding:7px 9px;}
+  .bc-edit span{font-size:12px;color:var(--muted);margin-right:auto;}
+  .bc-manual{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:12px;border-radius:12px;background:rgba(255,159,67,0.09);border:1px solid rgba(255,159,67,0.3);font-size:12.5px;line-height:1.4;}
+  .bc-manual span{flex:1;}
+  .bc-ownbtn{display:block;margin:12px auto 0;background:none;border:0;padding:6px 10px;color:var(--muted);font-size:12.5px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+  .bc-own{margin-top:10px;padding:12px;border-radius:14px;background:var(--surface-2);border:1px solid var(--rule);}
+  .bc-own-row{display:flex;gap:8px;}
+  .bc-own-row input{flex:1;margin:0;}
+  .bc-own-row .btn-primary{width:auto;padding:10px 18px;margin:0;}
+  .bc-own-note{font-size:11.5px;color:var(--muted);margin:8px 0 0;}
+  .bc-promo{display:flex;align-items:center;gap:10px;width:100%;margin-top:12px;padding:11px 12px;border-radius:13px;border:1px solid rgba(255,55,95,0.28);background:rgba(255,55,95,0.07);color:var(--ink);text-align:left;font-size:12.5px;font-weight:500;line-height:1.4;cursor:pointer;}
+  .bc-promo b{font-weight:700;}
+  .bc-promo span{flex:1;}
+  .bc-promo i{font-style:normal;color:var(--muted);font-size:18px;}
+  .bc-empty{display:flex;flex-direction:column;gap:6px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.45;}
+  .bc-empty b{color:var(--ink);}
   .btn-small.wear-danger{color:var(--surplus);border-color:rgba(255,92,122,0.35);}
   .btn-small.btn-accent{background:var(--accent-strong);border-color:var(--accent-strong);color:#FFFFFF;}
 
@@ -1040,7 +1148,8 @@
   .header-stats{margin:0 0 10px;}
   .app-header-inner > .date-selector{margin:0 0 16px;}
   /* rings: goal + signed difference */
-  .metric-goal{gap:0 3px;font-size:10.5px;flex-wrap:wrap;letter-spacing:-0.01em;}
+  .metric-goal{gap:0 3px;font-size:10.5px;flex-wrap:nowrap;white-space:nowrap;overflow:hidden;max-width:100%;letter-spacing:-0.01em;justify-content:center;}
+  .metric-goal .mg-sep{color:var(--muted);opacity:.6;margin:0 1px;}
   .metric-goal > *{white-space:nowrap;}
   .metric{padding-left:3px;padding-right:3px;}
   .header-stats, .header-stat{font-variant-numeric:normal;}
@@ -1171,7 +1280,17 @@
   .metric{--m:var(--accent);--m-soft:transparent;}
   /* balance cards: Total / vs. goal switch */
   .balances{width:100%;}
-  .balances .wk{margin-top:12px;}
+  .balances .wk{margin-top:0;}
+  .wp{width:100%;margin-top:12px;padding:14px 14px 6px;border-radius:18px;background:rgba(255,255,255,0.025);border:1px solid rgba(244,245,250,0.07);box-sizing:border-box;}
+  .wp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px;}
+  .wp-title{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);}
+  .wp-sub{font-size:11px;color:var(--muted);margin-top:3px;font-weight:600;}
+  .wp .wk{background:none;border:0;border-radius:0;padding:12px 0 4px;margin:0;border-top:1px solid rgba(244,245,250,0.07);}
+  .wp .wk:first-of-type{border-top:0;}
+  .wp .wk-head{align-items:center;}
+  .wp .wk-title{display:flex;align-items:center;gap:7px;font-size:13px;}
+  .wp-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .wp .wk-val{font-size:19px;}
   .wk-head{align-items:flex-start;}
   .wk-left{display:flex;flex-direction:column;gap:8px;min-width:0;}
   .wk-mode{color:var(--muted);font-weight:600;}
@@ -1350,6 +1469,67 @@
   .chat-fine{text-align:center;font-size:10.5px;color:var(--muted);opacity:.75;margin-top:7px;}
   .chat-overlay.kb .chat-fine{display:none;}
   body.chat-open{overflow:hidden;}
+  .trend-note{margin:10px 2px 0;font-size:11px;line-height:1.35;color:var(--muted);text-align:center;}
+  #myGoals{margin-bottom:16px;}
+  /* macro colors + calorie quality mix */
+  .metric[data-macro="protein"]{--m:#2DD4BF;} .metric[data-macro="carbs"]{--m:#FBBF24;} .metric[data-macro="fat"]{--m:#A78BFA;}
+  .metric[data-macro] .metric-name::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--m);margin-right:6px;vertical-align:1px;}
+  .dq2-head{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .dq-ask{display:inline-flex;align-items:center;gap:5px;padding:5px 10px 5px 8px;border-radius:999px;border:1px solid rgba(76,141,255,0.35);background:rgba(76,141,255,0.10);color:var(--ink);font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
+  .dq-ask svg{width:12px;height:12px;color:var(--accent);}
+  .dq-ask:active{background:rgba(76,141,255,0.22);}
+  .dq2-legend{display:flex;gap:12px;margin:9px 0 10px;font-size:11px;font-weight:600;color:var(--muted);}
+  .dq2-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .dq2-legend i{width:8px;height:8px;border-radius:50%;}
+  .dq2-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+  .dq2-lbl{width:52px;flex-shrink:0;font-size:11.5px;font-weight:700;color:var(--muted);}
+  .mix-bar{flex:1;min-width:0;display:flex;gap:2px;height:24px;border-radius:8px;overflow:hidden;}
+  .mix-bar.empty{background:rgba(244,245,250,0.05);border:1px dashed rgba(244,245,250,0.12);align-items:center;justify-content:center;font-size:11px;color:var(--muted);font-weight:600;}
+  .mix-seg{display:flex;align-items:center;justify-content:center;min-width:3px;transition:flex-basis .6s cubic-bezier(.2,.9,.3,1);}
+  .mix-seg b{font-size:11px;font-weight:800;color:#0D0E13;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;}
+  .dq2-note{margin:9px 0 2px;font-size:11.5px;color:var(--muted);line-height:1.35;}
+  .dq2-note.ok{color:var(--deficit);}
+  .date-selector.in-card{margin:2px 0 14px;padding-bottom:12px;border-bottom:1px solid rgba(244,245,250,0.07);}
+  /* Food card: input mode switch, suggestions, compact list */
+  .fseg{position:relative;display:grid;grid-template-columns:1fr 1fr;width:100%;padding:3px;border-radius:12px;background:var(--surface-2);border:1px solid var(--rule);}
+  .fseg button{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:6px;border:0;background:none;padding:8px 6px;border-radius:9px;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:color .2s ease;}
+  .fseg button.on{color:var(--ink);}
+  .fseg button .ai-sparkle{color:var(--accent);}
+  .fseg-thumb{position:absolute;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);border-radius:9px;background:var(--accent-soft);border:1px solid rgba(76,141,255,0.35);transition:transform .3s cubic-bezier(.2,.9,.3,1);}
+  .fseg:has(button[data-imode="manual"].on) .fseg-thumb{transform:translateX(100%);}
+  .food-input-head{margin-bottom:10px;}
+  .sugg{display:none;margin-top:8px;border-radius:12px;border:1px solid var(--rule);background:var(--surface-2);overflow:hidden;}
+  .sugg.on{display:block;animation:chatIn .25s ease both;}
+  .sugg-h{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:8px 12px 4px;}
+  .sugg-row{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:8px 10px 8px 12px;border:0;border-top:1px solid rgba(244,245,250,0.06);background:none;color:var(--ink);cursor:pointer;border-radius:0;}
+  .sugg-row:first-of-type{border-top:0;}
+  .sugg-row:active{background:rgba(76,141,255,0.10);}
+  .sugg-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+  .sugg-txt b{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .sugg-txt small{font-size:11px;color:var(--muted);font-weight:500;display:flex;flex-wrap:wrap;gap:0 4px;}
+  .sugg-txt small b{font-size:11px;font-weight:700;color:var(--ink);}
+  .sugg-txt small i{font-style:normal;opacity:.5;}
+  .sugg-plus{width:28px;height:28px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-size:18px;font-weight:600;line-height:1;}
+  .fl{margin-top:2px;}
+  .fl-total{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 6px;padding:10px 12px;border-radius:12px;background:rgba(76,141,255,0.07);border:1px solid rgba(76,141,255,0.16);font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px;}
+  .fl-total b{font-family:'Sora',sans-serif;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .fl-total i, .fi-nums i{font-style:normal;opacity:.45;}
+  .fl-total-lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;margin-right:4px;}
+  .fi{display:flex;align-items:center;gap:8px;padding:10px 2px 10px 0;border-bottom:1px solid rgba(244,245,250,0.07);}
+  .fi:last-child{border-bottom:0;}
+  .fi-main{flex:1;min-width:0;}
+  .fi-name{font-size:14px;font-weight:600;line-height:1.3;color:var(--ink);display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 7px;}
+  .fi-src{font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:999px;background:rgba(244,245,250,0.07);color:var(--muted);}
+  .fi-src.ai{background:rgba(76,141,255,0.14);color:#8DB6FF;}
+  .fi-nums{display:flex;flex-wrap:wrap;gap:1px 5px;margin-top:3px;font-size:11.5px;color:var(--muted);font-weight:500;}
+  .fi-nums b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .fi-edit{flex-shrink:0;width:32px;height:32px;padding:0;border-radius:16px;border:0;background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .fi-edit svg{width:15px;height:15px;}
+  .fi-edit:active{background:rgba(244,245,250,0.08);color:var(--ink);}
+  .fi.editing{display:block;padding:12px;margin:6px 0;border-radius:14px;background:var(--surface-2);border:1px solid rgba(76,141,255,0.3);}
+  .ie-nums-lbl{display:grid;gap:6px;margin:4px 0 3px;font-size:10px;font-weight:600;color:var(--muted);text-align:center;}
+  .fi-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
+  .fi-del{background:none;border:0;padding:6px 2px;color:var(--surplus);font-size:12.5px;font-weight:700;cursor:pointer;}
   /* History page */
   #historyOverlay .month-nav{margin:0 0 12px;}
   .hist-scroll.hist-scroll-page, .hist-scroll.hist-scroll-page.hist-scroll-expanded{max-height:none;overflow:visible;}
@@ -1384,7 +1564,7 @@
       <button class="app-menu-item" id="openProfileBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span><b>Profile</b><small>Name, age, height, weight</small></span></button>
       <button class="app-menu-item" id="openGoalsBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span><span><b>Goals</b><small>Your daily targets</small></span></button>
       <button class="app-menu-item" id="openHistoryBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span><b>History</b><small>Every day you’ve logged</small></span></button>
-      <button class="app-menu-item" id="openWearablesBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 6l.6-3h4.8L15 6M9 18l.6 3h4.8L15 18M12 9.5V12l1.6 1.2"/></svg></span><span><b>Wearables</b><small>Sync burn from WHOOP</small></span></button>
+      <button class="app-menu-item" id="openWearablesBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.3 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10Z"/><path d="M4.5 12.5h4l1.5-2.5 2.5 5 1.5-2.5h5.5"/></svg></span><span><b>Apple Health</b><small>Active energy from your watch or ring</small></span></button>
       <button class="app-menu-item" id="openExportBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19.5h14"/></svg></span><span><b>Export data</b><small>CSV or JSON, any dates</small></span></button>
       <button class="app-menu-item" id="openAdminBtn" type="button" style="display:none;"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></span><span><b>Admin console</b><small>Members, invites, usage</small></span></button>
       <button class="app-menu-item app-menu-signout" id="signOutBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4"/></svg></span><span><b>Sign out</b></span></button>
@@ -1396,7 +1576,12 @@
       <div class="header-stats" id="headerStats">
         <span class="header-stat"><span id="streakVal">0</span>-day streak</span>
       </div>
-      <div class="date-selector" id="globalDateSelector">
+      <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
+
+      <div class="ring-section" id="ringSection">
+        <div class="metrics-panel">
+    <div class="today-card">
+      <div class="date-selector in-card" id="globalDateSelector">
           <button class="date-nav-btn" id="dateSelPrevBtn" type="button" aria-label="Previous day">‹</button>
           <label class="date-sel-pick" id="dateSelPick">
             <span class="date-sel-label" id="dateSelLabel">Today</span>
@@ -1405,11 +1590,6 @@
           </label>
           <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
         </div>
-      <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
-
-      <div class="ring-section" id="ringSection">
-        <div class="metrics-panel">
-    <div class="today-card">
     <div class="metrics metrics-top">
       <div class="metric metric-cal">
         <div class="metric-name">Calories</div>
@@ -1513,19 +1693,21 @@
       </div>
 
       <div class="food-input-head" id="foodInputHead">
-        <span id="foodInputHeadLabel">Describe what you ate</span>
-        <button class="food-input-switch" id="inputSwitchBtn" type="button"></button>
+        <div class="fseg" role="group" aria-label="How to add food">
+          <button type="button" data-imode="ai" class="on"><svg class="ai-sparkle" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg>Ask AI</button><button type="button" data-imode="manual">Manual entry</button><i class="fseg-thumb"></i>
+        </div>
       </div>
 
       <div id="manualInputView" style="display:none;">
-        <input type="text" id="itemDesc" class="food-desc-input" placeholder="e.g. Chicken breast, 6 oz">
+        <input type="text" id="itemDesc" class="food-desc-input" placeholder="Food name" autocomplete="off">
+        <div class="sugg" id="manSugg"></div>
         <div class="nutri-grid" id="manualNutri"></div>
         <button class="btn-add btn-add-wide" id="addItemBtn" type="button">Add</button>
       </div>
 
       <div id="aiInputView">
         <div class="ai-desc-wrap">
-          <textarea id="aiDesc" rows="3" placeholder="e.g. Grilled chicken breast, about 6oz, with a tablespoon of olive oil and a side of steamed broccoli"></textarea>
+          <textarea id="aiDesc" rows="3" placeholder="Describe your food"></textarea>
           <button class="ai-desc-clear" id="aiDescClearBtn" type="button" aria-label="Clear text">✕</button>
           <div class="ai-desc-tools">
             <button class="ai-desc-icon-btn" id="aiMicBtn" type="button" aria-label="Voice input">
@@ -1550,7 +1732,8 @@
           <button class="ai-photo-remove" id="aiPhotoRemoveBtn" type="button" aria-label="Remove photo">✕</button>
         </div>
 
-        <button class="btn-primary burn-variant" id="aiEstimateBtn" type="button" style="margin-top:10px;">Estimate calories</button>
+        <div class="sugg" id="aiSugg"></div>
+        <button class="btn-primary burn-variant" id="aiEstimateBtn" type="button" style="margin-top:10px;">Estimate</button>
         <p class="status" id="aiStatus"></p>
         <div id="aiResult" style="display:none;">
           <div class="field" style="margin-top:2px;margin-bottom:12px;">
@@ -1585,18 +1768,15 @@
       <span class="burn-chevron" id="burnChevron">›</span>
     </button>
     <div id="burnFormWrap" style="display:none;">
-      <p class="burn-source-note" id="burnSourceNote" style="display:none;"></p>
-      <div class="missing-days-alert" id="burnMissingAlert" style="display:none;">
-        <div class="missing-days-head"><span class="warn-dot"></span><span id="burnMissingText"></span></div>
-        <div class="missing-days-list" id="burnMissingList"></div>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label for="burnedInput">Calories burned</label>
+      <div id="burnBreakdown"></div>
+      <div class="bc-own" id="burnOwn" style="display:none;">
+        <label for="burnedInput" id="burnOwnLbl">Your total for the day</label>
+        <div class="bc-own-row">
           <input type="number" id="burnedInput" placeholder="kcal" inputmode="numeric">
+          <button class="btn-primary burn-variant" id="saveBurnBtn" type="button">Save</button>
         </div>
+        <p class="bc-own-note">Replaces base + active for this day only. You can switch back any time.</p>
       </div>
-      <button class="btn-primary burn-variant" id="saveBurnBtn" type="button">Save burn</button>
       <p class="status" id="burnStatus"></p>
     </div>
   </div>
@@ -1748,6 +1928,7 @@
       </div>
     </div>
     <div class="dq" id="dqT"></div>
+    <p class="trend-note">Averages and balances leave out today — it’s still in progress.</p>
     </div>
     <div class="balances" id="balancesT"></div>
   </div>
@@ -2036,11 +2217,11 @@
   </div>
 </div>
 
-<!-- ============ Wearables ============ -->
-<div class="page-overlay" id="wearablesOverlay" style="display:none;">
+<!-- ============ Apple Health ============ -->
+<div class="page-overlay" id="healthOverlay" style="display:none;">
   <div class="overlay-topbar">
     <button class="overlay-back" id="wearablesBackBtn" type="button" aria-label="Back">Back</button>
-    <div class="overlay-title">Wearables</div>
+    <div class="overlay-title">Apple Health</div>
   </div>
   <div class="overlay-scroll" id="wearablesBody"></div>
 </div>
@@ -2269,12 +2450,20 @@ function consumedMacro(e, m){
   return null;
 }
 // share of the day's calories that came from a macro, in %
+// When the day has all three macros, the share is of the calories the macros themselves account for
+// (protein×4 + carbs×4 + fat×9), so protein + carbs + fat always add up to 100% — like the goals do.
+// Logged calories rarely equal that sum exactly (rounding, fibre, alcohol), which is why we don't
+// divide by them. Days missing a macro (older entries) fall back to the share of logged calories.
 function macroShareForDate(iso, m){
   const e = entries[iso];
   if(!e) return null;
-  const cal = consumedTotal(e), g = consumedMacro(e, m);
-  if(!cal || g == null) return null;
-  return g * MACRO_INFO[m].kcal / cal * 100;
+  const g = consumedMacro(e, m);
+  if(g == null) return null;
+  const all = MACROS.map(x => consumedMacro(e, x));
+  const sum = all.every(v => v != null) ? all.reduce((s, v, i) => s + v * MACRO_INFO[MACROS[i]].kcal, 0) : 0;
+  if(sum > 0) return g * MACRO_INFO[m].kcal / sum * 100;
+  const cal = consumedTotal(e);
+  return cal ? g * MACRO_INFO[m].kcal / cal * 100 : null;
 }
 function hasBurned(e){ return !!e && typeof e.burned === 'number'; }
 function net(e){
@@ -2382,7 +2571,25 @@ function renderMetricRing(key, s, o){
   }
   fig.textContent = fmtN(o.value);
 
-  if(goalEl) goalEl.innerHTML = goalDiffHTML(o.value, o.goal, o.overIsBad, '');
+  if(goalEl){
+    goalEl.innerHTML = goalDiffHTML(o.value, o.goal, o.overIsBad, '');
+    if(!s && o.goal && o.value != null){
+      const d = Math.round(o.value - o.goal), isToday = selectedDate === todayStr();
+      let txt, cls;
+      if(d > 0){ txt = `${fmtN(d)} over`; cls = o.overIsBad ? 'mg-over' : 'mg-hit'; }
+      else if(d === 0){ txt = 'on goal'; cls = 'mg-hit'; }
+      else { txt = `${fmtN(-d)} ${isToday ? (key === 'Burn' ? 'to go' : 'left') : 'under'}`; cls = 'mg-under'; }
+      goalEl.innerHTML += `<span class="mg-sep">·</span><span class="${cls}">${txt}</span>`;
+    }
+    fitOneLine(goalEl);
+  }
+}
+// Keeps a short label on one line: shrinks the font a step at a time until it fits its box.
+function fitOneLine(el){
+  el.style.fontSize = '';
+  if(!el.clientWidth) return;
+  let size = parseFloat(getComputedStyle(el).fontSize) || 10.5;
+  while(el.scrollWidth > el.clientWidth + 0.5 && size > 7.5){ size -= 0.5; el.style.fontSize = size + 'px'; }
 }
 // "−506" / "+120" with a real minus sign.
 function signedN(v){ const r = Math.round(v); return (r > 0 ? '+' : r < 0 ? '−' : '±') + Math.abs(r).toLocaleString(); }
@@ -2422,33 +2629,45 @@ function showTrackedMacros(){
     el.dataset.n = tracked.length;
   });
 }
-// Calorie quality: one 0–100% ruler per tracked macro — that macro's share of the calories eaten —
-// filled blue up to its goal share (the tick) and white past it, like the rings. The goal share
-// comes from the gram targets, so it's never set on its own. s: '' (main) or 'T' (Trends).
+// Calorie quality: two stacked 100% rulers — the goal mix (from the gram targets) and the actual mix
+// (from the day's food, or the period average in Trends) — split into protein, carbs and fat in each
+// macro's color, with each share printed on its segment. s: '' (main) or 'T' (Trends).
+const MACRO_COLOR = { protein: '#2DD4BF', carbs: '#FBBF24', fat: '#A78BFA' };
+const SPARK_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg>';
+function mixBarHTML(shares, emptyText){
+  const vals = MACROS.map(m => shares && typeof shares[m] === 'number' ? Math.max(0, shares[m]) : null);
+  if(vals.some(v => v == null) || !vals.reduce((a, b) => a + b, 0)) return `<div class="mix-bar empty"><span>${emptyText}</span></div>`;
+  const sum = vals.reduce((a, b) => a + b, 0);
+  // rounded shares that still add up to exactly 100
+  const exact = vals.map(v => v / sum * 100), rounded = exact.map(Math.floor);
+  let left = 100 - rounded.reduce((a, b) => a + b, 0);
+  exact.map((v, i) => [v - Math.floor(v), i]).sort((a, b) => b[0] - a[0]).forEach(([, i]) => { if(left > 0){ rounded[i]++; left--; } });
+  return `<div class="mix-bar">${MACROS.map((m, i) => `<i class="mix-seg" style="flex-basis:${exact[i].toFixed(2)}%;background:${MACRO_COLOR[m]}" title="${MACRO_INFO[m].label} ${rounded[i]}%">${exact[i] >= 9 ? `<b>${rounded[i]}%</b>` : ''}</i>`).join('')}</div>`;
+}
 function renderQualityList(s, shares, t){
   const el = document.getElementById('dq' + s);
   if(!el) return;
-  const tracked = trackedMacros();
-  if(!tracked.length){ el.style.display = 'none'; el.innerHTML = ''; el.dataset.sig = ''; return; }
   el.style.display = '';
-  const sig = tracked.join(',');
-  if(el.dataset.sig !== sig){
-    el.dataset.sig = sig;
-    el.innerHTML = '<div class="dq-title">Calorie quality</div>' + tracked.map(m => `
-      <div class="dq-row" data-q="${m}">
-        <div class="dq-row-head"><span class="dq-name">${MACRO_INFO[m].label}</span>
-          <span class="dq-figs"><b class="dq-num"></b><span class="dq-goal"></span></span></div>
-        <div class="dq-track"><div class="dq-fill"></div><div class="dq-over"></div><div class="dq-goal-tick"></div></div>
-      </div>`).join('') + '<div class="dq-axis"><span>0%</span><span>50%</span><span>100%</span></div>';
-  }
-  tracked.forEach(m => {
-    const row = el.querySelector(`[data-q="${m}"]`);
-    const v = shares[m], g = t ? t.qualityTargets[m] : null;
-    row.querySelector('.dq-num').textContent = v != null ? Math.round(v) + '%' : '—';
-    row.querySelector('.dq-goal').innerHTML = `Goal <b>${g != null ? g + '%' : '—'}</b>`;
-    paintQualityTrack(row.querySelector('.dq-fill'), row.querySelector('.dq-over'), row.querySelector('.dq-goal-tick'), v, g);
-  });
+  const goal = t ? t.qualityTargets : null;
+  const actualLbl = s ? 'Average' : (selectedDate === todayStr() ? 'Today' : 'Actual');
+  const has = MACROS.every(m => typeof shares[m] === 'number');
+  const tip = has && goal ? MACROS.map(m => [m, Math.round(shares[m] - goal[m])]).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))[0] : null;
+  el.innerHTML = `<div class="dq2-head"><div class="dq-title">Calorie quality</div>
+      <button class="dq-ask" type="button" data-dq-ask="${s ? 'period' : 'day'}">${SPARK_SVG}How do I reach my goal?</button></div>
+    <div class="dq2-legend">${MACROS.map(m => `<span><i style="background:${MACRO_COLOR[m]}"></i>${MACRO_INFO[m].label}</span>`).join('')}</div>
+    <div class="dq2-row"><span class="dq2-lbl">Goal</span>${mixBarHTML(goal, 'Set your goals to see your target mix')}</div>
+    <div class="dq2-row"><span class="dq2-lbl">${actualLbl}</span>${mixBarHTML(has ? shares : null, s ? 'No finished days with food yet' : 'Log food to see your mix')}</div>
+    ${tip && Math.abs(tip[1]) >= 3 ? `<p class="dq2-note">${MACRO_INFO[tip[0]].label} is ${Math.abs(tip[1])} points ${tip[1] > 0 ? 'above' : 'below'} your goal mix${s ? ' on average' : ''}.</p>` : (has && goal ? `<p class="dq2-note ok">Right on your goal mix.</p>` : '')}`;
 }
+document.addEventListener('click', (ev)=>{
+  const b = ev.target.closest('[data-dq-ask]');
+  if(!b || typeof openChat !== 'function') return;
+  haptic();
+  if(b.dataset.dqAsk === 'period'){
+    const r = trendRange(trendHorizon, trendOffset);
+    openChat({ ask: 'How do I reach my goal?', intent: { kind: 'reach_goal', scope: 'period', start: r.start, end: r.end < todayStr() ? r.end : toISO(new Date(parseISO(todayStr()).getTime() - 86400000)), label: trendPeriodLabel(trendHorizon, trendOffset) } });
+  } else openChat({ ask: 'How do I reach my goal?', intent: { kind: 'reach_goal', scope: 'day', date: selectedDate } });
+});
 function paintQualityTrack(fill, over, tick, v, g){
   if(!fill) return;
   const clamp = x => Math.max(0, Math.min(100, x || 0));
@@ -2499,7 +2718,7 @@ function renderRing(){
   }
 
   const shares = {};
-  tracked.forEach(m => { shares[m] = macroShareForDate(d, m); });
+  MACROS.forEach(m => { shares[m] = macroShareForDate(d, m); });
   renderQualityList('', shares, t);
   renderBalances('');
   renderMyGoals();
@@ -2511,12 +2730,11 @@ function renderBurnRingExtras(d){
   if(!tag || !unit) return;
   const mode = burnMode(), e = entries[d];
   const has = hasBurned(e);
-  tag.textContent = has ? burnSourceLabel(e) : (mode === 'whoop' ? 'WHOOP' : (mode === 'calc' ? 'Estimated' : ''));
-  if(mode === 'calc' && (!has || e.burnSource === 'calc')){
+  const p = burnParts(d);
+  tag.textContent = has ? burnSourceLabel(e, d) : (mode === 'apple' ? 'Apple Health' : 'Estimated');
+  if(p && !p.manual && p.src === 'activity'){
     const a = dayActivity(d);
     unit.innerHTML = `<button class="burn-act" id="burnActBtn" type="button" aria-haspopup="dialog" aria-label="Activity level: ${DAY_ACTIVITY[a].label}. Change">${actIcon(a, 'burn-act-ico')}<span>${DAY_ACTIVITY[a].label}</span><svg class="burn-act-chev" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
-  } else if(mode === 'manual' && !has){
-    unit.innerHTML = '<button class="burn-log-btn" id="burnLogBtn" type="button"><i class="warn-dot"></i>Log</button>';
   } else {
     unit.textContent = 'kcal';
   }
@@ -2578,19 +2796,20 @@ function balanceSeries(startISO, endISO, kind){
   for(const dt = parseISO(startISO); toISO(dt) <= endISO; dt.setDate(dt.getDate() + 1)){
     const iso = toISO(dt);
     const e = entries[iso];
-    const n = iso > today ? null : (kind === 'cal' ? net(e) : consumedMacro(e, kind));
+    // today is left out until it's over: a half-logged day makes the running total jump around
+    const n = iso >= today ? null : (kind === 'cal' ? net(e) : consumedMacro(e, kind));
     if(n != null){ run += n; counted++; }
-    days.push({ iso, net: n, cum: iso <= today ? run : null, pace: daily != null ? daily * counted : null, future: iso > today,
-      live: iso === today && n != null && !!e && (e.burnSource === 'whoop' || e.burnSource === 'calc') && !e.burnFinal });
+    days.push({ iso, net: n, cum: iso < today ? run : null, pace: daily != null ? daily * counted : null, future: iso >= today, today: iso === today });
   }
   return { kind, days, daily, counted, total: counted ? run : null, goalTotal: daily != null ? daily * counted : null };
 }
-const BALANCE_NAME = { cal: 'Calorie', protein: 'Protein', carbs: 'Carbs', fat: 'Fat' };
+const BALANCE_NAME = { cal: 'Calorie Deficit/Surplus', protein: 'Protein', carbs: 'Carbs', fat: 'Fats' };
 const balanceUnit = k => k === 'cal' ? 'kcal' : 'g';
 // Which side of the goal is good: under it for calories, carbs and fat; over it for protein.
 const balanceGoodLow = k => k !== 'protein';
-let balanceModes = { cal: 'total', protein: 'goal', carbs: 'goal', fat: 'goal' };
-try{ Object.assign(balanceModes, JSON.parse(localStorage.getItem('balance-modes') || '{}')); }catch(e){}
+// one view for every chart, on the main page and in Trends
+let balanceMode = 'total';
+try{ const v = localStorage.getItem('balance-mode'); if(v === 'goal' || v === 'total') balanceMode = v; }catch(e){}
 const WK_LETTERS = ['M','T','W','T','F','S','S'];
 const MONTH_LETTERS = ['J','F','M','A','M','J','J','A','S','O','N','D'];
 // Draws a balance chart at blend tm (0 = total, 1 = vs. goal; in between while it animates).
@@ -2599,7 +2818,9 @@ const MONTH_LETTERS = ['J','F','M','A','M','J','J','A','S','O','N','D'];
 // total — calories green below zero, red above; macros in blue · vs. goal — green on the good side.
 function balanceSVG(ser, o, tm){
   const W = 320, H = o.H, N = ser.days.length, padX = 6, y0top = 6, bot = H - 17;
-  const xs = i => padX + i * (W - 2 * padX) / N;
+  // the line starts at zero on the left edge; each day's point sits right above its axis label
+  const xc = i => padX + (i + 0.5) * (W - 2 * padX) / N;
+  const xs = k => k === 0 ? padX : xc(k - 1);
   const past = ser.days.filter(d => !d.future);
   const lastPace = past.length ? past[past.length - 1].pace : 0;
   const disp = [0].concat(past.map(d => d.cum - tm * (d.pace || 0)));
@@ -2612,11 +2833,9 @@ function balanceSVG(ser, o, tm){
   const path = arr => arr.map((q, i) => (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' ');
   const zy = y(0).toFixed(1);
   const uid = 'b' + o.key;
-  const last = past[past.length - 1];
-  const live = !!(last && last.live);
   const isCal = ser.kind === 'cal', goodLow = balanceGoodLow(ser.kind);
   const endV = disp[disp.length - 1];
-  const GREEN = '#4ADE80', RED = '#FF5C7A', BLUE = '#4C8DFF';
+  const GREEN = '#4ADE80', RED = '#FF5C7A', BLUE = MACRO_COLOR[ser.kind] || '#4C8DFF';
   const totalCol = isCal ? ((ser.total == null || ser.total <= 0) ? GREEN : RED) : BLUE;
   const goalDiff = ser.total == null || ser.goalTotal == null ? null : ser.total - ser.goalTotal;
   const goalCol = goalDiff == null ? BLUE : ((goodLow ? goalDiff <= 0 : goalDiff >= 0) ? GREEN : RED);
@@ -2643,29 +2862,30 @@ function balanceSVG(ser, o, tm){
     const R = ref.map((v, i) => [xs(i), y(v)]);
     g += `<path d="${path(R)}" fill="none" stroke="rgba(244,245,250,${(0.5 * (1 - tm)).toFixed(2)})" stroke-width="1.4" stroke-dasharray="3 4"/>`;
   }
-  const solid = live && P.length > 2 ? P.slice(0, -1) : P;
   if(P.length > 1){
-    g += `<path d="${path(solid)}" fill="none" stroke="${lineCol}" stroke-width="${N > 40 ? 1.8 : 2.4}" stroke-linejoin="round" stroke-linecap="round"/>`;
-    if(live && P.length > 2) g += `<path d="${path(P.slice(-2))}" fill="none" stroke="${lineCol}" stroke-width="2.4" stroke-dasharray="2 4" stroke-linecap="round"/>`;
+    g += `<path d="${path(P)}" fill="none" stroke="${lineCol}" stroke-width="${N > 40 ? 1.8 : 2.4}" stroke-linejoin="round" stroke-linecap="round"/>`;
   }
   if(N <= 7){
     past.forEach((d, i) => {
-      if(d.net == null || (live && i === past.length - 1)) return;
+      if(d.net == null) return;
       g += `<circle cx="${P[i + 1][0].toFixed(1)}" cy="${P[i + 1][1].toFixed(1)}" r="3" fill="#0E1014" stroke="${lineCol}" stroke-width="2"/>`;
     });
   }
-  if(live){
-    const q = P[P.length - 1];
-    g += `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="7.5" fill="rgba(76,141,255,0.22)"/><circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="3.8" fill="#4C8DFF" stroke="#0E1014" stroke-width="1.6"/>`;
+  // axis labels sit under each day's point; today's label is lit (blue pill) to show it has no point yet
+  const ti = ser.days.findIndex(d => d.today);
+  if(ti >= 0){
+    const tx = xc(ti);
+    if(o.labels === 'week') g += `<rect x="${(tx - 8).toFixed(1)}" y="${H - 14}" width="16" height="14" rx="7" fill="rgba(76,141,255,0.22)"/>`;
+    else g += `<circle cx="${tx.toFixed(1)}" cy="${(bot + 3).toFixed(1)}" r="2.6" fill="#4C8DFF"/>`;
   }
-  const lab = (i, txt, on) => `<text x="${((xs(i) + xs(i + 1)) / 2).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${on ? '#F4F5F7' : '#8B90A0'}">${txt}</text>`;
-  if(o.labels === 'week') ser.days.forEach((d, i) => { g += lab(i, WK_LETTERS[i], d.iso === o.selected); });
-  else if(o.labels === 'month') ser.days.forEach((d, i) => { const dn = +d.iso.slice(8); if(dn % 7 === 1) g += lab(i, dn, false); });
-  else ser.days.forEach((d, i) => { if(d.iso.slice(8) === '15') g += lab(i, MONTH_LETTERS[+d.iso.slice(5, 7) - 1], false); });
+  const lab = (i, txt, col) => `<text x="${xc(i).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${col}">${txt}</text>`;
+  if(o.labels === 'week') ser.days.forEach((d, i) => { g += lab(i, WK_LETTERS[i], d.today ? '#8DB6FF' : (d.iso === o.selected ? '#F4F5F7' : '#8B90A0')); });
+  else if(o.labels === 'month') ser.days.forEach((d, i) => { const dn = +d.iso.slice(8); if(dn % 7 === 1) g += lab(i, dn, '#8B90A0'); });
+  else ser.days.forEach((d, i) => { if(d.iso.slice(8) === '15') g += lab(i, MONTH_LETTERS[+d.iso.slice(5, 7) - 1], '#8B90A0'); });
   return `<svg class="wk-svg" viewBox="0 0 ${W} ${H}" aria-hidden="true">${g}</svg>`;
 }
 function balanceGoalText(k, v){ return v == null ? '—' : (k === 'cal' ? (v === 0 ? '0' : signedN(v)) : fmtN(v) + ' g'); }
-// The header: title, the Total / vs. goal switch, the number for the view, and the goal so far.
+// Each chart's header: its name, the number for the view, and the goal so far.
 function balanceHeadHTML(ser, mode){
   const k = ser.kind, unit = balanceUnit(k), goodLow = balanceGoodLow(k);
   let val = '—', cls = '';
@@ -2678,12 +2898,20 @@ function balanceHeadHTML(ser, mode){
     if(k === 'cal'){ val = signedN(ser.total); cls = ser.total <= 0 ? 'def' : 'sur'; }
     else { val = fmtN(ser.total); cls = 'pro'; }
   }
-  return `<div class="wk-head"><div class="wk-left"><div class="wk-title">${BALANCE_NAME[k]} balance <span class="wk-mode">${mode === 'goal' ? 'vs. goal' : 'total'}</span></div>
-      <div class="wk-toggle" role="group" aria-label="View"><button type="button" data-bmode="total" class="${mode === 'total' ? 'on' : ''}">Total</button><button type="button" data-bmode="goal" class="${mode === 'goal' ? 'on' : ''}">vs. goal</button><i class="wk-toggle-thumb"></i></div></div>
-    <div class="wk-now"><div class="wk-val ${cls}">${val}<small>${unit}</small></div>
+  const dot = k === 'cal' ? '' : `<i class="wp-dot" style="background:${MACRO_COLOR[k]}"></i>`;
+  return `<div class="wk-head"><div class="wk-title">${dot}${BALANCE_NAME[k]}</div>
+    <div class="wk-now"><div class="wk-val ${cls}"${k !== 'cal' && cls === 'pro' ? ` style="color:${MACRO_COLOR[k]}"` : ''}>${val}<small>${unit}</small></div>
     <div class="wk-goal"><i class="wk-dash"></i>Goal <b>${balanceGoalText(k, ser.goalTotal)}</b></div></div></div>`;
 }
+function progressTitle(s){
+  if(!s) return 'Weekly Progress';
+  return { week: 'Weekly Progress', month: 'Monthly Progress', year: 'Yearly Progress' }[trendHorizon] || 'Progress';
+}
+function toggleHTML(mode){
+  return `<div class="wk-toggle" role="group" aria-label="View"><button type="button" data-bmode="total" class="${mode === 'total' ? 'on' : ''}">Total</button><button type="button" data-bmode="goal" class="${mode === 'goal' ? 'on' : ''}">vs. goal</button><i class="wk-toggle-thumb"></i></div>`;
+}
 // s: '' = main page (the Mon–Sun week around the selected date) or 'T' = the Trends period.
+// All the charts sit in one "Progress" card with one Total / vs. goal switch.
 function renderBalances(s){
   const box = document.getElementById(s ? 'balancesT' : 'balances');
   if(!box) return;
@@ -2697,17 +2925,23 @@ function renderBalances(s){
     start = toISO(mon); end = toISO(sun); labels = 'week';
   }
   const kinds = ['cal'].concat(trackedMacros());
+  const mode = balanceMode;
   if(box.dataset.sig !== kinds.join(',')){
     box.dataset.sig = kinds.join(',');
-    box.innerHTML = kinds.map(k => `<div class="wk" data-kind="${k}"><div class="wk-headbox"></div><div class="wk-chart"></div></div>`).join('');
+    box.innerHTML = `<div class="wp"><div class="wp-head"><div><div class="wp-title"></div><div class="wp-sub"></div></div><div class="wp-tog"></div></div>` +
+      kinds.map(k => `<div class="wk" data-kind="${k}"><div class="wk-headbox"></div><div class="wk-chart"></div></div>`).join('') + `</div>`;
   }
+  box.querySelector('.wp-title').textContent = progressTitle(s);
+  const fmt = iso => parseISO(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  box.querySelector('.wp-sub').textContent = `${fmt(start)} – ${fmt(end)} · ${mode === 'goal' ? 'against your goal' : 'running total'}`;
+  box.querySelector('.wp-tog').innerHTML = toggleHTML(mode);
   kinds.forEach(k => {
     const card = box.querySelector(`[data-kind="${k}"]`);
     const ser = balanceSeries(start, end, k);
-    const mode = balanceModes[k] === 'goal' ? 'goal' : 'total';
     card._ser = ser;
-    card._o = { H: s ? 78 : 70, labels, selected: s ? null : selectedDate, key: (s || 'm') + k };
+    card._o = { H: s ? 74 : 66, labels, selected: s ? null : selectedDate, key: (s || 'm') + k };
     card._tm = mode === 'goal' ? 1 : 0;
+    card._mode = mode;
     card.querySelector('.wk-headbox').innerHTML = balanceHeadHTML(ser, mode);
     card.querySelector('.wk-chart').innerHTML = balanceSVG(ser, card._o, card._tm);
   });
@@ -2716,9 +2950,8 @@ function renderWeekBalance(s){ renderBalances(s); }
 // Switching view: the header updates at once; the chart morphs over ~0.55 s.
 function switchBalanceMode(card, mode){
   const k = card.dataset.kind;
-  if(!card._ser || (balanceModes[k] === 'goal' ? 'goal' : 'total') === mode) return;
-  balanceModes[k] = mode;
-  try{ localStorage.setItem('balance-modes', JSON.stringify(balanceModes)); }catch(e){}
+  if(!card._ser || card._mode === mode) return;
+  card._mode = mode;
   const head = card.querySelector('.wk-headbox');
   head.innerHTML = balanceHeadHTML(card._ser, mode);
   head.classList.remove('wk-swap'); void head.offsetWidth; head.classList.add('wk-swap');
@@ -2738,9 +2971,15 @@ document.addEventListener('click', (ev)=>{
   const b = ev.target.closest('.wk-toggle [data-bmode]');
   if(!b) return;
   haptic();
-  const card = b.closest('.wk');
-  // the same nutrient's card on the main page and in Trends share one setting
-  document.querySelectorAll(`.wk[data-kind="${card.dataset.kind}"]`).forEach(c => switchBalanceMode(c, b.dataset.bmode));
+  const mode = b.dataset.bmode;
+  if(mode === balanceMode) return;
+  balanceMode = mode;
+  try{ localStorage.setItem('balance-mode', mode); }catch(e){}
+  // one switch drives every chart, on the main page and in Trends
+  document.querySelectorAll('.wp-tog').forEach(t => { t.innerHTML = toggleHTML(mode); });
+  const fmt = iso => parseISO(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  document.querySelectorAll('.wp').forEach(w => { const sub = w.querySelector('.wp-sub'); if(sub) sub.textContent = sub.textContent.replace(/· .*$/, '· ' + (mode === 'goal' ? 'against your goal' : 'running total')); });
+  document.querySelectorAll('.wp .wk').forEach(c => switchBalanceMode(c, mode));
 });
 
 // ---------- collapsible "The Food" card ----------
@@ -2803,82 +3042,147 @@ function trailingAvg(valueForDateFn, days, decimals, endISO){
   const mult = Math.pow(10, decimals || 0);
   return Math.round((vals.reduce((s,v)=>s+v,0) / vals.length) * mult) / mult;
 }
-// ISO dates (most recent first) among the last 7 calendar days (excluding today) that have no
-// burn logged yet — surfaced in the expanded card so they can be filled in right there.
-function burnMissingDays(){
-  const missing = [];
-  if(burnMode() === 'calc') return missing; // every day has an estimate
-  const dt = new Date();
-  for(let i=1;i<=7;i++){
-    dt.setDate(dt.getDate() - 1);
-    const iso = toISO(dt);
-    if(!hasBurned(entries[iso])) missing.push(iso);
-  }
-  return missing;
+// The Burn card: how the day's burn is put together — Base + Active energy — with every piece
+// editable right there.
+let bcEditing = null, bcOwnOpen = false, bcInfoOpen = false;
+function relTimeShort(ms){
+  if(!ms) return '';
+  const m = Math.round((Date.now() - ms) / 60000);
+  if(m < 2) return 'just now';
+  if(m < 60) return m + ' min ago';
+  const h = Math.round(m / 60);
+  if(h < 24) return h + ' h ago';
+  return Math.round(h / 24) + ' d ago';
 }
-function renderBurnMissingAlert(){
-  const alertBox = document.getElementById('burnMissingAlert');
-  if(!alertBox) return;
-  const missing = burnMissingDays();
-  if(!missing.length){ alertBox.style.display = 'none'; return; }
-  alertBox.style.display = '';
-  document.getElementById('burnMissingText').textContent =
-    `Missing burn for ${missing.length} of the last 7 days`;
-  document.getElementById('burnMissingList').innerHTML = missing.map(iso => `
-    <div class="missing-day-row" data-date="${iso}">
-      <span class="missing-day-date">${fmtDate(iso)}</span>
-      <input type="number" class="missing-day-input" inputmode="numeric" placeholder="kcal">
-      <button class="btn-small missing-day-save" type="button">Save</button>
-    </div>
-  `).join('');
+function burnLevelPills(level){
+  return `<div class="bc-levels" role="group" aria-label="Activity level">${Object.entries(DAY_ACTIVITY).map(([k, v]) =>
+    `<button type="button" class="bc-level${k === level ? ' on' : ''}" data-bc-level="${k}">${actIcon(k, 'bc-level-ico')}<span>${v.label}</span></button>`).join('')}</div>`;
+}
+const PENCIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>';
+function burnPartSub(p, q){
+  const pct = p.isToday ? ` · ${Math.round(p.frac * 100)}% of the day so far` : '';
+  switch(q.key){
+    case 'rest': return `BMR ${fmtN(p.bmr)} a day, from your profile${pct}`;
+    case 'living': return `Moving around, standing, chores${pct}`;
+    case 'activity': return `${DAY_ACTIVITY[p.level].label} day${p.isToday ? ', so far' : ''} · tap a level to change it`;
+    case 'steps': {
+      const st = p.health && typeof p.health.steps === 'number' ? p.health.steps : null;
+      if(userProfile.activeAllDay) return `${st != null ? fmtN(st) + ' steps · ' : ''}already inside active energy (all-day tracker)`;
+      if(st == null) return 'No step count from Apple Health for this day';
+      const sm = strideM();
+      return `${fmtN(st)} steps${sm ? ` × ${sm.toFixed(2)} m stride` : ''} · walking`;
+    }
+    case 'active': return `${AH_ICON}Apple Health${p.health && p.health.at ? ` · synced ${relTimeShort(p.health.at)}` : ''}`;
+    case 'digest': {
+      const dg = p.digestion;
+      if(dg.how === 'none') return 'Nothing logged yet';
+      return dg.how === 'macros' ? `Digesting ${fmtN(dg.eaten)} kcal eaten · from its protein, carbs and fat` : `About 10% of ${fmtN(dg.eaten)} kcal eaten`;
+    }
+  }
+  return '';
 }
 function renderBurnCard(){
   const valEl = document.getElementById('burnSummaryVal');
   if(!valEl) return;
-  const de = entries[selectedDate];
+  const d = selectedDate, de = entries[d];
   const dayBurn = hasBurned(de) ? de.burned : null;
-  const live = de && de.burnSource === 'whoop' && !de.burnFinal && selectedDate === todayStr();
-  valEl.innerHTML = summaryGridHTML([
-    { label: dayLabel(selectedDate) + (live ? ' · live' : ''), alert: dayBurn == null, values:[ `${fmtN(dayBurn)} kcal` ] }
-  ]);
-  const srcNote = document.getElementById('burnSourceNote');
-  if(srcNote){
-    const se = entries[selectedDate];
-    const connected = sessionInfo && sessionInfo.whoop && sessionInfo.whoop.connected;
-    if(se && se.burnSource === 'calc'){
-      srcNote.textContent = `Estimated from your profile and a ${DAY_ACTIVITY[dayActivity(selectedDate)].label.toLowerCase()} day (change it on the Burn ring). Typing a number below replaces it.`;
-      srcNote.style.display = '';
-    } else if(se && se.burnSource === 'whoop'){
-      srcNote.textContent = se.burnFinal
-        ? 'From WHOOP — final for this day. Typing a number below replaces it.'
-        : 'From WHOOP — live, keeps updating until WHOOP closes the day. Typing a number below replaces it.';
-      srcNote.style.display = '';
-    } else if(connected){
-      srcNote.textContent = (se && typeof se.burned === 'number') ? 'You typed this one, so WHOOP won’t overwrite it. Clear it in History to use WHOOP’s number.' : 'WHOOP is connected — this day hasn’t synced yet.';
-      srcNote.style.display = '';
-    } else srcNote.style.display = 'none';
-  }
+  valEl.innerHTML = summaryGridHTML([{ label: dayLabel(d), alert: dayBurn == null, values:[ `${fmtN(dayBurn)} kcal` ] }]);
 
-  // The save button reflects whichever date the shared selector is currently on, not a hardcoded
-  // "yesterday" — that mismatch was why it could say "Overwrite" for a date nothing was saved on yet.
-  const e = entries[selectedDate];
-  const already = hasBurned(e);
+  const box = document.getElementById('burnBreakdown');
+  const p = burnParts(d);
+  const mode = burnMode();
+  const isToday = d === todayStr();
+  const when = isToday ? 'Today so far' : dayLabel(d);
+  let html = '';
+  if(!p){
+    html = `<div class="bc-empty"><b>Your burn needs your profile.</b><span>Add your date of birth, height and weight so the app can work out your resting burn.</span>
+      <button class="btn-small btn-accent" data-bc="profile" type="button">Open Profile</button></div>`;
+  } else {
+    const srcLine = p.kept ? `From ${p.keptFrom} · kept from before the switch` : p.manual ? 'Your own number'
+      : p.kind === 'apple' ? 'With Apple Health' : (mode === 'apple' ? 'Estimated · no Apple Health data for this day' : 'Estimated from your activity');
+    html += `<div class="bc-top">
+        <div class="bc-top-l"><div class="bc-when">${escapeHtml(when)}</div><div class="bc-src">${srcLine}</div></div>
+        <div class="bc-total">${fmtN(p.total)}<small>kcal</small></div>
+      </div>`;
+    if(p.manual){
+      html += `<div class="bc-manual"><span>${p.kept ? `Kept from ${p.keptFrom}: <b>${fmtN(p.total)} kcal</b>. Days before the switch keep their old number; the parts below would add up to ${fmtN(p.calc)}.` : `You set this day to <b>${fmtN(p.total)} kcal</b>. The parts below would add up to ${fmtN(p.calc)}.`}</span>
+        <button class="btn-small" data-bc="use-calc" type="button">Use parts</button></div>`;
+    }
+    const tot = Math.max(1, p.parts.reduce((s, q) => s + Math.max(0, q.value), 0));
+    html += `<div class="bc-bar${p.manual ? ' dim' : ''}" aria-hidden="true">${p.parts.filter(q => q.value > 0).map(q =>
+      `<i style="width:${(q.value / tot * 100).toFixed(1)}%;background:${BURN_PARTS[q.key].color}"></i>`).join('')}</div>`;
+    html += `<div class="bc-rows${p.manual ? ' dim' : ''}">`;
+    p.parts.forEach(q => {
+      const info = BURN_PARTS[q.key];
+      const editing = bcEditing === q.key;
+      const muted = q.key === 'steps' && userProfile.activeAllDay && !q.edited;
+      html += `<div class="bc-row${editing ? ' editing' : ''}"><span class="bc-dot" style="background:${info.color}"></span>
+        <div class="bc-main"><b>${info.label}${q.edited ? '<em class="bc-edited">edited</em>' : ''}</b><small>${burnPartSub(p, q)}</small>
+          ${editing ? `<div class="bc-edit"><input type="number" inputmode="numeric" id="bcPartInput" value="${q.value}" aria-label="${info.label}, kcal"><span>kcal</span>
+            <button class="btn-small btn-accent" data-bc="save" data-k="${q.key}" type="button">Save</button><button class="btn-small" data-bc="cancel" type="button">Cancel</button></div>` : ''}
+          ${q.edited && !editing ? `<button class="bc-link" data-bc="reset" data-k="${q.key}" type="button">Reset to ${fmtN(q.auto)}</button>` : ''}</div>
+        <div class="bc-num${muted ? ' muted' : ''}">${muted ? 'incl.' : (q.key === 'rest' ? '' : '+') + fmtN(q.value)}</div>
+        ${editing ? '' : `<button class="bc-pen" data-bc="edit" data-k="${q.key}" type="button" aria-label="Edit ${info.label}">${PENCIL}</button>`}</div>`;
+      if(q.key === 'activity' && !editing) html += `<div class="bc-extra">${burnLevelPills(p.level)}</div>`;
+    });
+    html += `</div>`;
+    html += `<button class="bc-info-btn" data-bc="info" type="button">${bcInfoOpen ? 'Hide how this works' : 'How this is calculated'}</button>`;
+    if(bcInfoOpen) html += `<div class="bc-info">
+      <p><b>Resting</b> — your BMR (Mifflin-St Jeor) from weight, height, age and sex: what your body burns doing nothing.</p>
+      ${p.kind === 'apple' ? `<p><b>Steps</b> — walking costs about 0.57 kcal per kg per km (0.67 from age 65), from a systematic review and meta-analysis (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6620279/" target="_blank" rel="noopener">Das Gupta et al., 2019</a>); distance = steps × stride, with stride ≈ 41% of your height.</p>
+      <p><b>Active energy</b> — whatever your watch or ring records in Apple Health. WHOOP only writes workouts there, so steps are added separately; an Apple Watch records all day, including walking — switch that on in Apple Health settings so steps aren't counted twice.</p>`
+      : `<p><b>Everyday living</b> — BMR × 0.1 for a typical sedentary day. <b>Activity</b> adds BMR × 0.175 (light), 0.35 (moderate) or 0.525 (very active) — the standard activity multipliers.</p>`}
+      <p><b>Digestion</b> — your body spends energy digesting food: about 20–30% of protein calories, 5–10% of carbs and 0–3% of fat, roughly 10% for a mixed diet (<a href="https://doaj.org/article/0f4d3251105d438cb3e663a7fa912eb8" target="_blank" rel="noopener">Westerterp, 2004</a>). The app uses 25%, 7.5% and 1.5%.</p>
+      <p>Tap the pencil on any part to use your own number for that day.</p></div>`;
+  }
+  if(!(p && p.manual)) html += `<button class="bc-ownbtn" data-bc="own" type="button">${bcOwnOpen ? 'Never mind' : 'Use my own total instead'}</button>`;
+  if(mode !== 'apple') html += `<button class="bc-promo" data-bc="health" type="button">${AH_ICON}<span><b>Wear a watch or ring?</b> Connect Apple Health to use your real steps and active energy.</span><i>›</i></button>`;
+  else if(!healthConnected() && !Object.keys(healthData).length) html += `<button class="bc-promo" data-bc="health" type="button">${AH_ICON}<span><b>Finish Apple Health setup</b> — nothing has synced yet.</span><i>›</i></button>`;
+  box.innerHTML = html;
+
+  const own = document.getElementById('burnOwn');
+  own.style.display = (bcOwnOpen && !(p && p.manual)) ? '' : 'none';
+  document.getElementById('burnOwnLbl').textContent = `Your total for ${isToday ? 'today' : dayLabel(d)}`;
   const burnedInput = document.getElementById('burnedInput');
-  if(burnedInput && document.activeElement !== burnedInput) burnedInput.value = already ? e.burned : '';
-  const saveBtn = document.getElementById('saveBurnBtn');
-  if(saveBtn){
-    const fromWearable = already && (e.burnSource === 'whoop' || e.burnSource === 'calc');
-    saveBtn.textContent = fromWearable ? 'Use my number instead' : (already ? 'Overwrite burn' : 'Save burn');
-    saveBtn.classList.toggle('btn-overwrite', already && !fromWearable);
-  }
-
-  renderBurnMissingAlert();
+  if(burnedInput && document.activeElement !== burnedInput && !bcOwnOpen) burnedInput.value = '';
+  if(bcEditing){ const i = document.getElementById('bcPartInput'); if(i && document.activeElement !== i) setTimeout(() => { i.focus(); i.select(); }, 30); }
 
   const wrap = document.getElementById('burnFormWrap');
   const chevron = document.getElementById('burnChevron');
   if(wrap) wrap.style.display = burnExpanded ? '' : 'none';
   if(chevron) chevron.classList.toggle('open', burnExpanded);
 }
+const AH_ICON = '<svg class="ah-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF375F" d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2Z"/></svg>';
+document.addEventListener('click', async (ev)=>{
+  const b = ev.target.closest('#burnFormWrap [data-bc], #burnFormWrap [data-bc-level]');
+  if(!b) return;
+  haptic();
+  const d = selectedDate;
+  const act = b.dataset.bc, k = b.dataset.k;
+  if(act === 'profile'){ document.getElementById('openProfileBtn').click(); return; }
+  if(act === 'health'){ openHealthPage(); return; }
+  if(act === 'info'){ bcInfoOpen = !bcInfoOpen; renderBurnCard(); return; }
+  if(act === 'own'){ bcOwnOpen = !bcOwnOpen; renderBurnCard(); if(bcOwnOpen) setTimeout(() => document.getElementById('burnedInput').focus(), 30); return; }
+  if(act === 'edit'){ bcEditing = k; renderBurnCard(); return; }
+  if(act === 'cancel'){ bcEditing = null; renderBurnCard(); return; }
+  if(!entries[d]) entries[d] = blankEntry();
+  const e = entries[d];
+  if(b.dataset.bcLevel){ e.activity = b.dataset.bcLevel; if(e.burnOv) delete e.burnOv.activity; }
+  else if(act === 'save'){
+    const v = parseInt(document.getElementById('bcPartInput').value, 10);
+    if(isNaN(v) || v < 0) return;
+    e.burnOv = Object.assign({}, e.burnOv, { [k]: v }); bcEditing = null;
+  }
+  else if(act === 'reset'){ if(e.burnOv){ delete e.burnOv[k]; if(!Object.keys(e.burnOv).length) delete e.burnOv; } }
+  else if(act === 'use-calc'){ e.burned = null; delete e.burnSource; delete e.burnFinal; }
+  else return;
+  syncDerivedBurns();
+  await persist();
+  renderAll();
+});
+document.addEventListener('keydown', (ev)=>{
+  if(ev.key === 'Enter' && ev.target && ev.target.id === 'bcPartInput'){ ev.preventDefault(); document.querySelector('#burnFormWrap [data-bc="save"]').click(); }
+});
 
 // ---------- collapsible "Log weight" card ----------
 let weightExpanded = false;
@@ -3184,7 +3488,7 @@ function ageFromDob(dob){
 const ACTIVITY_MULTIPLIERS = { sedentary:1.2, light:1.375, moderate:1.55, very:1.725 };
 const ACTIVITY_LABELS = { sedentary:'Sedentary', light:'Lightly active', moderate:'Moderately active', very:'Very active' };
 // Rough same-tier "typical daily burn" used only as a sanity-check target for the burn ring —
-// directional, not a clinical prediction (actual burn still comes from logged Whoop/tracker data).
+// directional, not a clinical prediction (actual burn comes from base + active energy each day).
 // Weekly pace for losing/gaining: 0.5 or 1 lb. ~3,500 kcal ≈ 1 lb of body weight, so the daily
 // deficit/surplus is pace × 500 kcal. Defaults keep earlier targets: 1 lb when losing, 0.5 when gaining.
 function weightRate(){
@@ -3329,37 +3633,95 @@ function targetsMethodologyHTML(t){
   `;
 }
 
-// ---------- wearable burn (WHOOP) ----------
-// The server writes users/{uid}/data/wearable: { 'YYYY-MM-DD': { kcal, final, source } }. It's
-// merged into each day's burn at load time — but never over a number the person typed themselves
-// (burnSource 'manual', or any burn logged before a wearable was connected).
-let wearableData = {};
-async function loadWearable(){
+// ---------- Apple Health: active energy ----------
+// An iOS Shortcut reads Active Energy from Apple Health and posts it to the server, which writes
+// users/{uid}/data/health: { 'YYYY-MM-DD': { active, at } }. Any watch or ring that writes to
+// Apple Health (Apple Watch, WHOOP, Oura, Garmin…) ends up here. The app only reads it.
+let healthData = {};
+async function loadHealth(){
   try{
     await ensureAuth();
+    const snap = await userDoc('health').get();
+    healthData = snap.exists ? JSON.parse(snap.data().json || '{}') : {};
+  }catch(e){ healthData = {}; }
+}
+// One-time switch-over: burn numbers that came from WHOOP before the move to Base + Active energy
+// stay exactly as they were (burnSource 'kept'); every day from the switch on follows the new rules.
+// Reads the old server-written 'wearable' doc once, so days that only lived there are kept too.
+async function keepWearableHistory(){
+  if(userProfile.burnHistoryKept) return;
+  let w = {};
+  try{
     const snap = await userDoc('wearable').get();
-    wearableData = snap.exists ? JSON.parse(snap.data().json || '{}') : {};
-  }catch(e){ wearableData = {}; }
-}
-function mergeWearable(){
-  for(const d in wearableData){
-    const w = wearableData[d];
-    if(!w || typeof w.kcal !== 'number') continue;
+    w = snap.exists ? (JSON.parse(snap.data().json || '{}') || {}) : {};
+  }catch(e){ return; } // offline — try again next launch (the wearable doc still has everything)
+  const cutoff = todayStr();
+  const days = new Set(Object.keys(w).concat(Object.keys(entries).filter(d => entries[d] && entries[d].burnSource === 'whoop')));
+  let n = 0;
+  days.forEach(d => {
+    if(d >= cutoff) return;
     const e = entries[d];
-    if(e && typeof e.burned === 'number' && e.burnSource !== 'whoop' && e.burnSource !== 'calc') continue; // typed by hand — keep it
+    if(e && typeof e.burned === 'number' && e.burnSource !== 'whoop' && e.burnSource !== 'calc') return; // typed by hand: already kept
+    const kcal = (w[d] && typeof w[d].kcal === 'number') ? w[d].kcal : (e && e.burnSource === 'whoop' && typeof e.burned === 'number' ? e.burned : null);
+    if(kcal == null) return;
     if(!entries[d]) entries[d] = blankEntry();
-    entries[d].burned = w.kcal;
-    entries[d].burnSource = 'whoop';
-    entries[d].burnFinal = !!w.final;
-  }
+    entries[d].burned = Math.round(kcal);
+    entries[d].burnSource = 'kept';
+    entries[d].keptFrom = 'WHOOP';
+    delete entries[d].burnFinal;
+    n++;
+  });
+  userProfile.burnHistoryKept = cutoff;
+  await persistProfile();
+  if(n) await persist();
 }
+function healthFor(iso){ const h = healthData[iso]; return h && (typeof h.active === 'number' || typeof h.steps === 'number') ? h : null; }
+function healthConnected(){ return !!(sessionInfo && sessionInfo.health && sessionInfo.health.connected); }
 
 // ---------- where each day's burn comes from ----------
-// 'whoop' when a wearable is connected (no other choice then); otherwise what the person picked on
-// the Profile page: 'manual' (they log it in the Burn card) or 'calc' (the app estimates it).
-function burnMode(){
-  if(sessionInfo && sessionInfo.whoop && sessionInfo.whoop.connected) return 'whoop';
-  return userProfile.burnMode === 'calc' ? 'calc' : 'manual';
+// Burn is built from parts, each shown (and editable) in the Burn card:
+//  With Apple Health (for days it has data):
+//    Resting (BMR, Mifflin-St Jeor) + Steps (walking, from the day's step count) + Active energy
+//    (from Apple Health: workouts from WHOOP/Oura/Garmin, or all-day from an Apple Watch) + Digestion.
+//  Without it (or days with no Health data):
+//    Resting (BMR) + Everyday living (BMR × 0.1) + Activity (from the day's activity tag) + Digestion.
+//  Digestion (thermic effect of food) comes from what was eaten that day: protein 25%, carbs 7.5%,
+//  fat 1.5% of their calories (Westerterp 2004: 20–30%, 5–10%, 0–3%), or 10% of calories when the
+//  macros aren't known. It replaces the slice of the old ×1.2 multiplier that stood for digestion,
+//  which is why "everyday living" is BMR × 0.1 rather than × 0.2.
+//  Today counts only the part of the day that has passed for resting/living/activity; steps, active
+//  energy and digestion are what's been recorded or eaten so far.
+//  Any part can be overridden for a day (entries[d].burnOv), or the whole day replaced with a typed
+//  total (burnSource 'manual'), and days from before the switch keep their old WHOOP number ('kept').
+function burnMode(){ return userProfile.burnMode === 'apple' ? 'apple' : 'calc'; }
+const BASE_MULT = 1.2;             // the classic sedentary multiplier (used for the activity-level increments)
+const LIVING_MULT = 0.1;           // everyday living on top of BMR, digestion counted separately
+const TEF = { protein: 0.25, carbs: 0.075, fat: 0.015, mixed: 0.10 };
+const BURN_PARTS = {
+  rest:     { label: 'Resting',         color: '#2F6FE8' },
+  living:   { label: 'Everyday living', color: '#6FA4FF' },
+  steps:    { label: 'Steps',           color: '#6FA4FF' },
+  activity: { label: 'Activity',        color: '#FF375F' },
+  active:   { label: 'Active energy',   color: '#FF375F' },
+  digest:   { label: 'Digestion',       color: '#F4B740' }
+};
+// walking: net cost ~2.4 J/kg/m in younger adults, ~2.8 in older (Das Gupta et al. 2019 meta-analysis) —
+// about 0.57 / 0.67 kcal per kg per km; stride ≈ 41.5% (men) / 41.3% (women) of height
+function walkKcal(steps){
+  const w = currentWeightLb(), age = ageFromDob(userProfile.dob);
+  if(!steps || !w || !userProfile.heightIn) return 0;
+  const stride = userProfile.heightIn * 2.54 / 100 * (userProfile.sex === 'male' ? 0.415 : 0.413);
+  const perKgKm = (age != null && age >= 65) ? 0.67 : 0.57;
+  return steps * stride / 1000 * w * 0.453592 * perKgKm;
+}
+function strideM(){ return userProfile.heightIn ? userProfile.heightIn * 2.54 / 100 * (userProfile.sex === 'male' ? 0.415 : 0.413) : null; }
+function digestionFor(iso){
+  const e = entries[iso];
+  const cal = consumedTotal(e);
+  if(cal == null || cal <= 0) return { kcal: 0, eaten: 0, how: 'none' };
+  const P = consumedMacro(e, 'protein'), C = consumedMacro(e, 'carbs'), F = consumedMacro(e, 'fat');
+  if(P != null && C != null && F != null && (P + C + F) > 0) return { kcal: P * 4 * TEF.protein + C * 4 * TEF.carbs + F * 9 * TEF.fat, eaten: cal, how: 'macros' };
+  return { kcal: cal * TEF.mixed, eaten: cal, how: 'mixed' };
 }
 // The activity level someone tags a day with (estimated burn only). Separate from the activity level
 // on the Goals page, which only sets targets.
@@ -3386,12 +3748,12 @@ function openActivitySheet(){
   el.innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="actSheetTitle">
     <div class="sheet-grab"></div>
     <div class="sheet-title" id="actSheetTitle">How active was ${isToday ? 'today' : dayLabel(d)}?</div>
-    <div class="sheet-sub">Sets the estimated burn for this day only. Your goals don't change.</div>
+    <div class="sheet-sub">Adds estimated activity to the rest of your burn for this day only. Your goals don't change.</div>
     <div class="act-list">${Object.entries(DAY_ACTIVITY).map(([k, v]) => `
       <button class="act-opt${k === cur ? ' on' : ''}" data-act="${k}" type="button">
         <span class="act-ico-wrap">${actIcon(k, 'act-ico')}</span>
         <span class="act-txt"><b>${v.label}</b><small>${v.hint}</small></span>
-        <span class="act-kcal">${bmr ? Math.round(bmr * v.mult).toLocaleString() : '—'}<small>kcal${isToday ? ' / day' : ''}</small></span>
+        <span class="act-kcal">+${bmr ? Math.round(bmr * (v.mult - BASE_MULT)).toLocaleString() : '—'}<small>kcal${isToday ? ' / day' : ''}</small></span>
       </button>`).join('')}</div>
   </div>`;
   el.style.display = 'flex';
@@ -3415,6 +3777,7 @@ document.addEventListener('click', async (ev)=>{
     const d = selectedDate;
     if(!entries[d]) entries[d] = blankEntry();
     entries[d].activity = opt.dataset.act;
+    if(entries[d].burnOv) delete entries[d].burnOv.activity;
     sheet.querySelectorAll('.act-opt').forEach(b => b.classList.toggle('on', b === opt));
     syncDerivedBurns();
     await persist();
@@ -3431,44 +3794,62 @@ function bmrNow(){
   if(!w || !userProfile.heightIn || age == null) return null;
   return 10 * w * 0.453592 + 6.25 * userProfile.heightIn * 2.54 - 5 * age + (userProfile.sex === 'male' ? 5 : -161);
 }
-// Estimated burn: BMR (Mifflin-St Jeor) × the day's activity multiplier. Today only counts the part
-// of the day that has passed, so it grows hour by hour like a wearable's live number.
-function estimatedBurn(iso){
+function dayFractionNow(){ const now = new Date(), mid = new Date(now); mid.setHours(0, 0, 0, 0); return Math.min(1, (now - mid) / 86400000); }
+// The day's burn, piece by piece. Returns null when the profile can't give a BMR yet.
+function burnParts(iso){
   const bmr = bmrNow();
   if(bmr == null) return null;
-  let full = bmr * DAY_ACTIVITY[dayActivity(iso)].mult;
-  if(iso === todayStr()){
-    const now = new Date(), mid = new Date(now); mid.setHours(0,0,0,0);
-    full *= Math.min(1, (now - mid) / 86400000);
+  const e = entries[iso] || {};
+  const isToday = iso === todayStr(), frac = isToday ? dayFractionNow() : 1;
+  const level = dayActivity(iso);
+  const h = burnMode() === 'apple' ? healthFor(iso) : null;
+  const ov = e.burnOv || {};
+  const dg = digestionFor(iso);
+  const kind = h ? 'apple' : 'estimate';
+  const raw = { rest: bmr * frac };
+  if(kind === 'apple'){
+    raw.steps = userProfile.activeAllDay ? 0 : walkKcal(h.steps || 0);
+    raw.active = h.active || 0;
+  } else {
+    raw.living = bmr * LIVING_MULT * frac;
+    raw.activity = bmr * (DAY_ACTIVITY[level].mult - BASE_MULT) * frac;
   }
-  return Math.round(full);
+  raw.digest = dg.kcal;
+  const keys = Object.keys(raw);
+  const parts = keys.map(k => ({ key: k, auto: Math.round(raw[k]), edited: typeof ov[k] === 'number', value: typeof ov[k] === 'number' ? ov[k] : Math.round(raw[k]) }));
+  const calc = parts.reduce((s, q) => s + q.value, 0);
+  // a whole-day number that wins over the calculation: typed by the person, or kept from WHOOP
+  const manual = typeof e.burned === 'number' && e.burnSource !== 'calc' && e.burnSource !== 'whoop';
+  const kept = manual && e.burnSource === 'kept';
+  return { bmr: Math.round(bmr), kind, parts, calc, level, frac, isToday, health: h, digestion: dg,
+    src: kind === 'apple' ? 'apple' : 'activity', manual, kept, keptFrom: e.keptFrom || 'WHOOP', total: manual ? e.burned : calc };
 }
-// Keeps every day's burn in line with the current mode: wearable numbers first, estimates where the
-// app is estimating, and nothing invented in manual mode. A number someone typed always stays.
+function estimatedBurn(iso){ const p = burnParts(iso); return p ? p.calc : null; }
+// Keeps every day's burn in line with the rules above. A total the person typed always stays.
 function syncDerivedBurns(){
-  mergeWearable();
-  const mode = burnMode(), today = todayStr();
-  for(const d in entries){
-    const e = entries[d];
-    if(e && e.burnSource === 'calc' && mode !== 'calc'){ e.burned = null; delete e.burnSource; delete e.burnFinal; }
-  }
-  if(mode !== 'calc') return;
-  const days = new Set(Object.keys(entries).filter(d => d <= today && (consumedTotal(entries[d]) != null || entries[d].activity)));
+  const today = todayStr();
+  const days = new Set(Object.keys(entries).filter(d => d <= today && entries[d] &&
+    (consumedTotal(entries[d]) != null || entries[d].activity || entries[d].burnOv || entries[d].burnSource === 'calc' || entries[d].burnSource === 'whoop')));
+  if(burnMode() === 'apple') Object.keys(healthData).forEach(d => { if(d <= today && healthFor(d)) days.add(d); });
   days.add(today);
   days.forEach(d => {
     const e = entries[d];
-    if(e && typeof e.burned === 'number' && e.burnSource !== 'calc') return; // typed or from a wearable
+    // typed totals stay: burnSource 'manual', or a burn saved before sources existed
+    if(e && typeof e.burned === 'number' && e.burnSource !== 'calc' && e.burnSource !== 'whoop') return;
     const v = estimatedBurn(d);
-    if(v == null) return;
+    if(v == null){ if(e && (e.burnSource === 'calc' || e.burnSource === 'whoop')){ e.burned = null; delete e.burnSource; delete e.burnFinal; } return; }
     if(!entries[d]) entries[d] = blankEntry();
     entries[d].burned = v;
     entries[d].burnSource = 'calc';
     entries[d].burnFinal = d < today;
   });
 }
-function burnSourceLabel(e){
+function burnSourceLabel(e, iso){
   if(!e || typeof e.burned !== 'number') return '';
-  return e.burnSource === 'whoop' ? 'WHOOP' : (e.burnSource === 'calc' ? 'Estimated' : 'Logged');
+  if(e.burnSource === 'kept') return e.keptFrom || 'WHOOP';
+  if(e.burnSource !== 'calc') return 'Logged';
+  if(iso){ const p = burnParts(iso); if(p && p.src === 'apple') return 'Apple Health'; }
+  return 'Estimated';
 }
 
 // ---------- live sync across open sessions/devices ----------
@@ -3516,13 +3897,15 @@ function attachLiveSync(){
       renderWeightCard();
     }, ()=>{ /* listener error — the one-time load already done above still works */ });
 
-    userDoc('wearable').onSnapshot(snap=>{
+    userDoc('health').onSnapshot(snap=>{
       if(!snap.exists) return;
       let incoming;
       try{ incoming = JSON.parse(snap.data().json || '{}'); }catch(e){ return; }
-      if(JSON.stringify(incoming) === JSON.stringify(wearableData)) return;
-      wearableData = incoming;
+      if(JSON.stringify(incoming) === JSON.stringify(healthData)) return;
+      healthData = incoming;
+      if(sessionInfo && sessionInfo.health && !sessionInfo.health.connected) sessionInfo.health.connected = true;
       syncDerivedBurns();
+      if(document.getElementById('healthOverlay') && document.getElementById('healthOverlay').style.display === 'flex') renderHealthPage();
       if(isEditingField()) return;
       renderAll();
     }, ()=>{});
@@ -3930,7 +4313,9 @@ function buildTargetOverlay(dates, targetVal, color){
 // incoherent against the selected horizon) — the ring fills with the period's DAILY AVERAGE
 // against the goal. Days with no data for a metric are left out of that metric's average.
 function renderTrendsRingAndRuler(){
-  const dates = filterDatesByHorizon(sortedDates(), trendHorizon);
+  // averages use finished days only — today is still filling in (see the note under the rings)
+  const today = todayStr();
+  const dates = filterDatesByHorizon(sortedDates(), trendHorizon).filter(d => d < today);
   const t = computeTargets();
   const pick = fn => dates.map(fn).filter(v => v != null);
   const cal = pick(d => consumedTotal(entries[d]));
@@ -3941,12 +4326,15 @@ function renderTrendsRingAndRuler(){
 
   renderMetricRing('Cal', 'T', { value: avgOf(cal), goal: t && t.calorieTarget, placeholder: 2000, overIsBad: calOverIsBad });
   renderMetricRing('Burn', 'T', { value: avgOf(brn), goal: t && t.burnTarget, placeholder: 2200, overIsBad: false });
-  const shares = {};
   tracked.forEach(m => {
     renderMetricRing(MACRO_INFO[m].key, 'T', { value: avgOf(pick(d => consumedMacro(entries[d], m))), goal: macroTarget(m, t),
       placeholder: MACRO_PLACEHOLDER[m], overIsBad: m !== 'protein' && calOverIsBad });
-    shares[m] = avgOf(pick(d => macroShareForDate(d, m)));
   });
+  // the period's mix: all macro calories over the finished days that have all three macros
+  const shares = {}, kc = { protein: 0, carbs: 0, fat: 0 };
+  dates.forEach(d => { const e = entries[d]; const g = MACROS.map(m => consumedMacro(e, m)); if(g.every(v => v != null)) MACROS.forEach((m, i) => { kc[m] += g[i] * MACRO_INFO[m].kcal; }); });
+  const kt = kc.protein + kc.carbs + kc.fat;
+  MACROS.forEach(m => { shares[m] = kt ? kc[m] / kt * 100 : null; });
   renderQualityList('T', shares, t);
   renderBalances('T');
 }
@@ -4065,7 +4453,7 @@ function renderBurnedChart(){
       }
     };
     const holdInfo = { titleEl, baseHTML: null, labels, series: [ { color:'#4C8DFF', decimals:0, suffix:' kcal', vals: burnedVals } ],
-      note: i => burnSourceLabel(entries[dates[i]]) };
+      note: i => burnSourceLabel(entries[dates[i]], dates[i]) };
     if(burnedChart){
       burnedChart.data = data; burnedChart.options = options; burnedChart.$dates = dates;
       burnedChart.$avgSegments = segGroups; burnedChart.$holdInfo = holdInfo; burnedChart.update();
@@ -4206,7 +4594,7 @@ function renderMacroChart(m){
     if(titleEl){
       const pt = computeTargets();
       titleEl.innerHTML = chartStatsHTML([
-        `avg <b style="color:#4C8DFF">${fmtN(avgProtein)}</b>${avgProtein != null ? ' g' : ''}`,
+        `avg <b style="color:${MACRO_COLOR[m]}">${fmtN(avgProtein)}</b>${avgProtein != null ? ' g' : ''}`,
         `goal <b>${fmtN(macroTarget(m, pt))}</b>${pt ? ' g' : ''}`
       ]);
     }
@@ -4224,7 +4612,7 @@ function renderMacroChart(m){
       type: 'bar',
       label: info.label,
       data: proteinVals,
-      backgroundColor: 'rgba(76,141,255,0.75)',
+      backgroundColor: MACRO_COLOR[m] + 'CC',
       borderRadius: 3,
       maxBarThickness: trendHorizon === 'week' ? 22 : (trendHorizon === 'month' ? 14 : 6)
     }, ...overlayDatasets.map(ds=>({ ...ds, type:'line' }))];
@@ -4250,7 +4638,7 @@ function renderMacroChart(m){
       titleEl,
       baseHTML: null,
       labels,
-      series: [ { color:'#4C8DFF', decimals:0, suffix:'g', vals: proteinVals } ]
+      series: [ { color: MACRO_COLOR[m], decimals:0, suffix:'g', vals: proteinVals } ]
     };
     if(proteinChart){
       proteinChart.data = data; proteinChart.options = options;
@@ -4913,7 +5301,6 @@ function renderFoodForm(){
   // from before that feature was removed — still editable from History), or the AI/manual input.
   const clearNote = document.getElementById('itemsClearNote');
   const head = document.getElementById('foodInputHead');
-  const switchBtn = document.getElementById('inputSwitchBtn');
   const manualView = document.getElementById('manualInputView');
   const aiView = document.getElementById('aiInputView');
 
@@ -4931,10 +5318,7 @@ function renderFoodForm(){
     head.style.display = '';
     manualView.style.display = (inputMode === 'manual') ? '' : 'none';
     aiView.style.display = (inputMode === 'ai') ? '' : 'none';
-    document.getElementById('foodInputHeadLabel').textContent =
-      inputMode === 'ai' ? 'Describe what you ate' : 'Add an item';
-    switchBtn.innerHTML = inputSwitchHTML(inputMode === 'ai' ? 'manual' : 'ai');
-    switchBtn.classList.toggle('manual-mode', inputMode === 'ai');
+    head.querySelectorAll('[data-imode]').forEach(b => b.classList.toggle('on', b.dataset.imode === inputMode));
   }
 
   renderLoggedCard(d, e);
@@ -5023,7 +5407,115 @@ document.addEventListener('click', async (ev)=>{
   await persist(); renderAll(); renderFoodForm();
 });
 
-// ---------- rendering: the "Logged" card (items list / daily total for the selected food date) ----------
+// ---------- the Food card's logged list: one compact line per item; the pencil opens it for editing ----------
+let foodEditId = null;
+const SRC_LABEL = { ai: 'AI', manual: 'Manual' };
+function itemNumsHTML(it){
+  const parts = [`<span class="fn-cal"><b>${fmtN(it.cal)}</b> kcal</span>`];
+  trackedMacros().forEach(m => { const v = it[m]; parts.push(`<span><b style="color:${MACRO_COLOR[m]}">${typeof v === 'number' ? fmtN(v) : '—'}</b> g ${m === 'fat' ? 'fat' : m}</span>`); });
+  return parts.join('<i>·</i>');
+}
+function foodListHTML(d, items){
+  const keys = nutriKeys();
+  const sum = k => items.reduce((s, it) => s + (Number(k === 'cal' ? it.cal : it[k]) || 0), 0);
+  const tot = `<div class="fl-total"><span class="fl-total-lbl">Total</span>${keys.map(k => k === 'cal'
+    ? `<span><b>${fmtN(sum('cal'))}</b> kcal</span>` : `<span><b style="color:${MACRO_COLOR[k]}">${fmtN(sum(k))}</b> g ${k === 'fat' ? 'fat' : k}</span>`).join('<i>·</i>')}</div>`;
+  const cols = `grid-template-columns:repeat(${keys.length}, minmax(0, 1fr))`;
+  const rows = items.map(it => {
+    if(it.id === foodEditId) return `<div class="fi editing" data-item="${it.id}">
+      <div class="ie-top"><textarea class="ie-desc" data-ie="desc" rows="1" aria-label="Item">${escapeHtml(it.desc || '')}</textarea></div>
+      <div class="ie-nums-lbl" style="${cols}">${keys.map(k => `<span>${NUTRI_LABEL[k]}</span>`).join('')}</div>
+      <div class="ie-nums" style="${cols}">${keys.map(k => { const v = k === 'cal' ? it.cal : it[k];
+        return `<input class="ie-num" data-ie="${k}" type="number" inputmode="numeric" value="${typeof v === 'number' ? v : ''}" placeholder="—" aria-label="${NUTRI_LABEL[k]}">`; }).join('')}</div>
+      <div class="fi-actions"><button class="fi-del" data-ie-del type="button">Delete</button><button class="btn-small btn-accent" data-fi-done type="button">Done</button></div></div>`;
+    return `<div class="fi" data-item="${it.id}">
+      <div class="fi-main"><div class="fi-name">${escapeHtml(it.desc || 'Item')}${it.src ? `<span class="fi-src ${it.src}">${SRC_LABEL[it.src] || ''}</span>` : ''}</div>
+        <div class="fi-nums">${itemNumsHTML(it)}</div></div>
+      <button class="fi-edit" data-fi-edit type="button" aria-label="Edit ${escapeHtml(it.desc || 'item')}">${PENCIL}</button></div>`;
+  }).join('');
+  return `<div class="ie fl" data-date="${d}">${tot}${rows}</div>`;
+}
+// "Done" acts on pointerdown: the field being edited saves on blur, which re-draws the list, and a
+// click would land on a button that no longer exists
+document.addEventListener('pointerdown', (ev)=>{
+  if(!ev.target.closest('.fl [data-fi-done]')) return;
+  foodEditId = null;
+});
+document.addEventListener('click', (ev)=>{
+  const ed = ev.target.closest('.fl [data-fi-edit]');
+  const done = ev.target.closest('.fl [data-fi-done]');
+  if(!ed && !done) return;
+  haptic();
+  foodEditId = ed ? ed.closest('[data-item]').dataset.item : null;
+  if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  setTimeout(() => { renderFoodForm(); if(foodEditId){ const t = document.querySelector(`.fl [data-item="${foodEditId}"] textarea`); if(t) fitItemNames(t.parentNode); } }, 0);
+});
+
+// ---------- quick add: past items that match what's being typed ----------
+// Every distinct food ever logged (by name), with its most recent numbers and how often it was eaten.
+function foodLibrary(){
+  const lib = new Map();
+  Object.keys(entries).sort().forEach(d => {
+    const e = entries[d];
+    if(!e || e.mode !== 'items') return;
+    (e.items || []).forEach(it => {
+      const key = String(it.desc || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      if(!key || typeof it.cal !== 'number') return;
+      const cur = lib.get(key);
+      lib.set(key, { item: it, last: d, times: (cur ? cur.times : 0) + 1 });
+    });
+  });
+  return lib;
+}
+function matchFoods(q, n){
+  const words = String(q || '').toLowerCase().split(/[^a-z0-9à-ÿ]+/i).filter(w => w.length >= 2);
+  if(!words.length) return [];
+  const out = [];
+  foodLibrary().forEach((v, key) => {
+    if(!words.every(w => key.includes(w))) return;
+    let score = v.times * 2 + (key.startsWith(words[0]) ? 6 : 0) + (v.last >= toISO(new Date(Date.now() - 14 * 86400000)) ? 3 : 0);
+    out.push({ key, score, ...v });
+  });
+  return out.sort((a, b) => b.score - a.score).slice(0, n || 4);
+}
+function renderSuggestions(boxId, q){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+  const list = matchFoods(q, 4);
+  if(!list.length){ box.innerHTML = ''; box.classList.remove('on'); return; }
+  box.classList.add('on');
+  box.innerHTML = `<div class="sugg-h">From your log · tap to add</div>` + list.map(x => `<button type="button" class="sugg-row" data-sugg="${escapeHtml(x.key)}">
+      <span class="sugg-txt"><b>${escapeHtml(x.item.desc)}</b><small>${itemNumsHTML(x.item)}</small></span><span class="sugg-plus" aria-hidden="true">+</span></button>`).join('');
+}
+async function quickAdd(key){
+  const v = foodLibrary().get(key);
+  if(!v) return;
+  const d = selectedDate;
+  if(!entries[d]) entries[d] = blankEntry();
+  if(entries[d].mode === 'simple') return;
+  entries[d].mode = 'items';
+  entries[d].items = entries[d].items || [];
+  const it = { id: genId(), desc: v.item.desc, cal: v.item.cal, ts: Date.now(), src: v.item.src || 'manual', repeat: true };
+  MACROS.forEach(m => { if(typeof v.item[m] === 'number') it[m] = v.item[m]; });
+  entries[d].items.push(it);
+  await persist();
+  ['aiDesc', 'itemDesc'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  renderSuggestions('aiSugg', ''); renderSuggestions('manSugg', '');
+  const st = document.getElementById('foodStatus');
+  if(st){ st.textContent = `Added ${v.item.desc}.`; st.className = 'status success'; setTimeout(() => { st.textContent = ''; st.className = 'status'; }, 1600); }
+  renderAll(); renderFoodForm();
+}
+document.addEventListener('input', (ev)=>{
+  if(ev.target.id === 'aiDesc') renderSuggestions('aiSugg', ev.target.value);
+  else if(ev.target.id === 'itemDesc') renderSuggestions('manSugg', ev.target.value);
+});
+document.addEventListener('click', (ev)=>{
+  const b = ev.target.closest('[data-sugg]');
+  if(!b) return;
+  haptic();
+  quickAdd(b.dataset.sugg);
+});
+
 function renderLoggedCard(d, e){
   const sub = document.getElementById('loggedSub');
   if(sub) sub.textContent = (d === todayStr()) ? 'Logged today' : `Logged — ${fmtDate(d)}`;
@@ -5033,7 +5525,7 @@ function renderLoggedCard(d, e){
   if(!list || !emptyMsg) return;
 
   if(e && e.mode === 'items' && (e.items||[]).length){
-    if(!(document.activeElement && list.contains(document.activeElement))){ list.innerHTML = itemsEditorHTML(d, e.items); requestAnimationFrame(() => fitItemNames(list)); }
+    if(!(document.activeElement && list.contains(document.activeElement))){ list.innerHTML = foodListHTML(d, e.items); requestAnimationFrame(() => fitItemNames(list)); }
     emptyMsg.style.display = 'none';
   } else if(e && e.mode === 'simple' && e.total != null){
     list.innerHTML = `<div class="ie"><div class="ie-totals" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="ie-tot"><b>${fmtN(e.total)}</b><span>kcal</span></div><div class="ie-tot"><b>${fmtN(e.proteinTotal)}<small>g</small></b><span>protein</span></div></div></div>`;
@@ -5064,21 +5556,6 @@ async function init(){
     renderBurnCard();
   });
 
-  document.getElementById('burnMissingList').addEventListener('click', async (ev)=>{
-    const btn = ev.target.closest('.missing-day-save'); if(!btn) return;
-    const row = btn.closest('.missing-day-row');
-    const iso = row.dataset.date;
-    const input = row.querySelector('.missing-day-input');
-    const val = parseInt(input.value, 10);
-    if(isNaN(val)) return;
-    haptic();
-    if(!entries[iso]) entries[iso] = blankEntry();
-    entries[iso].burned = val;
-    entries[iso].burnSource = 'manual';
-    await persist();
-    renderAll();
-  });
-
   const foodStatus = document.getElementById('foodStatus');
   const burnStatus = document.getElementById('burnStatus');
 
@@ -5099,10 +5576,12 @@ async function init(){
     await persist(); renderAll(); renderFoodForm();
   });
 
-  document.getElementById('inputSwitchBtn').addEventListener('click', ()=>{
+  document.getElementById('foodInputHead').addEventListener('click', (ev)=>{
+    const b = ev.target.closest('[data-imode]'); if(!b || b.dataset.imode === inputMode) return;
     haptic();
-    inputMode = (inputMode === 'ai') ? 'manual' : 'ai';
+    inputMode = b.dataset.imode;
     renderFoodForm();
+    renderSuggestions(inputMode === 'ai' ? 'aiSugg' : 'manSugg', inputMode === 'ai' ? document.getElementById('aiDesc').value : document.getElementById('itemDesc').value);
   });
 
   // ---- AI estimate flow: describe / speak / photograph -> estimate -> edit/approve -> add as an ordinary item ----
@@ -5312,11 +5791,12 @@ async function init(){
     }
     entries[d].mode = 'items';
     entries[d].items = entries[d].items || [];
-    entries[d].items.push(itemFromNutri(desc, n, lastAiEstimate));
+    entries[d].items.push(Object.assign(itemFromNutri(desc, n, lastAiEstimate), { src: 'ai' }));
     await persist();
     aiDesc.value = '';
     clearSelectedPhoto();
     resetAiResult();
+    renderSuggestions('aiSugg', '');
     setAiStatus('Item added.', 'success', 1400);
     renderAll(); renderFoodForm();
   });
@@ -5340,9 +5820,9 @@ async function init(){
     }
     entries[d].mode = 'items';
     entries[d].items = entries[d].items || [];
-    entries[d].items.push(itemFromNutri(desc, n, null));
+    entries[d].items.push(Object.assign(itemFromNutri(desc, n, null), { src: 'manual' }));
     await persist();
-    descInput.value = ''; setNutri('manualNutri', {});
+    descInput.value = ''; setNutri('manualNutri', {}); renderSuggestions('manSugg', '');
     foodStatus.textContent = 'Item added.';
     foodStatus.className = 'status success';
     setTimeout(()=>{ foodStatus.textContent=''; foodStatus.className='status'; }, 1400);
@@ -5360,11 +5840,12 @@ async function init(){
     if(!entries[d]) entries[d] = blankEntry();
     entries[d].burned = val;
     entries[d].burnSource = 'manual';
+    bcOwnOpen = false;
+    document.getElementById('burnedInput').value = '';
     await persist();
     burnStatus.textContent = 'Saved.';
     burnStatus.className = 'status success';
     setTimeout(()=>{ burnStatus.textContent=''; burnStatus.className='status'; }, 1400);
-    burnExpanded = false;
     renderAll();
   });
 
@@ -5597,19 +6078,22 @@ async function init(){
     const body = document.getElementById('burnModeBody');
     if(!body) return;
     const mode = burnMode();
-    if(mode === 'whoop'){
-      body.innerHTML = `<div class="bm-locked"><b>From WHOOP</b><span>Your burn syncs from WHOOP automatically. To log it yourself or have it estimated, disconnect WHOOP in Wearables.</span></div>`;
-      return;
-    }
-    const opt = (k, title, sub) => `<button class="exp-format bm-opt${mode === k ? ' active' : ''}" data-burn-mode="${k}" type="button"><b>${title}</b><small>${sub}</small></button>`;
-    body.innerHTML = `<div class="bm-opts">` +
-      opt('manual', 'I’ll log it', 'Type your burn into the Burn card each day.') +
-      opt('calc', 'Estimate it', 'From your profile and the activity you tag each day — sedentary unless you change it.') +
-      `</div><button class="bm-wear" id="bmWearBtn" type="button">Have a wearable? <b>Connect it</b> ›</button>` +
-      `<p class="status" id="burnModeStatus"></p>`;
+    const bmr = bmrNow();
+    const h = (sessionInfo && sessionInfo.health) || {};
+    const connected = !!(h.connected || Object.keys(healthData).length);
+    const opt = (k, ico, title, sub, tag) => `<button class="bm-opt2${mode === k ? ' active' : ''}" data-burn-mode="${k}" type="button">
+        <span class="bm-ico">${ico}</span><span class="bm-txt"><b>${title}${tag ? `<em>${tag}</em>` : ''}</b><small>${sub}</small></span><span class="bm-radio"></span></button>`;
+    body.innerHTML = `<p class="bm-formula"><span><b>Resting</b>${bmr ? fmtN(bmr) : '—'}</span><i>+</i><span><b>Movement</b>varies</span><i>+</i><span><b>Digestion</b>from food</span></p>
+      <p class="bm-explain">Resting is your BMR from your profile. Digestion comes from what you eat each day. Movement is where the two options differ:</p>
+      <div class="bm-opts2">` +
+      opt('apple', AH_ICON, 'Apple Health', 'Your steps plus the active energy your watch or ring records, synced through Apple Health.', mode === 'apple' ? (connected ? 'Connected' : 'Setup needed') : '') +
+      opt('calc', actIcon('light', 'bm-act-ico'), 'Estimate it', 'Everyday living plus the activity you tag each day — sedentary, light, moderate or very active.', '') +
+      `</div>${mode === 'apple' ? `<button class="bm-wear" data-bm-health type="button">${connected ? 'Manage Apple Health' : 'Finish Apple Health setup'} ›</button>` : ''}
+      <p class="bm-explain small">Any day, you can change any part or type your own total in the Burn card.</p>
+      <p class="status" id="burnModeStatus"></p>`;
   }
   document.getElementById('burnModeBody').addEventListener('click', async (ev)=>{
-    if(ev.target.closest('#bmWearBtn')){ haptic(); openWearables(); return; }
+    if(ev.target.closest('[data-bm-health]')){ haptic(); openHealthPage(); return; }
     const b = ev.target.closest('[data-burn-mode]'); if(!b) return;
     haptic();
     userProfile.burnMode = b.dataset.burnMode;
@@ -5618,8 +6102,10 @@ async function init(){
     await persist();
     renderBurnModeSection();
     renderAll();
+    const h = (sessionInfo && sessionInfo.health) || {};
+    if(userProfile.burnMode === 'apple' && !(h.connected || Object.keys(healthData).length)){ openHealthPage(); return; }
     const st = document.getElementById('burnModeStatus');
-    if(st){ st.textContent = userProfile.burnMode === 'calc' ? 'The app will estimate your burn.' : 'You’ll log your burn yourself.'; st.className = 'status success'; }
+    if(st){ st.textContent = userProfile.burnMode === 'apple' ? 'Active energy now comes from Apple Health.' : 'Active energy is now estimated from your daily activity.'; st.className = 'status success'; }
   });
   document.getElementById('openProfileBtn').addEventListener('click', ()=>{
     setMenuOpen(false); haptic();
@@ -5745,13 +6231,6 @@ async function init(){
     methodologyToggleBtn.textContent = open ? 'How we calculated this ▾' : 'How we calculated this ▴';
   });
 
-  document.getElementById('ringSection').addEventListener('click', (ev)=>{
-    if(!ev.target.closest('#burnLogBtn')) return;
-    haptic();
-    burnExpanded = true; renderBurnCard();
-    document.getElementById('burnSummaryBtn').scrollIntoView({ behavior:'smooth', block:'start' });
-    setTimeout(()=>{ const i = document.getElementById('burnedInput'); if(i) i.focus({ preventScroll:true }); }, 450);
-  });
   document.getElementById('myGoals').addEventListener('click', ()=>{ haptic(); document.getElementById('openGoalsBtn').click(); });
   document.getElementById('openGoalsBtn').addEventListener('click', ()=>{
     setMenuOpen(false); haptic();
@@ -5760,11 +6239,11 @@ async function init(){
     goalsOverlay.style.display = 'flex';
   });
   document.getElementById('goalsBackBtn').addEventListener('click', ()=>{ goalsOverlay.style.display = 'none'; renderAll(); });
-  document.getElementById('openWearablesBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openWearables(); });
+  document.getElementById('openWearablesBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openHealthPage(); });
   document.getElementById('openHistoryBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openHistory(); });
   document.getElementById('openExportBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openExport(); });
-  document.getElementById('wearablesBackBtn').addEventListener('click', ()=>{ document.getElementById('wearablesOverlay').style.display = 'none'; wearablesMsg = null; });
-  document.getElementById('wearablesBody').addEventListener('click', (ev)=>{ const b = ev.target.closest('[data-wear]'); if(b) wearablesAction(b.dataset.wear, b); });
+  document.getElementById('wearablesBackBtn').addEventListener('click', ()=>{ document.getElementById('healthOverlay').style.display = 'none'; healthMsg = null; renderAll(); });
+  document.getElementById('wearablesBody').addEventListener('click', (ev)=>{ const b = ev.target.closest('[data-ah]'); if(b) healthAction(b.dataset.ah, b); });
   document.getElementById('openAdminBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openAdmin(); });
   document.getElementById('adminBackBtn').addEventListener('click', ()=>{ document.getElementById('adminOverlay').style.display = 'none'; adminMsg = null; });
   document.getElementById('adminBody').addEventListener('click', (ev)=>{
@@ -5802,11 +6281,12 @@ async function init(){
   await loadWeights();
   await loadProfile();
   await loadGoals();
-  await loadWearable();
+  await loadHealth();
+  await keepWearableHistory();
   syncDerivedBurns();
   // estimated burn keeps growing through the day
-  setInterval(()=>{ if(burnMode() === 'calc' && !isEditingField()){ syncDerivedBurns(); renderRing(); renderBurnCard(); } }, 5 * 60000);
-  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && burnMode() === 'calc'){ syncDerivedBurns(); renderAll(); } });
+  setInterval(()=>{ if(!isEditingField()){ syncDerivedBurns(); renderRing(); renderBurnCard(); } }, 5 * 60000); // today's base grows through the day
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ syncDerivedBurns(); renderAll(); } });
   if(!userProfile.name && authDisplayName()){ userProfile.name = authDisplayName(); persistProfile(); }
   renderAll();
   renderFoodForm();
@@ -5827,7 +6307,7 @@ async function init(){
 // Accounts: sign in / create account / forgot password, then a server "session" handshake
 // that creates the account record on first sign-in and says whether it's approved.
 // =====================================================================================
-let sessionInfo = null;      // { status, role, isAdmin, whoop:{available,connected,lastSyncAt,lastError} }
+let sessionInfo = null;      // { status, role, isAdmin, health:{connected,lastSyncAt,shortcutUrl} }
 let appStarted = false;
 let pendingSignupName = '';
 let authMode = 'signin';
@@ -5913,7 +6393,7 @@ async function startSession(user){
   }catch(e){
     // Offline or the server is unreachable: let a returning member in with their cached data.
     // (Firestore's security rules still decide what they can actually read and write.)
-    sessionInfo = { status: 'active', role: 'user', isAdmin: false, whoop: {}, offline: true };
+    sessionInfo = { status: 'active', role: 'user', isAdmin: false, health: {}, offline: true };
   }
   if(sessionInfo.status !== 'active'){ showGate(sessionInfo.status); return; }
   namespaceLocalKeys(user.uid);
@@ -5932,18 +6412,9 @@ function applySessionToUI(user){
   const adminBtn = document.getElementById('openAdminBtn');
   if(adminBtn) adminBtn.style.display = (sessionInfo && sessionInfo.isAdmin) ? '' : 'none';
 }
-// After the app is up: handle a return from WHOOP's sign-in page, and refresh WHOOP if stale.
+// After the app is up: clear any leftover hash from the old WHOOP sign-in flow.
 function afterAppStart(){
-  const h = location.hash;
-  if(h === '#whoop=connected' || h === '#whoop=error'){
-    history.replaceState(null, '', location.pathname + location.search);
-    callApi('session').then((s) => { sessionInfo = s; renderBurnCard(); openWearables(h === '#whoop=connected' ? 'WHOOP is connected. Your burn will now fill in automatically.' : 'WHOOP didn’t connect. Try again.', h === '#whoop=error'); }).catch(()=>{});
-    return;
-  }
-  const w = sessionInfo && sessionInfo.whoop;
-  if(w && w.connected && (!w.lastSyncAt || Date.now() - w.lastSyncAt > 10 * 60000)){
-    callApi('whoop.sync').catch(()=>{}); // the wearable listener picks up whatever changes
-  }
+  if(/^#whoop=/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
 }
 
 function bootAuth(){
@@ -6052,7 +6523,7 @@ function buildExportCSV(dates){
     return [d, parseISO(d).toLocaleDateString('en-US', { weekday:'long' }),
       cal != null ? Math.round(cal) : null, pro != null ? Math.round(pro) : null,
       consumedMacro(e, 'carbs') != null ? Math.round(consumedMacro(e, 'carbs')) : null, consumedMacro(e, 'fat') != null ? Math.round(consumedMacro(e, 'fat')) : null,
-      hasBurned(e) ? Math.round(e.burned) : null, hasBurned(e) ? burnSourceLabel(e) : null,
+      hasBurned(e) ? Math.round(e.burned) : null, hasBurned(e) ? burnSourceLabel(e, d) : null,
       n != null ? Math.round(n) : null, q != null ? Math.round(q * 10) / 10 : null,
       wMap[d] ? Math.round(wMap[d].avg * 10) / 10 : null, items].map(csvCell).join(',');
   });
@@ -6104,72 +6575,107 @@ function wireExport(){
 }
 
 // =====================================================================================
-// Wearables page
+// Apple Health page — connect the Shortcut that sends Active Energy, see what arrived, disconnect
 // =====================================================================================
-let wearablesMsg = null;
-function openWearables(msg, isError){
-  wearablesMsg = msg ? { text: msg, error: !!isError } : null;
-  renderWearables();
-  document.getElementById('wearablesOverlay').style.display = 'flex';
+let healthMsg = null, healthKey = null, healthStepsOpen = false;
+function openHealthPage(){
+  healthMsg = null; healthStepsOpen = false;
+  document.getElementById('healthOverlay').style.display = 'flex';
+  renderHealthPage();
+  if(!healthKey) callApi('health.key').then((r) => { healthKey = r.key; renderHealthPage(); }).catch(() => {});
+  callApi('session').then((x) => { sessionInfo = x; renderHealthPage(); }).catch(() => {});
 }
-function wearableCard(opts){
-  return `<div class="wear-card${opts.dim ? ' dim' : ''}">
-    <div class="wear-head">
-      <div class="wear-logo">${opts.logo}</div>
-      <div class="wear-titles"><div class="wear-name">${opts.name}</div><div class="wear-status ${opts.statusCls || ''}">${opts.status}</div></div>
-    </div>
-    ${opts.body ? `<p class="wear-body">${opts.body}</p>` : ''}
-    ${opts.actions ? `<div class="wear-actions">${opts.actions}</div>` : ''}
-  </div>`;
-}
-function renderWearables(){
+function renderHealthPage(){
   const body = document.getElementById('wearablesBody');
   if(!body) return;
-  const w = (sessionInfo && sessionInfo.whoop) || {};
-  let whoop;
-  if(!w.available){
-    whoop = wearableCard({ name:'WHOOP', logo:'W', status:'Not set up yet', statusCls:'muted',
-      body: sessionInfo && sessionInfo.isAdmin
-        ? 'Add your WHOOP developer app in the Admin console to turn this on for everyone.'
-        : 'The app owner hasn’t turned on WHOOP yet.' });
-  } else if(w.connected){
-    whoop = wearableCard({ name:'WHOOP', logo:'W', status: `Connected · synced ${relTime(w.lastSyncAt)}`, statusCls:'ok',
-      body: 'Your daily burn fills in automatically: today’s number updates through the day, then locks in once WHOOP closes the day after you sleep. Anything you type by hand always wins.' +
-            (w.lastError ? `<br><span class="wear-err">Last sync problem: ${escapeHtml(w.lastError)}</span>` : ''),
-      actions: '<button class="btn-small" data-wear="sync" type="button">Sync now</button><button class="btn-small wear-danger" data-wear="disconnect" type="button">Disconnect</button>' });
+  const h = (sessionInfo && sessionInfo.health) || {};
+  const days = Object.keys(healthData).sort().reverse();
+  const connected = !!(h.connected || days.length);
+  const lastAt = Math.max(h.lastSyncAt || 0, ...days.map((d) => (healthData[d] && healthData[d].at) || 0));
+  const using = burnMode() === 'apple';
+  const url = h.shortcutUrl;
+  const isAdmin = sessionInfo && sessionInfo.isAdmin;
+  const step = (n, title, inner, done) => `<li class="ah-step${done ? ' done' : ''}"><span class="ah-num">${done ? '✓' : n}</span><div><b>${title}</b>${inner}</div></li>`;
+  const steps = `<ol class="ah-steps">
+    ${step(1, 'Copy your key', `<p>It links the shortcut to your account. Keep it private.</p>
+      <div class="ah-key"><code>${healthKey ? escapeHtml(healthKey) : 'Loading…'}</code><button class="btn-small" data-ah="copy" type="button" ${healthKey ? '' : 'disabled'}>Copy</button></div>`)}
+    ${step(2, 'Add the Monstrão shortcut', url
+      ? `<p>Tap below, then <b>Add Shortcut</b>. Paste your key when it asks.</p><a class="btn-primary ah-add" href="${escapeHtml(url)}" target="_blank" rel="noopener">Add “Monstrão Health” shortcut</a>`
+      : `<p>${isAdmin ? 'Add the shortcut’s iCloud link in the Admin console first (Apple Health section).' : 'Not available yet — the app owner is still setting it up.'}</p>`)}
+    ${step(3, 'Run it once', `<p>Open Shortcuts and tap <b>Monstrão Health</b>. Allow it to read your steps and active energy and to send to Monstrão. This page updates when your data lands.</p>${connected ? '' : '<p class="ah-wait"><i></i>Waiting for your first sync…</p>'}`, connected)}
+    ${step(4, 'Make it automatic', `<p>In Shortcuts: <b>Automation</b> → <b>+</b> → <b>Time of Day</b> → 9:00 AM, Daily → <b>Run Immediately</b> → pick <b>Monstrão Health</b>.</p>
+      <p>Add the same at 1 PM, 6 PM and 11:30 PM. Each run sends today and the two days before, so a missed run fixes itself.</p>`)}
+  </ol>`;
+  let html = `<div class="ah-hero"><div class="ah-tile">${AH_ICON}</div>
+      <div><div class="ah-title">Apple Health</div><div class="ah-status ${connected ? 'ok' : ''}">${connected ? `Connected · last sync ${relTimeShort(lastAt) || '—'}` : 'Not connected'}</div></div></div>
+    <p class="ah-intro">Your burn is <b>Resting</b> + <b>Movement</b> + <b>Digestion</b>. Connect Apple Health and movement comes from your real <b>steps</b> plus the <b>active energy</b> your watch or ring records — Apple Watch, WHOOP, Oura, Garmin — instead of an estimate.</p>`;
+  if(healthMsg) html += `<p class="status ${healthMsg.error ? 'error' : 'success'}" style="margin:0 0 12px;">${escapeHtml(healthMsg.text)}</p>`;
+  if(connected){
+    if(!using) html += `<div class="ah-use"><span>Your burn still uses the activity estimate.</span><button class="btn-small btn-accent" data-ah="use" type="button">Use Apple Health</button></div>`;
+    const recent = [];
+    for(let i = 0; i < 7; i++){ const dt = new Date(); dt.setDate(dt.getDate() - i); recent.push(toISO(dt)); }
+    const max = Math.max(1, ...recent.map((d) => (healthFor(d) || {}).active || 0));
+    html += `<div class="ah-card"><div class="ah-card-h"><b>From Apple Health</b><small>steps · active kcal</small></div>${recent.map((d) => {
+      const v = healthFor(d);
+      return `<div class="ah-day"><span>${d === todayStr() ? 'Today' : parseISO(d).toLocaleDateString(undefined, { weekday:'short', month:'short', day:'numeric' })}</span>
+        <em>${v && typeof v.steps === 'number' ? fmtN(v.steps) : '—'}</em><i class="ah-bar"><i style="width:${v && v.active ? Math.round(v.active / max * 100) : 0}%"></i></i><b>${v && typeof v.active === 'number' ? fmtN(v.active) : '—'}</b></div>`;
+    }).join('')}<p class="ah-foot">Change any day’s numbers in the Burn card.</p></div>
+    <div class="ah-card"><div class="ah-card-h"><b>Your active energy comes from</b></div>
+      <div class="ah-src">
+        <button type="button" class="ah-src-opt${!userProfile.activeAllDay ? ' on' : ''}" data-ah="src-workouts"><b>Workouts only</b><small>WHOOP, Oura, Garmin, phone apps — steps are added on top</small></button>
+        <button type="button" class="ah-src-opt${userProfile.activeAllDay ? ' on' : ''}" data-ah="src-allday"><b>All day</b><small>Apple Watch — it already counts walking, so steps aren’t added again</small></button>
+      </div></div>`;
+    html += `<button class="ah-toggle" data-ah="steps" type="button">${healthStepsOpen ? 'Hide setup steps' : 'Setup steps & automation'} <span>${healthStepsOpen ? '▴' : '▾'}</span></button>`;
+    if(healthStepsOpen) html += steps;
+    html += `<div class="ah-actions"><button class="btn-small" data-ah="rotate" type="button">New key</button><button class="btn-small wear-danger" data-ah="disconnect" type="button">Disconnect</button></div>`;
   } else {
-    whoop = wearableCard({ name:'WHOOP', logo:'W', status:'Not connected', statusCls:'muted',
-      body: 'Connect once and your calorie burn comes straight from WHOOP — live during the day, final the next morning.',
-      actions: '<button class="btn-primary" data-wear="connect" type="button">Connect WHOOP</button>' });
+    html += steps;
   }
-  const oura = wearableCard({ name:'Oura', logo:'O', status:'Coming soon', statusCls:'muted', dim:true });
-  const google = wearableCard({ name:'Fitbit', logo:'F', status:'Coming soon', statusCls:'muted', dim:true });
-  body.innerHTML = (wearablesMsg ? `<p class="status ${wearablesMsg.error ? 'error' : 'success'}" style="margin:0 0 14px;">${escapeHtml(wearablesMsg.text)}</p>` : '') + whoop + oura + google;
+  body.innerHTML = html;
 }
-async function wearablesAction(act, btn){
+async function healthAction(act, btn){
+  haptic();
+  if(act === 'steps'){ healthStepsOpen = !healthStepsOpen; renderHealthPage(); return; }
+  if(act === 'src-workouts' || act === 'src-allday'){
+    userProfile.activeAllDay = act === 'src-allday'; await persistProfile();
+    syncDerivedBurns(); await persist(); renderHealthPage(); renderAll(); return;
+  }
+  if(act === 'copy'){
+    try{ await navigator.clipboard.writeText(healthKey); btn.textContent = 'Copied'; }
+    catch(e){ const c = btn.parentElement.querySelector('code'); const r = document.createRange(); r.selectNodeContents(c); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = 'Selected'; }
+    setTimeout(() => { if(btn.isConnected) btn.textContent = 'Copy'; }, 1600);
+    return;
+  }
+  if(act === 'disconnect' && btn.dataset.armed !== '1'){
+    btn.dataset.armed = '1'; btn.textContent = 'Tap again to disconnect';
+    setTimeout(() => { if(btn.isConnected){ btn.dataset.armed = ''; btn.textContent = 'Disconnect'; } }, 4000);
+    return;
+  }
   btn.disabled = true;
   try{
-    if(act === 'connect'){
-      const r = await callApi('whoop.authUrl', { returnUrl: APP_RETURN_URL });
-      location.href = r.url;
-      return;
+    if(act === 'use'){
+      userProfile.burnMode = 'apple'; await persistProfile();
+      healthMsg = { text: 'Done — your burn now uses Apple Health’s active energy.' };
     }
-    if(act === 'sync'){
-      const r = await callApi('whoop.sync');
-      sessionInfo = await callApi('session');
-      wearablesMsg = r.ok ? { text: 'Synced with WHOOP.' } : { text: 'Sync failed: ' + (r.error || 'unknown error'), error: true };
+    if(act === 'rotate'){
+      const r = await callApi('health.key', { rotate: true }); healthKey = r.key; healthStepsOpen = true;
+      healthMsg = { text: 'New key made. The old one stopped working — open the shortcut in the Shortcuts app and paste this one in.' };
     }
     if(act === 'disconnect'){
-      await callApi('whoop.disconnect');
+      await callApi('health.disconnect');
       sessionInfo = await callApi('session');
-      wearablesMsg = { text: 'WHOOP disconnected. Burn you already have stays; new days go back to manual.' };
+      healthKey = null; healthData = {};
+      userProfile.burnMode = 'calc'; await persistProfile();
+      healthMsg = { text: 'Disconnected. Your burn goes back to the activity estimate; you can delete the shortcut from the Shortcuts app.' };
+      callApi('health.key').then((r) => { healthKey = r.key; renderHealthPage(); }).catch(() => {});
     }
   }catch(e){
-    wearablesMsg = { text: (e && e.message) || 'That didn’t work. Try again.', error: true };
+    healthMsg = { text: (e && e.message) || 'That didn’t work. Try again.', error: true };
   }
   btn.disabled = false;
-  renderWearables();
   syncDerivedBurns();
+  await persist();
+  renderHealthPage();
   renderAll();
 }
 
@@ -6197,7 +6703,7 @@ function adminUserRow(u, meIsOwner, openUids){
   if(u.role === 'admin') chips.push('<span class="chip chip-accent">Admin</span>');
   if(u.status === 'pending') chips.push('<span class="chip chip-warn">Waiting</span>');
   if(u.status === 'disabled') chips.push('<span class="chip chip-bad">Turned off</span>');
-  if(u.whoopConnected) chips.push('<span class="chip">WHOOP</span>');
+  if(u.healthConnected) chips.push('<span class="chip">Apple Health</span>');
   const name = u.displayName || u.email.split('@')[0];
   const initial = (name || '?').trim().charAt(0).toUpperCase();
   const capTxt = u.aiDailyCap != null ? u.aiDailyCap : '';
@@ -6205,7 +6711,6 @@ function adminUserRow(u, meIsOwner, openUids){
   const locked = u.role === 'owner' || (u.role === 'admin' && !meIsOwner);
   const actions = [];
   actions.push(`<button class="btn-small" data-adm="reset" data-email="${escapeHtml(u.email)}" type="button">Send password reset</button>`);
-  if(u.whoopConnected) actions.push(`<button class="btn-small" data-adm="whoop-off" data-uid="${u.uid}" data-label="Disconnect WHOOP" type="button">Disconnect WHOOP</button>`);
   if(!locked){
     if(u.status === 'disabled') actions.push(`<button class="btn-small" data-adm="enable" data-uid="${u.uid}" type="button">Turn on</button>`);
     else if(u.status === 'pending') actions.push(`<button class="btn-small btn-accent" data-adm="approve" data-uid="${u.uid}" type="button">Approve</button>`);
@@ -6302,12 +6807,11 @@ function renderAdmin(){
     </section>
 
     ${meIsOwner ? `<section class="adm-card">
-      <h3>WHOOP</h3>
-      <p class="adm-note">${d.whoop.configured ? 'WHOOP is on. Members can connect it from Wearables.' : 'Create an app at developer.whoop.com, add the redirect URL below, then paste its client ID and secret here.'}</p>
-      <div class="adm-copy"><span>Redirect URL</span><code>${escapeHtml(d.whoop.redirectUri)}</code></div>
-      <input type="text" placeholder="Client ID" autocapitalize="off" spellcheck="false" data-adm-whoop-id>
-      <input type="password" placeholder="Client secret" autocomplete="off" data-adm-whoop-secret>
-      <button class="btn-small btn-accent" data-adm="whoop" type="button">${d.whoop.configured ? 'Replace credentials' : 'Save'}</button>
+      <h3>Apple Health</h3>
+      <p class="adm-note">${d.config.healthShortcutUrl ? 'Members see an “Add shortcut” button on the Apple Health page.' : 'Build the “Monstrão Health” shortcut once (see the setup guide), share it from the Shortcuts app with “Copy iCloud Link”, and paste the link here.'}</p>
+      <div class="adm-copy"><span>Sync address (for the shortcut)</span><code>https://us-central1-monstrao-e04ac.cloudfunctions.net/healthSync</code></div>
+      <input type="text" placeholder="https://www.icloud.com/shortcuts/…" autocapitalize="off" spellcheck="false" value="${escapeHtml(d.config.healthShortcutUrl || '')}" data-adm-shortcut>
+      <button class="btn-small btn-accent" data-adm="shortcut" type="button">Save link</button>
     </section>` : ''}
 
     <p class="adm-note adm-foot">Costs are estimates from token counts: ${escapeHtml(d.pricing.model)} at $${d.pricing.inputPerMTok}/$${d.pricing.outputPerMTok} per million input/output tokens, plus $${d.pricing.webSearchPer1k} per 1,000 web searches.</p>
@@ -6344,10 +6848,10 @@ async function adminAct(btn){
   const uid = btn.dataset.uid;
   const body = document.getElementById('adminBody');
   // two-tap confirm for actions that can't be undone from here
-  if((act === 'delete' || act === 'whoop-off') && btn.dataset.armed !== '1'){
+  if(act === 'delete' && btn.dataset.armed !== '1'){
     const original = btn.textContent;
     btn.dataset.armed = '1';
-    btn.textContent = act === 'delete' ? `Tap again to delete ${btn.dataset.name}` : 'Tap again to disconnect';
+    btn.textContent = `Tap again to delete ${btn.dataset.name}`;
     setTimeout(()=>{ if(btn.isConnected){ btn.dataset.armed = ''; btn.textContent = original; } }, 4000);
     return;
   }
@@ -6359,13 +6863,6 @@ async function adminAct(btn){
     else if(act === 'role-admin') await callApi('admin.setRole', { uid, role: 'admin' });
     else if(act === 'role-user') await callApi('admin.setRole', { uid, role: 'user' });
     else if(act === 'delete'){ await callApi('admin.deleteUser', { uid }); adminMsg = { text: 'Account deleted.' }; }
-    else if(act === 'whoop-off'){
-      const r = await callApi('admin.disconnectWhoop', { uid });
-      adminMsg = { text: r.revoked
-        ? 'WHOOP disconnected, and access revoked on WHOOP’s side.'
-        : 'WHOOP disconnected here, but WHOOP didn’t confirm the revoke. The member can also remove Monstrão from connected apps in the WHOOP app.' };
-      if(firebase.auth().currentUser && uid === firebase.auth().currentUser.uid) sessionInfo = await callApi('session');
-    }
     else if(act === 'cap'){
       const v = body.querySelector(`[data-adm-cap="${uid}"]`).value.trim();
       await callApi('admin.setCap', { uid, cap: v === '' ? null : Number(v) });
@@ -6386,13 +6883,11 @@ async function adminAct(btn){
       await callApi('admin.setConfig', { defaultDailyAiCap: Number(v) });
       adminMsg = { text: `Default daily AI limit set to ${v}.` };
     }
-    else if(act === 'whoop'){
-      await callApi('admin.setWhoopApp', {
-        clientId: body.querySelector('[data-adm-whoop-id]').value,
-        clientSecret: body.querySelector('[data-adm-whoop-secret]').value
-      });
+    else if(act === 'shortcut'){
+      const v = body.querySelector('[data-adm-shortcut]').value.trim();
+      await callApi('admin.setConfig', { healthShortcutUrl: v });
       sessionInfo = await callApi('session');
-      adminMsg = { text: 'WHOOP credentials saved. Members can now connect WHOOP from Wearables.' };
+      adminMsg = { text: v ? 'Shortcut link saved. Members can add it from the Apple Health page.' : 'Shortcut link removed.' };
     }
   }catch(e){
     adminMsg = { text: (e && e.message) || 'That didn’t work. Try again.', error: true };
@@ -6872,7 +7367,7 @@ bootAuth();
   function syncSend(){ sendBtn.disabled = !busy && !input.value.trim(); }
   function grow(){ input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 132) + 'px'; }
 
-  async function send(text){
+  async function send(text, intent){
     text = String(text || '').trim();
     if(!text || busy) return;
     stopMic();
@@ -6895,7 +7390,7 @@ bootAuth();
       const resp = await fetch(CHAT_URL, {
         method: 'POST', signal: abortCtl.signal,
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-        body: JSON.stringify({ message: text, context: chatContext() })
+        body: JSON.stringify({ message: text, context: Object.assign(chatContext(), intent ? { intent } : {}) })
       });
       if(!resp.ok){
         let b = null; try { b = await resp.json(); } catch(e){}
@@ -6941,7 +7436,7 @@ bootAuth();
       const err = document.createElement('div'); err.className = 'cm-err';
       err.innerHTML = `<span></span><button type="button">Retry</button>`;
       err.querySelector('span').textContent = failed;
-      err.querySelector('button').addEventListener('click', () => { el.remove(); const u = log.querySelectorAll('.cm-user'); const last = u[u.length - 1]; if(last) last.remove(); thread.pop(); send(text); });
+      err.querySelector('button').addEventListener('click', () => { el.remove(); const u = log.querySelectorAll('.cm-user'); const last = u[u.length - 1]; if(last) last.remove(); thread.pop(); send(text, intent); });
       el.appendChild(err);
       follow();
     } else if(answer){
@@ -6992,7 +7487,7 @@ bootAuth();
     if(!thread.length && !busy) showEmpty(true);
     else if(!log.children.length) renderThread();
     loadHistory();
-    if(opts.ask) setTimeout(() => send(opts.ask), 180);
+    if(opts.ask) setTimeout(() => send(opts.ask, opts.intent), 180);
     else if(window.matchMedia('(hover: hover)').matches) setTimeout(() => input.focus(), 120);
     requestAnimationFrame(() => { scroller.scrollTop = scroller.scrollHeight; });
   };

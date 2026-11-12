@@ -1459,6 +1459,10 @@
   .ring-net b{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;line-height:1.1;}
   .ring-net span{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
   .ring-net.deficit b{color:var(--deficit);} .ring-net.surplus b{color:var(--surplus);}
+  /* Trends sits one card deeper, so its top rings get a little smaller to leave room for the average between them */
+  #trendRingSection .metrics-top .mring{max-width:100px;}
+  #ringNetT{padding:5px 7px;}
+  #ringNetT b{font-size:12.5px;} #ringNetT span{font-size:8.5px;}
   @keyframes netIn{from{opacity:0;transform:translate(-50%,-40%);}to{opacity:1;transform:translate(-50%,-50%);}}
 
   /* Goals: burn target breakdown */
@@ -1685,7 +1689,9 @@
   .dq-ask{display:inline-flex;align-items:center;gap:5px;padding:5px 10px 5px 8px;border-radius:999px;border:1px solid rgba(76,141,255,0.35);background:rgba(76,141,255,0.10);color:var(--ink);font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
   .dq-ask svg{width:12px;height:12px;color:var(--accent);}
   .dq-ask:active{background:rgba(76,141,255,0.22);}
-  .day-ask{margin-top:16px;padding-top:16px;border-top:1px solid rgba(244,245,250,0.07);}
+  .day-ask{margin-top:12px;padding:12px 4px 2px;border-top:1px solid rgba(244,245,250,0.07);display:flex;justify-content:center;}
+  .dq-ask.chip{gap:7px;padding:8px 14px 8px 11px;font-size:13px;}
+  .dq-ask.chip svg{width:14px;height:14px;}
   .day-ask:empty{display:none;}
   .dq-ask.big{display:flex;width:100%;gap:10px;padding:13px 14px;border-radius:14px;font-size:14px;background:linear-gradient(90deg,rgba(76,141,255,0.16),rgba(76,141,255,0.06));}
   .dq-ask.big svg{width:17px;height:17px;}
@@ -1903,9 +1909,9 @@
     </div>
     <button class="goal-cta" id="goalCtaBtn" type="button" style="display:none;">Set your goals to see your targets <span aria-hidden="true">›</span></button>
     <div class="dq" id="dq"></div>
+    <div class="day-ask" id="dayAsk"></div>
     </div>
     <div class="balances" id="balances"></div>
-    <div class="day-ask" id="dayAsk"></div>
   </div>
 
       </div>
@@ -2093,6 +2099,7 @@
         </div>
         <div class="metric-goal" id="mGoalBurnT"></div>
       </div>
+      <div class="ring-net" id="ringNetT" aria-live="polite" style="display:none;"></div>
     </div>
     <div class="metrics metrics-macros" id="macroRingsT">
       <div class="metric metric-protein" data-macro="protein">
@@ -2180,24 +2187,6 @@
         <div id="burnedChartWrap" style="display:none;"><canvas id="burnedChart"></canvas></div>
       </div>
 
-      <div class="trend-chart-block" id="blockSteps" style="display:none;">
-        <button class="chart-collapse-btn" id="toggleStepsBtn" type="button">
-          <span class="chart-name">Steps</span>
-          <span class="chart-stats" id="trendStepsChartTitle"></span>
-          <span class="burn-chevron" id="stepsChevron">›</span>
-        </button>
-        <div id="stepsChartWrap" style="display:none;"><canvas id="stepsChart"></canvas></div>
-      </div>
-
-      <div class="trend-chart-block" id="blockActive" style="display:none;">
-        <button class="chart-collapse-btn" id="toggleActiveBtn" type="button">
-          <span class="chart-name" id="activeChartName">Active energy</span>
-          <span class="chart-stats" id="trendActiveChartTitle"></span>
-          <span class="burn-chevron" id="activeChevron">›</span>
-        </button>
-        <div id="activeChartWrap" style="display:none;"><canvas id="activeChart"></canvas></div>
-      </div>
-
       <div class="trend-chart-block" id="blockNet">
         <button class="chart-collapse-btn" id="toggleNetBtn" type="button">
           <span class="chart-name">Calorie Deficit/Surplus</span>
@@ -2232,6 +2221,24 @@
           <span class="burn-chevron" id="fatChevron">›</span>
         </button>
         <div id="fatChartWrap" style="display:none;"><canvas id="fatChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockSteps" style="display:none;">
+        <button class="chart-collapse-btn" id="toggleStepsBtn" type="button">
+          <span class="chart-name">Steps</span>
+          <span class="chart-stats" id="trendStepsChartTitle"></span>
+          <span class="burn-chevron" id="stepsChevron">›</span>
+        </button>
+        <div id="stepsChartWrap" style="display:none;"><canvas id="stepsChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockActive" style="display:none;">
+        <button class="chart-collapse-btn" id="toggleActiveBtn" type="button">
+          <span class="chart-name" id="activeChartName">Active energy</span>
+          <span class="chart-stats" id="trendActiveChartTitle"></span>
+          <span class="burn-chevron" id="activeChevron">›</span>
+        </button>
+        <div id="activeChartWrap" style="display:none;"><canvas id="activeChart"></canvas></div>
       </div>
 
     </div>
@@ -2892,13 +2899,13 @@ function renderQualityList(s, shares, t){
     <div class="dq2-row"><span class="dq2-lbl">Goal mix</span>${mixBarHTML(goal, 'Set your goals to see your target mix', 'goal')}</div>
     <div class="dq2-row"><span class="dq2-lbl">${actualLbl}</span>${mixBarHTML(has ? shares : null, s ? 'No finished days with food yet' : 'Log food to see your mix', 'actual')}</div>`;
 }
-// "How do I reach my goal today?" — at the bottom of the day card, on today only.
+// "How do I reach my goal today?" — a chip under the calorie-quality rulers, on today only.
 function renderAskButtons(){
   const a = document.getElementById('dayAsk');
   if(a){
     const show = selectedDate === todayStr();
     a.style.display = show ? '' : 'none';
-    if(show && !a.firstChild) a.innerHTML = `<button class="dq-ask big" type="button" data-dq-ask="day">${SPARK_SVG}<span>How do I reach my goal today?</span><i aria-hidden="true">›</i></button>`;
+    if(show && !a.firstChild) a.innerHTML = `<button class="dq-ask chip" type="button" data-dq-ask="day">${SPARK_SVG}<span>How do I reach my goal today?</span></button>`;
   }
 }
 document.addEventListener('click', (ev)=>{
@@ -4929,6 +4936,18 @@ function renderTrendsRingAndRuler(){
 
   renderMetricRing('Cal', 'T', { value: avgOf(cal), goal: t && t.calorieTarget, placeholder: 2000, overIsBad: calOverIsBad });
   renderMetricRing('Burn', 'T', { value: avgOf(brn), goal: t && t.burnTarget, placeholder: 2200, overIsBad: false });
+  // between the two rings: the period's average deficit/surplus (finished days with food and burn)
+  const netT = document.getElementById('ringNetT');
+  if(netT){
+    const nets = pick(d => { const c = consumedTotal(entries[d]); return c != null && c > 0 && hasBurned(entries[d]) ? c - entries[d].burned : null; });
+    const a = avgOf(nets);
+    netT.style.display = a == null ? 'none' : '';
+    if(a != null){
+      const n = Math.round(a), kind = n < 0 ? 'deficit' : n > 0 ? 'surplus' : 'even';
+      netT.className = 'ring-net ' + kind;
+      netT.innerHTML = `<b>${signedN(n)}</b><span>${kind === 'even' ? 'avg even' : 'avg ' + kind}</span>`;
+    }
+  }
   tracked.forEach(m => {
     renderMetricRing(MACRO_INFO[m].key, 'T', { value: avgOf(pick(d => consumedMacro(entries[d], m))), goal: macroTarget(m, t),
       placeholder: MACRO_PLACEHOLDER[m], overIsBad: m !== 'protein' && calOverIsBad });
@@ -5084,15 +5103,14 @@ function renderHealthCharts(){
     const titleEl = document.getElementById(k === 'steps' ? 'trendStepsChartTitle' : 'trendActiveChartTitle');
     try{
       if(typeof Chart === 'undefined') return;
-      ensureWeekendPlugin();
-      const r = trendRange(trendHorizon, trendOffset), today = todayStr();
-      const dates = [];
-      for(const dt = parseISO(r.start); toISO(dt) <= r.end && toISO(dt) <= today; dt.setDate(dt.getDate() + 1)) dates.push(toISO(dt));
+      ensureWeekendPlugin(); ensureAvgLabelPlugin();
+      // the same days as every other Trends chart: days with something logged (or sent by Apple Health)
+      const dates = filterDatesByHorizon(Array.from(new Set(sortedDates().concat(Object.keys(healthData)))).sort(), trendHorizon);
       const labels = dates.map(trendLabel);
       const vals = dates.map(d => { const h = healthFor(d); if(!h) return null; return k === 'steps' ? (typeof h.steps === 'number' ? h.steps : null) : (h.active || 0); });
       if(titleEl) titleEl.innerHTML = HOLD_HINT;
       const color = k === 'steps' ? BURN_PARTS.steps.color : '#FF375F';
-      const data = { labels, datasets: [{ type: 'bar', label: k, data: vals, backgroundColor: color + 'CC', borderRadius: 3,
+      const data = { labels, datasets: [{ type: 'bar', label: k, data: vals, backgroundColor: color + 'CC', borderRadius: 4,
         maxBarThickness: trendHorizon === 'week' ? 22 : (trendHorizon === 'month' ? 14 : 6) }] };
       const options = { responsive: true, maintainAspectRatio: false, events: [], interaction: { mode: 'index', intersect: false },
         plugins: { legend: { display: false }, tooltip: { enabled: false } },

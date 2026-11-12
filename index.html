@@ -203,7 +203,7 @@
   .card-sub{font-size:12px;color:var(--muted);margin:2px 0 14px;}
 
   label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px;font-weight:600;}
-  input[type=number], input[type=date], input[type=time], input[type=text], textarea{
+  input[type=number], input[type=date], input[type=time], input[type=text], input[type=search], textarea{
     width:100%;
     font-family:'Inter',sans-serif;
     font-size:16px;
@@ -1362,6 +1362,213 @@
   .act-kcal{font-family:'Sora',sans-serif;font-weight:600;font-size:14px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;}
   .act-kcal small{display:block;font-family:'Inter',sans-serif;font-size:10px;color:var(--muted);font-weight:600;}
   body.sheet-open{overflow:hidden;}
+
+  /* Yesterday at a glance */
+  .ds-scrim{position:fixed;inset:0;z-index:450;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(5,6,9,0);transition:background .25s ease;}
+  .ds-scrim.open{background:rgba(5,6,9,0.66);}
+  .ds-card{width:100%;max-width:380px;max-height:88vh;overflow-y:auto;padding:20px 18px 14px;border-radius:24px;background:linear-gradient(180deg,#1B2030,#161920);border:1px solid var(--rule);
+    box-shadow:0 30px 80px rgba(0,0,0,0.5);transform:translateY(16px) scale(.97);opacity:0;transition:transform .32s cubic-bezier(.2,.9,.3,1),opacity .25s ease;}
+  .ds-scrim.open .ds-card{transform:none;opacity:1;}
+  .ds-k{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+  .ds-date{font-family:'Sora',sans-serif;font-size:19px;font-weight:600;margin-top:3px;letter-spacing:-0.01em;}
+  .ds-hero{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:12px 0 12px;}
+  .ds-hero b{font-family:'Sora',sans-serif;font-size:38px;font-weight:700;letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums;}
+  .ds-hero.def b{color:var(--deficit);} .ds-hero.sur b{color:var(--surplus);}
+  .ds-hero span{font-size:12.5px;color:var(--muted);font-weight:600;}
+  .ds-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+  .ds-tile{display:flex;flex-direction:column;gap:2px;padding:9px 10px;border-radius:13px;background:rgba(244,245,250,0.04);border:1px solid var(--rule);min-width:0;}
+  .ds-tile span{font-size:10.5px;font-weight:700;color:var(--muted);}
+  .ds-tile b{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;}
+  .ds-tile b small{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--muted);margin-left:2px;font-weight:600;}
+  .ds-tile b.good{color:var(--deficit);}
+  .ds-tile > small{font-size:10px;color:var(--muted);font-weight:500;line-height:1.25;display:flex;align-items:center;gap:3px;}
+  .ds-tile .ah-ico{width:10px;height:10px;}
+  .ds-warn{display:flex;flex-direction:column;align-items:flex-start;gap:5px;margin-top:12px;padding:12px;border-radius:14px;background:rgba(255,159,67,0.10);border:1px solid rgba(255,159,67,0.35);font-size:12.5px;line-height:1.4;}
+  .ds-warn b{color:var(--warn);} .ds-warn span{color:var(--ink);}
+  .ds-warn .btn-small{margin-top:3px;}
+  .ds-list{margin-top:12px;display:flex;flex-direction:column;gap:6px;}
+  .ds-list p{margin:0;display:flex;gap:8px;font-size:13px;line-height:1.4;}
+  .ds-list i{flex-shrink:0;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:10.5px;font-weight:800;}
+  .ds-list.good i{background:rgba(74,222,128,0.16);color:var(--deficit);}
+  .ds-list.watch i{background:rgba(255,92,122,0.16);color:var(--surplus);}
+  .ds-foot{text-align:center;font-size:11px;color:var(--muted);margin-top:14px;}
+
+  /* History: burn breakdown, item meta */
+  .ie-meta{display:flex;gap:8px;font-size:10.5px;font-weight:700;color:var(--muted);margin:0 0 3px;letter-spacing:.02em;}
+  .hb-top{display:flex;align-items:baseline;justify-content:space-between;margin:2px 0 8px;font-size:12px;color:var(--muted);font-weight:600;}
+  .hb-top b{font-family:'Sora',sans-serif;font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .hb-top small{font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);margin-left:3px;}
+  .hb-parts{display:flex;flex-direction:column;gap:5px;padding:9px 11px;border-radius:12px;background:var(--surface-2);border:1px solid var(--rule);}
+  .hb-parts.dim{opacity:.5;}
+  .hb-part{display:flex;align-items:center;gap:8px;font-size:12.5px;}
+  .hb-part i{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+  .hb-part span{flex:1;color:var(--muted);font-weight:600;} .hb-part em{font-style:normal;color:var(--warn);font-size:10.5px;}
+  .hb-part b{font-variant-numeric:tabular-nums;font-weight:700;}
+  .hb-wos{display:flex;flex-direction:column;gap:3px;margin-top:7px;font-size:12px;color:var(--muted);font-weight:500;}
+  .hb-wos b{color:#FF6B85;}
+  .hb-ah{display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--muted);font-weight:600;}
+  .hb-ah .ah-ico{width:12px;height:12px;}
+  .hb-opt{color:var(--muted);font-weight:500;}
+
+  /* Weight card (v3) */
+  .wc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:2px 0 8px;}
+  .wc-stats div{display:flex;flex-direction:column;gap:3px;padding:9px 10px;border-radius:12px;background:var(--surface-2);border:1px solid var(--rule);min-width:0;}
+  .wc-stats span{font-size:10.5px;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .wc-stats b{font-family:'Sora',sans-serif;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums;}
+  .wc-stats b.good{color:var(--deficit);} .wc-stats b.bad{color:var(--surplus);}
+  .wc-spark{display:block;width:100%;height:auto;margin:4px 0 12px;}
+  .wc-spark text{font-family:'Inter',sans-serif;}
+  .wc-add{padding:12px;border-radius:14px;border:1px solid var(--rule);background:var(--surface-2);}
+  .wc-add-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .wc-add-row{display:flex;align-items:center;gap:8px;}
+  .wc-add-row input[type=time]{flex:0 0 108px;margin:0;}
+  .wc-add-val{flex:1;min-width:0;position:relative;}
+  .wc-add-val input{margin:0;padding-right:34px;}
+  .wc-add-val span{position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted);font-weight:600;pointer-events:none;}
+  .wc-add-row .btn-small{padding:11px 16px;}
+  .wc-add-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;flex-wrap:wrap;}
+  .wc-add-foot span{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-weight:600;}
+  .wc-add-foot .ah-ico{width:12px;height:12px;}
+  .wc-list-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px;}
+  .wc-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(244,245,250,0.07);}
+  .wc-time{flex:0 0 76px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;}
+  .wc-time-in{flex:0 0 116px;width:116px !important;margin:0;padding:6px 8px !important;font-size:14px !important;}
+  .wc-src{font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(244,245,250,0.07);color:var(--muted);display:inline-flex;align-items:center;gap:3px;}
+  .wc-src.ah{background:rgba(255,55,95,0.12);color:#FF8FA3;} .wc-src .ah-ico{width:10px;height:10px;}
+  .wc-v{margin-left:auto;display:flex;align-items:baseline;gap:4px;font-family:'Sora',sans-serif;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;}
+  .wc-v small{font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);font-weight:600;}
+  .wc-v-in{width:76px !important;margin:0;padding:6px 8px !important;text-align:right;font-size:15px !important;}
+  .wc-lock{width:28px;text-align:center;color:transparent;}
+
+  /* Trends: hold hint, shown only on open charts */
+  .hold-hint{font-size:11px;font-weight:600;color:var(--muted);opacity:.8;}
+  .trend-chart-block:not(.open) .chart-stats .hold-hint{display:none;}
+
+  /* Weekly Progress: press and hold */
+  .wk-chart{position:relative;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
+  .wk-guide{position:absolute;width:0;pointer-events:none;}
+  .wk-guide i{position:absolute;top:0;bottom:0;left:-0.5px;width:1px;background:rgba(244,245,250,0.45);}
+  .wk-guide b{position:absolute;left:-5px;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:#F4F5F7;box-shadow:0 0 0 3px rgba(244,245,250,0.18);}
+  .wk.holding .wk-svg{opacity:.85;}
+  .wk-hold-sub{white-space:nowrap;} .wk-hold-sub b.def{color:var(--deficit);} .wk-hold-sub b.sur{color:var(--surplus);}
+
+  /* past days: net between the Calories and Burn rings */
+  .metrics-top{position:relative;}
+  .ring-net{position:absolute;left:50%;top:calc(50% + 2px);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:1px;
+    padding:6px 8px;border-radius:12px;background:var(--surface);border:1px solid var(--rule);pointer-events:none;z-index:2;animation:netIn .35s ease;}
+  .ring-net b{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;line-height:1.1;}
+  .ring-net span{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+  .ring-net.deficit b{color:var(--deficit);} .ring-net.surplus b{color:var(--surplus);}
+  @keyframes netIn{from{opacity:0;transform:translate(-50%,-40%);}to{opacity:1;transform:translate(-50%,-50%);}}
+
+  /* Goals: burn target breakdown */
+  .btb{margin:2px 0 14px;padding:12px 12px 10px;border-radius:14px;background:var(--surface-2);border:1px solid var(--rule);}
+  .btb:empty{display:none;}
+  .btb-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .btb .bc-bar{height:9px;margin-bottom:10px;}
+  .btb-cols{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:8px;}
+  .btb-cols div{display:flex;flex-direction:column;gap:2px;min-width:0;}
+  .btb-l{display:flex;align-items:center;flex-wrap:wrap;gap:4px;font-size:11.5px;color:var(--muted);font-weight:600;}
+  .btb-l i{width:8px;height:8px;border-radius:2px;}
+  .btb-l .bc-tag{margin-left:0;font-size:9.5px;padding:1px 6px;}
+  .btb-cols b{font-family:'Sora',sans-serif;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums;}
+  .btb-cols small{font-size:10.5px;color:var(--muted);line-height:1.3;}
+
+  /* Apple Health page: setup line + weekly table */
+  .ah-setup{display:flex;align-items:center;gap:8px;margin:-4px 0 10px;font-size:12.5px;}
+  .ah-setup span{color:var(--muted);font-weight:600;} .ah-setup b{font-weight:700;} .ah-setup .bc-link{margin-left:auto;}
+  .ah-tbl{display:flex;flex-direction:column;font-variant-numeric:tabular-nums;}
+  .ah-tr{display:grid;align-items:center;gap:6px;padding:7px 2px;font-size:12.8px;border-top:1px solid rgba(244,245,250,0.05);}
+  .ah-tr > span{text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ah-tr > span:first-child{text-align:left;color:var(--ink);font-weight:600;}
+  .ah-tr span small{color:var(--muted);font-size:10.5px;font-weight:500;}
+  .ah-th{border-top:0;padding-top:0;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+  .ah-th span, .ah-th span:first-child{color:var(--muted);font-weight:700;}
+  .ah-wk{margin-top:6px;padding:6px 8px;border-radius:9px;background:var(--surface-2);border-top:0;font-size:11px;}
+  .ah-wk > span{color:var(--muted);font-weight:600;font-style:italic;} .ah-wk > span:first-child{color:var(--ink);font-weight:700;font-size:11.5px;font-style:normal;overflow:visible;}
+  .ah-wk + .ah-tr{border-top:0;}
+  .ah-tr.none > span{color:var(--muted);}
+  .ah-tr.today > span:first-child{color:var(--accent);}
+  .ah-tbl-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;font-size:11px;color:var(--muted);}
+
+  /* Profile → Daily burn (v3) */
+  .pb-q{font-size:13px;font-weight:700;margin:2px 0 8px;}
+  .pb-q + .bm-opts2{margin-bottom:14px;}
+  .pb-seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:3px;border-radius:13px;background:var(--surface-2);border:1px solid var(--rule);margin-bottom:14px;}
+  .pb-seg-b{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;border-radius:10px;border:0;background:transparent;color:var(--muted);font-size:13.5px;font-weight:700;cursor:pointer;}
+  .pb-seg-b .ah-ico{width:15px;height:15px;}
+  .pb-seg-b.on{background:var(--accent-soft);color:var(--ink);box-shadow:0 0 0 1px rgba(76,141,255,0.5) inset;}
+  .pb-emo{font-size:19px;line-height:1;}
+  .pb-how{padding:13px;border-radius:15px;background:linear-gradient(180deg,rgba(76,141,255,0.07),rgba(76,141,255,0.02));border:1px solid var(--rule);margin-bottom:12px;}
+  .pb-how-t{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
+  .pb-formula{display:flex;align-items:stretch;gap:4px;}
+  .pb-formula span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;padding:8px 6px 7px;border-radius:10px;background:var(--surface-2);border-top:3px solid var(--c);font-size:10.5px;color:var(--muted);font-weight:600;line-height:1.2;text-align:center;}
+  .pb-formula span b{font-size:11.5px;color:var(--ink);}
+  .pb-formula i{font-style:normal;align-self:center;color:var(--muted);font-weight:700;font-size:12px;}
+  .pb-role{margin-top:10px;font-size:12.5px;line-height:1.45;color:var(--ink);}
+  .pb-role span{display:inline-block;margin-right:7px;padding:2px 8px;border-radius:999px;background:rgba(255,55,95,0.14);color:#FF6B85;font-size:10.5px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;vertical-align:1px;}
+  .pb-how .bm-wear{margin-top:10px;}
+  .pb-tg{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;padding:12px 2px;border:0;border-top:1px solid var(--rule);background:none;color:var(--ink);cursor:pointer;}
+  .pb-tg-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+  .pb-tg-t b{font-size:14px;} .pb-tg-t small{font-size:11.8px;color:var(--muted);line-height:1.45;}
+  .pb-sw{flex-shrink:0;width:44px;height:26px;border-radius:13px;background:var(--rule);position:relative;transition:background .2s ease;margin-top:2px;}
+  .pb-sw i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s ease;}
+  .pb-tg.on .pb-sw{background:#34C759;} .pb-tg.on .pb-sw i{transform:translateX(18px);}
+  .pb-learn{display:block;margin-top:6px;font-size:11.8px;line-height:1.45;color:var(--muted);}
+  .pb-learn em{font-style:normal;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;margin-right:6px;}
+  .pb-learn.learning em{background:rgba(244,183,64,0.15);color:#F4B740;}
+  .pb-learn.learned em{background:rgba(74,222,128,0.15);color:var(--deficit);}
+
+  /* Burn v3: BMR tag, workouts list, workout sheet */
+  .bc-tag{font-style:normal;font-size:10px;font-weight:700;margin-left:7px;padding:2px 7px;border-radius:999px;vertical-align:1px;letter-spacing:.01em;}
+  .bc-tag.estimated{background:rgba(244,245,250,0.07);color:var(--muted);}
+  .bc-tag.learning{background:rgba(244,183,64,0.15);color:#F4B740;}
+  .bc-tag.learned{background:rgba(74,222,128,0.15);color:var(--deficit);}
+  .bc-main small.bc-learn{color:#C9A24E;}
+  .bc-wos{display:flex;flex-direction:column;gap:6px;}
+  .bc-wo{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border-radius:11px;border:1px solid var(--rule);background:var(--surface-2);color:var(--ink);text-align:left;cursor:pointer;}
+  .bc-wo:active{background:rgba(244,245,250,0.06);}
+  .bc-wo-e{font-size:19px;line-height:1;width:22px;text-align:center;}
+  .bc-wo-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
+  .bc-wo-t b{font-size:13px;} .bc-wo-t small{font-size:11.3px;color:var(--muted);}
+  .bc-wo-k{font-family:'Sora',sans-serif;font-weight:600;font-size:13.5px;color:#FF6B85;font-variant-numeric:tabular-nums;}
+  .bc-wo-add{align-self:flex-start;margin-top:2px;padding:7px 12px;border-radius:999px;border:1px dashed rgba(255,55,95,0.5);background:rgba(255,55,95,0.06);color:var(--ink);font-size:12.5px;font-weight:700;cursor:pointer;}
+  .burn-act.has{border-color:rgba(255,55,95,0.5);background:rgba(255,55,95,0.14);}
+  .wo-sheet{max-height:86vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .wo-search{width:100%;box-sizing:border-box;margin:0 0 12px;}
+  .wo-g{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:12px 0 7px;}
+  .wo-g:first-child{margin-top:0;}
+  .wo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+  .wo-tile{display:flex;flex-direction:column;align-items:center;gap:5px;padding:11px 4px 9px;border-radius:13px;border:1px solid var(--rule);background:var(--surface-2);color:var(--ink);cursor:pointer;min-width:0;}
+  .wo-tile:active{border-color:var(--accent);background:var(--accent-soft);}
+  .wo-e{font-size:24px;line-height:1;}
+  .wo-n{font-size:11.5px;font-weight:600;text-align:center;line-height:1.2;}
+  .wo-none{font-size:13px;color:var(--muted);text-align:center;margin:18px 0;}
+  .wo-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .wo-back{width:32px;height:32px;border-radius:16px;border:1px solid var(--rule);background:var(--surface-2);color:var(--ink);font-size:20px;line-height:1;cursor:pointer;padding:0 0 2px;}
+  .wo-head-e{font-size:30px;line-height:1;}
+  .wo-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px;}
+  .wo-dur{display:flex;align-items:center;justify-content:center;gap:22px;}
+  .wo-step{width:44px;height:44px;border-radius:22px;border:1px solid var(--rule);background:var(--surface-2);color:var(--ink);font-size:22px;cursor:pointer;}
+  .wo-step:active{background:var(--accent-soft);border-color:var(--accent);}
+  .wo-dur-v{display:flex;align-items:baseline;gap:5px;min-width:96px;justify-content:center;}
+  .wo-dur-v b{font-family:'Sora',sans-serif;font-size:38px;font-weight:700;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;}
+  .wo-dur-v span{font-size:13px;color:var(--muted);font-weight:600;}
+  .wo-quick{display:flex;justify-content:center;gap:6px;margin:10px 0 16px;}
+  .wo-quick button{min-width:44px;padding:6px 0;border-radius:999px;border:1px solid var(--rule);background:transparent;color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer;}
+  .wo-quick button.on{border-color:var(--accent);color:var(--ink);background:var(--accent-soft);}
+  .wo-ints{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px;}
+  .wo-int{display:flex;flex-direction:column;gap:4px;padding:10px 9px;border-radius:13px;border:1.5px solid var(--rule);background:var(--surface-2);color:var(--ink);text-align:left;cursor:pointer;min-width:0;}
+  .wo-int b{font-size:13.5px;}
+  .wo-int small{font-size:11px;color:var(--ink);opacity:.8;line-height:1.3;}
+  .wo-int i{font-style:normal;font-size:10.5px;color:var(--muted);line-height:1.3;}
+  .wo-int.on{border-color:#FF375F;background:rgba(255,55,95,0.10);box-shadow:0 0 0 1px #FF375F inset;}
+  .wo-est{padding:12px 14px;border-radius:14px;background:rgba(255,55,95,0.07);border:1px solid rgba(255,55,95,0.25);margin-bottom:12px;}
+  .wo-est div{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
+  .wo-est span{font-size:12.5px;color:var(--muted);font-weight:600;}
+  .wo-est b{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.02em;}
+  .wo-est small{display:block;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.35;}
+  .wo-del{display:block;margin:10px auto 0;background:none;border:0;color:var(--surplus);font-size:13px;font-weight:700;cursor:pointer;padding:6px 10px;}
   /* ---- Monstrão AI: floating button, chat page ---- */
   .ai-fab{position:fixed;z-index:70;right:max(16px, calc((100vw - 460px) / 2 + 2px));bottom:calc(env(safe-area-inset-bottom, 0px) + 16px);
     display:flex;align-items:center;gap:0;height:52px;padding:0 15px;border-radius:26px;border:1px solid rgba(255,255,255,0.16);
@@ -1473,22 +1680,28 @@
   #myGoals{margin-bottom:16px;}
   /* macro colors + calorie quality mix */
   .metric[data-macro="protein"]{--m:#2DD4BF;} .metric[data-macro="carbs"]{--m:#FBBF24;} .metric[data-macro="fat"]{--m:#A78BFA;}
-  .metric[data-macro] .metric-name::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--m);margin-right:6px;vertical-align:1px;}
-  .dq2-head{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .metric[data-macro] .metric-name{color:var(--m);}
+  .dq2-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
   .dq-ask{display:inline-flex;align-items:center;gap:5px;padding:5px 10px 5px 8px;border-radius:999px;border:1px solid rgba(76,141,255,0.35);background:rgba(76,141,255,0.10);color:var(--ink);font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
   .dq-ask svg{width:12px;height:12px;color:var(--accent);}
   .dq-ask:active{background:rgba(76,141,255,0.22);}
-  .dq2-legend{display:flex;gap:12px;margin:9px 0 10px;font-size:11px;font-weight:600;color:var(--muted);}
-  .dq2-legend span{display:inline-flex;align-items:center;gap:5px;}
-  .dq2-legend i{width:8px;height:8px;border-radius:50%;}
-  .dq2-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
-  .dq2-lbl{width:52px;flex-shrink:0;font-size:11.5px;font-weight:700;color:var(--muted);}
-  .mix-bar{flex:1;min-width:0;display:flex;gap:2px;height:24px;border-radius:8px;overflow:hidden;}
+  .day-ask{margin-top:16px;padding-top:16px;border-top:1px solid rgba(244,245,250,0.07);}
+  .day-ask:empty{display:none;}
+  .dq-ask.big{display:flex;width:100%;gap:10px;padding:13px 14px;border-radius:14px;font-size:14px;background:linear-gradient(90deg,rgba(76,141,255,0.16),rgba(76,141,255,0.06));}
+  .dq-ask.big svg{width:17px;height:17px;}
+  .dq-ask.big span{flex:1;text-align:left;}
+  .dq-ask.big i{font-style:normal;color:var(--muted);font-size:18px;line-height:1;}
+  .dq2-legend{display:flex;gap:12px;font-size:12px;font-weight:700;}
+  .dq2-row{display:flex;flex-direction:column;gap:5px;margin-top:10px;}
+  .dq2-lbl{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+  .mix-bar{display:flex;gap:3px;height:24px;border-radius:8px;overflow:hidden;}
+  .mix-bar.goal{height:20px;}
   .mix-bar.empty{background:rgba(244,245,250,0.05);border:1px dashed rgba(244,245,250,0.12);align-items:center;justify-content:center;font-size:11px;color:var(--muted);font-weight:600;}
-  .mix-seg{display:flex;align-items:center;justify-content:center;min-width:3px;transition:flex-basis .6s cubic-bezier(.2,.9,.3,1);}
+  .mix-seg{display:flex;align-items:center;justify-content:center;min-width:3px;font-style:normal;background:var(--c);transition:flex-basis .6s cubic-bezier(.2,.9,.3,1);}
+  .mix-bar.goal .mix-seg{background:color-mix(in srgb, var(--c) 14%, transparent);box-shadow:inset 0 0 0 1.5px var(--c);border-radius:6px;}
+  .mix-bar.goal{border-radius:6px;}
   .mix-seg b{font-size:11px;font-weight:800;color:#0D0E13;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;}
-  .dq2-note{margin:9px 0 2px;font-size:11.5px;color:var(--muted);line-height:1.35;}
-  .dq2-note.ok{color:var(--deficit);}
+  .mix-bar.goal .mix-seg b{color:var(--c);font-size:10.5px;}
   .date-selector.in-card{margin:2px 0 14px;padding-bottom:12px;border-bottom:1px solid rgba(244,245,250,0.07);}
   /* Food card: input mode switch, suggestions, compact list */
   .fseg{position:relative;display:grid;grid-template-columns:1fr 1fr;width:100%;padding:3px;border-radius:12px;background:var(--surface-2);border:1px solid var(--rule);}
@@ -1511,10 +1724,25 @@
   .sugg-txt small i{font-style:normal;opacity:.5;}
   .sugg-plus{width:28px;height:28px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-size:18px;font-weight:600;line-height:1;}
   .fl{margin-top:2px;}
-  .fl-total{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 6px;padding:10px 12px;border-radius:12px;background:rgba(76,141,255,0.07);border:1px solid rgba(76,141,255,0.16);font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px;}
+  .fl-total{display:flex;flex-direction:column;gap:4px;padding:10px 12px;border-radius:12px;background:rgba(76,141,255,0.07);border:1px solid rgba(76,141,255,0.16);font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px;}
+  .fl-total-nums{display:flex;flex-wrap:nowrap;align-items:baseline;gap:.45em;white-space:nowrap;overflow:hidden;font-size:12px;}
+  .fl-total-nums b{font-size:1.17em !important;}
+  .fl-total-nums::-webkit-scrollbar{display:none;}
   .fl-total b{font-family:'Sora',sans-serif;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums;}
   .fl-total i, .fi-nums i{font-style:normal;opacity:.45;}
-  .fl-total-lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;margin-right:4px;}
+  .fl-total-lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;}
+  .fl-meal{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding:0 0 6px;border-bottom:1px solid rgba(244,245,250,0.07);}
+  .fl-meal-n{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);}
+  .fl-meal-n i{font-style:normal;font-size:13px;}
+  .fl-meal-k{font-size:11.5px;color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums;}
+  .fi-time{font-size:11px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .meal-row{display:flex;align-items:center;gap:6px;overflow-x:auto;margin:-2px -2px 10px;padding:2px;scrollbar-width:none;}
+  .meal-row::-webkit-scrollbar{display:none;}
+  .meal-lbl{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px;flex-shrink:0;}
+  .meal-chip{flex-shrink:0;display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--surface-2);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+  .meal-chip.on{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);}
+  .meal-chip.sm{padding:4px 8px;font-size:11px;}
+  .ie-meals{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
   .fi{display:flex;align-items:center;gap:8px;padding:10px 2px 10px 0;border-bottom:1px solid rgba(244,245,250,0.07);}
   .fi:last-child{border-bottom:0;}
   .fi-main{flex:1;min-width:0;}
@@ -1525,6 +1753,9 @@
   .fi-nums b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
   .fi-edit{flex-shrink:0;width:32px;height:32px;padding:0;border-radius:16px;border:0;background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;}
   .fi-edit svg{width:15px;height:15px;}
+  .fi-edit + .fi-trash{margin-left:-6px;}
+  .fi-trash:active{color:var(--surplus);}
+  .fi-trash.armed{width:auto;padding:0 11px;background:rgba(255,92,122,0.16);color:var(--surplus);font-size:12px;font-weight:700;border-radius:999px;}
   .fi-edit:active{background:rgba(244,245,250,0.08);color:var(--ink);}
   .fi.editing{display:block;padding:12px;margin:6px 0;border-radius:14px;background:var(--surface-2);border:1px solid rgba(76,141,255,0.3);}
   .ie-nums-lbl{display:grid;gap:6px;margin:4px 0 3px;font-size:10px;font-weight:600;color:var(--muted);text-align:center;}
@@ -1621,6 +1852,7 @@
         </div>
         <div class="metric-goal" id="mGoalBurn"></div>
       </div>
+      <div class="ring-net" id="ringNet" aria-live="polite"></div>
     </div>
     <div class="metrics metrics-macros" id="macroRings">
       <div class="metric metric-protein" data-macro="protein">
@@ -1673,6 +1905,7 @@
     <div class="dq" id="dq"></div>
     </div>
     <div class="balances" id="balances"></div>
+    <div class="day-ask" id="dayAsk"></div>
   </div>
 
       </div>
@@ -1697,6 +1930,7 @@
           <button type="button" data-imode="ai" class="on"><svg class="ai-sparkle" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg>Ask AI</button><button type="button" data-imode="manual">Manual entry</button><i class="fseg-thumb"></i>
         </div>
       </div>
+      <div class="meal-row" id="mealRow" role="group" aria-label="Meal (optional)"></div>
 
       <div id="manualInputView" style="display:none;">
         <input type="text" id="itemDesc" class="food-desc-input" placeholder="Food name" autocomplete="off">
@@ -1707,7 +1941,7 @@
 
       <div id="aiInputView">
         <div class="ai-desc-wrap">
-          <textarea id="aiDesc" rows="3" placeholder="Describe your food"></textarea>
+          <textarea id="aiDesc" rows="3" placeholder="Describe your food (type or speech), take a picture or both!"></textarea>
           <button class="ai-desc-clear" id="aiDescClearBtn" type="button" aria-label="Clear text">✕</button>
           <div class="ai-desc-tools">
             <button class="ai-desc-icon-btn" id="aiMicBtn" type="button" aria-label="Voice input">
@@ -1788,41 +2022,21 @@
       <span class="burn-chevron" id="weightChevron">›</span>
     </button>
     <div id="weightFormWrap" style="display:none;">
-      <div class="mode-toggle" id="weightInputModeRow">
-        <button class="mode-btn active" id="weightManualModeBtn" type="button">Manual entry</button>
-        <button class="mode-btn" id="weightCsvModeBtn" type="button">Import CSV</button>
-      </div>
-
-      <div id="weightManualView">
-        <div class="field-row">
-          <div class="field" style="flex:0 0 100px;">
-            <label for="weightTimeInput">Time</label>
-            <input type="time" id="weightTimeInput">
-          </div>
-          <div class="field" style="flex:0 0 110px;">
-            <label for="weightValueInput">Weight (lb)</label>
-            <input type="number" id="weightValueInput" placeholder="e.g. 182.4" inputmode="decimal" step="0.1">
-          </div>
+      <div id="weightTop"></div>
+      <div class="wc-add">
+        <div class="wc-add-h">Add a weigh-in</div>
+        <div class="wc-add-row">
+          <input type="time" id="weightTimeInput" aria-label="Time">
+          <div class="wc-add-val"><input type="number" id="weightValueInput" placeholder="182.4" inputmode="decimal" step="0.1" aria-label="Weight"><span id="weightUnitLbl">lb</span></div>
+          <button class="btn-small btn-accent" id="saveWeightBtn" type="button">Save</button>
         </div>
-        <button class="btn-primary burn-variant" id="saveWeightBtn" type="button">Save weight</button>
-      </div>
-
-      <div id="weightCsvView" style="display:none;">
-        <p class="card-sub" style="margin:0 0 10px;">Import a scale export — a CSV with a date/time column and a weight column (e.g. "182.4 lb").</p>
-        <div class="btn-row">
-          <button class="btn-secondary" id="importWeightBtn" type="button">Choose CSV file</button>
-        </div>
+        <div class="wc-add-foot"><button class="bc-link" id="importWeightBtn" type="button">Import a CSV from your scale</button><span id="weightHealthNote"></span></div>
         <input type="file" id="importWeightFile" accept=".csv,text/csv">
       </div>
       <p class="status" id="weightStatus"></p>
-
-      <div class="hist-divider" style="margin:16px 0;"></div>
-
-      <div class="logged-today-head">
-        <span class="logged-today-title">Logged weigh-ins</span>
-      </div>
+      <div class="wc-list-h">Weigh-ins · <span id="weightListDay"></span></div>
       <div id="weightEntriesList"></div>
-      <div class="empty" id="weightEntriesEmpty" style="padding:6px 0;">No readings for this date.</div>
+      <div class="empty" id="weightEntriesEmpty" style="padding:6px 0;">No weigh-ins this day.</div>
     </div>
   </div>
 
@@ -1938,9 +2152,9 @@
         <button class="chart-collapse-btn" id="toggleWeightBtn" type="button">
           <span class="chart-name">Weight</span>
           <span class="chart-stats" id="trendWeightChartTitle"></span>
-          <span class="burn-chevron open" id="weightChevronT">›</span>
+          <span class="burn-chevron" id="weightChevronT">›</span>
         </button>
-        <div id="weightChartOuterWrap">
+        <div id="weightChartOuterWrap" style="display:none;">
           <div class="empty" id="weightEmpty" style="display:none;">No weight data yet — log one above, in "Log weight".</div>
           <div id="weightChartsWrap">
             <canvas id="weightChart"></canvas>
@@ -1952,54 +2166,72 @@
         <button class="chart-collapse-btn" id="toggleConsumedBtn" type="button">
           <span class="chart-name">Consumed</span>
           <span class="chart-stats" id="trendConsumedChartTitle"></span>
-          <span class="burn-chevron open" id="consumedChevron">›</span>
+          <span class="burn-chevron" id="consumedChevron">›</span>
         </button>
-        <div id="consumedChartWrap"><canvas id="consumedChart"></canvas></div>
+        <div id="consumedChartWrap" style="display:none;"><canvas id="consumedChart"></canvas></div>
       </div>
 
       <div class="trend-chart-block" id="blockBurned">
         <button class="chart-collapse-btn" id="toggleBurnedBtn" type="button">
           <span class="chart-name">Burned</span>
           <span class="chart-stats" id="trendBurnedChartTitle"></span>
-          <span class="burn-chevron open" id="burnedChevron">›</span>
+          <span class="burn-chevron" id="burnedChevron">›</span>
         </button>
-        <div id="burnedChartWrap"><canvas id="burnedChart"></canvas></div>
+        <div id="burnedChartWrap" style="display:none;"><canvas id="burnedChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockSteps" style="display:none;">
+        <button class="chart-collapse-btn" id="toggleStepsBtn" type="button">
+          <span class="chart-name">Steps</span>
+          <span class="chart-stats" id="trendStepsChartTitle"></span>
+          <span class="burn-chevron" id="stepsChevron">›</span>
+        </button>
+        <div id="stepsChartWrap" style="display:none;"><canvas id="stepsChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockActive" style="display:none;">
+        <button class="chart-collapse-btn" id="toggleActiveBtn" type="button">
+          <span class="chart-name" id="activeChartName">Active energy</span>
+          <span class="chart-stats" id="trendActiveChartTitle"></span>
+          <span class="burn-chevron" id="activeChevron">›</span>
+        </button>
+        <div id="activeChartWrap" style="display:none;"><canvas id="activeChart"></canvas></div>
       </div>
 
       <div class="trend-chart-block" id="blockNet">
         <button class="chart-collapse-btn" id="toggleNetBtn" type="button">
-          <span class="chart-name">Deficit / surplus</span>
+          <span class="chart-name">Calorie Deficit/Surplus</span>
           <span class="chart-stats" id="trendNetChartTitle"></span>
-          <span class="burn-chevron open" id="netChevron">›</span>
+          <span class="burn-chevron" id="netChevron">›</span>
         </button>
-        <div id="netChartWrap"><canvas id="netChart"></canvas></div>
+        <div id="netChartWrap" style="display:none;"><canvas id="netChart"></canvas></div>
       </div>
 
       <div class="trend-chart-block" id="blockProtein" data-macro="protein">
         <button class="chart-collapse-btn" id="toggleProteinBtn" type="button">
           <span class="chart-name">Protein</span>
           <span class="chart-stats" id="trendProteinChartTitle"></span>
-          <span class="burn-chevron open" id="proteinChevron">›</span>
+          <span class="burn-chevron" id="proteinChevron">›</span>
         </button>
-        <div id="proteinChartWrap"><canvas id="proteinChart"></canvas></div>
+        <div id="proteinChartWrap" style="display:none;"><canvas id="proteinChart"></canvas></div>
       </div>
 
       <div class="trend-chart-block" id="blockCarbs" data-macro="carbs">
         <button class="chart-collapse-btn" id="toggleCarbsBtn" type="button">
           <span class="chart-name">Carbs</span>
           <span class="chart-stats" id="trendCarbsChartTitle"></span>
-          <span class="burn-chevron open" id="carbsChevron">›</span>
+          <span class="burn-chevron" id="carbsChevron">›</span>
         </button>
-        <div id="carbsChartWrap"><canvas id="carbsChart"></canvas></div>
+        <div id="carbsChartWrap" style="display:none;"><canvas id="carbsChart"></canvas></div>
       </div>
 
       <div class="trend-chart-block" id="blockFat" data-macro="fat">
         <button class="chart-collapse-btn" id="toggleFatBtn" type="button">
           <span class="chart-name">Fat</span>
           <span class="chart-stats" id="trendFatChartTitle"></span>
-          <span class="burn-chevron open" id="fatChevron">›</span>
+          <span class="burn-chevron" id="fatChevron">›</span>
         </button>
-        <div id="fatChartWrap"><canvas id="fatChart"></canvas></div>
+        <div id="fatChartWrap" style="display:none;"><canvas id="fatChart"></canvas></div>
       </div>
 
     </div>
@@ -2188,6 +2420,7 @@
           <div class="target-tile-label">kcal burn<span class="tt-edited" data-edited="burn">· yours</span></div>
         </div>
       </div>
+      <div class="btb" id="burnTargetBreak"></div>
       <div class="targets-grid targets-grid-macros" id="targetsMacros">
         <div class="target-tile target-tile-protein" data-macro-tile="protein">
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.6 3.4a5 5 0 0 1 .3 9.9c-1.2.1-2.3-.2-3.2-.8l-4.5 4.5a2.1 2.1 0 1 1-2.8 2.8 2.1 2.1 0 1 1-1.2-3.6l4.5-4.5a5 5 0 0 1 6.9-8.3z"/></svg></div>
@@ -2573,8 +2806,9 @@ function renderMetricRing(key, s, o){
 
   if(goalEl){
     goalEl.innerHTML = goalDiffHTML(o.value, o.goal, o.overIsBad, '');
-    if(!s && o.goal && o.value != null){
-      const d = Math.round(o.value - o.goal), isToday = selectedDate === todayStr();
+    if(o.goal && o.value != null){
+      // Trends rings compare the period's average with the goal: always "over" / "under"
+      const d = Math.round(o.value - o.goal), isToday = !s && selectedDate === todayStr();
       let txt, cls;
       if(d > 0){ txt = `${fmtN(d)} over`; cls = o.overIsBad ? 'mg-over' : 'mg-hit'; }
       else if(d === 0){ txt = 'on goal'; cls = 'mg-hit'; }
@@ -2634,7 +2868,7 @@ function showTrackedMacros(){
 // macro's color, with each share printed on its segment. s: '' (main) or 'T' (Trends).
 const MACRO_COLOR = { protein: '#2DD4BF', carbs: '#FBBF24', fat: '#A78BFA' };
 const SPARK_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg>';
-function mixBarHTML(shares, emptyText){
+function mixBarHTML(shares, emptyText, kind){
   const vals = MACROS.map(m => shares && typeof shares[m] === 'number' ? Math.max(0, shares[m]) : null);
   if(vals.some(v => v == null) || !vals.reduce((a, b) => a + b, 0)) return `<div class="mix-bar empty"><span>${emptyText}</span></div>`;
   const sum = vals.reduce((a, b) => a + b, 0);
@@ -2642,22 +2876,30 @@ function mixBarHTML(shares, emptyText){
   const exact = vals.map(v => v / sum * 100), rounded = exact.map(Math.floor);
   let left = 100 - rounded.reduce((a, b) => a + b, 0);
   exact.map((v, i) => [v - Math.floor(v), i]).sort((a, b) => b[0] - a[0]).forEach(([, i]) => { if(left > 0){ rounded[i]++; left--; } });
-  return `<div class="mix-bar">${MACROS.map((m, i) => `<i class="mix-seg" style="flex-basis:${exact[i].toFixed(2)}%;background:${MACRO_COLOR[m]}" title="${MACRO_INFO[m].label} ${rounded[i]}%">${exact[i] >= 9 ? `<b>${rounded[i]}%</b>` : ''}</i>`).join('')}</div>`;
+  return `<div class="mix-bar ${kind || ''}">${MACROS.map((m, i) => `<i class="mix-seg" style="flex-basis:${exact[i].toFixed(2)}%;--c:${MACRO_COLOR[m]}" title="${MACRO_INFO[m].label} ${rounded[i]}%">${exact[i] >= 9 ? `<b>${rounded[i]}%</b>` : ''}</i>`).join('')}</div>`;
 }
+// Calorie quality: label row (macro names in their colors), then the goal mix — an outlined "target"
+// ruler — and the actual mix, a solid ruler, each with its label above it.
 function renderQualityList(s, shares, t){
   const el = document.getElementById('dq' + s);
   if(!el) return;
   el.style.display = '';
   const goal = t ? t.qualityTargets : null;
-  const actualLbl = s ? 'Average' : (selectedDate === todayStr() ? 'Today' : 'Actual');
+  const actualLbl = s ? 'Your average' : (selectedDate === todayStr() ? 'Today so far' : dayLabel(selectedDate));
   const has = MACROS.every(m => typeof shares[m] === 'number');
-  const tip = has && goal ? MACROS.map(m => [m, Math.round(shares[m] - goal[m])]).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))[0] : null;
   el.innerHTML = `<div class="dq2-head"><div class="dq-title">Calorie quality</div>
-      <button class="dq-ask" type="button" data-dq-ask="${s ? 'period' : 'day'}">${SPARK_SVG}How do I reach my goal?</button></div>
-    <div class="dq2-legend">${MACROS.map(m => `<span><i style="background:${MACRO_COLOR[m]}"></i>${MACRO_INFO[m].label}</span>`).join('')}</div>
-    <div class="dq2-row"><span class="dq2-lbl">Goal</span>${mixBarHTML(goal, 'Set your goals to see your target mix')}</div>
-    <div class="dq2-row"><span class="dq2-lbl">${actualLbl}</span>${mixBarHTML(has ? shares : null, s ? 'No finished days with food yet' : 'Log food to see your mix')}</div>
-    ${tip && Math.abs(tip[1]) >= 3 ? `<p class="dq2-note">${MACRO_INFO[tip[0]].label} is ${Math.abs(tip[1])} points ${tip[1] > 0 ? 'above' : 'below'} your goal mix${s ? ' on average' : ''}.</p>` : (has && goal ? `<p class="dq2-note ok">Right on your goal mix.</p>` : '')}`;
+      <div class="dq2-legend">${MACROS.map(m => `<span style="color:${MACRO_COLOR[m]}">${MACRO_INFO[m].label}</span>`).join('')}</div></div>
+    <div class="dq2-row"><span class="dq2-lbl">Goal mix</span>${mixBarHTML(goal, 'Set your goals to see your target mix', 'goal')}</div>
+    <div class="dq2-row"><span class="dq2-lbl">${actualLbl}</span>${mixBarHTML(has ? shares : null, s ? 'No finished days with food yet' : 'Log food to see your mix', 'actual')}</div>`;
+}
+// "How do I reach my goal today?" — at the bottom of the day card, on today only.
+function renderAskButtons(){
+  const a = document.getElementById('dayAsk');
+  if(a){
+    const show = selectedDate === todayStr();
+    a.style.display = show ? '' : 'none';
+    if(show && !a.firstChild) a.innerHTML = `<button class="dq-ask big" type="button" data-dq-ask="day">${SPARK_SVG}<span>How do I reach my goal today?</span><i aria-hidden="true">›</i></button>`;
+  }
 }
 document.addEventListener('click', (ev)=>{
   const b = ev.target.closest('[data-dq-ask]');
@@ -2666,7 +2908,7 @@ document.addEventListener('click', (ev)=>{
   if(b.dataset.dqAsk === 'period'){
     const r = trendRange(trendHorizon, trendOffset);
     openChat({ ask: 'How do I reach my goal?', intent: { kind: 'reach_goal', scope: 'period', start: r.start, end: r.end < todayStr() ? r.end : toISO(new Date(parseISO(todayStr()).getTime() - 86400000)), label: trendPeriodLabel(trendHorizon, trendOffset) } });
-  } else openChat({ ask: 'How do I reach my goal?', intent: { kind: 'reach_goal', scope: 'day', date: selectedDate } });
+  } else openChat({ ask: 'How do I reach my goal today?', intent: { kind: 'reach_goal', scope: 'day', date: todayStr() } });
 });
 function paintQualityTrack(fill, over, tick, v, g){
   if(!fill) return;
@@ -2709,6 +2951,8 @@ function renderRing(){
       placeholder: MACRO_PLACEHOLDER[m], overIsBad: m !== 'protein' && calOverIsBad });
   });
   renderBurnRingExtras(d);
+  renderRingNet(d, cal, burn);
+  renderAskButtons();
 
   const cta = document.getElementById('goalCtaBtn');
   if(cta){
@@ -2723,6 +2967,18 @@ function renderRing(){
   renderBalances('');
   renderMyGoals();
 }
+// Past days only: the day's total deficit or surplus, between the Calories and Burn rings.
+function renderRingNet(d, cal, burn){
+  const el = document.getElementById('ringNet');
+  if(!el) return;
+  const show = d !== todayStr() && cal != null && burn != null && cal > 0;
+  el.style.display = show ? '' : 'none';
+  if(!show) return;
+  const net = Math.round(cal - burn);
+  const kind = net < 0 ? 'deficit' : net > 0 ? 'surplus' : 'even';
+  el.className = 'ring-net ' + kind;
+  el.innerHTML = `<b>${signedN(net)}</b><span>${kind === 'even' ? 'even' : kind}</span>`;
+}
 // Under the Burn label, a tiny tag says where the number comes from. In the center: "Log" when it's
 // a manual day with nothing logged yet, or the day's activity level when the app is estimating.
 function renderBurnRingExtras(d){
@@ -2732,9 +2988,9 @@ function renderBurnRingExtras(d){
   const has = hasBurned(e);
   const p = burnParts(d);
   tag.textContent = has ? burnSourceLabel(e, d) : (mode === 'apple' ? 'Apple Health' : 'Estimated');
-  if(p && !p.manual && p.src === 'activity'){
-    const a = dayActivity(d);
-    unit.innerHTML = `<button class="burn-act" id="burnActBtn" type="button" aria-haspopup="dialog" aria-label="Activity level: ${DAY_ACTIVITY[a].label}. Change">${actIcon(a, 'burn-act-ico')}<span>${DAY_ACTIVITY[a].label}</span><svg class="burn-act-chev" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
+  if(p && !p.manual && logsWorkouts()){
+    const n = p.workouts.length;
+    unit.innerHTML = `<button class="burn-act${n ? ' has' : ''}" id="burnActBtn" type="button" aria-haspopup="dialog" aria-label="${n ? n + ' workouts logged. Add another' : 'Log a workout'}">${n ? `<span>${n} workout${n === 1 ? '' : 's'}</span>` : '<span>＋ Workout</span>'}</button>`;
   } else {
     unit.textContent = 'kcal';
   }
@@ -2816,7 +3072,7 @@ const MONTH_LETTERS = ['J','F','M','A','M','J','J','A','S','O','N','D'];
 // Each point is (running total − tm × goal so far); the dashed goal line is (goal so far × (1 − tm)),
 // so it folds down onto the zero line as the view switches. Colours cross-fade between the views:
 // total — calories green below zero, red above; macros in blue · vs. goal — green on the good side.
-function balanceSVG(ser, o, tm){
+function balanceGeom(ser, o, tm){
   const W = 320, H = o.H, N = ser.days.length, padX = 6, y0top = 6, bot = H - 17;
   // the line starts at zero on the left edge; each day's point sits right above its axis label
   const xc = i => padX + (i + 0.5) * (W - 2 * padX) / N;
@@ -2829,6 +3085,10 @@ function balanceSVG(ser, o, tm){
   const vals = [0].concat(disp, ref || []);
   const lo = Math.min(...vals), hi = Math.max(...vals), span = (hi - lo) || 1;
   const y = v => y0top + (hi - v) / span * (bot - y0top);
+  return { W, H, N, padX, bot, xc, xs, past, disp, ref, y };
+}
+function balanceSVG(ser, o, tm){
+  const { W, H, N, padX, bot, xc, xs, past, disp, ref, y } = balanceGeom(ser, o, tm);
   const P = disp.map((v, i) => [xs(i), y(v)]);
   const path = arr => arr.map((q, i) => (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' ');
   const zy = y(0).toFixed(1);
@@ -2898,8 +3158,7 @@ function balanceHeadHTML(ser, mode){
     if(k === 'cal'){ val = signedN(ser.total); cls = ser.total <= 0 ? 'def' : 'sur'; }
     else { val = fmtN(ser.total); cls = 'pro'; }
   }
-  const dot = k === 'cal' ? '' : `<i class="wp-dot" style="background:${MACRO_COLOR[k]}"></i>`;
-  return `<div class="wk-head"><div class="wk-title">${dot}${BALANCE_NAME[k]}</div>
+  return `<div class="wk-head"><div class="wk-title"${k === 'cal' ? '' : ` style="color:${MACRO_COLOR[k]}"`}>${BALANCE_NAME[k]}</div>
     <div class="wk-now"><div class="wk-val ${cls}"${k !== 'cal' && cls === 'pro' ? ` style="color:${MACRO_COLOR[k]}"` : ''}>${val}<small>${unit}</small></div>
     <div class="wk-goal"><i class="wk-dash"></i>Goal <b>${balanceGoalText(k, ser.goalTotal)}</b></div></div></div>`;
 }
@@ -2947,6 +3206,70 @@ function renderBalances(s){
   });
 }
 function renderWeekBalance(s){ renderBalances(s); }
+// Press and hold a progress chart: a guide follows your finger and the header shows the running
+// total and where it stood against the goal up to that day. Let go and it's back to normal.
+let wkHold = null;
+function wkHoldShow(card, clientX){
+  const ser = card._ser, o = card._o; if(!ser) return;
+  const svg = card.querySelector('.wk-svg'); if(!svg) return;
+  const g = balanceGeom(ser, o, card._tm);
+  const r = svg.getBoundingClientRect();
+  const xv = (clientX - r.left) / r.width * g.W;
+  let i = Math.floor((xv - g.padX) / ((g.W - 2 * g.padX) / g.N));
+  i = Math.max(0, Math.min(g.past.length - 1, i));
+  if(i < 0 || !g.past.length) return;
+  const d = g.past[i];
+  if(d.cum == null) return;
+  const px = g.xc(i), py = g.y(g.disp[i + 1]);
+  let guide = card.querySelector('.wk-guide');
+  if(!guide){ guide = document.createElement('div'); guide.className = 'wk-guide'; guide.innerHTML = '<i></i><b></b>'; card.querySelector('.wk-chart').appendChild(guide); }
+  const top = svg.offsetTop;
+  guide.style.left = (px / g.W * 100) + '%';
+  guide.style.top = top + 'px';
+  guide.style.height = (g.bot / g.H * r.height) + 'px';
+  guide.querySelector('b').style.top = (py / g.H * r.height) + 'px';
+  card.classList.add('holding');
+  // header: the number for the view up to that day, plus the other view underneath
+  const k = ser.kind, unit = balanceUnit(k), goodLow = balanceGoodLow(k);
+  const vsGoal = d.pace != null ? d.cum - d.pace : null;
+  const totCls = k === 'cal' ? (d.cum <= 0 ? 'def' : 'sur') : 'pro';
+  const goalCls = vsGoal == null ? '' : ((goodLow ? vsGoal <= 0 : vsGoal >= 0) ? 'def' : 'sur');
+  const isGoal = card._mode === 'goal';
+  const main = isGoal ? (vsGoal == null ? '—' : signedN(vsGoal)) : (k === 'cal' ? signedN(d.cum) : fmtN(d.cum));
+  const other = isGoal ? `Total <b>${k === 'cal' ? signedN(d.cum) : fmtN(d.cum) + ' g'}</b>` : `vs. goal <b class="${goalCls}">${vsGoal == null ? '—' : signedN(vsGoal) + (k === 'cal' ? '' : ' g')}</b>`;
+  const lbl = parseISO(d.iso).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+  const now = card.querySelector('.wk-now');
+  if(now) now.innerHTML = `<div class="wk-val ${isGoal ? goalCls : totCls}"${!isGoal && k !== 'cal' ? ` style="color:${MACRO_COLOR[k]}"` : ''}>${main}<small>${unit}</small></div>
+    <div class="wk-goal wk-hold-sub">through ${lbl} · ${other}</div>`;
+}
+function wkHoldEnd(){
+  if(!wkHold) return;
+  clearTimeout(wkHold.timer);
+  const card = wkHold.card;
+  if(wkHold.active){
+    card.classList.remove('holding');
+    const gd = card.querySelector('.wk-guide'); if(gd) gd.remove();
+    card.querySelector('.wk-headbox').innerHTML = balanceHeadHTML(card._ser, card._mode);
+  }
+  wkHold = null;
+}
+document.addEventListener('pointerdown', (ev)=>{
+  const chart = ev.target.closest('.wk-chart'); if(!chart) return;
+  const card = chart.closest('.wk'); if(!card || !card._ser) return;
+  wkHoldEnd();
+  const x0 = ev.clientX, y0 = ev.clientY;
+  wkHold = { card, x0, y0, active: false, timer: setTimeout(() => { if(!wkHold) return; wkHold.active = true; haptic(); wkHoldShow(card, wkHold.x); }, 260), x: x0 };
+});
+document.addEventListener('pointermove', (ev)=>{
+  if(!wkHold) return;
+  wkHold.x = ev.clientX;
+  if(!wkHold.active){ if(Math.abs(ev.clientY - wkHold.y0) > 8 || Math.abs(ev.clientX - wkHold.x0) > 8) wkHoldEnd(); return; }
+  wkHoldShow(wkHold.card, ev.clientX);
+});
+['pointerup', 'pointercancel'].forEach(t => document.addEventListener(t, wkHoldEnd));
+document.addEventListener('touchmove', (ev)=>{ if(wkHold && wkHold.active) ev.preventDefault(); }, { passive: false });
+document.addEventListener('contextmenu', (ev)=>{ if(ev.target.closest('.wk-chart')) ev.preventDefault(); });
+
 // Switching view: the header updates at once; the chart morphs over ~0.55 s.
 function switchBalanceMode(card, mode){
   const k = card.dataset.kind;
@@ -3054,32 +3377,45 @@ function relTimeShort(ms){
   if(h < 24) return h + ' h ago';
   return Math.round(h / 24) + ' d ago';
 }
-function burnLevelPills(level){
-  return `<div class="bc-levels" role="group" aria-label="Activity level">${Object.entries(DAY_ACTIVITY).map(([k, v]) =>
-    `<button type="button" class="bc-level${k === level ? ' on' : ''}" data-bc-level="${k}">${actIcon(k, 'bc-level-ico')}<span>${v.label}</span></button>`).join('')}</div>`;
-}
 const PENCIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>';
+const AH_SRC = () => `<span class="bc-ah">${AH_ICON}Apple Health</span>`;
 function burnPartSub(p, q){
   const pct = p.isToday ? ` · ${Math.round(p.frac * 100)}% of the day so far` : '';
   switch(q.key){
-    case 'rest': return `BMR ${fmtN(p.bmr)} a day, from your profile${pct}`;
-    case 'living': return `Moving around, standing, chores${pct}`;
-    case 'activity': return `${DAY_ACTIVITY[p.level].label} day${p.isToday ? ', so far' : ''} · tap a level to change it`;
+    case 'rest': {
+      const st = bmrStatusText();
+      return `BMR ${fmtN(p.bmr)} a day${pct}${p.learn && p.learn.status === 'learned' ? ` · ${st.line.split(',')[0]}` : ''}`;
+    }
+    case 'living': return p.noHealth ? `No Apple Health data for this day — standing, walking around, chores${pct}` : `Standing, walking around, chores${pct}`;
     case 'steps': {
       const st = p.health && typeof p.health.steps === 'number' ? p.health.steps : null;
-      if(userProfile.activeAllDay) return `${st != null ? fmtN(st) + ' steps · ' : ''}already inside active energy (all-day tracker)`;
-      if(st == null) return 'No step count from Apple Health for this day';
       const sm = strideM();
-      return `${fmtN(st)} steps${sm ? ` × ${sm.toFixed(2)} m stride` : ''} · walking`;
+      return st == null ? `${AH_SRC()} · no step count for this day` : `${fmtN(st)} steps${sm ? ` × ${sm.toFixed(2)} m stride` : ''} · ${AH_SRC()}`;
     }
-    case 'active': return `${AH_ICON}Apple Health${p.health && p.health.at ? ` · synced ${relTimeShort(p.health.at)}` : ''}`;
+    case 'watch': {
+      const st = p.health && typeof p.health.steps === 'number' ? ` · ${fmtN(p.health.steps)} steps` : '';
+      return `Movement and workouts${st} · ${AH_SRC()}`;
+    }
+    case 'active': return `Workouts from your watch or ring · ${AH_SRC()}`;
+    case 'workouts': return p.workouts.length ? `${p.workouts.length} logged` : (p.legacyActivity ? `${DAY_ACTIVITY[p.legacyActivity].label} day (older activity tag)` : 'Nothing logged — tap + to add one');
     case 'digest': {
       const dg = p.digestion;
-      if(dg.how === 'none') return 'Nothing logged yet';
+      if(dg.how === 'none') return 'Nothing eaten logged yet';
       return dg.how === 'macros' ? `Digesting ${fmtN(dg.eaten)} kcal eaten · from its protein, carbs and fat` : `About 10% of ${fmtN(dg.eaten)} kcal eaten`;
     }
   }
   return '';
+}
+function workoutRowsHTML(p){
+  const rows = p.workouts.map(w => {
+    const def = WORKOUT_BY_KEY[w.type] || { e: '✨', n: 'Workout' };
+    const it = INTENSITY[INT_IDX[w.int] ?? 1];
+    return `<button class="bc-wo" type="button" data-wo-edit="${w.id}">
+      <span class="bc-wo-e" aria-hidden="true">${def.e}</span>
+      <span class="bc-wo-t"><b>${escapeHtml(def.n)}</b><small>${w.min} min · ${it.label}${w.stepOverlap ? ` · ${fmtN(w.stepOverlap)} kcal already in steps` : ''}${w.edited ? ' · your number' : ''}</small></span>
+      <span class="bc-wo-k">+${fmtN(w.kcal)}</span></button>`;
+  }).join('');
+  return `<div class="bc-wos">${rows}<button class="bc-wo-add" type="button" data-wo-add>＋ Add a workout</button></div>`;
 }
 function renderBurnCard(){
   const valEl = document.getElementById('burnSummaryVal');
@@ -3090,7 +3426,7 @@ function renderBurnCard(){
 
   const box = document.getElementById('burnBreakdown');
   const p = burnParts(d);
-  const mode = burnMode();
+  const path = burnPath(), def = BURN_PATHS[path];
   const isToday = d === todayStr();
   const when = isToday ? 'Today so far' : dayLabel(d);
   let html = '';
@@ -3098,8 +3434,12 @@ function renderBurnCard(){
     html = `<div class="bc-empty"><b>Your burn needs your profile.</b><span>Add your date of birth, height and weight so the app can work out your resting burn.</span>
       <button class="btn-small btn-accent" data-bc="profile" type="button">Open Profile</button></div>`;
   } else {
-    const srcLine = p.kept ? `From ${p.keptFrom} · kept from before the switch` : p.manual ? 'Your own number'
-      : p.kind === 'apple' ? 'With Apple Health' : (mode === 'apple' ? 'Estimated · no Apple Health data for this day' : 'Estimated from your activity');
+    let srcLine;
+    if(p.kept) srcLine = `From ${p.keptFrom} · kept from before the switch`;
+    else if(p.manual) srcLine = 'Your own number for this day';
+    else if(def.apple && p.health) srcLine = `${AH_ICON}Apple Health · synced ${relTimeShort(p.health.at) || '—'}`;
+    else if(def.apple) srcLine = `${AH_ICON}No Apple Health data for this day${isToday ? ' yet' : ''}`;
+    else srcLine = 'Calculated from your profile, food and workouts';
     html += `<div class="bc-top">
         <div class="bc-top-l"><div class="bc-when">${escapeHtml(when)}</div><div class="bc-src">${srcLine}</div></div>
         <div class="bc-total">${fmtN(p.total)}<small>kcal</small></div>
@@ -3115,29 +3455,33 @@ function renderBurnCard(){
     p.parts.forEach(q => {
       const info = BURN_PARTS[q.key];
       const editing = bcEditing === q.key;
-      const muted = q.key === 'steps' && userProfile.activeAllDay && !q.edited;
+      let tag = '';
+      if(q.key === 'rest'){ const st = bmrStatusText(); tag = `<em class="bc-tag ${st.tag.toLowerCase()}">${st.tag}</em>`; }
+      if(q.edited) tag += '<em class="bc-edited">edited</em>';
       html += `<div class="bc-row${editing ? ' editing' : ''}"><span class="bc-dot" style="background:${info.color}"></span>
-        <div class="bc-main"><b>${info.label}${q.edited ? '<em class="bc-edited">edited</em>' : ''}</b><small>${burnPartSub(p, q)}</small>
+        <div class="bc-main"><b>${q.key === 'living' && p.noHealth ? 'Everyday movement' : info.label}${tag}</b><small>${burnPartSub(p, q)}</small>
+          ${q.key === 'rest' && p.learn && p.learn.status !== 'learned' ? `<small class="bc-learn">${bmrStatusText().line}</small>` : ''}
           ${editing ? `<div class="bc-edit"><input type="number" inputmode="numeric" id="bcPartInput" value="${q.value}" aria-label="${info.label}, kcal"><span>kcal</span>
             <button class="btn-small btn-accent" data-bc="save" data-k="${q.key}" type="button">Save</button><button class="btn-small" data-bc="cancel" type="button">Cancel</button></div>` : ''}
           ${q.edited && !editing ? `<button class="bc-link" data-bc="reset" data-k="${q.key}" type="button">Reset to ${fmtN(q.auto)}</button>` : ''}</div>
-        <div class="bc-num${muted ? ' muted' : ''}">${muted ? 'incl.' : (q.key === 'rest' ? '' : '+') + fmtN(q.value)}</div>
+        <div class="bc-num">${(q.key === 'rest' ? '' : '+') + fmtN(q.value)}</div>
         ${editing ? '' : `<button class="bc-pen" data-bc="edit" data-k="${q.key}" type="button" aria-label="Edit ${info.label}">${PENCIL}</button>`}</div>`;
-      if(q.key === 'activity' && !editing) html += `<div class="bc-extra">${burnLevelPills(p.level)}</div>`;
+      if(q.key === 'workouts' && !editing) html += `<div class="bc-extra">${workoutRowsHTML(p)}</div>`;
     });
     html += `</div>`;
     html += `<button class="bc-info-btn" data-bc="info" type="button">${bcInfoOpen ? 'Hide how this works' : 'How this is calculated'}</button>`;
     if(bcInfoOpen) html += `<div class="bc-info">
-      <p><b>Resting</b> — your BMR (Mifflin-St Jeor) from weight, height, age and sex: what your body burns doing nothing.</p>
-      ${p.kind === 'apple' ? `<p><b>Steps</b> — walking costs about 0.57 kcal per kg per km (0.67 from age 65), from a systematic review and meta-analysis (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6620279/" target="_blank" rel="noopener">Das Gupta et al., 2019</a>); distance = steps × stride, with stride ≈ 41% of your height.</p>
-      <p><b>Active energy</b> — whatever your watch or ring records in Apple Health. WHOOP only writes workouts there, so steps are added separately; an Apple Watch records all day, including walking — switch that on in Apple Health settings so steps aren't counted twice.</p>`
-      : `<p><b>Everyday living</b> — BMR × 0.1 for a typical sedentary day. <b>Activity</b> adds BMR × 0.175 (light), 0.35 (moderate) or 0.525 (very active) — the standard activity multipliers.</p>`}
-      <p><b>Digestion</b> — your body spends energy digesting food: about 20–30% of protein calories, 5–10% of carbs and 0–3% of fat, roughly 10% for a mixed diet (<a href="https://doaj.org/article/0f4d3251105d438cb3e663a7fa912eb8" target="_blank" rel="noopener">Westerterp, 2004</a>). The app uses 25%, 7.5% and 1.5%.</p>
-      <p>Tap the pencil on any part to use your own number for that day.</p></div>`;
+      <p><b>Resting</b> — your BMR: what your body burns doing nothing. ${bmrLearnState() ? (bmrLearnState().status === 'learned' ? `Monstrão has learned it from your food and weigh-ins: ${bmrStatusText().line}.` : 'Monstrão is learning it from your food and weigh-ins; until then it’s the Mifflin-St Jeor estimate from your weight, height, age and sex.') : 'Mifflin-St Jeor estimate from your weight, height, age and sex.'}</p>
+      ${def.parts.includes('steps') ? `<p><b>Steps</b> — walking costs about 0.57 kcal per kg per km (0.67 from age 65), from a systematic review and meta-analysis (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6620279/" target="_blank" rel="noopener">Das Gupta et al., 2019</a>); distance = steps × stride, with stride ≈ 41% of your height.</p>` : ''}
+      ${def.parts.includes('active') ? `<p><b>Active energy</b> — what your watch or ring records in Apple Health. WHOOP, Oura and Garmin write workouts there, so steps are counted separately.</p>` : ''}
+      ${def.parts.includes('watch') ? `<p><b>Apple Watch activity</b> — the active energy your Apple Watch records all day. It already includes your walking and workouts, so nothing is added on top.</p>` : ''}
+      ${def.parts.includes('workouts') ? `<p><b>Workouts</b> — each activity has an energy cost (MET) for light, moderate and all-out effort from the <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10818145/" target="_blank" rel="noopener">2024 Compendium of Physical Activities</a>. Calories = (MET − 1) × your weight in kg × hours — minus 1 because resting is already counted.${path === 'phone' ? ' For walks, runs and hikes, the steps your iPhone already counted are taken off so they aren’t counted twice.' : ''}</p>` : ''}
+      ${def.parts.includes('living') ? `<p><b>Everyday movement</b> — BMR × 0.1 for standing, walking around and chores${def.apple ? ' (used on days Apple Health sent nothing)' : ''}.</p>` : ''}
+      <p><b>Digestion</b> — your body spends energy digesting food: about 20–30% of protein calories, 5–10% of carbs and 0–3% of fat (<a href="https://doaj.org/article/0f4d3251105d438cb3e663a7fa912eb8" target="_blank" rel="noopener">Westerterp, 2004</a>). The app uses 25%, 7.5% and 1.5%.</p>
+      <p>Tap the pencil on any part to use your own number for that day. Change your setup in Profile → Daily burn.</p></div>`;
   }
   if(!(p && p.manual)) html += `<button class="bc-ownbtn" data-bc="own" type="button">${bcOwnOpen ? 'Never mind' : 'Use my own total instead'}</button>`;
-  if(mode !== 'apple') html += `<button class="bc-promo" data-bc="health" type="button">${AH_ICON}<span><b>Wear a watch or ring?</b> Connect Apple Health to use your real steps and active energy.</span><i>›</i></button>`;
-  else if(!healthConnected() && !Object.keys(healthData).length) html += `<button class="bc-promo" data-bc="health" type="button">${AH_ICON}<span><b>Finish Apple Health setup</b> — nothing has synced yet.</span><i>›</i></button>`;
+  if(def.apple && !healthConnected() && !Object.keys(healthData).length) html += `<button class="bc-promo" data-bc="health" type="button">${AH_ICON}<span><b>Finish Apple Health setup</b> — nothing has synced yet.</span><i>›</i></button>`;
   box.innerHTML = html;
 
   const own = document.getElementById('burnOwn');
@@ -3154,7 +3498,9 @@ function renderBurnCard(){
 }
 const AH_ICON = '<svg class="ah-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF375F" d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2Z"/></svg>';
 document.addEventListener('click', async (ev)=>{
-  const b = ev.target.closest('#burnFormWrap [data-bc], #burnFormWrap [data-bc-level]');
+  const wo = ev.target.closest('#burnFormWrap [data-wo-edit], #burnFormWrap [data-wo-add]');
+  if(wo){ haptic(); openWorkoutSheet(wo.dataset.woEdit || null); return; }
+  const b = ev.target.closest('#burnFormWrap [data-bc]');
   if(!b) return;
   haptic();
   const d = selectedDate;
@@ -3167,8 +3513,7 @@ document.addEventListener('click', async (ev)=>{
   if(act === 'cancel'){ bcEditing = null; renderBurnCard(); return; }
   if(!entries[d]) entries[d] = blankEntry();
   const e = entries[d];
-  if(b.dataset.bcLevel){ e.activity = b.dataset.bcLevel; if(e.burnOv) delete e.burnOv.activity; }
-  else if(act === 'save'){
+  if(act === 'save'){
     const v = parseInt(document.getElementById('bcPartInput').value, 10);
     if(isNaN(v) || v < 0) return;
     e.burnOv = Object.assign({}, e.burnOv, { [k]: v }); bcEditing = null;
@@ -3180,7 +3525,103 @@ document.addEventListener('click', async (ev)=>{
   await persist();
   renderAll();
 });
+
+// ---------- logging a workout: a bottom sheet — pick the activity, then time and effort ----------
+let woState = null;   // { id, type, min, int, q }
+function openWorkoutSheet(editId){
+  const d = selectedDate;
+  const cur = editId ? dayWorkouts(d).find(w => w.id === editId) : null;
+  woState = cur ? { id: cur.id, type: cur.type, min: cur.min, int: cur.int, step: 2, q: '' } : { id: null, type: null, min: 30, int: 'moderate', step: 1, q: '' };
+  let el = document.getElementById('woSheet');
+  if(!el){ el = document.createElement('div'); el.id = 'woSheet'; el.className = 'sheet-scrim'; document.body.appendChild(el); }
+  renderWorkoutSheet();
+  el.style.display = 'flex';
+  requestAnimationFrame(() => el.classList.add('open'));
+  document.body.classList.add('sheet-open');
+}
+function closeWorkoutSheet(){
+  const el = document.getElementById('woSheet');
+  if(!el) return;
+  el.classList.remove('open');
+  document.body.classList.remove('sheet-open');
+  setTimeout(() => { el.style.display = 'none'; }, 260);
+}
+function renderWorkoutSheet(){
+  const el = document.getElementById('woSheet');
+  if(!el || !woState) return;
+  const d = selectedDate, isToday = d === todayStr();
+  let inner;
+  if(woState.step === 1){
+    const q = woState.q.trim().toLowerCase();
+    const list = WORKOUTS.filter(w => !q || w.n.toLowerCase().includes(q));
+    const groups = [...new Set(list.map(w => w.g))];
+    inner = `<div class="sheet-title">Log a workout</div>
+      <div class="sheet-sub">${isToday ? 'Today' : dayLabel(d)} · pick what you did</div>
+      <input class="wo-search" id="woSearch" type="search" placeholder="Search — running, tennis, yoga…" value="${escapeHtml(woState.q)}" autocomplete="off">
+      <div class="wo-groups">${groups.map(g => `<div class="wo-g">${g}</div><div class="wo-grid">${list.filter(w => w.g === g).map(w =>
+        `<button class="wo-tile" type="button" data-wo-type="${w.k}"><span class="wo-e">${w.e}</span><span class="wo-n">${escapeHtml(w.n)}</span></button>`).join('')}</div>`).join('') || '<p class="wo-none">No match — try “Other workout”.</p>'}</div>`;
+  } else {
+    const def = WORKOUT_BY_KEY[woState.type];
+    const est = workoutKcal({ type: woState.type, min: woState.min, int: woState.int });
+    inner = `<div class="wo-head"><button class="wo-back" type="button" data-wo-back aria-label="Back">‹</button>
+        <span class="wo-head-e">${def.e}</span><div><div class="sheet-title" style="margin:0">${escapeHtml(def.n)}</div><div class="sheet-sub" style="margin:2px 0 0">${isToday ? 'Today' : dayLabel(d)}</div></div></div>
+      <div class="wo-label">How long?</div>
+      <div class="wo-dur"><button type="button" class="wo-step" data-wo-min="-5" aria-label="5 minutes less">−</button>
+        <div class="wo-dur-v"><b>${woState.min}</b><span>min</span></div>
+        <button type="button" class="wo-step" data-wo-min="5" aria-label="5 minutes more">+</button></div>
+      <div class="wo-quick">${[15, 30, 45, 60, 90].map(m => `<button type="button" class="${woState.min === m ? 'on' : ''}" data-wo-set="${m}">${m}</button>`).join('')}</div>
+      <div class="wo-label">How hard?</div>
+      <div class="wo-ints">${INTENSITY.map((it, i) => `<button type="button" class="wo-int${woState.int === it.k ? ' on' : ''}" data-wo-int="${it.k}">
+        <b>${it.label}</b><small>${escapeHtml(def.h[i])}</small><i>${it.hint}</i></button>`).join('')}</div>
+      <div class="wo-est"><div><span>Adds to your burn</span><b>≈ ${fmtN(est.kcal)} kcal</b></div>
+        ${est.stepOverlap ? `<small>${fmtN(est.gross)} kcal for the ${def.n.toLowerCase()}, minus ${fmtN(est.stepOverlap)} kcal your steps already count</small>` : `<small>${est.met ? `MET ${est.met} · ` : ''}2024 Compendium of Physical Activities</small>`}</div>
+      <button class="btn-primary burn-variant" type="button" data-wo-save>${woState.id ? 'Save changes' : 'Add workout'}</button>
+      ${woState.id ? '<button class="wo-del" type="button" data-wo-del>Delete workout</button>' : ''}`;
+  }
+  el.innerHTML = `<div class="sheet wo-sheet" role="dialog" aria-modal="true"><div class="sheet-grab"></div>${inner}</div>`;
+}
+document.addEventListener('input', (ev)=>{
+  if(ev.target.id !== 'woSearch' || !woState) return;
+  woState.q = ev.target.value;
+  const pos = ev.target.selectionStart;
+  renderWorkoutSheet();
+  const s = document.getElementById('woSearch'); if(s){ s.focus(); try{ s.setSelectionRange(pos, pos); }catch(e){} }
+});
+document.addEventListener('click', async (ev)=>{
+  if(ev.target.closest('#burnActBtn')){ haptic(); openWorkoutSheet(null); return; }
+  const sheet = document.getElementById('woSheet');
+  if(!sheet || sheet.style.display !== 'flex' || !woState) return;
+  if(ev.target === sheet){ closeWorkoutSheet(); return; }
+  const t = ev.target.closest('[data-wo-type]');
+  if(t){ haptic(); woState.type = t.dataset.woType; woState.step = 2; renderWorkoutSheet(); return; }
+  if(ev.target.closest('[data-wo-back]')){ haptic(); if(woState.id){ closeWorkoutSheet(); return; } woState.step = 1; renderWorkoutSheet(); return; }
+  const mi = ev.target.closest('[data-wo-min]');
+  if(mi){ haptic(); woState.min = Math.max(5, Math.min(600, woState.min + parseInt(mi.dataset.woMin, 10))); renderWorkoutSheet(); return; }
+  const ms = ev.target.closest('[data-wo-set]');
+  if(ms){ haptic(); woState.min = parseInt(ms.dataset.woSet, 10); renderWorkoutSheet(); return; }
+  const it = ev.target.closest('[data-wo-int]');
+  if(it){ haptic(); woState.int = it.dataset.woInt; renderWorkoutSheet(); return; }
+  const d = selectedDate;
+  if(ev.target.closest('[data-wo-save]')){
+    haptic();
+    if(!entries[d]) entries[d] = blankEntry();
+    const list = entries[d].workouts = entries[d].workouts || [];
+    if(woState.id){ const w = list.find(x => x.id === woState.id); if(w){ w.type = woState.type; w.min = woState.min; w.int = woState.int; } }
+    else list.push({ id: genId(), type: woState.type, min: woState.min, int: woState.int, ts: Date.now() });
+    if(entries[d].burnOv) delete entries[d].burnOv.workouts;
+    syncDerivedBurns(); await persist(); renderAll();
+    closeWorkoutSheet();
+    return;
+  }
+  if(ev.target.closest('[data-wo-del]')){
+    haptic();
+    if(entries[d] && entries[d].workouts) entries[d].workouts = entries[d].workouts.filter(w => w.id !== woState.id);
+    syncDerivedBurns(); await persist(); renderAll();
+    closeWorkoutSheet();
+  }
+});
 document.addEventListener('keydown', (ev)=>{
+  if(ev.key === 'Escape') closeWorkoutSheet();
   if(ev.key === 'Enter' && ev.target && ev.target.id === 'bcPartInput'){ ev.preventDefault(); document.querySelector('#burnFormWrap [data-bc="save"]').click(); }
 });
 
@@ -3190,7 +3631,7 @@ let weightInputMode = 'manual'; // 'manual'|'csv'
 
 // ---------- collapsible "The Trends" card + its individual charts ----------
 let trendsExpanded = false;
-let chartBlockState = { consumed:true, burned:true, net:true, protein:true, carbs:true, fat:true, weight:true }; // all open when Trends opens
+let chartBlockState = { consumed:false, burned:false, net:false, protein:false, carbs:false, fat:false, weight:false, steps:false, active:false }; // all collapsed until opened
 
 // "14:05" -> "2:05 PM" (readings are keyed "YYYY-MM-DDTHH:MM[:SS]")
 function weightTimeLabel(ts){
@@ -3220,6 +3661,22 @@ function retimeWeightEntry(oldTs, newTime){
   return newTs;
 }
 
+function weightSparkSVG(wMap, d, unit){
+  const days = [];
+  for(let i = 29; i >= 0; i--){ const dt = parseISO(d); dt.setDate(dt.getDate() - i); days.push(toISO(dt)); }
+  const pts = days.map((iso, i) => wMap[iso] ? [i, wMap[iso].avg] : null).filter(Boolean);
+  if(pts.length < 2) return '';
+  const W = 320, H = 64, pad = 6;
+  const vs = pts.map(p => p[1]), lo = Math.min(...vs), hi = Math.max(...vs), span = (hi - lo) || 1;
+  const x = i => pad + i / 29 * (W - 2 * pad), y = v => pad + (hi - v) / span * (H - 2 * pad - 10);
+  const path = pts.map((p, k) => (k ? 'L' : 'M') + x(p[0]).toFixed(1) + ' ' + y(p[1]).toFixed(1)).join(' ');
+  const area = `${path} L${x(pts[pts.length - 1][0]).toFixed(1)} ${H - 10} L${x(pts[0][0]).toFixed(1)} ${H - 10} Z`;
+  const sel = wMap[d] ? `<circle cx="${x(29).toFixed(1)}" cy="${y(wMap[d].avg).toFixed(1)}" r="4" fill="#0E1014" stroke="#4C8DFF" stroke-width="2.4"/>` : '';
+  return `<svg class="wc-spark" viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><linearGradient id="wcg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4C8DFF" stop-opacity=".28"/><stop offset="1" stop-color="#4C8DFF" stop-opacity="0"/></linearGradient></defs>
+    <path d="${area}" fill="url(#wcg)"/><path d="${path}" fill="none" stroke="#4C8DFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${pts.map(p => `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="1.8" fill="#4C8DFF"/>`).join('')}${sel}
+    <text x="${pad}" y="${H - 1}" font-size="9.5" fill="#8B90A0" font-weight="600">30 days</text><text x="${W - pad}" y="${H - 1}" font-size="9.5" fill="#8B90A0" font-weight="600" text-anchor="end">${d === todayStr() ? 'Today' : dayLabel(d)}</text></svg>`;
+}
 function renderWeightCard(){
   const valEl = document.getElementById('weightSummaryVal');
   if(!valEl) return;
@@ -3234,76 +3691,84 @@ function renderWeightCard(){
     { label:'7d avg', dim:true, values:[ `${avg7 != null ? avg7 : '—'} ${unit}` ] }
   ]);
 
-  const dayKeys = Object.keys(weightReadings).filter(ts => ts.slice(0,10) === d).sort();
-
   const wrap = document.getElementById('weightFormWrap');
   const chevron = document.getElementById('weightChevron');
   if(wrap) wrap.style.display = weightExpanded ? '' : 'none';
   if(chevron) chevron.classList.toggle('open', weightExpanded);
+  if(!weightExpanded) return;
+
+  const all = allWeights();
+  const dayKeys = Object.keys(all).filter(ts => ts.slice(0,10) === d).sort();
+  const isToday = d === todayStr();
+  // top: the day's weight, where it came from, and how it's moving
+  const prev7 = (() => { const dt = parseISO(d); dt.setDate(dt.getDate() - 7); return trailingAvg(iso => wMap[iso] ? wMap[iso].avg : null, 7, 1, toISO(dt)); })();
+  const d30 = (() => { const dt = parseISO(d); dt.setDate(dt.getDate() - 30); const base = trailingAvg(iso => wMap[iso] ? wMap[iso].avg : null, 7, 1, toISO(dt)); return avg7 != null && base != null ? Math.round((avg7 - base) * 10) / 10 : null; })();
+  const wk = avg7 != null && prev7 != null ? Math.round((avg7 - prev7) * 10) / 10 : null;
+  const goal = userGoals && userGoals.weightGoal;
+  const chCls = v => v == null || v === 0 || !goal || goal === 'maintain' ? '' : ((goal === 'lose' ? v < 0 : v > 0) ? 'good' : 'bad');
+  const sgn = v => v == null ? '—' : (v > 0 ? '+' : v < 0 ? '−' : '±') + Math.abs(v).toFixed(1);
+  const last = dayKeys.length ? all[dayKeys[dayKeys.length - 1]] : null;
+  const lastTs = dayKeys.length ? dayKeys[dayKeys.length - 1] : null;
+  let src;
+  if(!last) src = `No weigh-in ${isToday ? 'yet today' : 'this day'}`;
+  else if(last.src === 'apple') src = `${AH_ICON}Apple Health · ${fmtClock(lastTs.slice(11, 16))}`;
+  else src = `Logged by you · ${fmtClock(lastTs.slice(11, 16))}`;
+  document.getElementById('weightTop').innerHTML = `<div class="bc-top">
+      <div class="bc-top-l"><div class="bc-when">${isToday ? 'Today' : escapeHtml(dayLabel(d))}</div><div class="bc-src">${src}</div></div>
+      <div class="bc-total">${dayW != null ? dayW.toFixed(1) : '—'}<small>${unit}</small></div></div>
+    <div class="wc-stats">
+      <div><span>7-day average</span><b>${avg7 != null ? avg7.toFixed(1) : '—'}</b></div>
+      <div><span>Week change</span><b class="${chCls(wk)}">${sgn(wk)}</b></div>
+      <div><span>30-day change</span><b class="${chCls(d30)}">${sgn(d30)}</b></div>
+    </div>${weightSparkSVG(wMap, d, unit)}`;
+  document.getElementById('weightUnitLbl').textContent = unit;
+  document.getElementById('weightListDay').textContent = isToday ? 'today' : dayLabel(d);
+  const hn = document.getElementById('weightHealthNote');
+  if(hn) hn.innerHTML = weightFromHealth() ? `${AH_ICON}Smart-scale weigh-ins sync from Apple Health` : '';
 
   const list = document.getElementById('weightEntriesList');
   const emptyMsg = document.getElementById('weightEntriesEmpty');
-  if(list && emptyMsg){
-    if(dayKeys.length){
-      list.innerHTML = dayKeys.map(ts=>{
-        const r = weightReadings[ts];
-        return `<div class="item-row" data-weight="${ts}">
-          <input type="time" class="item-desc-input" data-weight-time="${ts}" value="${ts.slice(11,16)}">
-          <div class="item-cal-wrap">
-            <input type="number" class="item-cal-input" data-weight-value="${ts}" value="${r.value}" step="0.1" inputmode="decimal">
-            <span class="item-cal-unit">${r.unit}</span>
-          </div>
-          <button class="item-del" data-weight-del="${ts}" type="button">✕</button>
-        </div>`;
-      }).join('');
-      emptyMsg.style.display = 'none';
-      list.querySelectorAll('[data-weight-del]').forEach(btn=>{
-        btn.addEventListener('click', async ()=>{
-          haptic();
-          delete weightReadings[btn.dataset.weightDel];
-          await persistWeights();
-          renderWeightChart();
-          renderWeightCard();
-        });
-      });
-      list.querySelectorAll('[data-weight-value]').forEach(inp=>{
-        inp.addEventListener('change', async ()=>{
-          const ts = inp.dataset.weightValue;
-          const val = parseFloat(inp.value);
-          if(isNaN(val) || !weightReadings[ts]){ inp.value = weightReadings[ts] ? weightReadings[ts].value : ''; return; }
-          weightReadings[ts].value = val;
-          await persistWeights();
-          renderWeightChart();
-          renderWeightCard();
-        });
-      });
-      list.querySelectorAll('[data-weight-time]').forEach(inp=>{
-        inp.addEventListener('change', async ()=>{
-          retimeWeightEntry(inp.dataset.weightTime, inp.value);
-          await persistWeights();
-          renderWeightChart();
-          renderWeightCard();
-        });
-      });
-    } else {
-      list.innerHTML = '';
-      emptyMsg.style.display = '';
-    }
-  }
-
-  const manualBtn = document.getElementById('weightManualModeBtn');
-  const csvBtn = document.getElementById('weightCsvModeBtn');
-  const manualView = document.getElementById('weightManualView');
-  const csvView = document.getElementById('weightCsvView');
-  if(manualBtn && csvBtn && manualView && csvView){
-    manualBtn.classList.toggle('active', weightInputMode === 'manual');
-    csvBtn.classList.toggle('active', weightInputMode === 'csv');
-    manualView.style.display = weightInputMode === 'manual' ? '' : 'none';
-    csvView.style.display = weightInputMode === 'csv' ? '' : 'none';
-  }
-  const valueLabel = document.querySelector('label[for="weightValueInput"]');
-  if(valueLabel) valueLabel.textContent = `Weight (${weightUnit()})`;
+  if(dayKeys.length){
+    list.innerHTML = dayKeys.map(ts => {
+      const r = all[ts];
+      if(r.src === 'apple') return `<div class="wc-row"><span class="wc-time">${fmtClock(ts.slice(11,16))}</span><span class="wc-src ah">${AH_ICON}Apple Health</span><b class="wc-v">${r.value}<small>${r.unit}</small></b><span class="wc-lock" title="Change it in Apple Health">·</span></div>`;
+      return `<div class="wc-row" data-weight="${ts}">
+        <input type="time" class="wc-time-in" data-weight-time="${ts}" value="${ts.slice(11,16)}" aria-label="Time">
+        <span class="wc-src">You</span>
+        <span class="wc-v"><input type="number" class="wc-v-in" data-weight-value="${ts}" value="${r.value}" step="0.1" inputmode="decimal" aria-label="Weight"><small>${r.unit}</small></span>
+        <button class="item-del" data-weight-del="${ts}" type="button" aria-label="Delete">✕</button></div>`;
+    }).join('');
+    emptyMsg.style.display = 'none';
+  } else { list.innerHTML = ''; emptyMsg.style.display = ''; }
 }
+// "07:12" → "7:12 AM" in the person's locale
+function fmtClock(hhmm){
+  const m = String(hhmm || '').match(/^(\d{2}):(\d{2})/);
+  if(!m) return '';
+  const dt = new Date(); dt.setHours(+m[1], +m[2], 0, 0);
+  return dt.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+}
+// edits / deletes on the day's own weigh-ins (delegated: the list is redrawn on every render)
+document.addEventListener('click', async (ev)=>{
+  const b = ev.target.closest('#weightEntriesList [data-weight-del]');
+  if(!b) return;
+  haptic();
+  delete weightReadings[b.dataset.weightDel];
+  await persistWeights();
+  renderWeightChart(); renderWeightCard();
+});
+document.addEventListener('change', async (ev)=>{
+  const t = ev.target;
+  if(t.matches && t.matches('#weightEntriesList [data-weight-value]')){
+    const ts = t.dataset.weightValue, val = parseFloat(t.value);
+    if(isNaN(val) || !weightReadings[ts]){ t.value = weightReadings[ts] ? weightReadings[ts].value : ''; return; }
+    weightReadings[ts].value = val;
+  } else if(t.matches && t.matches('#weightEntriesList [data-weight-time]')){
+    retimeWeightEntry(t.dataset.weightTime, t.value);
+  } else return;
+  await persistWeights();
+  renderWeightChart(); renderWeightCard();
+});
 
 // ---------- History (a page in the menu) ----------
 function openHistory(){
@@ -3392,6 +3857,8 @@ async function loadWeights(){
 }
 async function persistWeights(){
   try{ localStorage.setItem(WEIGHT_KEY, JSON.stringify(weightReadings)); }catch(e){}
+  // the latest weight sets BMR, so every calculated burn moves with it
+  if(typeof syncDerivedBurns === 'function'){ const before = JSON.stringify(entries); syncDerivedBurns(); if(JSON.stringify(entries) !== before) persist(); }
   // Same reasoning as persist(): don't block the caller on the network round trip.
   const snapshot = JSON.stringify(weightReadings);
   ensureAuth()
@@ -3466,9 +3933,10 @@ async function persistGoals(){
 // Current bodyweight in lb: prefer the most recent logged weight reading over the profile's
 // "initial weight", since the user explicitly asked for initial weight to be superseded by later logs.
 function currentWeightLb(){
-  const keys = Object.keys(weightReadings).sort();
+  const all = allWeights();
+  const keys = Object.keys(all).sort();
   if(keys.length){
-    const last = weightReadings[keys[keys.length-1]];
+    const last = all[keys[keys.length-1]];
     if(last && typeof last.value === 'number'){
       return last.unit === 'kg' ? last.value * 2.20462 : last.value;
     }
@@ -3520,9 +3988,11 @@ function computeTargets(){
   const heightCm = userProfile.heightIn * 2.54;
   const age = ageFromDob(userProfile.dob);
 
-  // Mifflin-St Jeor BMR
+  // Mifflin-St Jeor BMR, plus what Monstrão has learned from the person's data (if allowed)
   let bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age);
   bmr += (userProfile.sex === 'male') ? 5 : -161;
+  const bmrEst = bmr;
+  bmr += bmrAdj();
 
   const activityMult = ACTIVITY_MULTIPLIERS[userGoals.activity] || 1.2;
   const tdee = bmr * activityMult;
@@ -3579,7 +4049,7 @@ function computeTargets(){
     qualityTarget: qualityTargets.protein,
     qualityTargets, macroKcal, fatPct: split.fatPct, carbFloorHit: split.floorHit,
     calc, custom: { calorie: !!pick('calorie'), protein: !!pick('protein'), burn: !!pick('burn'), carbs: !!pick('carbs'), fat: !!pick('fat') },
-    bmr: Math.round(bmr),
+    bmr: Math.round(bmr), bmrEst: Math.round(bmrEst), bmrAdj: bmrAdj(),
     tdee: Math.round(tdee),
     rate, dailyDelta: Math.round(dailyDelta), floor, floored,
     age, weightLb: Math.round(weightLb*10)/10, proteinPerKg, activityMult
@@ -3621,7 +4091,7 @@ function targetsMethodologyHTML(t){
       about ${pct}% above your TDEE and ${t.rate} lb is about ${bw}% of your body weight a week${bw > 0.5 ? ' — above that range, so expect a bigger share of the gain to be fat' : ' — inside that range'}.</p>`;
   }
   return `
-    <p><b>BMR</b> ${t.bmr} kcal/day — Mifflin-St Jeor equation, from your weight (${t.weightLb} lb), height, age (${t.age}) and sex.</p>
+    <p><b>BMR</b> ${t.bmr} kcal/day — Mifflin-St Jeor equation, from your weight (${t.weightLb} lb), height, age (${t.age}) and sex${t.bmrAdj ? ` (${t.bmrEst}), ${t.bmrAdj > 0 ? 'plus' : 'minus'} ${Math.abs(t.bmrAdj)} kcal Monstrão learned from how your weight actually moved against your logs over the last 28 days` : ''}.${bmrLearnState() && !t.bmrAdj ? ' Learning your own resting burn is on — it takes over once there’s about a month of complete logs and weigh-ins.' : ''}</p>
     <p><b>TDEE</b> ${t.tdee} kcal/day — BMR × ${t.activityMult} activity multiplier (${ACTIVITY_LABELS[userGoals.activity]}).</p>
     <p><b>Calorie target</b> ${t.calorieTarget} kcal/day — ${wg === 'maintain' ? 'your TDEE, to maintain weight' : `your TDEE ${wg === 'lose' ? 'minus' : 'plus'} ${t.dailyDelta} kcal a day`}.${yours('calorie')}</p>
     ${pace}
@@ -3679,31 +4149,52 @@ function healthFor(iso){ const h = healthData[iso]; return h && (typeof h.active
 function healthConnected(){ return !!(sessionInfo && sessionInfo.health && sessionInfo.health.connected); }
 
 // ---------- where each day's burn comes from ----------
-// Burn is built from parts, each shown (and editable) in the Burn card:
-//  With Apple Health (for days it has data):
-//    Resting (BMR, Mifflin-St Jeor) + Steps (walking, from the day's step count) + Active energy
-//    (from Apple Health: workouts from WHOOP/Oura/Garmin, or all-day from an Apple Watch) + Digestion.
-//  Without it (or days with no Health data):
-//    Resting (BMR) + Everyday living (BMR × 0.1) + Activity (from the day's activity tag) + Digestion.
+// The person picks one of four setups in Profile → Daily burn:
+//   wearable: Apple Health + a watch/ring that isn't an Apple Watch (WHOOP, Oura, Garmin…)
+//             Resting (BMR) + Steps (Apple Health) + Active energy (Apple Health) + Digestion
+//   watch:    Apple Health + Apple Watch
+//             Resting (BMR) + Apple Watch activity (its active energy already includes steps and workouts) + Digestion
+//   phone:    Apple Health, iPhone only
+//             Resting (BMR) + Steps (Apple Health) + Workouts (logged in the app) + Digestion
+//   manual:   no Apple Health
+//             Resting (BMR) + Everyday movement (BMR × 0.1) + Workouts (logged in the app) + Digestion
+//  On an Apple Health setup, a day with no Health data falls back to Everyday movement for the steps
+//  or watch part, so the day isn't left short.
 //  Digestion (thermic effect of food) comes from what was eaten that day: protein 25%, carbs 7.5%,
-//  fat 1.5% of their calories (Westerterp 2004: 20–30%, 5–10%, 0–3%), or 10% of calories when the
-//  macros aren't known. It replaces the slice of the old ×1.2 multiplier that stood for digestion,
-//  which is why "everyday living" is BMR × 0.1 rather than × 0.2.
-//  Today counts only the part of the day that has passed for resting/living/activity; steps, active
-//  energy and digestion are what's been recorded or eaten so far.
+//  fat 1.5% of their calories (Westerterp 2004: 20–30%, 5–10%, 0–3%), or 10% when macros are unknown.
+//  Today counts only the part of the day that has passed for resting and everyday movement; steps,
+//  active energy, workouts and digestion are what's been recorded so far.
 //  Any part can be overridden for a day (entries[d].burnOv), or the whole day replaced with a typed
-//  total (burnSource 'manual'), and days from before the switch keep their old WHOOP number ('kept').
-function burnMode(){ return userProfile.burnMode === 'apple' ? 'apple' : 'calc'; }
-const BASE_MULT = 1.2;             // the classic sedentary multiplier (used for the activity-level increments)
-const LIVING_MULT = 0.1;           // everyday living on top of BMR, digestion counted separately
+//  total (burnSource 'manual'); days from before the switch keep their old WHOOP number ('kept').
+const BURN_PATHS = {
+  wearable: { apple: true,  title: 'Apple Health + a wearable', short: 'Watch or ring (not Apple Watch)', ex: 'WHOOP, Oura, Garmin, Fitbit…',
+              parts: ['rest', 'steps', 'active', 'digest'], role: 'Nothing to do — keep the Monstrão Health shortcut running.' },
+  watch:    { apple: true,  title: 'Apple Health + Apple Watch', short: 'Apple Watch', ex: 'Records all-day movement and workouts',
+              parts: ['rest', 'watch', 'digest'], role: 'Nothing to do — keep the Monstrão Health shortcut running.' },
+  phone:    { apple: true,  title: 'Apple Health, iPhone only', short: 'Just my iPhone', ex: 'No watch or ring',
+              parts: ['rest', 'steps', 'workouts', 'digest'], role: 'Log your workouts — tap the Burn ring.' },
+  manual:   { apple: false, title: 'Without Apple Health', short: 'No Apple Health', ex: '',
+              parts: ['rest', 'living', 'workouts', 'digest'], role: 'Log your workouts — tap the Burn ring.' }
+};
+function burnPath(){
+  const p = userProfile.burnPath;
+  if(BURN_PATHS[p]) return p;
+  if(userProfile.burnMode === 'apple') return userProfile.activeAllDay ? 'watch' : 'wearable';  // earlier versions
+  return 'manual';
+}
+function burnMode(){ return BURN_PATHS[burnPath()].apple ? 'apple' : 'calc'; }
+function logsWorkouts(){ return BURN_PATHS[burnPath()].parts.includes('workouts'); }
+const BASE_MULT = 1.2;             // the classic sedentary multiplier (legacy activity-tag increments)
+const LIVING_MULT = 0.1;           // everyday movement on top of BMR, digestion counted separately
 const TEF = { protein: 0.25, carbs: 0.075, fat: 0.015, mixed: 0.10 };
 const BURN_PARTS = {
-  rest:     { label: 'Resting',         color: '#2F6FE8' },
-  living:   { label: 'Everyday living', color: '#6FA4FF' },
-  steps:    { label: 'Steps',           color: '#6FA4FF' },
-  activity: { label: 'Activity',        color: '#FF375F' },
-  active:   { label: 'Active energy',   color: '#FF375F' },
-  digest:   { label: 'Digestion',       color: '#F4B740' }
+  rest:     { label: 'Resting',           color: '#2F6FE8' },
+  living:   { label: 'Everyday movement', color: '#6FA4FF' },
+  steps:    { label: 'Steps',             color: '#6FA4FF' },
+  watch:    { label: 'Apple Watch activity', color: '#FF375F' },
+  active:   { label: 'Active energy',     color: '#FF375F' },
+  workouts: { label: 'Workouts',          color: '#FF375F' },
+  digest:   { label: 'Digestion',         color: '#F4B740' }
 };
 // walking: net cost ~2.4 J/kg/m in younger adults, ~2.8 in older (Das Gupta et al. 2019 meta-analysis) —
 // about 0.57 / 0.67 kcal per kg per km; stride ≈ 41.5% (men) / 41.3% (women) of height
@@ -3723,6 +4214,69 @@ function digestionFor(iso){
   if(P != null && C != null && F != null && (P + C + F) > 0) return { kcal: P * 4 * TEF.protein + C * 4 * TEF.carbs + F * 9 * TEF.fat, eaten: cal, how: 'macros' };
   return { kcal: cal * TEF.mixed, eaten: cal, how: 'mixed' };
 }
+
+// ---------- workouts ----------
+// MET values from the 2024 Adult Compendium of Physical Activities (Herrmann et al.; pacompendium.com),
+// code in brackets. Three intensities per activity: light / moderate / all-out. Where the Compendium
+// lists only two levels, the third is interpolated (marked ~). Calories = (MET − 1) × kg × hours:
+// 1 MET is the resting burn, which the Resting part already counts.
+// steps: cadence (steps/min) for activities an iPhone counts as steps — on the iPhone-only setup the
+// walking those steps already added is taken off, so a logged walk isn't counted twice.
+const WORKOUTS = [
+  { k: 'walk',     n: 'Walking',            e: '🚶', g: 'Cardio',   m: [2.8, 3.8, 5.5],  c: '17152 · 17190 · 17220', steps: [95, 110, 125], h: ['Easy stroll', 'Steady pace (~3 mph)', 'Very brisk (4+ mph)'] },
+  { k: 'run',      n: 'Running',            e: '🏃', g: 'Cardio',   m: [7.5, 9.3, 12.0], c: '12020 · 12050 · 12090', steps: [150, 160, 170], h: ['Easy jog', '~10 min/mile', '~7.5 min/mile or faster'] },
+  { k: 'hike',     n: 'Hiking',             e: '🥾', g: 'Cardio',   m: [5.3, 6.0, 8.8],  c: '17082 · 17080 · 17036', steps: [90, 100, 105], h: ['Easy trail', 'Cross-country', 'Steep uphill'] },
+  { k: 'cycle',    n: 'Cycling',            e: '🚴', g: 'Cardio',   m: [6.8, 8.0, 12.0], c: '01020 · 01030 · 01050', h: ['10–12 mph', '12–14 mph', '16–19 mph'] },
+  { k: 'spin',     n: 'Spin class / indoor bike', e: '🚲', g: 'Cardio', m: [5.0, 9.0, 10.8], c: '01216 · 01270 · 01236', h: ['Easy spin', 'Spin class', 'Hard, 200 W+'] },
+  { k: 'mtb',      n: 'Mountain biking',    e: '🚵', g: 'Cardio',   m: [6.8, 8.5, 14.0], c: '~ · 01009 · 01003', h: ['Easy trails', 'General', 'Steep climbs'] },
+  { k: 'swim',     n: 'Swimming',           e: '🏊', g: 'Cardio',   m: [4.8, 5.8, 9.8],  c: '18255 · 18240 · 18230', h: ['Relaxed', 'Steady laps', 'Fast laps'] },
+  { k: 'row',      n: 'Rowing machine',     e: '🚣', g: 'Cardio',   m: [5.0, 7.5, 11.0], c: '02071 · 02072 · 02073', h: ['Under 100 W', '100–149 W', '150–199 W'] },
+  { k: 'ellip',    n: 'Elliptical',         e: '⚙️', g: 'Cardio',   m: [4.0, 5.0, 9.0],  c: '~ · 02048 · 02049', h: ['Easy', 'Moderate', 'Vigorous'] },
+  { k: 'stairs',   n: 'Stair climber',      e: '🪜', g: 'Cardio',   m: [4.0, 6.5, 9.3],  c: '~ · ~ · 02065', h: ['Slow', 'Steady', 'Hard'] },
+  { k: 'rope',     n: 'Jump rope',          e: '🪢', g: 'Cardio',   m: [9.0, 11.0, 12.3], c: '02069 · 02068 · ~', h: ['Slow', 'Steady', 'Fast'] },
+  { k: 'weights',  n: 'Weightlifting',      e: '🏋️', g: 'Strength & classes', m: [3.5, 5.0, 6.0], c: '02054 · 02052 · 02050', h: ['Machines, long rests', 'Squats, deadlifts', 'Heavy, powerlifting'] },
+  { k: 'hiit',     n: 'HIIT / CrossFit',    e: '⚡', g: 'Strength & classes', m: [5.0, 7.0, 11.0], c: '02035 · 02210 · 02214', h: ['Easier intervals', 'Moderate HIIT', 'Burpees, Tabata'] },
+  { k: 'circuit',  n: 'Circuit / bootcamp', e: '🔁', g: 'Strength & classes', m: [3.5, 5.0, 7.5], c: '02034 · 02035 · 02040', h: ['Light', 'Moderate', 'Kettlebells, little rest'] },
+  { k: 'bodyweight', n: 'Calisthenics',     e: '🤸', g: 'Strength & classes', m: [2.8, 3.8, 7.5], c: '02024 · 02022 · 02020', h: ['Planks, crunches', 'Push-ups, pull-ups', 'Burpees, jumping jacks'] },
+  { k: 'yoga',     n: 'Yoga',               e: '🧘', g: 'Strength & classes', m: [2.3, 3.0, 4.0], c: '02150 · 02155 · 02160', h: ['Hatha', 'Hot yoga', 'Power yoga'] },
+  { k: 'pilates',  n: 'Pilates',            e: '🤍', g: 'Strength & classes', m: [1.8, 2.8, 3.5], c: '02103 · 02105 · ~', h: ['Mat', 'General', 'Hard reformer'] },
+  { k: 'dance',    n: 'Dance / Zumba',      e: '💃', g: 'Strength & classes', m: [3.8, 6.5, 8.0], c: '03070 · 02310 · 02006', h: ['Social dancing', 'Zumba class', 'High-impact'] },
+  { k: 'aerobics', n: 'Aerobics / step',    e: '👟', g: 'Strength & classes', m: [4.8, 7.3, 9.0], c: '02005 · 02000 · 02003', h: ['Low impact', 'General', 'High step'] },
+  { k: 'boxing',   n: 'Boxing / kickboxing', e: '🥊', g: 'Strength & classes', m: [5.8, 7.8, 12.3], c: '15110 · 15120 · 15100', h: ['Bag work', 'Sparring', 'In the ring'] },
+  { k: 'martial',  n: 'Martial arts / jiu-jitsu', e: '🥋', g: 'Strength & classes', m: [5.3, 7.8, 10.3], c: '15425 · ~ · 15430', h: ['Drills', 'Training', 'Hard rolling / sparring'] },
+  { k: 'tennis',   n: 'Tennis',             e: '🎾', g: 'Sports',   m: [4.5, 6.8, 8.0],  c: '15685 · 15675 · 15690', h: ['Easy doubles', 'General', 'Competitive singles'] },
+  { k: 'padel',    n: 'Padel / pickleball / beach tennis', e: '🏓', g: 'Sports', m: [4.5, 6.0, 6.8], c: 'not in the Compendium — tennis doubles values', h: ['Easy', 'General', 'Competitive'] },
+  { k: 'squash',   n: 'Squash',             e: '🟢', g: 'Sports',   m: [6.0, 7.3, 12.0], c: '~ · 15652 · 15650', h: ['Easy rally', 'General', 'Competitive'] },
+  { k: 'soccer',   n: 'Soccer',             e: '⚽', g: 'Sports',   m: [5.0, 7.0, 9.5],  c: '~ · 15610 · 15605', h: ['Kickabout', 'Casual game', 'Competitive'] },
+  { k: 'basketball', n: 'Basketball',       e: '🏀', g: 'Sports',   m: [5.0, 7.5, 8.0],  c: '15070 · 15055 · 15040', h: ['Shooting around', 'General', 'Full game'] },
+  { k: 'volley',   n: 'Volleyball',         e: '🏐', g: 'Sports',   m: [4.0, 6.0, 8.0],  c: '15710 · 15711 · 15725', h: ['Casual', 'Competitive (indoor)', 'Beach'] },
+  { k: 'golf',     n: 'Golf',               e: '⛳', g: 'Sports',   m: [3.5, 4.3, 4.8],  c: '15290 · 15265 · ~', h: ['With a cart', 'Walking, carrying clubs', 'Walking, fast'] },
+  { k: 'climb',    n: 'Climbing',           e: '🧗', g: 'Outdoors & water', m: [5.8, 8.0, 8.8], c: '~ · 15533 · 15534', h: ['Easy routes', 'General', 'Bouldering'] },
+  { k: 'ski',      n: 'Skiing / snowboarding', e: '⛷️', g: 'Outdoors & water', m: [4.3, 6.3, 8.0], c: '19150 · 19160 · 19170', h: ['Light', 'Moderate', 'Vigorous'] },
+  { k: 'surf',     n: 'Surfing',            e: '🏄', g: 'Outdoors & water', m: [3.0, 4.0, 5.0], c: '18220 · ~ · 18222', h: ['Casual', 'Steady paddling', 'Competitive'] },
+  { k: 'sup',      n: 'Stand-up paddle',    e: '🛶', g: 'Outdoors & water', m: [3.8, 6.5, 9.8], c: '18226 · 18224 · 18228', h: ['Easy strokes', 'General', 'Racing pace'] },
+  { k: 'other',    n: 'Other workout',      e: '✨', g: 'Outdoors & water', m: [3.8, 5.5, 7.8], c: '02064 · 02060 · 02062', h: ['Light', 'Moderate', 'Hard'] }
+];
+const WORKOUT_BY_KEY = Object.fromEntries(WORKOUTS.map(w => [w.k, w]));
+const INTENSITY = [
+  { k: 'light', label: 'Light', hint: 'Easy — you could chat the whole time' },
+  { k: 'moderate', label: 'Moderate', hint: 'Breathing harder, short sentences' },
+  { k: 'hard', label: 'All-out', hint: 'Hard effort, only a few words' }
+];
+const INT_IDX = { light: 0, moderate: 1, hard: 2 };
+// one workout's calories for the day's burn (net of resting, and of steps already counted)
+function workoutKcal(w, path){
+  const def = WORKOUT_BY_KEY[w.type];
+  if(typeof w.kcalOv === 'number') return { kcal: w.kcalOv, gross: w.kcalOv, stepOverlap: 0, edited: true };
+  const kg = (currentWeightLb() || 0) * 0.453592;
+  if(!def || !kg || !w.min) return { kcal: 0, gross: 0, stepOverlap: 0 };
+  const met = def.m[INT_IDX[w.int] ?? 1];
+  const gross = Math.max(0, (met - 1) * kg * w.min / 60);
+  let stepOverlap = 0;
+  if((path || burnPath()) === 'phone' && def.steps) stepOverlap = Math.min(gross, walkKcal(def.steps[INT_IDX[w.int] ?? 1] * w.min));
+  return { kcal: Math.round(gross - stepOverlap), gross: Math.round(gross), stepOverlap: Math.round(stepOverlap), met };
+}
+function dayWorkouts(iso){ const e = entries[iso]; return (e && Array.isArray(e.workouts)) ? e.workouts : []; }
 // The activity level someone tags a day with (estimated burn only). Separate from the activity level
 // on the Goals page, which only sets targets.
 const DAY_ACTIVITY = {
@@ -3738,98 +4292,130 @@ const ACT_ICONS = {
   very: '<path d="M12 2.5c.7 3.5 5.5 5.6 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.4 2.7-5.6.3 2 1.3 3.2 2.7 3.6-.3-3.4-.7-6.2.1-9.3z"/>'
 };
 function actIcon(k, cls){ return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ACT_ICONS[k]}</svg>`; }
-// The day's activity picker: a bottom sheet with the four levels, what each means, and the estimate
-// each would give for that day, so the choice is concrete.
-function openActivitySheet(){
-  const d = selectedDate, cur = dayActivity(d), bmr = bmrNow();
-  let el = document.getElementById('actSheet');
-  if(!el){ el = document.createElement('div'); el.id = 'actSheet'; el.className = 'sheet-scrim'; document.body.appendChild(el); }
-  const isToday = d === todayStr();
-  el.innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="actSheetTitle">
-    <div class="sheet-grab"></div>
-    <div class="sheet-title" id="actSheetTitle">How active was ${isToday ? 'today' : dayLabel(d)}?</div>
-    <div class="sheet-sub">Adds estimated activity to the rest of your burn for this day only. Your goals don't change.</div>
-    <div class="act-list">${Object.entries(DAY_ACTIVITY).map(([k, v]) => `
-      <button class="act-opt${k === cur ? ' on' : ''}" data-act="${k}" type="button">
-        <span class="act-ico-wrap">${actIcon(k, 'act-ico')}</span>
-        <span class="act-txt"><b>${v.label}</b><small>${v.hint}</small></span>
-        <span class="act-kcal">+${bmr ? Math.round(bmr * (v.mult - BASE_MULT)).toLocaleString() : '—'}<small>kcal${isToday ? ' / day' : ''}</small></span>
-      </button>`).join('')}</div>
-  </div>`;
-  el.style.display = 'flex';
-  requestAnimationFrame(() => el.classList.add('open'));
-  document.body.classList.add('sheet-open');
-}
-function closeActivitySheet(){
-  const el = document.getElementById('actSheet');
-  if(!el) return;
-  el.classList.remove('open');
-  document.body.classList.remove('sheet-open');
-  setTimeout(() => { el.style.display = 'none'; }, 260);
-}
-document.addEventListener('click', async (ev)=>{
-  if(ev.target.closest('#burnActBtn')){ haptic(); openActivitySheet(); return; }
-  const sheet = document.getElementById('actSheet');
-  if(!sheet || sheet.style.display !== 'flex') return;
-  const opt = ev.target.closest('[data-act]');
-  if(opt){
-    haptic();
-    const d = selectedDate;
-    if(!entries[d]) entries[d] = blankEntry();
-    entries[d].activity = opt.dataset.act;
-    if(entries[d].burnOv) delete entries[d].burnOv.activity;
-    sheet.querySelectorAll('.act-opt').forEach(b => b.classList.toggle('on', b === opt));
-    syncDerivedBurns();
-    await persist();
-    renderAll();
-    setTimeout(closeActivitySheet, 160);
-    return;
-  }
-  if(ev.target === sheet) closeActivitySheet();
-});
-document.addEventListener('keydown', (ev)=>{ if(ev.key === 'Escape') closeActivitySheet(); });
 function dayActivity(iso){ const e = entries[iso]; return (e && DAY_ACTIVITY[e.activity]) ? e.activity : 'sedentary'; }
-function bmrNow(){
+// BMR: Mifflin-St Jeor from the profile, plus what Monstrão has learned from the person's own data
+// (when they've allowed it and there's enough of it — see learnBmr()).
+function bmrBase(){
   const w = currentWeightLb(), age = ageFromDob(userProfile.dob);
   if(!w || !userProfile.heightIn || age == null) return null;
   return 10 * w * 0.453592 + 6.25 * userProfile.heightIn * 2.54 - 5 * age + (userProfile.sex === 'male' ? 5 : -161);
 }
+function bmrLearnState(){ const L = userProfile.bmrLearn; return L && L.on ? L : null; }
+function bmrAdj(){ const L = bmrLearnState(); return (L && L.status === 'learned' && typeof L.adj === 'number') ? L.adj : 0; }
+function bmrNow(){ const b = bmrBase(); return b == null ? null : b + bmrAdj(); }
 function dayFractionNow(){ const now = new Date(), mid = new Date(now); mid.setHours(0, 0, 0, 0); return Math.min(1, (now - mid) / 86400000); }
 // The day's burn, piece by piece. Returns null when the profile can't give a BMR yet.
-function burnParts(iso){
-  const bmr = bmrNow();
+// bmrOverride: used by the learning step to see what the plain estimate would have given.
+function burnParts(iso, bmrOverride){
+  const bmr = bmrOverride != null ? bmrOverride : bmrNow();
   if(bmr == null) return null;
+  const path = burnPath(), def = BURN_PATHS[path];
   const e = entries[iso] || {};
   const isToday = iso === todayStr(), frac = isToday ? dayFractionNow() : 1;
-  const level = dayActivity(iso);
-  const h = burnMode() === 'apple' ? healthFor(iso) : null;
+  const h = def.apple ? healthFor(iso) : null;
   const ov = e.burnOv || {};
   const dg = digestionFor(iso);
-  const kind = h ? 'apple' : 'estimate';
+  const noHealth = def.apple && !h;
   const raw = { rest: bmr * frac };
-  if(kind === 'apple'){
-    raw.steps = userProfile.activeAllDay ? 0 : walkKcal(h.steps || 0);
-    raw.active = h.active || 0;
-  } else {
-    raw.living = bmr * LIVING_MULT * frac;
-    raw.activity = bmr * (DAY_ACTIVITY[level].mult - BASE_MULT) * frac;
-  }
+  let workoutList = [];
+  def.parts.forEach(k => {
+    if(k === 'rest' || k === 'digest') return;
+    if(k === 'steps' || k === 'watch'){
+      if(noHealth){ raw.living = bmr * LIVING_MULT * frac; return; }   // no Health data that day: estimate everyday movement
+      if(k === 'steps') raw.steps = walkKcal(h.steps || 0);
+      else raw.watch = h.active || 0;
+    }
+    else if(k === 'active') raw.active = h ? (h.active || 0) : 0;
+    else if(k === 'living') raw.living = bmr * LIVING_MULT * frac;
+    else if(k === 'workouts'){
+      workoutList = dayWorkouts(iso).map(w => Object.assign({}, w, workoutKcal(w, noHealth ? 'manual' : path)));   // no steps that day → nothing to take off
+      let sum = workoutList.reduce((s, w) => s + w.kcal, 0);
+      // an activity level tagged on a day before workouts existed still counts for that day
+      if(!workoutList.length && e.activity && DAY_ACTIVITY[e.activity] && e.activity !== 'sedentary') sum = bmr * (DAY_ACTIVITY[e.activity].mult - BASE_MULT) * frac;
+      raw.workouts = sum;
+    }
+  });
   raw.digest = dg.kcal;
-  const keys = Object.keys(raw);
-  const parts = keys.map(k => ({ key: k, auto: Math.round(raw[k]), edited: typeof ov[k] === 'number', value: typeof ov[k] === 'number' ? ov[k] : Math.round(raw[k]) }));
+  const order = ['rest', 'living', 'steps', 'watch', 'active', 'workouts', 'digest'];
+  const parts = order.filter(k => k in raw).map(k => ({ key: k, auto: Math.round(raw[k]), edited: typeof ov[k] === 'number', value: typeof ov[k] === 'number' ? ov[k] : Math.round(raw[k]) }));
   const calc = parts.reduce((s, q) => s + q.value, 0);
   // a whole-day number that wins over the calculation: typed by the person, or kept from WHOOP
   const manual = typeof e.burned === 'number' && e.burnSource !== 'calc' && e.burnSource !== 'whoop';
   const kept = manual && e.burnSource === 'kept';
-  return { bmr: Math.round(bmr), kind, parts, calc, level, frac, isToday, health: h, digestion: dg,
-    src: kind === 'apple' ? 'apple' : 'activity', manual, kept, keptFrom: e.keptFrom || 'WHOOP', total: manual ? e.burned : calc };
+  const L = bmrLearnState();
+  return { bmr: Math.round(bmr), bmrBase: Math.round(bmrBase() || bmr), bmrAdj: bmrOverride != null ? 0 : bmrAdj(), learn: L,
+    path, kind: def.apple && h ? 'apple' : 'estimate', noHealth, parts, calc, workouts: workoutList, legacyActivity: !workoutList.length && e.activity && e.activity !== 'sedentary' ? e.activity : null,
+    frac, isToday, health: h, digestion: dg, src: def.apple && h ? 'apple' : 'activity', manual, kept, keptFrom: e.keptFrom || 'WHOOP', total: manual ? e.burned : calc };
 }
 function estimatedBurn(iso){ const p = burnParts(iso); return p ? p.calc : null; }
+
+// ---------- learning the person's BMR ----------
+// With permission (Profile → Daily burn), Monstrão compares what the numbers predicted with what the
+// scale did. Over the last 28 finished days: the average daily balance the app worked out
+// (food − burn, using the plain BMR estimate) against the balance the weight trend implies
+// (lb/day × 3,500). If the weight fell faster than predicted, the body burns more than estimated
+// — and the difference becomes the learned adjustment to BMR. It needs good data: at least 24 of
+// the 28 days with food fully logged and a burn the app calculated, and weigh-ins on 8+ days spread
+// over 3+ weeks. The adjustment is shrunk toward zero a little (food logs tend to miss things) and
+// capped at ±15% of the estimate. It's recomputed every day, so it keeps following the data.
+const LEARN_WINDOW = 28, LEARN_MIN_GOOD = 24, LEARN_MIN_WEIGH = 8, LEARN_CAP = 0.15;
+function learnBmr(){
+  const L = userProfile.bmrLearn;
+  if(!L || !L.on) return null;
+  const base = bmrBase();
+  if(base == null) return null;
+  const t = computeTargets();
+  const days = [];
+  for(let i = LEARN_WINDOW; i >= 1; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push(toISO(d)); }
+  const good = days.filter(d => {
+    const e = entries[d];
+    const cal = consumedTotal(e);
+    if(cal == null) return false;
+    const items = e.mode === 'items' ? (e.items || []).length : 2;
+    const target = t ? t.calorieTarget : 1800;
+    if(cal < target * 0.6 && items < 3) return false;          // looks like a partly logged day
+    const p = burnParts(d);
+    return !!(p && !p.manual);
+  });
+  const wmap = dailyWeightMap();
+  const wdays = days.filter(d => wmap[d]);
+  const spread = wdays.length ? (parseISO(wdays[wdays.length - 1]) - parseISO(wdays[0])) / 86400000 : 0;
+  const next = Object.assign({}, L, { good: good.length, weighIns: wdays.length, need: LEARN_MIN_GOOD, window: LEARN_WINDOW, checked: todayStr() });
+  if(good.length >= LEARN_MIN_GOOD && wdays.length >= LEARN_MIN_WEIGH && spread >= 21){
+    // weight trend: least-squares slope of daily weights (lb/day)
+    const pts = wdays.map(d => [(parseISO(d) - parseISO(days[0])) / 86400000, wmap[d].avg * (weightUnit() === 'kg' ? 2.20462 : 1)]);
+    const mx = pts.reduce((s, p) => s + p[0], 0) / pts.length, my = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+    let num = 0, den = 0; pts.forEach(([x, y]) => { num += (x - mx) * (y - my); den += (x - mx) * (x - mx); });
+    const slope = den ? num / den : 0;
+    const observed = slope * 3500;
+    const predicted = good.reduce((s, d) => s + (consumedTotal(entries[d]) - burnParts(d, base).calc), 0) / good.length;
+    const residual = predicted - observed;
+    const shrunk = residual * good.length / (good.length + 7);
+    const cap = base * LEARN_CAP;
+    next.adj = Math.round(Math.max(-cap, Math.min(cap, shrunk)) / 10) * 10;
+    next.status = 'learned';
+    next.asOf = todayStr();
+    next.slope = Math.round(slope * 7 * 100) / 100;          // lb/week, for display
+    next.predicted = Math.round(predicted);
+  } else if(L.status !== 'learned'){
+    next.status = 'learning';
+  }
+  const changed = ['status', 'adj', 'good', 'weighIns'].some(k => next[k] !== L[k]);
+  if(changed){ userProfile.bmrLearn = next; persistProfile(); }
+  return next;
+}
+// One short line describing where the BMR stands, for the Burn card, Goals and Profile.
+function bmrStatusText(){
+  const L = bmrLearnState();
+  if(!L) return { tag: 'Estimated', line: 'Mifflin-St Jeor estimate from your profile' };
+  if(L.status === 'learned') return { tag: 'Learned', line: `${L.adj >= 0 ? '+' : '−'}${fmtN(Math.abs(L.adj || 0))} kcal/day vs the estimate, from your last ${LEARN_WINDOW} days` };
+  return { tag: 'Learning', line: `Still learning · ${Math.min(L.good || 0, LEARN_MIN_GOOD)} of ${LEARN_MIN_GOOD} good days, ${Math.min(L.weighIns || 0, LEARN_MIN_WEIGH)} of ${LEARN_MIN_WEIGH} weigh-ins` };
+}
 // Keeps every day's burn in line with the rules above. A total the person typed always stays.
 function syncDerivedBurns(){
   const today = todayStr();
   const days = new Set(Object.keys(entries).filter(d => d <= today && entries[d] &&
-    (consumedTotal(entries[d]) != null || entries[d].activity || entries[d].burnOv || entries[d].burnSource === 'calc' || entries[d].burnSource === 'whoop')));
+    (consumedTotal(entries[d]) != null || entries[d].activity || (entries[d].workouts || []).length || entries[d].burnOv || entries[d].burnSource === 'calc' || entries[d].burnSource === 'whoop')));
   if(burnMode() === 'apple') Object.keys(healthData).forEach(d => { if(d <= today && healthFor(d)) days.add(d); });
   days.add(today);
   days.forEach(d => {
@@ -3904,7 +4490,7 @@ function attachLiveSync(){
       if(JSON.stringify(incoming) === JSON.stringify(healthData)) return;
       healthData = incoming;
       if(sessionInfo && sessionInfo.health && !sessionInfo.health.connected) sessionInfo.health.connected = true;
-      syncDerivedBurns();
+      { const before = JSON.stringify(entries); syncDerivedBurns(); if(JSON.stringify(entries) !== before) persist(); }
       if(document.getElementById('healthOverlay') && document.getElementById('healthOverlay').style.display === 'flex') renderHealthPage();
       if(isEditingField()) return;
       renderAll();
@@ -3957,10 +4543,26 @@ function parseWeightCSV(text){
   }
   return readings;
 }
+// Every weight reading the app uses: the ones logged or imported here, plus the ones Apple Health
+// sent (when the person turned that on in Profile). Apple Health readings are read-only here.
+function weightFromHealth(){ return burnMode() === 'apple' && !!userProfile.weightFromHealth; }
+function allWeights(){
+  if(!weightFromHealth()) return weightReadings;
+  const out = Object.assign({}, weightReadings);
+  const unit = weightUnit();
+  Object.keys(healthData).forEach(d => {
+    const w = healthData[d] && healthData[d].weight;
+    if(!w || typeof w.lb !== 'number') return;
+    const time = /^\d{2}:\d{2}$/.test(w.time || '') ? w.time : '07:00';
+    out[`${d}T${time}:ah`] = { value: unit === 'kg' ? Math.round(w.lb / 2.20462 * 10) / 10 : w.lb, unit, src: 'apple' };
+  });
+  return out;
+}
 function dailyWeightMap(){
   const buckets = {};
-  for(const ts in weightReadings){
-    const r = weightReadings[ts];
+  const all = allWeights();
+  for(const ts in all){
+    const r = all[ts];
     const date = ts.slice(0,10);
     if(!buckets[date]) buckets[date] = { sum:0, count:0, unit:r.unit };
     buckets[date].sum += r.value;
@@ -4088,6 +4690,7 @@ function renderTrendsAll(){
   renderConsumedChart();
   renderBurnedChart();
   renderNetChart();
+  renderHealthCharts();
   renderProteinChart();
   renderWeightChart();
 }
@@ -4464,6 +5067,48 @@ function renderBurnedChart(){
   }catch(e){ /* charts failed; rest of the app still works */ }
 }
 
+
+// ---------- rendering: Apple Health — steps, and active energy or Apple Watch activity ----------
+// Only the charts that feed this person's burn: watch-or-ring → Steps + Active energy; Apple Watch →
+// Apple Watch activity; iPhone only → Steps; no Apple Health → none.
+const healthCharts = { steps: null, active: null };
+function renderHealthCharts(){
+  const path = burnPath(), def = BURN_PATHS[path];
+  const want = { steps: def.apple && path !== 'watch', active: path === 'wearable' || path === 'watch' };
+  const nameEl = document.getElementById('activeChartName');
+  if(nameEl) nameEl.textContent = path === 'watch' ? 'Apple Watch activity' : 'Active energy';
+  ['steps', 'active'].forEach(k => {
+    const block = document.getElementById(k === 'steps' ? 'blockSteps' : 'blockActive');
+    if(block) block.style.display = want[k] ? '' : 'none';
+    if(!want[k]) return;
+    const titleEl = document.getElementById(k === 'steps' ? 'trendStepsChartTitle' : 'trendActiveChartTitle');
+    try{
+      if(typeof Chart === 'undefined') return;
+      ensureWeekendPlugin();
+      const r = trendRange(trendHorizon, trendOffset), today = todayStr();
+      const dates = [];
+      for(const dt = parseISO(r.start); toISO(dt) <= r.end && toISO(dt) <= today; dt.setDate(dt.getDate() + 1)) dates.push(toISO(dt));
+      const labels = dates.map(trendLabel);
+      const vals = dates.map(d => { const h = healthFor(d); if(!h) return null; return k === 'steps' ? (typeof h.steps === 'number' ? h.steps : null) : (h.active || 0); });
+      if(titleEl) titleEl.innerHTML = HOLD_HINT;
+      const color = k === 'steps' ? BURN_PARTS.steps.color : '#FF375F';
+      const data = { labels, datasets: [{ type: 'bar', label: k, data: vals, backgroundColor: color + 'CC', borderRadius: 3,
+        maxBarThickness: trendHorizon === 'week' ? 22 : (trendHorizon === 'month' ? 14 : 6) }] };
+      const options = { responsive: true, maintainAspectRatio: false, events: [], interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: { x: { ticks: horizonXTicks(trendHorizon, dates), grid: { display: false } },
+          y: { beginAtZero: true, ticks: { color: '#8D90A8', font: { family: 'Inter', size: 10 } }, grid: { color: '#2E3040' },
+               title: { display: true, text: k === 'steps' ? 'steps' : 'kcal', color: '#8D90A8', font: { family: 'Inter', size: 10 } } } } };
+      const hold = { titleEl, baseHTML: null, labels, series: [{ color, decimals: 0, suffix: k === 'steps' ? ' steps' : ' kcal', vals }],
+        note: k === 'steps' && path !== 'watch' ? (i => vals[i] != null ? `≈ ${fmtN(Math.round(walkKcal(vals[i])))} kcal to burn` : '') : null };
+      let c = healthCharts[k];
+      if(c){ c.data = data; c.options = options; c.update(); }
+      else c = healthCharts[k] = new Chart(document.getElementById(k + 'Chart'), { type: 'bar', data, options });
+      c.$dates = dates; c.$avgSegments = null; c.$holdInfo = hold;
+    }catch(e){ /* charts failed; rest of the app still works */ }
+  });
+}
+
 // ---------- rendering: deficit / surplus ----------
 function renderNetChart(){
   const netTitleEl = document.getElementById('trendNetChartTitle');
@@ -4759,7 +5404,9 @@ function renderTable(){
   document.getElementById('histMonthNavTitle').textContent = label;
   document.getElementById('nextHistMonthBtn').disabled = (histViewYear===today.getFullYear() && histViewMonth===today.getMonth());
 
-  const dates = allLoggedDates().filter(d=>{
+  const histDates = new Set(allLoggedDates());
+  if(burnMode() === 'apple') Object.keys(healthData).forEach(d => { if(d <= todayStr()) histDates.add(d); });
+  const dates = Array.from(histDates).sort().filter(d=>{
     const dt = parseISO(d);
     return dt.getFullYear()===histViewYear && dt.getMonth()===histViewMonth;
   }).reverse();
@@ -4834,20 +5481,15 @@ function renderDetail(d, e){
   } else {
     html += `<div class="hist-section-label">Food</div><div class="card-sub" style="margin:0;">Not logged.</div>`;
   }
-  html += `<div class="hist-divider"></div>
-    <div class="hist-section-label">Burned</div>
-    <div class="item-row hist-item-row">
-      <div class="item-desc">Calories burned</div>
-      <div class="item-cal-wrap">
-        <input type="number" class="item-cal-input hist-burned-input" value="${e && hasBurned(e) ? e.burned : ''}" placeholder="—" inputmode="numeric">
-        <span class="item-cal-unit">kcal</span>
-      </div>
-    </div>`;
-  const dayWeightKeys = Object.keys(weightReadings).filter(ts => ts.slice(0,10) === d).sort();
+  html += `<div class="hist-divider"></div><div class="hist-section-label">Burned</div>` + histBurnHTML(d, e);
+  // weigh-ins: your own (editable) and Apple Health's (read-only)
+  const allW = allWeights();
+  const dayWeightKeys = Object.keys(allW).filter(ts => ts.slice(0,10) === d).sort();
   html += `<div class="hist-divider"></div><div class="hist-section-label">Weight</div>`;
   if(dayWeightKeys.length){
     dayWeightKeys.forEach(ts=>{
-      const r = weightReadings[ts];
+      const r = allW[ts];
+      if(r.src === 'apple'){ html += `<div class="wc-row"><span class="wc-time">${fmtClock(ts.slice(11,16))}</span><span class="wc-src ah">${AH_ICON}Apple Health</span><b class="wc-v">${r.value}<small>${r.unit}</small></b></div>`; return; }
       html += `<div class="item-row hist-item-row" data-weight-row="${ts}">
         <input type="time" class="item-desc-input" data-hist-weight-time="${ts}" value="${ts.slice(11,16)}">
         <div class="item-cal-wrap">
@@ -4864,6 +5506,36 @@ function renderDetail(d, e){
     <button class="btn-small" data-delete-day type="button">Delete day</button>
   </div>`;
   return html;
+}
+
+
+// History: the day's burn, part by part, the way the Burn card builds it — plus workouts and what
+// Apple Health sent. The total stays editable (your own number wins, clear it to go back).
+function histBurnHTML(d, e){
+  const p = burnParts(d);
+  let h = '';
+  if(p){
+    const src = p.kept ? `Kept from ${p.keptFrom}` : p.manual ? 'Your own total' : (p.health ? 'Apple Health + your profile' : 'Calculated');
+    h += `<div class="hb-top"><span>${src}</span><b>${fmtN(p.total)}<small>kcal</small></b></div>`;
+    h += `<div class="hb-parts${p.manual ? ' dim' : ''}">${p.parts.map(q => `<div class="hb-part"><i style="background:${BURN_PARTS[q.key].color}"></i><span>${q.key === 'living' && p.noHealth ? 'Everyday movement' : BURN_PARTS[q.key].label}${q.edited ? ' <em>edited</em>' : ''}</span><b>${q.key === 'rest' ? '' : '+'}${fmtN(q.value)}</b></div>`).join('')}</div>`;
+    if(p.workouts.length) h += `<div class="hb-wos">${p.workouts.map(w => { const def = WORKOUT_BY_KEY[w.type] || { e: '✨', n: 'Workout' };
+      return `<span>${def.e} ${escapeHtml(def.n)} · ${w.min} min · ${(INTENSITY[INT_IDX[w.int] ?? 1] || {}).label} · <b>+${fmtN(w.kcal)}</b></span>`; }).join('')}</div>`;
+    const hd = healthData[d];
+    if(hd && (typeof hd.steps === 'number' || typeof hd.active === 'number')){
+      const bits = [];
+      if(typeof hd.steps === 'number') bits.push(`${fmtN(hd.steps)} steps`);
+      if(typeof hd.active === 'number' && burnPath() !== 'phone') bits.push(`${fmtN(hd.active)} kcal ${burnPath() === 'watch' ? 'Apple Watch' : 'active'}`);
+      h += `<div class="hb-ah">${AH_ICON}<span>Apple Health · ${bits.join(' · ')}</span></div>`;
+    }
+  }
+  h += `<div class="item-row hist-item-row">
+      <div class="item-desc">Your own total <small class="hb-opt">(optional)</small></div>
+      <div class="item-cal-wrap">
+        <input type="number" class="item-cal-input hist-burned-input" value="${e && hasBurned(e) && e.burnSource === 'manual' ? e.burned : ''}" placeholder="—" inputmode="numeric">
+        <span class="item-cal-unit">kcal</span>
+      </div>
+    </div>`;
+  return h;
 }
 
 function wireDetailEvents(){
@@ -4991,6 +5663,107 @@ function wireDetailEvents(){
   }
 }
 
+
+// =====================================================================================
+// Yesterday at a glance — a small card on the first open of each day. Rule-based: how the day
+// went against the goals, one or two things done well, one or two to watch, and a nudge to finish
+// logging when yesterday looks incomplete. Tap anywhere to dismiss; it won't show again that day.
+// =====================================================================================
+function daySummaryData(d){
+  const e = entries[d];
+  const t = computeTargets();
+  const cal = consumedTotal(e);
+  const burn = hasBurned(e) ? e.burned : null;
+  const n = cal != null && burn != null ? Math.round(cal - burn) : null;
+  const goalNet = t ? t.calorieTarget - t.burnTarget : null;
+  const items = e && e.mode === 'items' ? (e.items || []).length : (cal != null ? 2 : 0);
+  const incomplete = cal == null || items === 0 || (t && cal < t.calorieTarget * 0.6 && items < 3);
+  const tracked = trackedMacros();
+  const macros = tracked.map(m => ({ m, v: consumedMacro(e, m), g: macroTarget(m, t) }));
+  const h = healthFor(d);
+  const wMap = dailyWeightMap();
+  let wNow = wMap[d] ? wMap[d].avg : null, wPrev = null, wPrevDay = null;
+  if(wNow != null){ const prior = Object.keys(wMap).filter(x => x < d).sort(); if(prior.length){ wPrevDay = prior[prior.length - 1]; wPrev = wMap[wPrevDay].avg; } }
+  return { d, e, t, cal, burn, net: n, goalNet, items, incomplete, macros, health: h, workouts: dayWorkouts(d), wNow, wPrev, wPrevDay,
+    streak: computeStreak(allLoggedDates()), parts: burnParts(d) };
+}
+function daySummaryInsights(x){
+  const good = [], watch = [];
+  const gw = userGoals && userGoals.weightGoal;
+  if(x.net != null && x.goalNet != null && !x.incomplete){
+    const diff = x.net - x.goalNet;
+    if(gw === 'gain' ? diff >= -100 : diff <= 100) good.push(gw === 'gain' ? 'Surplus on target — fuel for growth.' : (x.net < 0 ? `A ${fmtN(-x.net)} kcal deficit — right on plan.` : 'Right on your calorie plan.'));
+    else watch.push(gw === 'gain' ? `${fmtN(-diff)} kcal short of your planned surplus.` : `${fmtN(diff)} kcal above your planned ${x.goalNet < 0 ? 'deficit' : 'balance'}.`);
+  }
+  x.macros.forEach(({ m, v, g }) => {
+    if(v == null || g == null || x.incomplete) return;
+    const lbl = MACRO_INFO[m].label;
+    if(m === 'protein'){
+      if(v >= g * 0.95) good.push(`Protein goal hit: ${fmtN(v)} g.`);
+      else if(v < g * 0.8) watch.push(`Protein ${fmtN(g - v)} g short of ${fmtN(g)} g.`);
+    } else if(v > g * 1.25) watch.push(`${lbl} ran high: ${fmtN(v)} g vs ${fmtN(g)} g.`);
+  });
+  if(x.health && typeof x.health.steps === 'number'){
+    if(x.health.steps >= 10000) good.push(`${fmtN(x.health.steps)} steps — great movement.`);
+    else if(x.health.steps < 4000 && burnPath() !== 'watch') watch.push(`Only ${fmtN(x.health.steps)} steps — a walk today helps.`);
+  }
+  if(x.workouts.length) good.push(`${x.workouts.length} workout${x.workouts.length > 1 ? 's' : ''} logged (+${fmtN(x.workouts.reduce((s, w) => s + workoutKcal(w).kcal, 0))} kcal).`);
+  if(x.wNow != null && x.wPrev != null && gw && gw !== 'maintain'){
+    const ch = Math.round((x.wNow - x.wPrev) * 10) / 10;
+    if((gw === 'lose' && ch < 0) || (gw === 'gain' && ch > 0)) good.push(`Scale moved the right way: ${ch > 0 ? '+' : '−'}${Math.abs(ch).toFixed(1)} ${weightUnit()}.`);
+  }
+  if(x.streak >= 3) good.push(`${x.streak}-day logging streak — keep it alive.`);
+  return { good: good.slice(0, 2), watch: watch.slice(0, 2) };
+}
+function maybeShowDaySummary(force){
+  const today = todayStr(), d = yesterdayStr();
+  let seen = null; try{ seen = localStorage.getItem('day-summary-seen'); }catch(e){}
+  if(!force && seen === today) return;
+  if(!Object.keys(entries).some(k => k < today)) return;     // brand new: nothing to look back on
+  if(document.querySelector('.page-overlay[style*="flex"]')) return;   // another page is open
+  try{ localStorage.setItem('day-summary-seen', today); }catch(e){}
+  const x = daySummaryData(d);
+  const ins = daySummaryInsights(x);
+  const lbl = parseISO(d).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
+  const netCls = x.net == null ? '' : (x.net <= 0 ? 'def' : 'sur');
+  const tile = (k, v, sub, cls) => `<div class="ds-tile"><span>${k}</span><b class="${cls || ''}">${v}</b>${sub ? `<small>${sub}</small>` : ''}</div>`;
+  const tiles = [
+    tile('Eaten', x.cal != null ? fmtN(x.cal) : '—', x.t ? `goal ${fmtN(x.t.calorieTarget)}` : 'kcal'),
+    tile('Burned', x.burn != null ? fmtN(x.burn) : '—', x.health ? `${AH_ICON}Apple Health` : 'kcal'),
+  ];
+  x.macros.filter(q => q.m === 'protein').forEach(q => tiles.push(tile('Protein', q.v != null ? fmtN(q.v) + '<small>g</small>' : '—', q.g ? `goal ${fmtN(q.g)} g` : '', q.v != null && q.g && q.v >= q.g * 0.95 ? 'good' : '')));
+  if(x.health && typeof x.health.steps === 'number' && burnPath() !== 'manual') tiles.push(tile('Steps', fmtN(x.health.steps), ''));
+  if(x.wNow != null) tiles.push(tile('Weight', x.wNow.toFixed(1) + `<small>${weightUnit()}</small>`, x.wPrev != null ? `${x.wNow - x.wPrev > 0 ? '+' : x.wNow - x.wPrev < 0 ? '−' : '±'}${Math.abs(x.wNow - x.wPrev).toFixed(1)} since ${dayLabel(x.wPrevDay)}` : ''));
+  if(tiles.length < 6) tiles.push(tile('Streak', `${x.streak}<small>${x.streak === 1 ? 'day' : 'days'}</small>`, ''));
+  const el = document.createElement('div');
+  el.className = 'ds-scrim';
+  el.innerHTML = `<div class="ds-card" role="dialog" aria-label="Yesterday at a glance">
+      <div class="ds-k">Yesterday</div><div class="ds-date">${lbl}</div>
+      ${x.incomplete
+        ? `<div class="ds-hero"><b>${fmtN(x.cal || 0)}</b><span>kcal logged · the day looks unfinished</span></div>`
+        : `<div class="ds-hero ${netCls}"><b>${x.net != null ? signedN(x.net) : '—'}</b><span>${x.net == null ? 'no burn for this day' : (x.net <= 0 ? 'kcal deficit' : 'kcal surplus')}${x.goalNet != null && x.net != null ? ` · plan ${signedN(x.goalNet)}` : ''}</span></div>`}
+      <div class="ds-tiles">${tiles.slice(0, 6).join('')}</div>
+      ${x.incomplete ? `<div class="ds-warn"><b>Yesterday looks incomplete</b><span>${x.items ? `${x.items} item${x.items === 1 ? '' : 's'}, ${fmtN(x.cal || 0)} kcal logged` : 'No food logged'} — finish it so your numbers stay true.</span><button class="btn-small btn-accent" type="button" data-ds-open>Finish yesterday</button></div>` : ''}
+      ${ins.good.length ? `<div class="ds-list good">${ins.good.map(t => `<p><i>✓</i>${escapeHtml(t)}</p>`).join('')}</div>` : ''}
+      ${ins.watch.length ? `<div class="ds-list watch">${ins.watch.map(t => `<p><i>!</i>${escapeHtml(t)}</p>`).join('')}</div>` : ''}
+      <div class="ds-foot">Tap anywhere to close</div>
+    </div>`;
+  document.body.appendChild(el);
+  document.body.classList.add('sheet-open');
+  requestAnimationFrame(() => el.classList.add('open'));
+  const close = () => { el.classList.remove('open'); document.body.classList.remove('sheet-open'); setTimeout(() => el.remove(), 260); };
+  el.addEventListener('click', (ev) => {
+    if(ev.target.closest('[data-ds-open]')){
+      haptic(); close();
+      setSelectedDate(d);
+      foodExpanded = true; renderFoodForm();
+      setTimeout(() => { const c = document.getElementById('foodSummaryBtn'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120);
+      return;
+    }
+    haptic(); close();
+  });
+}
+
 // ---------- render all ----------
 function renderAll(){
   renderTrendPeriodNav();
@@ -4998,6 +5771,7 @@ function renderAll(){
   renderConsumedChart();
   renderBurnedChart();
   renderNetChart();
+  renderHealthCharts();
   renderWeightChart();
   renderProteinChart();
   renderTable();
@@ -5055,7 +5829,7 @@ function haptic(ms){
 //    slow. With 'pan-y' as the resting state, an ordinary scroll never touches our JS at all.
 function dimColor(color, alpha){
   if(typeof color !== 'string') return `rgba(141,144,168,${alpha})`;
-  let m = color.match(/^#([0-9a-f]{6})$/i);
+  let m = color.match(/^#([0-9a-f]{6})(?:[0-9a-f]{2})?$/i);   // #RRGGBB or #RRGGBBAA
   if(m){
     const r = parseInt(m[1].slice(0,2),16), g = parseInt(m[1].slice(2,4),16), b = parseInt(m[1].slice(4,6),16);
     return `rgba(${r},${g},${b},${alpha})`;
@@ -5124,9 +5898,9 @@ function holdTitleHTML(info, index, dates){
   return `<span class="cs-line cs-date">${label}</span><span class="cs-line">${parts.join(info.joiner || ' / ')}${note ? ` <span class="cs-src">· ${note}</span>` : ''}</span>`;
 }
 // Right-hand stats of a Trends chart header — one line per figure so nothing ever clips.
-function chartStatsHTML(lines){
-  return lines.map(l => `<span class="cs-line">${l}</span>`).join('');
-}
+// Next to each chart's name: just a hint. Holding a day swaps it for that day's numbers.
+const HOLD_HINT = '<span class="hold-hint">Tap and hold to display</span>';
+function chartStatsHTML(){ return HOLD_HINT; }
 function setupChartTooltip(canvasId, getChart){
   const canvas = document.getElementById(canvasId);
   if(!canvas) return;
@@ -5368,7 +6142,10 @@ function itemsEditorHTML(d, items){
   const sum = k => items.reduce((s, it) => s + (Number(k === 'cal' ? it.cal : it[k]) || 0), 0);
   const unitWord = { cal: 'kcal', protein: 'protein', carbs: 'carbs', fat: 'fat' };
   const head = `<div class="ie-totals" style="${cols}">${keys.map(k => `<div class="ie-tot"><b>${fmtN(sum(k))}${k === 'cal' ? '' : '<small>g</small>'}</b><span>${unitWord[k]}</span></div>`).join('')}</div>`;
-  const rows = items.map(it => `<div class="ie-row" data-item="${it.id}">
+  const meta = it => { const m = it.meal && MEAL_BY_KEY[it.meal], tm = itemTime(it, d);
+    return m || tm ? `<div class="ie-meta">${m ? `<span>${m.e} ${m.label}</span>` : ''}${tm ? `<span>${tm}</span>` : ''}</div>` : ''; };
+  const order = items.slice().sort((a, b) => (MEALS.findIndex(m => m.k === a.meal) + 1 || 99) - (MEALS.findIndex(m => m.k === b.meal) + 1 || 99) || (a.ts || 0) - (b.ts || 0));
+  const rows = order.map(it => `<div class="ie-row" data-item="${it.id}">${meta(it)}
       <div class="ie-top"><textarea class="ie-desc" data-ie="desc" rows="1" aria-label="Item">${escapeHtml(it.desc || '')}</textarea>
         <button class="ie-del" data-ie-del type="button" aria-label="Delete item">✕</button></div>
       <div class="ie-nums" style="${cols}">${keys.map(k => {
@@ -5415,26 +6192,110 @@ function itemNumsHTML(it){
   trackedMacros().forEach(m => { const v = it[m]; parts.push(`<span><b style="color:${MACRO_COLOR[m]}">${typeof v === 'number' ? fmtN(v) : '—'}</b> g ${m === 'fat' ? 'fat' : m}</span>`); });
   return parts.join('<i>·</i>');
 }
+// ---------- meals: an optional tag on each food, suggested from the time of day ----------
+const MEALS = [
+  { k: 'breakfast', label: 'Breakfast',  e: '🍳', from: 4 * 60,       to: 10 * 60 + 30 },
+  { k: 'amsnack',   label: 'AM snack',   e: '🍎', from: 10 * 60 + 30, to: 12 * 60 },
+  { k: 'lunch',     label: 'Lunch',      e: '🥗', from: 12 * 60,      to: 15 * 60 },
+  { k: 'pmsnack',   label: 'PM snack',   e: '🥨', from: 15 * 60,      to: 18 * 60 },
+  { k: 'dinner',    label: 'Dinner',     e: '🍽️', from: 18 * 60,      to: 21 * 60 + 30 },
+  { k: 'late',      label: 'Late snack', e: '🌙', from: 21 * 60 + 30, to: 28 * 60 }
+];
+const MEAL_BY_KEY = Object.fromEntries(MEALS.map(m => [m.k, m]));
+function mealForTime(date){
+  let m = date.getHours() * 60 + date.getMinutes();
+  if(m < 4 * 60) m += 24 * 60;
+  return (MEALS.find(x => m >= x.from && m < x.to) || MEALS[5]).k;
+}
+// the meal picked for the next item: suggested from the clock on today, none on other days
+let foodMeal = null, foodMealFor = null;
+function currentFoodMeal(){
+  const key = selectedDate + '|' + (selectedDate === todayStr() ? mealForTime(new Date()) : '');
+  if(foodMealFor !== key){ foodMealFor = key; foodMeal = selectedDate === todayStr() ? mealForTime(new Date()) : null; }
+  return foodMeal;
+}
+function renderMealRow(){
+  const el = document.getElementById('mealRow');
+  if(!el) return;
+  const cur = currentFoodMeal();
+  el.innerHTML = `<span class="meal-lbl">Meal</span>` + MEALS.map(m => `<button type="button" class="meal-chip${cur === m.k ? ' on' : ''}" data-meal="${m.k}"><span aria-hidden="true">${m.e}</span>${m.label}</button>`).join('');
+}
+document.addEventListener('click', (ev)=>{
+  const b = ev.target.closest('#mealRow [data-meal]');
+  if(b){ haptic(); currentFoodMeal(); foodMeal = foodMeal === b.dataset.meal ? null : b.dataset.meal; renderMealRow(); return; }
+});
+// in the item editor, the meal chips act on pointerdown so a field's blur-save can't swallow the tap
+document.addEventListener('pointerdown', (ev)=>{
+  const c = ev.target.closest('.fl [data-ie-meal]');
+  if(!c) return;
+  ev.preventDefault();
+  haptic();
+  const d = c.closest('.fl').dataset.date;
+  const it = ((entries[d] || {}).items || []).find(x => x.id === foodEditId);
+  if(!it) return;
+  if(it.meal === c.dataset.ieMeal) delete it.meal; else it.meal = c.dataset.ieMeal;
+  persist();
+  c.parentNode.querySelectorAll('[data-ie-meal]').forEach(b => b.classList.toggle('on', b.dataset.ieMeal === it.meal));
+});
+// the meal tag a new item gets
+function tagMeal(it){ const m = currentFoodMeal(); if(m) it.meal = m; return it; }
+function itemTime(it, d){
+  if(!it.ts) return '';
+  const t = new Date(it.ts);
+  if(toISO(t) !== d) return '';   // logged on another day: the clock time says nothing about when it was eaten
+  return t.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+}
 function foodListHTML(d, items){
   const keys = nutriKeys();
-  const sum = k => items.reduce((s, it) => s + (Number(k === 'cal' ? it.cal : it[k]) || 0), 0);
-  const tot = `<div class="fl-total"><span class="fl-total-lbl">Total</span>${keys.map(k => k === 'cal'
-    ? `<span><b>${fmtN(sum('cal'))}</b> kcal</span>` : `<span><b style="color:${MACRO_COLOR[k]}">${fmtN(sum(k))}</b> g ${k === 'fat' ? 'fat' : k}</span>`).join('<i>·</i>')}</div>`;
+  const sum = (k, list) => (list || items).reduce((s, it) => s + (Number(k === 'cal' ? it.cal : it[k]) || 0), 0);
+  const tot = `<div class="fl-total"><span class="fl-total-lbl">Total</span><div class="fl-total-nums">${keys.map(k => k === 'cal'
+    ? `<span><b>${fmtN(sum('cal'))}</b> kcal</span>` : `<span><b style="color:${MACRO_COLOR[k]}">${fmtN(sum(k))}</b> g ${k === 'fat' ? 'fat' : k}</span>`).join('<i>·</i>')}</div></div>`;
   const cols = `grid-template-columns:repeat(${keys.length}, minmax(0, 1fr))`;
-  const rows = items.map(it => {
+  const row = it => {
     if(it.id === foodEditId) return `<div class="fi editing" data-item="${it.id}">
       <div class="ie-top"><textarea class="ie-desc" data-ie="desc" rows="1" aria-label="Item">${escapeHtml(it.desc || '')}</textarea></div>
       <div class="ie-nums-lbl" style="${cols}">${keys.map(k => `<span>${NUTRI_LABEL[k]}</span>`).join('')}</div>
       <div class="ie-nums" style="${cols}">${keys.map(k => { const v = k === 'cal' ? it.cal : it[k];
         return `<input class="ie-num" data-ie="${k}" type="number" inputmode="numeric" value="${typeof v === 'number' ? v : ''}" placeholder="—" aria-label="${NUTRI_LABEL[k]}">`; }).join('')}</div>
+      <div class="ie-meals">${MEALS.map(m => `<button type="button" class="meal-chip sm${it.meal === m.k ? ' on' : ''}" data-ie-meal="${m.k}">${m.e} ${m.label}</button>`).join('')}</div>
       <div class="fi-actions"><button class="fi-del" data-ie-del type="button">Delete</button><button class="btn-small btn-accent" data-fi-done type="button">Done</button></div></div>`;
+    const tm = itemTime(it, d);
     return `<div class="fi" data-item="${it.id}">
-      <div class="fi-main"><div class="fi-name">${escapeHtml(it.desc || 'Item')}${it.src ? `<span class="fi-src ${it.src}">${SRC_LABEL[it.src] || ''}</span>` : ''}</div>
+      <div class="fi-main"><div class="fi-name">${escapeHtml(it.desc || 'Item')}${it.src ? `<span class="fi-src ${it.src}">${SRC_LABEL[it.src] || ''}</span>` : ''}${tm ? `<span class="fi-time">${tm}</span>` : ''}</div>
         <div class="fi-nums">${itemNumsHTML(it)}</div></div>
-      <button class="fi-edit" data-fi-edit type="button" aria-label="Edit ${escapeHtml(it.desc || 'item')}">${PENCIL}</button></div>`;
-  }).join('');
-  return `<div class="ie fl" data-date="${d}">${tot}${rows}</div>`;
+      <button class="fi-edit" data-fi-edit type="button" aria-label="Edit ${escapeHtml(it.desc || 'item')}">${PENCIL}</button>
+      <button class="fi-edit fi-trash" data-fi-del type="button" aria-label="Delete ${escapeHtml(it.desc || 'item')}">${TRASH}</button></div>`;
+  };
+  // grouped by meal when any item has one, in meal order; untagged items last
+  let body;
+  if(items.some(it => it.meal && MEAL_BY_KEY[it.meal])){
+    const groups = MEALS.map(m => ({ m, list: items.filter(it => it.meal === m.k) })).filter(g => g.list.length);
+    const rest = items.filter(it => !it.meal || !MEAL_BY_KEY[it.meal]);
+    if(rest.length) groups.push({ m: { label: 'Other', e: '•' }, list: rest });
+    body = groups.map(g => `<div class="fl-meal"><span class="fl-meal-n"><i aria-hidden="true">${g.m.e}</i>${g.m.label}</span><span class="fl-meal-k">${fmtN(sum('cal', g.list))} kcal</span></div>` + g.list.map(row).join('')).join('');
+  } else body = items.map(row).join('');
+  return `<div class="ie fl" data-date="${d}">${tot}${body}</div>`;
 }
+// Quick delete from the list: the first tap turns the bin red ("Delete"), a second tap within
+// 3 seconds removes the item — one stray tap can't lose a food.
+const TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M9.5 7V4.5h5V7"/><path d="M6.5 7l1 12.5h9l1-12.5"/><path d="M10 11v5M14 11v5"/></svg>';
+document.addEventListener('click', async (ev)=>{
+  const b = ev.target.closest('.fl [data-fi-del]');
+  if(!b) return;
+  ev.stopPropagation();
+  haptic();
+  if(b.dataset.armed !== '1'){
+    document.querySelectorAll('.fl [data-fi-del][data-armed="1"]').forEach(x => { x.dataset.armed = ''; x.classList.remove('armed'); x.innerHTML = TRASH; });
+    b.dataset.armed = '1'; b.classList.add('armed'); b.textContent = 'Delete';
+    setTimeout(() => { if(b.isConnected && b.dataset.armed === '1'){ b.dataset.armed = ''; b.classList.remove('armed'); b.innerHTML = TRASH; } }, 3000);
+    return;
+  }
+  const d = b.closest('.fl').dataset.date, id = b.closest('[data-item]').dataset.item;
+  if(!entries[d]) return;
+  entries[d].items = (entries[d].items || []).filter(it => it.id !== id);
+  if(foodEditId === id) foodEditId = null;
+  await persist(); renderAll(); renderFoodForm();
+});
 // "Done" acts on pointerdown: the field being edited saves on blur, which re-draws the list, and a
 // click would land on a button that no longer exists
 document.addEventListener('pointerdown', (ev)=>{
@@ -5495,7 +6356,7 @@ async function quickAdd(key){
   if(entries[d].mode === 'simple') return;
   entries[d].mode = 'items';
   entries[d].items = entries[d].items || [];
-  const it = { id: genId(), desc: v.item.desc, cal: v.item.cal, ts: Date.now(), src: v.item.src || 'manual', repeat: true };
+  const it = tagMeal({ id: genId(), desc: v.item.desc, cal: v.item.cal, ts: Date.now(), src: v.item.src || 'manual', repeat: true });
   MACROS.forEach(m => { if(typeof v.item[m] === 'number') it[m] = v.item[m]; });
   entries[d].items.push(it);
   await persist();
@@ -5517,6 +6378,7 @@ document.addEventListener('click', (ev)=>{
 });
 
 function renderLoggedCard(d, e){
+  renderMealRow();
   const sub = document.getElementById('loggedSub');
   if(sub) sub.textContent = (d === todayStr()) ? 'Logged today' : `Logged — ${fmtDate(d)}`;
 
@@ -5525,7 +6387,7 @@ function renderLoggedCard(d, e){
   if(!list || !emptyMsg) return;
 
   if(e && e.mode === 'items' && (e.items||[]).length){
-    if(!(document.activeElement && list.contains(document.activeElement))){ list.innerHTML = foodListHTML(d, e.items); requestAnimationFrame(() => fitItemNames(list)); }
+    if(!(document.activeElement && list.contains(document.activeElement))){ list.innerHTML = foodListHTML(d, e.items); requestAnimationFrame(() => { fitItemNames(list); const tn = list.querySelector('.fl-total-nums'); if(tn) fitOneLine(tn); }); }
     emptyMsg.style.display = 'none';
   } else if(e && e.mode === 'simple' && e.total != null){
     list.innerHTML = `<div class="ie"><div class="ie-totals" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="ie-tot"><b>${fmtN(e.total)}</b><span>kcal</span></div><div class="ie-tot"><b>${fmtN(e.proteinTotal)}<small>g</small></b><span>protein</span></div></div></div>`;
@@ -5791,7 +6653,7 @@ async function init(){
     }
     entries[d].mode = 'items';
     entries[d].items = entries[d].items || [];
-    entries[d].items.push(Object.assign(itemFromNutri(desc, n, lastAiEstimate), { src: 'ai' }));
+    entries[d].items.push(tagMeal(Object.assign(itemFromNutri(desc, n, lastAiEstimate), { src: 'ai' })));
     await persist();
     aiDesc.value = '';
     clearSelectedPhoto();
@@ -5820,7 +6682,7 @@ async function init(){
     }
     entries[d].mode = 'items';
     entries[d].items = entries[d].items || [];
-    entries[d].items.push(Object.assign(itemFromNutri(desc, n, null), { src: 'manual' }));
+    entries[d].items.push(tagMeal(Object.assign(itemFromNutri(desc, n, null), { src: 'manual' })));
     await persist();
     descInput.value = ''; setNutri('manualNutri', {}); renderSuggestions('manSugg', '');
     foodStatus.textContent = 'Item added.';
@@ -5857,20 +6719,21 @@ async function init(){
     if(trendsExpanded){
       // the charts were rendered while this card sat at display:none, so Chart.js had zero-size
       // canvases to lay out against — nudge each one to re-measure now that it's actually visible.
-      [consumedChart, burnedChart, netChart, macroCharts.protein, macroCharts.carbs, macroCharts.fat, weightChart].forEach(c=>{
+      [consumedChart, burnedChart, netChart, healthCharts.steps, healthCharts.active, macroCharts.protein, macroCharts.carbs, macroCharts.fat, weightChart].forEach(c=>{
         if(c && typeof c.resize === 'function') c.resize();
       });
       renderTrendsRingAndRuler(); // ruler labels measure their own width, which is 0 while hidden
     }
   });
 
-  const chartByKey = { consumed:()=>consumedChart, burned:()=>burnedChart, net:()=>netChart,
+  const chartByKey = { consumed:()=>consumedChart, burned:()=>burnedChart, net:()=>netChart, steps:()=>healthCharts.steps, active:()=>healthCharts.active,
                        protein:()=>macroCharts.protein, carbs:()=>macroCharts.carbs, fat:()=>macroCharts.fat, weight:()=>weightChart };
   function wireChartBlockToggle(toggleBtnId, chevronId, wrapId, key){
     document.getElementById(toggleBtnId).addEventListener('click', ()=>{
       haptic();
       chartBlockState[key] = !chartBlockState[key];
       document.getElementById(wrapId).style.display = chartBlockState[key] ? '' : 'none';
+      document.getElementById(toggleBtnId).closest('.trend-chart-block').classList.toggle('open', chartBlockState[key]);
       document.getElementById(chevronId).classList.toggle('open', chartBlockState[key]);
       // rendered while hidden at zero size — re-measure now that it's visible
       const c = chartByKey[key] && chartByKey[key]();
@@ -5880,6 +6743,8 @@ async function init(){
   wireChartBlockToggle('toggleConsumedBtn', 'consumedChevron', 'consumedChartWrap', 'consumed');
   wireChartBlockToggle('toggleBurnedBtn', 'burnedChevron', 'burnedChartWrap', 'burned');
   wireChartBlockToggle('toggleNetBtn', 'netChevron', 'netChartWrap', 'net');
+  wireChartBlockToggle('toggleStepsBtn', 'stepsChevron', 'stepsChartWrap', 'steps');
+  wireChartBlockToggle('toggleActiveBtn', 'activeChevron', 'activeChartWrap', 'active');
   wireChartBlockToggle('toggleProteinBtn', 'proteinChevron', 'proteinChartWrap', 'protein');
   wireChartBlockToggle('toggleCarbsBtn', 'carbsChevron', 'carbsChartWrap', 'carbs');
   wireChartBlockToggle('toggleFatBtn', 'fatChevron', 'fatChartWrap', 'fat');
@@ -5933,18 +6798,6 @@ async function init(){
     haptic();
     weightExpanded = !weightExpanded;
     if(weightExpanded && !weightTimeInput.value) weightTimeInput.value = currentHHMM();
-    renderWeightCard();
-  });
-
-  document.getElementById('weightManualModeBtn').addEventListener('click', ()=>{
-    haptic();
-    weightInputMode = 'manual';
-    if(!weightTimeInput.value) weightTimeInput.value = currentHHMM();
-    renderWeightCard();
-  });
-  document.getElementById('weightCsvModeBtn').addEventListener('click', ()=>{
-    haptic();
-    weightInputMode = 'csv';
     renderWeightCard();
   });
 
@@ -6077,35 +6930,78 @@ async function init(){
   function renderBurnModeSection(){
     const body = document.getElementById('burnModeBody');
     if(!body) return;
-    const mode = burnMode();
+    const path = burnPath(), def = BURN_PATHS[path];
     const bmr = bmrNow();
     const h = (sessionInfo && sessionInfo.health) || {};
     const connected = !!(h.connected || Object.keys(healthData).length);
-    const opt = (k, ico, title, sub, tag) => `<button class="bm-opt2${mode === k ? ' active' : ''}" data-burn-mode="${k}" type="button">
-        <span class="bm-ico">${ico}</span><span class="bm-txt"><b>${title}${tag ? `<em>${tag}</em>` : ''}</b><small>${sub}</small></span><span class="bm-radio"></span></button>`;
-    body.innerHTML = `<p class="bm-formula"><span><b>Resting</b>${bmr ? fmtN(bmr) : '—'}</span><i>+</i><span><b>Movement</b>varies</span><i>+</i><span><b>Digestion</b>from food</span></p>
-      <p class="bm-explain">Resting is your BMR from your profile. Digestion comes from what you eat each day. Movement is where the two options differ:</p>
-      <div class="bm-opts2">` +
-      opt('apple', AH_ICON, 'Apple Health', 'Your steps plus the active energy your watch or ring records, synced through Apple Health.', mode === 'apple' ? (connected ? 'Connected' : 'Setup needed') : '') +
-      opt('calc', actIcon('light', 'bm-act-ico'), 'Estimate it', 'Everyday living plus the activity you tag each day — sedentary, light, moderate or very active.', '') +
-      `</div>${mode === 'apple' ? `<button class="bm-wear" data-bm-health type="button">${connected ? 'Manage Apple Health' : 'Finish Apple Health setup'} ›</button>` : ''}
+    const L = userProfile.bmrLearn || {};
+    const st = bmrStatusText();
+    const seg = (k, label, on) => `<button type="button" class="pb-seg-b${on ? ' on' : ''}" data-pb-apple="${k}">${label}</button>`;
+    const dev = (k, ico, title, sub) => `<button class="bm-opt2${path === k ? ' active' : ''}" data-burn-path="${k}" type="button">
+        <span class="bm-ico">${ico}</span><span class="bm-txt"><b>${title}</b><small>${sub}</small></span><span class="bm-radio"></span></button>`;
+    const partLbl = { rest: ['Resting', bmr ? fmtN(bmr) + ' kcal' : 'your BMR'], steps: ['Steps', 'Apple Health'], active: ['Active energy', 'Apple Health'],
+      watch: ['Apple Watch', 'activity'], workouts: ['Workouts', 'you log them'], living: ['Everyday', `BMR × 0.1`], digest: ['Digestion', 'from food'] };
+    const chips = def.parts.map(k => `<span style="--c:${BURN_PARTS[k].color}"><b>${partLbl[k][0]}</b>${partLbl[k][1]}</span>`).join('<i>+</i>');
+    const tg = (key, on, title, sub, extra) => `<button type="button" class="pb-tg${on ? ' on' : ''}" data-pb-toggle="${key}" role="switch" aria-checked="${on}">
+        <span class="pb-tg-t"><b>${title}</b><small>${sub}</small>${extra || ''}</span><span class="pb-sw"><i></i></span></button>`;
+    const learnExtra = L.on ? `<span class="pb-learn ${st.tag.toLowerCase()}"><em>${st.tag}</em>${st.tag === 'Learned' ? `BMR ${fmtN(bmrNow())} kcal (estimate ${fmtN(bmrBase())}) · ${st.line}` : st.line}</span>` : '';
+    body.innerHTML = `
+      <div class="pb-q">Do you use Apple Health?</div>
+      <div class="pb-seg">${seg('yes', `${AH_ICON}Yes`, def.apple)}${seg('no', 'No', !def.apple)}</div>
+      ${def.apple ? `<div class="pb-q">What records your movement?</div><div class="bm-opts2">
+        ${dev('watch', '<span class="pb-emo">⌚️</span>', 'Apple Watch', 'Counts all-day movement and workouts on its own')}
+        ${dev('wearable', '<span class="pb-emo">💍</span>', 'Another watch or ring', 'WHOOP, Oura, Garmin, Fitbit… writing workouts to Apple Health')}
+        ${dev('phone', '<span class="pb-emo">📱</span>', 'Just my iPhone', 'Your iPhone counts steps; you log workouts')}
+      </div>` : ''}
+      <div class="pb-how">
+        <div class="pb-how-t">How your daily burn is built</div>
+        <div class="pb-formula">${chips}</div>
+        <div class="pb-role"><span>Your part</span>${def.role}</div>
+        ${def.apple ? `<button class="bm-wear" data-bm-health type="button">${connected ? 'Manage Apple Health' : 'Finish Apple Health setup'} ›</button>` : ''}
+      </div>
+      ${def.apple ? tg('weight', !!userProfile.weightFromHealth, 'Weight from Apple Health', 'Weigh-ins from a smart scale come in with each sync. You can still add weights by hand.') : ''}
+      ${tg('learn', !!L.on, 'Learn my resting burn', 'After about a month of complete food logs and regular weigh-ins, Monstrão compares how your weight actually moved with what your numbers predicted — and adjusts your BMR to match.', learnExtra)}
       <p class="bm-explain small">Any day, you can change any part or type your own total in the Burn card.</p>
       <p class="status" id="burnModeStatus"></p>`;
   }
   document.getElementById('burnModeBody').addEventListener('click', async (ev)=>{
     if(ev.target.closest('[data-bm-health]')){ haptic(); openHealthPage(); return; }
-    const b = ev.target.closest('[data-burn-mode]'); if(!b) return;
+    const st = () => document.getElementById('burnModeStatus');
+    const say = (t) => { const s = st(); if(s){ s.textContent = t; s.className = 'status success'; } };
+    const ap = ev.target.closest('[data-pb-apple]');
+    const pb = ev.target.closest('[data-burn-path]');
+    const tgb = ev.target.closest('[data-pb-toggle]');
+    if(!ap && !pb && !tgb) return;
     haptic();
-    userProfile.burnMode = b.dataset.burnMode;
+    if(!userProfile.burnPath) userProfile.burnPath = burnPath();   // carry an older setting over before it's removed
+    let msg = '';
+    if(ap){
+      const yes = ap.dataset.pbApple === 'yes';
+      if(yes === BURN_PATHS[burnPath()].apple) return;
+      userProfile.burnPath = yes ? (userProfile.lastApplePath || 'wearable') : 'manual';
+      msg = yes ? 'Using Apple Health for your movement.' : 'Your burn is now worked out from your profile, food and the workouts you log.';
+    } else if(pb){
+      userProfile.burnPath = userProfile.lastApplePath = pb.dataset.burnPath;
+      msg = BURN_PATHS[pb.dataset.burnPath].role;
+    } else {
+      const k = tgb.dataset.pbToggle;
+      if(k === 'weight'){ userProfile.weightFromHealth = !userProfile.weightFromHealth; msg = userProfile.weightFromHealth ? 'Weigh-ins from Apple Health will show up in Weight. Add the weight step to your shortcut (Apple Health page).' : 'Apple Health weigh-ins are hidden. Your own entries stay.'; }
+      if(k === 'learn'){
+        const L = userProfile.bmrLearn || {};
+        userProfile.bmrLearn = L.on ? Object.assign({}, L, { on: false }) : Object.assign({ status: 'learning', adj: 0 }, L, { on: true });
+        if(userProfile.bmrLearn.on) learnBmr();
+        msg = userProfile.bmrLearn.on ? 'Monstrão will learn your resting burn as data comes in.' : 'Back to the standard BMR estimate.';
+      }
+    }
+    delete userProfile.burnMode; delete userProfile.activeAllDay;
     await persistProfile();
     syncDerivedBurns();
     await persist();
     renderBurnModeSection();
     renderAll();
     const h = (sessionInfo && sessionInfo.health) || {};
-    if(userProfile.burnMode === 'apple' && !(h.connected || Object.keys(healthData).length)){ openHealthPage(); return; }
-    const st = document.getElementById('burnModeStatus');
-    if(st){ st.textContent = userProfile.burnMode === 'apple' ? 'Active energy now comes from Apple Health.' : 'Active energy is now estimated from your daily activity.'; st.className = 'status success'; }
+    if(ap && BURN_PATHS[burnPath()].apple && !(h.connected || Object.keys(healthData).length)){ openHealthPage(); return; }
+    say(msg);
   });
   document.getElementById('openProfileBtn').addEventListener('click', ()=>{
     setMenuOpen(false); haptic();
@@ -6204,11 +7100,33 @@ async function init(){
       });
       resetBtn.style.display = Object.values(t.custom).some(Boolean) ? '' : 'none';
       methodologyText.innerHTML = targetsMethodologyHTML(t);
+      renderBurnTargetBreak(t);
     } else {
+      document.getElementById('burnTargetBreak').innerHTML = '';
       Object.values(els).forEach(el=>{ el.value = ''; el.placeholder = '—'; el.disabled = true; el.closest('.target-tile').classList.remove('edited'); });
       resetBtn.style.display = 'none';
       methodologyText.innerHTML = '<p>Fill in your profile (height, weight, date of birth) and pick all three goals above to see your targets.</p>';
     }
+  }
+
+  // Goals: the burn target split into what it's made of — resting (estimated / learned), active, digestion
+  function renderBurnTargetBreak(t){
+    const el = document.getElementById('burnTargetBreak');
+    if(!el) return;
+    const st = bmrStatusText();
+    const rest = t.bmr, digest = Math.round(t.calorieTarget * TEF.mixed);
+    const active = Math.max(0, t.burnTarget - rest - digest);
+    const tot = Math.max(1, rest + active + digest);
+    const seg = (v, c) => `<i style="width:${(v / tot * 100).toFixed(1)}%;background:${c}"></i>`;
+    const learnedLine = st.tag === 'Learned' ? `<small>estimate ${fmtN(t.bmrEst)} ${t.bmrAdj >= 0 ? '+' : '−'} ${fmtN(Math.abs(t.bmrAdj))} learned</small>`
+      : st.tag === 'Learning' ? `<small>${st.line.replace('Still learning · ', '')}</small>` : '<small>Mifflin-St Jeor</small>';
+    el.innerHTML = `<div class="btb-h"><span>Your burn target is made of</span></div>
+      <div class="bc-bar">${seg(rest, BURN_PARTS.rest.color)}${seg(active, '#FF375F')}${seg(digest, BURN_PARTS.digest.color)}</div>
+      <div class="btb-cols">
+        <div><span class="btb-l"><i style="background:${BURN_PARTS.rest.color}"></i>Resting<em class="bc-tag ${st.tag.toLowerCase()}">${st.tag}</em></span><b>${fmtN(rest)}</b>${learnedLine}</div>
+        <div><span class="btb-l"><i style="background:#FF375F"></i>Active</span><b>${fmtN(active)}</b><small>${t.custom.burn ? 'from your own target' : 'your activity level'}</small></div>
+        <div><span class="btb-l"><i style="background:${BURN_PARTS.digest.color}"></i>Digestion</span><b>${fmtN(digest)}</b><small>~10% of what you eat</small></div>
+      </div>`;
   }
   function wireGoalPillRow(row, datasetKey, stateKey){
     row.addEventListener('click', (ev)=>{
@@ -6283,19 +7201,23 @@ async function init(){
   await loadGoals();
   await loadHealth();
   await keepWearableHistory();
+  if(bmrLearnState()) learnBmr();       // re-check the learned resting burn with the latest days
   syncDerivedBurns();
   // estimated burn keeps growing through the day
   setInterval(()=>{ if(!isEditingField()){ syncDerivedBurns(); renderRing(); renderBurnCard(); } }, 5 * 60000); // today's base grows through the day
-  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ syncDerivedBurns(); renderAll(); } });
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ if(bmrLearnState() && userProfile.bmrLearn.checked !== todayStr()) learnBmr(); syncDerivedBurns(); renderAll(); maybeShowDaySummary(); } });
   if(!userProfile.name && authDisplayName()){ userProfile.name = authDisplayName(); persistProfile(); }
   renderAll();
   renderFoodForm();
   renderGreeting();
   attachLiveSync();
+  setTimeout(() => maybeShowDaySummary(), 700);
 
   setupChartTooltip('consumedChart', ()=>consumedChart);
   setupChartTooltip('burnedChart', ()=>burnedChart);
   setupChartTooltip('netChart', ()=>netChart);
+  setupChartTooltip('stepsChart', ()=>healthCharts.steps);
+  setupChartTooltip('activeChart', ()=>healthCharts.active);
   setupChartTooltip('proteinChart', ()=>macroCharts.protein);
   setupChartTooltip('carbsChart', ()=>macroCharts.carbs);
   setupChartTooltip('fatChart', ()=>macroCharts.fat);
@@ -6515,17 +7437,20 @@ function csvCell(v){
 function buildExportCSV(dates){
   const wMap = dailyWeightMap();
   const unit = weightUnit();
-  const head = ['date','weekday','calories_kcal','protein_g','carbs_g','fat_g','burned_kcal','burn_source','net_kcal','calorie_quality_pct',`weight_${unit}`,'foods'];
+  const head = ['date','weekday','calories_kcal','protein_g','carbs_g','fat_g','burned_kcal','burn_source','net_kcal','calorie_quality_pct',`weight_${unit}`,'steps','workouts','foods'];
   const rows = dates.map(d => {
     const e = entries[d];
     const cal = consumedTotal(e), pro = consumedProtein(e), n = net(e), q = dietQualityForDate(d);
-    const items = (e && e.mode === 'items' && e.items) ? e.items.map(it => `${it.desc || 'Item'} (${it.cal} kcal` + ['protein','carbs','fat'].filter(m => typeof it[m] === 'number').map(m => `, ${it[m]} g ${m}`).join('') + ')').join('; ') : '';
+    const items = (e && e.mode === 'items' && e.items) ? e.items.map(it => `${it.meal && MEAL_BY_KEY[it.meal] ? MEAL_BY_KEY[it.meal].label + ': ' : ''}${it.desc || 'Item'} (${it.cal} kcal` + ['protein','carbs','fat'].filter(m => typeof it[m] === 'number').map(m => `, ${it[m]} g ${m}`).join('') + ')').join('; ') : '';
+    const hd = healthFor(d);
+    const bp = burnParts(d);
+    const wos = bp ? bp.workouts.map(w => `${(WORKOUT_BY_KEY[w.type] || { n: w.type }).n} ${w.min} min ${(INTENSITY[INT_IDX[w.int] ?? 1] || {}).label} (+${w.kcal} kcal)`).join('; ') : '';
     return [d, parseISO(d).toLocaleDateString('en-US', { weekday:'long' }),
       cal != null ? Math.round(cal) : null, pro != null ? Math.round(pro) : null,
       consumedMacro(e, 'carbs') != null ? Math.round(consumedMacro(e, 'carbs')) : null, consumedMacro(e, 'fat') != null ? Math.round(consumedMacro(e, 'fat')) : null,
       hasBurned(e) ? Math.round(e.burned) : null, hasBurned(e) ? burnSourceLabel(e, d) : null,
       n != null ? Math.round(n) : null, q != null ? Math.round(q * 10) / 10 : null,
-      wMap[d] ? Math.round(wMap[d].avg * 10) / 10 : null, items].map(csvCell).join(',');
+      wMap[d] ? Math.round(wMap[d].avg * 10) / 10 : null, hd && typeof hd.steps === 'number' ? hd.steps : null, wos, items].map(csvCell).join(',');
   });
   return '\ufeff' + [head.join(','), ...rows].join('\r\n'); // BOM so Excel reads accents correctly
 }
@@ -6534,8 +7459,9 @@ function buildExportJSON(dates, from, to){
   const ent = {}, w = {};
   dates.forEach(d => { if(entries[d]) ent[d] = entries[d]; });
   Object.keys(weightReadings).sort().forEach(ts => { if(set.has(ts.slice(0,10))) w[ts] = weightReadings[ts]; });
+  const ah = {}; Object.keys(healthData).forEach(d => { if(set.has(d)) ah[d] = healthData[d]; });
   return JSON.stringify({ app: 'Monstrão', exportedAt: new Date().toISOString(), from, to,
-    profile: userProfile, goals: userGoals, entries: ent, weights: w }, null, 2);
+    profile: userProfile, goals: userGoals, entries: ent, weights: w, appleHealth: ah }, null, 2);
 }
 function downloadText(text, name, type){
   const blob = new Blob([text], { type });
@@ -6577,13 +7503,89 @@ function wireExport(){
 // =====================================================================================
 // Apple Health page — connect the Shortcut that sends Active Energy, see what arrived, disconnect
 // =====================================================================================
-let healthMsg = null, healthKey = null, healthStepsOpen = false;
+let healthMsg = null, healthKey = null, healthStepsOpen = false, healthDaysShown = 14;
 function openHealthPage(){
-  healthMsg = null; healthStepsOpen = false;
+  healthMsg = null; healthStepsOpen = false; healthDaysShown = 14;
   document.getElementById('healthOverlay').style.display = 'flex';
   renderHealthPage();
   if(!healthKey) callApi('health.key').then((r) => { healthKey = r.key; renderHealthPage(); }).catch(() => {});
   callApi('session').then((x) => { sessionInfo = x; renderHealthPage(); }).catch(() => {});
+}
+// The columns the Apple Health table shows, by setup: only what feeds this person's burn (and weight).
+function healthColumns(){
+  const path = burnPath();
+  const cols = [{ k: 'steps', label: 'Steps' }];
+  if(path === 'watch') cols.push({ k: 'active', label: 'Watch' });
+  else if(path !== 'phone') cols.push({ k: 'active', label: 'Active' });
+  if(path === 'wearable' || path === 'phone') cols.push({ k: 'move', label: 'To burn' });   // Apple Watch kcal goes in as is
+  if(userProfile.weightFromHealth) cols.push({ k: 'weight', label: weightUnit() });
+  return cols;
+}
+function healthCell(k, d){
+  const v = healthData[d] || {};
+  const hf = healthFor(d);
+  if(k === 'steps') return typeof v.steps === 'number' ? fmtN(v.steps) : '—';
+  if(k === 'active') return typeof v.active === 'number' && hf ? fmtN(v.active) : '—';
+  if(k === 'move'){
+    if(!hf) return '—';
+    const path = burnPath();
+    const kc = (path === 'watch' ? (hf.active || 0) : walkKcal(hf.steps || 0) + (path === 'wearable' ? (hf.active || 0) : 0));
+    return '+' + fmtN(Math.round(kc));
+  }
+  if(k === 'weight'){
+    if(!v.weight || typeof v.weight.lb !== 'number') return '—';
+    const u = weightUnit();
+    return `<span title="${v.weight.time ? 'weighed at ' + escapeHtml(v.weight.time) : ''}">${u === 'kg' ? (v.weight.lb / 2.20462).toFixed(1) : v.weight.lb.toFixed(1)}</span>`;
+  }
+  return '—';
+}
+function healthTableHTML(){
+  const cols = healthColumns();
+  const today = todayStr();
+  const firstData = Object.keys(healthData).sort()[0] || today;
+  const days = [];
+  for(let i = 0; i < healthDaysShown; i++){ const dt = new Date(); dt.setDate(dt.getDate() - i); const iso = toISO(dt); if(iso < firstData && i > 6) break; days.push(iso); }
+  // group by week (Monday first), newest first
+  const weeks = [];
+  days.forEach(d => {
+    const wk = toISO(mondayOf(parseISO(d)));
+    let w = weeks.find(x => x.wk === wk);
+    if(!w){ w = { wk, days: [] }; weeks.push(w); }
+    w.days.push(d);
+  });
+  const thisWk = toISO(mondayOf(new Date()));
+  const wkLabel = (wk) => {
+    if(wk === thisWk) return 'This week';
+    const a = parseISO(wk), b = new Date(a); b.setDate(b.getDate() + 6);
+    const f = (x) => x.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    return a.getMonth() === b.getMonth() ? `${f(a)}–${b.getDate()}` : `${f(a)}–${f(b)}`;
+  };
+  const grid = `grid-template-columns:minmax(92px,1.4fr) repeat(${cols.length},minmax(0,1fr))`;
+  let html = `<div class="ah-tbl"><div class="ah-tr ah-th" style="${grid}"><span>Day</span>${cols.map(c => `<span>${c.label}</span>`).join('')}</div>`;
+  weeks.forEach(w => {
+    // weekly averages over the days that have data
+    const avg = (k) => {
+      const vals = w.days.map(d => {
+        const v = healthData[d] || {}, hf = healthFor(d);
+        if(k === 'steps') return typeof v.steps === 'number' ? v.steps : null;
+        if(k === 'active') return hf && typeof v.active === 'number' ? v.active : null;
+        if(k === 'weight') return v.weight && typeof v.weight.lb === 'number' ? v.weight.lb : null;
+        return null;
+      }).filter(x => x != null);
+      if(!vals.length) return '';
+      const m = vals.reduce((s, x) => s + x, 0) / vals.length;
+      return k === 'weight' ? (weightUnit() === 'kg' ? (m / 2.20462).toFixed(1) : m.toFixed(1)) : fmtN(Math.round(m));
+    };
+    html += `<div class="ah-tr ah-wk" style="${grid}"><span>${wkLabel(w.wk)}</span>${cols.map(c => `<span>${c.k === 'move' ? '' : avg(c.k)}</span>`).join('')}</div>`;
+    w.days.forEach(d => {
+      const has = !!healthData[d];
+      html += `<div class="ah-tr${has ? '' : ' none'}${d === today ? ' today' : ''}" style="${grid}"><span>${d === today ? 'Today' : parseISO(d).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric' })}</span>${cols.map(c => `<span>${healthCell(c.k, d)}</span>`).join('')}</div>`;
+    });
+  });
+  html += `</div>`;
+  const more = days.length >= healthDaysShown && firstData < days[days.length - 1];
+  html += `<div class="ah-tbl-foot">${more ? '<button class="bc-link" data-ah="more" type="button">Show more days</button>' : '<span></span>'}<span>Week rows show daily averages · “—” = nothing that day</span></div>`;
+  return html;
 }
 function renderHealthPage(){
   const body = document.getElementById('wearablesBody');
@@ -6592,9 +7594,12 @@ function renderHealthPage(){
   const days = Object.keys(healthData).sort().reverse();
   const connected = !!(h.connected || days.length);
   const lastAt = Math.max(h.lastSyncAt || 0, ...days.map((d) => (healthData[d] && healthData[d].at) || 0));
-  const using = burnMode() === 'apple';
+  const path = burnPath(), def = BURN_PATHS[path];
+  const using = def.apple;
   const url = h.shortcutUrl;
   const isAdmin = sessionInfo && sessionInfo.isAdmin;
+  const reads = ['steps', path !== 'phone' ? 'active energy' : null, userProfile.weightFromHealth ? 'weight' : null].filter(Boolean);
+  const readsTxt = reads.length > 1 ? reads.slice(0, -1).join(', ') + ' and ' + reads[reads.length - 1] : reads[0];
   const step = (n, title, inner, done) => `<li class="ah-step${done ? ' done' : ''}"><span class="ah-num">${done ? '✓' : n}</span><div><b>${title}</b>${inner}</div></li>`;
   const steps = `<ol class="ah-steps">
     ${step(1, 'Copy your key', `<p>It links the shortcut to your account. Keep it private.</p>
@@ -6602,29 +7607,25 @@ function renderHealthPage(){
     ${step(2, 'Add the Monstrão shortcut', url
       ? `<p>Tap below, then <b>Add Shortcut</b>. Paste your key when it asks.</p><a class="btn-primary ah-add" href="${escapeHtml(url)}" target="_blank" rel="noopener">Add “Monstrão Health” shortcut</a>`
       : `<p>${isAdmin ? 'Add the shortcut’s iCloud link in the Admin console first (Apple Health section).' : 'Not available yet — the app owner is still setting it up.'}</p>`)}
-    ${step(3, 'Run it once', `<p>Open Shortcuts and tap <b>Monstrão Health</b>. Allow it to read your steps and active energy and to send to Monstrão. This page updates when your data lands.</p>${connected ? '' : '<p class="ah-wait"><i></i>Waiting for your first sync…</p>'}`, connected)}
-    ${step(4, 'Make it automatic', `<p>In Shortcuts: <b>Automation</b> → <b>+</b> → <b>Time of Day</b> → 9:00 AM, Daily → <b>Run Immediately</b> → pick <b>Monstrão Health</b>.</p>
-      <p>Add the same at 1 PM, 6 PM and 11:30 PM. Each run sends today and the two days before, so a missed run fixes itself.</p>`)}
+    ${step(3, 'Run it once', `<p>Open Shortcuts and tap <b>Monstrão Health</b>. Allow it to read your ${readsTxt} and to send to Monstrão. This page updates when your data lands.</p>${connected ? '' : '<p class="ah-wait"><i></i>Waiting for your first sync…</p>'}`, connected)}
+    ${step(4, 'Make it automatic', `<p>Apple Health can only be read while your iPhone is unlocked, so run the shortcut when you open apps you use every day. In Shortcuts: <b>Automation</b> → <b>+</b> → <b>App</b> → pick a few apps (WhatsApp, Gmail…) → <b>Is Opened</b> → <b>Run Immediately</b> → add <b>Run Shortcut</b> → <b>Monstrão Health</b>.</p>
+      <p>Each run sends today and the two days before, so a missed day fixes itself.</p>`)}
   </ol>`;
+  const setupName = { watch: 'Apple Watch', wearable: 'a watch or ring', phone: 'iPhone only', manual: 'not using Apple Health' }[path];
   let html = `<div class="ah-hero"><div class="ah-tile">${AH_ICON}</div>
       <div><div class="ah-title">Apple Health</div><div class="ah-status ${connected ? 'ok' : ''}">${connected ? `Connected · last sync ${relTimeShort(lastAt) || '—'}` : 'Not connected'}</div></div></div>
-    <p class="ah-intro">Your burn is <b>Resting</b> + <b>Movement</b> + <b>Digestion</b>. Connect Apple Health and movement comes from your real <b>steps</b> plus the <b>active energy</b> your watch or ring records — Apple Watch, WHOOP, Oura, Garmin — instead of an estimate.</p>`;
+    <div class="ah-setup"><span>Your setup</span><b>${setupName}</b><button class="bc-link" data-ah="profile" type="button">Change</button></div>
+    <p class="ah-intro">${{
+      watch: 'Your Apple Watch’s active energy already includes your walking and workouts, so it’s used as is: <b>Resting</b> + <b>Apple Watch activity</b> + <b>Digestion</b>.',
+      wearable: 'Your iPhone’s <b>steps</b> plus the <b>active energy</b> your watch or ring writes to Apple Health: <b>Resting</b> + <b>Steps</b> + <b>Active energy</b> + <b>Digestion</b>.',
+      phone: 'Your iPhone’s <b>steps</b>, plus the workouts you log on the Burn ring: <b>Resting</b> + <b>Steps</b> + <b>Workouts</b> + <b>Digestion</b>.',
+      manual: 'Your burn doesn’t use Apple Health right now. Connect it and your real steps and activity replace the estimate.'
+    }[path]}${userProfile.weightFromHealth && using ? ' Weigh-ins from your smart scale come in too.' : ''}</p>`;
   if(healthMsg) html += `<p class="status ${healthMsg.error ? 'error' : 'success'}" style="margin:0 0 12px;">${escapeHtml(healthMsg.text)}</p>`;
   if(connected){
-    if(!using) html += `<div class="ah-use"><span>Your burn still uses the activity estimate.</span><button class="btn-small btn-accent" data-ah="use" type="button">Use Apple Health</button></div>`;
-    const recent = [];
-    for(let i = 0; i < 7; i++){ const dt = new Date(); dt.setDate(dt.getDate() - i); recent.push(toISO(dt)); }
-    const max = Math.max(1, ...recent.map((d) => (healthFor(d) || {}).active || 0));
-    html += `<div class="ah-card"><div class="ah-card-h"><b>From Apple Health</b><small>steps · active kcal</small></div>${recent.map((d) => {
-      const v = healthFor(d);
-      return `<div class="ah-day"><span>${d === todayStr() ? 'Today' : parseISO(d).toLocaleDateString(undefined, { weekday:'short', month:'short', day:'numeric' })}</span>
-        <em>${v && typeof v.steps === 'number' ? fmtN(v.steps) : '—'}</em><i class="ah-bar"><i style="width:${v && v.active ? Math.round(v.active / max * 100) : 0}%"></i></i><b>${v && typeof v.active === 'number' ? fmtN(v.active) : '—'}</b></div>`;
-    }).join('')}<p class="ah-foot">Change any day’s numbers in the Burn card.</p></div>
-    <div class="ah-card"><div class="ah-card-h"><b>Your active energy comes from</b></div>
-      <div class="ah-src">
-        <button type="button" class="ah-src-opt${!userProfile.activeAllDay ? ' on' : ''}" data-ah="src-workouts"><b>Workouts only</b><small>WHOOP, Oura, Garmin, phone apps — steps are added on top</small></button>
-        <button type="button" class="ah-src-opt${userProfile.activeAllDay ? ' on' : ''}" data-ah="src-allday"><b>All day</b><small>Apple Watch — it already counts walking, so steps aren’t added again</small></button>
-      </div></div>`;
+    if(!using) html += `<div class="ah-use"><span>Your burn still uses the estimate.</span><button class="btn-small btn-accent" data-ah="use" type="button">Use Apple Health</button></div>`;
+    html += `<div class="ah-card"><div class="ah-card-h"><b>What Apple Health sent</b><small>${relTimeShort(lastAt) ? 'updated ' + relTimeShort(lastAt) : ''}</small></div>${healthTableHTML()}
+      <p class="ah-foot">${path === 'watch' ? 'Your Apple Watch kcal go into your burn as they are.' : '“To burn” is what that day’s movement adds to your burn.'} Change any day in the Burn card.</p></div>`;
     html += `<button class="ah-toggle" data-ah="steps" type="button">${healthStepsOpen ? 'Hide setup steps' : 'Setup steps & automation'} <span>${healthStepsOpen ? '▴' : '▾'}</span></button>`;
     if(healthStepsOpen) html += steps;
     html += `<div class="ah-actions"><button class="btn-small" data-ah="rotate" type="button">New key</button><button class="btn-small wear-danger" data-ah="disconnect" type="button">Disconnect</button></div>`;
@@ -6636,10 +7637,8 @@ function renderHealthPage(){
 async function healthAction(act, btn){
   haptic();
   if(act === 'steps'){ healthStepsOpen = !healthStepsOpen; renderHealthPage(); return; }
-  if(act === 'src-workouts' || act === 'src-allday'){
-    userProfile.activeAllDay = act === 'src-allday'; await persistProfile();
-    syncDerivedBurns(); await persist(); renderHealthPage(); renderAll(); return;
-  }
+  if(act === 'more'){ healthDaysShown += 28; renderHealthPage(); return; }
+  if(act === 'profile'){ document.getElementById('healthOverlay').style.display = 'none'; document.getElementById('openProfileBtn').click(); setTimeout(() => { const c = document.querySelector('.burn-mode-card'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); return; }
   if(act === 'copy'){
     try{ await navigator.clipboard.writeText(healthKey); btn.textContent = 'Copied'; }
     catch(e){ const c = btn.parentElement.querySelector('code'); const r = document.createRange(); r.selectNodeContents(c); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = 'Selected'; }
@@ -6654,8 +7653,8 @@ async function healthAction(act, btn){
   btn.disabled = true;
   try{
     if(act === 'use'){
-      userProfile.burnMode = 'apple'; await persistProfile();
-      healthMsg = { text: 'Done — your burn now uses Apple Health’s active energy.' };
+      userProfile.burnPath = userProfile.lastApplePath || 'wearable'; delete userProfile.burnMode; await persistProfile();
+      healthMsg = { text: `Done — your burn now uses Apple Health (${BURN_PATHS[userProfile.burnPath].short}). Change the device in Profile → Daily burn.` };
     }
     if(act === 'rotate'){
       const r = await callApi('health.key', { rotate: true }); healthKey = r.key; healthStepsOpen = true;
@@ -6665,8 +7664,9 @@ async function healthAction(act, btn){
       await callApi('health.disconnect');
       sessionInfo = await callApi('session');
       healthKey = null; healthData = {};
-      userProfile.burnMode = 'calc'; await persistProfile();
-      healthMsg = { text: 'Disconnected. Your burn goes back to the activity estimate; you can delete the shortcut from the Shortcuts app.' };
+      if(BURN_PATHS[burnPath()].apple) userProfile.lastApplePath = burnPath();
+      userProfile.burnPath = 'manual'; delete userProfile.burnMode; await persistProfile();
+      healthMsg = { text: 'Disconnected. Your burn is now worked out from your profile, food and the workouts you log; you can delete the shortcut from the Shortcuts app.' };
       callApi('health.key').then((r) => { healthKey = r.key; renderHealthPage(); }).catch(() => {});
     }
   }catch(e){
@@ -7121,6 +8121,8 @@ bootAuth();
     }
     new MutationObserver(function(){ safe(function(){ place(false); }); })
       .observe(container, { attributes:true, subtree:true, attributeFilter:['class'] });
+    // a toggle inside a collapsed card has no size until the card opens: place it again then
+    if(window.ResizeObserver) new ResizeObserver(function(){ safe(function(){ place(true); }); }).observe(container);
     pills.push(place);
     place(true);
   }
@@ -7216,7 +8218,10 @@ bootAuth();
       if(tr.includes('fat')) targets.fat_g = Math.round(t.fatTarget);
     }
     const now = new Date(), mid = new Date(now); mid.setHours(0, 0, 0, 0);
-    return { today: todayStr(), selectedDate, tracked: tr, targets, burnMode: burnMode(), dayFraction: Math.round((now - mid) / 86400000 * 1000) / 1000 };
+    const L = bmrLearnState();
+    return { today: todayStr(), selectedDate, tracked: tr, targets, burnMode: burnMode(), burnPath: burnPath(),
+      bmr: t ? { estimate: t.bmrEst, used: t.bmr, learned: L && L.status === 'learned' ? L.adj : null, learning: !!(L && L.status !== 'learned') } : null,
+      timeNow: now.toTimeString().slice(0, 5), tzOffset: now.getTimezoneOffset(), dayFraction: Math.round((now - mid) / 86400000 * 1000) / 1000 };
   }
 
   // ---------- suggested questions ----------

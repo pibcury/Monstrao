@@ -1443,6 +1443,9 @@
   /* Trends: hold hint, shown only on open charts */
   .hold-hint{font-size:11px;font-weight:600;color:var(--muted);opacity:.8;}
   .trend-chart-block:not(.open) .chart-stats .hold-hint{display:none;}
+  /* an open chart's header always keeps room for two lines (date + numbers while holding), so nothing jumps */
+  .trend-chart-block.open .chart-stats{height:calc(2 * 1.3em + 2px);justify-content:center;}
+  .trend-chart-block.open .chart-stats .cs-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
   /* Weekly Progress: press and hold */
   .wk-chart{position:relative;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}

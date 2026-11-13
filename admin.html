@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Monster · Admin</title>
+<meta name="apple-mobile-web-app-title" content="Monster Admin">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-functions-compat.js"></script>
+<style>
+  :root{
+    --bg:#0E1014; --surface:#161920; --surface-2:#1D2028; --surface-3:#242833; --rule:#272B35;
+    --ink:#F4F5F7; --muted:#8B90A0; --faint:#5E6373;
+    --accent:#4C8DFF; --accent-soft:rgba(76,141,255,0.14);
+    --good:#4ADE80; --good-soft:rgba(74,222,128,0.14);
+    --bad:#FF5C7A; --bad-soft:rgba(255,92,122,0.14);
+    --warn:#FF9F43; --warn-soft:rgba(255,159,67,0.14);
+    --violet:#A78BFA;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font:14px/1.45 'Inter',-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;
+    background-image:radial-gradient(circle at 12% -8%, rgba(76,141,255,0.10), transparent 42%);}
+  button,input,select{font:inherit;color:inherit;}
+  button{cursor:pointer;}
+  a{color:var(--accent);text-decoration:none;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px calc(40px + env(safe-area-inset-bottom));}
+  .num{font-variant-numeric:tabular-nums;}
+
+  /* top bar */
+  .top{position:sticky;top:0;z-index:20;background:rgba(14,16,20,0.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top);}
+  .top-in{max-width:1080px;margin:0 auto;padding:12px 16px 0;}
+  .top-row{display:flex;align-items:center;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;min-width:0;}
+  .brand-tile{width:34px;height:34px;border-radius:10px;background:#3B7BF5;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 8px 20px -10px rgba(59,123,245,.8);}
+  .brand b{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;letter-spacing:-0.02em;display:block;line-height:1.15;white-space:nowrap;}
+  .brand small{color:var(--muted);font-size:11.5px;font-weight:500;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .top-actions{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--surface-2);border:1px solid var(--rule);}
+  .seg button{border:0;background:none;padding:5px 10px;border-radius:7px;font-size:12px;font-weight:700;color:var(--muted);}
+  .seg button.on{background:var(--accent-soft);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(76,141,255,.5);}
+  .icon-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--rule);background:var(--surface-2);display:flex;align-items:center;justify-content:center;}
+  .icon-btn svg{width:16px;height:16px;}
+  .icon-btn.spin svg{animation:spin 0.9s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:12px -4px 0;padding:0 4px;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{flex-shrink:0;border:0;background:none;padding:9px 12px 11px;font-size:13px;font-weight:700;color:var(--muted);border-bottom:2px solid transparent;display:flex;align-items:center;gap:6px;}
+  .tab.on{color:var(--ink);border-bottom-color:var(--accent);}
+  .tab .badge{font-size:10.5px;padding:1px 6px;border-radius:999px;background:var(--warn-soft);color:var(--warn);}
+
+  /* layout pieces */
+  .section{margin-top:18px;}
+  .h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 2px 10px;}
+  .h h2{font-family:'Sora',sans-serif;font-size:16px;font-weight:600;letter-spacing:-0.01em;margin:0;}
+  .h small{color:var(--muted);font-size:12px;}
+  .card{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:14px;}
+  .grid{display:grid;gap:10px;}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr));}
+  @media (min-width:640px){ .kpis{grid-template-columns:repeat(4,minmax(0,1fr));} }
+  .kpi{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px;min-width:0;}
+  .kpi span{display:block;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;}
+  .kpi b{display:block;font-family:'Sora',sans-serif;font-size:24px;font-weight:600;letter-spacing:-0.02em;margin-top:4px;font-variant-numeric:tabular-nums;}
+  .kpi small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .charts{grid-template-columns:1fr;}
+  @media (min-width:860px){ .charts{grid-template-columns:repeat(3,minmax(0,1fr));} }
+  .chart-card h3{margin:0 0 2px;font-size:13px;font-weight:700;}
+  .chart-card .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-bottom:8px;}
+  .chart-card .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:-1px;}
+  .chart-box{position:relative;height:170px;}
+
+  .alerts{display:flex;flex-direction:column;gap:8px;}
+  .alert{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border-radius:12px;border:1px solid var(--rule);background:var(--surface);font-size:13px;}
+  .alert i{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;font-weight:800;margin-top:1px;}
+  .alert.warn i{background:var(--warn-soft);color:var(--warn);} .alert.bad i{background:var(--bad-soft);color:var(--bad);} .alert.ok i{background:var(--good-soft);color:var(--good);}
+  .alert b{font-weight:700;}
+  .alert button{margin-left:auto;flex-shrink:0;}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:7px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--surface-2);font-size:12.5px;font-weight:700;white-space:nowrap;}
+  .btn:active{transform:scale(.98);}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .btn.danger{color:var(--bad);border-color:rgba(255,92,122,.35);}
+  .btn.danger.armed{background:var(--bad);color:#fff;}
+  .btn[disabled]{opacity:.5;pointer-events:none;}
+  input[type=text],input[type=email],input[type=number],input[type=password],input[type=search],select{background:var(--surface-2);border:1px solid var(--rule);border-radius:10px;padding:9px 11px;font-size:14px;outline:none;min-width:0;}
+  input:focus,select:focus{border-color:var(--accent);}
+
+  /* members */
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;}
+  .toolbar input[type=search]{flex:1 1 200px;}
+  .chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{flex-shrink:0;border:1px solid var(--rule);background:var(--surface-2);color:var(--muted);padding:5px 10px;border-radius:999px;font-size:12px;font-weight:700;}
+  .chip.on{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);}
+  .tag{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(244,245,247,.07);color:var(--muted);white-space:nowrap;}
+  .tag.accent{background:var(--accent-soft);color:#8DB6FF;} .tag.warn{background:var(--warn-soft);color:var(--warn);} .tag.bad{background:var(--bad-soft);color:var(--bad);} .tag.good{background:var(--good-soft);color:var(--good);}
+  .member{background:var(--surface);border:1px solid var(--rule);border-radius:14px;margin-bottom:8px;overflow:hidden;}
+  .member > summary{list-style:none;display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 12px;cursor:pointer;}
+  .member > summary::-webkit-details-marker{display:none;}
+  .avatar{width:36px;height:36px;border-radius:50%;background:var(--surface-3);display:flex;align-items:center;justify-content:center;font-weight:700;color:#8DB6FF;}
+  .who{min-width:0;}
+  .who b{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:14px;}
+  .who small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .m-side{text-align:right;font-size:12px;color:var(--muted);line-height:1.35;}
+  .m-side b{color:var(--ink);font-weight:700;}
+  .m-quick{display:none;}
+  @media (min-width:760px){
+    .member > summary{grid-template-columns:36px minmax(0,1.4fr) repeat(3,minmax(0,0.7fr)) auto;}
+    .m-quick.m-dup{display:none;}
+    .m-quick{display:block;font-size:12px;color:var(--muted);}
+    .m-quick b{display:block;color:var(--ink);font-size:13.5px;font-variant-numeric:tabular-nums;}
+  }
+  .m-body{border-top:1px solid var(--rule);padding:12px;}
+  .facts{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:10px;}
+  @media (min-width:600px){ .facts{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  @media (min-width:900px){ .facts{grid-template-columns:repeat(3,minmax(0,1fr));} }
+  .fact-box{background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:10px 11px;}
+  .fact-box h4{margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+  .kv{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:3px 0;border-top:1px solid rgba(244,245,247,.04);}
+  .kv:first-of-type{border-top:0;}
+  .kv span{color:var(--muted);} .kv b{font-weight:600;text-align:right;font-variant-numeric:tabular-nums;}
+  .meter{height:6px;border-radius:3px;background:var(--surface-3);overflow:hidden;margin-top:4px;}
+  .meter i{display:block;height:100%;background:var(--accent);border-radius:3px;}
+  .meter.warn i{background:var(--warn);} .meter.bad i{background:var(--bad);}
+  .m-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center;}
+  .m-actions .cap{display:flex;gap:6px;align-items:center;}
+  .m-actions .cap input{width:84px;padding:7px 9px;font-size:13px;}
+  .user-chart{position:relative;height:130px;margin-top:10px;}
+
+  /* tables */
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:14px;background:var(--surface);}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;}
+  th,td{padding:8px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--rule);}
+  th{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);position:sticky;top:0;background:var(--surface);}
+  th:first-child,td:first-child{text-align:left;}
+  tr:last-child td{border-bottom:0;}
+  tfoot td{font-weight:700;background:var(--surface-2);}
+  td.dim{color:var(--faint);}
+
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .note{color:var(--muted);font-size:12.5px;margin:6px 0 0;}
+  .setting{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--rule);flex-wrap:wrap;}
+  .setting:first-child{border-top:0;padding-top:2px;}
+  .setting .lbl b{display:block;font-size:13.5px;} .setting .lbl small{display:block;color:var(--muted);font-size:12px;max-width:520px;}
+  .setting input[type=number]{width:96px;}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--surface-2);border:1px solid var(--rule);border-radius:8px;padding:2px 6px;word-break:break-all;}
+  .log-row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px solid var(--rule);font-size:13px;}
+  .log-row:first-child{border-top:0;}
+  .log-row time{color:var(--muted);font-size:12px;}
+  .invites{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .invite{display:inline-flex;align-items:center;gap:6px;padding:5px 6px 5px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--rule);font-size:12.5px;}
+  .invite button{border:0;background:var(--surface-3);width:20px;height:20px;border-radius:50%;font-size:11px;color:var(--muted);}
+
+  .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);opacity:0;transition:all .25s ease;background:var(--surface-3);border:1px solid var(--rule);padding:10px 14px;border-radius:12px;font-size:13px;font-weight:600;z-index:50;max-width:calc(100% - 32px);box-shadow:0 12px 30px rgba(0,0,0,.4);}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .toast.err{color:var(--bad);}
+
+  /* sign-in gate */
+  .gate{max-width:380px;margin:12vh auto 0;padding:0 16px;}
+  .gate .card{padding:20px;}
+  .gate h1{font-family:'Sora',sans-serif;font-size:21px;margin:12px 0 4px;letter-spacing:-0.02em;}
+  .gate p{color:var(--muted);margin:0 0 14px;font-size:13px;}
+  .gate input{width:100%;margin-bottom:10px;}
+  .gate .btn{width:100%;padding:11px;}
+  .err{color:var(--bad);font-size:12.5px;min-height:18px;margin:6px 0 0;}
+  .empty{color:var(--muted);font-size:13px;padding:18px;text-align:center;}
+  .hidden{display:none !important;}
+</style>
+</head>
+<body>
+
+<!-- sign-in / owner check -->
+<div class="gate hidden" id="gate">
+  <div class="card">
+    <div class="brand-tile">💪</div>
+    <h1>Admin console</h1>
+    <p id="gateMsg">Sign in with the owner account.</p>
+    <form id="signInForm">
+      <input type="email" id="gEmail" placeholder="Email" autocomplete="username" required>
+      <input type="password" id="gPass" placeholder="Password" autocomplete="current-password" required>
+      <button class="btn primary" type="submit">Sign in</button>
+    </form>
+    <div class="row hidden" id="gateSignedIn" style="gap:8px;">
+      <a class="btn" href="./">Back to the app</a>
+      <button class="btn" id="gateSignOut" type="button">Sign out</button>
+    </div>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+
+<!-- console -->
+<div class="hidden" id="console">
+  <header class="top">
+    <div class="top-in">
+      <div class="top-row">
+        <div class="brand"><div class="brand-tile">💪</div><div style="min-width:0"><b>Monster Admin</b><small id="whoami"></small></div></div>
+        <div class="top-actions">
+          <div class="seg" id="rangeSeg"><button data-days="30" class="on" type="button">30d</button><button data-days="90" type="button">90d</button></div>
+          <button class="icon-btn" id="refreshBtn" type="button" aria-label="Refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg></button>
+          <a class="icon-btn" href="./" aria-label="Back to the app" title="Back to the app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></a>
+        </div>
+      </div>
+      <nav class="tabs" id="tabs">
+        <button class="tab on" data-tab="overview" type="button">Overview</button>
+        <button class="tab" data-tab="members" type="button">Members <span class="badge hidden" id="pendBadge"></span></button>
+        <button class="tab" data-tab="usage" type="button">AI usage & cost</button>
+        <button class="tab" data-tab="access" type="button">Access</button>
+        <button class="tab" data-tab="settings" type="button">Settings</button>
+        <button class="tab" data-tab="log" type="button">Change log</button>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap" id="main"><p class="empty">Loading…</p></main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// =====================================================================================
+// Monster — admin console. Owner only: the server refuses every admin.* call from anyone
+// else, so this page shows nothing to other accounts even if they find it.
+// It reads counts, dates, sizes and settings — never what people logged.
+// =====================================================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyCVDazJWswDmu_f5Z07hBbt91pqvaNEAH0",
+  authDomain: "monstrao-e04ac.firebaseapp.com",
+  projectId: "monstrao-e04ac",
+  storageBucket: "monstrao-e04ac.firebasestorage.app",
+  messagingSenderId: "1014975507147",
+  appId: "1:1014975507147:web:2dd655c5ba2b27f461494e"
+};
+firebase.initializeApp(firebaseConfig);
+const fns = firebase.app().functions('us-central1');
+const api = async (action, params) => (await fns.httpsCallable('api')(Object.assign({ action }, params || {}))).data;
+
+// ---------- helpers ----------
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+const n0 = (v) => (v == null ? '—' : Math.round(v).toLocaleString('en-US'));
+const money = (v) => v == null ? '—' : (v === 0 ? '$0' : v < 0.01 ? '<$0.01' : v < 10 ? '$' + v.toFixed(2) : '$' + Math.round(v).toLocaleString('en-US'));
+const money4 = (v) => v == null ? '—' : '$' + v.toFixed(v < 1 ? 4 : 2);
+const bytes = (b) => b == null ? '—' : b < 1024 ? b + ' B' : b < 1048576 ? (b / 1024).toFixed(1) + ' KB' : (b / 1048576).toFixed(2) + ' MB';
+const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
+function rel(ms){
+  if(!ms) return '—';
+  const s = (Date.now() - ms) / 1000;
+  if(s < 60) return 'just now';
+  if(s < 3600) return Math.round(s / 60) + ' min ago';
+  if(s < 86400) return Math.round(s / 3600) + ' h ago';
+  if(s < 86400 * 30) return Math.round(s / 86400) + ' d ago';
+  return new Date(ms).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+}
+const dt = (ms) => ms ? new Date(ms).toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' }) : '—';
+const dShort = (iso) => iso ? new Date(iso + 'T12:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : '—';
+const dLong = (iso) => iso ? new Date(iso + 'T12:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+const daysSince = (iso) => iso ? Math.floor((Date.now() - new Date(iso + 'T12:00:00').getTime()) / 86400000) : null;
+const PATH_NAME = { wearable: 'Apple Health + watch/ring', watch: 'Apple Health + Apple Watch', phone: 'Apple Health · iPhone only', manual: 'No Apple Health' };
+let toastT = null;
+function toast(msg, err){ const t = $('toast'); t.textContent = msg; t.className = 'toast show' + (err ? ' err' : ''); clearTimeout(toastT); toastT = setTimeout(() => t.className = 'toast', 3200); }
+
+// ---------- state ----------
+let D = null, days = 30, tab = 'overview';
+const ui = { q: '', filter: 'all', sort: 'active', open: new Set() };
+const charts = {};
+const userCharts = {};
+
+// ---------- auth gate ----------
+function showGate(msg, signedIn){
+  $('console').classList.add('hidden'); $('gate').classList.remove('hidden');
+  $('gateMsg').textContent = msg;
+  $('signInForm').classList.toggle('hidden', !!signedIn);
+  $('gateSignedIn').classList.toggle('hidden', !signedIn);
+}
+$('signInForm').addEventListener('submit', async (ev) => {
+  ev.preventDefault(); $('gateErr').textContent = '';
+  try { await firebase.auth().signInWithEmailAndPassword($('gEmail').value.trim(), $('gPass').value); }
+  catch(e){ $('gateErr').textContent = e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' ? 'Wrong email or password.' : (e.message || 'Sign-in failed.'); }
+});
+$('gateSignOut').addEventListener('click', () => firebase.auth().signOut());
+firebase.auth().onAuthStateChanged(async (u) => {
+  if(!u){ showGate('Sign in with the owner account.'); return; }
+  try {
+    const s = await api('session');
+    if(!s.isOwner){ showGate(`Signed in as ${u.email}. This console is for the app owner only.`, true); return; }
+    $('whoami').textContent = `${u.email} · owner`;
+    $('gate').classList.add('hidden'); $('console').classList.remove('hidden');
+    load();
+  } catch(e){ showGate(`Couldn’t reach the server: ${e.message || e}`, true); }
+});
+
+// ---------- loading ----------
+async function load(){
+  const b = $('refreshBtn'); b.classList.add('spin');
+  try { D = await api('admin.overview', { days }); render(); }
+  catch(e){ $('main').innerHTML = `<p class="empty">Couldn’t load the console: ${esc(e.message || e)}</p>`; }
+  b.classList.remove('spin');
+}
+$('refreshBtn').addEventListener('click', load);
+$('rangeSeg').addEventListener('click', (ev) => {
+  const b = ev.target.closest('[data-days]'); if(!b) return;
+  days = +b.dataset.days; $('rangeSeg').querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b));
+  Object.keys(userCharts).forEach((k) => delete userCharts[k]);
+  load();
+});
+$('tabs').addEventListener('click', (ev) => {
+  const b = ev.target.closest('[data-tab]'); if(!b) return;
+  tab = b.dataset.tab; $('tabs').querySelectorAll('.tab').forEach((x) => x.classList.toggle('on', x === b));
+  render(); window.scrollTo({ top: 0 });
+});
+
+// ---------- derived ----------
+function derive(){
+  const U = D.users;
+  const members = U.filter((u) => u.status === 'active');
+  const pending = U.filter((u) => u.status === 'pending');
+  const off = U.filter((u) => u.status === 'disabled');
+  const sum = (arr, f) => arr.reduce((s, x) => s + (f(x) || 0), 0);
+  const range = { est: sum(D.series, (x) => x.aiCalls), chat: sum(D.series, (x) => x.chatCalls), cost: sum(D.series, (x) => x.costUsd), signups: sum(D.series, (x) => x.signups) };
+  const month = { cost: sum(U, (u) => u.ai.month.cost), est: sum(U, (u) => u.ai.month.est), chat: sum(U, (u) => u.ai.month.chat) };
+  const now = new Date(), dim = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate(), dom = now.getDate();
+  const projected = month.cost / Math.max(1, dom) * dim;
+  const allTime = sum(U, (u) => u.ai.totalCost);
+  const health = U.filter((u) => u.health.connected);
+  return { U, members, pending, off, range, month, projected, allTime, health };
+}
+function alertsFor(x){
+  const out = [];
+  x.pending.forEach((u) => out.push({ k: 'warn', t: `<b>${esc(u.displayName || u.email)}</b> is waiting for approval (signed up ${rel(u.createdAt)}).`, act: `<button class="btn primary" data-act="approve" data-uid="${u.uid}" type="button">Approve</button>` }));
+  const g = D.config.globalDailyAiCap, used = D.today.aiCalls;
+  if(g && used / g >= 0.8) out.push({ k: used >= g ? 'bad' : 'warn', t: `App-wide AI estimates today: <b>${used} of ${g}</b>${used >= g ? ' — limit reached, estimates are paused until tomorrow' : ''}.` });
+  x.U.filter((u) => u.status === 'active' && u.ai.capEffective && u.ai.today.est >= u.ai.capEffective).forEach((u) => out.push({ k: 'warn', t: `<b>${esc(u.displayName || u.email)}</b> hit their daily AI limit (${u.ai.today.est}/${u.ai.capEffective}).` }));
+  x.U.filter((u) => u.sizePct >= 60).forEach((u) => out.push({ k: u.sizePct >= 85 ? 'bad' : 'warn', t: `<b>${esc(u.displayName || u.email)}</b>’s largest data document is at <b>${u.sizePct}%</b> of Firestore’s 1 MiB limit — the log will need splitting before it fills up.` }));
+  x.U.filter((u) => u.health.connected && u.health.lastSyncAt && Date.now() - u.health.lastSyncAt > 3 * 86400000).forEach((u) => out.push({ k: 'warn', t: `<b>${esc(u.displayName || u.email)}</b>’s Apple Health hasn’t synced for ${rel(u.health.lastSyncAt).replace(' ago', '')} — their shortcut automation may have stopped.` }));
+  x.U.filter((u) => u.status === 'active' && !u.setup.profileComplete && u.logging.daysLogged > 0).forEach((u) => out.push({ k: 'warn', t: `<b>${esc(u.displayName || u.email)}</b> logs food but hasn’t finished their profile (birth date, height, sex) — no burn or targets for them yet.` }));
+  if(!D.config.healthShortcutUrl) out.push({ k: 'warn', t: 'No Apple Health shortcut link is set, so members can’t add the shortcut from the app.', act: '<button class="btn" data-goto="settings" type="button">Settings</button>' });
+  if(!out.length) out.push({ k: 'ok', t: 'All clear — nothing needs your attention.' });
+  return out;
+}
+
+// ---------- render ----------
+function render(){
+  if(!D) return;
+  const x = derive();
+  const pb = $('pendBadge'); pb.textContent = x.pending.length; pb.classList.toggle('hidden', !x.pending.length);
+  Object.values(charts).forEach((c) => c && c.destroy()); for(const k in charts) delete charts[k];
+  const html = { overview: renderOverview, members: renderMembers, usage: renderUsage, access: renderAccess, settings: renderSettings, log: renderLog }[tab](x);
+  $('main').innerHTML = html + `<p class="note" style="margin-top:22px;text-align:center;">Updated ${rel(D.generatedAt)} · server day ${dLong(D.serverDay)} (${esc(D.system.timeZone)})</p>`;
+  if(tab === 'overview') drawOverviewCharts();
+  if(tab === 'usage') drawUsageCharts();
+  if(tab === 'members') ui.open.forEach((uid) => loadUserChart(uid));
+}
+
+function kpi(label, value, sub){ return `<div class="kpi"><span>${label}</span><b>${value}</b>${sub ? `<small>${sub}</small>` : ''}</div>`; }
+function renderOverview(x){
+  const g = D.config.globalDailyAiCap;
+  return `
+  <div class="section"><div class="h"><h2>Needs attention</h2></div>
+    <div class="alerts">${alertsFor(x).map((a) => `<div class="alert ${a.k}"><i>${a.k === 'ok' ? '✓' : '!'}</i><div>${a.t}</div>${a.act || ''}</div>`).join('')}</div></div>
+  <div class="section"><div class="h"><h2>People</h2><small>${x.U.length} accounts</small></div>
+    <div class="grid kpis">
+      ${kpi('Members', x.members.length, `${x.pending.length} waiting · ${x.off.length} turned off`)}
+      ${kpi('Active today', D.activity.dau, `${D.activity.wau} this week · ${D.activity.mau} in 30 days`)}
+      ${kpi('New sign-ups', x.range.signups, `last ${days} days · ${D.today.signups} today`)}
+      ${kpi('Apple Health', x.health.length, `${pct(x.health.length, x.members.length)}% of members · ${D.healthKeys} active keys`)}
+    </div></div>
+  <div class="section"><div class="h"><h2>AI</h2><small>${esc(D.pricing.model)}</small></div>
+    <div class="grid kpis">
+      ${kpi('Estimates today', D.today.aiCalls, `of ${g} app-wide · ${n0(x.range.est)} in ${days}d`)}
+      ${kpi('Chats today', D.today.chatCalls, `${n0(x.range.chat)} in ${days}d`)}
+      ${kpi('Cost this month', money(x.month.cost), `on pace for ${money(x.projected)} · today ${money(D.today.costUsd)}`)}
+      ${kpi('Cost all time', money(x.allTime), `${money(x.range.cost)} in the last ${days} days`)}
+    </div></div>
+  <div class="section"><div class="h"><h2>Last ${days} days</h2></div>
+    <div class="grid charts">
+      <div class="card chart-card"><h3>Activity</h3><div class="legend"><span><i style="background:#F4F5F7"></i>Active people</span><span><i style="background:#A78BFA"></i>Sign-ups</span></div><div class="chart-box"><canvas id="cActivity"></canvas></div></div>
+      <div class="card chart-card"><h3>AI requests</h3><div class="legend"><span><i style="background:#4C8DFF"></i>Food estimates</span><span><i style="background:#4ADE80"></i>Chat messages</span></div><div class="chart-box"><canvas id="cAi"></canvas></div></div>
+      <div class="card chart-card"><h3>AI cost</h3><div class="legend"><span><i style="background:#FF9F43"></i>Per day</span><span><i style="background:#F4F5F7"></i>Running total</span></div><div class="chart-box"><canvas id="cCost"></canvas></div></div>
+    </div></div>`;
+}
+const axis = { ticks: { color: '#8B90A0', font: { family: 'Inter', size: 10 } }, grid: { color: '#22262F' } };
+function baseOpts(extra){
+  return Object.assign({ responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+    plugins: { legend: { display: false }, tooltip: { backgroundColor: '#242833', borderColor: '#2F3440', borderWidth: 1, titleColor: '#F4F5F7', bodyColor: '#C9CCD6' } },
+    scales: { x: { ticks: { color: '#8B90A0', font: { family: 'Inter', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 }, grid: { display: false } }, y: Object.assign({ beginAtZero: true }, axis) } }, extra || {});
+}
+function drawOverviewCharts(){
+  if(typeof Chart === 'undefined') return;
+  const s = D.series, L = s.map((p) => dShort(p.date));
+  charts.a = new Chart($('cActivity'), { data: { labels: L, datasets: [
+    { type: 'line', label: 'Active people', data: s.map((p) => p.activeUsers), borderColor: '#F4F5F7', borderWidth: 1.8, pointRadius: 0, cubicInterpolationMode: 'monotone' },
+    { type: 'bar', label: 'Sign-ups', data: s.map((p) => p.signups), backgroundColor: 'rgba(167,139,250,.75)', borderRadius: 3, maxBarThickness: 10 } ] },
+    options: baseOpts({ scales: { x: baseOpts().scales.x, y: Object.assign({ beginAtZero: true, ticks: Object.assign({ precision: 0 }, axis.ticks) }, { grid: axis.grid }) } }) });
+  charts.b = new Chart($('cAi'), { type: 'bar', data: { labels: L, datasets: [
+    { label: 'Food estimates', data: s.map((p) => p.aiCalls), backgroundColor: 'rgba(76,141,255,.8)', borderRadius: 3, stack: 'a', maxBarThickness: 12 },
+    { label: 'Chat messages', data: s.map((p) => p.chatCalls), backgroundColor: 'rgba(74,222,128,.75)', borderRadius: 3, stack: 'a', maxBarThickness: 12 } ] },
+    options: baseOpts({ scales: { x: Object.assign({ stacked: true }, baseOpts().scales.x), y: Object.assign({ stacked: true, beginAtZero: true, ticks: Object.assign({ precision: 0 }, axis.ticks), grid: axis.grid }) } }) });
+  let run = 0; const cum = s.map((p) => (run += p.costUsd));
+  charts.c = new Chart($('cCost'), { data: { labels: L, datasets: [
+    { type: 'bar', label: 'Per day', data: s.map((p) => +p.costUsd.toFixed(4)), backgroundColor: 'rgba(255,159,67,.8)', borderRadius: 3, maxBarThickness: 12, yAxisID: 'y' },
+    { type: 'line', label: 'Running total', data: cum.map((v) => +v.toFixed(4)), borderColor: '#F4F5F7', borderWidth: 1.6, pointRadius: 0, cubicInterpolationMode: 'monotone', yAxisID: 'y1' } ] },
+    options: baseOpts({ plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${money4(c.parsed.y)}` } } },
+      scales: { x: baseOpts().scales.x, y: { beginAtZero: true, ticks: Object.assign({ callback: (v) => '$' + v }, axis.ticks), grid: axis.grid }, y1: { beginAtZero: true, position: 'right', ticks: Object.assign({ callback: (v) => '$' + v }, axis.ticks), grid: { display: false } } } }) });
+}
+
+// ---------- members ----------
+function statusTags(u){
+  const t = [];
+  if(u.role === 'owner') t.push('<span class="tag accent">Owner</span>');
+  if(u.status === 'pending') t.push('<span class="tag warn">Waiting</span>');
+  if(u.status === 'disabled') t.push('<span class="tag bad">Turned off</span>');
+  if(u.invited) t.push('<span class="tag">Invited</span>');
+  if(u.health.connected) t.push('<span class="tag good">Apple Health</span>');
+  if(!u.emailVerified) t.push('<span class="tag">Email not verified</span>');
+  return t.join('');
+}
+function filtered(){
+  const q = ui.q.trim().toLowerCase();
+  let list = D.users.filter((u) => !q || (u.email + ' ' + u.displayName).toLowerCase().includes(q));
+  const f = ui.filter;
+  if(f === 'active') list = list.filter((u) => u.status === 'active');
+  if(f === 'pending') list = list.filter((u) => u.status === 'pending');
+  if(f === 'off') list = list.filter((u) => u.status === 'disabled');
+  if(f === 'health') list = list.filter((u) => u.health.connected);
+  if(f === 'quiet') list = list.filter((u) => u.status === 'active' && (!u.logging.lastLogDate || daysSince(u.logging.lastLogDate) >= 7));
+  const by = { active: (u) => -(u.lastActiveAt || 0), joined: (u) => -(u.createdAt || 0), cost: (u) => -u.ai.month.cost, logged: (u) => -u.logging.days30, name: (u) => (u.displayName || u.email).toLowerCase(), size: (u) => -u.sizePct }[ui.sort];
+  return list.slice().sort((a, b) => { const x = by(a), y = by(b); return x < y ? -1 : x > y ? 1 : 0; });
+}
+function renderMembers(x){
+  const list = filtered();
+  const chip = (k, l, n) => `<button class="chip${ui.filter === k ? ' on' : ''}" data-filter="${k}" type="button">${l}${n != null ? ' · ' + n : ''}</button>`;
+  return `<div class="section">
+    <div class="toolbar">
+      <input type="search" id="mSearch" placeholder="Search name or email" value="${esc(ui.q)}" autocomplete="off">
+      <select id="mSort" aria-label="Sort">
+        ${[['active', 'Last active'], ['joined', 'Newest'], ['cost', 'AI cost this month'], ['logged', 'Days logged (30d)'], ['size', 'Data size'], ['name', 'Name']].map(([k, l]) => `<option value="${k}"${ui.sort === k ? ' selected' : ''}>${l}</option>`).join('')}
+      </select>
+    </div>
+    <div class="chips" style="margin-bottom:12px;">
+      ${chip('all', 'All', D.users.length)}${chip('active', 'Members', x.members.length)}${chip('pending', 'Waiting', x.pending.length)}${chip('off', 'Turned off', x.off.length)}${chip('health', 'Apple Health', x.health.length)}${chip('quiet', 'Quiet 7+ days')}
+    </div>
+    ${list.length ? list.map(memberHTML).join('') : '<p class="empty">No one matches.</p>'}
+  </div>`;
+}
+function kv(k, v){ return `<div class="kv"><span>${k}</span><b>${v}</b></div>`; }
+function meter(p){ return `<div class="meter${p >= 85 ? ' bad' : p >= 60 ? ' warn' : ''}"><i style="width:${Math.min(100, p)}%"></i></div>`; }
+function memberHTML(u){
+  const name = u.displayName || u.email.split('@')[0];
+  const L = u.logging, A = u.ai, H = u.health, S = u.setup;
+  const owner = u.role === 'owner';
+  const lastLog = L.lastLogDate ? (daysSince(L.lastLogDate) <= 0 ? 'today' : daysSince(L.lastLogDate) === 1 ? 'yesterday' : daysSince(L.lastLogDate) + ' d ago') : 'never';
+  const capPct = A.capEffective ? pct(A.today.est, A.capEffective) : 0;
+  const actions = [];
+  if(!owner){
+    if(u.status === 'pending') actions.push(`<button class="btn primary" data-act="approve" data-uid="${u.uid}" type="button">Approve</button>`);
+    if(u.status === 'disabled') actions.push(`<button class="btn primary" data-act="enable" data-uid="${u.uid}" type="button">Turn back on</button>`);
+    if(u.status !== 'disabled') actions.push(`<button class="btn" data-act="disable" data-uid="${u.uid}" type="button">${u.status === 'pending' ? 'Decline' : 'Turn off'}</button>`);
+  }
+  actions.push(`<span class="cap"><input type="number" min="0" max="500" inputmode="numeric" placeholder="${D.config.defaultDailyAiCap}" value="${A.cap != null ? A.cap : ''}" data-cap-in="${u.uid}" aria-label="Daily AI limit"><button class="btn" data-act="cap" data-uid="${u.uid}" type="button">Set AI limit</button></span>`);
+  actions.push(`<button class="btn" data-act="reset" data-email="${esc(u.email)}" type="button">Send password reset</button>`);
+  if(H.hasKey) actions.push(`<button class="btn" data-act="revokeHealth" data-uid="${u.uid}" type="button">Revoke Apple Health key</button>`);
+  if(u.chat.turns) actions.push(`<button class="btn" data-act="clearChat" data-uid="${u.uid}" type="button">Clear AI chat memory</button>`);
+  if(!owner) actions.push(`<button class="btn danger" data-act="delete" data-uid="${u.uid}" data-name="${esc(name)}" type="button">Delete account</button>`);
+  return `<details class="member" data-uid="${u.uid}"${ui.open.has(u.uid) ? ' open' : ''}>
+    <summary>
+      <span class="avatar">${esc(name.charAt(0).toUpperCase())}</span>
+      <span class="who"><b>${esc(name)} ${statusTags(u)}</b><small>${esc(u.email)}</small></span>
+      <span class="m-quick m-dup"><b>${rel(u.lastActiveAt)}</b>last active</span>
+      <span class="m-quick"><b>${L.days30}/30</b>days logged</span>
+      <span class="m-quick"><b>${A.month.est + A.month.chat}</b>AI this month</span>
+      <span class="m-quick"><b>${money(A.month.cost)}</b>cost this month</span>
+      <span class="m-side"><b>${rel(u.lastActiveAt)}</b><br>last log ${lastLog}</span>
+    </summary>
+    <div class="m-body">
+      <div class="facts">
+        <div class="fact-box"><h4>Account</h4>
+          ${kv('Status', u.status === 'active' ? 'Active' : u.status === 'pending' ? 'Waiting for approval' : 'Turned off')}
+          ${kv('Joined', dt(u.createdAt))}${kv('Last sign-in', dt(u.lastSignInAt))}${kv('Last active', dt(u.lastActiveAt))}
+          ${kv('Email verified', u.emailVerified ? 'Yes' : 'No')}${kv('Sign-in method', esc(u.providers.join(', ') || '—'))}
+          ${u.statusChangedAt ? kv('Status changed', dt(u.statusChangedAt)) : ''}${kv('Account ID', `<code>${esc(u.uid)}</code>`)}
+        </div>
+        <div class="fact-box"><h4>Logging</h4>
+          ${kv('Days logged', `${L.daysLogged} total · ${L.days7}/7 · ${L.days30}/30`)}
+          ${kv('First / last day', `${dShort(L.firstLogDate)} → ${dShort(L.lastLogDate)}`)}
+          ${kv('Foods (30d)', `${n0(L.items30)} · ${pct(L.aiItems30, L.items30)}% via AI`)}
+          ${kv('Meal tags (30d)', `${pct(L.mealTagged30, L.items30)}% of foods`)}
+          ${kv('Workouts (30d)', n0(L.workouts30))}
+          ${kv('Weigh-ins (own)', `${n0(L.weighIns)}${L.lastWeighIn ? ' · last ' + dShort(L.lastWeighIn) : ''}`)}
+        </div>
+        <div class="fact-box"><h4>AI</h4>
+          ${kv('Today', `${A.today.est} estimates · ${A.today.chat} chats`)}
+          <div class="kv"><span>Daily estimate limit</span><b>${A.today.est}/${A.capEffective}${A.cap != null ? ' (custom)' : ''}</b></div>${meter(capPct)}
+          ${kv('Last 30 days', `${A.d30.est} est · ${A.d30.chat} chats`)}
+          ${kv('Photos / web searches', `${A.d30.photos} · ${A.d30.searches}`)}
+          ${kv('Tokens in / out (30d)', `${n0(A.d30.inTok)} / ${n0(A.d30.outTok)}`)}
+          ${kv('Cost today · month · all time', `${money(A.today.cost)} · ${money(A.month.cost)} · ${money(A.totalCost)}`)}
+          ${kv('Last estimate / chat', `${rel(u.lastAiAt)} / ${rel(u.lastChatAt)}`)}
+        </div>
+        <div class="fact-box"><h4>Apple Health</h4>
+          ${kv('Connected', H.connected ? 'Yes' : 'No')}${kv('Shortcut key', H.hasKey ? 'Issued' : 'None')}
+          ${kv('Last sync', H.lastSyncAt ? `${rel(H.lastSyncAt)}` : '—')}${kv('Days received', `${n0(H.daysSynced)}${H.lastDay ? ' · latest ' + dShort(H.lastDay) : ''}`)}
+          ${kv('Weigh-ins received', n0(H.weighIns))}
+        </div>
+        <div class="fact-box"><h4>Setup</h4>
+          ${kv('Daily burn', esc(PATH_NAME[S.burnPath] || S.burnPath || '—'))}${kv('Weight from Apple Health', S.weightFromHealth ? 'On' : 'Off')}
+          ${kv('Resting-burn learning', esc(S.bmrLearn))}${kv('Tracks', esc(S.tracks ? ['calories'].concat(S.tracks).join(', ') : 'default'))}
+          ${kv('Goal', esc(S.weightGoal || '—'))}${kv('Profile complete', S.profileComplete ? 'Yes' : '<span style="color:var(--warn)">No</span>')}
+          ${kv('AI chat memory', `${u.chat.turns} turns · ${u.chat.notes} notes${u.chat.updatedAt ? ' · ' + rel(u.chat.updatedAt) : ''}`)}
+        </div>
+        <div class="fact-box"><h4>Storage</h4>
+          ${kv('Food log', bytes(u.sizes.entries))}${kv('Weights', bytes(u.sizes.weights))}${kv('Apple Health', bytes(u.sizes.health))}
+          ${kv('Profile + goals', bytes(u.sizes.profile + u.sizes.goals))}${kv('AI chat memory', bytes(u.sizes.chat))}
+          <div class="kv"><span>Largest doc vs 1 MiB limit</span><b>${u.sizePct}%</b></div>${meter(u.sizePct)}
+        </div>
+      </div>
+      <div class="card" style="margin-top:10px;padding:10px 12px;"><div class="legend" style="display:flex;gap:10px;font-size:11px;color:var(--muted);"><span><i style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#4C8DFF;margin-right:4px"></i>Estimates</span><span><i style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#4ADE80;margin-right:4px"></i>Chats</span><span style="margin-left:auto">AI per day · last ${days} days</span></div><div class="user-chart"><canvas id="uc-${u.uid}"></canvas></div></div>
+      <div class="m-actions">${actions.join('')}</div>
+    </div>
+  </details>`;
+}
+async function loadUserChart(uid){
+  const cv = document.getElementById('uc-' + uid); if(!cv || typeof Chart === 'undefined') return;
+  try {
+    const r = userCharts[uid] || (userCharts[uid] = await api('admin.userUsage', { uid, days }));
+    if(!document.getElementById('uc-' + uid)) return;
+    if(charts['u' + uid]) charts['u' + uid].destroy();
+    charts['u' + uid] = new Chart(document.getElementById('uc-' + uid), { type: 'bar', data: { labels: r.days.map((p) => dShort(p.date)), datasets: [
+      { label: 'Estimates', data: r.days.map((p) => p.estimates), backgroundColor: 'rgba(76,141,255,.8)', stack: 'a', borderRadius: 2, maxBarThickness: 10 },
+      { label: 'Chats', data: r.days.map((p) => p.chats), backgroundColor: 'rgba(74,222,128,.75)', stack: 'a', borderRadius: 2, maxBarThickness: 10 } ] },
+      options: baseOpts({ plugins: { legend: { display: false }, tooltip: { callbacks: { afterBody: (items) => { const p = r.days[items[0].dataIndex]; return `Cost ${money4(p.costUsd)} · ${p.photos} photos · ${p.searches} searches`; } } } },
+        scales: { x: Object.assign({ stacked: true }, baseOpts().scales.x), y: { stacked: true, beginAtZero: true, ticks: Object.assign({ precision: 0 }, axis.ticks), grid: axis.grid } } }) });
+  } catch(e){ /* chart is a nice-to-have */ }
+}
+
+// ---------- AI usage & cost ----------
+function renderUsage(x){
+  const s = D.series.slice().reverse();
+  const tot = (f) => D.series.reduce((a, p) => a + (p[f] || 0), 0);
+  const top = D.users.slice().sort((a, b) => b.ai.range.cost - a.ai.range.cost).filter((u) => u.ai.range.cost > 0 || u.ai.range.est || u.ai.range.chat);
+  return `
+  <div class="section"><div class="grid kpis">
+    ${kpi(`Cost · ${days}d`, money(x.range.cost), `${money(x.range.cost / days)} a day on average`)}
+    ${kpi('This month', money(x.month.cost), `on pace for ${money(x.projected)}`)}
+    ${kpi('Per active member', money(x.members.length ? x.month.cost / x.members.length : 0), 'this month')}
+    ${kpi('Per request', money4((x.range.est + x.range.chat) ? x.range.cost / (x.range.est + x.range.chat) : 0), `${n0(x.range.est)} estimates · ${n0(x.range.chat)} chats`)}
+  </div></div>
+  <div class="section"><div class="h"><h2>By person · last ${days} days</h2></div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Person</th><th>Estimates</th><th>Chats</th><th>Cost</th><th>Share</th><th>Limit today</th></tr></thead>
+      <tbody>${top.length ? top.map((u) => `<tr><td>${esc(u.displayName || u.email)}</td><td>${n0(u.ai.range.est)}</td><td>${n0(u.ai.range.chat)}</td><td>${money4(u.ai.range.cost)}</td><td>${pct(u.ai.range.cost, x.range.cost)}%</td><td>${u.ai.today.est}/${u.ai.capEffective}</td></tr>`).join('') : '<tr><td colspan="6" class="dim">No AI use in this period.</td></tr>'}</tbody>
+    </table></div></div>
+  <div class="section"><div class="h"><h2>Day by day</h2><small>newest first</small></div>
+    <div class="tbl-wrap" style="max-height:520px;overflow-y:auto;"><table>
+      <thead><tr><th>Day</th><th>Active</th><th>Estimates</th><th>Chats</th><th>Cost</th><th>Sign-ups</th></tr></thead>
+      <tbody>${s.map((p) => `<tr><td>${dLong(p.date)}${p.date === D.serverDay ? ' · today' : ''}</td><td${p.activeUsers ? '' : ' class="dim"'}>${p.activeUsers}</td><td${p.aiCalls ? '' : ' class="dim"'}>${p.aiCalls}</td><td${p.chatCalls ? '' : ' class="dim"'}>${p.chatCalls}</td><td${p.costUsd ? '' : ' class="dim"'}>${money4(p.costUsd)}</td><td${p.signups ? '' : ' class="dim"'}>${p.signups}</td></tr>`).join('')}</tbody>
+      <tfoot><tr><td>Total</td><td>—</td><td>${n0(tot('aiCalls'))}</td><td>${n0(tot('chatCalls'))}</td><td>${money4(tot('costUsd'))}</td><td>${n0(tot('signups'))}</td></tr></tfoot>
+    </table></div></div>
+  <div class="section"><div class="card"><div class="h" style="margin:0 0 6px"><h2 style="font-size:14px">How cost is worked out</h2></div>
+    <p class="note" style="margin:0">From token counts the AI service reports on every request: ${esc(D.pricing.model)} at $${D.pricing.inputPerMTok} per million input and $${D.pricing.outputPerMTok} per million output tokens, plus $${D.pricing.webSearchPer1k} per 1,000 web searches (food estimates only). Chat counts cached prompt reads at 10% and cache writes at 125% of the input price. Check the real bill in the Anthropic console.</p></div></div>`;
+}
+function drawUsageCharts(){}
+
+// ---------- access ----------
+function renderAccess(x){
+  const open = D.invites.filter((i) => !i.usedAt), used = D.invites.filter((i) => i.usedAt);
+  return `
+  <div class="section"><div class="h"><h2>Who can join</h2></div><div class="card">
+    <div class="seg" id="signupSeg" style="margin-bottom:8px;">
+      <button data-mode="approval" class="${D.config.signupMode === 'approval' ? 'on' : ''}" type="button">Approval required</button>
+      <button data-mode="open" class="${D.config.signupMode === 'open' ? 'on' : ''}" type="button">Anyone with the link</button>
+    </div>
+    <p class="note">${D.config.signupMode === 'open' ? 'Anyone who opens the app link can create an account and use it straight away, AI included.' : 'People you haven’t invited wait for your approval before they can use the app.'}</p>
+  </div></div>
+  ${x.pending.length ? `<div class="section"><div class="h"><h2>Waiting for approval</h2><small>${x.pending.length}</small></div>
+    <div class="card">${x.pending.map((u) => `<div class="setting"><div class="lbl"><b>${esc(u.displayName || u.email)}</b><small>${esc(u.email)} · signed up ${rel(u.createdAt)}${u.emailVerified ? '' : ' · email not verified'}</small></div>
+      <div class="row"><button class="btn primary" data-act="approve" data-uid="${u.uid}" type="button">Approve</button><button class="btn" data-act="disable" data-uid="${u.uid}" type="button">Decline</button></div></div>`).join('')}</div></div>` : ''}
+  <div class="section"><div class="h"><h2>Invite people</h2></div><div class="card">
+    <p class="note" style="margin:0 0 10px">An invited email gets in as soon as they create an account — no approval step. Then send them the app link.</p>
+    <div class="row"><input type="email" id="inviteEmail" placeholder="friend@email.com" autocapitalize="off" style="flex:1 1 220px"><button class="btn primary" data-act="invite" type="button">Invite</button></div>
+    ${open.length ? `<div class="h" style="margin:14px 0 0"><small>Not used yet</small></div><div class="invites">${open.map((i) => `<span class="invite">${esc(i.email)} <small style="color:var(--muted)">${rel(i.invitedAt)}</small><button data-act="uninvite" data-email="${esc(i.email)}" type="button" aria-label="Remove invite">✕</button></span>`).join('')}</div>` : ''}
+    ${used.length ? `<div class="h" style="margin:14px 0 0"><small>Used</small></div><div class="tbl-wrap" style="margin-top:6px"><table><thead><tr><th>Email</th><th>Invited</th><th>Joined</th></tr></thead><tbody>${used.map((i) => `<tr><td>${esc(i.email)}</td><td>${rel(i.invitedAt)}</td><td>${rel(i.usedAt)}</td></tr>`).join('')}</tbody></table></div>` : ''}
+  </div></div>`;
+}
+
+// ---------- settings ----------
+function renderSettings(x){
+  const S = D.system, c = D.config;
+  return `
+  <div class="section"><div class="h"><h2>AI limits</h2></div><div class="card">
+    <div class="setting"><div class="lbl"><b>Daily food estimates per person</b><small>The default for everyone without their own limit (set one per person under Members). 0 turns AI estimates off.</small></div>
+      <div class="row"><input type="number" id="defCap" min="0" max="500" value="${c.defaultDailyAiCap}"><button class="btn" data-act="defcap" type="button">Save</button></div></div>
+    <div class="setting"><div class="lbl"><b>Daily food estimates, whole app</b><small>A safety net across everyone. Today: ${D.today.aiCalls} used.</small></div>
+      <div class="row"><input type="number" id="globCap" min="0" max="10000" value="${c.globalDailyAiCap}"><button class="btn" data-act="globcap" type="button">Save</button></div></div>
+    <p class="note">The AI chat has no daily limit; its use and cost show under AI usage & cost.</p>
+  </div></div>
+  <div class="section"><div class="h"><h2>Apple Health</h2></div><div class="card">
+    <div class="setting" style="display:block"><div class="lbl"><b>Shortcut link</b><small>Members see an “Add shortcut” button on the Apple Health page. In Shortcuts, share “Monster Health” → Copy iCloud Link, and paste it here.</small></div>
+      <div class="row" style="margin-top:8px"><input type="text" id="scUrl" placeholder="https://www.icloud.com/shortcuts/…" value="${esc(c.healthShortcutUrl || '')}" autocapitalize="off" spellcheck="false" style="flex:1 1 260px"><button class="btn primary" data-act="shortcut" type="button">Save link</button></div></div>
+    <div class="setting" style="display:block"><div class="lbl"><b>Sync address</b><small>What the shortcut posts to.</small></div><p style="margin:6px 0 0"><code>${esc(S.endpoints.healthSync)}</code></p></div>
+    <div class="setting"><div class="lbl"><b>Active shortcut keys</b><small>One per person who set it up and hasn’t disconnected.</small></div><b class="num">${D.healthKeys}</b></div>
+  </div></div>
+  <div class="section"><div class="h"><h2>System</h2></div><div class="card">
+    ${[['Firebase project', S.projectId], ['Region', S.region], ['Server time zone (days, limits, stats)', S.timeZone], ['AI model', S.model], ['Owner', S.ownerEmail],
+       ['Firestore document limit', bytes(S.docLimitBytes)]].map(([k, v]) => `<div class="setting"><div class="lbl"><b>${esc(k)}</b></div><span class="num">${esc(v || '—')}</span></div>`).join('')}
+    <div class="setting" style="display:block"><div class="lbl"><b>Endpoints</b></div>${Object.entries(S.endpoints).map(([k, v]) => `<p style="margin:6px 0 0;font-size:12px;color:var(--muted)">${esc(k)} <code>${esc(v)}</code></p>`).join('')}</div>
+    <div class="setting" style="display:block"><div class="lbl"><b>Elsewhere</b><small>Things this page can’t show.</small></div>
+      <p class="note">Function logs and errors: <a href="https://console.firebase.google.com/project/${esc(S.projectId)}/functions/logs" target="_blank" rel="noopener">Firebase console → Functions → Logs</a> · Data: <a href="https://console.firebase.google.com/project/${esc(S.projectId)}/firestore" target="_blank" rel="noopener">Firestore</a> · Sign-ins and password emails: <a href="https://console.firebase.google.com/project/${esc(S.projectId)}/authentication/users" target="_blank" rel="noopener">Authentication</a> · AI bill: <a href="https://console.anthropic.com/settings/billing" target="_blank" rel="noopener">Anthropic console</a></p></div>
+  </div></div>`;
+}
+
+// ---------- change log ----------
+function renderLog(){
+  return `<div class="section"><div class="h"><h2>Changes made here</h2><small>latest ${D.log.length}</small></div><div class="card">
+    ${D.log.length ? D.log.map((l) => `<div class="log-row"><time>${dt(l.at)}</time><div><b>${esc(l.action)}</b>${l.target ? ` · ${esc(l.target)}` : ''}${l.detail ? `<div class="note" style="margin:2px 0 0">${esc(l.detail)}</div>` : ''}</div></div>`).join('') : '<p class="empty">Nothing yet — approvals, limits, invites and settings changes will show up here.</p>'}
+  </div></div>`;
+}
+
+// ---------- interactions ----------
+document.addEventListener('toggle', (ev) => {
+  const d = ev.target; if(!d.classList || !d.classList.contains('member')) return;
+  if(d.open){ ui.open.add(d.dataset.uid); loadUserChart(d.dataset.uid); } else ui.open.delete(d.dataset.uid);
+}, true);
+document.addEventListener('input', (ev) => {
+  if(ev.target.id === 'mSearch'){ ui.q = ev.target.value; const pos = ev.target.selectionStart; render(); const s = $('mSearch'); s.focus(); try { s.setSelectionRange(pos, pos); } catch(e){} }
+});
+document.addEventListener('change', (ev) => { if(ev.target.id === 'mSort'){ ui.sort = ev.target.value; render(); } });
+document.addEventListener('click', async (ev) => {
+  const g = ev.target.closest('[data-goto]'); if(g){ $('tabs').querySelector(`[data-tab="${g.dataset.goto}"]`).click(); return; }
+  const f = ev.target.closest('[data-filter]'); if(f){ ui.filter = f.dataset.filter; render(); return; }
+  const m = ev.target.closest('#signupSeg [data-mode]');
+  if(m){ await run(() => api('admin.setConfig', { signupMode: m.dataset.mode }), m.dataset.mode === 'open' ? 'Anyone with the link can join now.' : 'New people now need your approval.'); return; }
+  const b = ev.target.closest('[data-act]'); if(!b) return;
+  const a = b.dataset.act, uid = b.dataset.uid;
+  if(a === 'delete' && b.dataset.armed !== '1'){
+    b.dataset.armed = '1'; b.classList.add('armed'); const t = b.textContent; b.textContent = `Tap again to delete ${b.dataset.name}`;
+    setTimeout(() => { if(b.isConnected){ b.dataset.armed = ''; b.classList.remove('armed'); b.textContent = t; } }, 4000);
+    return;
+  }
+  b.disabled = true;
+  try {
+    if(a === 'approve' || a === 'enable') await run(() => api('admin.setStatus', { uid, status: 'active' }), a === 'approve' ? 'Approved.' : 'Turned back on.');
+    else if(a === 'disable') await run(() => api('admin.setStatus', { uid, status: 'disabled' }), 'Turned off — they’re signed out everywhere.');
+    else if(a === 'cap'){ const v = document.querySelector(`[data-cap-in="${uid}"]`).value.trim(); await run(() => api('admin.setCap', { uid, cap: v === '' ? null : Number(v) }), v === '' ? 'Back to the default limit.' : `Daily AI limit set to ${v}.`); }
+    else if(a === 'reset'){ await firebase.auth().sendPasswordResetEmail(b.dataset.email); toast(`Password reset email sent to ${b.dataset.email}.`); }
+    else if(a === 'revokeHealth') await run(() => api('admin.revokeHealthKey', { uid }), 'Key revoked. Their data stays; they can get a new key from the Apple Health page.');
+    else if(a === 'clearChat') await run(() => api('admin.clearChat', { uid }), 'AI chat memory cleared.');
+    else if(a === 'delete') await run(() => api('admin.deleteUser', { uid }), 'Account deleted.');
+    else if(a === 'invite'){ const em = $('inviteEmail').value.trim(); const r = await api('admin.invite', { email: em }); toast(r.activated ? `${em} was waiting — approved now.` : `Invited ${em}. Send them the app link.`); await load(); }
+    else if(a === 'uninvite') await run(() => api('admin.revokeInvite', { email: b.dataset.email }), 'Invite removed.');
+    else if(a === 'defcap') await run(() => api('admin.setConfig', { defaultDailyAiCap: Number($('defCap').value) }), 'Default limit saved.');
+    else if(a === 'globcap') await run(() => api('admin.setConfig', { globalDailyAiCap: Number($('globCap').value) }), 'App-wide limit saved.');
+    else if(a === 'shortcut') await run(() => api('admin.setConfig', { healthShortcutUrl: $('scUrl').value.trim() }), $('scUrl').value.trim() ? 'Shortcut link saved.' : 'Shortcut link removed.');
+  } catch(e){ toast((e && e.message) || 'That didn’t work.', true); }
+  if(b.isConnected) b.disabled = false;
+});
+async function run(fn, msg){
+  try { await fn(); toast(msg); } catch(e){ toast((e && e.message) || 'That didn’t work.', true); }
+  Object.keys(userCharts).forEach((k) => delete userCharts[k]);
+  await load();
+}
+</script>
+</body>
+</html>

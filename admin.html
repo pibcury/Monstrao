@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Monster · Admin</title>
-<meta name="apple-mobile-web-app-title" content="Monster Admin">
+<title>Fera · Admin</title>
+<meta name="apple-mobile-web-app-title" content="Fera Admin">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -144,6 +144,11 @@
 
   .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
   .note{color:var(--muted);font-size:12.5px;margin:6px 0 0;}
+  .tablewrap{overflow-x:auto;}
+  .plans-t{width:100%;border-collapse:collapse;font-size:13px;}
+  .plans-t th{text-align:left;font-size:11px;font-weight:700;color:var(--muted);padding:6px 8px;white-space:nowrap;}
+  .plans-t td{padding:5px 8px;border-top:1px solid var(--rule);}
+  .plans-t input{width:84px;}
   .setting{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--rule);flex-wrap:wrap;}
   .setting:first-child{border-top:0;padding-top:2px;}
   .setting .lbl b{display:block;font-size:13.5px;} .setting .lbl small{display:block;color:var(--muted);font-size:12px;max-width:520px;}
@@ -198,7 +203,7 @@
   <header class="top">
     <div class="top-in">
       <div class="top-row">
-        <div class="brand"><div class="brand-tile">💪</div><div style="min-width:0"><b>Monster Admin</b><small id="whoami"></small></div></div>
+        <div class="brand"><div class="brand-tile">💪</div><div style="min-width:0"><b>Fera Admin</b><small id="whoami"></small></div></div>
         <div class="top-actions">
           <div class="seg" id="rangeSeg"><button data-days="30" class="on" type="button">30d</button><button data-days="90" type="button">90d</button></div>
           <button class="icon-btn" id="refreshBtn" type="button" aria-label="Refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg></button>
@@ -221,7 +226,7 @@
 
 <script>
 // =====================================================================================
-// Monster — admin console. Owner only: the server refuses every admin.* call from anyone
+// Fera — admin console. Owner only: the server refuses every admin.* call from anyone
 // else, so this page shows nothing to other accounts even if they find it.
 // It reads counts, dates, sizes and settings — never what people logged.
 // =====================================================================================
@@ -407,9 +412,14 @@ function drawOverviewCharts(){
 }
 
 // ---------- members ----------
+const PLAN_SOURCE = { owner: 'Owner', subscription: 'Subscription', comp: 'Premium pass', legacy: 'Joined before plans', free: 'Free' };
+function planText(u){ const p = u.plan || {}; return p.id === 'premium' ? `Premium · ${PLAN_SOURCE[p.source] || p.source}` : p.id === 'owner' ? 'Owner' : 'Free'; }
+const lim = (v) => v == null ? '∞' : n0(v);
 function statusTags(u){
   const t = [];
   if(u.role === 'owner') t.push('<span class="tag accent">Owner</span>');
+  else if(u.plan && u.plan.id === 'premium') t.push(`<span class="tag accent">Premium</span>`);
+  else if(u.plan) t.push('<span class="tag">Free</span>');
   if(u.status === 'pending') t.push('<span class="tag warn">Waiting</span>');
   if(u.status === 'disabled') t.push('<span class="tag bad">Turned off</span>');
   if(u.invited) t.push('<span class="tag">Invited</span>');
@@ -459,7 +469,11 @@ function memberHTML(u){
     if(u.status === 'disabled') actions.push(`<button class="btn primary" data-act="enable" data-uid="${u.uid}" type="button">Turn back on</button>`);
     if(u.status !== 'disabled') actions.push(`<button class="btn" data-act="disable" data-uid="${u.uid}" type="button">${u.status === 'pending' ? 'Decline' : 'Turn off'}</button>`);
   }
-  actions.push(`<span class="cap"><input type="number" min="0" max="500" inputmode="numeric" placeholder="${D.config.defaultDailyAiCap}" value="${A.cap != null ? A.cap : ''}" data-cap-in="${u.uid}" aria-label="Daily AI limit"><button class="btn" data-act="cap" data-uid="${u.uid}" type="button">Set AI limit</button></span>`);
+  actions.push(`<span class="cap"><input type="number" min="0" max="500" inputmode="numeric" placeholder="${u.plan ? lim(u.plan.limits.estDay) : D.config.defaultDailyAiCap}" value="${A.cap != null ? A.cap : ''}" data-cap-in="${u.uid}" aria-label="Daily AI limit"><button class="btn" data-act="cap" data-uid="${u.uid}" type="button">Set AI limit</button></span>`);
+  if(!owner && u.plan){
+    const c = u.plan.comp;
+    actions.push(`<span class="seg" role="group" aria-label="Premium pass"><button type="button" data-act="comp" data-v="auto" data-uid="${u.uid}" class="${c == null ? 'on' : ''}">Automatic</button><button type="button" data-act="comp" data-v="on" data-uid="${u.uid}" class="${c === true ? 'on' : ''}">Premium pass</button><button type="button" data-act="comp" data-v="off" data-uid="${u.uid}" class="${c === false ? 'on' : ''}">No pass</button></span>`);
+  }
   actions.push(`<button class="btn" data-act="reset" data-email="${esc(u.email)}" type="button">Send password reset</button>`);
   if(H.hasKey) actions.push(`<button class="btn" data-act="revokeHealth" data-uid="${u.uid}" type="button">Revoke Apple Health key</button>`);
   if(u.chat.turns) actions.push(`<button class="btn" data-act="clearChat" data-uid="${u.uid}" type="button">Clear AI chat memory</button>`);
@@ -478,6 +492,7 @@ function memberHTML(u){
       <div class="facts">
         <div class="fact-box"><h4>Account</h4>
           ${kv('Status', u.status === 'active' ? 'Active' : u.status === 'pending' ? 'Waiting for approval' : 'Turned off')}
+          ${u.plan ? kv('Plan', planText(u)) : ''}
           ${kv('Joined', dt(u.createdAt))}${kv('Last sign-in', dt(u.lastSignInAt))}${kv('Last active', dt(u.lastActiveAt))}
           ${kv('Email verified', u.emailVerified ? 'Yes' : 'No')}${kv('Sign-in method', esc(u.providers.join(', ') || '—'))}
           ${u.statusChangedAt ? kv('Status changed', dt(u.statusChangedAt)) : ''}${kv('Account ID', `<code>${esc(u.uid)}</code>`)}
@@ -493,6 +508,7 @@ function memberHTML(u){
         <div class="fact-box"><h4>AI</h4>
           ${kv('Today', `${A.today.est} estimates · ${A.today.chat} chats`)}
           <div class="kv"><span>Daily estimate limit</span><b>${A.today.est}/${A.capEffective}${A.cap != null ? ' (custom)' : ''}</b></div>${meter(capPct)}
+          ${u.plan ? kv('Question limits', `${lim(u.plan.limits.chatDay)} a day · ${lim(u.plan.limits.chatMonth)} a month`) : ''}
           ${kv('Last 30 days', `${A.d30.est} est · ${A.d30.chat} chats`)}
           ${kv('Photos / web searches', `${A.d30.photos} · ${A.d30.searches}`)}
           ${kv('Tokens in / out (30d)', `${n0(A.d30.inTok)} / ${n0(A.d30.outTok)}`)}
@@ -590,11 +606,14 @@ function renderSettings(x){
   const S = D.system, c = D.config;
   return `
   <div class="section"><div class="h"><h2>AI limits</h2></div><div class="card">
-    <div class="setting"><div class="lbl"><b>Daily food estimates per person</b><small>The default for everyone without their own limit (set one per person under Members). 0 turns AI estimates off.</small></div>
-      <div class="row"><input type="number" id="defCap" min="0" max="500" value="${c.defaultDailyAiCap}"><button class="btn" data-act="defcap" type="button">Save</button></div></div>
+    <div class="setting" style="display:block"><div class="lbl"><b>Plan limits</b><small>AI food estimates and AI questions per plan. Leave a box empty for no limit. Everyone also has 10 AI requests a minute. A limit set on one person under Members overrides their daily estimates.</small></div>
+      ${c.plans ? `<div class="tablewrap" style="margin-top:10px"><table class="plans-t"><thead><tr><th>Plan</th><th>Estimates / day</th><th>Estimates / month</th><th>Questions / day</th><th>Questions / month</th></tr></thead><tbody>
+        ${['free', 'premium', 'owner'].map((id) => `<tr><td><b>${id === 'free' ? 'Free' : id === 'premium' ? 'Premium' : 'Owner'}</b></td>${['estDay', 'estMonth', 'chatDay', 'chatMonth'].map((k) => `<td><input type="number" min="0" max="10000" inputmode="numeric" data-plan="${id}" data-lim="${k}" value="${c.plans[id][k] == null ? '' : c.plans[id][k]}" placeholder="∞" aria-label="${id} ${k}"></td>`).join('')}</tr>`).join('')}
+      </tbody></table></div>
+      <div class="row" style="margin-top:10px"><button class="btn" data-act="plans" type="button">Save plan limits</button></div>` : '<p class="note">Deploy the latest server to edit plan limits.</p>'}
+    </div>
     <div class="setting"><div class="lbl"><b>Daily food estimates, whole app</b><small>A safety net across everyone. Today: ${D.today.aiCalls} used.</small></div>
       <div class="row"><input type="number" id="globCap" min="0" max="10000" value="${c.globalDailyAiCap}"><button class="btn" data-act="globcap" type="button">Save</button></div></div>
-    <p class="note">The AI chat has no daily limit; its use and cost show under AI usage & cost.</p>
   </div></div>
   <div class="section"><div class="h"><h2>Apple Health</h2></div><div class="card">
     <div class="setting" style="display:block"><div class="lbl"><b>Shortcut link</b><small>Members see an “Add shortcut” button on the Apple Health page. In Shortcuts, share “Monster Health” → Copy iCloud Link, and paste it here.</small></div>
@@ -651,6 +670,12 @@ document.addEventListener('click', async (ev) => {
     else if(a === 'invite'){ const em = $('inviteEmail').value.trim(); const r = await api('admin.invite', { email: em }); toast(r.activated ? `${em} was waiting — approved now.` : `Invited ${em}. Send them the app link.`); await load(); }
     else if(a === 'uninvite') await run(() => api('admin.revokeInvite', { email: b.dataset.email }), 'Invite removed.');
     else if(a === 'defcap') await run(() => api('admin.setConfig', { defaultDailyAiCap: Number($('defCap').value) }), 'Default limit saved.');
+    else if(a === 'comp'){ const v = b.dataset.v; await run(() => api('admin.setComp', { uid, comp: v === 'on' ? true : v === 'off' ? false : null }), v === 'on' ? 'Premium pass on.' : v === 'off' ? 'No pass — they’re on Free unless they subscribe.' : 'Back to automatic.'); }
+    else if(a === 'plans'){
+      const plans = {};
+      document.querySelectorAll('[data-plan]').forEach((i) => { (plans[i.dataset.plan] = plans[i.dataset.plan] || {})[i.dataset.lim] = i.value.trim() === '' ? null : Number(i.value); });
+      await run(() => api('admin.setConfig', { plans }), 'Plan limits saved.');
+    }
     else if(a === 'globcap') await run(() => api('admin.setConfig', { globalDailyAiCap: Number($('globCap').value) }), 'App-wide limit saved.');
     else if(a === 'shortcut') await run(() => api('admin.setConfig', { healthShortcutUrl: $('scUrl').value.trim() }), $('scUrl').value.trim() ? 'Shortcut link saved.' : 'Shortcut link removed.');
   } catch(e){ toast((e && e.message) || 'That didn’t work.', true); }

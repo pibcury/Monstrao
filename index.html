@@ -1313,6 +1313,9 @@
   .yd-card .exp-group{margin-bottom:16px;}
   .yd-card .btn-primary{margin-top:0;}
   .yd-card .status:empty{display:none;}
+  .ah-native p{margin:0 0 12px;font-size:13.5px;color:var(--muted);line-height:1.5;}
+  .ah-native p b{color:var(--ink);font-weight:600;}
+  .ah-native .btn-primary{margin:0;}
   .yd-row{display:flex;align-items:center;justify-content:space-between;gap:12px;}
   .yd-row p{margin:0;font-size:13px;color:var(--muted);line-height:1.45;}
   .yd-row p b{color:var(--ink);font-weight:600;}
@@ -4097,6 +4100,35 @@ function targetsMethodologyHTML(t){
 // users/{uid}/data/health: { 'YYYY-MM-DD': { active, at } }. Any watch or ring that writes to
 // Apple Health (Apple Watch, WHOOP, Oura, Garmin…) ends up here. The app only reads it.
 let healthData = {};
+// ---------- Fera for iPhone: Apple Health read natively (the web app uses the Shortcut instead) ----------
+const IS_NATIVE = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform());
+function nativeHealth(){ return (IS_NATIVE && window.Capacitor.Plugins && window.Capacitor.Plugins.FeraHealth) || null; }
+const NH_FLAG = 'fera-native-health';
+function nativeHealthOn(){ try { return localStorage.getItem(NH_FLAG) === '1'; } catch(e){ return false; } }
+function setNativeHealthOn(on){ try { if(on) localStorage.setItem(NH_FLAG, '1'); else localStorage.removeItem(NH_FLAG); } catch(e){} }
+let nativeSyncAt = 0, nativeSyncing = null;
+// Reads recent days from Apple Health and sends them to the server, which stores them exactly like
+// the Shortcut does. Runs on launch and when the app comes back to the foreground (at most every 10 min).
+function nativeHealthSync(days, force){
+  const NH = nativeHealth();
+  if(!NH || !nativeHealthOn()) return Promise.resolve(null);
+  if(nativeSyncing) return nativeSyncing;
+  if(!force && Date.now() - nativeSyncAt < 10 * 60000) return Promise.resolve(null);
+  nativeSyncing = (async () => {
+    try {
+      const r = await NH.readDays({ days });
+      nativeSyncAt = Date.now();
+      if(!r || !r.days || !r.days.length) return { days: 0, message: 'Apple Health had nothing for these days yet.' };
+      const out = await callApi('health.push', { days: r.days });
+      await loadHealth();
+      syncDerivedBurns(); renderAll();
+      const ov = document.getElementById('healthOverlay');
+      if(ov && ov.style.display !== 'none') renderHealthPage();
+      return out;
+    } finally { nativeSyncing = null; }
+  })();
+  return nativeSyncing;
+}
 async function loadHealth(){
   try{
     await ensureAuth();
@@ -7305,7 +7337,7 @@ async function init(){
   syncDerivedBurns();
   // estimated burn keeps growing through the day
   setInterval(()=>{ if(!isEditingField()){ syncDerivedBurns(); renderRing(); renderBurnCard(); } }, 5 * 60000); // today's base grows through the day
-  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ if(bmrLearnState() && userProfile.bmrLearn.checked !== todayStr()) learnBmr(); syncDerivedBurns(); renderAll(); maybeShowDaySummary(); } });
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && IS_NATIVE) nativeHealthSync(3).catch(()=>{}); if(!document.hidden){ if(bmrLearnState() && userProfile.bmrLearn.checked !== todayStr()) learnBmr(); syncDerivedBurns(); renderAll(); maybeShowDaySummary(); } });
   if(!userProfile.name && authDisplayName()){ userProfile.name = authDisplayName(); persistProfile(); }
   renderAll();
   renderFoodForm();
@@ -7422,6 +7454,7 @@ async function startSession(user){
   applySessionToUI(user);
   showAuth(null);
   if(window.refreshChatEntry) refreshChatEntry();
+  if(IS_NATIVE) setTimeout(() => nativeHealthSync(7, true).catch(() => {}), 1500);
   if(!appStarted){
     appStarted = true;
     await init();
@@ -7692,7 +7725,7 @@ function renderHealthPage(){
   if(!body) return;
   const h = (sessionInfo && sessionInfo.health) || {};
   const days = Object.keys(healthData).sort().reverse();
-  const connected = !!(h.connected || days.length);
+  const connected = !!(h.connected || days.length || (nativeHealth() && nativeHealthOn()));
   const lastAt = Math.max(h.lastSyncAt || 0, ...days.map((d) => (healthData[d] && healthData[d].at) || 0));
   const path = burnPath(), def = BURN_PATHS[path];
   const using = def.apple;
@@ -7711,6 +7744,8 @@ function renderHealthPage(){
     ${step(4, 'Make it automatic', `<p>Apple Health can only be read while your iPhone is unlocked, so run the shortcut when you open apps you use every day. In Shortcuts: <b>Automation</b> → <b>+</b> → <b>App</b> → pick a few apps (WhatsApp, Gmail…) → <b>Is Opened</b> → <b>Run Immediately</b> → add <b>Run Shortcut</b> → <b>Monster Health</b>.</p>
       <p>Each run sends today and the two days before, so a missed day fixes itself.</p>`)}
   </ol>`;
+  const native = !!nativeHealth(), nOn = native && nativeHealthOn();
+  const nativeConnect = `<div class="ah-card ah-native"><p>Fera reads your <b>steps</b>, <b>active energy</b> and <b>weigh-ins</b> from Apple Health for recent days, each time you open the app. It never writes to Apple Health.</p><button class="btn-primary" data-ah="nconnect" type="button">Connect Apple Health</button></div>`;
   const setupName = { watch: 'Apple Watch', wearable: 'a watch or ring', phone: 'iPhone only', manual: 'not using Apple Health' }[path];
   let html = `<div class="ah-hero"><div class="ah-tile">${AH_ICON}</div>
       <div><div class="ah-title">Apple Health</div><div class="ah-status ${connected ? 'ok' : ''}">${connected ? `Connected · last sync ${relTimeShort(lastAt) || '—'}` : 'Not connected'}</div></div></div>
@@ -7726,11 +7761,16 @@ function renderHealthPage(){
     if(!using) html += `<div class="ah-use"><span>Your burn still uses the estimate.</span><button class="btn-small btn-accent" data-ah="use" type="button">Use Apple Health</button></div>`;
     html += `<div class="ah-card"><div class="ah-card-h"><b>What Apple Health sent</b><small>${relTimeShort(lastAt) ? 'updated ' + relTimeShort(lastAt) : ''}</small></div>${healthTableHTML()}
       <p class="ah-foot">${path === 'watch' ? 'Your Apple Watch kcal go into your burn as they are — they already include your walking.' : path === 'phone' ? '“Steps in burn” is what your steps add to that day’s burn. Your iPhone’s own active energy isn’t used, so nothing is counted twice.' : '“Steps in burn” is what your steps add to that day’s burn; “Active” is your watch or ring’s workouts.'} Change any day in the Burn card.</p></div>`;
-    html += `<button class="ah-toggle" data-ah="steps" type="button">${healthStepsOpen ? 'Hide setup steps' : 'Setup steps & automation'} <span>${healthStepsOpen ? '▴' : '▾'}</span></button>`;
-    if(healthStepsOpen) html += steps;
-    html += `<div class="ah-actions"><button class="btn-small" data-ah="rotate" type="button">New key</button><button class="btn-small wear-danger" data-ah="disconnect" type="button">Disconnect</button></div>`;
+    if(native){
+      if(!nOn) html += nativeConnect;
+      html += `<div class="ah-actions">${nOn ? '<button class="btn-small" data-ah="nsync" type="button">Sync now</button>' : ''}<button class="btn-small wear-danger" data-ah="disconnect" type="button">Disconnect</button></div>`;
+    } else {
+      html += `<button class="ah-toggle" data-ah="steps" type="button">${healthStepsOpen ? 'Hide setup steps' : 'Setup steps & automation'} <span>${healthStepsOpen ? '▴' : '▾'}</span></button>`;
+      if(healthStepsOpen) html += steps;
+      html += `<div class="ah-actions"><button class="btn-small" data-ah="rotate" type="button">New key</button><button class="btn-small wear-danger" data-ah="disconnect" type="button">Disconnect</button></div>`;
+    }
   } else {
-    html += steps;
+    html += native ? nativeConnect : steps;
   }
   body.innerHTML = html;
 }
@@ -7756,17 +7796,31 @@ async function healthAction(act, btn){
       userProfile.burnPath = userProfile.lastApplePath || 'wearable'; delete userProfile.burnMode; await persistProfile();
       healthMsg = { text: `Done — your burn now uses Apple Health (${BURN_PATHS[userProfile.burnPath].short}). Change the device in Profile → Daily burn.` };
     }
+    if(act === 'nconnect'){
+      await nativeHealth().requestAuthorization();
+      setNativeHealthOn(true);
+      const r = await nativeHealthSync(62, true);
+      sessionInfo = await callApi('session').catch(() => sessionInfo);
+      healthMsg = { text: r && r.days ? `Connected. ${r.message}` : 'Connected. If nothing shows up, open Settings → Health → Data Access & Devices → Fera and turn on everything.' };
+    }
+    if(act === 'nsync'){
+      const r = await nativeHealthSync(7, true);
+      healthMsg = { text: r ? r.message : 'Synced.' };
+    }
     if(act === 'rotate'){
       const r = await callApi('health.key', { rotate: true }); healthKey = r.key; healthStepsOpen = true;
       healthMsg = { text: 'New key made. The old one stopped working — open the shortcut in the Shortcuts app and paste this one in.' };
     }
     if(act === 'disconnect'){
       await callApi('health.disconnect');
+      if(IS_NATIVE) setNativeHealthOn(false);
       sessionInfo = await callApi('session');
       healthKey = null; healthData = {};
       if(BURN_PATHS[burnPath()].apple) userProfile.lastApplePath = burnPath();
       userProfile.burnPath = 'manual'; delete userProfile.burnMode; await persistProfile();
-      healthMsg = { text: 'Disconnected. Your burn is now worked out from your profile, food and the workouts you log; you can delete the shortcut from the Shortcuts app.' };
+      healthMsg = { text: IS_NATIVE
+        ? 'Disconnected. Your burn is now worked out from your profile, food and the workouts you log. To remove Fera’s access completely: Settings → Health → Data Access & Devices → Fera.'
+        : 'Disconnected. Your burn is now worked out from your profile, food and the workouts you log; you can delete the shortcut from the Shortcuts app.' };
       callApi('health.key').then((r) => { healthKey = r.key; renderHealthPage(); }).catch(() => {});
     }
   }catch(e){

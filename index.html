@@ -1873,6 +1873,78 @@
   @media (prefers-reduced-motion: reduce){
     .cmp *,.lg-card,.lg-card *,.lg-toast,[data-item].fresh{animation:none !important;transition:none !important;}
   }
+
+  /* ============ Premium ============ */
+  #premiumOverlay{z-index:120;}
+  .pw-menu-ico{color:#C4B5FD;background:linear-gradient(135deg,rgba(76,141,255,.22),rgba(167,139,250,.22));}
+  #premiumOverlay .overlay-scroll{padding-top:6px;}
+  .pw{display:flex;flex-direction:column;gap:14px;}
+  .pw-reason{align-self:center;margin-top:10px;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(255,159,67,.12);border:1px solid rgba(255,159,67,.3);color:#FFC48A;font:600 12.5px/1.35 'Inter',sans-serif;text-align:center;}
+  .pw-hero{position:relative;text-align:center;padding:18px 8px 2px;}
+  .pw-hero::before{content:"";position:absolute;left:50%;top:-10px;width:300px;height:190px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(76,141,255,.30),rgba(167,139,250,.14) 55%,transparent);filter:blur(8px);pointer-events:none;z-index:0;}
+  .pw-hero > *{position:relative;z-index:1;}
+  .pw-orb{width:64px;height:64px;margin:0 auto 14px;border-radius:20px;display:flex;align-items:center;justify-content:center;color:#fff;
+    background:linear-gradient(140deg,#4C8DFF 0%,#7C6CF6 55%,#A78BFA 100%);box-shadow:0 14px 34px -10px rgba(110,110,255,.7),inset 0 1px 0 rgba(255,255,255,.35);}
+  .pw-orb svg{width:30px;height:30px;}
+  .pw-orb.ok{background:linear-gradient(140deg,#34D399,#22C55E);box-shadow:0 14px 34px -10px rgba(52,211,153,.6),inset 0 1px 0 rgba(255,255,255,.35);animation:pwPop .5s cubic-bezier(.2,1.4,.4,1);}
+  .pw-hero h2{margin:0;font:700 26px/1.15 'Sora',sans-serif;letter-spacing:-.01em;text-wrap:balance;}
+  .pw-hero p{margin:6px auto 0;max-width:320px;color:var(--muted);font:500 14.5px/1.45 'Inter',sans-serif;text-wrap:balance;}
+  .pw-card{border-radius:20px;border:1px solid var(--rule);background:linear-gradient(180deg,rgba(244,245,250,.045),rgba(244,245,250,.015));padding:16px;}
+  .pw-status b{display:block;font:700 16px/1.3 'Sora',sans-serif;}
+  .pw-status span{display:block;margin-top:3px;color:var(--muted);font-size:13.5px;line-height:1.45;}
+  .pw-status .warn{color:#FFC48A;}
+  .pw-meters{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .pw-meter{border-radius:16px;background:rgba(244,245,250,.04);border:1px solid var(--rule);padding:12px 12px 13px;min-width:0;}
+  .pw-meter small{display:block;color:var(--muted);font:600 11.5px/1.3 'Inter',sans-serif;}
+  .pw-meter b{display:block;margin-top:5px;font:700 19px/1 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
+  .pw-meter b i{font-style:normal;color:var(--muted);font:600 12.5px 'Inter',sans-serif;margin-left:3px;}
+  .pw-bar{height:5px;border-radius:3px;background:rgba(244,245,250,.08);margin-top:10px;overflow:hidden;}
+  .pw-bar span{display:block;height:100%;border-radius:3px;background:var(--accent);transition:width .5s ease;}
+  .pw-bar.full span{background:#FF9F43;}
+  .pw-cmp{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr) minmax(0,1fr);border-radius:20px;border:1px solid var(--rule);overflow:hidden;font-size:13.5px;}
+  .pw-cmp > div{padding:11px 12px;border-top:1px solid var(--rule);display:flex;align-items:center;min-width:0;}
+  .pw-cmp > .h{border-top:0;font:700 11.5px/1 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:13px;padding-bottom:11px;}
+  .pw-cmp > .f{color:var(--muted);justify-content:center;text-align:center;}
+  .pw-cmp > .p{justify-content:center;text-align:center;font-weight:700;background:rgba(76,141,255,.09);color:var(--ink);}
+  .pw-cmp > .h.p{color:#B9CCFF;background:rgba(76,141,255,.16);}
+  .pw-cmp > .l{font-weight:600;line-height:1.3;}
+  .pw-cmp svg{width:16px;height:16px;}
+  .pw-plans{display:flex;flex-direction:column;gap:10px;}
+  .pw-plan{position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:15px 14px;border-radius:18px;text-align:left;cursor:pointer;
+    background:rgba(244,245,250,.035);border:1.5px solid var(--rule);color:var(--ink);transition:border-color .15s,background .15s,box-shadow .15s;}
+  .pw-plan.on{border-color:var(--accent);background:rgba(76,141,255,.10);box-shadow:0 10px 28px -14px rgba(76,141,255,.8);}
+  .pw-radio{width:22px;height:22px;border-radius:50%;border:2px solid rgba(244,245,250,.3);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .pw-plan.on .pw-radio{border-color:var(--accent);background:var(--accent);}
+  .pw-plan.on .pw-radio::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff;}
+  .pw-pl-main{flex:1;min-width:0;}
+  .pw-pl-main b{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:700 15.5px/1.2 'Sora',sans-serif;}
+  .pw-pl-main small{display:block;margin-top:3px;color:var(--muted);font:500 12.5px/1.35 'Inter',sans-serif;}
+  .pw-pl-price{text-align:right;flex-shrink:0;}
+  .pw-pl-price b{display:block;font:700 16px/1.1 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
+  .pw-pl-price small{display:block;margin-top:3px;color:var(--muted);font:500 12px 'Inter',sans-serif;}
+  .pw-tag{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.04em;text-transform:uppercase;background:rgba(52,211,153,.16);color:#6EE7B7;}
+  .pw-tag.trial{background:rgba(167,139,250,.18);color:#C4B5FD;}
+  .pw-cta{width:100%;height:56px;border:0;border-radius:18px;cursor:pointer;color:#fff;font:700 16.5px 'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:9px;
+    background:linear-gradient(135deg,#4C8DFF,#6F7BFA 60%,#8B7CF8);box-shadow:0 16px 34px -14px rgba(96,110,255,.95),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .12s,filter .15s;}
+  .pw-cta:active{transform:scale(.985);}
+  .pw-cta[disabled]{filter:saturate(.4) brightness(.8);cursor:default;}
+  .pw-cta svg{width:18px;height:18px;flex-shrink:0;}
+  .pw-cta .pw-spin{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:pwSpin .8s linear infinite;}
+  .pw-cta.ghost{background:rgba(244,245,250,.07);box-shadow:none;border:1px solid var(--rule);color:var(--ink);font-size:15px;height:50px;}
+  .pw-sub{margin:-4px 0 0;text-align:center;color:var(--muted);font:500 13px/1.4 'Inter',sans-serif;}
+  .pw-err{border-radius:14px;padding:11px 13px;background:rgba(255,92,122,.10);border:1px solid rgba(255,92,122,.28);color:#FFB3C1;font-size:13.5px;line-height:1.45;}
+  .pw-note{display:flex;gap:12px;align-items:flex-start;}
+  .pw-note svg{width:22px;height:22px;flex-shrink:0;color:var(--accent);margin-top:1px;}
+  .pw-note b{display:block;font:700 15px/1.3 'Sora',sans-serif;}
+  .pw-note span{display:block;margin-top:4px;color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .pw-links{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 18px;margin-top:2px;}
+  .pw-links a,.pw-links button{background:none;border:0;padding:6px 2px;color:var(--muted);font:600 13px 'Inter',sans-serif;text-decoration:none;cursor:pointer;}
+  .pw-links button[disabled]{opacity:.5;}
+  .pw-fine{margin:0;color:#6F7486;font-size:11.5px;line-height:1.55;text-align:center;}
+  .pw-skel{height:76px;border-radius:18px;background:linear-gradient(90deg,rgba(244,245,250,.04),rgba(244,245,250,.09),rgba(244,245,250,.04));background-size:200% 100%;animation:lgShimmer 1.3s ease-in-out infinite;}
+  @keyframes pwSpin{to{transform:rotate(360deg);}}
+  @keyframes pwPop{0%{transform:scale(.6);opacity:0;}100%{transform:scale(1);opacity:1;}}
+  @media (prefers-reduced-motion: reduce){ .pw-orb.ok,.pw-skel,.pw-cta .pw-spin{animation:none;} }
 </style>
 </head>
 <body>
@@ -1890,6 +1962,7 @@
       <button class="app-menu-item" id="openGoalsBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span><span><b>Goals</b><small>Your daily targets</small></span></button>
       <button class="app-menu-item" id="openWearablesBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.3 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10Z"/><path d="M4.5 12.5h4l1.5-2.5 2.5 5 1.5-2.5h5.5"/></svg></span><span><b>Apple Health</b><small>Steps, activity and weight</small></span></button>
       <button class="app-menu-item" id="openDataBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7.5" ry="2.8"/><path d="M4.5 6v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V6"/><path d="M4.5 12v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-6"/></svg></span><span><b>Your Data</b><small>Export, and every day you’ve logged</small></span></button>
+      <button class="app-menu-item" id="openPremiumBtn" type="button"><span class="app-menu-ico pw-menu-ico"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg></span><span><b>Premium</b><small id="menuPlanLine">Plans and AI limits</small></span></button>
       <button class="app-menu-item" id="openAdminBtn" type="button" style="display:none;"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></span><span><b>Admin console</b><small>Owner only · opens in its own page</small></span></button>
       <button class="app-menu-item app-menu-signout" id="signOutBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4"/></svg></span><span><b>Sign out</b></span></button>
       <button class="app-menu-item menu-ai" id="openChatBtn" type="button" style="display:none;"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg></span><span><b>Fera AI</b><small>Ask about your data</small></span></button>
@@ -2588,6 +2661,15 @@
     <div class="overlay-title">Apple Health</div>
   </div>
   <div class="overlay-scroll" id="wearablesBody"></div>
+</div>
+
+<!-- ============ Premium: plans, limits and App Store subscriptions ============ -->
+<div class="page-overlay" id="premiumOverlay" style="display:none;">
+  <div class="overlay-topbar">
+    <button class="overlay-back" id="premiumBackBtn" type="button" aria-label="Back">Back</button>
+    <div class="overlay-title">Premium</div>
+  </div>
+  <div class="overlay-scroll" id="premiumBody"></div>
 </div>
 
 <!-- ============ Sign in / create account ============ -->
@@ -6308,7 +6390,9 @@ async function requestCalorieEstimate(description, photo){
   let body = null;
   try{ body = await resp.json(); }catch(e){ /* non-JSON error response */ }
   if(!resp.ok){
-    throw new Error((body && body.error) ? body.error : `Estimate failed (${resp.status}).`);
+    const err = new Error((body && body.error) ? body.error : `Estimate failed (${resp.status}).`);
+    if(body && body.code === 'limit') err.limit = body;
+    throw err;
   }
   if(!body || typeof body.calories !== 'number' || !body.label){
     throw new Error('Got an unusable response — try again.');
@@ -6965,6 +7049,7 @@ async function init(){
     }catch(err){
       hideThinking();
       setAiStatus('' + (err && err.message ? err.message : 'Estimate failed.'), 'error');
+      if(err && err.limit && window.offerPremiumForLimit) offerPremiumForLimit('est', err.limit);
     }
     aiEstimateBtn.disabled = false;
   });
@@ -7549,6 +7634,7 @@ async function init(){
   wireYourDataExtras();
   document.getElementById('signOutBtn').addEventListener('click', ()=>{
     setMenuOpen(false);
+    if(window.pwSignedOut) pwSignedOut();
     if(typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) firebase.auth().signOut();
   });
   document.getElementById('goalCtaBtn').addEventListener('click', (ev)=>{
@@ -7713,6 +7799,7 @@ function applySessionToUI(user){
   if(acct) acct.textContent = user.email || '';
   const adminBtn = document.getElementById('openAdminBtn');
   if(adminBtn) adminBtn.style.display = (sessionInfo && (sessionInfo.isOwner || (sessionInfo.isAdmin && sessionInfo.role === 'owner'))) ? '' : 'none';
+  if(window.renderPlanLine) renderPlanLine();
 }
 // After the app is up: clear any leftover hash from the old WHOOP sign-in flow.
 function afterAppStart(){
@@ -8567,7 +8654,7 @@ bootAuth();
     const st = streamer(el);
     setBusy(true);
     abortCtl = new AbortController();
-    let failed = null, stopped = false;
+    let failed = null, stopped = false, failedLimit = null;
     try {
       await ensureAuth();
       const token = await firebase.auth().currentUser.getIdToken();
@@ -8578,7 +8665,9 @@ bootAuth();
       });
       if(!resp.ok){
         let b = null; try { b = await resp.json(); } catch(e){}
-        throw new Error((b && b.error) || `Fera AI isn’t reachable right now (${resp.status}).`);
+        const err = new Error((b && b.error) || `Fera AI isn’t reachable right now (${resp.status}).`);
+        if(b && b.code === 'limit') err.limit = b;
+        throw err;
       }
       const handle = (ev) => {
         if(ev.type === 'text') st.push(ev.text);
@@ -8605,7 +8694,7 @@ bootAuth();
       }
     } catch(e){
       if(e && e.name === 'AbortError') stopped = true;
-      else failed = (e && e.message) || 'Something went wrong.';
+      else { failed = (e && e.message) || 'Something went wrong.'; failedLimit = (e && e.limit) || null; }
     }
     setStatus(el, '');
     if(stopped){ st.cut(); el.classList.add('stopped'); }
@@ -8618,9 +8707,11 @@ bootAuth();
     if(failed && !answer){
       el.querySelector('.cm-body').innerHTML = '';
       const err = document.createElement('div'); err.className = 'cm-err';
-      err.innerHTML = `<span></span><button type="button">Retry</button>`;
+      const upsell = !!(failedLimit && failedLimit.plan === 'free' && ['day', 'month'].includes(failedLimit.reason));
+      err.innerHTML = `<span></span><button type="button">${upsell ? 'See Premium' : 'Retry'}</button>`;
       err.querySelector('span').textContent = failed;
-      err.querySelector('button').addEventListener('click', () => { el.remove(); const u = log.querySelectorAll('.cm-user'); const last = u[u.length - 1]; if(last) last.remove(); thread.pop(); send(text, intent); });
+      if(upsell) err.querySelector('button').addEventListener('click', () => openPremium({ kind: 'chat', msg: failed.split('. ')[0].replace(/\.$/, '') + '.' }));
+      else err.querySelector('button').addEventListener('click', () => { el.remove(); const u = log.querySelectorAll('.cm-user'); const last = u[u.length - 1]; if(last) last.remove(); thread.pop(); send(text, intent); });
       el.appendChild(err);
       follow();
     } else if(answer){
@@ -8785,6 +8876,267 @@ function trendAskLabel(){
   if(trendHorizon === 'year') return o === 0 ? 'Ask about this year' : 'Ask about ' + trendRange(trendHorizon, o).startDate.getFullYear();
   return o === 0 ? 'Ask about this week' : o === 1 ? 'Ask about last week' : 'Ask about ' + trendPeriodLabel(trendHorizon, o);
 }
+</script>
+<script>
+// =====================================================================================
+// Premium — the member's plan and AI limits, and App Store subscriptions in the iPhone app.
+// Purchases go through RevenueCat's native plugin; the server then asks RevenueCat and decides
+// the plan (subscription.refresh), so the app never grants Premium on its own word.
+// =====================================================================================
+const PW_TERMS = 'https://getfera.app/terms/', PW_PRIVACY = 'https://getfera.app/privacy/';
+const PW_MANAGE = 'https://apps.apple.com/account/subscriptions';
+const pw = { reason: null, offering: null, loading: false, error: null, busy: null, sel: 'annual', elig: {}, done: false, configuredFor: null, failedAt: 0 };
+const pwIco = {
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 18.5h3"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg>'
+};
+function pwPlan(){ return (typeof sessionInfo !== 'undefined' && sessionInfo && sessionInfo.plan) || null; }
+function pwPlugin(){ return (IS_NATIVE && window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Purchases) || null; }
+// RevenueCat knows the member by their Fera account id, so a purchase follows the account.
+async function pwReady(){
+  const P = pwPlugin();
+  const key = sessionInfo && sessionInfo.purchases && sessionInfo.purchases.appleKey;
+  const u = firebase.auth().currentUser;
+  if(!P || !key || !u) return null;
+  if(pw.configuredFor === u.uid) return P;
+  if(!pw.configuredFor) await P.configure({ apiKey: key, appUserID: u.uid });
+  else await P.logIn({ appUserID: u.uid });
+  pw.configuredFor = u.uid;
+  return P;
+}
+function pwSignedOut(){
+  pw.offering = null;
+  const P = pwPlugin();
+  if(P && pw.configuredFor){ P.logOut().catch(() => {}); pw.configuredFor = null; }
+}
+function pwLimitText(n, per){ return n === null || n === undefined ? 'No limit' : `${fmtN(n)} a ${per}`; }
+function pwPlanName(p){
+  if(!p) return '';
+  if(p.id === 'owner') return 'Owner';
+  if(p.id === 'free') return 'Free plan';
+  if(p.source === 'subscription' && p.subscription && p.subscription.periodType === 'trial') return 'Premium · free trial';
+  return 'Premium';
+}
+function renderPlanLine(){
+  const el = document.getElementById('menuPlanLine'); if(!el) return;
+  const p = pwPlan();
+  el.textContent = !p ? 'Plans and AI limits' : p.id === 'free' ? 'Free plan · see what Premium adds' : pwPlanName(p);
+}
+const pwDate = (ms) => new Date(ms).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: new Date(ms).getFullYear() === new Date().getFullYear() ? undefined : 'numeric' });
+function pwMoney(n, cur){ try { return new Intl.NumberFormat(undefined, { style: 'currency', currency: cur || 'USD' }).format(n); } catch(e){ return '$' + n.toFixed(2); } }
+// a free trial this Apple Account can still use -> number of days, else 0
+function pwTrialDays(pkg){
+  const pr = pkg && pkg.product; const intro = pr && pr.introPrice;
+  if(!intro || intro.price !== 0) return 0;
+  const e = pw.elig[pr.identifier]; const st = e && typeof e === 'object' ? e.status : e;
+  if(st !== 2) return 0;   // only when Apple confirms eligibility
+  const n = intro.periodNumberOfUnits || 1, u = String(intro.periodUnit || 'DAY').toUpperCase();
+  return u === 'WEEK' ? n * 7 : u === 'MONTH' ? n * 30 : u === 'YEAR' ? n * 365 : n;
+}
+
+function openPremium(reason){
+  pw.reason = reason || null; pw.error = null; pw.done = false;
+  document.getElementById('premiumOverlay').style.display = 'flex';
+  document.querySelector('#premiumOverlay .overlay-scroll').scrollTop = 0;
+  renderPremium();
+  if(pwPlan() && pwPlan().id === 'free') pwLoadOffering();
+  callApi('session').then((x) => {
+    sessionInfo = x; renderPlanLine(); renderPremium();
+    if(x.plan && x.plan.id === 'free') pwLoadOffering();
+  }).catch(() => {});
+}
+function closePremium(){ document.getElementById('premiumOverlay').style.display = 'none'; pw.reason = null; }
+// a limit refusal from the server: on the free plan, show what Premium adds
+function offerPremiumForLimit(kind, info){
+  if(!info || info.code !== 'limit' || info.plan !== 'free' || !['day', 'month'].includes(info.reason)) return false;
+  openPremium({ kind, msg: String(info.error || '').split('. ')[0].replace(/\.$/, '') + '.' });
+  return true;
+}
+
+async function pwLoadOffering(force){
+  if(!pwPlugin()) return;
+  if(pw.loading || (pw.offering && !force)) return;
+  pw.loading = true; pw.error = null; renderPremium();
+  try {
+    const P = await pwReady();
+    if(!P) throw new Error('setup');
+    const o = await P.getOfferings();
+    const cur = o && o.current;
+    const pk = (cur && cur.availablePackages) || [];
+    const annual = (cur && cur.annual) || pk.find((p) => p.packageType === 'ANNUAL') || null;
+    const monthly = (cur && cur.monthly) || pk.find((p) => p.packageType === 'MONTHLY') || null;
+    if(!annual && !monthly) throw new Error('empty');
+    pw.offering = { annual, monthly };
+    if(!annual) pw.sel = 'monthly';
+    try { pw.elig = (await P.checkTrialOrIntroductoryPriceEligibility({ productIdentifiers: [annual, monthly].filter(Boolean).map((p) => p.product.identifier) })) || {}; }
+    catch(e){ pw.elig = {}; }
+  } catch(e){
+    pw.error = e && e.message === 'setup' ? 'Subscriptions aren’t available yet. Please check back soon.' : 'Couldn’t load the plans from the App Store. Check your connection and try again.';
+  }
+  pw.loading = false; renderPremium();
+}
+const pwCancelled = (e) => !!e && (e.code === '1' || e.code === 1 || e.userCancelled === true || (e.data && e.data.userCancelled) || /cancel/i.test(String(e.message || '')));
+async function pwAfterStore(ci){
+  const entitled = !!(ci && ci.entitlements && ci.entitlements.active && ci.entitlements.active.premium);
+  try {
+    const r = await callApi('subscription.refresh');
+    sessionInfo.plan = r.plan;
+  } catch(e){
+    // the App Store says yes but the server couldn't confirm yet: show it now, confirm shortly
+    if(entitled && sessionInfo.plan){
+      sessionInfo.plan = Object.assign({}, sessionInfo.plan, { id: 'premium', source: 'subscription', limits: sessionInfo.plan.premium || sessionInfo.plan.limits, subscription: null });
+      setTimeout(() => callApi('subscription.refresh').then((r) => { sessionInfo.plan = r.plan; renderPlanLine(); renderPremium(); }).catch(() => {}), 5000);
+    }
+  }
+  renderPlanLine();
+  const p = pwPlan();
+  pw.done = !!(p && p.id !== 'free');
+  if(pw.done){ haptic(14); pw.reason = null; requestAnimationFrame(() => { document.querySelector('#premiumOverlay .overlay-scroll').scrollTop = 0; }); }
+  return pw.done;
+}
+async function pwBuy(){
+  const pkg = pw.offering && pw.offering[pw.sel];
+  if(!pkg || pw.busy) return;
+  haptic(); pw.busy = 'buy'; pw.error = null; renderPremium();
+  try {
+    const P = await pwReady();
+    const r = await P.purchasePackage({ aPackage: pkg });
+    await pwAfterStore(r && r.customerInfo);
+  } catch(e){
+    if(!pwCancelled(e)) pw.error = 'The purchase didn’t go through. ' + (e && e.message ? e.message : 'Please try again.');
+  }
+  pw.busy = null; renderPremium();
+}
+async function pwRestore(){
+  if(pw.busy) return;
+  haptic(); pw.busy = 'restore'; pw.error = null; renderPremium();
+  try {
+    const P = await pwReady();
+    if(!P) throw new Error('Restoring purchases works in the Fera iPhone app.');
+    const r = await P.restorePurchases();
+    if(!(await pwAfterStore(r && r.customerInfo))) pw.error = 'No Fera subscription was found for this Apple Account.';
+  } catch(e){ pw.error = (e && e.message) || 'Couldn’t restore purchases. Please try again.'; }
+  pw.busy = null; renderPremium();
+}
+
+function pwMetersHTML(p){
+  if(!p || !p.used) return '';
+  const m = (label, used, lim) => {
+    const full = lim !== null && lim !== undefined && used >= lim;
+    const pct = lim ? Math.min(100, Math.round(used / lim * 100)) : 0;
+    return `<div class="pw-meter"><small>${label}</small><b>${fmtN(used)}<i>${lim === null || lim === undefined ? 'no limit' : 'of ' + fmtN(lim)}</i></b>${lim ? `<div class="pw-bar${full ? ' full' : ''}"><span style="width:${pct}%"></span></div>` : ''}</div>`;
+  };
+  const L = p.limits || {};
+  const est = L.estDay !== null && L.estDay !== undefined ? m('AI estimates today', p.used.estDay, L.estDay) : m('AI estimates this month', p.used.estMonth, L.estMonth);
+  const chat = L.chatMonth !== null && L.chatMonth !== undefined ? m('Fera AI questions this month', p.used.chatMonth, L.chatMonth) : m('Fera AI questions today', p.used.chatDay, L.chatDay);
+  return `<div class="pw-meters">${est}${chat}</div>`;
+}
+function pwCompareHTML(p){
+  const F = (p && p.free) || { estDay: 3, chatMonth: 6 }, Pm = (p && p.premium) || { estDay: 40, chatMonth: 300 };
+  const est = (l) => l.estDay !== null && l.estDay !== undefined ? pwLimitText(l.estDay, 'day') : pwLimitText(l.estMonth, 'month');
+  const chat = (l) => l.chatMonth !== null && l.chatMonth !== undefined ? pwLimitText(l.chatMonth, 'month') : pwLimitText(l.chatDay, 'day');
+  const row = (label, f, pr) => `<div class="l">${label}</div><div class="f">${f}</div><div class="p">${pr}</div>`;
+  return `<div class="pw-cmp" role="table" aria-label="Free and Premium compared">
+    <div class="h"></div><div class="h f">Free</div><div class="h p">Premium</div>
+    ${row('AI food estimates', est(F), est(Pm))}
+    ${row('Fera AI questions', chat(F), chat(Pm))}
+    ${row('Tracking, trends and Apple Health', pwIco.check, pwIco.check)}
+    ${row('Export your data anytime', pwIco.check, pwIco.check)}
+  </div>`;
+}
+function pwStatusHTML(p){
+  if(p.id === 'owner') return `<div class="pw-card pw-status"><b>Owner</b><span>Owner limits apply to this account.</span></div>`;
+  if(p.source === 'comp') return `<div class="pw-card pw-status"><b>Complimentary Premium</b><span>Courtesy of the Fera team. No subscription needed.</span></div>`;
+  if(p.source === 'legacy') return `<div class="pw-card pw-status"><b>Included for early members</b><span>Thanks for being here from the start. Premium is on us.</span></div>`;
+  const s = p.subscription || {};
+  const yearly = /annual|year/i.test(s.productId || '');
+  const kind = s.productId ? (yearly ? 'Yearly' : 'Monthly') : 'Subscription';
+  let line;
+  if(s.billingIssue) line = `<span class="warn">There’s a problem with your payment. Update it in Settings → your name → Subscriptions to keep Premium.</span>`;
+  else if(!p.expiresAt) line = '<span>Active.</span>';
+  else if(s.periodType === 'trial') line = `<span>Free trial until ${pwDate(p.expiresAt)}${s.willRenew ? ', then your plan starts automatically.' : '. It won’t renew.'}</span>`;
+  else line = `<span>${s.willRenew ? 'Renews ' : 'Ends '}${pwDate(p.expiresAt)}${s.willRenew ? '.' : '. It won’t renew.'}</span>`;
+  return `<div class="pw-card pw-status"><b>${kind} Premium${s.sandbox ? ' · test purchase' : ''}</b>${line}</div>`;
+}
+function pwPlanCardHTML(key, pkg, other){
+  const pr = pkg.product, yearly = key === 'annual';
+  const trial = pwTrialDays(pkg);
+  let save = '';
+  if(yearly && other && other.product && other.product.price > 0){
+    const pct = Math.round((1 - pr.price / (other.product.price * 12)) * 100);
+    if(pct >= 5) save = `<span class="pw-tag">Save ${pct}%</span>`;
+  }
+  const sub = yearly ? `${pwMoney(pr.price / 12, pr.currencyCode)} a month, billed yearly` : 'Billed monthly';
+  return `<button type="button" class="pw-plan${pw.sel === key ? ' on' : ''}" data-pw-plan="${key}" role="radio" aria-checked="${pw.sel === key}">
+    <span class="pw-radio" aria-hidden="true"></span>
+    <span class="pw-pl-main"><b>${yearly ? 'Yearly' : 'Monthly'} ${save}${trial ? `<span class="pw-tag trial">${trial} days free</span>` : ''}</b><small>${sub}</small></span>
+    <span class="pw-pl-price"><b>${escapeHtml(pr.priceString)}</b><small>a ${yearly ? 'year' : 'month'}</small></span>
+  </button>`;
+}
+function renderPremium(){
+  const body = document.getElementById('premiumBody');
+  if(!body || document.getElementById('premiumOverlay').style.display === 'none') return;
+  const p = pwPlan();
+  const native = !!pwPlugin();
+  const free = !p || p.id === 'free';
+  let h = '<div class="pw">';
+  if(pw.reason && pw.reason.msg && free) h += `<div class="pw-reason" role="status">${escapeHtml(pw.reason.msg)}</div>`;
+  if(pw.done){
+    h += `<div class="pw-hero"><div class="pw-orb ok">${pwIco.check}</div><h2>Welcome to Premium</h2><p>More AI estimates and questions start now, on every device you sign in to.</p></div>`;
+  } else if(free){
+    h += `<div class="pw-hero"><div class="pw-orb">${pwIco.spark}</div><h2>Fera Premium</h2><p>Snap, say or type every meal, and ask Fera AI whenever you need it.</p></div>`;
+  } else {
+    h += `<div class="pw-hero"><div class="pw-orb">${pwIco.spark}</div><h2>You’re on ${p.id === 'owner' ? 'the owner plan' : 'Premium'}</h2><p>Here’s what your plan includes and what you’ve used.</p></div>`;
+  }
+  if(p && !free){ h += pwStatusHTML(p); h += pwMetersHTML(p); }
+  h += pwCompareHTML(p);
+  if(free && !pw.done){
+    if(!native){
+      h += `<div class="pw-card pw-note">${pwIco.phone}<div><b>Get Premium in the Fera iPhone app</b><span>Subscribe there with your Apple Account. Premium then applies to this account everywhere you sign in, including here.</span></div></div>`;
+    } else if(pw.loading && !pw.offering){
+      h += '<div class="pw-plans"><div class="pw-skel"></div><div class="pw-skel"></div></div>';
+    } else if(pw.offering){
+      const { annual, monthly } = pw.offering;
+      const pkg = pw.offering[pw.sel];
+      const trial = pwTrialDays(pkg);
+      const pr = pkg.product, per = pw.sel === 'annual' ? 'year' : 'month';
+      h += `<div class="pw-plans" role="radiogroup" aria-label="Choose a plan">${annual ? pwPlanCardHTML('annual', annual, monthly) : ''}${monthly ? pwPlanCardHTML('monthly', monthly, null) : ''}</div>`;
+      h += `<button type="button" class="pw-cta" data-pw="buy"${pw.busy ? ' disabled' : ''}>${pw.busy === 'buy' ? '<span class="pw-spin"></span>' : pwIco.spark}${trial ? `Start ${trial}-day free trial` : 'Subscribe'}</button>`;
+      h += `<p class="pw-sub">${trial ? `${trial} days free, then ${escapeHtml(pr.priceString)} a ${per}.` : `${escapeHtml(pr.priceString)} a ${per}.`} Cancel anytime.</p>`;
+    } else if(pw.error){
+      h += `<button type="button" class="pw-cta ghost" data-pw="retry">Try again</button>`;
+    }
+  }
+  // on the free plan, what's been used goes under the plans: the reason to upgrade, not the headline
+  if(free && !pw.done) h += pwMetersHTML(p);
+  if(pw.done) h += `<button type="button" class="pw-cta" data-pw="close">Back to Fera</button>`;
+  if(pw.error) h += `<div class="pw-err" role="alert">${escapeHtml(pw.error)}</div>`;
+  if(native && p && p.source === 'subscription' && !pw.done) h += `<button type="button" class="pw-cta ghost" data-pw="manage">Manage subscription</button>`;
+  h += `<div class="pw-links">${native ? `<button type="button" data-pw="restore"${pw.busy ? ' disabled' : ''}>${pw.busy === 'restore' ? 'Restoring…' : 'Restore purchases'}</button>` : ''}<a href="${PW_TERMS}" target="_blank" rel="noopener">Terms of Use</a><a href="${PW_PRIVACY}" target="_blank" rel="noopener">Privacy Policy</a></div>`;
+  if(native && free && !pw.done && pw.offering){
+    const pkg = pw.offering[pw.sel];
+    h += `<p class="pw-fine">${pwTrialDays(pkg) ? 'Payment is charged to your Apple Account when the free trial ends, unless you cancel at least 24 hours before. ' : 'Payment is charged to your Apple Account when you confirm the purchase. '}The subscription renews automatically at the same price and length unless auto-renew is turned off at least 24 hours before the end of the current period. Manage or cancel anytime in Settings → your name → Subscriptions.</p>`;
+  }
+  h += '</div>';
+  body.innerHTML = h;
+}
+
+(function wirePremium(){
+  document.getElementById('openPremiumBtn').addEventListener('click', () => { document.getElementById('appMenuDropdown').style.display = 'none'; document.getElementById('appMenuBtn').classList.remove('open'); haptic(); openPremium(null); });
+  document.getElementById('premiumBackBtn').addEventListener('click', () => { haptic(); closePremium(); });
+  document.getElementById('premiumBody').addEventListener('click', (ev) => {
+    const plan = ev.target.closest('[data-pw-plan]');
+    if(plan){ if(pw.sel !== plan.dataset.pwPlan){ haptic(); pw.sel = plan.dataset.pwPlan; renderPremium(); } return; }
+    const b = ev.target.closest('[data-pw]'); if(!b) return;
+    const a = b.dataset.pw;
+    if(a === 'buy') pwBuy();
+    else if(a === 'restore') pwRestore();
+    else if(a === 'retry') pwLoadOffering(true);
+    else if(a === 'close'){ haptic(); closePremium(); }
+    else if(a === 'manage'){ haptic(); window.open(PW_MANAGE, '_blank'); }
+  });
+})();
 </script>
 </body>
 </html>

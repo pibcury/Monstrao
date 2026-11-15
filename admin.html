@@ -300,7 +300,7 @@ firebase.auth().onAuthStateChanged(async (u) => {
 // ---------- loading ----------
 async function load(){
   const b = $('refreshBtn'); b.classList.add('spin');
-  try { D = await api('admin.overview', { days }); render(); }
+  try { D = await api('admin.overview', { days }); render(); if(!P) loadPurchases(); }
   catch(e){ $('main').innerHTML = `<p class="empty">Couldn’t load the console: ${esc(e.message || e)}</p>`; }
   b.classList.remove('spin');
 }
@@ -413,6 +413,12 @@ function drawOverviewCharts(){
 
 // ---------- members ----------
 const PLAN_SOURCE = { owner: 'Owner', subscription: 'Subscription', comp: 'Premium pass', legacy: 'Joined before plans', free: 'Free' };
+function subText(s){
+  const kind = /annual|year/i.test(s.productId || '') ? 'Yearly' : s.productId ? 'Monthly' : 'Subscription';
+  if(!s.active) return `${kind} · ended`;
+  const when = s.expiresAt ? dShort(new Date(s.expiresAt).toISOString().slice(0, 10)) : '';
+  return `${kind}${s.periodType === 'trial' ? ' · free trial' : ''}${s.sandbox ? ' · test' : ''} · ${s.billingIssue ? '<span style="color:var(--warn)">payment problem</span>' : s.willRenew ? 'renews ' + when : 'ends ' + when}`;
+}
 function planText(u){ const p = u.plan || {}; return p.id === 'premium' ? `Premium · ${PLAN_SOURCE[p.source] || p.source}` : p.id === 'owner' ? 'Owner' : 'Free'; }
 const lim = (v) => v == null ? '∞' : n0(v);
 function statusTags(u){
@@ -474,6 +480,7 @@ function memberHTML(u){
     const c = u.plan.comp;
     actions.push(`<span class="seg" role="group" aria-label="Premium pass"><button type="button" data-act="comp" data-v="auto" data-uid="${u.uid}" class="${c == null ? 'on' : ''}">Automatic</button><button type="button" data-act="comp" data-v="on" data-uid="${u.uid}" class="${c === true ? 'on' : ''}">Premium pass</button><button type="button" data-act="comp" data-v="off" data-uid="${u.uid}" class="${c === false ? 'on' : ''}">No pass</button></span>`);
   }
+  if(!owner && P && P.secretKeySet) actions.push(`<button class="btn" data-act="recheckSub" data-uid="${u.uid}" type="button">Re-check App Store subscription</button>`);
   actions.push(`<button class="btn" data-act="reset" data-email="${esc(u.email)}" type="button">Send password reset</button>`);
   if(H.hasKey) actions.push(`<button class="btn" data-act="revokeHealth" data-uid="${u.uid}" type="button">Revoke Apple Health key</button>`);
   if(u.chat.turns) actions.push(`<button class="btn" data-act="clearChat" data-uid="${u.uid}" type="button">Clear AI chat memory</button>`);
@@ -509,6 +516,7 @@ function memberHTML(u){
           ${kv('Today', `${A.today.est} estimates · ${A.today.chat} chats`)}
           <div class="kv"><span>Daily estimate limit</span><b>${A.today.est}/${A.capEffective}${A.cap != null ? ' (custom)' : ''}</b></div>${meter(capPct)}
           ${u.plan ? kv('Question limits', `${lim(u.plan.limits.chatDay)} a day · ${lim(u.plan.limits.chatMonth)} a month`) : ''}
+          ${u.plan && u.plan.subscription ? kv('Subscription', subText(u.plan.subscription)) : ''}
           ${kv('Last 30 days', `${A.d30.est} est · ${A.d30.chat} chats`)}
           ${kv('Photos / web searches', `${A.d30.photos} · ${A.d30.searches}`)}
           ${kv('Tokens in / out (30d)', `${n0(A.d30.inTok)} / ${n0(A.d30.outTok)}`)}
@@ -615,6 +623,7 @@ function renderSettings(x){
     <div class="setting"><div class="lbl"><b>Daily food estimates, whole app</b><small>A safety net across everyone. Today: ${D.today.aiCalls} used.</small></div>
       <div class="row"><input type="number" id="globCap" min="0" max="10000" value="${c.globalDailyAiCap}"><button class="btn" data-act="globcap" type="button">Save</button></div></div>
   </div></div>
+  ${renderPurchases()}
   <div class="section"><div class="h"><h2>Apple Health</h2></div><div class="card">
     <div class="setting" style="display:block"><div class="lbl"><b>Shortcut link</b><small>Members see an “Add shortcut” button on the Apple Health page. In Shortcuts, share “Monster Health” → Copy iCloud Link, and paste it here.</small></div>
       <div class="row" style="margin-top:8px"><input type="text" id="scUrl" placeholder="https://www.icloud.com/shortcuts/…" value="${esc(c.healthShortcutUrl || '')}" autocapitalize="off" spellcheck="false" style="flex:1 1 260px"><button class="btn primary" data-act="shortcut" type="button">Save link</button></div></div>
@@ -627,6 +636,31 @@ function renderSettings(x){
     <div class="setting" style="display:block"><div class="lbl"><b>Endpoints</b></div>${Object.entries(S.endpoints).map(([k, v]) => `<p style="margin:6px 0 0;font-size:12px;color:var(--muted)">${esc(k)} <code>${esc(v)}</code></p>`).join('')}</div>
     <div class="setting" style="display:block"><div class="lbl"><b>Elsewhere</b><small>Things this page can’t show.</small></div>
       <p class="note">Function logs and errors: <a href="https://console.firebase.google.com/project/${esc(S.projectId)}/functions/logs" target="_blank" rel="noopener">Firebase console → Functions → Logs</a> · Data: <a href="https://console.firebase.google.com/project/${esc(S.projectId)}/firestore" target="_blank" rel="noopener">Firestore</a> · Sign-ins and password emails: <a href="https://console.firebase.google.com/project/${esc(S.projectId)}/authentication/users" target="_blank" rel="noopener">Authentication</a> · AI bill: <a href="https://console.anthropic.com/settings/billing" target="_blank" rel="noopener">Anthropic console</a></p></div>
+  </div></div>`;
+}
+
+// ---------- App Store purchases (RevenueCat) ----------
+let P = null, pLoading = false;
+async function loadPurchases(){
+  if(pLoading) return; pLoading = true;
+  try { P = await api('admin.purchases'); } catch(e){ P = { error: (e && e.message) || String(e) }; }
+  pLoading = false; if(tab === 'settings' || tab === 'members') render();
+}
+const EVT = { INITIAL_PURCHASE: 'Subscribed', RENEWAL: 'Renewed', CANCELLATION: 'Turned off renewal', UNCANCELLATION: 'Turned renewal back on', EXPIRATION: 'Ended', BILLING_ISSUE: 'Payment problem', PRODUCT_CHANGE: 'Changed plan', TRANSFER: 'Moved to another account', SUBSCRIPTION_PAUSED: 'Paused', NON_RENEWING_PURCHASE: 'One-time purchase', TEMPORARY_ENTITLEMENT_GRANT: 'Temporary access', REFUND_REVERSED: 'Refund reversed', SUBSCRIPTION_EXTENDED: 'Extended' };
+function renderPurchases(){
+  if(!P){ loadPurchases(); return `<div class="section"><div class="h"><h2>App Store subscriptions</h2></div><div class="card"><p class="note">Loading…</p></div></div>`; }
+  if(P.error) return `<div class="section"><div class="h"><h2>App Store subscriptions</h2></div><div class="card"><p class="note">Couldn’t load: ${esc(P.error)}. Deploy the latest server, then refresh.</p></div></div>`;
+  const ready = P.secretKeySet && P.appleKey;
+  return `<div class="section"><div class="h"><h2>App Store subscriptions</h2><small>${ready ? `${n0(P.activeSubscribers)} paying${P.sandboxSubscribers ? ` · ${n0(P.sandboxSubscribers)} test` : ''}` : 'not set up yet'}</small></div><div class="card">
+    <div class="setting" style="display:block"><div class="lbl"><b>Apple SDK key</b><small>RevenueCat → Project settings → API keys → the App Store app’s public key (starts with appl_). The iPhone app uses it to show prices and buy.</small></div>
+      <div class="row" style="margin-top:8px"><input type="text" id="rcApple" placeholder="appl_…" value="${esc(P.appleKey || '')}" autocapitalize="off" spellcheck="false" style="flex:1 1 260px"><button class="btn primary" data-act="rcApple" type="button">Save</button></div></div>
+    <div class="setting" style="display:block"><div class="lbl"><b>Secret API key</b><small>RevenueCat → Project settings → API keys → + New secret API key (starts with sk_). The server uses it to confirm purchases. It’s checked with RevenueCat before it’s saved, and never shown again.</small></div>
+      <div class="row" style="margin-top:8px"><input type="password" id="rcSecret" placeholder="${P.secretKeySet ? 'Saved: ' + esc(P.secretKeyHint) + ' (paste a new one to replace it)' : 'sk_…'}" autocomplete="off" autocapitalize="off" spellcheck="false" style="flex:1 1 260px"><button class="btn primary" data-act="rcSecret" type="button">Save</button></div></div>
+    <div class="setting" style="display:block"><div class="lbl"><b>Webhook</b><small>RevenueCat → Integrations → Webhooks → Add. Paste the address, and the password into “Authorization header value”. RevenueCat then tells the server about every renewal, cancellation and refund.</small></div>
+      <p style="margin:8px 0 0;font-size:12.5px;color:var(--muted)">Address <code>${esc(P.webhookUrl)}</code> <button class="btn" data-copy="${esc(P.webhookUrl)}" type="button">Copy</button></p>
+      <p style="margin:8px 0 0;font-size:12.5px;color:var(--muted)">Authorization <code>${esc(P.webhookAuth)}</code> <button class="btn" data-copy="${esc(P.webhookAuth)}" type="button">Copy</button></p></div>
+    <div class="setting" style="display:block"><div class="lbl"><b>Recent events</b><small>From the webhook, newest first.</small></div>
+      ${P.events && P.events.length ? `<div class="tbl-wrap" style="margin-top:8px"><table><thead><tr><th>When</th><th>What</th><th>Who</th><th>Plan</th><th>Price</th></tr></thead><tbody>${P.events.map((e) => `<tr><td>${dt(e.at)}</td><td>${esc(EVT[e.type] || e.type)}${e.environment === 'SANDBOX' ? ' <span class="tag">test</span>' : ''}${e.periodType === 'TRIAL' ? ' <span class="tag">trial</span>' : ''}</td><td>${esc(e.email || '—')}</td><td>${esc(/annual|year/i.test(e.productId || '') ? 'Yearly' : e.productId ? 'Monthly' : '—')}</td><td>${e.price != null ? esc((e.currency || 'USD') + ' ' + Number(e.price).toFixed(2)) : '—'}</td></tr>`).join('')}</tbody></table></div>` : '<p class="note">None yet. Use “Send test event” in RevenueCat’s webhook settings to check the connection; it won’t show here, but RevenueCat will say it succeeded.</p>'}</div>
   </div></div>`;
 }
 
@@ -647,6 +681,8 @@ document.addEventListener('input', (ev) => {
 });
 document.addEventListener('change', (ev) => { if(ev.target.id === 'mSort'){ ui.sort = ev.target.value; render(); } });
 document.addEventListener('click', async (ev) => {
+  const cp = ev.target.closest('[data-copy]');
+  if(cp){ try { await navigator.clipboard.writeText(cp.dataset.copy); toast('Copied.'); } catch(e){ toast('Select it and copy.', true); } return; }
   const g = ev.target.closest('[data-goto]'); if(g){ $('tabs').querySelector(`[data-tab="${g.dataset.goto}"]`).click(); return; }
   const f = ev.target.closest('[data-filter]'); if(f){ ui.filter = f.dataset.filter; render(); return; }
   const m = ev.target.closest('#signupSeg [data-mode]');
@@ -677,6 +713,9 @@ document.addEventListener('click', async (ev) => {
       await run(() => api('admin.setConfig', { plans }), 'Plan limits saved.');
     }
     else if(a === 'globcap') await run(() => api('admin.setConfig', { globalDailyAiCap: Number($('globCap').value) }), 'App-wide limit saved.');
+    else if(a === 'rcApple'){ const v = $('rcApple').value.trim(); P = null; await run(() => api('admin.setPurchases', { appleKey: v }), 'Apple SDK key saved.'); }
+    else if(a === 'rcSecret'){ const k = $('rcSecret').value.trim(); if(!k){ toast('Paste the secret key first.', true); } else { P = null; await run(() => api('admin.setPurchases', { secretKey: k }), 'Secret key checked with RevenueCat and saved.'); } }
+    else if(a === 'recheckSub'){ const r = await api('admin.refreshSubscription', { uid }); toast(r.subscription.active ? `Subscribed: ${r.subscription.productId}.` : 'No active subscription.'); await load(); }
     else if(a === 'shortcut') await run(() => api('admin.setConfig', { healthShortcutUrl: $('scUrl').value.trim() }), $('scUrl').value.trim() ? 'Shortcut link saved.' : 'Shortcut link removed.');
   } catch(e){ toast((e && e.message) || 'That didn’t work.', true); }
   if(b.isConnected) b.disabled = false;

@@ -2014,6 +2014,75 @@
   .aic-where{font-size:13px;color:var(--muted);}
   .aic-off{height:48px;border-radius:14px;border:1px solid rgba(255,92,122,.35);background:rgba(255,92,122,.1);color:#FF8FA3;font:700 15px 'Inter',sans-serif;cursor:pointer;}
   .cm-free{margin-top:6px;font-size:11.5px;color:var(--muted);opacity:.8;}
+
+  /* Weigh-in nudge */
+  .wnudge{display:flex;align-items:center;gap:11px;margin:12px 0 4px;padding:11px 12px;border-radius:18px;border:1px solid rgba(76,141,255,.35);background:linear-gradient(135deg,rgba(76,141,255,.14),rgba(124,108,246,.08));text-align:left;}
+  .wnudge[hidden]{display:none;}
+  .wn-ico{width:36px;height:36px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(76,141,255,.2);color:#9CC0FF;}
+  .wn-ico svg{width:20px;height:20px;}
+  .wn-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+  .wn-t b{font:700 14px/1.25 'Sora',sans-serif;color:var(--ink);}
+  .wn-t small{font-size:12px;line-height:1.35;color:var(--muted);}
+  .wn-act{display:flex;flex-direction:column;gap:5px;flex-shrink:0;}
+  .wn-go{height:32px;padding:0 13px;border-radius:999px;border:0;background:var(--accent);color:#fff;font:700 13px 'Inter',sans-serif;cursor:pointer;}
+  .wn-later{height:24px;border:0;background:none;color:var(--muted);font:600 12px 'Inter',sans-serif;cursor:pointer;}
+
+  /* Recap stories */
+  .rc-scrim{position:fixed;inset:0;z-index:450;display:flex;align-items:center;justify-content:center;padding:max(14px,env(safe-area-inset-top)) 14px max(14px,env(safe-area-inset-bottom));background:rgba(5,6,9,0);backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0);transition:background .25s ease,backdrop-filter .25s ease;}
+  .rc-scrim.open{background:rgba(5,6,9,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+  .rc-wrap{width:100%;max-width:400px;display:flex;flex-direction:column;gap:10px;transform:translateY(18px) scale(.97);opacity:0;transition:transform .34s cubic-bezier(.2,.9,.3,1),opacity .25s ease;}
+  .rc-scrim.open .rc-wrap{transform:none;opacity:1;}
+  .rc-top{display:flex;align-items:center;gap:10px;}
+  .rc-seg{flex:1;display:flex;gap:5px;}
+  .rc-seg i{flex:1;height:3px;border-radius:2px;background:rgba(244,245,250,.18);overflow:hidden;}
+  .rc-seg i b{display:block;height:100%;width:0;background:#fff;transition:width .35s ease;}
+  .rc-seg i.done b{width:100%;}
+  .rc-x{width:32px;height:32px;border-radius:50%;border:0;background:rgba(244,245,250,.1);color:var(--ink);font-size:14px;cursor:pointer;flex-shrink:0;}
+  .rc-stage{display:grid;}
+  .rc-card{grid-area:1/1;position:relative;overflow:hidden;padding:22px 20px 20px;border-radius:28px;border:1px solid var(--rule);
+    background:radial-gradient(120% 70% at 100% 0%,var(--rc-glow),transparent 60%),linear-gradient(180deg,#1B2030,#14171E);box-shadow:0 30px 80px rgba(0,0,0,.5);
+    opacity:0;transform:translateX(24px);pointer-events:none;transition:opacity .28s ease,transform .32s cubic-bezier(.2,.9,.3,1);max-height:calc(100vh - 120px);overflow-y:auto;}
+  .rc-card.on{opacity:1;transform:none;pointer-events:auto;}
+  .rc-card.tone-good{--rc-glow:rgba(74,222,128,.22);--rc-c:#4ADE80;}
+  .rc-card.tone-warn{--rc-glow:rgba(255,159,67,.22);--rc-c:#FFB46B;}
+  .rc-card.tone-near{--rc-glow:rgba(76,141,255,.24);--rc-c:#8DB6FF;}
+  .rc-card.tone-muted{--rc-glow:rgba(139,144,160,.18);--rc-c:var(--ink);}
+  .rc-k{font:800 11px/1 'Inter',sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
+  .rc-head{margin:10px 0 0;font:700 32px/1.05 'Sora',sans-serif;letter-spacing:-.025em;color:var(--rc-c);}
+  .rc-hero{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin-top:14px;}
+  .rc-hero b{font:700 52px/1 'Sora',sans-serif;letter-spacing:-.035em;font-variant-numeric:tabular-nums;color:var(--ink);}
+  .rc-hero span{font-size:13.5px;font-weight:600;color:var(--muted);}
+  .rc-hero em{flex-basis:100%;font-style:normal;font-size:12.5px;font-weight:700;color:var(--rc-c);}
+  .rc-p{margin:12px 0 0;color:var(--muted);font-size:14px;line-height:1.5;}
+  .rc-bars{display:flex;flex-direction:column;gap:9px;margin-top:18px;}
+  .rc-bar{display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:10px;font-size:12.5px;color:var(--muted);font-weight:600;}
+  .rc-bar b{font:600 15px 'Sora',sans-serif;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .rc-track{height:10px;border-radius:5px;background:rgba(244,245,250,.07);overflow:hidden;}
+  .rc-track i{display:block;height:100%;width:var(--w);border-radius:5px;animation:rcGrow .8s cubic-bezier(.2,.9,.3,1) both;}
+  .rc-track i.in{background:linear-gradient(90deg,#4C8DFF,#7C9CFF);} .rc-track i.out{background:linear-gradient(90deg,#FF8A3D,#FFB46B);}
+  .rc-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;}
+  .rc-chip{display:inline-flex;align-items:baseline;gap:4px;padding:7px 11px;border-radius:999px;background:rgba(244,245,250,.06);border:1px solid var(--rule);font-size:12px;color:var(--muted);}
+  .rc-chip b{font:600 13px 'Sora',sans-serif;color:var(--ink);}
+  .rc-chip.ok{border-color:rgba(74,222,128,.35);background:rgba(74,222,128,.08);} .rc-chip.ok b{color:#4ADE80;}
+  .rc-notes{display:flex;flex-direction:column;gap:7px;margin-top:16px;}
+  .rc-notes p{margin:0;display:flex;gap:9px;font-size:13.5px;line-height:1.4;color:var(--ink);}
+  .rc-notes i{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;font-weight:800;}
+  .rc-notes .g i{background:rgba(74,222,128,.16);color:#4ADE80;} .rc-notes .w i{background:rgba(255,159,67,.16);color:#FFB46B;}
+  .rc-chart{display:block;width:100%;height:auto;margin-top:16px;}
+  .rc-b{transform-box:fill-box;transform-origin:center;animation:rcRise .6s cubic-bezier(.2,.9,.3,1) both;animation-delay:var(--d);}
+  .rc-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;}
+  .rc-stat{padding:11px 12px;border-radius:16px;background:rgba(244,245,250,.05);border:1px solid var(--rule);min-width:0;}
+  .rc-stat span{display:block;font-size:11px;font-weight:700;color:var(--muted);}
+  .rc-stat b{display:block;margin-top:5px;font:700 20px/1 'Sora',sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);}
+  .rc-stat b i{font:600 12px 'Inter',sans-serif;font-style:normal;color:var(--muted);}
+  .rc-stat b.ok{color:#4ADE80;}
+  .rc-stat small{display:block;margin-top:4px;font-size:11px;color:var(--muted);line-height:1.3;}
+  .rc-cta{width:100%;height:50px;margin-top:16px;border:0;border-radius:16px;background:var(--accent);color:#fff;font:700 15px 'Inter',sans-serif;cursor:pointer;}
+  .rc-cta.ghost{background:rgba(244,245,250,.08);border:1px solid var(--rule);color:var(--ink);}
+  .rc-foot{text-align:center;font-size:11.5px;color:rgba(244,245,250,.55);}
+  @keyframes rcGrow{from{width:0}to{width:var(--w)}}
+  @keyframes rcRise{from{transform:scaleY(0);opacity:0}to{transform:scaleY(1);opacity:1}}
+  @media (prefers-reduced-motion: reduce){ .rc-track i,.rc-b{animation:none;} .rc-card{transition:none;} }
 </style>
 </head>
 <body>
@@ -2044,6 +2113,7 @@
         <span class="header-stat"><span id="streakVal">0</span>-day streak</span>
       </div>
       <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
+      <div class="wnudge" id="weighNudge" hidden></div>
 
       <div class="ring-section" id="ringSection">
         <div class="metrics-panel">
@@ -6052,58 +6122,10 @@ function daySummaryInsights(x){
   if(x.streak >= 3) good.push(`${x.streak}-day logging streak — keep it alive.`);
   return { good: good.slice(0, 2), watch: watch.slice(0, 2) };
 }
-function maybeShowDaySummary(force){
-  const today = todayStr(), d = yesterdayStr();
-  let seen = null; try{ seen = localStorage.getItem('day-summary-seen'); }catch(e){}
-  if(!force && seen === today) return;
-  if(!Object.keys(entries).some(k => k < today)) return;     // brand new: nothing to look back on
-  if(document.querySelector('.page-overlay[style*="flex"]')) return;   // another page is open
-  try{ localStorage.setItem('day-summary-seen', today); }catch(e){}
-  const x = daySummaryData(d);
-  const ins = daySummaryInsights(x);
-  const lbl = parseISO(d).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
-  const netCls = x.net == null ? '' : (x.net <= 0 ? 'def' : 'sur');
-  const tile = (k, v, sub, cls) => `<div class="ds-tile"><span>${k}</span><b class="${cls || ''}">${v}</b>${sub ? `<small>${sub}</small>` : ''}</div>`;
-  const tiles = [
-    tile('Eaten', x.cal != null ? fmtN(x.cal) : '—', x.t ? `goal ${fmtN(x.t.calorieTarget)}` : 'kcal'),
-    tile('Burned', x.burn != null ? fmtN(x.burn) : '—', x.health ? `${AH_ICON}Apple Health` : 'kcal'),
-  ];
-  x.macros.filter(q => q.m === 'protein').forEach(q => tiles.push(tile('Protein', q.v != null ? fmtN(q.v) + '<small>g</small>' : '—', q.g ? `goal ${fmtN(q.g)} g` : '', q.v != null && q.g && q.v >= q.g * 0.95 ? 'good' : '')));
-  if(x.health && typeof x.health.steps === 'number' && burnPath() !== 'manual') tiles.push(tile('Steps', fmtN(x.health.steps), ''));
-  if(x.wNow != null) tiles.push(tile('Weight', x.wNow.toFixed(1) + `<small>${weightUnit()}</small>`, x.wPrev != null ? `${x.wNow - x.wPrev > 0 ? '+' : x.wNow - x.wPrev < 0 ? '−' : '±'}${Math.abs(x.wNow - x.wPrev).toFixed(1)} since ${dayLabel(x.wPrevDay)}` : ''));
-  if(tiles.length < 6) tiles.push(tile('Streak', `${x.streak}<small>${x.streak === 1 ? 'day' : 'days'}</small>`, ''));
-  const el = document.createElement('div');
-  el.className = 'ds-scrim';
-  el.innerHTML = `<div class="ds-card" role="dialog" aria-label="Yesterday at a glance">
-      <div class="ds-k">Yesterday</div><div class="ds-date">${lbl}</div>
-      ${x.incomplete
-        ? `<div class="ds-hero"><b>${fmtN(x.cal || 0)}</b><span>kcal logged · the day looks unfinished</span></div>`
-        : `<div class="ds-hero ${netCls}"><b>${x.net != null ? signedN(x.net) : '—'}</b><span>${x.net == null ? 'no burn for this day' : (x.net <= 0 ? 'kcal deficit' : 'kcal surplus')}${x.goalNet != null && x.net != null ? ` · plan ${signedN(x.goalNet)}` : ''}</span></div>`}
-      <div class="ds-tiles">${tiles.slice(0, 6).join('')}</div>
-      ${x.incomplete ? `<div class="ds-warn"><b>Yesterday looks incomplete</b><span>${x.items ? `${x.items} item${x.items === 1 ? '' : 's'}, ${fmtN(x.cal || 0)} kcal logged` : 'No food logged'} — finish it so your numbers stay true.</span><button class="btn-small btn-accent" type="button" data-ds-open>Finish yesterday</button></div>` : ''}
-      ${ins.good.length ? `<div class="ds-list good">${ins.good.map(t => `<p><i>✓</i>${escapeHtml(t)}</p>`).join('')}</div>` : ''}
-      ${ins.watch.length ? `<div class="ds-list watch">${ins.watch.map(t => `<p><i>!</i>${escapeHtml(t)}</p>`).join('')}</div>` : ''}
-      <div class="ds-foot">Tap anywhere to close</div>
-    </div>`;
-  document.body.appendChild(el);
-  document.body.classList.add('sheet-open');
-  requestAnimationFrame(() => el.classList.add('open'));
-  const close = () => { el.classList.remove('open'); document.body.classList.remove('sheet-open'); setTimeout(() => el.remove(), 260); };
-  el.addEventListener('click', (ev) => {
-    if(ev.target.closest('[data-ds-open]')){
-      haptic(); close();
-      setSelectedDate(d);
-      foodExpanded = true; renderFoodForm();
-      setTimeout(() => { const c = document.getElementById('foodSummaryBtn'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120);
-      return;
-    }
-    haptic(); close();
-  });
-}
-
 // ---------- render all ----------
 function renderAll(){
   if(typeof renderAiState === 'function') try { renderAiState(); } catch(e){}
+  if(typeof renderWeighNudge === 'function') try { renderWeighNudge(); } catch(e){}
   renderTrendPeriodNav();
   renderTrendsRingAndRuler();
   renderConsumedChart();
@@ -9457,6 +9479,231 @@ async function blSetLearning(onNow){
     const t = ev.target.closest('[data-bmr-open]'); if(!t) return;
     ev.preventDefault(); ev.stopPropagation(); openBmrPage();
   }, true);
+})();
+</script>
+<script>
+// =====================================================================================
+// Recap: on the first open of each day, yesterday as a story card; on Mondays, last week too.
+// Tap the right side (or swipe left) for the next card, the left side to go back; ✕ closes.
+// Plus the weigh-in nudge on the main page when it's been a few days without one.
+// =====================================================================================
+const WEIGH_NUDGE_DAYS = 3;
+function daysSinceWeighIn(){
+  const w = dailyWeightMap(), t = todayStr();
+  const days = Object.keys(w).filter(d => d <= t).sort();
+  if(!days.length) return null;
+  return Math.round((parseISO(t) - parseISO(days[days.length - 1])) / 864e5);
+}
+function weighNudgeText(n){
+  const L = userProfile && userProfile.bmrLearn;
+  return { title: `No weigh-in for ${n} days`, sub: L && L.on ? 'Fera needs regular weigh-ins to keep learning your resting burn.' : 'A quick weigh-in keeps your trend and targets honest.' };
+}
+function renderWeighNudge(){
+  const el = document.getElementById('weighNudge'); if(!el) return;
+  const n = daysSinceWeighIn();
+  let snooze = null; try { snooze = localStorage.getItem('weigh-nudge-snooze'); } catch(e){}
+  const show = n != null && n >= WEIGH_NUDGE_DAYS && snooze !== todayStr();
+  el.hidden = !show;
+  if(!show) return;
+  const tx = weighNudgeText(n);
+  el.innerHTML = `<span class="wn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="4"/><path d="M8.5 9.5a4.5 4.5 0 0 1 7 0"/><path d="M12 9.6l1.4-1.9"/></svg></span>
+    <span class="wn-t"><b>${tx.title}</b><small>${tx.sub}</small></span>
+    <span class="wn-act"><button type="button" class="wn-go" data-wn="go">Weigh in</button><button type="button" class="wn-later" data-wn="later" aria-label="Remind me tomorrow">Later</button></span>`;
+}
+function openWeighIn(){
+  if(typeof setSelectedDate === 'function' && selectedDate !== todayStr()) setSelectedDate(todayStr());
+  weightExpanded = true;
+  const ti = document.getElementById('weightTimeInput'); if(ti && !ti.value) ti.value = currentHHMM();
+  renderWeightCard();
+  setTimeout(() => {
+    const b = document.getElementById('weightSummaryBtn'); if(b) b.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => { const i = document.getElementById('weightValueInput'); if(i) i.focus({ preventScroll: true }); }, 450);
+  }, 80);
+}
+
+// ---- last week (Mon–Sun) ----
+function weekRecapData(monday){
+  const sunday = toISO(new Date(parseISO(monday).getTime() + 6 * 864e5));
+  const cal = balanceSeries(monday, sunday, 'cal');
+  const t = computeTargets();
+  const days = cal.days.map(d => ({ iso: d.iso, net: d.net, eaten: consumedTotal(entries[d.iso]), burn: hasBurned(entries[d.iso]) ? entries[d.iso].burned : null }));
+  const logged = days.filter(d => d.net != null);
+  const avg = (arr) => arr.length ? arr.reduce((s, v) => s + v, 0) / arr.length : null;
+  const tracked = trackedMacros();
+  let protein = null;
+  if(tracked.includes('protein') && t){
+    const g = macroTarget('protein', t);
+    const hit = days.filter(d => { const v = consumedMacro(entries[d.iso], 'protein'); return v != null && g && v >= g * 0.95; }).length;
+    const vals = days.map(d => consumedMacro(entries[d.iso], 'protein')).filter(v => v != null);
+    protein = { goal: g, hit, avg: avg(vals) };
+  }
+  // weight: this week's average vs the week before
+  const w = dailyWeightMap();
+  const wAvg = (a, b) => { const v = Object.keys(w).filter(d => d >= a && d <= b).map(d => w[d].avg); return v.length ? avg(v) : null; };
+  const prevMon = toISO(new Date(parseISO(monday).getTime() - 7 * 864e5)), prevSun = toISO(new Date(parseISO(monday).getTime() - 864e5));
+  const wNow = wAvg(monday, sunday), wPrev = wAvg(prevMon, prevSun);
+  const best = logged.length ? logged.slice().sort((a, b) => (userGoals && userGoals.weightGoal === 'gain') ? b.net - a.net : a.net - b.net)[0] : null;
+  const wkend = logged.filter(d => isWeekend(d.iso)), wkday = logged.filter(d => !isWeekend(d.iso));
+  return { monday, sunday, days, logged: logged.length, total: cal.total, goalTotal: cal.goalTotal, daily: cal.daily,
+    avgEaten: avg(logged.map(d => d.eaten).filter(v => v != null)), avgBurn: avg(logged.map(d => d.burn).filter(v => v != null)),
+    protein, wNow, wPrev, weighIns: Object.keys(w).filter(d => d >= monday && d <= sunday).length, best,
+    weekendGap: wkend.length && wkday.length ? avg(wkend.map(d => d.net)) - avg(wkday.map(d => d.net)) : null };
+}
+// a short verdict and its tone, from how a total compares with the plan
+function recapVerdict(total, goal, slack){
+  const gw = (userGoals && userGoals.weightGoal) || 'lose';
+  if(total == null) return { tone: 'muted', head: 'Not enough logged' };
+  if(goal == null) return { tone: total <= 0 ? 'good' : 'warn', head: total <= 0 ? 'Deficit' : 'Surplus' };
+  const diff = total - goal;
+  if(gw === 'maintain') return Math.abs(total) <= slack * 1.5 ? { tone: 'good', head: 'Steady' } : { tone: 'warn', head: total < 0 ? 'Under maintenance' : 'Over maintenance' };
+  // a small miss reads "close to plan", not as a failure
+  if(gw === 'gain') return diff >= slack ? { tone: 'good', head: 'Ahead of plan' } : diff >= -slack ? { tone: 'good', head: 'On plan' } : diff >= -slack * 2.5 ? { tone: 'near', head: 'Close to plan' } : { tone: 'warn', head: 'Short of plan' };
+  return diff <= -slack ? { tone: 'good', head: 'Ahead of plan' } : diff <= slack ? { tone: 'good', head: 'On plan' } : diff <= slack * 2.5 ? { tone: 'near', head: 'Close to plan' } : { tone: 'warn', head: 'Over plan' };
+}
+const fatEq = (kcal) => { const kg = weightUnit() === 'kg'; return `≈ ${(Math.abs(kcal) / (kg ? 7700 : 3500)).toFixed(1)} ${kg ? 'kg' : 'lb'}`; };
+
+function recapDayCard(x, ins){
+  const lbl = parseISO(x.d).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
+  const v = x.incomplete ? { tone: 'warn', head: 'Unfinished day' } : recapVerdict(x.net, x.goalNet, 100);
+  const max = Math.max(x.cal || 0, x.burn || 0, 1);
+  const bar = (k, val, cls) => `<div class="rc-bar"><span>${k}</span><div class="rc-track"><i class="${cls}" style="--w:${val != null ? Math.max(3, val / max * 100) : 0}%"></i></div><b>${val != null ? fmtN(val) : '—'}</b></div>`;
+  const chips = [];
+  x.macros.filter(q => q.m === 'protein' && q.v != null).forEach(q => chips.push(`<span class="rc-chip${q.g && q.v >= q.g * 0.95 ? ' ok' : ''}"><b>${fmtN(q.v)} g</b> protein</span>`));
+  if(x.health && typeof x.health.steps === 'number' && burnPath() !== 'manual') chips.push(`<span class="rc-chip${x.health.steps >= 10000 ? ' ok' : ''}"><b>${fmtN(x.health.steps)}</b> steps</span>`);
+  if(x.workouts.length) chips.push(`<span class="rc-chip ok"><b>${x.workouts.length}</b> workout${x.workouts.length > 1 ? 's' : ''}</span>`);
+  if(x.wNow != null) chips.push(`<span class="rc-chip"><b>${x.wNow.toFixed(1)}</b> ${weightUnit()}${x.wPrev != null ? ` · ${x.wNow - x.wPrev > 0 ? '+' : x.wNow - x.wPrev < 0 ? '−' : '±'}${Math.abs(x.wNow - x.wPrev).toFixed(1)}` : ''}</span>`);
+  if(x.streak >= 2) chips.push(`<span class="rc-chip"><b>${x.streak}-day</b> streak</span>`);
+  const notes = ins.good.map(t => `<p class="g"><i>✓</i>${escapeHtml(t)}</p>`).concat(ins.watch.map(t => `<p class="w"><i>!</i>${escapeHtml(t)}</p>`)).slice(0, 3).join('');
+  return `<section class="rc-card tone-${v.tone}" aria-label="Yesterday, ${lbl}">
+    <div class="rc-k">Yesterday · ${lbl}</div>
+    <h2 class="rc-head">${v.head}.</h2>
+    ${x.incomplete
+      ? `<div class="rc-hero"><b data-count="${x.cal || 0}">${fmtN(x.cal || 0)}</b><span>kcal logged so far</span></div>
+         <p class="rc-p">${x.items ? `${x.items} item${x.items === 1 ? '' : 's'} logged.` : 'No food logged.'} Finish it so your week stays true.</p>
+         <button type="button" class="rc-cta" data-rc="finish">Finish yesterday</button>`
+      : `<div class="rc-hero"><b data-count="${x.net != null ? x.net : ''}" data-signed="1">${x.net != null ? signedN(x.net) : '—'}</b><span>${x.net == null ? 'no burn for this day' : x.net <= 0 ? 'kcal deficit' : 'kcal surplus'}</span>${x.goalNet != null && x.net != null ? `<em>plan ${signedN(x.goalNet)}</em>` : ''}</div>
+         <div class="rc-bars">${bar('Eaten', x.cal, 'in')}${bar('Burned', x.burn, 'out')}</div>`}
+    ${chips.length ? `<div class="rc-chips">${chips.slice(0, 5).join('')}</div>` : ''}
+    ${notes ? `<div class="rc-notes">${notes}</div>` : ''}
+  </section>`;
+}
+function recapWeekCard(w){
+  const v = recapVerdict(w.total, w.goalTotal, 300);
+  const range = `${parseISO(w.monday).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${parseISO(w.sunday).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`;
+  const pct = w.total != null && w.goalTotal ? Math.round((w.total / w.goalTotal - 1) * 100) : null;
+  // 7 bars of daily net around zero, dashed line at the daily plan
+  const vals = w.days.map(d => d.net).filter(v => v != null).concat(w.daily != null ? [w.daily] : [], [0]);
+  const hi = Math.max(...vals, 1), lo = Math.min(...vals, -1), H = 120, z = H * hi / (hi - lo);
+  const y = (v) => z - v / (hi - lo) * H;
+  const bars = w.days.map((d, i) => {
+    const x = 8 + i * 46;
+    if(d.net == null) return `<rect x="${x + 9}" y="${z - 2}" width="20" height="4" rx="2" fill="rgba(244,245,250,.14)"/>`;
+    const top = Math.min(y(d.net), z), h = Math.max(3, Math.abs(y(d.net) - z));
+    return `<rect class="rc-b" style="--d:${i * 60}ms" x="${x + 9}" y="${top.toFixed(1)}" width="20" height="${h.toFixed(1)}" rx="5" fill="${d.net <= 0 ? '#4ADE80' : '#FF5C7A'}"/>`;
+  }).join('');
+  const plan = w.daily != null ? `<line x1="4" x2="330" y1="${y(w.daily).toFixed(1)}" y2="${y(w.daily).toFixed(1)}" stroke="rgba(244,245,250,.5)" stroke-width="1.4" stroke-dasharray="4 5"/>` : '';
+  const letters = WK_LETTERS.map((l, i) => `<text x="${8 + i * 46 + 19}" y="${H + 18}" text-anchor="middle" font-size="11" font-weight="700" fill="#8B90A0">${l}</text>`).join('');
+  const stat = (k, val, sub, cls) => `<div class="rc-stat"><span>${k}</span><b class="${cls || ''}">${val}</b>${sub ? `<small>${sub}</small>` : ''}</div>`;
+  const stats = [stat('Days logged', `${w.logged}<i>/7</i>`, '', w.logged === 7 ? 'ok' : '')];
+  if(w.protein) stats.push(stat('Protein goal', `${w.protein.hit}<i>/7 days</i>`, w.protein.avg != null ? `avg ${fmtN(w.protein.avg)} g` : '', w.protein.hit >= 5 ? 'ok' : ''));
+  if(w.wNow != null) stats.push(stat('Weight', w.wPrev != null ? `${w.wNow - w.wPrev > 0 ? '+' : w.wNow - w.wPrev < 0 ? '−' : '±'}${Math.abs(w.wNow - w.wPrev).toFixed(1)}<i> ${weightUnit()}</i>` : `${w.wNow.toFixed(1)}<i> ${weightUnit()}</i>`, w.wPrev != null ? 'week avg vs the week before' : 'week average', ''));
+  if(w.avgEaten != null) stats.push(stat('Avg eaten', fmtN(w.avgEaten), w.avgBurn != null ? `burned ${fmtN(w.avgBurn)} a day` : 'kcal a day', ''));
+  const notes = [];
+  if(w.best && w.best.net != null) notes.push(`<p class="g"><i>★</i>Best day: ${parseISO(w.best.iso).toLocaleDateString(undefined, { weekday: 'long' })}, ${signedN(w.best.net)} kcal.</p>`);
+  if(w.weekendGap != null && Math.abs(w.weekendGap) >= 250) notes.push(`<p class="${w.weekendGap > 0 ? 'w' : 'g'}"><i>${w.weekendGap > 0 ? '!' : '✓'}</i>Weekends ran ${fmtN(Math.abs(w.weekendGap))} kcal a day ${w.weekendGap > 0 ? 'higher' : 'lower'} than weekdays.</p>`);
+  if(w.weighIns < 3) notes.push(`<p class="w"><i>!</i>${w.weighIns ? `Only ${w.weighIns} weigh-in${w.weighIns === 1 ? '' : 's'}` : 'No weigh-ins'} last week. Aim for three or more.</p>`);
+  return `<section class="rc-card rc-week tone-${v.tone}" aria-label="Last week, ${range}">
+    <div class="rc-k">Last week · ${range}</div>
+    <h2 class="rc-head">${v.head}.</h2>
+    <div class="rc-hero"><b data-count="${w.total != null ? w.total : ''}" data-signed="1">${w.total != null ? signedN(w.total) : '—'}</b><span>${w.total == null ? '' : w.total <= 0 ? 'kcal deficit' : 'kcal surplus'}${w.total != null ? ` · ${fatEq(w.total)}` : ''}</span>${w.goalTotal != null && w.total != null ? `<em>plan ${signedN(w.goalTotal)}${pct != null && Math.abs(pct) >= 5 ? ` · ${Math.abs(pct)}% ${(w.total - w.goalTotal) * ((userGoals && userGoals.weightGoal === 'gain') ? 1 : -1) > 0 ? 'ahead' : 'behind'}` : ''}</em>` : ''}</div>
+    <svg class="rc-chart" viewBox="0 0 334 ${H + 24}" role="img" aria-label="Each day's deficit or surplus last week">${plan}<line x1="4" x2="330" y1="${z.toFixed(1)}" y2="${z.toFixed(1)}" stroke="rgba(244,245,250,.18)"/>${bars}${letters}</svg>
+    <div class="rc-stats">${stats.slice(0, 4).join('')}</div>
+    ${notes.length ? `<div class="rc-notes">${notes.slice(0, 2).join('')}</div>` : ''}
+    <button type="button" class="rc-cta ghost" data-rc="week">Open Weekly Progress</button>
+  </section>`;
+}
+
+function maybeShowDaySummary(force){
+  const today = todayStr(), d = yesterdayStr();
+  let seen = null; try { seen = localStorage.getItem('recap-seen'); } catch(e){}
+  if(!force && seen === today) return;
+  if(!Object.keys(entries).some(k => k < today)) return;     // brand new: nothing to look back on
+  if(document.querySelector('.page-overlay[style*="flex"]')) return;   // another page is open
+  try { localStorage.setItem('recap-seen', today); } catch(e){}
+  const x = daySummaryData(d);
+  const ins = daySummaryInsights(x);
+  const n = daysSinceWeighIn();
+  if(n != null && n >= WEIGH_NUDGE_DAYS) ins.watch.unshift(`No weigh-in for ${n} days. Step on the scale today.`);
+  const cards = [recapDayCard(x, { good: ins.good, watch: ins.watch.slice(0, 2) })];
+  const isMonday = (window.__recapDow != null ? window.__recapDow : parseISO(today).getDay()) === 1;
+  let monday = null;
+  if(isMonday || force === 'week'){
+    monday = toISO(new Date(parseISO(today).getTime() - 7 * 864e5));
+    if(force === 'week'){ const dt = parseISO(today); const back = (dt.getDay() + 6) % 7 + 7; monday = toISO(new Date(dt.getTime() - back * 864e5)); }
+    const w = weekRecapData(monday);
+    if(w.logged) cards.push(recapWeekCard(w));
+  }
+  showRecap(cards, { monday });
+}
+function showRecap(cards, opt){
+  const el = document.createElement('div');
+  el.className = 'rc-scrim';
+  el.innerHTML = `<div class="rc-wrap" role="dialog" aria-modal="true" aria-label="Your recap">
+    <div class="rc-top">${cards.length > 1 ? `<div class="rc-seg">${cards.map(() => '<i><b></b></i>').join('')}</div>` : '<div class="rc-seg"></div>'}<button type="button" class="rc-x" data-rc="close" aria-label="Close">✕</button></div>
+    <div class="rc-stage">${cards.join('')}</div>
+    <div class="rc-foot">${cards.length > 1 ? '<span>Tap for next</span>' : '<span>Tap anywhere to close</span>'}</div>
+  </div>`;
+  document.body.appendChild(el);
+  document.body.classList.add('sheet-open');
+  const secs = [...el.querySelectorAll('.rc-card')], segs = [...el.querySelectorAll('.rc-seg i')];
+  let i = 0;
+  const calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const countUp = (sec) => sec.querySelectorAll('[data-count]').forEach((b) => {
+    const to = parseFloat(b.dataset.count); if(!isFinite(to) || calm) return;
+    const t0 = performance.now(), dur = 750, fmt = (v) => b.dataset.signed ? signedN(v) : fmtN(v);
+    const step = (now) => { const f = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - f, 3); b.textContent = fmt(to * e); if(f < 1) requestAnimationFrame(step); else b.textContent = fmt(to); };
+    b.textContent = fmt(0); requestAnimationFrame(step);
+  });
+  const show = (k) => {
+    i = k;
+    secs.forEach((s, j) => s.classList.toggle('on', j === i));
+    segs.forEach((s, j) => s.classList.toggle('done', j <= i));
+    const f = el.querySelector('.rc-foot span'); if(f && cards.length > 1) f.textContent = i < cards.length - 1 ? 'Tap for next' : 'Tap to close';
+    countUp(secs[i]);
+  };
+  const close = () => { el.classList.remove('open'); document.body.classList.remove('sheet-open'); setTimeout(() => el.remove(), 260); };
+  requestAnimationFrame(() => { el.classList.add('open'); show(0); });
+  let sx = null;
+  el.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+  el.addEventListener('touchend', (e) => {
+    if(sx == null) return; const dx = e.changedTouches[0].clientX - sx; sx = null;
+    if(Math.abs(dx) > 50){ e.preventDefault(); haptic(); if(dx < 0){ if(i < secs.length - 1) show(i + 1); else close(); } else if(i > 0) show(i - 1); el.dataset.swiped = '1'; setTimeout(() => delete el.dataset.swiped, 400); }
+  });
+  el.addEventListener('click', (ev) => {
+    if(el.dataset.swiped) return;
+    const b = ev.target.closest('[data-rc]');
+    if(b){
+      const a = b.dataset.rc; haptic(); close();
+      if(a === 'finish'){ setSelectedDate(yesterdayStr()); foodExpanded = true; renderFoodForm(); setTimeout(() => { const c = document.getElementById('foodSummaryBtn'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120); }
+      else if(a === 'week' && opt.monday){ setSelectedDate(toISO(new Date(parseISO(opt.monday).getTime() + 6 * 864e5))); setTimeout(() => { const c = document.getElementById('balances'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150); }
+      return;
+    }
+    haptic();
+    const r = el.querySelector('.rc-wrap').getBoundingClientRect();
+    const back = ev.clientX < r.left + r.width * 0.3;
+    if(back){ if(i > 0) show(i - 1); return; }
+    if(i < secs.length - 1) show(i + 1); else close();
+  });
+}
+
+(function wireWeighNudge(){
+  const el = document.getElementById('weighNudge'); if(!el) return;
+  el.addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-wn]'); if(!b) return;
+    haptic();
+    if(b.dataset.wn === 'later'){ try { localStorage.setItem('weigh-nudge-snooze', todayStr()); } catch(e){} renderWeighNudge(); }
+    else openWeighIn();
+  });
 })();
 </script>
 </body>

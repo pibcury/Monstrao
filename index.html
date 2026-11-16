@@ -1945,6 +1945,62 @@
   @keyframes pwSpin{to{transform:rotate(360deg);}}
   @keyframes pwPop{0%{transform:scale(.6);opacity:0;}100%{transform:scale(1);opacity:1;}}
   @media (prefers-reduced-motion: reduce){ .pw-orb.ok,.pw-skel,.pw-cta .pw-spin{animation:none;} }
+
+  /* ============ Resting burn page ============ */
+  #bmrOverlay{z-index:110;}
+  button.bc-tag{border:0;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:3px;vertical-align:1px;}
+  button.bc-tag span{font-size:1.15em;line-height:1;opacity:.8;margin-top:-1px;}
+  .bl-link{margin-top:2px;}
+  .bl{display:flex;flex-direction:column;gap:14px;padding-top:4px;}
+  .bl-h{display:block;font:700 15.5px/1.3 'Sora',sans-serif;margin-bottom:6px;}
+  .bl-p{margin:8px 0 0;color:var(--muted);font-size:14px;line-height:1.55;}
+  .bl-p b{color:var(--ink);}
+  .bl-note{margin:10px 0 0;color:#6F7486;font-size:12.5px;line-height:1.5;}
+  .bl-hero{position:relative;padding:18px 18px 16px;border-radius:22px;border:1px solid var(--rule);overflow:hidden;
+    background:radial-gradient(120% 90% at 0% 0%,rgba(47,111,232,.20),transparent 60%),linear-gradient(180deg,rgba(244,245,250,.05),rgba(244,245,250,.015));}
+  .bl-k{display:flex;align-items:center;gap:8px;color:var(--muted);font:700 11.5px/1 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;}
+  .bl-k .bc-tag{letter-spacing:0;text-transform:none;}
+  .bl-big{margin-top:12px;font:700 46px/1 'Sora',sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+  .bl-big span{margin-left:8px;font:600 14px 'Inter',sans-serif;color:var(--muted);letter-spacing:0;}
+  .bl-sub{margin-top:8px;color:var(--muted);font-size:13.5px;line-height:1.45;}
+  .bl-sub b.up{color:#4ADE80;} .bl-sub b.down{color:#F4B740;}
+  .bl-scale{margin-top:18px;}
+  .bl-track{position:relative;height:8px;border-radius:4px;background:rgba(244,245,250,.08);}
+  .bl-fill{position:absolute;top:0;bottom:0;border-radius:4px;background:linear-gradient(90deg,rgba(74,222,128,.35),#4ADE80);}
+  .bl-mid{position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;margin-left:-1px;background:#8B90A0;border-radius:1px;}
+  .bl-dot{position:absolute;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#8B90A0;border:3px solid var(--bg);box-shadow:0 0 0 1px rgba(244,245,250,.2);}
+  .bl-dot.on{background:#4ADE80;box-shadow:0 0 0 4px rgba(74,222,128,.18);}
+  .bl-ticks{display:flex;justify-content:space-between;margin-top:9px;color:#6F7486;font:600 11px 'Inter',sans-serif;}
+  .bl-ready{border-color:rgba(74,222,128,.35);background:linear-gradient(180deg,rgba(74,222,128,.08),rgba(74,222,128,.02));}
+  .bl-ready .pw-cta{margin-top:14px;background:linear-gradient(135deg,#22C55E,#34D399);box-shadow:0 14px 30px -14px rgba(52,211,153,.9);}
+  .bl-prog{margin-top:12px;}
+  .bl-prog-t{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:var(--muted);}
+  .bl-prog-t b{color:var(--ink);font:700 15px 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
+  .bl-prog-t b i{font:500 12.5px 'Inter',sans-serif;font-style:normal;color:var(--muted);}
+  .bl-prog .pw-bar{margin-top:7px;}
+  .pw-bar.done span{background:#4ADE80;}
+  .bl-chart{display:block;width:100%;height:auto;margin-top:8px;}
+  .bl-key{display:flex;gap:16px;margin-top:4px;color:var(--muted);font-size:12px;}
+  .bl-key span{display:inline-flex;align-items:center;gap:7px;}
+  .bl-key i{width:18px;height:0;border-top:3px solid #4ADE80;border-radius:2px;}
+  .bl-key i.f{border-top:2px dashed #8B90A0;}
+  .bl-impact{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+  .bl-impact > div{border-radius:16px;border:1px solid var(--rule);background:rgba(244,245,250,.035);padding:12px 12px 13px;min-width:0;}
+  .bl-impact small{display:block;color:var(--muted);font:600 11.5px/1.2 'Inter',sans-serif;}
+  .bl-impact b{display:block;margin-top:6px;font:700 21px/1 'Sora',sans-serif;font-variant-numeric:tabular-nums;color:#4ADE80;}
+  .bl-impact span{display:block;margin-top:5px;color:var(--muted);font-size:11.5px;line-height:1.3;}
+  .bl-days{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:5px;margin-top:10px;}
+  .bl-days i{position:relative;aspect-ratio:1;border-radius:5px;background:rgba(244,245,250,.07);}
+  .bl-days i.g{background:#2F6FE8;}
+  .bl-days i.w::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px rgba(14,16,20,.35);}
+  .bl-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:11px;color:var(--muted);font-size:12px;align-items:center;}
+  .bl-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .bl-legend i{width:11px;height:11px;border-radius:3px;background:#2F6FE8;display:inline-block;}
+  .bl-legend i.wdot{width:7px;height:7px;border-radius:50%;background:#fff;}
+  .bl-legend .bl-dates{margin-left:auto;color:#6F7486;}
+  .bl-how ol{margin:6px 0 14px;padding-left:20px;color:var(--muted);font-size:14px;line-height:1.55;}
+  .bl-how ol li{margin-top:4px;}
+  .bl-how .pb-tg{width:100%;}
 </style>
 </head>
 <body>
@@ -2661,6 +2717,15 @@
     <div class="overlay-title">Apple Health</div>
   </div>
   <div class="overlay-scroll" id="wearablesBody"></div>
+</div>
+
+<!-- ============ Resting burn: what BMR learning is doing ============ -->
+<div class="page-overlay" id="bmrOverlay" style="display:none;">
+  <div class="overlay-topbar">
+    <button class="overlay-back" id="bmrBackBtn" type="button" aria-label="Back">Back</button>
+    <div class="overlay-title">Resting burn</div>
+  </div>
+  <div class="overlay-scroll" id="bmrBody"></div>
 </div>
 
 <!-- ============ Premium: plans, limits and App Store subscriptions ============ -->
@@ -3660,7 +3725,7 @@ function renderBurnCard(){
       const info = BURN_PARTS[q.key];
       const editing = bcEditing === q.key;
       let tag = '';
-      if(q.key === 'rest'){ const st = bmrStatusText(); tag = `<em class="bc-tag ${st.tag.toLowerCase()}">${st.tag}</em>`; }
+      if(q.key === 'rest'){ const st = bmrStatusText(); tag = `<button type="button" class="bc-tag bl-open ${st.tag.toLowerCase()}" data-bmr-open aria-label="Resting burn: ${st.tag}. Open details">${st.tag}<span aria-hidden="true">›</span></button>`; }
       if(q.edited) tag += '<em class="bc-edited">edited</em>';
       html += `<div class="bc-row${editing ? ' editing' : ''}"><span class="bc-dot" style="background:${info.color}"></span>
         <div class="bc-main"><b>${q.key === 'living' && p.noHealth ? 'Everyday movement' : info.label}${tag}</b><small>${burnPartSub(p, q)}</small>
@@ -3675,7 +3740,7 @@ function renderBurnCard(){
     html += `</div>`;
     html += `<button class="bc-info-btn" data-bc="info" type="button">${bcInfoOpen ? 'Hide how this works' : 'How this is calculated'}</button>`;
     if(bcInfoOpen) html += `<div class="bc-info">
-      <p><b>Resting</b> — your BMR: what your body burns doing nothing. ${bmrLearnState() ? (bmrLearnState().status === 'learned' ? `Fera has learned it from your food and weigh-ins: ${bmrStatusText().line}.` : 'Fera is learning it from your food and weigh-ins; until then it’s the Mifflin-St Jeor estimate from your weight, height, age and sex.') : 'Mifflin-St Jeor estimate from your weight, height, age and sex.'}</p>
+      <p><b>Resting</b> — your BMR: what your body burns doing nothing. ${bmrLearnState() ? (bmrLearnState().status === 'learned' ? `Fera has learned it from your food and weigh-ins: ${bmrStatusText().line}.` : 'Fera is learning it from your food and weigh-ins; until then it’s the Mifflin-St Jeor estimate from your weight, height, age and sex.') + ' <button class="bc-link" data-bmr-open type="button">See the details</button>' : 'Mifflin-St Jeor estimate from your weight, height, age and sex.'}</p>
       ${def.parts.includes('steps') ? `<p><b>Steps</b> — walking costs about 0.57 kcal per kg per km (0.67 from age 65), from a systematic review and meta-analysis (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6620279/" target="_blank" rel="noopener">Das Gupta et al., 2019</a>); distance = steps × stride, with stride ≈ 41% of your height.</p>` : ''}
       ${def.parts.includes('active') ? `<p><b>Active energy</b> — what your watch or ring records in Apple Health. WHOOP, Oura and Garmin write workouts there, so steps are counted separately.</p>` : ''}
       ${def.parts.includes('watch') ? `<p><b>Apple Watch activity</b> — the active energy your Apple Watch records all day. It already includes your walking and workouts, so nothing is added on top.</p>` : ''}
@@ -4591,16 +4656,17 @@ function estimatedBurn(iso){ const p = burnParts(iso); return p ? p.calc : null;
 // the 28 days with food fully logged and a burn the app calculated, and weigh-ins on 8+ days spread
 // over 3+ weeks. The adjustment is shrunk toward zero a little (food logs tend to miss things) and
 // capped at ±15% of the estimate. It's recomputed every day, so it keeps following the data.
-const LEARN_WINDOW = 28, LEARN_MIN_GOOD = 24, LEARN_MIN_WEIGH = 8, LEARN_CAP = 0.15;
-function learnBmr(){
-  const L = userProfile.bmrLearn;
-  if(!L || !L.on) return null;
+const LEARN_WINDOW = 28, LEARN_MIN_GOOD = 24, LEARN_MIN_WEIGH = 8, LEARN_CAP = 0.15, LEARN_SPREAD = 21;
+// The analysis behind the learning, for the 28 days ending `back` days before yesterday. Pure: it
+// changes nothing, so the BMR page can also show what Fera would learn before it's turned on, and
+// how the result has moved over past weeks.
+function learnAnalysis(back = 0){
   const base = bmrBase();
   if(base == null) return null;
   const t = computeTargets();
   const days = [];
-  for(let i = LEARN_WINDOW; i >= 1; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push(toISO(d)); }
-  const good = days.filter(d => {
+  for(let i = LEARN_WINDOW + back; i >= 1 + back; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push(toISO(d)); }
+  const good = new Set(days.filter(d => {
     const e = entries[d];
     const cal = consumedTotal(e);
     if(cal == null) return false;
@@ -4609,27 +4675,40 @@ function learnBmr(){
     if(cal < target * 0.6 && items < 3) return false;          // looks like a partly logged day
     const p = burnParts(d);
     return !!(p && !p.manual);
-  });
+  }));
   const wmap = dailyWeightMap();
+  const lb = (d) => wmap[d].avg * (wmap[d].unit === 'kg' ? 2.20462 : 1);
   const wdays = days.filter(d => wmap[d]);
   const spread = wdays.length ? (parseISO(wdays[wdays.length - 1]) - parseISO(wdays[0])) / 86400000 : 0;
-  const next = Object.assign({}, L, { good: good.length, weighIns: wdays.length, need: LEARN_MIN_GOOD, window: LEARN_WINDOW, checked: todayStr() });
-  if(good.length >= LEARN_MIN_GOOD && wdays.length >= LEARN_MIN_WEIGH && spread >= 21){
+  const r = { days: days.map(d => ({ d, good: good.has(d), lb: wmap[d] ? lb(d) : null })), good: good.size, weighIns: wdays.length, spread: Math.round(spread), base: Math.round(base), ready: false };
+  if(good.size >= LEARN_MIN_GOOD && wdays.length >= LEARN_MIN_WEIGH && spread >= LEARN_SPREAD){
     // weight trend: least-squares slope of daily weights (lb/day)
-    const pts = wdays.map(d => [(parseISO(d) - parseISO(days[0])) / 86400000, wmap[d].avg * (weightUnit() === 'kg' ? 2.20462 : 1)]);
-    const mx = pts.reduce((s, p) => s + p[0], 0) / pts.length, my = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+    const pts = wdays.map(d => [(parseISO(d) - parseISO(days[0])) / 86400000, lb(d)]);
+    const mx = pts.reduce((s, q) => s + q[0], 0) / pts.length, my = pts.reduce((s, q) => s + q[1], 0) / pts.length;
     let num = 0, den = 0; pts.forEach(([x, y]) => { num += (x - mx) * (y - my); den += (x - mx) * (x - mx); });
     const slope = den ? num / den : 0;
     const observed = slope * 3500;
-    const predicted = good.reduce((s, d) => s + (consumedTotal(entries[d]) - burnParts(d, base).calc), 0) / good.length;
+    const predicted = [...good].reduce((s, d) => s + (consumedTotal(entries[d]) - burnParts(d, base).calc), 0) / good.size;
     const residual = predicted - observed;
-    const shrunk = residual * good.length / (good.length + 7);
+    const shrunk = residual * good.size / (good.size + 7);
     const cap = base * LEARN_CAP;
-    next.adj = Math.round(Math.max(-cap, Math.min(cap, shrunk)) / 10) * 10;
+    Object.assign(r, { ready: true, adj: Math.round(Math.max(-cap, Math.min(cap, shrunk)) / 10) * 10, capped: Math.abs(shrunk) > cap,
+      slope, observed, predicted, fit: { mx, my }, end: days[days.length - 1] });
+  }
+  return r;
+}
+function learnBmr(){
+  const L = userProfile.bmrLearn;
+  if(!L || !L.on) return null;
+  const a = learnAnalysis(0);
+  if(!a) return null;
+  const next = Object.assign({}, L, { good: a.good, weighIns: a.weighIns, spread: a.spread, need: LEARN_MIN_GOOD, window: LEARN_WINDOW, checked: todayStr() });
+  if(a.ready){
+    next.adj = a.adj;
     next.status = 'learned';
     next.asOf = todayStr();
-    next.slope = Math.round(slope * 7 * 100) / 100;          // lb/week, for display
-    next.predicted = Math.round(predicted);
+    next.slope = Math.round(a.slope * 7 * 100) / 100;          // lb/week, for display
+    next.predicted = Math.round(a.predicted);
   } else if(L.status !== 'learned'){
     next.status = 'learning';
   }
@@ -7395,6 +7474,7 @@ async function init(){
     await persistProfile();
     renderAll();
   });
+  window.renderBurnModeSection = () => renderBurnModeSection();
   function renderBurnModeSection(){
     const body = document.getElementById('burnModeBody');
     if(!body) return;
@@ -7429,6 +7509,7 @@ async function init(){
       </div>
       ${def.apple ? tg('weight', !!userProfile.weightFromHealth, 'Weight from Apple Health', 'Weigh-ins from a smart scale come in with each sync. You can still add weights by hand.') : ''}
       ${tg('learn', !!L.on, 'Learn my resting burn', 'After about a month of complete food logs and regular weigh-ins, Fera compares how your weight actually moved with what your numbers predicted — and adjusts your BMR to match.', learnExtra)}
+      <button class="bm-wear bl-link" data-bmr-open type="button">${L.on && L.status === 'learned' ? 'See what Fera learned' : 'See how learning works'} ›</button>
       <p class="bm-explain small">Any day, you can change any part or type your own total in the Burn card.</p>
       <p class="status" id="burnModeStatus"></p>`;
   }
@@ -7591,7 +7672,7 @@ async function init(){
     el.innerHTML = `<div class="btb-h"><span>Your burn target is made of</span></div>
       <div class="bc-bar">${seg(rest, BURN_PARTS.rest.color)}${seg(active, '#FF375F')}${seg(digest, BURN_PARTS.digest.color)}</div>
       <div class="btb-cols">
-        <div><span class="btb-l"><i style="background:${BURN_PARTS.rest.color}"></i>Resting<em class="bc-tag ${st.tag.toLowerCase()}">${st.tag}</em></span><b>${fmtN(rest)}</b>${learnedLine}</div>
+        <div><span class="btb-l"><i style="background:${BURN_PARTS.rest.color}"></i>Resting<button type="button" class="bc-tag bl-open ${st.tag.toLowerCase()}" data-bmr-open aria-label="Resting burn: ${st.tag}. Open details">${st.tag}<span aria-hidden="true">›</span></button></span><b>${fmtN(rest)}</b>${learnedLine}</div>
         <div><span class="btb-l"><i style="background:#FF375F"></i>Active</span><b>${fmtN(active)}</b><small>${t.custom.burn ? 'from your own target' : 'your activity level'}</small></div>
         <div><span class="btb-l"><i style="background:${BURN_PARTS.digest.color}"></i>Digestion</span><b>${fmtN(digest)}</b><small>~10% of what you eat</small></div>
       </div>`;
@@ -9136,6 +9217,182 @@ function renderPremium(){
     else if(a === 'close'){ haptic(); closePremium(); }
     else if(a === 'manage'){ haptic(); window.open(PW_MANAGE, '_blank'); }
   });
+})();
+</script>
+<script>
+// =====================================================================================
+// Resting burn page: what "Learn my resting burn" is doing, what it found, and what it changes.
+// Opened from every place that shows the Estimated / Learning / Learned tag (Burn card, Goals,
+// Profile → Daily burn), so there's one home for the learning.
+// =====================================================================================
+const BL_C = { learned: '#4ADE80', formula: '#8B90A0', rest: '#2F6FE8', warn: '#F4B740' };
+function blUnit(){ return weightUnit() === 'kg' ? 'kg' : 'lb'; }
+function blW(lb){ return blUnit() === 'kg' ? lb / 2.20462 : lb; }
+function blSigned(n, dec = 0){ const v = dec ? Math.abs(n).toFixed(dec) : fmtN(Math.abs(Math.round(n))); return (n > 0 ? '+' : n < 0 ? '−' : '±') + v; }
+function blDate(iso){ return parseISO(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); }
+
+function openBmrPage(){
+  haptic();
+  document.getElementById('bmrOverlay').style.display = 'flex';
+  document.querySelector('#bmrOverlay .overlay-scroll').scrollTop = 0;
+  renderBmrPage();
+}
+function closeBmrPage(){ document.getElementById('bmrOverlay').style.display = 'none'; }
+
+// weight chart: weigh-ins, the scale's trend, and the path the formula predicted
+function blChartSVG(a){
+  const W = 340, H = 156, px = 10, top = 14, bot = 26;
+  const n = a.days.length - 1;
+  const x = (i) => px + (W - 2 * px) * i / n;
+  const trend = (i) => a.fit.my + a.slope * (i - a.fit.mx);
+  const pred0 = trend(0), pred = (i) => pred0 + (a.predicted / 3500) * i;
+  const ys = a.days.filter(d => d.lb != null).map(d => d.lb).concat([trend(0), trend(n), pred(0), pred(n)]);
+  let lo = Math.min(...ys), hi = Math.max(...ys);
+  const padY = Math.max(0.4, (hi - lo) * 0.12); lo -= padY; hi += padY;
+  const y = (v) => top + (H - top - bot) * (hi - v) / (hi - lo);
+  const dots = a.days.map((d, i) => d.lb == null ? '' : `<circle cx="${x(i).toFixed(1)}" cy="${y(d.lb).toFixed(1)}" r="3.2" fill="#E9EAF0" opacity=".55"/>`).join('');
+  const yT = y(trend(n)), yP = y(pred(n));
+  return `<div class="bl-key"><span><i class="s"></i>Your scale</span><span><i class="f"></i>What the formula predicted</span></div><svg class="bl-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Weight over the last 28 days: the scale's trend against what the formula predicted">
+    <line x1="${px}" x2="${W - px}" y1="${H - bot + 8}" y2="${H - bot + 8}" stroke="rgba(244,245,250,.08)"/>
+    <text x="${px}" y="${H - 4}" fill="#6F7486" font-size="10" font-family="Inter,sans-serif">${blDate(a.days[0].d)}</text>
+    <text x="${W - px}" y="${H - 4}" text-anchor="end" fill="#6F7486" font-size="10" font-family="Inter,sans-serif">${blDate(a.days[n].d)}</text>
+    <line x1="${x(0)}" y1="${y(pred(0))}" x2="${x(n)}" y2="${yP}" stroke="${BL_C.formula}" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round"/>
+    <line x1="${x(0)}" y1="${y(trend(0))}" x2="${x(n)}" y2="${yT}" stroke="${BL_C.learned}" stroke-width="3" stroke-linecap="round"/>
+    ${dots}
+  </svg>`;
+}
+// the learned BMR week by week, against the formula
+function blHistorySVG(pts){
+  const W = 340, H = 92, px = 10, top = 12, bot = 20;
+  const vals = pts.flatMap(p => [p.base, p.base + p.adj]);
+  let lo = Math.min(...vals), hi = Math.max(...vals); const pad = Math.max(20, (hi - lo) * 0.2); lo -= pad; hi += pad;
+  const x = (i) => px + (W - 2 * px) * i / (pts.length - 1), y = (v) => top + (H - top - bot) * (hi - v) / (hi - lo);
+  const line = (f) => pts.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(f(p)).toFixed(1)}`).join(' ');
+  return `<svg class="bl-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Learned resting burn over recent weeks">
+    <path d="${line(p => p.base)}" fill="none" stroke="${BL_C.formula}" stroke-width="2" stroke-dasharray="5 5"/>
+    <path d="${line(p => p.base + p.adj)}" fill="none" stroke="${BL_C.learned}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    ${pts.map((p, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(p.base + p.adj).toFixed(1)}" r="3.5" fill="${BL_C.learned}"/>`).join('')}
+    <text x="${px}" y="${H - 3}" fill="#6F7486" font-size="10" font-family="Inter,sans-serif">${blDate(pts[0].end)}</text>
+    <text x="${W - px}" y="${H - 3}" text-anchor="end" fill="#6F7486" font-size="10" font-family="Inter,sans-serif">${blDate(pts[pts.length - 1].end)}</text>
+  </svg>`;
+}
+
+function renderBmrPage(){
+  const body = document.getElementById('bmrBody');
+  if(!body || document.getElementById('bmrOverlay').style.display === 'none') return;
+  const base = bmrBase();
+  if(base == null){
+    body.innerHTML = `<div class="bl"><div class="pw-card"><b class="bl-h">Your profile isn’t complete yet</b><p class="bl-p">Add your weight, height, birthday and sex in Profile, and Fera can work out your resting burn.</p></div></div>`;
+    return;
+  }
+  const L = userProfile.bmrLearn || {};
+  const on = !!L.on, learned = on && L.status === 'learned';
+  const a = learnAnalysis(0);
+  const adj = learned ? (L.adj || 0) : 0;
+  const now = Math.round(base + adj);
+  const tag = learned ? 'Learned' : on ? 'Learning' : 'Estimated';
+  const u = blUnit();
+  let h = '<div class="bl">';
+
+  // ---- hero: the number, and where it sits against the formula
+  const pct = adj / base;
+  const pos = 50 + Math.max(-1, Math.min(1, pct / LEARN_CAP)) * 50;
+  h += `<div class="bl-hero">
+    <div class="bl-k">Resting burn · BMR <em class="bc-tag ${tag.toLowerCase()}">${tag}</em></div>
+    <div class="bl-big">${fmtN(now)}<span>kcal a day</span></div>
+    <div class="bl-sub">${learned ? `<b class="${adj >= 0 ? 'up' : 'down'}">${blSigned(adj)} kcal</b> vs the formula’s ${fmtN(Math.round(base))} · ${blSigned(pct * 100, 1)}%` : on ? 'The formula’s estimate, until Fera has enough of your data' : 'The Mifflin-St Jeor formula, from your weight, height, age and sex'}</div>
+    <div class="bl-scale" aria-hidden="true">
+      <div class="bl-track"><i class="bl-fill" style="left:${Math.min(50, pos)}%;width:${Math.abs(pos - 50)}%"></i><i class="bl-mid"></i><i class="bl-dot${learned ? ' on' : ''}" style="left:${pos}%"></i></div>
+      <div class="bl-ticks"><span>−15%</span><span>Formula</span><span>+15%</span></div>
+    </div>
+  </div>`;
+
+  // ---- off, but the data is ready: show what it would learn
+  if(!on && a && a.ready){
+    h += `<div class="pw-card bl-ready"><b class="bl-h">Your data is ready</b><p class="bl-p">Your last 28 days point to a resting burn of <b>${fmtN(Math.round(base + a.adj))} kcal</b>, ${blSigned(a.adj)} a day vs the formula.</p>
+      <button type="button" class="pw-cta" data-bl="on">Use what Fera learned</button></div>`;
+  }
+
+  // ---- learning: how far along
+  if(!(a && a.ready)){
+    const bar = (label, v, need, unit) => `<div class="bl-prog"><div class="bl-prog-t"><span>${label}</span><b>${fmtN(Math.min(v, need))}<i> of ${fmtN(need)}${unit ? ' ' + unit : ''}</i></b></div><div class="pw-bar${v >= need ? ' done' : ''}"><span style="width:${Math.min(100, v / need * 100)}%"></span></div></div>`;
+    const g = a ? a.good : 0, w = a ? a.weighIns : 0, sp = a ? a.spread : 0;
+    h += `<div class="pw-card"><b class="bl-h">${on ? 'Learning' : 'What Fera needs to learn it'}</b>
+      <p class="bl-p">In the last 28 days:</p>
+      ${bar('Complete food days', g, LEARN_MIN_GOOD)}${bar('Days with a weigh-in', w, LEARN_MIN_WEIGH)}${bar('From first to last weigh-in', sp, LEARN_SPREAD, 'days')}
+      <p class="bl-note">A complete day has all its food logged and a burn Fera worked out (not a total you typed). Days that look partly logged are skipped.</p></div>`;
+  }
+
+  // ---- the evidence: scale vs formula
+  if(a && a.ready){
+    const exp = blW(a.predicted * 7 / 3500), got = blW(a.slope * 7);
+    const gap = a.adj;
+    h += `<div class="pw-card"><b class="bl-h">What your scale says</b>
+      ${blChartSVG(a)}
+      <p class="bl-p">From what you ate and burned, the formula expected <b>${blSigned(exp, 1)} ${u}</b> a week. Your scale moved <b>${blSigned(got, 1)} ${u}</b> a week. ${gap === 0 ? 'They match, so the formula fits you.' : `So your body burns about <b>${fmtN(Math.abs(gap))} kcal a day ${gap > 0 ? 'more' : 'less'}</b> than the formula says.`}${a.capped ? ' Fera caps the change at 15% of the formula.' : ''}</p></div>`;
+  }
+
+  // ---- what it changes
+  if(learned && adj !== 0){
+    const t = computeTargets();
+    const mult = ACTIVITY_MULTIPLIERS[userGoals.activity] || 1.2;
+    const custom = userGoals.custom && typeof userGoals.custom.calorie === 'number' && userGoals.custom.calorie > 0;
+    const tShift = Math.round(adj * mult);
+    const wk = blW(adj * 7 / 3500);
+    h += `<div class="bl-impact">
+      <div><small>Every day</small><b>${blSigned(adj)}</b><span>kcal burned</span></div>
+      <div><small>Every week</small><b>${blSigned(adj * 7)}</b><span>kcal ≈ ${Math.abs(wk).toFixed(1)} ${u} of body weight</span></div>
+      <div><small>Calorie target</small><b>${t && !custom && !t.floored ? blSigned(tShift) : '—'}</b><span>${t && !custom && !t.floored ? `${fmtN(t.calorieTarget)} now` : custom ? 'you set your own' : 'at its floor'}</span></div>
+    </div>`;
+  }
+
+  // ---- the 28 days it looks at
+  if(a){
+    const cells = a.days.map(d => `<i class="${d.good ? 'g' : ''}${d.lb != null ? ' w' : ''}" title="${blDate(d.d)}${d.good ? ' · complete' : ''}${d.lb != null ? ' · weigh-in' : ''}"></i>`).join('');
+    h += `<div class="pw-card"><b class="bl-h">The last 28 days</b><div class="bl-days" role="img" aria-label="${a.good} complete days and ${a.weighIns} weigh-ins in the last 28 days">${cells}</div>
+      <div class="bl-legend"><span><i class="g"></i>Complete day · ${a.good}</span><span><i class="wdot"></i>Weigh-in · ${a.weighIns}</span><span class="bl-dates">${blDate(a.days[0].d)} – ${blDate(a.days[a.days.length - 1].d)}</span></div></div>`;
+  }
+
+  // ---- over time
+  if(learned){
+    const pts = [];
+    for(let back = 56; back >= 0; back -= 7){ const r = learnAnalysis(back); if(r && r.ready) pts.push({ base: r.base, adj: r.adj, end: r.end }); }
+    if(pts.length >= 3) h += `<div class="pw-card"><b class="bl-h">Week by week</b>${blHistorySVG(pts)}<p class="bl-note">Fera re-checks every day with the latest 28 days, so the number follows your body as it changes.</p></div>`;
+  }
+
+  // ---- how it works + the switch
+  h += `<div class="pw-card bl-how"><b class="bl-h">How it works</b>
+    <ol><li>Fera adds up what you ate and what it says you burned.</li><li>Your weigh-ins show what actually happened.</li><li>The gap becomes your BMR adjustment, capped at ±15%, and moves your burn and calorie targets.</li></ol>
+    <button type="button" class="pb-tg${on ? ' on' : ''}" data-bl="toggle" role="switch" aria-checked="${on}"><span class="pb-tg-t"><b>Learn my resting burn</b><small>${on ? 'On · re-checked every day' : 'Off · Fera uses the formula'}</small></span><span class="pb-sw"><i></i></span></button></div>`;
+  h += '</div>';
+  body.innerHTML = h;
+}
+
+async function blSetLearning(onNow){
+  const L = userProfile.bmrLearn || {};
+  userProfile.bmrLearn = onNow ? Object.assign({ status: 'learning', adj: 0 }, L, { on: true }) : Object.assign({}, L, { on: false });
+  if(onNow) learnBmr();
+  await persistProfile();
+  syncDerivedBurns();
+  await persist();
+  renderAll();
+  if(window.renderBurnModeSection) window.renderBurnModeSection();
+  haptic(12);
+  renderBmrPage();
+}
+
+(function wireBmrPage(){
+  document.getElementById('bmrBackBtn').addEventListener('click', () => { haptic(); closeBmrPage(); });
+  document.getElementById('bmrBody').addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-bl]'); if(!b) return;
+    if(b.dataset.bl === 'on') blSetLearning(true);
+    else if(b.dataset.bl === 'toggle') blSetLearning(!(userProfile.bmrLearn && userProfile.bmrLearn.on));
+  });
+  // every Estimated / Learning / Learned tag in the app opens this page
+  document.addEventListener('click', (ev) => {
+    const t = ev.target.closest('[data-bmr-open]'); if(!t) return;
+    ev.preventDefault(); ev.stopPropagation(); openBmrPage();
+  }, true);
 })();
 </script>
 </body>

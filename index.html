@@ -2001,6 +2001,18 @@
   .bl-how ol{margin:6px 0 14px;padding-left:20px;color:var(--muted);font-size:14px;line-height:1.55;}
   .bl-how ol li{margin-top:4px;}
   .bl-how .pb-tg{width:100%;}
+
+  /* AI features state, next to the AI */
+  .ai-off-note,.chat-ai-off{display:flex;align-items:center;gap:10px;margin-top:10px;padding:9px 10px 9px 13px;border-radius:14px;border:1px solid rgba(244,183,64,.3);background:rgba(244,183,64,.08);color:#F4D58A;font-size:13px;line-height:1.35;}
+  .ai-off-note[hidden],.chat-ai-off[hidden]{display:none;}
+  .ai-off-note span,.chat-ai-off span{flex:1;min-width:0;}
+  .ai-off-note button,.chat-ai-off button{flex-shrink:0;height:32px;padding:0 13px;border-radius:999px;border:0;background:#F4B740;color:#1A1405;font:700 13px 'Inter',sans-serif;cursor:pointer;}
+  .chat-ai-off{margin:0 0 8px;}
+  .chat-ai-state{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer;}
+  .chat-ai-state b{font-weight:700;}
+  .aic-card h2 small{font:500 14px 'Inter',sans-serif;color:var(--muted);}
+  .aic-where{font-size:13px;color:var(--muted);}
+  .aic-off{height:48px;border-radius:14px;border:1px solid rgba(255,92,122,.35);background:rgba(255,92,122,.1);color:#FF8FA3;font:700 15px 'Inter',sans-serif;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -2190,6 +2202,7 @@
           <input type="file" id="aiPhotoInput" accept="image/*">
         </div>
 
+        <div class="ai-off-note" id="aiOffNote" hidden><span>AI features are off, so nothing is sent for estimates.</span><button type="button" data-ai-settings>Turn on</button></div>
         <div class="sugg" id="aiSugg"></div>
         <p class="status" id="aiStatus"></p>
 
@@ -6089,6 +6102,7 @@ function maybeShowDaySummary(force){
 
 // ---------- render all ----------
 function renderAll(){
+  if(typeof renderAiState === 'function') try { renderAiState(); } catch(e){}
   renderTrendPeriodNav();
   renderTrendsRingAndRuler();
   renderConsumedChart();
@@ -6353,9 +6367,51 @@ const AI_ESTIMATE_URL = 'https://us-central1-monstrao-e04ac.cloudfunctions.net/e
 // ---------- AI consent (App Store 5.1.2(i)): ask once before any data goes to the AI provider ----------
 function aiConsented(){ return !!(userProfile && userProfile.aiConsent && userProfile.aiConsent.at); }
 function setAiConsent(on){
-  if(on) userProfile.aiConsent = { at: Date.now(), v: 1 };
-  else delete userProfile.aiConsent;
+  if(on){ userProfile.aiConsent = { at: Date.now(), v: 1 }; delete userProfile.aiOff; }
+  else { delete userProfile.aiConsent; userProfile.aiOff = Date.now(); }
   persistProfile();
+  renderAiState();
+}
+// "off" only once the person has said no (turned it off, or Not now); before the first use it's just "not asked yet"
+function aiTurnedOff(){ return !aiConsented() && !!(userProfile && userProfile.aiOff); }
+// the AI state shown next to the AI itself: under the estimate composer and at the foot of Fera AI
+function renderAiState(){
+  const off = aiTurnedOff();
+  const note = document.getElementById('aiOffNote'); if(note) note.hidden = !off;
+  const st = document.getElementById('chatAiState');
+  if(st) st.innerHTML = aiConsented() ? 'AI features: <b>On</b>' : off ? 'AI features: <b>Off</b>' : 'AI features';
+  const cOff = document.getElementById('chatAiOff'); if(cOff) cOff.hidden = !off;
+  renderYourDataAi();
+}
+// a small sheet to see and change the AI setting from where the AI is used
+function openAiSettings(){
+  haptic();
+  const on = aiConsented();
+  const el = document.createElement('div');
+  el.className = 'ds-scrim';
+  const since = on ? new Date(userProfile.aiConsent.at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+  el.innerHTML = `<div class="ds-card aic-card" role="dialog" aria-modal="true" aria-labelledby="aisTitle">
+      <div class="ds-k">AI features</div>
+      <h2 id="aisTitle">${on ? 'On' : 'Off'}${on ? `<small> · allowed ${since}</small>` : ''}</h2>
+      <p>${on ? 'AI estimates and Fera AI send what they need to <b>Anthropic</b>, the company behind the Claude model, only when you use them.' : 'Nothing is sent to Anthropic. You can still log food by hand and see all your numbers.'}</p>
+      <p class="aic-where">The same switch is in Menu → Your Data. <a href="https://getfera.app/privacy/" target="_blank" rel="noopener">Privacy policy</a></p>
+      <div class="aic-actions">
+        <button class="${on ? 'aic-off' : 'btn-primary'}" type="button" data-ais="${on ? 'off' : 'on'}">${on ? 'Turn off AI features' : 'Turn on AI features'}</button>
+        <button class="aic-later" type="button" data-ais="close">Close</button>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  document.body.classList.add('sheet-open');
+  requestAnimationFrame(() => el.classList.add('open'));
+  const close = () => { el.classList.remove('open'); document.body.classList.remove('sheet-open'); setTimeout(() => el.remove(), 260); };
+  el.addEventListener('click', async (ev) => {
+    const b = ev.target.closest('[data-ais]');
+    if(!b){ if(ev.target === el) close(); return; }
+    const a = b.dataset.ais;
+    close();
+    if(a === 'off'){ haptic(12); setAiConsent(false); }
+    else if(a === 'on'){ await new Promise((r) => setTimeout(r, 280)); await ensureAiConsent(); renderAiState(); }
+  });
 }
 let aiConsentOpen = null;
 function ensureAiConsent(){
@@ -6372,7 +6428,7 @@ function ensureAiConsent(){
           <div><b>AI estimates</b>The food description or photo you add.</div>
           <div><b>Fera AI</b>Your question, plus the parts of your food log, burn, weigh-ins, profile and goals needed to answer it.</div>
         </div>
-        <p>Anthropic uses it only to produce the answer and doesn't train its models on it. Nothing is sent unless you use an AI feature, and you can turn this off in Your Data. <a href="https://getfera.app/privacy/" target="_blank" rel="noopener">Privacy policy</a></p>
+        <p>Anthropic uses it only to produce the answer and doesn't train its models on it. Nothing is sent unless you use an AI feature, and you can turn it off anytime in Menu → Your Data, or from Fera AI. <a href="https://getfera.app/privacy/" target="_blank" rel="noopener">Privacy policy</a></p>
         <div class="aic-actions">
           <button class="btn-primary" type="button" data-aic="yes">Allow AI features</button>
           <button class="aic-later" type="button" data-aic="no">Not now</button>
@@ -6384,6 +6440,7 @@ function ensureAiConsent(){
     const done = (yes) => {
       haptic();
       if(yes) setAiConsent(true);
+      else if(!aiConsented()){ userProfile.aiOff = Date.now(); persistProfile(); renderAiState(); }
       el.classList.remove('open'); document.body.classList.remove('sheet-open');
       setTimeout(() => el.remove(), 260);
       aiConsentOpen = null;
@@ -6422,12 +6479,13 @@ function renderYourDataDelete(){
   document.getElementById('ydDeleteGo').disabled = true;
   document.getElementById('ydDeleteStatus').textContent = '';
 }
+document.addEventListener('click', (ev) => { if(ev.target.closest('[data-ai-settings]')){ ev.preventDefault(); openAiSettings(); } });
 function wireYourDataExtras(){
   document.getElementById('ydAiBtn').addEventListener('click', async () => {
     haptic();
     if(aiConsented()) setAiConsent(false);
     else await ensureAiConsent();
-    renderYourDataAi();
+    renderAiState();
   });
   document.getElementById('ydDeleteBtn').addEventListener('click', () => {
     haptic();
@@ -7127,7 +7185,8 @@ async function init(){
       requestAnimationFrame(() => aiResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
     }catch(err){
       hideThinking();
-      setAiStatus('' + (err && err.message ? err.message : 'Estimate failed.'), 'error');
+      // AI turned off: the note under the composer already says so, with Turn on
+      if(!(err && err.message === AI_NOT_ALLOWED)) setAiStatus('' + (err && err.message ? err.message : 'Estimate failed.'), 'error');
       if(err && err.limit && window.offerPremiumForLimit) offerPremiumForLimit('est', err.limit);
     }
     aiEstimateBtn.disabled = false;
@@ -8506,7 +8565,8 @@ bootAuth();
       <button class="chat-ibtn chat-mic" id="chatMicBtn" type="button" aria-label="Speak your question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
       <button class="chat-ibtn chat-send" id="chatSendBtn" type="submit" aria-label="Send" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
     </form>
-    <div class="chat-fine">Fera AI can make mistakes · Not medical advice</div>
+    <div class="chat-ai-off" id="chatAiOff" hidden><span>AI features are off. Fera AI needs them to answer.</span><button type="button" data-ai-settings>Turn on</button></div>
+    <div class="chat-fine">Fera AI can make mistakes · Not medical advice · <button type="button" class="chat-ai-state" id="chatAiState" data-ai-settings>AI features</button></div>
   </div>
 </div>
 <script>

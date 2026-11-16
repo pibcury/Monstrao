@@ -2013,6 +2013,7 @@
   .aic-card h2 small{font:500 14px 'Inter',sans-serif;color:var(--muted);}
   .aic-where{font-size:13px;color:var(--muted);}
   .aic-off{height:48px;border-radius:14px;border:1px solid rgba(255,92,122,.35);background:rgba(255,92,122,.1);color:#FF8FA3;font:700 15px 'Inter',sans-serif;cursor:pointer;}
+  .cm-free{margin-top:6px;font-size:11.5px;color:var(--muted);opacity:.8;}
 </style>
 </head>
 <body>
@@ -8795,7 +8796,7 @@ bootAuth();
     const st = streamer(el);
     setBusy(true);
     abortCtl = new AbortController();
-    let failed = null, stopped = false, failedLimit = null;
+    let failed = null, stopped = false, failedLimit = null, freeDecline = false;
     try {
       await ensureAuth();
       const token = await firebase.auth().currentUser.getIdToken();
@@ -8813,6 +8814,7 @@ bootAuth();
       const handle = (ev) => {
         if(ev.type === 'text') st.push(ev.text);
         else if(ev.type === 'status') setStatus(el, ev.text);
+        else if(ev.type === 'declined') freeDecline = ev.counted === false;
         else if(ev.type === 'error') throw new Error(ev.message || 'Something went wrong.');
       };
       const parse = (chunk) => {
@@ -8841,6 +8843,8 @@ bootAuth();
     if(stopped){ st.cut(); el.classList.add('stopped'); }
     else await st.finish();
     const answer = st.text().trim();
+    // an off-topic question Fera AI declined gives its place back
+    if(freeDecline && answer && !failed){ const n = document.createElement('div'); n.className = 'cm-free'; n.textContent = 'This one didn’t count toward your questions.'; el.appendChild(n); }
     if(failed && answer){
       const err = document.createElement('div'); err.className = 'cm-err'; err.innerHTML = '<span></span>';
       err.querySelector('span').textContent = 'The answer was cut off. ' + failed; el.appendChild(err);

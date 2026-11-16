@@ -5478,13 +5478,15 @@ function renderBurnedChart(){
 
 // ---------- rendering: Apple Health — steps, and active energy or Apple Watch activity ----------
 // Only the charts that feed this person's burn: watch-or-ring → Steps + Active energy; Apple Watch →
-// Apple Watch activity; iPhone only → Steps; no Apple Health → none.
+// Apple Watch activity; iPhone only → Steps + Workouts; no Apple Health → Workouts. Workouts are the
+// ones logged in Fera (their kcal as they count in the burn); press and hold names them and the source.
 const healthCharts = { steps: null, active: null };
 function renderHealthCharts(){
   const path = burnPath(), def = BURN_PATHS[path];
-  const want = { steps: def.apple && path !== 'watch', active: path === 'wearable' || path === 'watch' };
+  const logged = path === 'phone' || path === 'manual';      // activity comes from workouts logged in Fera
+  const want = { steps: def.apple && path !== 'watch', active: true };
   const nameEl = document.getElementById('activeChartName');
-  if(nameEl) nameEl.textContent = path === 'watch' ? 'Apple Watch activity' : 'Active energy';
+  if(nameEl) nameEl.textContent = path === 'watch' ? 'Apple Watch activity' : logged ? 'Workouts' : 'Active energy';
   ['steps', 'active'].forEach(k => {
     const block = document.getElementById(k === 'steps' ? 'blockSteps' : 'blockActive');
     if(block) block.style.display = want[k] ? '' : 'none';
@@ -5496,9 +5498,27 @@ function renderHealthCharts(){
       // the same days as every other Trends chart: days with something logged (or sent by Apple Health)
       const dates = filterDatesByHorizon(Array.from(new Set(sortedDates().concat(Object.keys(healthData)))).sort(), trendHorizon);
       const labels = dates.map(trendLabel);
-      const vals = dates.map(d => { const h = healthFor(d); if(!h) return null; return k === 'steps' ? (typeof h.steps === 'number' ? h.steps : null) : (h.active || 0); });
-      if(titleEl) titleEl.innerHTML = HOLD_HINT;
+      const wk = (d) => { const p = burnParts(d); const q = p && p.parts.find(x => x.key === 'workouts'); return q && q.value > 0 ? q.value : null; };
+      const vals = dates.map(d => {
+        if(k === 'active' && logged) return wk(d);
+        const h = healthFor(d); if(!h) return null; return k === 'steps' ? (typeof h.steps === 'number' ? h.steps : null) : (h.active || 0);
+      });
+      if(titleEl){
+        const n = vals.filter(v => v != null && v > 0);
+        titleEl.innerHTML = k === 'active' && logged && !n.length ? chartStatsHTML(['none logged yet']) : HOLD_HINT;
+      }
       const color = k === 'steps' ? BURN_PARTS.steps.color : '#FF375F';
+      // where the number comes from, shown while holding a bar
+      const srcNote = (i) => {
+        if(vals[i] == null) return '';
+        if(k === 'steps') return path !== 'watch' ? `≈ ${fmtN(Math.round(walkKcal(vals[i])))} kcal to burn · Apple Health` : 'Apple Health';
+        if(!logged) return path === 'watch' ? 'Apple Health · Apple Watch' : 'Apple Health · your watch or ring';
+        const ws = dayWorkouts(dates[i]);
+        const names = ws.map(w => { const def = WORKOUTS.find(x => x.k === w.type); return `${def ? def.n : 'Workout'}${w.min ? ' ' + w.min + ' min' : ''}`; });
+        const e = entries[dates[i]];
+        if(!names.length && e && e.activity && DAY_ACTIVITY[e.activity]) names.push(`${DAY_ACTIVITY[e.activity].label} day`);
+        return `${names.join(', ')} · logged in Fera`;
+      };
       const data = { labels, datasets: [{ type: 'bar', label: k, data: vals, backgroundColor: color + 'CC', borderRadius: 4,
         maxBarThickness: trendHorizon === 'week' ? 22 : (trendHorizon === 'month' ? 14 : 6) }] };
       const options = { responsive: true, maintainAspectRatio: false, events: [], interaction: { mode: 'index', intersect: false },
@@ -5506,8 +5526,7 @@ function renderHealthCharts(){
         scales: { x: { ticks: horizonXTicks(trendHorizon, dates), grid: { display: false } },
           y: { beginAtZero: true, ticks: { color: '#8D90A8', font: { family: 'Inter', size: 10 } }, grid: { color: '#2E3040' },
                title: { display: true, text: k === 'steps' ? 'steps' : 'kcal', color: '#8D90A8', font: { family: 'Inter', size: 10 } } } } };
-      const hold = { titleEl, baseHTML: null, labels, series: [{ color, decimals: 0, suffix: k === 'steps' ? ' steps' : ' kcal', vals }],
-        note: k === 'steps' && path !== 'watch' ? (i => vals[i] != null ? `≈ ${fmtN(Math.round(walkKcal(vals[i])))} kcal to burn` : '') : null };
+      const hold = { titleEl, baseHTML: null, labels, series: [{ color, decimals: 0, suffix: k === 'steps' ? ' steps' : ' kcal', vals }], note: srcNote };
       let c = healthCharts[k];
       if(c){ c.data = data; c.options = options; c.update(); }
       else c = healthCharts[k] = new Chart(document.getElementById(k + 'Chart'), { type: 'bar', data, options });

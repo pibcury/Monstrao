@@ -1839,6 +1839,90 @@
   .lg-manual .lg-name-input{width:100%;border:0;border-bottom:1px solid var(--rule);border-radius:0;background:transparent;box-shadow:none;padding:4px 2px 10px;font:600 17px 'Sora',sans-serif;letter-spacing:-0.01em;color:var(--ink);}
   .lg-manual .lg-name-input:focus{outline:none;border-bottom-color:var(--accent);box-shadow:none;}
   .lg-manual .lg-add{width:100%;margin-top:12px;}
+  /* Scan: barcode scanner + nutrition label */
+  .fseg.three{grid-template-columns:1fr 1fr 1fr;}
+  .fseg.three .fseg-thumb{width:calc(33.333% - 2px);}
+  .fseg.three:has(button[data-imode="scan"].on) .fseg-thumb{transform:translateX(100%);}
+  .fseg.three:has(button[data-imode="manual"].on) .fseg-thumb{transform:translateX(200%);}
+  .fseg button .seg-ico{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;}
+  .fseg button.on .seg-ico{color:var(--accent);}
+  .scn [hidden]{display:none !important;}
+  .scn{position:relative;border-radius:20px;padding:8px;background:linear-gradient(180deg,rgba(244,245,250,0.045),rgba(244,245,250,0.018));border:1px solid var(--rule);}
+  .scn-view{position:relative;height:196px;border-radius:14px;overflow:hidden;cursor:pointer;background:radial-gradient(120% 90% at 50% 0%,rgba(76,141,255,0.13),rgba(76,141,255,0) 70%),rgba(8,10,14,0.55);border:1px solid rgba(244,245,250,0.05);}
+  .scn-view video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s;}
+  .scn[data-state="live"] .scn-view video{opacity:1;}
+  .scn-frame{position:absolute;left:12%;right:12%;top:24%;bottom:24%;border-radius:12px;transition:box-shadow .3s;}
+  .scn[data-state="live"] .scn-frame{box-shadow:0 0 0 999px rgba(6,8,12,0.45);}
+  .scn-frame i{position:absolute;width:20px;height:20px;border:3px solid var(--accent);opacity:.55;transition:opacity .3s;}
+  .scn[data-state="live"] .scn-frame i{opacity:1;}
+  .scn-frame i:nth-child(1){left:-2px;top:-2px;border-right:0;border-bottom:0;border-top-left-radius:12px;}
+  .scn-frame i:nth-child(2){right:-2px;top:-2px;border-left:0;border-bottom:0;border-top-right-radius:12px;}
+  .scn-frame i:nth-child(3){left:-2px;bottom:-2px;border-right:0;border-top:0;border-bottom-left-radius:12px;}
+  .scn-frame i:nth-child(4){right:-2px;bottom:-2px;border-left:0;border-top:0;border-bottom-right-radius:12px;}
+  .scn-laser{position:absolute;left:8%;right:8%;top:50%;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#FF5A6E 20%,#FF5A6E 80%,transparent);box-shadow:0 0 12px 1px rgba(255,90,110,0.7);opacity:0;}
+  .scn[data-state="live"] .scn-laser{opacity:1;animation:scnLaser 1.8s ease-in-out infinite;}
+  @keyframes scnLaser{0%,100%{transform:translateY(-22px);}50%{transform:translateY(22px);}}
+  .scn-idle{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;transition:opacity .25s;}
+  .scn[data-state="live"] .scn-idle,.scn[data-state="starting"] .scn-idle b,.scn[data-state="starting"] .scn-idle small{opacity:0;}
+  .scn-glyph{width:84px;height:44px;margin-bottom:8px;color:rgba(244,245,250,0.82);}
+  .scn[data-state="starting"] .scn-glyph{animation:lgOrb 1s ease-in-out infinite;}
+  .scn-idle b{font:600 15px 'Sora',sans-serif;color:var(--ink);letter-spacing:-0.01em;}
+  .scn-idle small{font-size:12.5px;color:var(--muted);}
+  .scn-hint{position:absolute;left:0;right:0;bottom:10px;text-align:center;font:600 12px 'Inter',sans-serif;color:rgba(244,245,250,0.92);text-shadow:0 1px 6px rgba(0,0,0,0.6);opacity:0;transition:opacity .3s;}
+  .scn[data-state="live"] .scn-hint{opacity:1;}
+  .scn-icon-btn{position:absolute;top:8px;width:34px;height:34px;border-radius:50%;border:0;display:grid;place-items:center;background:rgba(10,12,16,0.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;cursor:pointer;}
+  .scn-icon-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .scn-icon-btn.on{background:#FBBF24;color:#16181D;}
+  #scanTorchBtn{left:8px;}
+  .scn-type{display:none;padding:14px 12px 10px;}
+  .scn[data-state="type"] .scn-view{display:none;}
+  .scn[data-state="type"] .scn-type{display:block;}
+  .scn-type label{display:block;font:600 11.5px 'Inter',sans-serif;color:var(--muted);margin-bottom:4px;}
+  .scn-type input{width:100%;border:0;background:transparent;box-shadow:none;padding:2px 0 8px;border-bottom:1px solid var(--rule);border-radius:0;font:600 21px/1.2 'Sora',sans-serif;letter-spacing:.02em;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .scn-type input:focus{outline:none;border-bottom-color:var(--accent);box-shadow:none;}
+  .scn-type input::placeholder{color:rgba(244,245,250,0.22);letter-spacing:.02em;}
+  .scn-type small{display:block;margin-top:6px;font-size:11.5px;color:var(--muted);}
+  .scn .cmp-bar{margin-top:8px;}
+  .scn .ai-desc-tools{position:static;display:flex;gap:6px;width:100%;}
+  .scn .ai-desc-tools .cmp-tool{flex:1;justify-content:center;}
+  .scn-start{margin-top:10px;display:inline-flex;align-items:center;height:34px;padding:0 16px;border-radius:999px;background:var(--accent-strong);color:#fff;font:700 13.5px 'Inter',sans-serif;box-shadow:0 8px 20px -8px rgba(76,141,255,0.75);}
+  .scn[data-state="starting"] .scn-start{opacity:.5;}
+  #scanStopBtn{right:8px;}
+  .scn-type-row{display:flex;align-items:flex-end;gap:10px;}
+  .scn-type-row input{flex:1;min-width:0;}
+  .scn:not(.ready) #scanLookupBtn{background:rgba(244,245,250,0.07);color:var(--muted);box-shadow:none;}
+  .scn .cmp-go svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .scn-prod{display:flex;align-items:flex-start;gap:12px;}
+  .scn-prod-img{width:56px;height:56px;border-radius:14px;flex-shrink:0;display:grid;place-items:center;overflow:hidden;background:#fff;}
+  .scn-prod-img img{width:100%;height:100%;object-fit:contain;}
+  .scn-prod-img.photo{background:rgba(244,245,250,0.05);} .scn-prod-img.photo img{object-fit:cover;}
+  .scn-prod-img.none{background:rgba(76,141,255,0.12);color:var(--accent);} .scn-prod-img.none svg{width:30px;height:22px;}
+  .scn-prod-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
+  .scn-brand{font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  textarea#scanName{width:100%;min-height:0;max-height:96px;border:0;background:transparent;box-shadow:none;padding:2px 4px;margin:-2px -4px;border-radius:8px;font:600 16px/1.35 'Sora',sans-serif;letter-spacing:-0.01em;color:var(--ink);resize:none;overflow:hidden;}
+  textarea#scanName:focus{outline:none;background:rgba(244,245,250,0.05);}
+  .scn-meta{font-size:12px;color:var(--muted);}
+  .scn-amt{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding:6px;border-radius:14px;background:rgba(244,245,250,0.035);border:1px solid var(--rule);}
+  .scn-units{display:flex;gap:2px;padding:2px;border-radius:10px;background:rgba(8,10,14,0.35);}
+  .scn-units button{border:0;background:none;padding:7px 11px;border-radius:8px;font:700 12.5px 'Inter',sans-serif;color:var(--muted);cursor:pointer;}
+  .scn-units button.on{background:var(--accent-soft);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(76,141,255,0.35);}
+  .scn-step{display:flex;align-items:center;gap:4px;}
+  .scn-step button{width:34px;height:34px;border-radius:10px;border:1px solid var(--rule);background:rgba(244,245,250,0.05);color:var(--ink);cursor:pointer;display:grid;place-items:center;padding:0;}
+  .scn-step button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;}
+  .scn-step button:active{transform:scale(.94);}
+  .scn-step input{width:52px;border:0;background:transparent;box-shadow:none;padding:0;text-align:center;font:600 18px 'Sora',sans-serif;color:var(--ink);-moz-appearance:textfield;}
+  .scn-step input::-webkit-outer-spin-button,.scn-step input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .scn-step input:focus{outline:none;box-shadow:none;}
+  .scn-step em{font:600 12px 'Inter',sans-serif;font-style:normal;color:var(--muted);margin:0 4px 0 -8px;}
+  .scn-step em:empty{display:none;}
+  .scn-miss{animation:lgIn .38s cubic-bezier(.2,.9,.3,1.15) both;text-align:center;padding:18px 16px 14px;}
+  .scn-miss .scn-glyph{width:64px;height:34px;margin:0 auto 8px;color:var(--muted);display:block;}
+  .scn-miss b{display:block;font:600 16px 'Sora',sans-serif;color:var(--ink);letter-spacing:-0.01em;}
+  .scn-miss p{margin:4px auto 14px;max-width:290px;font-size:13px;line-height:1.45;color:var(--muted);}
+  .scn-miss .lg-add svg{width:18px;height:18px;}
+  .lg-badge.scan{background:rgba(255,255,255,0.08);color:var(--ink);}
+  .fi-src.scan,.fi-src.label{background:rgba(244,245,250,0.10);color:#D8DBE4;}
+
 
   .lg-think-row{display:flex;align-items:center;gap:12px;}
   .lg-think-media{position:relative;width:54px;height:54px;border-radius:13px;overflow:hidden;flex-shrink:0;display:grid;place-items:center;background:rgba(76,141,255,0.12);}
@@ -2237,8 +2321,8 @@
       </div>
 
       <div class="food-input-head" id="foodInputHead">
-        <div class="fseg" role="group" aria-label="How to add food">
-          <button type="button" data-imode="ai" class="on"><svg class="ai-sparkle" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg>Ask AI</button><button type="button" data-imode="manual">Manual entry</button><i class="fseg-thumb"></i>
+        <div class="fseg three" role="group" aria-label="How to add food">
+          <button type="button" data-imode="ai" class="on"><svg class="ai-sparkle" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg>Ask AI</button><button type="button" data-imode="scan"><svg class="seg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M8 9v6M11 9v6M14 9v6M17 9v6"/></svg>Scan</button><button type="button" data-imode="manual">Manual entry</button><i class="fseg-thumb"></i>
         </div>
       </div>
       <div class="meal-row" id="mealRow" role="group" aria-label="Meal (optional)"></div>
@@ -2308,6 +2392,89 @@
           </div>
         </div>
 
+      </div>
+      <div id="scanInputView" style="display:none;">
+        <div class="scn" id="scanBox" data-state="idle">
+          <div class="scn-view" id="scanView" role="button" aria-label="Start the barcode scanner">
+            <video id="scanVideo" playsinline muted autoplay></video>
+            <div class="scn-frame" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="scn-laser"></span></div>
+            <div class="scn-idle">
+              <svg class="scn-glyph" viewBox="0 0 84 44" aria-hidden="true"><use href="#icoBarcode"/></svg>
+              <b>Scan a barcode</b>
+              <small>Packaged food and drinks</small>
+              <span class="scn-start" id="scanStartBtn">Open camera</span>
+            </div>
+            <div class="scn-hint">Line up the barcode inside the frame</div>
+            <button class="scn-icon-btn" id="scanTorchBtn" type="button" aria-label="Flashlight" hidden><svg viewBox="0 0 24 24"><path d="M9 2h6l-1 6h3l-7 14 1-9H7z"/></svg></button>
+            <button class="scn-icon-btn" id="scanStopBtn" type="button" aria-label="Close the camera" hidden><svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></svg></button>
+          </div>
+          <div class="scn-type">
+            <label for="scanCodeInput">Barcode number</label>
+            <div class="scn-type-row">
+              <input type="text" id="scanCodeInput" inputmode="numeric" autocomplete="off" maxlength="17" placeholder="0 12345 67890 5">
+              <button class="cmp-go" id="scanLookupBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg><span>Look up</span></button>
+            </div>
+            <small>The digits printed under the bars.</small>
+          </div>
+          <div class="cmp-bar">
+            <div class="ai-desc-tools">
+              <button class="cmp-tool" id="scanTypeBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M7 10h.01M11 10h.01M15 10h.01M7 14h10"/></svg><span>Type number</span></button>
+              <button class="cmp-tool" id="scanCamBtn" type="button" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M8 9v6M11 9v6M14 9v6M17 9v6"/></svg><span>Camera</span></button>
+              <button class="cmp-tool" id="scanLabelBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 14.5h5M8 17.5h6"/></svg><span>Nutrition label</span></button>
+            </div>
+          </div>
+          <input type="file" id="scanLabelFile" accept="image/*" hidden>
+        </div>
+        <p class="status" id="scanStatus"></p>
+
+        <div class="lg-card lg-thinking" id="scanThinking" style="display:none;" aria-live="polite">
+          <div class="lg-think-row">
+            <div class="lg-think-media" id="scanThinkMedia"></div>
+            <div class="lg-think-txt"><b id="scanThinkMsg">Looking it up…</b><small id="scanThinkSub"></small></div>
+          </div>
+          <div class="lg-skel" aria-hidden="true"><i class="w1"></i><i class="w2"></i><div class="lg-skel-tiles"><i></i><i></i><i></i></div></div>
+        </div>
+
+        <div class="lg-card lg-result" id="scanResult" style="display:none;">
+          <div class="lg-res-head">
+            <span class="lg-badge scan" id="scanBadge"></span>
+            <span class="lg-meal-tag" id="scanMealTag"></span>
+          </div>
+          <div class="scn-prod">
+            <div class="scn-prod-img" id="scanProdImg"></div>
+            <div class="scn-prod-txt">
+              <span class="scn-brand" id="scanBrand"></span>
+              <textarea id="scanName" rows="1" aria-label="Item name"></textarea>
+              <span class="scn-meta" id="scanMeta"></span>
+            </div>
+          </div>
+          <div class="scn-amt">
+            <div class="scn-units" id="scanUnits" role="group" aria-label="Amount in"></div>
+            <div class="scn-step">
+              <button type="button" data-step="-1" aria-label="Less"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button>
+              <input type="number" id="scanQty" inputmode="decimal" aria-label="Amount">
+              <em id="scanQtyUnit"></em>
+              <button type="button" data-step="1" aria-label="More"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></button>
+            </div>
+          </div>
+          <div class="nutri-grid lg-nutri" id="scanNutri"></div>
+          <div class="lg-mix" id="scanMix" aria-hidden="true"><i data-mx="protein"></i><i data-mx="carbs"></i><i data-mx="fat"></i></div>
+          <p class="lg-hint" id="scanHint"></p>
+          <div class="lg-actions">
+            <button class="lg-retry" id="scanAgainBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M8 9v6M11 9v6M14 9v6M17 9v6"/></svg><span>Scan something else</span></button>
+            <button class="lg-add" id="scanAddBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="lg-add-lbl">Add</span></button>
+          </div>
+        </div>
+
+        <div class="lg-card scn-miss" id="scanMiss" style="display:none;">
+          <svg class="scn-glyph" viewBox="0 0 84 44" aria-hidden="true"><use href="#icoBarcode"/></svg>
+          <b>Not in the food database yet</b>
+          <p id="scanMissTxt"></p>
+          <div class="lg-actions">
+            <button class="lg-retry" id="scanMissManualBtn" type="button"><span>Enter it by hand</span></button>
+            <button class="lg-add" id="scanMissLabelBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.5"/></svg><span>Snap the nutrition label</span></button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -6426,7 +6593,7 @@ function setupChartTooltip(canvasId, getChart){
 }
 
 // ---------- food logging: mode + items ----------
-let inputMode = 'ai'; // 'ai'|'manual' — which input UI shows inside the items view; AI is the default
+let inputMode = 'ai'; // 'ai'|'scan'|'manual' — which input UI shows inside the items view; AI is the default
 
 // ---------- AI calorie estimate (calls a Firebase Cloud Function; the function holds the Claude API key) ----------
 const AI_ESTIMATE_URL = 'https://us-central1-monstrao-e04ac.cloudfunctions.net/estimateCalories';
@@ -6577,13 +6744,14 @@ function wireYourDataExtras(){
   });
 }
 
-async function requestCalorieEstimate(description, photo){
+async function requestCalorieEstimate(description, photo, opts){
   if(!(await ensureAiConsent())) throw new Error(AI_NOT_ALLOWED);
   await ensureAuth();
   const user = firebase.auth().currentUser;
   if(!user) throw new Error('Not signed in yet — try again in a moment.');
   const token = await user.getIdToken();
   const payload = { description };
+  if(opts && opts.mode) payload.mode = opts.mode;
   if(photo) payload.image = { data: photo.base64, mediaType: photo.mediaType };
   const resp = await fetch(AI_ESTIMATE_URL, {
     method: 'POST',
@@ -6645,9 +6813,12 @@ function renderFoodForm(){
     head.style.display = '';
     manualView.style.display = (inputMode === 'manual') ? '' : 'none';
     aiView.style.display = (inputMode === 'ai') ? '' : 'none';
+    document.getElementById('scanInputView').style.display = (inputMode === 'scan') ? '' : 'none';
     head.querySelectorAll('[data-imode]').forEach(b => b.classList.toggle('on', b.dataset.imode === inputMode));
   }
 
+  // leaving Scan, or closing the card, turns the camera off
+  if((inputMode !== 'scan' || !foodExpanded || (e && e.mode === 'simple')) && window.__stopScan) window.__stopScan();
   renderLoggedCard(d, e);
 }
 
@@ -6757,7 +6928,7 @@ document.addEventListener('click', async (ev)=>{
 
 // ---------- the Food card's logged list: one compact line per item; the pencil opens it for editing ----------
 let foodEditId = null;
-const SRC_LABEL = { ai: 'AI', manual: 'Manual' };
+const SRC_LABEL = { ai: 'AI', manual: 'Manual', scan: 'Scan', label: 'Label' };
 function itemNumsHTML(it){
   const parts = [`<span class="fn-cal"><b>${fmtN(it.cal)}</b> kcal</span>`];
   trackedMacros().forEach(m => { const v = it[m]; parts.push(`<span><b style="color:${MACRO_COLOR[m]}">${typeof v === 'number' ? fmtN(v) : '—'}</b> g ${m === 'fat' ? 'fat' : m}</span>`); });
@@ -7018,6 +7189,7 @@ async function init(){
     haptic();
     inputMode = b.dataset.imode;
     renderFoodForm();
+    if(inputMode === 'scan'){ if(window.__startScan && !document.getElementById('scanResult').offsetParent) window.__startScan(); return; }
     renderSuggestions(inputMode === 'ai' ? 'aiSugg' : 'manSugg', inputMode === 'ai' ? document.getElementById('aiDesc').value : document.getElementById('itemDesc').value);
   });
 
@@ -7154,12 +7326,12 @@ async function init(){
     syncComposer();
   }
 
-  function resizeImageToJpeg(file){
+  function resizeImageToJpeg(file, maxEdge){
     return new Promise((resolve, reject) => {
       const objectUrl = URL.createObjectURL(file);
       const img = new Image();
       img.onload = () => {
-        const MAX_EDGE = 1024;
+        const MAX_EDGE = maxEdge || 1024;
         const scale = Math.min(1, MAX_EDGE / Math.max(img.width, img.height));
         const w = Math.max(1, Math.round(img.width * scale));
         const h = Math.max(1, Math.round(img.height * scale));
@@ -7329,6 +7501,334 @@ async function init(){
     renderAll(); renderFoodForm();
     showAddToast(d, added);
   });
+
+
+  // ---- Scan: a barcode (looked up in Open Food Facts by the server) or a photo of the nutrition label
+  // (read by the AI, one estimate). Barcodes use no AI, so they don't count toward the plan's limits. ----
+  const scanBox = document.getElementById('scanBox');
+  const scanVideo = document.getElementById('scanVideo');
+  const scanCodeInput = document.getElementById('scanCodeInput');
+  const scanResult = document.getElementById('scanResult');
+  const scanNameEl = document.getElementById('scanName');
+  const scanQty = document.getElementById('scanQty');
+  const SCAN_ICO = '<svg viewBox="0 0 84 44" fill="currentColor" aria-hidden="true"><use href="#icoBarcode"/></svg>';
+  const scan = { stream: null, timer: null, det: null, starting: false, product: null, unit: 'serving', qty: 1, thinkTimer: null, photo: null, missCode: null };
+  const gs1Ok = (c) => { const d = c.split('').map(Number), k = d.pop(); let s = 0; d.reverse().forEach((n, i) => { s += n * (i % 2 === 0 ? 3 : 1); }); return (10 - (s % 10)) % 10 === k; };
+  const fmtCode = (c) => c.length === 13 ? `${c[0]} ${c.slice(1, 7)} ${c.slice(7)}` : c.length === 12 ? `${c[0]} ${c.slice(1, 6)} ${c.slice(6, 11)} ${c[11]}` : c;
+  const r1 = (v) => Math.round(v * 10) / 10;
+  let scanStatusTimer = null;
+  function setScanStatus(text, cls, ms){
+    clearTimeout(scanStatusTimer);
+    const el = document.getElementById('scanStatus'); el.textContent = text || ''; el.className = 'status' + (cls ? ' ' + cls : '');
+    if(ms) scanStatusTimer = setTimeout(() => { el.textContent = ''; el.className = 'status'; }, ms);
+  }
+  function scanCards(which){
+    document.getElementById('scanThinking').style.display = which === 'thinking' ? '' : 'none';
+    scanResult.style.display = which === 'result' ? '' : 'none';
+    scanResult.classList.remove('leaving');
+    document.getElementById('scanMiss').style.display = which === 'miss' ? '' : 'none';
+    if(which !== 'thinking'){ clearInterval(scan.thinkTimer); scan.thinkTimer = null; }
+  }
+  function setScanState(st){
+    scanBox.dataset.state = st;
+    document.getElementById('scanTypeBtn').hidden = st === 'type';
+    document.getElementById('scanCamBtn').hidden = st !== 'type';
+    document.getElementById('scanStopBtn').hidden = st !== 'live';
+    scanBox.classList.toggle('ready', scanCodeInput.value.replace(/\D/g, '').length >= 8);
+  }
+
+  // the detector: the browser's own where it reads retail barcodes, otherwise ZXing (loaded on first use)
+  function loadZxing(){
+    if(window.ZXing) return Promise.resolve(window.ZXing);
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js';
+      s.onload = () => window.ZXing ? resolve(window.ZXing) : reject(new Error('scanner'));
+      s.onerror = () => reject(new Error('scanner'));
+      document.head.appendChild(s);
+    });
+  }
+  async function makeDetector(){
+    if(window.__scanDetector) return window.__scanDetector;   // browser checks
+    if('BarcodeDetector' in window){
+      try {
+        const have = await BarcodeDetector.getSupportedFormats();
+        const want = ['ean_13', 'ean_8', 'upc_a', 'upc_e'].filter((f) => have.includes(f));
+        if(want.includes('ean_13')){
+          const bd = new BarcodeDetector({ formats: want });
+          return { detect: async (v) => { const r = await bd.detect(v); return r && r[0] ? r[0].rawValue : null; } };
+        }
+      } catch(e){ /* fall through to ZXing */ }
+    }
+    const Z = await loadZxing();
+    const hints = new Map();
+    hints.set(Z.DecodeHintType.POSSIBLE_FORMATS, [Z.BarcodeFormat.EAN_13, Z.BarcodeFormat.EAN_8, Z.BarcodeFormat.UPC_A, Z.BarcodeFormat.UPC_E]);
+    hints.set(Z.DecodeHintType.TRY_HARDER, true);
+    const reader = new Z.MultiFormatReader(); reader.setHints(hints);
+    const cv = document.createElement('canvas'), ctx = cv.getContext('2d', { willReadFrequently: true });
+    return { detect: async (v) => {
+      const w = v.videoWidth, h = v.videoHeight; if(!w || !h) return null;
+      const cw = Math.round(w * 0.86), ch = Math.round(h * 0.6);           // the band around the frame
+      const k = Math.min(1, 960 / cw);
+      cv.width = Math.round(cw * k); cv.height = Math.round(ch * k);
+      ctx.drawImage(v, (w - cw) / 2, (h - ch) / 2, cw, ch, 0, 0, cv.width, cv.height);
+      try { return reader.decode(new Z.BinaryBitmap(new Z.HybridBinarizer(new Z.HTMLCanvasElementLuminanceSource(cv)))).getText(); }
+      catch(e){ return null; }
+    } };
+  }
+
+  async function startScan(){
+    if(scan.stream || scan.starting) return;
+    scan.starting = true; setScanStatus(''); scanCards(null); setScanState('starting');
+    try {
+      if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw Object.assign(new Error('nocam'), { name: 'NoCamera' });
+      const [stream, det] = await Promise.all([
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false }),
+        makeDetector()
+      ]);
+      if(inputMode !== 'scan' || !foodExpanded){ stream.getTracks().forEach((t) => t.stop()); return; }
+      scan.stream = stream; scan.det = det;
+      scanVideo.srcObject = stream;
+      try { await scanVideo.play(); } catch(e){}
+      setScanState('live');
+      const track = stream.getVideoTracks()[0];
+      const caps = track && track.getCapabilities ? track.getCapabilities() : {};
+      document.getElementById('scanTorchBtn').hidden = !caps.torch;
+      let last = null, seen = 0, busy = false;
+      scan.timer = setInterval(async () => {
+        if(busy || !scan.stream) return; busy = true;
+        try {
+          const raw = await det.detect(scanVideo);
+          const c = raw ? String(raw).replace(/\D/g, '') : '';
+          if(c.length >= 8 && c.length <= 14 && gs1Ok(c)){
+            seen = c === last ? seen + 1 : 1; last = c;
+            if(seen >= 2 || det.instant){ stopScan(); haptic(15); lookupCode(c); }
+          }
+        } catch(e){ /* a frame that couldn't be read */ }
+        busy = false;
+      }, 110);
+    } catch(e){
+      stopScan();
+      const denied = e && (e.name === 'NotAllowedError' || e.name === 'SecurityError');
+      setScanStatus(denied ? 'Camera access is off for Fera. Allow it in Settings, or type the number under the barcode.'
+        : "Couldn't start the camera here. Type the number under the barcode instead.", 'error');
+      if(!denied) openTyping();
+    } finally { scan.starting = false; }
+  }
+  function stopScan(){
+    clearInterval(scan.timer); scan.timer = null;
+    if(scan.stream){ scan.stream.getTracks().forEach((t) => t.stop()); scan.stream = null; }
+    scanVideo.srcObject = null;
+    const tb = document.getElementById('scanTorchBtn'); tb.hidden = true; tb.classList.remove('on');
+    if(scanBox.dataset.state === 'live' || scanBox.dataset.state === 'starting') setScanState('idle');
+  }
+  window.__stopScan = stopScan;
+  document.addEventListener('visibilitychange', () => { if(document.hidden) stopScan(); });
+  function openTyping(){ stopScan(); setScanState('type'); setTimeout(() => scanCodeInput.focus(), 50); }
+
+  document.getElementById('scanView').addEventListener('click', (ev) => { if(ev.target.closest('.scn-icon-btn')) return; haptic(); if(!scan.stream) startScan(); });
+  document.getElementById('scanStopBtn').addEventListener('click', () => { haptic(); stopScan(); });
+  document.getElementById('scanTypeBtn').addEventListener('click', () => { haptic(); openTyping(); });
+  document.getElementById('scanCamBtn').addEventListener('click', () => { haptic(); setScanState('idle'); startScan(); });
+  document.getElementById('scanLookupBtn').addEventListener('click', () => {
+    haptic();
+    const c = scanCodeInput.value.replace(/\D/g, '');
+    if(c.length < 8){ setScanStatus('Type all the digits under the barcode (usually 12 or 13).', 'error', 4000); return; }
+    if(!gs1Ok(c)){ setScanStatus("Those digits don't add up — check them against the package.", 'error', 4000); return; }
+    scanCodeInput.blur(); lookupCode(c);
+  });
+  scanCodeInput.addEventListener('input', () => setScanState('type'));
+  scanCodeInput.addEventListener('keydown', (ev) => { if(ev.key === 'Enter'){ ev.preventDefault(); document.getElementById('scanLookupBtn').click(); } });
+  document.getElementById('scanTorchBtn').addEventListener('click', async (ev) => {
+    const b = ev.currentTarget, track = scan.stream && scan.stream.getVideoTracks()[0]; if(!track) return;
+    const on = !b.classList.contains('on');
+    try { await track.applyConstraints({ advanced: [{ torch: on }] }); b.classList.toggle('on', on); } catch(e){}
+  });
+
+  function showScanThinking(kind, sub, photoSrc){
+    const media = document.getElementById('scanThinkMedia');
+    media.innerHTML = photoSrc ? `<img src="${photoSrc}" alt="">` : `<span style="color:var(--accent);width:34px;height:20px;display:block">${SCAN_ICO}</span>`;
+    document.getElementById('scanThinkSub').textContent = sub || '';
+    const steps = kind === 'label' ? ['Reading the label…', 'Finding the serving size…', 'Copying the numbers…'] : ['Looking up the barcode…', 'Checking the food database…'];
+    let i = 0; const msg = document.getElementById('scanThinkMsg');
+    const show = () => { msg.textContent = steps[Math.min(i, steps.length - 1)]; msg.style.animation = 'none'; void msg.offsetWidth; msg.style.animation = ''; i++; };
+    show(); clearInterval(scan.thinkTimer); scan.thinkTimer = setInterval(show, 1300);
+    scanCards('thinking');
+  }
+
+  async function lookupCode(code){
+    scan.missCode = null; setScanStatus('');
+    showScanThinking('barcode', fmtCode(code));
+    try {
+      const r = await callApi('food.barcode', { code });
+      if(r && r.found) return showProduct(fromBarcode(r.product));
+      scanCards(null);
+      if(r && (r.invalid || r.limited || r.unavailable)) return setScanStatus(r.error, 'error');
+      scan.missCode = code;
+      document.getElementById('scanMissTxt').textContent = `Barcode ${fmtCode(code)} isn't in Open Food Facts. Snap the nutrition label on the package and Fera will read it.`;
+      scanCards('miss');
+    } catch(e){
+      scanCards(null);
+      setScanStatus(e && e.message && e.message !== 'offline' ? e.message : "Couldn't reach Fera. Check your connection and try again.", 'error');
+    }
+  }
+
+  // one shape for both sources: values per serving and/or per 100 g, plus how to show the amount
+  function fromBarcode(p){
+    return { kind: 'barcode', code: p.code, name: p.name || 'Scanned product', brand: p.brand, image: p.image, imageKind: 'pack',
+      serving: p.serving, servingG: p.servingG, unitG: p.servingUnit === 'ml' ? 'ml' : 'g', per100: p.per100, perServing: p.perServing };
+  }
+  function fromLabel(est, photoSrc){
+    const ps = { cal: est.calories, protein: est.protein, carbs: est.carbs, fat: est.fat };
+    const g = est.servingG;
+    const per100 = g ? { cal: Math.round(ps.cal * 100 / g), protein: r1(ps.protein * 100 / g), carbs: r1(ps.carbs * 100 / g), fat: r1(ps.fat * 100 / g) } : null;
+    return { kind: 'label', name: est.label, brand: null, image: photoSrc, imageKind: 'photo', serving: est.serving, servingG: g, unitG: 'g', per100, perServing: ps, unreadable: est.unreadable };
+  }
+
+  function scanAmount(){
+    const P = scan.product, q = Number(scan.qty);
+    if(!P || !(q > 0)) return null;
+    let base, f;
+    if(scan.unit === 'serving' && P.perServing){ base = P.perServing; f = q; }
+    else if(P.per100){ base = P.per100; f = q / 100; }
+    else return null;
+    const out = { cal: Math.round((base.cal || 0) * f) };
+    ['protein', 'carbs', 'fat'].forEach((m) => { if(base[m] != null) out[m] = Math.round(base[m] * f); });
+    return out;
+  }
+  function amountText(){
+    const P = scan.product, q = Number(scan.qty); if(!P) return '';
+    if(scan.unit === 'serving'){
+      const s = P.serving ? P.serving.replace(/\s+/g, ' ') : null;
+      if(q === 1) return s || '1 serving';
+      return s ? `${fmtQty(q)} × ${s}` : `${fmtQty(q)} servings`;
+    }
+    return `${fmtQty(q)} ${P.unitG}`;
+  }
+  const fmtQty = (q) => (Math.round(q * 100) / 100).toString();
+  function renderScanAmount(fromInput){
+    const P = scan.product;
+    const units = document.getElementById('scanUnits');
+    const opts = [];
+    if(P.perServing) opts.push(['serving', 'Servings']);
+    if(P.per100) opts.push(['g', P.unitG === 'ml' ? 'ml' : 'Grams']);
+    units.innerHTML = opts.map(([k, l]) => `<button type="button" data-unit="${k}" class="${scan.unit === k ? 'on' : ''}">${l}</button>`).join('');
+    units.style.display = opts.length > 1 ? '' : 'none';
+    if(!fromInput) scanQty.value = fmtQty(scan.qty);
+    document.getElementById('scanQtyUnit').textContent = scan.unit === 'serving' ? '' : P.unitG;
+    const n = scanAmount();
+    if(n){ setNutri('scanNutri', n); updateMix('scanNutri', 'scanMix'); }
+  }
+  function showProduct(P){
+    stopScan();
+    scan.product = P;
+    scan.unit = P.perServing ? 'serving' : 'g';
+    scan.qty = scan.unit === 'serving' ? 1 : (P.servingG || 100);
+    const img = document.getElementById('scanProdImg');
+    img.className = 'scn-prod-img' + (P.image ? (P.imageKind === 'photo' ? ' photo' : '') : ' none');
+    img.innerHTML = P.image ? `<img src="${escapeHtml(P.image)}" alt="" referrerpolicy="no-referrer">` : SCAN_ICO;
+    const im = img.querySelector('img'); if(im) im.onerror = () => { img.className = 'scn-prod-img none'; img.innerHTML = SCAN_ICO; };
+    document.getElementById('scanBadge').innerHTML = P.kind === 'label'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 7h8M8 11h8M8 15h5"/></svg>From the label'
+      : `<svg viewBox="0 0 84 44" fill="currentColor"><use href="#icoBarcode"/></svg>${escapeHtml(fmtCode(P.code))}`;
+    document.getElementById('scanBrand').textContent = P.brand || '';
+    document.getElementById('scanBrand').style.display = P.brand ? '' : 'none';
+    scanNameEl.value = P.name;
+    const per = P.per100 && P.per100.cal != null ? `${P.per100.cal} kcal per 100 ${P.unitG}` : '';
+    document.getElementById('scanMeta').textContent = P.kind === 'label'
+      ? [P.serving ? `Serving: ${P.serving}` : 'One serving', 'read from your photo'].join(' · ')
+      : [P.serving ? `Serving: ${P.serving}` : '', per].filter(Boolean).join(' · ');
+    document.getElementById('scanHint').textContent = P.kind === 'label'
+      ? (P.unreadable ? 'Parts of the label were hard to read — check the numbers before adding.' : 'Numbers as printed on the label. Tap any to adjust.')
+      : 'From Open Food Facts, a free food database. Tap any number to adjust.';
+    const m = MEAL_BY_KEY[currentFoodMeal()];
+    document.getElementById('scanMealTag').textContent = m ? `${m.e} ${m.label}` : '';
+    renderNutriFields('scanNutri');
+    renderScanAmount();
+    scanCards('result');
+    scanNameEl.style.height = 'auto'; scanNameEl.style.height = Math.min(scanNameEl.scrollHeight, 96) + 'px';
+    haptic(8);
+    requestAnimationFrame(() => scanResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
+  }
+  scanNameEl.addEventListener('input', () => { scanNameEl.style.height = 'auto'; scanNameEl.style.height = Math.min(scanNameEl.scrollHeight, 96) + 'px'; });
+  document.getElementById('scanUnits').addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-unit]'); if(!b || b.dataset.unit === scan.unit) return;
+    const P = scan.product, grams = P.servingG || 100;
+    // keep the same amount of food when switching
+    scan.qty = b.dataset.unit === 'g' ? (scan.unit === 'serving' && P.servingG ? Math.round(scan.qty * P.servingG) : 100) : (P.servingG ? Math.max(0.5, Math.round(scan.qty / grams * 2) / 2) : 1);
+    scan.unit = b.dataset.unit; haptic(); renderScanAmount();
+  });
+  document.querySelector('#scanResult .scn-step').addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-step]'); if(!b) return;
+    const dir = Number(b.dataset.step), q = Number(scan.qty) || 0;
+    if(scan.unit === 'serving') scan.qty = Math.max(0.5, Math.round((q + dir * 0.5) * 2) / 2);
+    else { const st = q < 50 ? 5 : q < 300 ? 10 : 25; scan.qty = Math.max(st, Math.round((q + dir * st) / st) * st); }
+    haptic(); renderScanAmount();
+  });
+  scanQty.addEventListener('input', () => { const q = parseFloat(scanQty.value); if(q > 0){ scan.qty = q; renderScanAmount(true); } });
+  document.getElementById('scanNutri').addEventListener('input', () => updateMix('scanNutri', 'scanMix'));
+
+  document.getElementById('scanAgainBtn').addEventListener('click', () => { haptic(); scanCards(null); setScanStatus(''); startScan(); });
+  document.getElementById('scanMissManualBtn').addEventListener('click', () => {
+    haptic(); scanCards(null); inputMode = 'manual'; renderFoodForm();
+    setTimeout(() => document.getElementById('itemDesc').focus(), 60);
+  });
+
+  // nutrition label: a photo, read by the AI (counts as one AI estimate)
+  const scanLabelFile = document.getElementById('scanLabelFile');
+  const pickLabel = () => { haptic(); stopScan(); scanLabelFile.click(); };
+  document.getElementById('scanLabelBtn').addEventListener('click', pickLabel);
+  document.getElementById('scanMissLabelBtn').addEventListener('click', pickLabel);
+  scanLabelFile.addEventListener('change', async () => {
+    const file = scanLabelFile.files && scanLabelFile.files[0];
+    scanLabelFile.value = '';
+    if(!file) return;
+    let photo;
+    try { photo = await resizeImageToJpeg(file, 1600); }
+    catch(e){
+      try { const du = await readFileAsDataUrl(file); photo = { dataUrl: du, base64: du.split(',')[1], mediaType: file.type || 'image/jpeg' }; }
+      catch(e2){ setScanStatus('Could not read that photo — try a different one.', 'error', 4000); return; }
+    }
+    scanCards(null); setScanStatus('');
+    try {
+      if(!(await ensureAiConsent())) throw new Error(AI_NOT_ALLOWED);
+      showScanThinking('label', 'Nutrition label', photo.dataUrl);
+      const est = await requestCalorieEstimate('', photo, { mode: 'label' });
+      const P = fromLabel(est, photo.dataUrl);
+      if(scan.missCode) P.code = scan.missCode;
+      showProduct(P);
+    } catch(err){
+      scanCards(null);
+      if(err && err.message === AI_NOT_ALLOWED) setScanStatus('Reading labels uses AI, which is off. Barcode scans still work.', 'error', 6000);
+      else setScanStatus('' + (err && err.message ? err.message : 'Reading the label failed.'), 'error');
+      if(err && err.limit && window.offerPremiumForLimit) offerPremiumForLimit('est', err.limit);
+    }
+  });
+
+  document.getElementById('scanAddBtn').addEventListener('click', async () => {
+    const d = selectedDate, P = scan.product;
+    const name = scanNameEl.value.trim();
+    const n = readNutri('scanNutri');
+    if(!P || !name || isNaN(n.cal)){ setScanStatus('Enter a name and calories.', 'error', 4000); return; }
+    if(!entries[d]) entries[d] = blankEntry();
+    if(entries[d].mode === 'simple'){ setScanStatus('This day has a manual total — clear it first.', 'error', 4000); return; }
+    entries[d].mode = 'items';
+    entries[d].items = entries[d].items || [];
+    const amt = amountText();
+    const desc = (name + (amt ? ' · ' + amt : '')).slice(0, 140);
+    const added = tagMeal(Object.assign(itemFromNutri(desc, n, null), { src: P.kind === 'label' ? 'label' : 'scan' }));
+    if(P.code) added.code = P.code;
+    entries[d].items.push(added);
+    haptic(12);
+    scanResult.classList.add('leaving');
+    await persist();
+    await new Promise((r) => setTimeout(r, 220));
+    scan.product = null; scan.missCode = null;
+    scanCards(null); setScanStatus('');
+    renderAll(); renderFoodForm();
+    showAddToast(d, added);
+  });
+  window.__startScan = startScan;
 
   // confirmation after adding: what went where, with Undo; the new row in the list flashes
   let toastTimer = null, lastAdded = null;
@@ -8610,6 +9110,7 @@ bootAuth();
 <button class="ai-fab hide" id="aiFab" type="button" aria-label="Ask Fera AI"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span class="ai-fab-lbl">Ask Fera</span></button>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <symbol id="icoBarcode" viewBox="0 0 84 44" fill="currentColor"><rect x="0.00" y="0" width="2.88" height="44" rx="1.00"/><rect x="4.80" y="0" width="1.44" height="44" rx="0.72"/><rect x="7.68" y="0" width="1.44" height="38" rx="0.72"/><rect x="11.52" y="0" width="3.84" height="38" rx="1.00"/><rect x="17.28" y="0" width="1.44" height="38" rx="0.72"/><rect x="20.16" y="0" width="2.88" height="38" rx="1.00"/><rect x="25.44" y="0" width="1.44" height="38" rx="0.72"/><rect x="28.32" y="0" width="1.44" height="38" rx="0.72"/><rect x="31.68" y="0" width="4.32" height="38" rx="1.00"/><rect x="37.92" y="0" width="1.44" height="44" rx="0.72"/><rect x="40.80" y="0" width="2.88" height="44" rx="1.00"/><rect x="45.60" y="0" width="1.44" height="38" rx="0.72"/><rect x="49.44" y="0" width="1.44" height="38" rx="0.72"/><rect x="52.32" y="0" width="3.84" height="38" rx="1.00"/><rect x="58.08" y="0" width="1.44" height="38" rx="0.72"/><rect x="60.96" y="0" width="2.88" height="38" rx="1.00"/><rect x="65.76" y="0" width="1.44" height="38" rx="0.72"/><rect x="69.60" y="0" width="1.44" height="38" rx="0.72"/><rect x="72.48" y="0" width="3.84" height="38" rx="1.00"/><rect x="78.24" y="0" width="1.44" height="44" rx="0.72"/><rect x="81.12" y="0" width="2.88" height="44" rx="1.00"/></symbol>
     <symbol id="icoSpark" viewBox="0 0 24 24"><path d="M12 2.5c.3 0 .57.2.65.49l1.36 4.7a4.2 4.2 0 0 0 2.87 2.87l4.7 1.36a.68.68 0 0 1 0 1.3l-4.7 1.36a4.2 4.2 0 0 0-2.87 2.87l-1.36 4.7a.68.68 0 0 1-1.3 0l-1.36-4.7a4.2 4.2 0 0 0-2.87-2.87l-4.7-1.36a.68.68 0 0 1 0-1.3l4.7-1.36a4.2 4.2 0 0 0 2.87-2.87l1.36-4.7c.08-.29.35-.49.65-.49Z"/><path d="M19 2c.22 0 .41.14.48.35l.42 1.26 1.26.42c.21.07.35.26.35.48s-.14.41-.35.48l-1.26.42-.42 1.26a.5.5 0 0 1-.96 0l-.42-1.26-1.26-.42A.5.5 0 0 1 16.5 4.5c0-.22.14-.41.35-.48l1.26-.42.42-1.26c.07-.21.26-.35.47-.35Z"/></symbol>
   </defs>
 </svg>

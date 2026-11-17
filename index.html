@@ -6338,6 +6338,7 @@ function daySummaryInsights(x){
 function renderAll(){
   if(typeof renderAiState === 'function') try { renderAiState(); } catch(e){}
   if(typeof renderWeighNudge === 'function') try { renderWeighNudge(); } catch(e){}
+  if(window.feraWidgetSync) window.feraWidgetSync();
   renderTrendPeriodNav();
   renderTrendsRingAndRuler();
   renderConsumedChart();
@@ -8501,6 +8502,8 @@ async function startSession(user){
   if(IS_NATIVE) setTimeout(() => nativeHealthSync(7, true).catch(() => {}), 1500);
   if(!appStarted){
     appStarted = true;
+    if(window.feraTakeInbox) setTimeout(() => window.feraTakeInbox(), 1200);
+    if(window.feraWidgetSync) window.feraWidgetSync();
     await init();
     afterAppStart();
   }
@@ -8562,6 +8565,7 @@ function bootAuth(){
 
   firebase.auth().onAuthStateChanged((user)=>{
     if(!user){
+      if(window.feraSaveSignIn) window.feraSaveSignIn(null);
       if(appStarted){ location.reload(); return; } // signed out mid-session: start clean
       setAuthMode(authMode);
       showAuth('form');
@@ -8570,6 +8574,7 @@ function bootAuth(){
     // A leftover anonymous sign-in from the single-user version of the app: not a real account.
     // Drop it quietly; the sign-out fires this listener again with no user, which shows the form.
     if(user.isAnonymous || !user.email){ firebase.auth().signOut(); return; }
+    if(window.feraSaveSignIn) window.feraSaveSignIn(user);
     startSession(user);
   });
 }
@@ -10264,6 +10269,88 @@ function showRecap(cards, opt){
     if(b.dataset.wn === 'later'){ try { localStorage.setItem('weigh-nudge-snooze', todayStr()); } catch(e){} renderWeighNudge(); }
     else openWeighIn();
   });
+})();
+
+// =====================================================================================
+// iPhone app extras: the widgets' snapshot, the sign-in that Siri uses, meals logged through Siri,
+// and fera:// links (from widgets and shortcuts). None of this runs on the web.
+// =====================================================================================
+(function nativeExtras(){
+  if(typeof IS_NATIVE === 'undefined' || !IS_NATIVE) return;
+  const P = () => nativeHealth();
+  // the day as the widgets show it
+  function widgetSnapshot(){
+    const d = todayStr(), e = entries[d], t = computeTargets();
+    const eaten = consumedTotal(e) || 0;
+    const burned = hasBurned(e) ? e.burned : 0;
+    const protein = consumedMacro(e, 'protein') || 0;
+    const sign = userGoals && userGoals.weightGoal === 'lose' ? -1 : userGoals && userGoals.weightGoal === 'gain' ? 1 : 0;
+    return { date: d, eaten: Math.round(eaten), burned: Math.round(burned), target: t ? Math.round(t.calorieTarget) : 0,
+      protein: Math.round(protein), proteinGoal: t ? Math.round(t.proteinTarget || 0) : 0,
+      balance: Math.round(eaten - burned), planBalance: t ? sign * Math.round(t.dailyDelta || 0) : 0,
+      hide: !!(userProfile && userProfile.widgetHide), updatedAt: Date.now() };
+  }
+  let timer = null, last = '';
+  window.feraWidgetSync = function(){
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      const p = P(); if(!p || typeof p.saveWidgetData !== 'function' || !appStarted) return;
+      const today = widgetSnapshot();
+      const config = { apiKey: firebaseConfig.apiKey, estimateUrl: AI_ESTIMATE_URL, aiAllowed: aiConsented() };
+      const key = JSON.stringify([today, config].map((x) => Object.assign({}, x, { updatedAt: 0 })));
+      if(key === last) return;
+      last = key;
+      try { await p.saveWidgetData({ today, config }); } catch(e){}
+    }, 800);
+  };
+  // the sign-in "Log food in Fera" uses (kept in the iPhone's Keychain)
+  window.feraSaveSignIn = async function(user){
+    const p = P(); if(!p || typeof p.saveSignIn !== 'function') return;
+    try { if(user && user.refreshToken) await p.saveSignIn({ refreshToken: user.refreshToken }); else await p.clearSignIn(); } catch(e){}
+  };
+  // meals Siri logged while the app was closed: into the day's food, once each
+  window.feraTakeInbox = async function(){
+    try {
+      const ref = userDoc('inbox');
+      const snap = await ref.get();
+      const list = snap.exists && Array.isArray(snap.data().items) ? snap.data().items : [];
+      if(!list.length) return 0;
+      let added = 0;
+      list.forEach((x) => {
+        if(!x || !x.item || !/^\d{4}-\d{2}-\d{2}$/.test(x.date || '')) return;
+        const d = x.date;
+        if(!entries[d]) entries[d] = blankEntry();
+        if(entries[d].mode === 'simple') return;
+        entries[d].mode = 'items';
+        entries[d].items = entries[d].items || [];
+        if(entries[d].items.some((it) => it.id === x.item.id)) return;
+        entries[d].items.push(Object.assign({}, x.item));
+        added++;
+      });
+      await ref.set({ items: [], updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+      if(added){ await persist(); renderAll(); if(typeof renderFoodForm === 'function') renderFoodForm(); }
+      return added;
+    } catch(e){ return 0; }
+  };
+  document.addEventListener('visibilitychange', () => { if(!document.hidden && appStarted) window.feraTakeInbox(); });
+  // fera://log opens Ask AI ready to type; fera://today opens the app on today
+  function openLink(url){
+    const u = String(url || '');
+    if(!/^fera:\/\//.test(u)) return;
+    if(typeof setSelectedDate === 'function' && selectedDate !== todayStr()) setSelectedDate(todayStr());
+    if(/^fera:\/\/log/.test(u)){
+      foodExpanded = true; inputMode = 'ai'; renderFoodForm();
+      setTimeout(() => {
+        const b = document.getElementById('foodSummaryBtn'); if(b) b.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const i = document.getElementById('aiDesc'); if(i) i.focus({ preventScroll: true });
+      }, 250);
+    } else window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.feraOpenLink = openLink;
+  const App = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
+  if(App && App.addListener){
+    App.addListener('appUrlOpen', (ev) => { const go = () => openLink(ev && ev.url); if(appStarted) go(); else setTimeout(go, 1500); });
+  }
 })();
 </script>
 </body>

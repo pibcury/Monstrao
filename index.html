@@ -1878,7 +1878,7 @@
   .scn[data-state="type"] .scn-view{display:none;}
   .scn[data-state="type"] .scn-type{display:block;}
   .scn-type label{display:block;font:600 11.5px 'Inter',sans-serif;color:var(--muted);margin-bottom:4px;}
-  .scn-type input{width:100%;border:0;background:transparent;box-shadow:none;padding:2px 0 8px;border-bottom:1px solid var(--rule);border-radius:0;font:600 21px/1.2 'Sora',sans-serif;letter-spacing:.02em;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .scn-type input{width:100%;border:0;background:transparent;box-shadow:none;padding:2px 0 8px;border-bottom:1px solid var(--rule);border-radius:0;font:600 24px/1.2 'Sora',sans-serif;letter-spacing:.05em;color:var(--ink);font-variant-numeric:tabular-nums;}
   .scn-type input:focus{outline:none;border-bottom-color:var(--accent);box-shadow:none;}
   .scn-type input::placeholder{color:rgba(244,245,250,0.22);letter-spacing:.02em;}
   .scn-type small{display:block;margin-top:6px;font-size:11.5px;color:var(--muted);}
@@ -1888,8 +1888,9 @@
   .scn-start{margin-top:10px;display:inline-flex;align-items:center;height:34px;padding:0 16px;border-radius:999px;background:var(--accent-strong);color:#fff;font:700 13.5px 'Inter',sans-serif;box-shadow:0 8px 20px -8px rgba(76,141,255,0.75);}
   .scn[data-state="starting"] .scn-start{opacity:.5;}
   #scanStopBtn{right:8px;}
-  .scn-type-row{display:flex;align-items:flex-end;gap:10px;}
-  .scn-type-row input{flex:1;min-width:0;}
+  .scn-type-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;}
+  .scn-type-foot small{margin:0 !important;}
+  #scanLookupBtn{white-space:nowrap;flex-shrink:0;}
   .scn:not(.ready) #scanLookupBtn{background:rgba(244,245,250,0.07);color:var(--muted);box-shadow:none;}
   .scn .cmp-go svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
   .scn-prod{display:flex;align-items:flex-start;gap:12px;}
@@ -2410,11 +2411,11 @@
           </div>
           <div class="scn-type">
             <label for="scanCodeInput">Barcode number</label>
-            <div class="scn-type-row">
-              <input type="text" id="scanCodeInput" inputmode="numeric" autocomplete="off" maxlength="17" placeholder="0 12345 67890 5">
+            <input type="text" id="scanCodeInput" inputmode="numeric" autocomplete="off" maxlength="17" placeholder="0 12345 67890 5">
+            <div class="scn-type-foot">
+              <small>The digits printed under the bars.</small>
               <button class="cmp-go" id="scanLookupBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg><span>Look up</span></button>
             </div>
-            <small>The digits printed under the bars.</small>
           </div>
           <div class="cmp-bar">
             <div class="ai-desc-tools">

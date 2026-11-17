@@ -2086,6 +2086,62 @@
   .bl-how ol{margin:6px 0 14px;padding-left:20px;color:var(--muted);font-size:14px;line-height:1.55;}
   .bl-how ol li{margin-top:4px;}
   .bl-how .pb-tg{width:100%;}
+  /* Learning page + plan check */
+  #learnOverlay{z-index:105;}
+  .lp-intro{color:var(--muted);font-size:14px;line-height:1.5;margin:2px 2px 0;}
+  .lp-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .lp-tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;padding:14px 14px 12px;border-radius:20px;border:1px solid var(--rule);text-align:left;color:var(--ink);cursor:pointer;
+    background:radial-gradient(120% 90% at 0% 0%,rgba(47,111,232,.18),transparent 62%),linear-gradient(180deg,rgba(244,245,250,.05),rgba(244,245,250,.015));}
+  .lp-tile + .lp-tile{background:radial-gradient(120% 90% at 0% 0%,rgba(255,55,95,.16),transparent 62%),linear-gradient(180deg,rgba(244,245,250,.05),rgba(244,245,250,.015));}
+  .lp-k{display:flex;flex-wrap:wrap;align-items:center;gap:6px;color:var(--muted);font:700 10.5px/1.2 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;}
+  .lp-k .bc-tag{letter-spacing:0;text-transform:none;}
+  .lp-tile b{margin-top:10px;font:700 32px/1 'Sora',sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+  .lp-tile small{color:var(--muted);font-size:12px;}
+  .lp-s{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:10px;padding-top:9px;border-top:1px solid var(--rule);color:var(--ink);font:600 12.5px 'Inter',sans-serif;}
+  .lp-s i{font-style:normal;color:var(--muted);font-size:16px;}
+  .lp-check.due{border-color:rgba(76,141,255,.45);background:linear-gradient(180deg,rgba(76,141,255,.10),rgba(76,141,255,.02));}
+  .lp-eyebrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;color:var(--muted);font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;}
+  .lp-mode{padding:4px 8px;border-radius:999px;background:rgba(244,245,250,.07);letter-spacing:.02em;text-transform:none;font-size:11px;}
+  .lp-bars{display:flex;flex-direction:column;gap:9px;margin-top:12px;}
+  .lp-bar{display:grid;grid-template-columns:92px 1fr 54px;align-items:center;gap:10px;font-size:12.5px;color:var(--muted);}
+  .lp-bar > div{height:12px;border-radius:6px;background:rgba(244,245,250,.06);overflow:hidden;}
+  .lp-bar i{display:block;height:100%;border-radius:6px;}
+  .lp-bar i.f{background:repeating-linear-gradient(135deg,#8B90A0 0 6px,#6F7486 6px 12px);opacity:.8;}
+  .lp-bar i.r{background:linear-gradient(90deg,#FF375F,#FF6B81);}
+  .lp-bar b{text-align:right;color:var(--ink);font:700 14px 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
+  .lp-sugg{margin-top:14px;padding:14px;border-radius:16px;border:1px solid rgba(76,141,255,.35);background:rgba(8,10,14,.35);}
+  .lp-sugg.ok,.lp-sugg.muted{display:flex;align-items:flex-start;gap:10px;border-color:var(--rule);}
+  .lp-sugg.ok svg{flex-shrink:0;width:20px;height:20px;margin-top:1px;fill:none;stroke:#4ADE80;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+  .lp-sugg p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5;} .lp-sugg p b{color:var(--ink);}
+  .lp-new small{display:block;color:var(--muted);font-size:12px;}
+  .lp-new > div{display:flex;align-items:baseline;gap:8px;margin:6px 0 4px;}
+  .lp-new > div b{font:700 38px/1 'Sora',sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+  .lp-new > div span{color:var(--muted);font:600 14px 'Inter',sans-serif;}
+  .lp-new em{margin-left:auto;padding:4px 9px;border-radius:999px;font:700 13px 'Inter',sans-serif;font-style:normal;}
+  .lp-new em.up{background:rgba(74,222,128,.14);color:#4ADE80;} .lp-new em.down{background:rgba(244,183,64,.14);color:#F4B740;}
+  .lp-acts{display:grid;grid-template-columns:1fr 1.4fr;gap:8px;margin-top:14px;}
+  .lp-acts button{height:46px;border-radius:14px;border:1px solid var(--rule);background:rgba(244,245,250,.05);color:var(--ink);font:700 14.5px 'Inter',sans-serif;cursor:pointer;}
+  .lp-acts .lp-apply{border:0;background:var(--accent-strong);color:#fff;box-shadow:0 12px 26px -12px rgba(76,141,255,.8);}
+  .lp-pace{margin-top:14px;}
+  .lp-ptrack{position:relative;height:10px;border-radius:5px;background:rgba(244,245,250,.07);}
+  .lp-ptrack i{position:absolute;top:50%;}
+  .lp-ptrack i.mid{left:50%;width:2px;height:18px;margin:-9px 0 0 -1px;background:#6F7486;border-radius:1px;}
+  .lp-ptrack i.pl{width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:2px dashed #8B90A0;background:var(--bg);}
+  .lp-ptrack i.ac{width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 4px rgba(74,222,128,.18);}
+  .lp-plabels{display:flex;justify-content:space-between;margin-top:8px;color:#6F7486;font:600 11px 'Inter',sans-serif;}
+  .lp-pkey{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;color:var(--muted);font-size:12.5px;}
+  .lp-pkey span{display:inline-flex;align-items:center;gap:7px;} .lp-pkey b{color:var(--ink);}
+  .lp-pkey i{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .lp-pkey i.pl{border:2px dashed #8B90A0;width:9px;height:9px;} .lp-pkey i.ac{background:#4ADE80;}
+  .lp-log{display:flex;flex-direction:column;margin-top:4px;}
+  .lp-log > div{display:grid;grid-template-columns:56px 1fr;gap:2px 10px;padding:10px 0;border-top:1px solid var(--rule);}
+  .lp-log > div:first-child{border-top:0;}
+  .lp-log span{grid-row:span 2;color:var(--muted);font:600 12.5px 'Inter',sans-serif;}
+  .lp-log b{font:700 14.5px 'Sora',sans-serif;font-variant-numeric:tabular-nums;} .lp-log small{color:var(--muted);font-size:12px;}
+  .lp-modes{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:3px;border-radius:12px;background:var(--surface-2);border:1px solid var(--rule);}
+  .lp-modes button{border:0;background:none;padding:9px 4px;border-radius:9px;color:var(--muted);font:700 13px 'Inter',sans-serif;cursor:pointer;}
+  .lp-modes button.on{background:var(--accent-soft);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(76,141,255,.35);}
+  .pn-ico{color:#4ADE80 !important;}
 
   /* AI features state, next to the AI */
   .ai-off-note,.chat-ai-off{display:flex;align-items:center;gap:10px;margin-top:10px;padding:9px 10px 9px 13px;border-radius:14px;border:1px solid rgba(244,183,64,.3);background:rgba(244,183,64,.08);color:#F4D58A;font-size:13px;line-height:1.35;}
@@ -2188,6 +2244,7 @@
       <div class="app-menu-account" id="menuAccountLine"></div>
       <button class="app-menu-item" id="openProfileBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span><b>Profile</b><small>Name, age, height, weight</small></span></button>
       <button class="app-menu-item" id="openGoalsBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span><span><b>Goals</b><small>Your daily targets</small></span></button>
+      <button class="app-menu-item" id="openLearnBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/><circle cx="8" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="15" r="1" fill="currentColor"/></svg></span><span><b>Learning</b><small>Your real burn and plan check</small></span></button>
       <button class="app-menu-item" id="openWearablesBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.3 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10Z"/><path d="M4.5 12.5h4l1.5-2.5 2.5 5 1.5-2.5h5.5"/></svg></span><span><b>Apple Health</b><small>Steps, activity and weight</small></span></button>
       <button class="app-menu-item" id="openDataBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7.5" ry="2.8"/><path d="M4.5 6v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V6"/><path d="M4.5 12v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-6"/></svg></span><span><b>Your Data</b><small>Export, and every day you’ve logged</small></span></button>
       <button class="app-menu-item" id="openPremiumBtn" type="button"><span class="app-menu-ico pw-menu-ico"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg></span><span><b>Premium</b><small id="menuPlanLine">Plans and AI limits</small></span></button>
@@ -2204,6 +2261,7 @@
       </div>
       <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
       <div class="wnudge" id="weighNudge" hidden></div>
+      <div class="wnudge" id="planNudge" hidden></div>
 
       <div class="ring-section" id="ringSection">
         <div class="metrics-panel">
@@ -2974,6 +3032,15 @@
     <div class="overlay-title">Apple Health</div>
   </div>
   <div class="overlay-scroll" id="wearablesBody"></div>
+</div>
+
+<!-- ============ Learning: what Fera has learned, and the weekly plan check ============ -->
+<div class="page-overlay" id="learnOverlay" style="display:none;">
+  <div class="overlay-topbar">
+    <button class="overlay-back" id="learnBackBtn" type="button" aria-label="Back">Back</button>
+    <div class="overlay-title">Learning</div>
+  </div>
+  <div class="overlay-scroll" id="learnBody"></div>
 </div>
 
 <!-- ============ Resting burn: what BMR learning is doing ============ -->
@@ -4535,7 +4602,8 @@ function computeTargets(){
   bmr += bmrAdj();
 
   const activityMult = ACTIVITY_MULTIPLIERS[userGoals.activity] || 1.2;
-  const tdee = bmr * activityMult;
+  // the weekly plan check moves this toward the burn Fera actually measured (planOffset, see planCheck)
+  const tdee = bmr * activityMult + (typeof planOffset === 'function' ? planOffset() : 0);
 
   const rate = (userGoals.weightGoal === 'maintain') ? 0 : weightRate();
   const dailyDelta = rate * 3500 / 7; // 250 or 500 kcal
@@ -6337,6 +6405,7 @@ function daySummaryInsights(x){
 function renderAll(){
   if(typeof renderAiState === 'function') try { renderAiState(); } catch(e){}
   if(typeof renderWeighNudge === 'function') try { renderWeighNudge(); } catch(e){}
+  if(typeof renderPlanNudge === 'function') try { renderPlanNudge(); renderLearnPage(); } catch(e){}
   renderTrendPeriodNav();
   renderTrendsRingAndRuler();
   renderConsumedChart();
@@ -8383,7 +8452,7 @@ async function init(){
   renderFoodForm();
   renderGreeting();
   attachLiveSync();
-  setTimeout(() => maybeShowDaySummary(), 700);
+  setTimeout(() => { if(typeof planAutoStep === 'function') try { planAutoStep(); } catch(e){} maybeShowDaySummary(); }, 700);
 
   setupChartTooltip('consumedChart', ()=>consumedChart);
   setupChartTooltip('burnedChart', ()=>burnedChart);
@@ -10066,6 +10135,260 @@ function openWeighIn(){
   }, 80);
 }
 
+// ---------- Plan check: targets that follow the person's real burn ----------
+// The calorie and burn targets start from a formula: resting burn × the activity level picked in Goals.
+// Fera measures the real burn every day, so once a week it compares the two over the last 28 days and
+// moves the plan toward what the body actually burns — by at most 150 kcal a week, never below the
+// calorie floor, and only with enough data (14 days with a measured burn). The change is stored as an
+// offset on top of the formula (userGoals.plan.offset), so a learned resting burn or a new weight still
+// flow into the targets between checks. Modes: ask (default: suggest, the person applies), auto, off.
+// It also reports the pace: the scale's trend against the plan, and how closely the targets were kept.
+const PLAN_STEP_MAX = 150, PLAN_MIN_GAP = 50, PLAN_MIN_DAYS = 14, PLAN_WINDOW = 28;
+function planState(){ const p = userGoals.plan || {}; return { mode: ['ask', 'auto', 'off'].includes(p.mode) ? p.mode : 'ask', offset: typeof p.offset === 'number' ? p.offset : 0, log: Array.isArray(p.log) ? p.log : [], seen: p.seen || null, appliedAt: p.appliedAt || null }; }
+function planOffset(){ const P = planState(); return P.mode === 'off' ? 0 : P.offset; }
+function weekStartISO(iso){ const d = parseISO(iso); const k = (d.getDay() + 6) % 7; d.setDate(d.getDate() - k); return toISO(d); }
+// Pure: what the last 28 days say. Changes nothing.
+function planCheck(){
+  const t = computeTargets();
+  if(!t) return null;
+  const P = planState();
+  const def = BURN_PATHS[burnPath()];
+  const days = [];
+  for(let i = PLAN_WINDOW; i >= 1; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push(toISO(d)); }
+  // days with a measured burn: Apple Health data that day, or (without Health) a day the person logged
+  const burnDays = [], balDays = [];
+  days.forEach(d => {
+    const p = burnParts(d); if(!p) return;
+    const e = entries[d], eaten = consumedTotal(e);
+    const measured = def.apple ? !!p.health : eaten != null;
+    if(measured) burnDays.push({ d, burn: p.total });
+    if(eaten != null && (e.mode !== 'items' || (e.items || []).length >= 2)) balDays.push({ d, bal: eaten - p.total });
+  });
+  const real = burnDays.length ? burnDays.reduce((s, x) => s + x.burn, 0) / burnDays.length : null;
+  const formula = t.tdee - planOffset();                       // what the activity level alone gives
+  const plan = t.tdee;                                     // what the targets use now
+  const ready = burnDays.length >= PLAN_MIN_DAYS && real != null;
+  const gap = ready ? real - plan : 0;
+  const step = ready && Math.abs(gap) >= PLAN_MIN_GAP ? Math.max(-PLAN_STEP_MAX, Math.min(PLAN_STEP_MAX, Math.round(gap / 10) * 10)) : 0;
+  // the target after the step (same rules as computeTargets: deficit or surplus, then the floor)
+  const sign = userGoals.weightGoal === 'lose' ? -1 : userGoals.weightGoal === 'gain' ? 1 : 0;
+  let newTarget = Math.round(plan + step + sign * t.dailyDelta);
+  if(sign < 0 && newTarget < t.floor) newTarget = t.floor;
+  const curTarget = t.calc.calorie;
+  // pace: the scale's 28-day trend against the plan's pace
+  const wmap = dailyWeightMap();
+  const lb = (d) => wmap[d].avg * (wmap[d].unit === 'kg' ? 2.20462 : 1);
+  const wdays = days.concat([todayStr()]).filter(d => wmap[d]);
+  let pace = { ready: false, weighIns: wdays.length, plan: sign * t.rate };
+  if(wdays.length >= 6 && (parseISO(wdays[wdays.length - 1]) - parseISO(wdays[0])) / 864e5 >= 14){
+    const pts = wdays.map(d => [(parseISO(d) - parseISO(days[0])) / 864e5, lb(d)]);
+    const mx = pts.reduce((s, q) => s + q[0], 0) / pts.length, my = pts.reduce((s, q) => s + q[1], 0) / pts.length;
+    let num = 0, den = 0; pts.forEach(([x, y]) => { num += (x - mx) * (y - my); den += (x - mx) * (x - mx); });
+    pace = Object.assign(pace, { ready: true, actual: den ? num / den * 7 : 0 });
+  }
+  const avgBal = balDays.length >= 7 ? balDays.reduce((s, x) => s + x.bal, 0) / balDays.length : null;
+  const planBal = sign * t.dailyDelta;
+  return { t, P, ready, days: burnDays.length, need: PLAN_MIN_DAYS, real: real == null ? null : Math.round(real), formula: Math.round(formula), plan: Math.round(plan),
+    gap: Math.round(gap), step, newTarget, curTarget, custom: !!t.custom.calorie, floored: sign < 0 && newTarget === t.floor,
+    pace, adherence: avgBal == null ? null : { avg: Math.round(avgBal), plan: planBal, over: Math.round(avgBal - planBal), days: balDays.length }, week: weekStartISO(todayStr()) };
+}
+// A suggestion waiting for the person this week (ask mode), or null.
+function planSuggestion(){
+  const P = planState();
+  if(P.mode === 'off') return null;
+  const c = planCheck();
+  if(!c || !c.ready || !c.step || c.custom) return null;
+  if(P.seen === c.week) return null;
+  return c;
+}
+async function planApply(c, how){
+  const P = planState();
+  const next = Object.assign({}, userGoals.plan || {}, { mode: P.mode, offset: P.offset + c.step, appliedAt: todayStr(), seen: c.week });
+  next.log = [{ d: todayStr(), from: c.curTarget, to: c.newTarget, real: c.real, step: c.step, how: how || 'you' }].concat(P.log).slice(0, 20);
+  userGoals.plan = next;
+  await persistGoals();
+  renderAll(); renderPlanNudge(); renderLearnPage();
+}
+async function planKeep(c){
+  userGoals.plan = Object.assign({}, userGoals.plan || {}, { mode: planState().mode, seen: c.week });
+  await persistGoals();
+  renderPlanNudge(); renderLearnPage();
+}
+async function planSetMode(mode){
+  const P = planState();
+  const next = Object.assign({}, userGoals.plan || {}, { mode });
+  if(mode === 'off') next.seen = null;
+  userGoals.plan = next;
+  await persistGoals();
+  renderAll(); renderPlanNudge(); renderLearnPage();
+}
+// Automatic mode: the weekly step happens on the first open of the week; the nudge says what changed.
+function planAutoStep(){
+  const P = planState();
+  if(P.mode !== 'auto') return;
+  const c = planSuggestion();
+  if(c) planApply(c, 'auto');
+}
+function renderPlanNudge(){
+  const el = document.getElementById('planNudge'); if(!el) return;
+  const P = planState();
+  const c = P.mode === 'ask' ? planSuggestion() : null;
+  const auto = P.mode === 'auto' && P.log[0] && P.log[0].how === 'auto' && weekStartISO(P.log[0].d) === weekStartISO(todayStr()) && P.seen === weekStartISO(todayStr());
+  let dismissed = null; try { dismissed = localStorage.getItem('plan-nudge-hide'); } catch(e){}
+  const show = (c || auto) && dismissed !== weekStartISO(todayStr());
+  el.hidden = !show;
+  if(!show) return;
+  const L = auto ? P.log[0] : null;
+  const title = c ? `Plan check: ${fmtN(c.newTarget)} kcal a day` : `New target: ${fmtN(L.to)} kcal a day`;
+  const sub = c ? `Your real burn is ${fmtN(Math.abs(c.gap))} ${c.gap > 0 ? 'higher' : 'lower'} than the plan assumed. ${c.step > 0 ? '+' : '−'}${fmtN(Math.abs(c.step))} to your target?`
+    : `Fera moved it ${L.step > 0 ? 'up' : 'down'} ${fmtN(Math.abs(L.step))} to follow your real burn.`;
+  el.innerHTML = `<span class="wn-ico pn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/></svg></span>
+    <span class="wn-t"><b>${title}</b><small>${sub}</small></span>
+    <span class="wn-act"><button type="button" class="wn-go" data-pn="open">${c ? 'Review' : 'See why'}</button><button type="button" class="wn-later" data-pn="hide" aria-label="Hide until next week">Later</button></span>`;
+}
+
+// ---------- the Learning page ----------
+function openLearnPage(){
+  haptic();
+  const dd = document.getElementById('appMenuDropdown'); if(dd) dd.style.display = 'none';
+  document.getElementById('learnOverlay').style.display = 'flex';
+  document.querySelector('#learnOverlay .overlay-scroll').scrollTop = 0;
+  renderLearnPage();
+}
+function closeLearnPage(){ document.getElementById('learnOverlay').style.display = 'none'; }
+function lpPaceText(c){
+  const u = blUnit(), pc = c.pace, plan = blW(pc.plan), got = blW(pc.actual);
+  const goal = userGoals.weightGoal;
+  const diff = pc.actual - pc.plan;                       // lb/week; for losing, negative is good
+  const close = Math.abs(diff) <= 0.25;
+  const verb = goal === 'gain' ? 'gaining' : 'losing';
+  let head;
+  if(goal === 'maintain') head = Math.abs(pc.actual) <= 0.3 ? 'Holding steady' : pc.actual < 0 ? 'Drifting down' : 'Drifting up';
+  else head = close ? 'On pace' : (goal === 'lose' ? diff < 0 : diff > 0) ? 'Ahead of pace' : 'Behind pace';
+  const ad = c.adherence;
+  let why = '';
+  if(ad && goal !== 'maintain' && !close && head === 'Behind pace'){
+    why = ad.over > 120 ? `On the days you logged, you averaged <b>${fmtN(Math.abs(ad.over))} kcal a day ${goal === 'lose' ? 'above' : 'below'}</b> your plan. That explains most of the gap; the target itself is fine.`
+      : bmrLearnState() ? 'You’ve kept to your targets, so the gap is in the burn side. Fera’s resting-burn learning is already adjusting for it.'
+      : 'You’ve kept to your targets, so your body probably burns less than the formula says. Turning on resting-burn learning would correct that.';
+  } else if(ad && goal !== 'maintain' && head === 'Ahead of pace' && Math.abs(ad.over) > 120){
+    why = `On the days you logged, you averaged <b>${fmtN(Math.abs(ad.over))} kcal a day ${ad.over < 0 ? 'below' : 'above'}</b> your plan${(goal === 'lose') === (ad.over < 0) ? ', which is why you’re moving faster' : ''}.`;
+  } else if(ad && Math.abs(ad.over) <= 120 && goal !== 'maintain') why = 'You’ve kept closely to your plan on the days you logged.';
+  return { head, why, plan, got, u, verb };
+}
+function renderLearnPage(){
+  const body = document.getElementById('learnBody');
+  if(!body || document.getElementById('learnOverlay').style.display === 'none') return;
+  const base = bmrBase();
+  const c = planCheck();
+  if(base == null || !c){
+    body.innerHTML = `<div class="bl"><div class="pw-card"><b class="bl-h">Fera needs your profile and goals first</b><p class="bl-p">Add your weight, height, birthday and sex in Profile, and pick your goals. Then Fera can start learning from your days.</p></div></div>`;
+    return;
+  }
+  const L = userProfile.bmrLearn || {};
+  const learned = !!L.on && L.status === 'learned';
+  const rest = Math.round(base + (learned ? (L.adj || 0) : 0));
+  const tag = learned ? 'Learned' : L.on ? 'Learning' : 'Estimated';
+  const P = c.P, u = blUnit();
+  let h = '<div class="bl lp">';
+
+  // ---- the two numbers Fera learns
+  h += `<div class="lp-intro">Fera compares what it predicted with what your scale and Apple Health show, and adjusts. Here’s what it has learned so far.</div>
+  <div class="lp-tiles">
+    <button type="button" class="lp-tile" data-bmr-open>
+      <span class="lp-k">Resting burn <em class="bc-tag ${tag.toLowerCase()}">${tag}</em></span>
+      <b>${fmtN(rest)}</b><small>kcal a day</small>
+      <span class="lp-s">${learned ? `${blSigned(L.adj || 0)} vs the formula` : L.on ? 'Still collecting data' : 'From the formula'}<i aria-hidden="true">›</i></span>
+    </button>
+    <button type="button" class="lp-tile" data-lp="burn">
+      <span class="lp-k">Real daily burn <em class="bc-tag ${c.ready ? 'learned' : 'learning'}">${c.ready ? 'Measured' : 'Learning'}</em></span>
+      <b>${c.real != null ? fmtN(c.real) : '—'}</b><small>kcal a day · last 28 days</small>
+      <span class="lp-s">${c.ready ? `Plan assumes ${fmtN(c.plan)}` : `${c.days} of ${c.need} days measured`}<i aria-hidden="true">›</i></span>
+    </button>
+  </div>`;
+
+  // ---- plan check
+  const sug = c.ready && c.step && !c.custom;
+  const pending = sug && P.seen !== c.week && P.mode !== 'off';
+  h += `<div class="pw-card lp-check${pending ? ' due' : ''}" id="lpCheck">
+    <div class="lp-eyebrow"><span>Plan check · week of ${blDate(c.week)}</span><span class="lp-mode">${P.mode === 'auto' ? 'Automatic' : P.mode === 'off' ? 'Off' : 'Asks you'}</span></div>`;
+  if(!c.ready){
+    h += `<b class="bl-h">Still measuring your burn</b><p class="bl-p">Fera needs ${c.need} days with a measured burn in the last 28 to compare it with your plan. ${c.days} so far.</p>
+      <div class="pw-bar"><span style="width:${Math.min(100, c.days / c.need * 100)}%"></span></div>`;
+  } else {
+    const max = Math.max(c.real, c.plan, c.step ? c.plan + c.step : 0) * 1.04, min = Math.min(c.real, c.plan) * 0.86;
+    const w = (v) => Math.max(6, (v - min) / (max - min) * 100).toFixed(1);
+    h += `<b class="bl-h">${Math.abs(c.gap) < PLAN_MIN_GAP ? 'Your plan matches your real burn' : `You burn ${fmtN(Math.abs(c.gap))} kcal a day ${c.gap > 0 ? 'more' : 'less'} than your plan assumes`}</b>
+      <div class="lp-bars">
+        <div class="lp-bar"><span>Plan assumes</span><div><i class="f" style="width:${w(c.plan)}%"></i></div><b>${fmtN(c.plan)}</b></div>
+        <div class="lp-bar"><span>You burned</span><div><i class="r" style="width:${w(c.real)}%"></i></div><b>${fmtN(c.real)}</b></div>
+      </div>
+      <p class="bl-note">Average daily burn over ${c.days} days with Apple Health data or a full log. ${P.offset ? `Your plan already includes ${blSigned(P.offset)} from earlier checks.` : `The plan comes from your resting burn × “${ACTIVITY_LABELS[userGoals.activity] || 'your activity level'}”.`}</p>`;
+    if(c.custom){
+      h += `<div class="lp-sugg muted"><p>You’ve set your own calorie target (${fmtN(c.t.calorieTarget)}), so Fera won’t change it. Reset it in Goals to let the plan follow your burn.</p></div>`;
+    } else if(!c.step){
+      h += `<div class="lp-sugg ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><p>No change needed. Your target stays at <b>${fmtN(c.curTarget)} kcal</b>.</p></div>`;
+    } else if(pending){
+      const capped = Math.abs(c.gap) > PLAN_STEP_MAX;
+      h += `<div class="lp-sugg">
+        <div class="lp-new"><small>Suggested daily target</small><div><b>${fmtN(c.newTarget)}</b><span>kcal</span><em class="${c.step > 0 ? 'up' : 'down'}">${blSigned(c.newTarget - c.curTarget)}</em></div><small>now ${fmtN(c.curTarget)}${capped ? ` · Fera moves at most ${PLAN_STEP_MAX} a week, so the rest comes next week if it holds` : ''}${c.floored ? ' · held at the minimum safe target' : ''}</small></div>
+        <div class="lp-acts"><button type="button" class="lp-keep" data-lp="keep">Keep ${fmtN(c.curTarget)}</button><button type="button" class="lp-apply" data-lp="apply">Apply</button></div>
+      </div>`;
+    } else {
+      const last = P.log[0];
+      h += `<div class="lp-sugg ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><p>${last && weekStartISO(last.d) === c.week ? `Updated this week: <b>${fmtN(last.from)} → ${fmtN(last.to)} kcal</b>.` : 'You kept your target this week.'} Next check on Monday.</p></div>`;
+    }
+  }
+  h += '</div>';
+
+  // ---- pace
+  if(c.pace.ready && userGoals.weightGoal){
+    const tx = lpPaceText(c);
+    const scale = Math.max(Math.abs(tx.plan), Math.abs(tx.got), 0.5) * 1.25;
+    const pos = (v) => (50 + v / scale * 50).toFixed(1);
+    h += `<div class="pw-card"><b class="bl-h">${tx.head}</b>
+      <div class="lp-pace" aria-hidden="true"><div class="lp-ptrack"><i class="mid"></i><i class="pl" style="left:${pos(tx.plan)}%"></i><i class="ac" style="left:${pos(tx.got)}%"></i></div>
+        <div class="lp-plabels"><span>−${scale.toFixed(1)}</span><span>0</span><span>+${scale.toFixed(1)} ${tx.u}/wk</span></div></div>
+      <div class="lp-pkey"><span><i class="pl"></i>Plan <b>${blSigned(tx.plan, 1)} ${tx.u}</b> a week</span><span><i class="ac"></i>Your scale <b>${blSigned(tx.got, 1)} ${tx.u}</b> a week</span></div>
+      ${tx.why ? `<p class="bl-p">${tx.why}</p>` : ''}
+      <p class="bl-note">Trend of ${c.pace.weighIns} weigh-ins over the last 4 weeks.</p></div>`;
+  } else if(userGoals.weightGoal){
+    h += `<div class="pw-card"><b class="bl-h">Your pace</b><p class="bl-p">Fera needs 6 weigh-ins spread over at least two weeks to show how your weight is moving against the plan. ${c.pace.weighIns} so far.</p></div>`;
+  }
+
+  // ---- history
+  if(P.log.length){
+    h += `<div class="pw-card"><b class="bl-h">Changes</b><div class="lp-log">${P.log.slice(0, 8).map(x => `<div><span>${blDate(x.d)}</span><b>${fmtN(x.from)} → ${fmtN(x.to)}</b><small>${x.how === 'auto' ? 'automatic' : 'you applied'} · real burn ${fmtN(x.real)}</small></div>`).join('')}</div></div>`;
+  }
+
+  // ---- settings
+  h += `<div class="pw-card bl-how"><b class="bl-h">How the plan check works</b>
+    <ol><li>Every Monday Fera averages your real burn over the last 28 days.</li><li>If it differs from what your plan assumes by ${PLAN_MIN_GAP}+ kcal a day, it suggests moving your targets, by at most ${PLAN_STEP_MAX} a week.</li><li>Your calorie target never goes below the minimum safe level, and a target you set yourself is never changed.</li></ol>
+    <div class="lp-modes" role="radiogroup" aria-label="Plan check">${[['ask', 'Ask me'], ['auto', 'Automatically'], ['off', 'Off']].map(([k, l]) => `<button type="button" role="radio" aria-checked="${P.mode === k}" class="${P.mode === k ? 'on' : ''}" data-lp-mode="${k}">${l}</button>`).join('')}</div>
+    <p class="bl-note">${P.mode === 'auto' ? 'Fera applies the weekly change and tells you on the Today screen.' : P.mode === 'off' ? 'Your targets use only your activity level from Goals.' : 'Fera suggests the change on the Today screen and here; nothing moves until you apply it.'}</p></div>`;
+  h += '</div>';
+  body.innerHTML = h;
+}
+(function wireLearnPage(){
+  document.getElementById('openLearnBtn').addEventListener('click', openLearnPage);
+  document.getElementById('learnBackBtn').addEventListener('click', () => { haptic(); closeLearnPage(); });
+  document.getElementById('learnBody').addEventListener('click', async (ev) => {
+    const m = ev.target.closest('[data-lp-mode]'); if(m){ haptic(); await planSetMode(m.dataset.lpMode); return; }
+    const b = ev.target.closest('[data-lp]'); if(!b) return;
+    const c = planCheck();
+    if(b.dataset.lp === 'apply' && c){ haptic(12); await planApply(c, 'you'); }
+    else if(b.dataset.lp === 'keep' && c){ haptic(); await planKeep(c); }
+    else if(b.dataset.lp === 'burn'){ haptic(); const el = document.getElementById('lpCheck'); if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+  document.getElementById('planNudge').addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-pn]'); if(!b) return;
+    haptic();
+    if(b.dataset.pn === 'hide'){ try { localStorage.setItem('plan-nudge-hide', weekStartISO(todayStr())); } catch(e){} renderPlanNudge(); return; }
+    openLearnPage();
+    setTimeout(() => { const el = document.getElementById('lpCheck'); if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120);
+  });
+})();
+
 // ---- last week (Mon–Sun) ----
 function weekRecapData(monday){
   const sunday = toISO(new Date(parseISO(monday).getTime() + 6 * 864e5));
@@ -10194,8 +10517,8 @@ function maybeShowDaySummary(force){
   const isMonday = (window.__recapDow != null ? window.__recapDow : parseISO(today).getDay()) === 1;
   let monday = null;
   if(isMonday || force === 'week'){
-    monday = toISO(new Date(parseISO(today).getTime() - 7 * 864e5));
-    if(force === 'week'){ const dt = parseISO(today); const back = (dt.getDay() + 6) % 7 + 7; monday = toISO(new Date(dt.getTime() - back * 864e5)); }
+    // the Monday that started last week (on a Monday, a week ago)
+    const dt = parseISO(today); const back = (dt.getDay() + 6) % 7 + 7; monday = toISO(new Date(dt.getTime() - back * 864e5));
     const w = weekRecapData(monday);
     if(w.logged) cards.push(recapWeekCard(w));
   }

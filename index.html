@@ -10326,7 +10326,7 @@ function renderLearnPage(){
       <p class="bl-note">Average daily burn over ${c.days} days with Apple Health data or a full log. ${P.offset ? `Your plan already includes ${blSigned(P.offset)} from earlier checks.` : `The plan comes from your resting burn × “${ACTIVITY_LABELS[userGoals.activity] || 'your activity level'}”.`}</p>`;
     if(c.custom){
       h += `<div class="lp-sugg muted"><p>You’ve set your own calorie target (${fmtN(c.t.calorieTarget)}), so Fera won’t change it. Reset it in Goals to let the plan follow your burn.</p></div>`;
-    } else if(!c.step){
+    } else if(!c.step && !(P.log[0] && weekStartISO(P.log[0].d) === c.week)){
       h += `<div class="lp-sugg ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><p>No change needed. Your target stays at <b>${fmtN(c.curTarget)} kcal</b>.</p></div>`;
     } else if(pending){
       const capped = Math.abs(c.gap) > PLAN_STEP_MAX;

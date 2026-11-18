@@ -1553,6 +1553,36 @@
   .wo-est b{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.02em;}
   .wo-est small{display:block;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.35;}
   .wo-del{display:block;margin:10px auto 0;background:none;border:0;color:var(--surplus);font-size:13px;font-weight:700;cursor:pointer;padding:6px 10px;}
+  /* ---- sections: Today, Food, Burn, Weight, Trends (bottom bar) ---- */
+  .tabbar{position:fixed;z-index:70;left:max(16px, calc((100vw - 460px) / 2 + 2px));bottom:calc(env(safe-area-inset-bottom, 0px) + 16px);
+    display:flex;gap:2px;padding:4px;border-radius:26px;background:rgba(24,26,33,0.86);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);
+    border:1px solid rgba(255,255,255,0.10);box-shadow:0 14px 34px -12px rgba(0,0,0,0.7);transition:padding .3s ease;}
+  .tabbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:56px;height:48px;padding:0;margin:0;border:0;border-radius:22px;background:none;color:#8E93A3;cursor:pointer;
+    font:600 10px 'Inter',sans-serif;letter-spacing:.01em;transition:width .3s ease,height .3s ease,background .2s ease,color .2s ease;}
+  .tabbar button svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+  .tabbar button span{flex-shrink:0;line-height:12px;max-height:12px;overflow:hidden;transition:max-height .3s ease,opacity .2s ease;}
+  .tabbar button.on{background:rgba(76,141,255,0.16);color:#fff;}
+  .tabbar button.on svg{color:#6FA4FF;}
+  .tabbar button:active{transform:scale(0.94);}
+  .tabbar.compact button{width:42px;height:42px;gap:0;}
+  .tabbar.compact button span{max-height:0;opacity:0;}
+  body.tabs .ai-fab{height:52px;}
+  body.tabs .ai-fab .ai-fab-lbl{max-width:0;opacity:0;padding-left:0;}
+  body.tabs .wrap{padding-bottom:96px;}
+  /* Today: the dashboard, no cards. A section: its card alone, open, under the date */
+  body[data-view="home"] [data-view-card]{display:none !important;}
+  body.tabs:not([data-view="home"]) [data-view-card]{display:none;}
+  body.tabs[data-view="food"] [data-view-card="food"],body.tabs[data-view="burn"] [data-view-card="burn"],
+  body.tabs[data-view="weight"] [data-view-card="weight"],body.tabs[data-view="trends"] [data-view-card="trends"]{display:block;animation:viewIn .28s ease both;}
+  @keyframes viewIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  body.tabs:not([data-view="home"]) #headerStats,body.tabs:not([data-view="home"]) #myGoals,body.tabs:not([data-view="home"]) .wnudge,
+  body.tabs:not([data-view="home"]) .metrics,body.tabs:not([data-view="home"]) #ringNet,body.tabs:not([data-view="home"]) #goalCtaBtn,
+  body.tabs:not([data-view="home"]) #dq,body.tabs:not([data-view="home"]) #dayAsk,body.tabs:not([data-view="home"]) #balances{display:none !important;}
+  body[data-view="trends"] #ringSection{display:none !important;}
+  body.tabs:not([data-view="home"]) #ringSection .today-card{background:none;border:0;box-shadow:none;padding:0;margin:0 0 4px;}
+  body.tabs:not([data-view="home"]) .date-selector.in-card{border-bottom:0;margin-bottom:0;padding-bottom:0;}
+  body.tabs:not([data-view="home"]) [data-view-card] .burn-summary-row{pointer-events:none;}
+  body.tabs:not([data-view="home"]) [data-view-card] .burn-chevron{display:none;}
   /* ---- Fera AI: floating button, chat page ---- */
   .ai-fab{position:fixed;z-index:70;right:max(16px, calc((100vw - 460px) / 2 + 2px));bottom:calc(env(safe-area-inset-bottom, 0px) + 16px);
     display:flex;align-items:center;gap:0;height:52px;padding:0 15px;border-radius:26px;border:1px solid rgba(255,255,255,0.16);
@@ -2425,7 +2455,7 @@
     </div>
   </div>
 
-  <div class="card card-fuel">
+  <div class="card card-fuel" data-view-card="food">
     <button class="burn-summary-row" id="foodSummaryBtn" type="button">
       <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 21V3c-2.2 1.3-3.3 4-3.3 7.5V13H17"/></svg>Food</span>
       <span class="burn-summary-val" id="foodSummaryVal">—</span>
@@ -2618,7 +2648,7 @@
     </div>
   </div>
 
-  <div class="card card-burn">
+  <div class="card card-burn" data-view-card="burn">
     <button class="burn-summary-row" id="burnSummaryBtn" type="button">
       <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c.7 3.5 5.5 5.6 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.4 2.7-5.6.3 2 1.3 3.2 2.7 3.6-.3-3.4-.7-6.2.1-9.3z"/></svg>Burn</span>
       <span class="burn-summary-val" id="burnSummaryVal">—</span>
@@ -2638,7 +2668,7 @@
     </div>
   </div>
 
-  <div class="card card-burn">
+  <div class="card card-burn" data-view-card="weight">
     <button class="burn-summary-row" id="weightSummaryBtn" type="button">
       <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M7.5 10.5a6 6 0 0 1 9 0M12 11l2-3"/></svg>Weight</span>
       <span class="burn-summary-val" id="weightSummaryVal">—</span>
@@ -2663,7 +2693,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" data-view-card="trends">
     <button class="burn-summary-row" id="trendsSummaryBtn" type="button">
       <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/></svg>Trends</span>
       <span class="burn-chevron" id="trendsChevron">›</span>
@@ -9343,6 +9373,13 @@ bootAuth();
 })();
 </script>
 <!-- Fera AI: floating button + chat page -->
+<nav class="tabbar" id="tabBar" aria-label="Sections">
+  <button type="button" data-view="home" class="on" aria-label="Today"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/></svg><span>Today</span></button>
+  <button type="button" data-view="food" aria-label="Food"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M16.5 21V3c-2 1-3.5 3.5-3.5 7 0 2 1.5 3 3.5 3"/></svg><span>Food</span></button>
+  <button type="button" data-view="burn" aria-label="Burn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 3 4.8 4.9 4.8 9.8a4.8 4.8 0 0 1-9.6 0c0-2.3 1.1-3.8 2.4-4.9.2 1.7 1.1 2.8 2.3 3.1-.3-3-.6-5.4.1-8z"/></svg><span>Burn</span></button>
+  <button type="button" data-view="weight" aria-label="Weight"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="4"/><path d="M8.5 9.5a4.5 4.5 0 0 1 7 0M12 9.6l1.4-1.9"/></svg><span>Weight</span></button>
+  <button type="button" data-view="trends" aria-label="Trends"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/></svg><span>Trends</span></button>
+</nav>
 <button class="ai-fab hide" id="aiFab" type="button" aria-label="Ask Fera AI"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span class="ai-fab-lbl">Ask Fera</span></button>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -10298,6 +10335,7 @@ function openWeighIn(){
   weightExpanded = true;
   const ti = document.getElementById('weightTimeInput'); if(ti && !ti.value) ti.value = currentHHMM();
   renderWeightCard();
+  if(window.setView) window.setView('weight');
   setTimeout(() => {
     const b = document.getElementById('weightSummaryBtn'); if(b) b.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setTimeout(() => { const i = document.getElementById('weightValueInput'); if(i) i.focus({ preventScroll: true }); }, 450);
@@ -10710,7 +10748,7 @@ function showRecap(cards, opt){
     const b = ev.target.closest('[data-rc]');
     if(b){
       const a = b.dataset.rc; haptic(); close();
-      if(a === 'finish'){ setSelectedDate(yesterdayStr()); foodExpanded = true; renderFoodForm(); setTimeout(() => { const c = document.getElementById('foodSummaryBtn'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120); }
+      if(a === 'finish'){ setSelectedDate(yesterdayStr()); foodExpanded = true; renderFoodForm(); if(window.setView) window.setView('food'); setTimeout(() => { const c = document.getElementById('foodSummaryBtn'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120); }
       else if(a === 'week' && opt.monday){ setSelectedDate(toISO(new Date(parseISO(opt.monday).getTime() + 6 * 864e5))); setTimeout(() => { const c = document.getElementById('balances'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150); }
       return;
     }
@@ -10800,7 +10838,7 @@ function showRecap(cards, opt){
     if(!/^fera:\/\//.test(u)) return;
     if(typeof setSelectedDate === 'function' && selectedDate !== todayStr()) setSelectedDate(todayStr());
     if(/^fera:\/\/log/.test(u)){
-      foodExpanded = true; inputMode = 'ai'; renderFoodForm();
+      foodExpanded = true; inputMode = 'ai'; renderFoodForm(); if(window.setView) window.setView('food');
       setTimeout(() => {
         const b = document.getElementById('foodSummaryBtn'); if(b) b.scrollIntoView({ behavior: 'smooth', block: 'start' });
         const i = document.getElementById('aiDesc'); if(i) i.focus({ preventScroll: true });
@@ -10812,6 +10850,52 @@ function showRecap(cards, opt){
   if(App && App.addListener){
     App.addListener('appUrlOpen', (ev) => { const go = () => openLink(ev && ev.url); if(appStarted) go(); else setTimeout(go, 1500); });
   }
+})();
+
+// =====================================================================================
+// Sections: Today (the dashboard) and one view per card, switched from the bottom bar. A section
+// shows its card alone and open, under the date; the bar shrinks to icons when the page scrolls.
+// Each switch is a history step, so the back gesture returns to the previous section.
+// =====================================================================================
+(function sections(){
+  const bar = document.getElementById('tabBar');
+  const VIEWS = ['home', 'food', 'burn', 'weight', 'trends'];
+  const open = {
+    food: () => { if(!foodExpanded) document.getElementById('foodSummaryBtn').click(); },
+    burn: () => { if(!burnExpanded) document.getElementById('burnSummaryBtn').click(); },
+    weight: () => { if(!weightExpanded) document.getElementById('weightSummaryBtn').click(); },
+    trends: () => { if(!trendsExpanded) document.getElementById('trendsSummaryBtn').click(); }
+  };
+  let current = 'home';
+  function setView(v, opts){
+    opts = opts || {};
+    if(!VIEWS.includes(v)) v = 'home';
+    const changed = v !== current;
+    current = v;
+    document.body.dataset.view = v;
+    bar.querySelectorAll('[data-view]').forEach(b => { b.classList.toggle('on', b.dataset.view === v); b.setAttribute('aria-current', b.dataset.view === v ? 'page' : 'false'); });
+    if(open[v]) open[v]();
+    if(!opts.keepScroll) window.scrollTo(0, 0);
+    if(changed && !opts.fromHistory){ try { history.pushState({ view: v }, '', v === 'home' ? location.pathname + location.search : '#' + v); } catch(e){} }
+    compact();
+  }
+  window.setView = setView;
+  window.currentView = () => current;
+  bar.addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-view]'); if(!b) return;
+    haptic();
+    if(b.dataset.view === current){ window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    setView(b.dataset.view);
+  });
+  window.addEventListener('popstate', (ev) => { const v = (ev.state && ev.state.view) || (location.hash || '').slice(1) || 'home'; setView(v, { fromHistory: true }); });
+  let tick = false;
+  function compact(){ bar.classList.toggle('compact', (window.scrollY || 0) > 80); }
+  window.addEventListener('scroll', () => { if(tick) return; tick = true; requestAnimationFrame(() => { tick = false; compact(); }); }, { passive: true });
+  document.body.classList.add('tabs');
+  const start = (location.hash || '').slice(1);
+  document.body.dataset.view = 'home';
+  try { history.replaceState({ view: 'home' }, '', location.pathname + location.search); } catch(e){}
+  if(VIEWS.includes(start) && start !== 'home') setTimeout(() => setView(start), 600);
 })();
 </script>
 </body>

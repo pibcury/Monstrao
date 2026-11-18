@@ -1840,6 +1840,25 @@
   .lg-manual .lg-name-input{width:100%;border:0;border-bottom:1px solid var(--rule);border-radius:0;background:transparent;box-shadow:none;padding:4px 2px 10px;font:600 17px 'Sora',sans-serif;letter-spacing:-0.01em;color:var(--ink);}
   .lg-manual .lg-name-input:focus{outline:none;border-bottom-color:var(--accent);box-shadow:none;}
   .lg-manual .lg-add{width:100%;margin-top:12px;}
+  .lg-ctx{margin-top:12px;display:flex;flex-direction:column;gap:9px;}
+  .lg-ctx[hidden],.lg-break[hidden],.lg-assume[hidden]{display:none;}
+  .lg-chips{display:flex;flex-wrap:wrap;gap:6px;}
+  .lg-chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;background:rgba(244,245,250,0.06);border:1px solid var(--rule);color:#C9CCD6;font:600 12px 'Inter',sans-serif;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+  .lg-chip svg{width:13px;height:13px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .lg-chip.src{color:#8DB6FF;background:rgba(76,141,255,0.10);border-color:rgba(76,141,255,0.25);}
+  .lg-chip.conf i{width:7px;height:7px;border-radius:50%;background:currentColor;}
+  .lg-chip.conf.high{color:#4ADE80;} .lg-chip.conf.medium{color:#F4B740;} .lg-chip.conf.low{color:#FF7A8A;}
+  .lg-assume{margin:0;font-size:12.5px;line-height:1.45;color:var(--muted);}
+  .lg-assume b{color:#C9CCD6;font-weight:700;margin-right:4px;}
+  .lg-break{border:1px solid var(--rule);border-radius:12px;background:rgba(244,245,250,0.025);}
+  .lg-break summary{list-style:none;display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;font:600 12.5px 'Inter',sans-serif;color:#C9CCD6;}
+  .lg-break summary::-webkit-details-marker{display:none;}
+  .lg-break summary em{font-style:normal;color:var(--muted);font-weight:600;}
+  .lg-break summary i{margin-left:auto;font-style:normal;color:var(--muted);transition:transform .2s;}
+  .lg-break[open] summary i{transform:rotate(90deg);}
+  .lg-break-list{padding:0 12px 6px;}
+  .lg-break-list div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid var(--rule);font-size:13px;color:#C9CCD6;}
+  .lg-break-list b{color:var(--ink);font-variant-numeric:tabular-nums;}
   /* Scan: barcode scanner + nutrition label */
   .fseg.three{grid-template-columns:1fr 1fr 1fr;}
   .fseg.three .fseg-thumb{width:calc(33.333% - 2px);}
@@ -2484,7 +2503,12 @@
           </div>
           <div class="nutri-grid lg-nutri" id="aiNutri"></div>
           <div class="lg-mix" id="aiMix" aria-hidden="true"><i data-mx="protein"></i><i data-mx="carbs"></i><i data-mx="fat"></i></div>
-          <p class="lg-hint">Tap any number to adjust it before adding.</p>
+          <div class="lg-ctx" id="aiCtx" hidden>
+            <div class="lg-chips" id="aiChips"></div>
+            <p class="lg-assume" id="aiAssume"></p>
+            <details class="lg-break" id="aiBreak"><summary><span>What's in it</span><em id="aiBreakN"></em><i aria-hidden="true">›</i></summary><div class="lg-break-list" id="aiBreakList"></div></details>
+          </div>
+          <p class="lg-hint" id="aiHint">Tap any number to adjust it before adding.</p>
           <div class="lg-actions">
             <button class="lg-retry" id="aiRetryBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.5-5.8M4 4v4.5h4.5"/></svg><span>Edit & retry</span></button>
             <button class="lg-add" id="aiAddBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="lg-add-lbl">Add</span></button>
@@ -7385,6 +7409,31 @@ async function init(){
     aiResult.style.display = 'none';
     aiResult.classList.remove('leaving');
     aiLabelInput.value = ''; setNutri('aiNutri', {}); lastAiEstimate = null;
+    document.getElementById('aiCtx').hidden = true;
+  }
+  // the context behind the number: where it came from, how sure, what was assumed, what's in it
+  function renderAiContext(est){
+    const ctx = document.getElementById('aiCtx');
+    const hint = document.getElementById('aiHint');
+    const has = est && (est.confidence || est.source || est.searched || (est.items && est.items.length) || est.assumptions);
+    ctx.hidden = !has;
+    hint.textContent = est && est.confidence === 'low' ? 'A rough estimate: add the size or how it was made, then Edit & retry. Or tap a number to adjust.' : 'Tap any number to adjust it before adding.';
+    if(!has) return;
+    const chips = [];
+    if(est.source) chips.push(`<span class="lg-chip src"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>${est.searched ? 'From ' : ''}${escapeHtml(est.source)}</span>`);
+    else if(est.searched) chips.push('<span class="lg-chip src"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg>Checked online</span>');
+    else chips.push('<span class="lg-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6"/></svg>Typical values</span>');
+    if(est.confidence) chips.push(`<span class="lg-chip conf ${est.confidence}"><i></i>${est.confidence === 'high' ? 'High' : est.confidence === 'medium' ? 'Medium' : 'Low'} confidence</span>`);
+    document.getElementById('aiChips').innerHTML = chips.join('');
+    const as = document.getElementById('aiAssume');
+    as.innerHTML = est.assumptions ? `<b>Assumed</b> ${escapeHtml(est.assumptions)}` : '';
+    as.hidden = !est.assumptions;
+    const items = (est.items || []).filter(x => x && x.name);
+    const br = document.getElementById('aiBreak');
+    br.hidden = items.length < 2;
+    br.open = false;
+    document.getElementById('aiBreakN').textContent = items.length;
+    document.getElementById('aiBreakList').innerHTML = items.map(x => `<div><span>${escapeHtml(x.name)}</span><b>${fmtN(x.calories)}</b></div>`).join('');
   }
   const aiComposer = document.getElementById('aiComposer');
   const aiThinking = document.getElementById('aiThinking');
@@ -7595,6 +7644,7 @@ async function init(){
       if(photoSrc){ th.src = photoSrc; th.style.display = ''; } else { th.removeAttribute('src'); th.style.display = 'none'; }
       const m = MEAL_BY_KEY[currentFoodMeal()];
       document.getElementById('aiMealTag').textContent = m ? `${m.e} ${m.label}` : '';
+      renderAiContext(est);
       aiResult.style.display = '';
       fitLabel();
       updateMix('aiNutri', 'aiMix');

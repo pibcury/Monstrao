@@ -68,7 +68,7 @@
   }
   .wrap{max-width:460px;margin:0 auto;}
 
-  .app-header{position:relative;}
+  .app-header{position:relative;z-index:60;}
   .app-menu-btn{
     position:absolute; top:-4px; right:0; z-index:5;
     height:46px; padding:0 5px 0 13px; border-radius:23px;
@@ -1578,7 +1578,7 @@
   body.tabs[data-view="weight"] [data-view-card="weight"],body.tabs[data-view="trends"] [data-view-card="trends"]{display:block;animation:viewIn .28s ease both;}
   @keyframes viewIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
   body.tabs:not([data-view="home"]) #headerStats,body.tabs:not([data-view="home"]) #myGoals,body.tabs:not([data-view="home"]) .wnudge,
-  body.tabs:not([data-view="home"]) .metrics,body.tabs:not([data-view="home"]) #ringNet,body.tabs:not([data-view="home"]) #goalCtaBtn,
+  body.tabs:not([data-view="home"]) #ringSection .metrics,body.tabs:not([data-view="home"]) #ringNet,body.tabs:not([data-view="home"]) #goalCtaBtn,
   body.tabs:not([data-view="home"]) #dq,body.tabs:not([data-view="home"]) #dayAsk,body.tabs:not([data-view="home"]) #balances{display:none !important;}
   body[data-view="trends"] #ringSection{display:none !important;}
   body.tabs:not([data-view="home"]) #ringSection .today-card{background:none;border:0;box-shadow:none;padding:0;margin:0 0 4px;}
@@ -3865,6 +3865,12 @@ function toggleHTML(mode){
 }
 // s: '' = main page (the Mon–Sun week around the selected date) or 'T' = the Trends period.
 // All the charts sit in one "Progress" card with one Total / vs. goal switch.
+// the first day with anything logged (food), or null
+function firstLogISO(){
+  let f = null;
+  for(const k in entries){ const e = entries[k]; if(!e || !/^\d{4}-\d{2}-\d{2}$/.test(k)) continue; if(net(e) == null && !(e.items && e.items.length)) continue; if(!f || k < f) f = k; }
+  return f;
+}
 function renderBalances(s){
   const box = document.getElementById(s ? 'balancesT' : 'balances');
   if(!box) return;
@@ -3872,6 +3878,9 @@ function renderBalances(s){
   if(s){
     const r = trendRange(trendHorizon, trendOffset);
     start = r.start; end = r.end; labels = trendHorizon;
+    // a month or year that began before the first logged day starts on that day, not with a flat line
+    const first = firstLogISO();
+    if(first && first > start && first <= end) start = first;
   } else {
     const mon = mondayOf(parseISO(selectedDate));
     const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
@@ -4387,7 +4396,7 @@ let weightInputMode = 'manual'; // 'manual'|'csv'
 
 // ---------- collapsible "The Trends" card + its individual charts ----------
 let trendsExpanded = false;
-let chartBlockState = { consumed:false, burned:false, net:false, protein:false, carbs:false, fat:false, weight:false, steps:false, active:false }; // all collapsed until opened
+let chartBlockState = { consumed:true, burned:true, net:true, protein:true, carbs:true, fat:true, weight:true, steps:true, active:true }; // all open until closed
 
 // "14:05" -> "2:05 PM" (readings are keyed "YYYY-MM-DDTHH:MM[:SS]")
 function weightTimeLabel(ts){
@@ -8191,6 +8200,15 @@ async function init(){
   wireChartBlockToggle('toggleCarbsBtn', 'carbsChevron', 'carbsChartWrap', 'carbs');
   wireChartBlockToggle('toggleFatBtn', 'fatChevron', 'fatChartWrap', 'fat');
   wireChartBlockToggle('toggleWeightBtn', 'weightChevronT', 'weightChartOuterWrap', 'weight');
+  // start each chart in its saved state (open by default)
+  [['toggleConsumedBtn','consumedChevron','consumedChartWrap','consumed'],['toggleBurnedBtn','burnedChevron','burnedChartWrap','burned'],['toggleNetBtn','netChevron','netChartWrap','net'],
+   ['toggleStepsBtn','stepsChevron','stepsChartWrap','steps'],['toggleActiveBtn','activeChevron','activeChartWrap','active'],['toggleProteinBtn','proteinChevron','proteinChartWrap','protein'],
+   ['toggleCarbsBtn','carbsChevron','carbsChartWrap','carbs'],['toggleFatBtn','fatChevron','fatChartWrap','fat'],['toggleWeightBtn','weightChevronT','weightChartOuterWrap','weight']].forEach(([b, c, w, k]) => {
+    const bb = document.getElementById(b), cc = document.getElementById(c), ww = document.getElementById(w); if(!bb || !cc || !ww) return;
+    ww.style.display = chartBlockState[k] ? '' : 'none';
+    bb.closest('.trend-chart-block').classList.toggle('open', chartBlockState[k]);
+    cc.classList.toggle('open', chartBlockState[k]);
+  });
 
   // Weight now lives inside the Trends card and follows its single Week/Month/Year horizon toggle.
   document.getElementById('trendHorizonRow').addEventListener('click', (ev)=>{
@@ -10887,7 +10905,7 @@ function showRecap(cards, opt){
     food: () => { if(!foodExpanded) document.getElementById('foodSummaryBtn').click(); },
     burn: () => { if(!burnExpanded) document.getElementById('burnSummaryBtn').click(); },
     weight: () => { if(!weightExpanded) document.getElementById('weightSummaryBtn').click(); },
-    trends: () => { if(!trendsExpanded) document.getElementById('trendsSummaryBtn').click(); }
+    trends: () => { if(!trendsExpanded) document.getElementById('trendsSummaryBtn').click(); else requestAnimationFrame(() => { window.dispatchEvent(new Event('resize')); if(window.renderTrendsRingAndRuler) renderTrendsRingAndRuler(); }); }
   };
   let current = 'home';
   function setView(v, opts){

@@ -2087,6 +2087,92 @@
   .bl-how ol{margin:6px 0 14px;padding-left:20px;color:var(--muted);font-size:14px;line-height:1.55;}
   .bl-how ol li{margin-top:4px;}
   .bl-how .pb-tg{width:100%;}
+  /* Learning page + plan check */
+  #learnOverlay{z-index:105;}
+  .lp-now{padding:18px 18px 14px;border-radius:22px;border:1px solid var(--rule);background:radial-gradient(120% 100% at 0% 0%,rgba(47,111,232,.20),transparent 60%),radial-gradient(100% 100% at 100% 100%,rgba(255,55,95,.10),transparent 60%),linear-gradient(180deg,rgba(244,245,250,.05),rgba(244,245,250,.015));}
+  .lp-now-head{display:flex;align-items:center;justify-content:space-between;}
+  .lp-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;}
+  .lp-pair > div{display:flex;flex-direction:column;gap:2px;}
+  .lp-pair > div + div{padding-left:14px;border-left:1px solid var(--rule);}
+  .lp-pair small{color:var(--muted);font-size:12.5px;font-weight:600;}
+  .lp-pair b{font:700 34px/1.05 'Sora',sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:4px;}
+  .lp-pair span{color:var(--muted);font-size:12px;}
+  .lp-when{margin:14px 0 0;padding-top:11px;border-top:1px solid var(--rule);color:var(--muted);font-size:12.5px;}
+  .lp-upd.due{border-color:rgba(76,141,255,.45);background:linear-gradient(180deg,rgba(76,141,255,.10),rgba(76,141,255,.02));}
+  .lp-eyebrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;color:var(--muted);font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;}
+  .lp-rows{display:flex;flex-direction:column;}
+  .lp-row{display:grid;grid-template-columns:1fr auto 74px;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--rule);font-size:14px;color:var(--muted);}
+  .lp-row:last-child{border-bottom:0;}
+  .lp-ft{color:var(--muted);font-variant-numeric:tabular-nums;} .lp-ft b{color:var(--ink);font:700 16px 'Sora',sans-serif;}
+  .lp-d{justify-self:end;padding:3px 8px;border-radius:999px;font:700 12px 'Inter',sans-serif;font-style:normal;font-variant-numeric:tabular-nums;}
+  .lp-d.up{background:rgba(74,222,128,.14);color:#4ADE80;} .lp-d.down{background:rgba(244,183,64,.14);color:#F4B740;} .lp-d.same{color:var(--muted);font-weight:600;}
+  .lp-why{margin:10px 0 0;color:var(--muted);font-size:13.5px;line-height:1.5;} .lp-why b{color:var(--ink);}
+  .lp-ok{display:flex;align-items:flex-start;gap:10px;} .lp-ok p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .lp-ok svg{flex-shrink:0;width:20px;height:20px;margin-top:1px;fill:none;stroke:#4ADE80;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+  .lp-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+  .lp-facts > div{padding:11px 12px;border-radius:14px;background:rgba(244,245,250,.04);border:1px solid var(--rule);display:flex;flex-direction:column;gap:2px;}
+  .lp-facts b{font:700 18px 'Sora',sans-serif;font-variant-numeric:tabular-nums;} .lp-facts small{color:var(--muted);font-size:11.5px;line-height:1.3;}
+  .lp-ev{margin-top:12px;}
+  .lp-set{display:flex;flex-direction:column;gap:0;padding-top:4px;padding-bottom:4px;}
+  .lp-set .pb-tg:first-child{border-top:0;}
+  .lp-sw{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;cursor:pointer;}
+  .lp-sw + .lp-sw{border-top:1px solid var(--rule);}
+  .lp-sw span{display:flex;flex-direction:column;gap:3px;} .lp-sw b{font-size:14.5px;} .lp-sw small{color:var(--muted);font-size:12.5px;line-height:1.4;}
+  .lp-sw .pb-tg{flex-shrink:0;}
+  .lp-intro{color:var(--muted);font-size:14px;line-height:1.5;margin:2px 2px 0;}
+  .lp-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .lp-tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;padding:14px 14px 12px;border-radius:20px;border:1px solid var(--rule);text-align:left;color:var(--ink);cursor:pointer;
+    background:radial-gradient(120% 90% at 0% 0%,rgba(47,111,232,.18),transparent 62%),linear-gradient(180deg,rgba(244,245,250,.05),rgba(244,245,250,.015));}
+  .lp-tile + .lp-tile{background:radial-gradient(120% 90% at 0% 0%,rgba(255,55,95,.16),transparent 62%),linear-gradient(180deg,rgba(244,245,250,.05),rgba(244,245,250,.015));}
+  .lp-k{display:flex;flex-wrap:wrap;align-items:center;gap:6px;color:var(--muted);font:700 10.5px/1.2 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;}
+  .lp-k .bc-tag{letter-spacing:0;text-transform:none;}
+  .lp-tile b{margin-top:10px;font:700 32px/1 'Sora',sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+  .lp-tile small{color:var(--muted);font-size:12px;}
+  .lp-s{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:10px;padding-top:9px;border-top:1px solid var(--rule);color:var(--ink);font:600 12.5px 'Inter',sans-serif;}
+  .lp-s i{font-style:normal;color:var(--muted);font-size:16px;}
+  .lp-check.due{border-color:rgba(76,141,255,.45);background:linear-gradient(180deg,rgba(76,141,255,.10),rgba(76,141,255,.02));}
+  .lp-eyebrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;color:var(--muted);font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;}
+  .lp-mode{padding:4px 8px;border-radius:999px;background:rgba(244,245,250,.07);letter-spacing:.02em;text-transform:none;font-size:11px;}
+  .lp-bars{display:flex;flex-direction:column;gap:9px;margin-top:12px;}
+  .lp-bar{display:grid;grid-template-columns:92px 1fr 54px;align-items:center;gap:10px;font-size:12.5px;color:var(--muted);}
+  .lp-bar > div{height:12px;border-radius:6px;background:rgba(244,245,250,.06);overflow:hidden;}
+  .lp-bar i{display:block;height:100%;border-radius:6px;}
+  .lp-bar i.f{background:repeating-linear-gradient(135deg,#8B90A0 0 6px,#6F7486 6px 12px);opacity:.8;}
+  .lp-bar i.r{background:linear-gradient(90deg,#FF375F,#FF6B81);}
+  .lp-bar b{text-align:right;color:var(--ink);font:700 14px 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
+  .lp-sugg{margin-top:14px;padding:14px;border-radius:16px;border:1px solid rgba(76,141,255,.35);background:rgba(8,10,14,.35);}
+  .lp-sugg.ok,.lp-sugg.muted{display:flex;align-items:flex-start;gap:10px;border-color:var(--rule);}
+  .lp-sugg.ok svg{flex-shrink:0;width:20px;height:20px;margin-top:1px;fill:none;stroke:#4ADE80;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+  .lp-sugg p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5;} .lp-sugg p b{color:var(--ink);}
+  .lp-new small{display:block;color:var(--muted);font-size:12px;}
+  .lp-new > div{display:flex;align-items:baseline;gap:8px;margin:6px 0 4px;}
+  .lp-new > div b{font:700 38px/1 'Sora',sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+  .lp-new > div span{color:var(--muted);font:600 14px 'Inter',sans-serif;}
+  .lp-new em{margin-left:auto;padding:4px 9px;border-radius:999px;font:700 13px 'Inter',sans-serif;font-style:normal;}
+  .lp-new em.up{background:rgba(74,222,128,.14);color:#4ADE80;} .lp-new em.down{background:rgba(244,183,64,.14);color:#F4B740;}
+  .lp-acts{display:grid;grid-template-columns:1fr 1.4fr;gap:8px;margin-top:14px;}
+  .lp-acts button{height:46px;border-radius:14px;border:1px solid var(--rule);background:rgba(244,245,250,.05);color:var(--ink);font:700 14.5px 'Inter',sans-serif;cursor:pointer;}
+  .lp-acts .lp-apply{border:0;background:var(--accent-strong);color:#fff;box-shadow:0 12px 26px -12px rgba(76,141,255,.8);}
+  .lp-pace{margin-top:14px;}
+  .lp-ptrack{position:relative;height:10px;border-radius:5px;background:rgba(244,245,250,.07);}
+  .lp-ptrack i{position:absolute;top:50%;}
+  .lp-ptrack i.mid{left:50%;width:2px;height:18px;margin:-9px 0 0 -1px;background:#6F7486;border-radius:1px;}
+  .lp-ptrack i.pl{width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:2px dashed #8B90A0;background:var(--bg);}
+  .lp-ptrack i.ac{width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 4px rgba(74,222,128,.18);}
+  .lp-plabels{display:flex;justify-content:space-between;margin-top:8px;color:#6F7486;font:600 11px 'Inter',sans-serif;}
+  .lp-pkey{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;color:var(--muted);font-size:12.5px;}
+  .lp-pkey span{display:inline-flex;align-items:center;gap:7px;} .lp-pkey b{color:var(--ink);}
+  .lp-pkey i{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .lp-pkey i.pl{border:2px dashed #8B90A0;width:9px;height:9px;} .lp-pkey i.ac{background:#4ADE80;}
+  .lp-log{display:flex;flex-direction:column;margin-top:4px;}
+  .lp-log > div{display:grid;grid-template-columns:56px 1fr;gap:2px 10px;padding:10px 0;border-top:1px solid var(--rule);}
+  .lp-log > div:first-child{border-top:0;}
+  .lp-log span{grid-row:span 2;color:var(--muted);font:600 12.5px 'Inter',sans-serif;}
+  .lp-log b{font:700 14.5px 'Sora',sans-serif;font-variant-numeric:tabular-nums;} .lp-log small{color:var(--muted);font-size:12px;}
+  .lp-modes{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:3px;border-radius:12px;background:var(--surface-2);border:1px solid var(--rule);}
+  .lp-modes button{border:0;background:none;padding:9px 4px;border-radius:9px;color:var(--muted);font:700 13px 'Inter',sans-serif;cursor:pointer;}
+  .lp-modes button.on{background:var(--accent-soft);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(76,141,255,.35);}
+  .pn-ico{color:#4ADE80 !important;}
 
   /* AI features state, next to the AI */
   .ai-off-note,.chat-ai-off{display:flex;align-items:center;gap:10px;margin-top:10px;padding:9px 10px 9px 13px;border-radius:14px;border:1px solid rgba(244,183,64,.3);background:rgba(244,183,64,.08);color:#F4D58A;font-size:13px;line-height:1.35;}
@@ -2174,6 +2260,15 @@
   .wo-phone button b{font-size:14px;font-weight:700;}
   .wo-phone button small{font-size:11.5px;color:var(--muted);line-height:1.3;}
   .wo-phone button.on{border-color:#FF375F;background:rgba(255,55,95,.1);}
+  .wo-end{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .wo-end input{height:42px;padding:0 12px;border-radius:12px;border:1px solid var(--rule);background:rgba(244,245,250,.04);color:var(--ink);font:600 16px 'Inter',sans-serif;}
+  .wo-end span{color:var(--muted);font-size:13px;}
+  .wo-detect{display:flex;align-items:center;gap:11px;margin-bottom:14px;padding:11px 12px;border-radius:14px;border:1px solid rgba(74,222,128,.3);background:rgba(74,222,128,.07);}
+  .wo-detect.checking{border-color:var(--rule);background:rgba(244,245,250,.03);}
+  .wd-ico{font-size:20px;flex-shrink:0;}
+  .wd-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+  .wd-t b{font-size:14px;} .wd-t small{font-size:12px;color:var(--muted);line-height:1.35;}
+  .wo-detect button{flex-shrink:0;border:0;background:none;color:var(--accent);font:600 12.5px 'Inter',sans-serif;cursor:pointer;padding:6px 0;}
 </style>
 </head>
 <body>
@@ -2189,6 +2284,7 @@
       <div class="app-menu-account" id="menuAccountLine"></div>
       <button class="app-menu-item" id="openProfileBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span><b>Profile</b><small>Name, age, height, weight</small></span></button>
       <button class="app-menu-item" id="openGoalsBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span><span><b>Goals</b><small>Your daily targets</small></span></button>
+      <button class="app-menu-item" id="openLearnBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/><circle cx="8" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="15" r="1" fill="currentColor"/></svg></span><span><b>Learning</b><small>Your real burn and plan check</small></span></button>
       <button class="app-menu-item" id="openWearablesBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.3 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10Z"/><path d="M4.5 12.5h4l1.5-2.5 2.5 5 1.5-2.5h5.5"/></svg></span><span><b>Apple Health</b><small>Steps, activity and weight</small></span></button>
       <button class="app-menu-item" id="openDataBtn" type="button"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7.5" ry="2.8"/><path d="M4.5 6v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V6"/><path d="M4.5 12v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-6"/></svg></span><span><b>Your Data</b><small>Export, and every day you’ve logged</small></span></button>
       <button class="app-menu-item" id="openPremiumBtn" type="button"><span class="app-menu-ico pw-menu-ico"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg></span><span><b>Premium</b><small id="menuPlanLine">Plans and AI limits</small></span></button>
@@ -2205,6 +2301,7 @@
       </div>
       <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
       <div class="wnudge" id="weighNudge" hidden></div>
+      <div class="wnudge" id="planNudge" hidden></div>
 
       <div class="ring-section" id="ringSection">
         <div class="metrics-panel">
@@ -2975,6 +3072,15 @@
     <div class="overlay-title">Apple Health</div>
   </div>
   <div class="overlay-scroll" id="wearablesBody"></div>
+</div>
+
+<!-- ============ Learning: what Fera has learned, and the weekly plan check ============ -->
+<div class="page-overlay" id="learnOverlay" style="display:none;">
+  <div class="overlay-topbar">
+    <button class="overlay-back" id="learnBackBtn" type="button" aria-label="Back">Back</button>
+    <div class="overlay-title">Learning</div>
+  </div>
+  <div class="overlay-scroll" id="learnBody"></div>
 </div>
 
 <!-- ============ Resting burn: what BMR learning is doing ============ -->
@@ -4058,7 +4164,8 @@ let woState = null;   // { id, type, min, int, q }
 function openWorkoutSheet(editId){
   const d = selectedDate;
   const cur = editId ? dayWorkouts(d).find(w => w.id === editId) : null;
-  woState = cur ? { id: cur.id, type: cur.type, min: cur.min, int: cur.int, phone: cur.phone !== false, step: 2, q: '' } : { id: null, type: null, min: 30, int: 'moderate', phone: true, step: 1, q: '' };
+  woState = cur ? { id: cur.id, type: cur.type, min: cur.min, int: cur.int, phone: cur.phone !== false, end: cur.end || null, phoneSteps: cur.phoneSteps, step: 2, q: '' } : { id: null, type: null, min: 30, int: 'moderate', phone: true, step: 1, q: '' };
+  woState.detect = null; woState.override = false;
   let el = document.getElementById('woSheet');
   if(!el){ el = document.createElement('div'); el.id = 'woSheet'; el.className = 'sheet-scrim'; document.body.appendChild(el); }
   renderWorkoutSheet();
@@ -4073,6 +4180,42 @@ function closeWorkoutSheet(){
   document.body.classList.remove('sheet-open');
   setTimeout(() => { el.style.display = 'none'; }, 260);
 }
+// In the iPhone app, on the iPhone-only setup: was the phone carried during a walk or run? Fera reads
+// the steps the iPhone itself recorded in the workout's time window and compares them with what the
+// workout would take. Clearly most of them → it was carried; almost none → it stayed aside; anything
+// in between, or no access → the question.
+function woCanDetect(){ const NH = nativeHealth(); return !!(NH && typeof NH.stepsInWindow === 'function' && nativeHealthOn()); }
+function woWindow(){
+  const [h, m] = String(woState.end || '').split(':').map(Number);
+  if(isNaN(h) || isNaN(m)) return null;
+  const end = parseISO(selectedDate); end.setHours(h, m, 0, 0);
+  return { start: end.getTime() - woState.min * 60000, end: end.getTime() };
+}
+function woStartText(){ const w = woWindow(); return w ? new Date(w.start).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : '—'; }
+let woDetectToken = 0;
+async function woDetect(){
+  if(!woState || woState.step !== 2) return;
+  const def = WORKOUT_BY_KEY[woState.type];
+  if(!(burnPath() === 'phone' && def && def.steps && woCanDetect())) return;
+  if(!woState.end) woState.end = selectedDate === todayStr() ? currentHHMM() : '18:00';
+  const w = woWindow(); if(!w) return;
+  const token = ++woDetectToken;
+  woState.detect = { status: 'checking' }; renderWorkoutSheet();
+  let r = null;
+  try { r = await nativeHealth().stepsInWindow(w); } catch(e){ r = null; }
+  if(token !== woDetectToken || !woState) return;
+  const expected = def.steps[INT_IDX[woState.int] ?? 1] * woState.min;
+  if(!r || typeof r.iphone !== 'number' || w.end > Date.now() + 60000) woState.detect = { status: 'unsure' };
+  else if(r.iphone >= expected * 0.5) woState.detect = { status: 'with', iphone: r.iphone, expected };
+  else if(r.iphone <= expected * 0.15 && (r.samples > 0 || w.end < Date.now() - 15 * 60000)) woState.detect = { status: 'aside', iphone: r.iphone, expected };
+  else woState.detect = { status: 'unsure', iphone: r.iphone, expected };
+  if(!woState.override && (woState.detect.status === 'with' || woState.detect.status === 'aside')) woState.phone = woState.detect.status === 'with';
+  renderWorkoutSheet();
+}
+document.addEventListener('change', (ev) => {
+  if(ev.target.id !== 'woEnd' || !woState) return;
+  woState.end = ev.target.value; woState.override = false; woDetect();
+});
 function renderWorkoutSheet(){
   const el = document.getElementById('woSheet');
   if(!el || !woState) return;
@@ -4089,8 +4232,12 @@ function renderWorkoutSheet(){
         `<button class="wo-tile" type="button" data-wo-type="${w.k}"><span class="wo-e">${w.e}</span><span class="wo-n">${escapeHtml(w.n)}</span></button>`).join('')}</div>`).join('') || '<p class="wo-none">No match — try “Other workout”.</p>'}</div>`;
   } else {
     const def = WORKOUT_BY_KEY[woState.type];
-    const est = workoutKcal({ type: woState.type, min: woState.min, int: woState.int, phone: woState.phone });
     const askPhone = burnPath() === 'phone' && !!def.steps;
+    const canDetect = askPhone && woCanDetect();
+    if(canDetect && !woState.end) woState.end = isToday ? currentHHMM() : '18:00';
+    const det = woState.detect;
+    const known = canDetect && !woState.override && det && (det.status === 'with' || det.status === 'aside');
+    const est = workoutKcal({ type: woState.type, min: woState.min, int: woState.int, phone: woState.phone, phoneSteps: woState.phone && known && det.status === 'with' ? det.iphone : undefined });
     inner = `<div class="wo-head"><button class="wo-back" type="button" data-wo-back aria-label="Back">‹</button>
         <span class="wo-head-e">${def.e}</span><div><div class="sheet-title" style="margin:0">${escapeHtml(def.n)}</div><div class="sheet-sub" style="margin:2px 0 0">${isToday ? 'Today' : dayLabel(d)}</div></div></div>
       <div class="wo-label">How long?</div>
@@ -4101,12 +4248,16 @@ function renderWorkoutSheet(){
       <div class="wo-label">How hard?</div>
       <div class="wo-ints">${INTENSITY.map((it, i) => `<button type="button" class="wo-int${woState.int === it.k ? ' on' : ''}" data-wo-int="${it.k}">
         <b>${it.label}</b><small>${escapeHtml(def.h[i])}</small><i>${it.hint}</i></button>`).join('')}</div>
-      ${askPhone ? `<div class="wo-label">Was your iPhone with you?</div>
+      ${canDetect ? `<div class="wo-label">When did you finish?</div>
+      <div class="wo-end"><input type="time" id="woEnd" value="${woState.end}" aria-label="Finished at"><span>${woState.min} min, from ${woStartText()}</span></div>` : ''}
+      ${known ? `<div class="wo-detect ${det.status}"><span class="wd-ico" aria-hidden="true">${det.status === 'with' ? '📱' : '🎒'}</span><span class="wd-t"><b>${det.status === 'with' ? `Your iPhone counted ${fmtN(det.iphone)} steps then` : 'Your iPhone counted almost no steps then'}</b><small>${det.status === 'with' ? 'Those are already in your burn, so Fera adds the rest of the workout.' : 'It stayed aside, so all of the workout counts.'}</small></span><button type="button" data-wo-override>Not right?</button></div>`
+        : canDetect && det && det.status === 'checking' ? `<div class="wo-detect checking"><span class="wd-ico" aria-hidden="true">⏳</span><span class="wd-t"><b>Checking your iPhone's steps…</b></span></div>` : ''}
+      ${askPhone && !known && !(det && det.status === 'checking' && canDetect) ? `<div class="wo-label">Was your iPhone with you?</div>
       <div class="wo-phone" role="radiogroup" aria-label="Was your iPhone with you?">
         <button type="button" class="${woState.phone ? 'on' : ''}" data-wo-phone="yes" role="radio" aria-checked="${woState.phone}"><b>Yes</b><small>Its steps counted part of it</small></button>
         <button type="button" class="${!woState.phone ? 'on' : ''}" data-wo-phone="no" role="radio" aria-checked="${!woState.phone}"><b>No, it stayed aside</b><small>Treadmill, gym, locker</small></button></div>` : ''}
       <div class="wo-est"><div><span>Adds to your burn</span><b>≈ ${fmtN(est.kcal)} kcal</b></div>
-        ${est.stepOverlap ? `<small>${fmtN(est.gross)} kcal for the ${def.n.toLowerCase()}, minus ${fmtN(est.stepOverlap)} kcal your steps already count</small>` : askPhone ? `<small>All of it counts: your iPhone didn't see these steps</small>` : `<small>${est.met ? `MET ${est.met} · ` : ''}2024 Compendium of Physical Activities</small>`}</div>
+        ${est.stepOverlap ? `<small>${fmtN(est.gross)} kcal for the ${def.n.toLowerCase()}, minus ${fmtN(est.stepOverlap)} kcal your ${known ? 'iPhone’s steps' : 'steps'} already count</small>` : askPhone ? `<small>All of it counts: your iPhone didn't see these steps</small>` : `<small>${est.met ? `MET ${est.met} · ` : ''}2024 Compendium of Physical Activities</small>`}</div>
       <button class="btn-primary burn-variant" type="button" data-wo-save>${woState.id ? 'Save changes' : 'Add workout'}</button>
       ${woState.id ? '<button class="wo-del" type="button" data-wo-del>Delete workout</button>' : ''}`;
   }
@@ -4129,16 +4280,17 @@ document.addEventListener('click', async (ev)=>{
     // the last answer for this kind of workout (someone who always runs on a treadmill sets it once)
     const remembered = userProfile.woPhone && userProfile.woPhone[woState.type];
     woState.phone = remembered !== false;
-    renderWorkoutSheet(); return; }
+    renderWorkoutSheet(); woDetect(); return; }
   const ph = ev.target.closest('[data-wo-phone]');
   if(ph){ haptic(); woState.phone = ph.dataset.woPhone === 'yes'; renderWorkoutSheet(); return; }
+  if(ev.target.closest('[data-wo-override]')){ haptic(); woState.override = true; renderWorkoutSheet(); return; }
   if(ev.target.closest('[data-wo-back]')){ haptic(); if(woState.id){ closeWorkoutSheet(); return; } woState.step = 1; renderWorkoutSheet(); return; }
   const mi = ev.target.closest('[data-wo-min]');
-  if(mi){ haptic(); woState.min = Math.max(5, Math.min(600, woState.min + parseInt(mi.dataset.woMin, 10))); renderWorkoutSheet(); return; }
+  if(mi){ haptic(); woState.min = Math.max(5, Math.min(600, woState.min + parseInt(mi.dataset.woMin, 10))); renderWorkoutSheet(); woDetect(); return; }
   const ms = ev.target.closest('[data-wo-set]');
-  if(ms){ haptic(); woState.min = parseInt(ms.dataset.woSet, 10); renderWorkoutSheet(); return; }
+  if(ms){ haptic(); woState.min = parseInt(ms.dataset.woSet, 10); renderWorkoutSheet(); woDetect(); return; }
   const it = ev.target.closest('[data-wo-int]');
-  if(it){ haptic(); woState.int = it.dataset.woInt; renderWorkoutSheet(); return; }
+  if(it){ haptic(); woState.int = it.dataset.woInt; renderWorkoutSheet(); woDetect(); return; }
   const d = selectedDate;
   if(ev.target.closest('[data-wo-save]')){
     haptic();
@@ -4146,9 +4298,11 @@ document.addEventListener('click', async (ev)=>{
     const list = entries[d].workouts = entries[d].workouts || [];
     const wdef = WORKOUT_BY_KEY[woState.type];
     const phoneQ = burnPath() === 'phone' && wdef && wdef.steps;
-    if(woState.id){ const w = list.find(x => x.id === woState.id); if(w){ w.type = woState.type; w.min = woState.min; w.int = woState.int; if(phoneQ){ if(woState.phone) delete w.phone; else w.phone = false; } } }
-    else list.push(Object.assign({ id: genId(), type: woState.type, min: woState.min, int: woState.int, ts: Date.now() }, phoneQ && !woState.phone ? { phone: false } : {}));
-    if(phoneQ){ userProfile.woPhone = Object.assign({}, userProfile.woPhone, { [woState.type]: !!woState.phone }); persistProfile(); }
+    const det = woState.detect, measured = phoneQ && !woState.override && det && det.status === 'with' && woState.phone ? det.iphone : null;
+    const extra = (w) => { if(woState.end && phoneQ && woCanDetect()) w.end = woState.end; if(measured != null) w.phoneSteps = measured; else delete w.phoneSteps; return w; };
+    if(woState.id){ const w = list.find(x => x.id === woState.id); if(w){ w.type = woState.type; w.min = woState.min; w.int = woState.int; if(phoneQ){ if(woState.phone) delete w.phone; else w.phone = false; } extra(w); } }
+    else list.push(extra(Object.assign({ id: genId(), type: woState.type, min: woState.min, int: woState.int, ts: Date.now() }, phoneQ && !woState.phone ? { phone: false } : {})));
+    if(phoneQ && measured == null && !(det && det.status === 'aside' && !woState.override)){ userProfile.woPhone = Object.assign({}, userProfile.woPhone, { [woState.type]: !!woState.phone }); persistProfile(); }
     if(entries[d].burnOv) delete entries[d].burnOv.workouts;
     syncDerivedBurns(); await persist(); renderAll();
     closeWorkoutSheet();
@@ -4536,7 +4690,9 @@ function computeTargets(){
   bmr += bmrAdj();
 
   const activityMult = ACTIVITY_MULTIPLIERS[userGoals.activity] || 1.2;
-  const tdee = bmr * activityMult;
+  // with learning on, the weekly update replaces the activity-level guess with the measured average burn
+  const learnedTdee = typeof calTdee === 'function' ? calTdee() : null;
+  const tdee = learnedTdee != null ? learnedTdee : bmr * activityMult;
 
   const rate = (userGoals.weightGoal === 'maintain') ? 0 : weightRate();
   const dailyDelta = rate * 3500 / 7; // 250 or 500 kcal
@@ -4677,6 +4833,28 @@ function nativeHealthSync(days, force){
     } finally { nativeSyncing = null; }
   })();
   return nativeSyncing;
+}
+// A member's weigh-in history from Apple Health, once, when they connect: up to a year, one per day,
+// only for days that have no weigh-in in Fera yet. With it, resting-burn learning can start right away.
+async function nativeImportWeights(){
+  const NH = nativeHealth();
+  if(!NH || typeof NH.readWeights !== 'function' || userProfile.healthWeightsImported) return null;
+  const r = await NH.readWeights({ days: 365 });
+  const list = (r && Array.isArray(r.weights)) ? r.weights : [];
+  const have = new Set(Object.keys(weightReadings).map(k => k.slice(0, 10)));
+  Object.keys(healthData).forEach(d => { if(healthData[d] && healthData[d].weight && weightFromHealth()) have.add(d); });
+  const kg = weightUnit() === 'kg';
+  let n = 0;
+  list.forEach(w => {
+    if(!w || !/^\d{4}-\d{2}-\d{2}$/.test(w.date || '') || typeof w.lb !== 'number' || w.lb < 50 || w.lb > 700 || have.has(w.date)) return;
+    const time = /^\d{2}:\d{2}$/.test(w.time || '') ? w.time : '08:00';
+    weightReadings[`${w.date}T${time}`] = { value: kg ? Math.round(w.lb / 2.20462 * 10) / 10 : w.lb, unit: kg ? 'kg' : 'lb', src: 'health-import' };
+    have.add(w.date); n++;
+  });
+  userProfile.healthWeightsImported = todayStr();
+  await persistProfile();
+  if(n){ await persistWeights(); if(bmrLearnState()) learnBmr(); renderAll(); }
+  return n;
 }
 async function loadHealth(){
   try{
@@ -4845,7 +5023,8 @@ function workoutKcal(w, path){
   let stepOverlap = 0;
   // iPhone-only setup: the phone's steps already count part of a walk or run, so that part comes off,
   // unless the phone stayed aside (treadmill, gym) and saw none of those steps
-  if((path || burnPath()) === 'phone' && def.steps && w.phone !== false) stepOverlap = Math.min(gross, walkKcal(def.steps[INT_IDX[w.int] ?? 1] * w.min));
+  // (in the iPhone app Fera reads how many steps the iPhone actually counted during the workout)
+  if((path || burnPath()) === 'phone' && def.steps && w.phone !== false) stepOverlap = Math.min(gross, walkKcal(typeof w.phoneSteps === 'number' ? w.phoneSteps : def.steps[INT_IDX[w.int] ?? 1] * w.min));
   return { kcal: Math.round(gross - stepOverlap), gross: Math.round(gross), stepOverlap: Math.round(stepOverlap), met };
 }
 function dayWorkouts(iso){ const e = entries[iso]; return (e && Array.isArray(e.workouts)) ? e.workouts : []; }
@@ -4977,16 +5156,10 @@ function learnBmr(){
   const a = learnAnalysis(0);
   if(!a) return null;
   const next = Object.assign({}, L, { good: a.good, weighIns: a.weighIns, spread: a.spread, need: LEARN_MIN_GOOD, window: LEARN_WINDOW, checked: todayStr() });
-  if(a.ready){
-    next.adj = a.adj;
-    next.status = 'learned';
-    next.asOf = todayStr();
-    next.slope = Math.round(a.slope * 7 * 100) / 100;          // lb/week, for display
-    next.predicted = Math.round(a.predicted);
-  } else if(L.status !== 'learned'){
-    next.status = 'learning';
-  }
-  const changed = ['status', 'adj', 'good', 'weighIns'].some(k => next[k] !== L[k]);
+  // progress only: the learned adjustment itself changes once a week, with the daily target (calApply)
+  if(L.status !== 'learned') next.status = 'learning';
+  next.ready = !!a.ready;
+  const changed = ['status', 'ready', 'good', 'weighIns'].some(k => next[k] !== L[k]);
   if(changed){ userProfile.bmrLearn = next; persistProfile(); }
   return next;
 }
@@ -6338,6 +6511,7 @@ function daySummaryInsights(x){
 function renderAll(){
   if(typeof renderAiState === 'function') try { renderAiState(); } catch(e){}
   if(typeof renderWeighNudge === 'function') try { renderWeighNudge(); } catch(e){}
+  if(typeof renderPlanNudge === 'function') try { renderPlanNudge(); renderLearnPage(); } catch(e){}
   if(window.feraWidgetSync) window.feraWidgetSync();
   renderTrendPeriodNav();
   renderTrendsRingAndRuler();
@@ -8388,7 +8562,7 @@ async function init(){
   renderFoodForm();
   renderGreeting();
   attachLiveSync();
-  setTimeout(() => maybeShowDaySummary(), 700);
+  setTimeout(() => { if(typeof calAutoStep === 'function') try { calAutoStep(); } catch(e){} maybeShowDaySummary(); }, 700);
 
   setupChartTooltip('consumedChart', ()=>consumedChart);
   setupChartTooltip('burnedChart', ()=>burnedChart);
@@ -8850,8 +9024,10 @@ async function healthAction(act, btn){
       await nativeHealth().requestAuthorization();
       setNativeHealthOn(true);
       const r = await nativeHealthSync(62, true);
+      const imported = await nativeImportWeights().catch(() => null);
       sessionInfo = await callApi('session').catch(() => sessionInfo);
-      healthMsg = { text: r && r.days ? `Connected. ${r.message}` : 'Connected. If nothing shows up, open Settings → Health → Data Access & Devices → Fera and turn on everything.' };
+      const imp = imported ? ` Also brought in ${fmtN(imported)} past weigh-in${imported === 1 ? '' : 's'}, so Fera can start learning your resting burn right away.` : '';
+      healthMsg = { text: r && r.days ? `Connected. ${r.message}${imp}` : `Connected.${imp} If nothing shows up, open Settings → Health → Data Access & Devices → Fera and turn on everything.` };
     }
     if(act === 'nsync'){
       const r = await nativeHealthSync(7, true);
@@ -10003,7 +10179,7 @@ function renderBmrPage(){
   // ---- how it works + the switch
   h += `<div class="pw-card bl-how"><b class="bl-h">How it works</b>
     <ol><li>Fera adds up what you ate and what it says you burned.</li><li>Your weigh-ins show what actually happened.</li><li>The gap becomes your BMR adjustment, capped at ±15%, and moves your burn and calorie targets.</li></ol>
-    <button type="button" class="pb-tg${on ? ' on' : ''}" data-bl="toggle" role="switch" aria-checked="${on}"><span class="pb-tg-t"><b>Learn my resting burn</b><small>${on ? 'On · re-checked every day' : 'Off · Fera uses the formula'}</small></span><span class="pb-sw"><i></i></span></button></div>`;
+    <button type="button" class="pb-tg${on ? ' on' : ''}" data-bl="toggle" role="switch" aria-checked="${on}"><span class="pb-tg-t"><b>Learn my resting burn</b><small>${on ? 'On · updated every Monday' : 'Off · Fera uses the formula'}</small></span><span class="pb-sw"><i></i></span></button></div>`;
   h += '</div>';
   body.innerHTML = h;
 }
@@ -10013,6 +10189,7 @@ async function blSetLearning(onNow){
   userProfile.bmrLearn = onNow ? Object.assign({ status: 'learning', adj: 0 }, L, { on: true }) : Object.assign({}, L, { on: false });
   if(onNow) learnBmr();
   await persistProfile();
+  if(onNow && typeof calibrate === 'function'){ const c = calibrate(); if(c && c.ready && calState().seen !== c.week){ await calApply(c, 'you'); } }
   syncDerivedBurns();
   await persist();
   renderAll();
@@ -10028,10 +10205,12 @@ async function blSetLearning(onNow){
     if(b.dataset.bl === 'on') blSetLearning(true);
     else if(b.dataset.bl === 'toggle') blSetLearning(!(userProfile.bmrLearn && userProfile.bmrLearn.on));
   });
-  // every Estimated / Learning / Learned tag in the app opens this page
+  // every Estimated / Learning / Learned tag in the app opens the Learning page (its "See the evidence"
+  // opens this one)
   document.addEventListener('click', (ev) => {
     const t = ev.target.closest('[data-bmr-open]'); if(!t) return;
-    ev.preventDefault(); ev.stopPropagation(); openBmrPage();
+    ev.preventDefault(); ev.stopPropagation();
+    if(typeof openLearnPage === 'function') openLearnPage(); else openBmrPage();
   }, true);
 })();
 </script>
@@ -10074,6 +10253,238 @@ function openWeighIn(){
     setTimeout(() => { const i = document.getElementById('weightValueInput'); if(i) i.focus({ preventScroll: true }); }, 450);
   }, 80);
 }
+
+// ---------- Learning: one weekly update for both learned numbers ----------
+// Fera learns one thing about the body — the resting burn (BMR), from the scale against what was eaten
+// and burned — and measures the rest every day (activity from Apple Health or logged workouts). Once a
+// week, on the first open from Monday, it updates two numbers together from the last 28 days:
+//   1. resting burn: the formula plus what the scale says (learnAnalysis). It feeds every day's burn.
+//   2. daily target: the average daily burn those days, recomputed with the new resting burn, minus the
+//      plan's deficit (or plus its surplus). It replaces the activity-level guess from Goals.
+// The target moves at most CAL_STEP_MAX a week and never below the floor. "Automatically" applies the
+// update; "Ask me" shows it and waits for Apply. Turning learning off goes back to the formula and the
+// activity level. Within a week both numbers stay put, so days and goals line up.
+const CAL_STEP_MAX = 200, CAL_MIN_DAYS = 14, CAL_WINDOW = 28;
+function calState(){ const p = userGoals.plan || {}; return { auto: p.auto !== false, tdee: typeof p.tdee === 'number' ? p.tdee : null, log: Array.isArray(p.log) ? p.log : [], seen: p.seen || null, at: p.at || null }; }
+function calTdee(){ const C = calState(); return bmrLearnState() && C.tdee != null ? C.tdee : null; }
+function weekStartISO(iso){ const d = parseISO(iso); const k = (d.getDay() + 6) % 7; d.setDate(d.getDate() - k); return toISO(d); }
+function calNextDate(){ const d = parseISO(weekStartISO(todayStr())); d.setDate(d.getDate() + 7); return toISO(d); }
+// Pure: what this week's update would be. Changes nothing.
+function calibrate(){
+  const t = computeTargets(), base = bmrBase();
+  if(!t || base == null) return null;
+  const L = userProfile.bmrLearn || {}, C = calState();
+  const restFrom = Math.round(base + bmrAdj());
+  const a = learnAnalysis(0);
+  const adjTo = a && a.ready ? a.adj : (L.status === 'learned' ? (L.adj || 0) : 0);
+  const restTo = Math.round(base + adjTo);
+  // the average daily burn over the window, with the new resting burn
+  const def = BURN_PATHS[burnPath()];
+  const days = [];
+  for(let i = CAL_WINDOW; i >= 1; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push(toISO(d)); }
+  const burns = [];
+  days.forEach(d => {
+    const p = burnParts(d, restTo); if(!p) return;
+    const measured = def.apple ? !!p.health : consumedTotal(entries[d]) != null;
+    if(measured) burns.push(p.total);
+  });
+  const avg = burns.length ? burns.reduce((s, x) => s + x, 0) / burns.length : null;
+  const ready = burns.length >= CAL_MIN_DAYS;
+  const tdeeFrom = Math.round(t.tdee);
+  const tdeeTo = ready ? Math.round(Math.max(tdeeFrom - CAL_STEP_MAX, Math.min(tdeeFrom + CAL_STEP_MAX, avg)) / 10) * 10 : tdeeFrom;
+  const sign = userGoals.weightGoal === 'lose' ? -1 : userGoals.weightGoal === 'gain' ? 1 : 0;
+  let targetTo = Math.round(tdeeTo + sign * t.dailyDelta);
+  if(sign < 0 && targetTo < t.floor) targetTo = t.floor;
+  // the scale against the plan, for the "why"
+  const slope = a && a.ready ? a.slope * 7 : null;           // lb/week
+  return {
+    week: weekStartISO(todayStr()), ready, days: burns.length, need: CAL_MIN_DAYS, logged: a ? a.good : 0, weighIns: a ? a.weighIns : 0,
+    restReady: !!(a && a.ready), rest: { from: restFrom, to: restTo }, adj: { from: bmrAdj(), to: adjTo },
+    avg: avg == null ? null : Math.round(avg), capped: ready && Math.abs(avg - tdeeFrom) > CAL_STEP_MAX,
+    tdee: { from: tdeeFrom, to: tdeeTo }, target: { from: t.calc.calorie, to: targetTo }, custom: !!t.custom.calorie, floored: sign < 0 && targetTo === t.floor,
+    slope, planRate: sign * t.rate, a
+  };
+}
+// This week's update, if there is one the person hasn't seen yet.
+function calPending(){
+  const L = bmrLearnState(); if(!L) return null;
+  const c = calibrate();
+  if(!c || !c.ready) return null;
+  if(calState().seen === c.week) return null;
+  const moves = Math.abs(c.rest.to - c.rest.from) >= 10 || Math.abs(c.target.to - c.target.from) >= 20;
+  return moves ? c : null;
+}
+async function calApply(c, how){
+  const C = calState();
+  const L = userProfile.bmrLearn || {};
+  if(c.restReady) userProfile.bmrLearn = Object.assign({}, L, { adj: c.adj.to, status: 'learned', asOf: todayStr(), slope: Math.round(c.a.slope * 7 * 100) / 100, predicted: Math.round(c.a.predicted) });
+  userGoals.plan = Object.assign({}, userGoals.plan || {}, { auto: C.auto, tdee: c.tdee.to, at: todayStr(), seen: c.week,
+    log: [{ d: todayStr(), how: how || 'you', rest: [c.rest.from, c.rest.to], target: [c.target.from, c.target.to], avg: c.avg }].concat(C.log).slice(0, 26) });
+  await persistProfile();
+  await persistGoals();
+  syncDerivedBurns(); await persist();
+  renderAll(); if(window.renderBurnModeSection) window.renderBurnModeSection();
+}
+async function calKeep(c){
+  userGoals.plan = Object.assign({}, userGoals.plan || {}, { auto: calState().auto, seen: c.week });
+  await persistGoals();
+  renderAll();
+}
+async function calSetAuto(on){
+  userGoals.plan = Object.assign({}, userGoals.plan || {}, { auto: !!on });
+  await persistGoals();
+  if(on){ const c = calPending(); if(c){ await calApply(c, 'auto'); return; } }
+  renderAll();
+}
+// the weekly step in automatic mode, on the first open of the week
+function calAutoStep(){ if(!calState().auto) return; const c = calPending(); if(c) calApply(c, 'auto'); }
+
+// The Today nudge: an update to approve, or (automatic) what changed this week.
+function renderPlanNudge(){
+  const el = document.getElementById('planNudge'); if(!el) return;
+  const C = calState(), wk = weekStartISO(todayStr());
+  const c = !C.auto ? calPending() : null;
+  const last = C.log[0];
+  const fresh = !c && last && weekStartISO(last.d) === wk && last.how === 'auto';
+  let hidden = null; try { hidden = localStorage.getItem('plan-nudge-hide'); } catch(e){}
+  const show = (c || fresh) && hidden !== wk;
+  el.hidden = !show;
+  if(!show) return;
+  const tgt = c ? c.target : { from: last.target[0], to: last.target[1] };
+  const title = c ? 'Your weekly update is ready' : 'Fera updated your numbers';
+  const sub = `Daily target ${fmtN(tgt.from)} → <b>${fmtN(tgt.to)}</b> kcal`;
+  el.innerHTML = `<span class="wn-ico pn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></span>
+    <span class="wn-t"><b>${title}</b><small>${sub}</small></span>
+    <span class="wn-act"><button type="button" class="wn-go" data-pn="open">${c ? 'Review' : 'See why'}</button><button type="button" class="wn-later" data-pn="hide" aria-label="Hide until next week">Later</button></span>`;
+}
+
+// ---------- the Learning page ----------
+function openLearnPage(){
+  haptic();
+  const dd = document.getElementById('appMenuDropdown'); if(dd) dd.style.display = 'none';
+  document.getElementById('learnOverlay').style.display = 'flex';
+  document.querySelector('#learnOverlay .overlay-scroll').scrollTop = 0;
+  renderLearnPage();
+}
+function closeLearnPage(){ document.getElementById('learnOverlay').style.display = 'none'; }
+function lpChange(from, to){ const d = to - from; return d === 0 ? '<em class="lp-d same">no change</em>' : `<em class="lp-d ${d > 0 ? 'up' : 'down'}">${d > 0 ? '+' : '−'}${fmtN(Math.abs(d))}</em>`; }
+function lpWhy(c){
+  const bits = [];
+  if(c.restReady && c.rest.to !== c.rest.from){
+    bits.push(c.rest.to < c.rest.from ? 'Your scale moved less than your logs predicted, so your body burns a little less at rest than Fera assumed.'
+      : 'Your scale moved more than your logs predicted, so your body burns a little more at rest than Fera assumed.');
+  }
+  if(c.avg != null){
+    const gap = c.avg - c.tdee.from;
+    if(Math.abs(gap) >= 20) bits.push(`Over the last 4 weeks you burned <b>${fmtN(c.avg)}</b> a day on average${calTdee() == null ? `, ${gap > 0 ? 'more' : 'less'} than “${ACTIVITY_LABELS[userGoals.activity] || 'your activity level'}” assumed` : ''}.`);
+  }
+  if(c.capped) bits.push(`Fera moves your target at most ${CAL_STEP_MAX} kcal a week, so the rest follows next week if it holds.`);
+  if(c.floored) bits.push('Your target is held at the minimum safe level.');
+  return bits.join(' ');
+}
+function renderLearnPage(){
+  const body = document.getElementById('learnBody');
+  if(!body || document.getElementById('learnOverlay').style.display === 'none') return;
+  const base = bmrBase();
+  const c = base == null ? null : calibrate();
+  if(!c){
+    body.innerHTML = `<div class="bl"><div class="pw-card"><b class="bl-h">Fera needs your profile and goals first</b><p class="bl-p">Add your weight, height, birthday and sex in Profile, and pick your goals. Then Fera can start learning from your days.</p></div></div>`;
+    return;
+  }
+  const L = userProfile.bmrLearn || {}, on = !!L.on, C = calState();
+  const t = computeTargets();
+  const learned = on && (L.status === 'learned' || C.tdee != null);
+  const pend = on ? calPending() : null;
+  const last = C.log[0], thisWeek = last && weekStartISO(last.d) === c.week;
+  let h = '<div class="bl lp">';
+
+  // ---- the two numbers, as they stand
+  h += `<div class="lp-now">
+    <div class="lp-now-head"><span class="lp-k">Your numbers</span><span class="bc-tag ${!on ? 'estimated' : learned ? 'learned' : 'learning'}">${!on ? 'Learning off' : learned ? 'Learned' : 'Learning'}</span></div>
+    <div class="lp-pair">
+      <div><small>Resting burn</small><b>${fmtN(Math.round(bmrNow()))}</b><span>kcal a day</span></div>
+      <div><small>Daily target</small><b>${fmtN(t.calorieTarget)}</b><span>kcal a day</span></div>
+    </div>
+    <p class="lp-when">${!on ? 'From the formula and your activity level in Goals.'
+      : C.at ? `Updated ${blDate(C.at)} · next update ${blDate(calNextDate())}`
+      : c.ready ? `First update ready · then every Monday` : `Still learning · ${c.days} of ${c.need} days measured`}</p>
+  </div>`;
+
+  // ---- this week's update
+  if(on && c.ready && !t.custom.calorie){
+    const showC = pend || null;
+    const R = showC ? { rest: showC.rest, target: showC.target } : thisWeek ? { rest: { from: last.rest[0], to: last.rest[1] }, target: { from: last.target[0], to: last.target[1] } } : null;
+    if(R){
+      h += `<div class="pw-card lp-upd${showC ? ' due' : ''}">
+        <div class="lp-eyebrow"><span>${showC ? 'This week’s update' : thisWeek && last.how === 'auto' ? 'Applied automatically' : 'Applied this week'}</span><span>Week of ${blDate(c.week)}</span></div>
+        <div class="lp-rows">
+          <div class="lp-row"><span>Resting burn</span><span class="lp-ft">${fmtN(R.rest.from)} → <b>${fmtN(R.rest.to)}</b></span>${lpChange(R.rest.from, R.rest.to)}</div>
+          <div class="lp-row"><span>Daily target</span><span class="lp-ft">${fmtN(R.target.from)} → <b>${fmtN(R.target.to)}</b></span>${lpChange(R.target.from, R.target.to)}</div>
+        </div>
+        ${showC ? `<p class="lp-why">${lpWhy(showC)}</p>
+          <div class="lp-acts"><button type="button" class="lp-keep" data-lp="keep">Keep current</button><button type="button" class="lp-apply" data-lp="apply">Apply</button></div>` : ''}
+      </div>`;
+    } else {
+      h += `<div class="pw-card lp-upd"><div class="lp-ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><p>Nothing to change this week. Your numbers still match what your body and scale show. Next update ${blDate(calNextDate())}.</p></div></div>`;
+    }
+  } else if(on && t.custom.calorie){
+    h += `<div class="pw-card"><p class="bl-p" style="margin:0">You set your own calorie target in Goals, so Fera keeps it. Your resting burn still updates every week.</p></div>`;
+  } else if(on){
+    h += `<div class="pw-card"><b class="bl-h">Getting to know you</b><p class="bl-p">Fera needs ${c.need} days with a measured burn and a few weigh-ins before the first update. Keep logging and weighing in.</p>
+      <div class="pw-bar"><span style="width:${Math.min(100, c.days / c.need * 100)}%"></span></div><p class="bl-note">${c.days} of ${c.need} days · ${c.weighIns} weigh-ins</p></div>`;
+  }
+
+  // ---- what it's based on
+  if(on){
+    const u = blUnit();
+    const scale = c.slope == null ? '—' : `${blSigned(blW(c.slope), 1)} ${u}`;
+    h += `<div class="pw-card"><b class="bl-h">Based on your last 4 weeks</b>
+      <div class="lp-facts">
+        <div><b>${c.logged}</b><small>days fully logged</small></div>
+        <div><b>${c.weighIns}</b><small>weigh-ins</small></div>
+        <div><b>${c.avg != null ? fmtN(c.avg) : '—'}</b><small>average burn a day</small></div>
+        <div><b>${scale}</b><small>scale per week${userGoals.weightGoal && userGoals.weightGoal !== 'maintain' ? ` · plan ${blSigned(blW(c.planRate), 1)}` : ''}</small></div>
+      </div>
+      <button type="button" class="bc-link lp-ev" data-bl-evidence>See the evidence ›</button></div>`;
+  }
+
+  // ---- settings
+  const sw = (k, val, title, sub) => `<button type="button" class="pb-tg${val ? ' on' : ''}" data-lp="${k}" role="switch" aria-checked="${val}"><span class="pb-tg-t"><b>${title}</b><small>${sub}</small></span><span class="pb-sw"><i></i></span></button>`;
+  h += `<div class="pw-card lp-set">
+    ${sw('learn', on, 'Learn from my data', on ? 'Fera updates your resting burn and daily target every Monday.' : 'Off · Fera uses the formula and your activity level from Goals.')}
+    ${on ? sw('auto', C.auto, 'Apply updates automatically', C.auto ? 'Fera applies each update and tells you on Today.' : 'Fera shows each update; nothing changes until you tap Apply.') : ''}
+  </div>`;
+
+  // ---- how it works + history
+  h += `<div class="pw-card bl-how"><b class="bl-h">How it works</b>
+    <ol><li>Every day, Fera adds up what you eat and burn.</li><li>Every Monday, it checks that against your scale. If you lost more or less than the numbers predicted, your resting burn gets corrected.</li><li>Your daily target becomes your real average burn, minus your plan’s deficit${userGoals.weightGoal === 'gain' ? ' (plus its surplus)' : ''}. It moves at most ${CAL_STEP_MAX} kcal a week and never goes below a safe minimum.</li></ol></div>`;
+  if(C.log.length){
+    h += `<div class="pw-card"><b class="bl-h">Past updates</b><div class="lp-log">${C.log.slice(0, 8).map(x => `<div><span>${blDate(x.d)}</span><b>Target ${fmtN(x.target[0])} → ${fmtN(x.target[1])}</b><small>Resting ${fmtN(x.rest[0])} → ${fmtN(x.rest[1])} · ${x.how === 'auto' ? 'automatic' : 'you applied'}</small></div>`).join('')}</div></div>`;
+  }
+  h += '</div>';
+  body.innerHTML = h;
+}
+(function wireLearnPage(){
+  document.getElementById('openLearnBtn').addEventListener('click', openLearnPage);
+  document.getElementById('learnBackBtn').addEventListener('click', () => { haptic(); closeLearnPage(); });
+  document.getElementById('learnBody').addEventListener('click', async (ev) => {
+    if(ev.target.closest('[data-bl-evidence]')){ ev.stopPropagation(); openBmrPage(); return; }
+    const b = ev.target.closest('[data-lp]'); if(!b) return;
+    haptic(12);
+    const k = b.dataset.lp;
+    if(k === 'apply'){ const c = calPending(); if(c) await calApply(c, 'you'); }
+    else if(k === 'keep'){ const c = calPending(); if(c) await calKeep(c); }
+    else if(k === 'auto') await calSetAuto(!calState().auto);
+    else if(k === 'learn') await blSetLearning(!(userProfile.bmrLearn && userProfile.bmrLearn.on));
+    renderLearnPage();
+  });
+  document.getElementById('planNudge').addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-pn]'); if(!b) return;
+    haptic();
+    if(b.dataset.pn === 'hide'){ try { localStorage.setItem('plan-nudge-hide', weekStartISO(todayStr())); } catch(e){} renderPlanNudge(); return; }
+    openLearnPage();
+  });
+})();
 
 // ---- last week (Mon–Sun) ----
 function weekRecapData(monday){

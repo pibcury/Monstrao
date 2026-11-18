@@ -1553,6 +1553,8 @@
   .wo-est b{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.02em;}
   .wo-est small{display:block;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.35;}
   .wo-del{display:block;margin:10px auto 0;background:none;border:0;color:var(--surplus);font-size:13px;font-weight:700;cursor:pointer;padding:6px 10px;}
+  .ip-kinds{margin:2px 0 6px 0;padding-left:12px;border-left:2px solid var(--rule);}
+  .pb-tg.sm .pb-tg-t b{font-size:13.5px;} .pb-tg.sm .pb-tg-t small{font-size:11.5px;}
   /* ---- sections: Today, Food, Burn, Weight, Trends (bottom bar) ---- */
   .tabbar{position:fixed;z-index:70;left:max(16px, calc((100vw - 460px) / 2 + 2px));bottom:calc(env(safe-area-inset-bottom, 0px) + 16px);
     display:flex;gap:2px;padding:4px;border-radius:26px;background:rgba(24,26,33,0.86);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);
@@ -2351,6 +2353,7 @@
       <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
       <div class="wnudge" id="weighNudge" hidden></div>
       <div class="wnudge" id="planNudge" hidden></div>
+      <div class="wnudge" id="notifyOffer" hidden></div>
 
       <div class="ring-section" id="ringSection">
         <div class="metrics-panel">
@@ -3032,6 +3035,10 @@
     <div class="overlay-card burn-mode-card">
       <div class="goal-group-title">Daily burn</div>
       <div id="burnModeBody"></div>
+    </div>
+    <div class="overlay-card burn-mode-card" id="iphoneCard" hidden>
+      <div class="goal-group-title">On your iPhone</div>
+      <div id="iphoneBody"></div>
     </div>
   </div>
 </div>
@@ -6567,6 +6574,9 @@ function renderAll(){
   if(typeof renderWeighNudge === 'function') try { renderWeighNudge(); } catch(e){}
   if(typeof renderPlanNudge === 'function') try { renderPlanNudge(); renderLearnPage(); } catch(e){}
   if(window.feraWidgetSync) window.feraWidgetSync();
+  if(window.feraNotifySync) window.feraNotifySync();
+  if(typeof renderNotifyOffer === 'function') try { renderNotifyOffer(); renderIphoneCard(); } catch(e){}
+  if(window.feraHealthWriteSync && healthWriteOn()) window.feraHealthWriteSync();
   renderTrendPeriodNav();
   renderTrendsRingAndRuler();
   renderConsumedChart();
@@ -9049,7 +9059,7 @@ function renderHealthPage(){
       <p>Each run sends today and the two days before, so a missed day fixes itself.</p>`)}
   </ol>`;
   const native = !!nativeHealth(), nOn = native && nativeHealthOn();
-  const nativeConnect = `<div class="ah-card ah-native"><p>Fera reads your <b>steps</b>, <b>active energy</b> and <b>weigh-ins</b> from Apple Health for recent days, each time you open the app. It never writes to Apple Health.</p><button class="btn-primary" data-ah="nconnect" type="button">Connect Apple Health</button></div>`;
+  const nativeConnect = `<div class="ah-card ah-native"><p>Fera reads your <b>steps</b>, <b>active energy</b> and <b>weigh-ins</b> from Apple Health for recent days, each time you open the app. Saving your meals to Apple Health is a separate switch, off unless you turn it on.</p><button class="btn-primary" data-ah="nconnect" type="button">Connect Apple Health</button></div>`;
   const setupName = { watch: 'Apple Watch', wearable: 'a watch or ring', phone: 'iPhone only', manual: 'not using Apple Health' }[path];
   let html = `<div class="ah-hero"><div class="ah-tile">${AH_ICON}</div>
       <div><div class="ah-title">Apple Health</div><div class="ah-status ${connected ? 'ok' : ''}">${connected ? `Connected · last sync ${relTimeShort(lastAt) || '—'}` : 'Not connected'}</div></div></div>
@@ -9067,6 +9077,10 @@ function renderHealthPage(){
       <p class="ah-foot">${path === 'watch' ? 'Your Apple Watch kcal go into your burn as they are — they already include your walking.' : path === 'phone' ? '“Steps in burn” is what your steps add to that day’s burn. Your iPhone’s own active energy isn’t used, so nothing is counted twice.' : '“Steps in burn” is what your steps add to that day’s burn; “Active” is your watch or ring’s workouts.'} Change any day in the Burn card.</p></div>`;
     if(native){
       if(!nOn) html += nativeConnect;
+      if(nOn && typeof nativeHealth().saveFoods === 'function'){
+        const w = healthWriteOn();
+        html += `<div class="ah-card ah-write"><button type="button" class="pb-tg${w ? ' on' : ''}" data-ah="write" role="switch" aria-checked="${w}"><span class="pb-tg-t"><b>Save meals to Apple Health</b><small>${w ? 'Each meal you log goes to Apple Health with its calories, protein, carbs and fat. Edits and deletions follow.' : 'Off. Turn on so other apps can see what you eat.'}</small></span><span class="pb-sw"><i></i></span></button></div>`;
+      }
       html += `<div class="ah-actions">${nOn ? '<button class="btn-small" data-ah="nsync" type="button">Sync now</button>' : ''}<button class="btn-small wear-danger" data-ah="disconnect" type="button">Disconnect</button></div>`;
     } else {
       html += `<button class="ah-toggle" data-ah="steps" type="button">${healthStepsOpen ? 'Hide setup steps' : 'Setup steps & automation'} <span>${healthStepsOpen ? '▴' : '▾'}</span></button>`;
@@ -9108,6 +9122,11 @@ async function healthAction(act, btn){
       sessionInfo = await callApi('session').catch(() => sessionInfo);
       const imp = imported ? ` Also brought in ${fmtN(imported)} past weigh-in${imported === 1 ? '' : 's'}, so Fera can start learning your resting burn right away.` : '';
       healthMsg = { text: r && r.days ? `Connected. ${r.message}${imp}` : `Connected.${imp} If nothing shows up, open Settings → Health → Data Access & Devices → Fera and turn on everything.` };
+    }
+    if(act === 'write'){
+      const on = !healthWriteOn();
+      const ok = await window.feraHealthWriteSet(on);
+      healthMsg = on ? (ok ? { text: 'Your meals from the last 7 days and from now on will be saved to Apple Health. If Apple asked, allow Fera to write Dietary Energy, Protein, Carbohydrates and Total Fat.' } : { text: 'Apple Health didn’t allow it. Open Settings → Health → Data Access & Devices → Fera to turn writing on.', error: true }) : { text: 'Meals are no longer saved to Apple Health. What’s already there stays.' };
     }
     if(act === 'nsync'){
       const r = await nativeHealthSync(7, true);
@@ -10843,7 +10862,11 @@ function showRecap(cards, opt){
         const b = document.getElementById('foodSummaryBtn'); if(b) b.scrollIntoView({ behavior: 'smooth', block: 'start' });
         const i = document.getElementById('aiDesc'); if(i) i.focus({ preventScroll: true });
       }, 250);
-    } else window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if(/^fera:\/\/weight/.test(u)){ if(typeof openWeighIn === 'function') openWeighIn(); }
+    else if(/^fera:\/\/learning/.test(u)){ if(typeof openLearnPage === 'function') openLearnPage(); }
+    else if(/^fera:\/\/premium/.test(u)){ if(typeof openPremium === 'function') openPremium(); }
+    else if(/^fera:\/\/chat/.test(u)){ const f = document.getElementById('aiFab'); if(f) f.click(); }
+    else { if(window.setView) window.setView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   }
   window.feraOpenLink = openLink;
   const App = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
@@ -10896,6 +10919,277 @@ function showRecap(cards, opt){
   document.body.dataset.view = 'home';
   try { history.replaceState({ view: 'home' }, '', location.pathname + location.search); } catch(e){}
   if(VIEWS.includes(start) && start !== 'home') setTimeout(() => setView(start), 600);
+})();
+
+// =====================================================================================
+// iPhone app: notifications. All of them are scheduled on the phone (no server, no push): every time
+// the app opens or the day changes, Fera cancels what it had scheduled and plans the next two days
+// again from the latest data, so a reminder for something already done never fires. At most two a
+// day (a trial ending is the exception), never between 22:00 and 07:00, each kind can be switched off
+// in Profile → On your iPhone. Tapping one opens the right place (fera:// links).
+// =====================================================================================
+const NOTIFY_KINDS = [
+  ['meals', 'Meal reminders', 'When you usually log a meal and haven’t yet'],
+  ['left', 'What’s left today', 'Calories and protein left, in the early evening'],
+  ['close', 'Finish the day', 'At night, if today looks only partly logged'],
+  ['weigh', 'Weigh-in reminder', 'In the morning, after 3 days without one'],
+  ['recap', 'Recaps ready', 'Yesterday’s recap in the morning, your week on Mondays'],
+  ['learn', 'Weekly update', 'When Fera has new numbers for you on Monday'],
+  ['pattern', 'Patterns', 'A weekly pattern from your logs · Premium'],
+  ['trial', 'Trial ending', 'Two days before a free trial ends']
+];
+const NOTIFY_ID_BASE = 4100, NOTIFY_MAX_A_DAY = 2;
+function notifyPlugin(){ return (typeof IS_NATIVE !== 'undefined' && IS_NATIVE && window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.LocalNotifications) || null; }
+function notifyPrefs(){ const n = (userProfile && userProfile.notify) || {}; const out = { on: !!n.on }; NOTIFY_KINDS.forEach(([k]) => { out[k] = n[k] !== false; }); return out; }
+function minutesOf(ts){ const d = new Date(ts); return d.getHours() * 60 + d.getMinutes(); }
+function atTime(iso, minutes){ const d = parseISO(iso); d.setHours(Math.floor(minutes / 60), minutes % 60, 0, 0); return d; }
+function isoPlus(iso, n){ const d = parseISO(iso); d.setDate(d.getDate() + n); return toISO(d); }
+// When this person usually logs each main meal: the median time of their first entry for it, from the
+// last 3 weeks, once there are at least 5 such days.
+function learnedMealTimes(){
+  const out = {};
+  ['breakfast', 'lunch', 'dinner'].forEach(m => {
+    const mins = [];
+    for(let i = 1; i <= 21; i++){
+      const d = isoPlus(todayStr(), -i), e = entries[d];
+      const its = e && e.mode === 'items' ? (e.items || []).filter(x => x.meal === m && x.ts) : [];
+      if(its.length) mins.push(Math.min(...its.map(x => minutesOf(x.ts))));
+    }
+    if(mins.length >= 5){ mins.sort((a, b) => a - b); out[m] = mins[Math.floor(mins.length / 2)]; }
+  });
+  return out;
+}
+function mealLogged(iso, m){ const e = entries[iso]; return !!(e && e.mode === 'items' && (e.items || []).some(x => x.meal === m)); }
+// Pure: what to schedule for today and tomorrow, newest data first. -> [{ kind, at: Date, title, body, link }]
+function planNotifications(now){
+  now = now || new Date();
+  const P = notifyPrefs();
+  if(!P.on) return [];
+  const today = todayStr(), tomorrow = isoPlus(today, 1);
+  const t = computeTargets();
+  const list = [];
+  const add = (kind, at, title, body, link, prio) => { if(P[kind] && at > now) list.push({ kind, at, title, body, link, prio }); };
+  const MEAL_N = { breakfast: 'breakfast', lunch: 'lunch', dinner: 'dinner' };
+  const learned = learnedMealTimes();
+  const active7 = [1, 2, 3, 4, 5, 6, 7].filter(i => consumedTotal(entries[isoPlus(today, -i)]) != null).length;
+  // meal reminders: 45 minutes after the usual time, if that meal isn't in yet
+  [today, tomorrow].forEach(d => Object.keys(learned).forEach(m => {
+    if(d === today && mealLogged(today, m)) return;
+    const at = atTime(d, Math.min(learned[m] + 45, 21 * 60 + 45));
+    add('meals', at, `Logged your ${MEAL_N[m]}?`, 'Say it or snap it. It takes a few seconds.', 'fera://log', 4);
+  }));
+  // what's left today (only with something logged today, numbers as of now)
+  const e = entries[today], eaten = consumedTotal(e);
+  if(t && eaten != null){
+    const left = Math.round(t.calorieTarget - eaten);
+    const pLeft = t.proteinTarget ? Math.round(t.proteinTarget - (consumedMacro(e, 'protein') || 0)) : 0;
+    if(left >= 300) add('left', atTime(today, 18 * 60 + 30), `${fmtN(left)} kcal left today`, pLeft >= 20 ? `And ${fmtN(pLeft)} g of protein to go.` : 'Plan your dinner around it.', 'fera://today', 3);
+  }
+  // finish the day: only for people who usually log, and a day that looks partly logged
+  const items = e && e.mode === 'items' ? (e.items || []).length : (eaten != null ? 3 : 0);
+  if(active7 >= 3 && items < 2) add('close', atTime(today, 21 * 60 + 15), 'Finish today’s log', 'A complete day keeps your recap and weekly update accurate.', 'fera://log', 5);
+  // weigh-in: the next morning, after 3 days without one
+  const since = typeof daysSinceWeighIn === 'function' ? daysSinceWeighIn() : null;
+  if(since != null && since >= 2){
+    const d = now < atTime(today, 7 * 60 + 30) ? today : tomorrow;
+    const days = d === today ? since : since + 1;
+    if(days >= 3) add('weigh', atTime(d, 7 * 60 + 30), `${days} days since your last weigh-in`, 'Step on the scale before breakfast. Fera learns from every weigh-in.', 'fera://weight', 2);
+  }
+  // recaps: tomorrow morning, if today has food in it; Mondays it's the week
+  if(eaten != null){
+    const monday = parseISO(tomorrow).getDay() === 1;
+    add('recap', atTime(tomorrow, 8 * 60 + 15), monday ? 'Your week in review is ready' : 'Yesterday’s recap is ready', monday ? 'How last week went against your plan.' : 'How yesterday went against your plan.', 'fera://today', 3);
+  }
+  // the weekly update: Monday morning, when there's one to make
+  if(typeof calibrate === 'function' && bmrLearnState()){
+    const nextMon = [today, tomorrow].find(d => parseISO(d).getDay() === 1);
+    const c = nextMon ? calibrate() : null;
+    if(c && c.ready && calState().seen !== weekStartISO(nextMon)) add('learn', atTime(nextMon, 9 * 60), 'Your weekly update is ready', calState().auto ? 'Open Fera to see how your resting burn and target changed.' : 'New numbers for your resting burn and target, ready to review.', 'fera://learning', 1);
+  }
+  // a pattern from the logs (Premium): Sunday evening, worked out on the phone
+  const plan = typeof pwPlan === 'function' ? pwPlan() : null;
+  if(plan && plan.id === 'premium'){
+    const sunday = [today, tomorrow].find(d => parseISO(d).getDay() === 0);
+    const pat = sunday ? weekendPattern() : null;
+    if(pat) add('pattern', atTime(sunday, 18 * 60), pat.title, pat.body, 'fera://chat', 6);
+  }
+  // trial ending: two days before (doesn't count toward the daily cap)
+  const sub = plan && plan.subscription;
+  if(sub && sub.periodType === 'trial' && sub.expiresAt){
+    const at = new Date(sub.expiresAt - 2 * 864e5); at.setHours(10, 0, 0, 0);
+    add('trial', at, 'Your free trial ends in 2 days', 'Nothing to do if you’re keeping Premium. To cancel, go to Settings → your name → Subscriptions.', 'fera://premium', 0);
+  }
+  // quiet hours and the daily cap (by priority, lower first)
+  const out = [], perDay = {};
+  list.filter(n => { const m = n.at.getHours() * 60 + n.at.getMinutes(); return m >= 7 * 60 && m < 22 * 60; })
+    .sort((a, b) => a.prio - b.prio || a.at - b.at)
+    .forEach(n => {
+      const d = toISO(n.at);
+      if(n.kind !== 'trial' && (perDay[d] || 0) >= NOTIFY_MAX_A_DAY) return;
+      if(n.kind !== 'trial') perDay[d] = (perDay[d] || 0) + 1;
+      out.push(n);
+    });
+  return out.sort((a, b) => a.at - b.at);
+}
+// Weekends against weekdays over the last 4 complete weeks, when the gap is big enough to matter.
+function weekendPattern(){
+  const wk = [], we = [];
+  for(let i = 1; i <= 28; i++){
+    const d = isoPlus(todayStr(), -i), v = consumedTotal(entries[d]);
+    if(v == null) continue;
+    const dow = parseISO(d).getDay();
+    (dow === 0 || dow === 6 ? we : wk).push(v);
+  }
+  if(we.length < 4 || wk.length < 10) return null;
+  const avg = (a) => a.reduce((s, x) => s + x, 0) / a.length;
+  const gap = Math.round((avg(we) - avg(wk)) / 10) * 10;
+  if(Math.abs(gap) < 300) return null;
+  return gap > 0
+    ? { title: `Weekends run ${fmtN(gap)} kcal over your weekdays`, body: 'Over the last 4 weeks. Ask Fera AI for ideas that fit your weekends.' }
+    : { title: `You eat ${fmtN(-gap)} kcal less on weekends`, body: 'Over the last 4 weeks. Ask Fera AI what that means for your plan.' };
+}
+(function notifications(){
+  const N = notifyPlugin();
+  let timer = null, lastKey = '';
+  async function reschedule(){
+    if(!N || !appStarted) return;
+    const P = notifyPrefs();
+    let perm = null; try { perm = await N.checkPermissions(); } catch(e){}
+    const granted = perm && perm.display === 'granted';
+    const plan = granted && P.on ? planNotifications() : [];
+    const key = JSON.stringify(plan.map(n => [n.kind, +n.at, n.title, n.body]));
+    if(key === lastKey) return;
+    lastKey = key;
+    try {
+      const pending = await N.getPending();
+      const ours = ((pending && pending.notifications) || []).filter(n => n.id >= NOTIFY_ID_BASE && n.id < NOTIFY_ID_BASE + 100).map(n => ({ id: n.id }));
+      if(ours.length) await N.cancel({ notifications: ours });
+      if(plan.length) await N.schedule({ notifications: plan.map((n, i) => ({ id: NOTIFY_ID_BASE + i, title: n.title, body: n.body, schedule: { at: n.at, allowWhileIdle: true }, extra: { link: n.link, kind: n.kind } })) });
+    } catch(e){ lastKey = ''; }
+  }
+  window.feraNotifySync = function(){ if(!N) return; clearTimeout(timer); timer = setTimeout(reschedule, 1500); };
+  window.feraNotifyEnable = async function(){
+    if(!N) return false;
+    let perm = null;
+    try { perm = await N.requestPermissions(); } catch(e){}
+    const ok = !!(perm && perm.display === 'granted');
+    userProfile.notify = Object.assign({}, userProfile.notify || {}, { on: ok, asked: todayStr() });
+    await persistProfile();
+    lastKey = ''; window.feraNotifySync(); renderAll();
+    return ok;
+  };
+  if(N && N.addListener) N.addListener('localNotificationActionPerformed', (ev) => {
+    const link = ev && ev.notification && ev.notification.extra && ev.notification.extra.link;
+    const go = () => { if(window.feraOpenLink) window.feraOpenLink(link); };
+    if(appStarted) go(); else setTimeout(go, 1500);
+  });
+  document.addEventListener('visibilitychange', () => { if(!document.hidden) window.feraNotifySync(); });
+})();
+// The Today card that offers reminders once someone has logged a few things (iPhone app only).
+function renderNotifyOffer(){
+  const el = document.getElementById('notifyOffer'); if(!el) return;
+  const N = notifyPlugin();
+  const n = (userProfile && userProfile.notify) || {};
+  let logged = 0; Object.keys(entries).forEach(d => { const e = entries[d]; if(e && e.mode === 'items') logged += (e.items || []).length; });
+  const show = !!N && !n.on && !n.asked && !n.declined && logged >= 3;
+  el.hidden = !show;
+  if(!show) return;
+  el.innerHTML = `<span class="wn-ico" aria-hidden="true">🔔</span><span class="wn-t"><b>Want a nudge when you usually eat?</b><small>Fera learns your meal times. At most two reminders a day.</small></span>
+    <span class="wn-act"><button type="button" class="wn-go" data-no="on">Turn on</button><button type="button" class="wn-later" data-no="no">No thanks</button></span>`;
+}
+document.getElementById('notifyOffer').addEventListener('click', async (ev) => {
+  const b = ev.target.closest('[data-no]'); if(!b) return;
+  haptic();
+  if(b.dataset.no === 'on'){ await window.feraNotifyEnable(); }
+  else { userProfile.notify = Object.assign({}, userProfile.notify || {}, { declined: todayStr() }); await persistProfile(); }
+  renderNotifyOffer(); renderIphoneCard();
+});
+// Profile → On your iPhone: notifications and widgets
+function renderIphoneCard(){
+  const card = document.getElementById('iphoneCard'); if(!card) return;
+  const native = !!notifyPlugin() || (typeof IS_NATIVE !== 'undefined' && IS_NATIVE);
+  card.hidden = !native;
+  if(!native) return;
+  const P = notifyPrefs();
+  const sw = (key, val, title, sub, extra) => `<button type="button" class="pb-tg${val ? ' on' : ''}${extra || ''}" data-ip="${key}" role="switch" aria-checked="${val}"><span class="pb-tg-t"><b>${title}</b><small>${sub}</small></span><span class="pb-sw"><i></i></span></button>`;
+  let h = sw('on', P.on, 'Notifications', P.on ? 'At most two a day, never at night.' : 'Off. Turn on to get reminders and recaps.');
+  if(P.on) h += `<div class="ip-kinds">${NOTIFY_KINDS.map(([k, t, s]) => sw(k, P[k], t, s, ' sm')).join('')}</div>`;
+  const show = !(userProfile && userProfile.widgetHide);
+  h += sw('widgets', show, 'Numbers in widgets and Siri', show ? 'Calories and protein show on your Home and Lock Screen widgets, and Siri can tell you what’s left.' : 'Hidden. Widgets show only the Fera logo, and Siri won’t read your numbers.');
+  document.getElementById('iphoneBody').innerHTML = h;
+}
+document.getElementById('iphoneBody').addEventListener('click', async (ev) => {
+  const b = ev.target.closest('[data-ip]'); if(!b) return;
+  haptic();
+  const k = b.dataset.ip;
+  if(k === 'widgets'){ userProfile.widgetHide = !userProfile.widgetHide; await persistProfile(); if(window.feraWidgetSync) window.feraWidgetSync(); }
+  else if(k === 'on'){ if(!notifyPrefs().on) await window.feraNotifyEnable(); else { userProfile.notify = Object.assign({}, userProfile.notify || {}, { on: false }); await persistProfile(); window.feraNotifySync && window.feraNotifySync(); } }
+  else { userProfile.notify = Object.assign({}, userProfile.notify || {}, { [k]: !notifyPrefs()[k] }); await persistProfile(); window.feraNotifySync && window.feraNotifySync(); }
+  renderIphoneCard();
+});
+
+// =====================================================================================
+// iPhone app: saving meals to Apple Health (Profile switch on the Apple Health page). Each food item of
+// the last 7 days goes in as a food entry with its calories and macros, keyed by the item's id, so an
+// edit replaces it and a delete removes it. What this phone already saved is remembered on the phone
+// (Apple Health is per device too). Fera never reads these back: its burn uses activity, not food.
+// =====================================================================================
+const HKW_DAYS = 7, HKW_KEY = 'hk-written';
+function healthWriteOn(){ return !!(userProfile && userProfile.healthWrite && userProfile.healthWrite.on); }
+function hkwWritten(){ try { return JSON.parse(localStorage.getItem(HKW_KEY) || '{}'); } catch(e){ return {}; } }
+function hkwSave(m){ try { localStorage.setItem(HKW_KEY, JSON.stringify(m)); } catch(e){} }
+// the time a meal goes in at: when it was logged on that day, else the middle of its meal window
+function hkwTime(d, it){
+  if(it.ts && toISO(new Date(it.ts)) === d) return it.ts;
+  const MID = { breakfast: 8 * 60, amsnack: 10 * 60 + 30, lunch: 13 * 60, pmsnack: 16 * 60, dinner: 19 * 60 + 30, late: 22 * 60 };
+  const m = MID[it.meal] != null ? MID[it.meal] : 12 * 60;
+  const t = parseISO(d); t.setHours(Math.floor(m / 60), m % 60, 0, 0); return t.getTime();
+}
+function hkwVersion(d, it){ const s = [d, it.desc, it.cal, it.protein, it.carbs, it.fat, it.meal, it.ts].join('|'); let h = 0; for(let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return Math.abs(h); }
+// Pure: what to save and what to delete. -> { save: [...], remove: [ids], next: {id: version} }
+function hkwPlan(){
+  const written = hkwWritten(), now = {}, save = [], days = new Set();
+  for(let i = 0; i < HKW_DAYS; i++){ const x = new Date(); x.setDate(x.getDate() - i); days.add(toISO(x)); }
+  days.forEach(d => {
+    const e = entries[d]; if(!e || e.mode !== 'items') return;
+    (e.items || []).forEach(it => {
+      if(!it || !it.id || !(it.cal >= 0)) return;
+      const v = hkwVersion(d, it); now[it.id] = { v, d };
+      if(!written[it.id] || written[it.id].v !== v) save.push({ id: it.id, version: Date.now(), at: hkwTime(d, it), name: String(it.desc || 'Food').slice(0, 80), kcal: it.cal, protein: it.protein, carbs: it.carbs, fat: it.fat });
+    });
+  });
+  // gone from a day still in the window (deleted, or the day was cleared)
+  const remove = Object.keys(written).filter(id => !now[id] && days.has(written[id].d));
+  // older than the window: forget, keep what's in Apple Health
+  const next = {}; Object.keys(now).forEach(id => { next[id] = now[id]; });
+  return { save, remove, next };
+}
+(function healthWrite(){
+  let timer = null, busy = false;
+  async function sync(){
+    const P = nativeHealth();
+    if(!P || typeof P.saveFoods !== 'function' || !healthWriteOn() || !appStarted || busy) return;
+    busy = true;
+    try {
+      const plan = hkwPlan();
+      if(plan.save.length) await P.saveFoods({ foods: plan.save.map(f => Object.fromEntries(Object.entries(f).filter(([, v]) => v != null))) });
+      if(plan.remove.length) await P.deleteFoods({ ids: plan.remove });
+      hkwSave(plan.next);
+    } catch(e){ /* try again next time */ }
+    busy = false;
+  }
+  window.feraHealthWriteSync = function(){ clearTimeout(timer); timer = setTimeout(sync, 2000); };
+  window.feraHealthWriteSet = async function(on){
+    const P = nativeHealth();
+    if(on){
+      if(!P || typeof P.requestWriteAuthorization !== 'function') return false;
+      try { await P.requestWriteAuthorization(); } catch(e){ return false; }
+    }
+    userProfile.healthWrite = Object.assign({}, userProfile.healthWrite || {}, { on: !!on, since: on ? todayStr() : null });
+    await persistProfile();
+    if(on){ hkwSave({}); window.feraHealthWriteSync(); }
+    return true;
+  };
 })();
 </script>
 </body>

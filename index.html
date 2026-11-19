@@ -1594,7 +1594,7 @@
   body.tabs[data-view="weight"] [data-view-card="weight"],body.tabs[data-view="trends"] [data-view-card="trends"]{display:block;animation:viewIn .28s ease both;}
   @keyframes viewIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
   body.tabs:not([data-view="home"]) #headerStats,body.tabs:not([data-view="home"]) #myGoals,body.tabs:not([data-view="home"]) .wnudge,
-  body.tabs:not([data-view="home"]) #ringSection .metrics,body.tabs:not([data-view="home"]) #ringNet,body.tabs:not([data-view="home"]) #ringLearn,body.tabs:not([data-view="home"]) #goalCtaBtn,
+  body.tabs:not([data-view="home"]) #ringSection .metrics,body.tabs:not([data-view="home"]) #ringNet,body.tabs:not([data-view="home"]) #ringLearn,body.tabs:not([data-view="home"]) #firstWeek,body.tabs:not([data-view="home"]) #goalCtaBtn,
   body.tabs:not([data-view="home"]) #dq,body.tabs:not([data-view="home"]) #dayAsk,body.tabs:not([data-view="home"]) #balances{display:none !important;}
   body[data-view="trends"] #ringSection{display:none !important;}
   body.tabs:not([data-view="home"]) #ringSection .today-card{background:none;border:0;box-shadow:none;padding:0;margin:0 0 4px;}
@@ -2479,6 +2479,92 @@
   .lp-facts3 small{font-size:11px;color:var(--muted);line-height:1.3;}
   .lp-wline{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;}
   .lp-wline i{flex:1;height:0;border-top:1.5px dashed rgba(244,245,250,.25);} .lp-wline b{color:var(--ink);}
+
+  /* ---- Onboarding ---- */
+  body.ob-open{overflow:hidden;}
+  .ob-root{position:fixed;inset:0;z-index:300;overflow-y:auto;background:radial-gradient(120% 60% at 50% -10%,rgba(76,141,255,.16),transparent 60%),#0E1014;color:var(--ink);}
+  .ob-wrap{min-height:100%;max-width:460px;margin:0 auto;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 18px) 22px calc(env(safe-area-inset-bottom,0px) + 22px);}
+  .ob-top{display:flex;align-items:center;gap:12px;min-height:34px;}
+  .ob-back,.ob-sp{width:34px;height:34px;border-radius:12px;flex-shrink:0;} .ob-back{background:rgba(244,245,250,.06);border:0;color:#C9CCDA;font-size:20px;cursor:pointer;}
+  .ob-prog{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;}
+  .ob-prog i{height:5px;border-radius:9px;background:rgba(244,245,250,.1);} .ob-prog i.on{background:#4C8DFF;} .ob-prog i.cur{background:linear-gradient(90deg,#4C8DFF,#8DB6FF);}
+  .ob-skip{border:0;background:none;font:600 13px Inter,sans-serif;color:var(--muted);cursor:pointer;padding:6px 0;min-width:34px;}
+  .ob-body{flex:1;display:flex;flex-direction:column;padding-top:24px;}
+  .ob-welcome{padding-top:min(10vh,70px);}
+  .ob-k{font:700 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8DB6FF;}
+  .ob-h{font:700 29px/1.12 Sora,sans-serif;letter-spacing:-.02em;margin:8px 0 10px;} .ob-h.big{font-size:34px;}
+  .ob-p{font-size:15px;line-height:1.5;color:#A3A6BC;margin:0 0 20px;} .ob-p b{color:var(--ink);} .ob-p.small{font-size:13.5px;margin-top:6px;}
+  .ob-foot{display:flex;flex-direction:column;gap:8px;padding-top:18px;}
+  .ob-btn{height:54px;border-radius:16px;border:0;background:#3B7BF5;color:#fff;font:700 16px Inter,sans-serif;cursor:pointer;box-shadow:0 10px 30px -10px rgba(59,123,245,.8);}
+  .ob-btn:disabled{opacity:.6;} .ob-btn.ghost{background:none;box-shadow:none;color:#A3A6BC;font-weight:600;height:42px;}
+  .ob-note{text-align:center;font-size:12.5px;color:#7B7F95;line-height:1.45;} .ob-note.left{text-align:left;margin-top:12px;}
+  .ob-label{display:block;font:700 12px Inter,sans-serif;color:#A3A6BC;margin:0 0 8px;} .ob-opt-l{font-weight:500;color:#7B7F95;}
+  .ob-lrow{display:flex;justify-content:space-between;align-items:center;}
+  .ob-mini{display:inline-flex;gap:4px;} .ob-mini button,.ob-unit button{border:0;padding:5px 12px;border-radius:999px;background:rgba(244,245,250,.06);font:700 12px Inter,sans-serif;color:var(--muted);cursor:pointer;}
+  .ob-mini button.on,.ob-unit button.on{background:rgba(76,141,255,.18);color:#A9C8FF;}
+  .ob-seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;} .ob-seg.three{grid-template-columns:repeat(3,1fr);}
+  .ob-opt{border-radius:16px;border:1.5px solid var(--rule);background:#1B1D27;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;font:700 14px Inter,sans-serif;color:#C9CCDA;cursor:pointer;}
+  .ob-opt small{font-weight:500;font-size:11.5px;color:var(--muted);text-align:center;}
+  .ob-opt.on{border-color:#4C8DFF;background:rgba(76,141,255,.12);color:#fff;box-shadow:0 0 0 4px rgba(76,141,255,.12);}
+  .ob-opt svg,.ob-row .e svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .ob-field{display:flex;align-items:center;gap:10px;height:56px;padding:0 16px;border-radius:16px;background:#1B1D27;border:1.5px solid var(--rule);margin-bottom:18px;}
+  .ob-field:focus-within,.ob-field.on{border-color:#4C8DFF;background:rgba(76,141,255,.08);}
+  .ob-field input,.ob-field select{flex:1;min-width:0;border:0;background:none;color:var(--ink);font:700 18px Sora,sans-serif;padding:0;margin:0;height:100%;box-shadow:none;outline:none;-webkit-appearance:none;appearance:none;}
+  .ob-field span{font:600 13px Inter,sans-serif;color:var(--muted);white-space:nowrap;}
+  .ob-field.sel{position:relative;} .ob-field.sel:after{content:"⌄";position:absolute;right:16px;top:14px;color:var(--muted);pointer-events:none;}
+  .ob-two{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .ob-bigin{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:18px 0 6px;}
+  .ob-bigin input{width:4.2ch;text-align:center;border:0;background:none;color:var(--ink);font:700 64px/1 Sora,sans-serif;letter-spacing:-.03em;padding:0;outline:none;box-shadow:none;}
+  .ob-bigin input::placeholder{color:#3A3D50;} .ob-bigin span{font:600 18px Inter,sans-serif;color:var(--muted);}
+  .ob-unit{display:flex;justify-content:center;gap:6px;margin:8px 0 22px;}
+  .ob-card{border-radius:18px;border:1px solid var(--rule);background:linear-gradient(180deg,rgba(244,245,250,.05),rgba(244,245,250,.015));padding:14px;display:flex;gap:12px;align-items:flex-start;}
+  .ob-card.col{flex-direction:column;gap:4px;align-items:stretch;}
+  .ob-card .ic{width:40px;height:40px;border-radius:13px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;}
+  .ob-card b{display:block;font-size:14.5px;margin-bottom:3px;} .ob-card small{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;}
+  .ob-card .go{margin-top:10px;display:inline-flex;padding:8px 13px;border-radius:11px;border:0;background:rgba(255,92,122,.14);color:#FF7A93;font:700 13px Inter,sans-serif;cursor:pointer;}
+  .ob-proj{border-radius:16px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.3);padding:12px 14px;font-size:13.5px;line-height:1.5;color:#A3A6BC;} .ob-proj b{color:#4ADE80;}
+  .ob-proj.warn{background:rgba(244,183,64,.08);border-color:rgba(244,183,64,.3);}
+  .ob-rows{display:flex;flex-direction:column;gap:10px;}
+  .ob-row{display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:16px;border:1.5px solid var(--rule);background:#1B1D27;color:var(--ink);text-align:left;cursor:pointer;width:100%;}
+  .ob-row .e{font-size:22px;width:28px;display:flex;justify-content:center;color:#C9CCDA;} .ob-row .t{flex:1;min-width:0;} .ob-row b{display:block;font-size:14.5px;} .ob-row small{display:block;font-size:12px;color:var(--muted);margin-top:2px;}
+  .ob-row .r{width:20px;height:20px;border-radius:50%;border:2px solid #3A3D50;flex-shrink:0;} .ob-row.on{border-color:#4C8DFF;background:rgba(76,141,255,.1);} .ob-row.on .r{border:6px solid #4C8DFF;} .ob-row.on .e{color:#8DB6FF;}
+  .ob-feat{display:flex;flex-direction:column;gap:16px;margin-top:6px;}
+  .ob-feat > div{display:flex;gap:14px;align-items:flex-start;} .ob-feat .i{width:42px;height:42px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;}
+  .ob-feat b{display:block;font-size:15px;margin-bottom:2px;} .ob-feat small{font-size:13px;color:var(--muted);line-height:1.45;}
+  .ob-logo{width:72px;height:72px;border-radius:22px;box-shadow:0 18px 40px -12px rgba(76,141,255,.7);margin:0 0 18px;}
+  .ob-rh{display:flex;justify-content:space-between;align-items:center;font:700 11px Inter,sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  .ob-tgt{font:700 44px/1 Sora,sans-serif;margin:10px 0 4px;letter-spacing:-.02em;} .ob-tgt span{font:600 14px Inter,sans-serif;color:var(--muted);margin-left:6px;letter-spacing:0;}
+  .ob-sub{font-size:12.5px;color:var(--muted);}
+  .ob-tg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;} .ob-tg div{border-radius:14px;background:#1B1D27;border:1px solid var(--rule);padding:10px;text-align:center;} .ob-tg b{display:block;font:700 20px Sora,sans-serif;} .ob-tg small{font-size:11px;color:var(--muted);}
+  .ob-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:16px 0 6px;}
+  .ob-days div{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:10.5px;color:var(--muted);font-weight:600;}
+  .ob-days i{width:100%;height:30px;border-radius:9px;background:rgba(244,245,250,.06);border:1px dashed rgba(244,245,250,.14);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:13px;}
+  .ob-days i.now{background:rgba(155,124,255,.18);border:1.5px solid #9B7CFF;}
+  .ob-notes{display:flex;flex-direction:column;gap:10px;margin:8px 0 10px;}
+  .ob-n{border-radius:20px;background:rgba(40,43,56,.92);padding:12px 14px;display:flex;gap:11px;align-items:flex-start;box-shadow:0 12px 30px rgba(0,0,0,.35);}
+  .ob-n-i{width:30px;height:30px;border-radius:8px;background:#3B7BF5;color:#fff;font:800 15px Sora,sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ob-n b{display:block;font-size:13.5px;} .ob-n small{display:block;font-size:12.5px;color:#B5B8C8;line-height:1.4;margin-top:1px;} .ob-n .t{margin-left:auto;font-size:11px;color:var(--muted);}
+  .ob-orb{width:96px;height:96px;border-radius:50%;margin:40px auto 18px;background:radial-gradient(circle at 35% 30%,#7CF0A6,#22C55E);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(74,222,128,.12),0 0 80px rgba(74,222,128,.45);}
+  .ob-orb svg{width:46px;height:46px;stroke:#06240F;stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  .ob-cmp{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:16px 0;}
+  .ob-cmp div{border-radius:16px;background:#1B1D27;border:1px solid var(--rule);padding:12px;text-align:center;} .ob-cmp div.new{border-color:rgba(74,222,128,.45);background:rgba(74,222,128,.08);}
+  .ob-cmp small{display:block;font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;} .ob-cmp b{display:block;font:700 24px Sora,sans-serif;margin-top:4px;} .ob-cmp span{color:var(--muted);font-size:18px;}
+  /* first week, on Today */
+  .fw{margin:0 0 14px;padding:14px;border-radius:18px;border:1px solid rgba(155,124,255,.35);background:linear-gradient(180deg,rgba(155,124,255,.13),rgba(155,124,255,.02));}
+  .fw-h{display:flex;align-items:center;gap:12px;}
+  .fw-ring{width:44px;height:44px;position:relative;flex-shrink:0;} .fw-ring svg{width:44px;height:44px;display:block;} .fw-ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 12.5px Sora,sans-serif;}
+  .fw-ht{flex:1;min-width:0;} .fw-ht b{font:700 16px Sora,sans-serif;display:block;} .fw-ht small{font-size:12.5px;color:#A3A6BC;}
+  .fw-x{border:0;background:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 6px;align-self:flex-start;}
+  .fw-list{display:flex;flex-direction:column;gap:2px;margin-top:12px;}
+  .fw-i{display:flex;align-items:center;gap:11px;padding:9px 8px;border-radius:12px;font:600 14px Inter,sans-serif;color:var(--ink);background:none;border:0;text-align:left;cursor:pointer;width:100%;}
+  .fw-i i{width:22px;height:22px;border-radius:50%;border:2px solid #4B4F63;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .fw-i span{flex:1;min-width:0;}
+  .fw-i.done{color:var(--muted);cursor:default;} .fw-i.done span{text-decoration:line-through;text-decoration-color:rgba(141,144,168,.6);}
+  .fw-i.done i{background:#4ADE80;border-color:#4ADE80;} .fw-i.done i:after{content:"";width:9px;height:5px;border-left:2.4px solid #06240F;border-bottom:2.4px solid #06240F;transform:rotate(-45deg) translate(1px,-1px);}
+  .fw-i em{font-style:normal;font-size:12px;font-weight:700;color:#8DB6FF;white-space:nowrap;}
+  .fw-i.next{background:rgba(76,141,255,.1);} .fw-i.next i{border-color:#4C8DFF;}
+  .fw-tip{margin:6px 0 0;padding:12px;border-radius:12px;background:rgba(244,245,250,.05);font-size:13px;line-height:1.5;color:#A3A6BC;} .fw-tip b{color:var(--ink);}
+  .fw-tip button{display:block;margin-top:8px;border:0;background:rgba(76,141,255,.18);color:#A9C8FF;font:700 12.5px Inter,sans-serif;padding:7px 12px;border-radius:10px;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -2527,6 +2613,7 @@
           </label>
           <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
         </div>
+    <div class="fw" id="firstWeek" hidden></div>
     <div class="lpill-row" id="ringLearn"></div>
     <div class="metrics metrics-top">
       <div class="metric metric-cal">
@@ -7328,6 +7415,7 @@ function renderAll(){
   if(typeof renderPlanNudge === 'function') try { renderPlanNudge(); renderLearnPage(); } catch(e){}
   if(typeof renderGoalNudge === 'function') try { renderGoalNudge(); } catch(e){}
   try { renderLearnPills(); } catch(e){}
+  try { renderFirstWeek(); } catch(e){}
   if(window.feraWidgetSync) window.feraWidgetSync();
   if(window.feraNotifySync) window.feraNotifySync();
   if(typeof renderNotifyOffer === 'function') try { renderNotifyOffer(); renderIphoneCard(); } catch(e){}
@@ -9511,6 +9599,7 @@ async function startSession(user){
     if(window.feraWidgetSync) window.feraWidgetSync();
     await init();
     afterAppStart();
+    setTimeout(() => { maybeStartOnboarding(); maybeShowLearnedMoment(); }, 400);
   }
 }
 function applySessionToUI(user){
@@ -11195,6 +11284,7 @@ async function calApply(c){
   await persistGoals();
   syncDerivedBurns(); await persist();
   renderAll(); if(window.renderBurnModeSection) window.renderBurnModeSection();
+  if(typeof maybeShowLearnedMoment === 'function') setTimeout(maybeShowLearnedMoment, 300);
 }
 // the daily step, on the first open of the day
 let calRunning = false;
@@ -11204,6 +11294,303 @@ async function calKeep(){}
 
 // The old Today nudge for updates is gone: the Learning pill carries it.
 function renderPlanNudge(){ const el = document.getElementById('planNudge'); if(el){ el.hidden = true; el.innerHTML = ''; } }
+
+// ---------- Onboarding: the first contact ----------
+// New members get a short guided setup right after sign-up: welcome, about you, weight, goal, muscle,
+// devices, their day-one plan, and (iPhone) reminders. Every step after the welcome can be skipped;
+// what's saved is saved as they go, and the first-week card on Today picks up whatever was skipped.
+// Members who already have working targets never see it.
+const OB_STEPS = ['welcome', 'about', 'weight', 'goal', 'muscle', 'devices', 'reveal', 'notify'];
+const OB_NUMBERED = ['about', 'weight', 'goal', 'muscle', 'devices'];
+let ob = null;
+function obNeeded(){
+  if(userProfile.onboarded) return false;
+  if(computeTargets()){ userProfile.onboarded = 'existing'; persistProfile(); return false; }
+  return true;
+}
+function maybeStartOnboarding(){ try { if(obNeeded()) openOnboarding('welcome'); } catch(e){} }
+function openOnboarding(step){
+  const hIn = userProfile.heightIn;
+  const wLb = currentWeightLb();
+  const kg = weightUnit() === 'kg';
+  ob = { step: step || 'welcome', health: !!(IS_NATIVE && nativeHealthOn()), d: {
+    sex: userProfile.sex || null, dob: userProfile.dob || '',
+    hUnit: userProfile.heightUnit === 'cm' ? 'cm' : 'in', ft: hIn ? Math.floor(Math.round(hIn) / 12) : 5, inch: hIn ? Math.round(hIn) % 12 : 9, cm: hIn ? Math.round(hIn * 2.54) : '',
+    wUnit: kg ? 'kg' : 'lb', w: wLb ? (kg ? Math.round(wLb / 2.20462 * 10) / 10 : Math.round(wLb * 10) / 10) : '',
+    wg: userGoals.weightGoal || null, rate: userGoals.weightRate || 1, goal: goalWeight() ? Math.round(wtUnitFromLb(goalWeight().lb) * 10) / 10 : '',
+    mg: userGoals.muscleGoal || null, path: userProfile.burnPath || null } };
+  const el = document.getElementById('onboard'); el.hidden = false; document.body.classList.add('ob-open');
+  obRender();
+}
+function closeOnboarding(){ const el = document.getElementById('onboard'); el.hidden = true; el.innerHTML = ''; document.body.classList.remove('ob-open'); ob = null; }
+function obSteps(){ return OB_STEPS.filter(s => s !== 'notify' || (IS_NATIVE && window.feraNotifyEnable && !(userProfile.notify && userProfile.notify.on))); }
+function obIco(k){
+  const P = { lose: '<path d="M3.5 7l6 6 4-4 7 7"/><path d="M14.5 16h6v-6"/>', maintain: '<path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7l-2.6 6.2a3 3 0 0 0 5.2 0z"/><path d="M19 7l-2.6 6.2a3 3 0 0 0 5.2 0z"/>',
+    gain: '<path d="M3.5 17l6-6 4 4 7-7"/><path d="M14.5 8h6v6"/>', mm: '<path d="M6.5 7.5v9M17.5 7.5v9M3.5 10v4M20.5 10v4M6.5 12h11"/>', mg: '<path d="M5.5 9v8M15.5 9v8M3 11.5v3M18 11.5v3M5.5 13h10"/><path d="M19.5 3v5M17 5.5h5"/>' };
+  return `<svg viewBox="0 0 24 24" aria-hidden="true">${P[k]}</svg>`;
+}
+// what the answers so far would give, for the live projection
+function obWeightLb(){ const v = parseFloat(ob.d.w); return isNaN(v) ? null : (ob.d.wUnit === 'kg' ? v * 2.20462 : v); }
+function obAge(){ if(!ob.d.dob) return null; const a = ageFromDob(ob.d.dob); return a == null || a < 10 || a > 110 ? null : a; }
+function obRender(){
+  const el = document.getElementById('onboard'); if(!el || !ob) return;
+  const d = ob.d, s = ob.step, steps = obSteps(), idx = OB_NUMBERED.indexOf(s);
+  const top = (opts = {}) => {
+    const n = OB_NUMBERED.length;
+    const segs = Array.from({ length: n }, (_, i) => `<i class="${s === 'reveal' || i < idx ? 'on' : i === idx ? 'cur' : ''}"></i>`).join('');
+    return `<div class="ob-top">${opts.back === false ? '<span class="ob-sp"></span>' : '<button type="button" class="ob-back" data-ob="back" aria-label="Back">‹</button>'}
+      <div class="ob-prog" aria-hidden="true">${segs}</div>${opts.skip === false ? '<span class="ob-sp"></span>' : '<button type="button" class="ob-skip" data-ob="skip">Skip</button>'}</div>`;
+  };
+  const opt = (k, v, label, sub, ico) => `<button type="button" class="ob-opt${d[k] === v ? ' on' : ''}" data-ob-set="${k}" data-v="${v}">${ico || ''}${label}${sub ? `<small>${sub}</small>` : ''}</button>`;
+  const row = (k, v, e, title, sub) => `<button type="button" class="ob-row${d[k] === v ? ' on' : ''}" data-ob-set="${k}" data-v="${v}"><span class="e">${e}</span><span class="t"><b>${title}</b><small>${sub}</small></span><i class="r"></i></button>`;
+  const foot = (label, extra) => `<div class="ob-foot"><button type="button" class="ob-btn" data-ob="next">${label}</button>${extra || ''}</div>`;
+  let h = '';
+  if(s === 'welcome'){
+    h = `<div class="ob-body ob-welcome"><img class="ob-logo" src="${(document.querySelector('link[rel=apple-touch-icon]') || {}).href || ''}" alt="">
+      <h1 class="ob-h big">Your real burn,<br>learned.</h1>
+      <p class="ob-p">Most apps guess what you burn. Fera measures it from your own days, and sets targets that fit you.</p>
+      <div class="ob-feat">
+        <div><span class="i" style="background:rgba(76,141,255,.14)">📸</span><span><b>Log what you eat</b><small>A photo, your voice, a barcode or one line. About ten seconds.</small></span></div>
+        <div><span class="i" style="background:rgba(56,189,248,.14)">⚖️</span><span><b>Weigh in each morning</b><small>Before breakfast. Your scale is how Fera checks its math.</small></span></div>
+        <div><span class="i" style="background:rgba(155,124,255,.16)">✨</span><span><b>In 7 days, your numbers</b><small>Fera learns your real burn and keeps tuning your targets every day.</small></span></div>
+      </div></div>${foot('Get started', '<div class="ob-note">Takes about a minute</div>')}`;
+  } else if(s === 'about'){
+    const age = obAge();
+    const ftOpts = [4, 5, 6, 7].map(v => `<option value="${v}"${+d.ft === v ? ' selected' : ''}>${v} ft</option>`).join('');
+    const inOpts = Array.from({ length: 12 }, (_, v) => `<option value="${v}"${+d.inch === v ? ' selected' : ''}>${v} in</option>`).join('');
+    h = `${top({ back: false })}<div class="ob-body"><div class="ob-k">About you</div><h1 class="ob-h">A bit about you</h1>
+      <p class="ob-p">Fera's starting point is the formula for your body. It only needs these four.</p>
+      <div class="ob-label">Sex</div><div class="ob-seg">${opt('sex', 'male', 'Male')}${opt('sex', 'female', 'Female')}</div>
+      <label class="ob-label" for="obDob">Birthday</label>
+      <label class="ob-field"><input type="date" id="obDob" data-ob-in="dob" value="${d.dob || ''}" max="${todayStr()}"><span>${age != null ? age + ' years' : ''}</span></label>
+      <div class="ob-label ob-lrow"><span>Height</span><span class="ob-mini">${['in', 'cm'].map(u => `<button type="button" class="${d.hUnit === u ? 'on' : ''}" data-ob-set="hUnit" data-v="${u}">${u === 'in' ? 'ft' : 'cm'}</button>`).join('')}</span></div>
+      ${d.hUnit === 'in' ? `<div class="ob-two"><label class="ob-field sel"><select data-ob-in="ft" aria-label="Feet">${ftOpts}</select></label><label class="ob-field sel"><select data-ob-in="inch" aria-label="Inches">${inOpts}</select></label></div>`
+        : `<label class="ob-field"><input type="number" inputmode="numeric" data-ob-in="cm" value="${d.cm}" placeholder="175" aria-label="Height in cm"><span>cm</span></label>`}
+      </div>${foot('Continue')}`;
+  } else if(s === 'weight'){
+    h = `${top()}<div class="ob-body"><div class="ob-k">Weight</div><h1 class="ob-h">What do you weigh today?</h1>
+      <label class="ob-bigin"><input type="number" inputmode="decimal" step="0.1" data-ob-in="w" value="${d.w}" placeholder="${d.wUnit === 'kg' ? '80' : '180'}" aria-label="Your weight"><span>${d.wUnit}</span></label>
+      <div class="ob-unit">${['lb', 'kg'].map(u => `<button type="button" class="${d.wUnit === u ? 'on' : ''}" data-ob-set="wUnit" data-v="${u}">${u}</button>`).join('')}</div>
+      ${IS_NATIVE && nativeHealth() ? `<div class="ob-card"><span class="ic" style="background:rgba(255,92,122,.14)">❤️</span><span><b>Use your smart scale</b><small>${ob.imported != null ? (ob.imported ? `Brought in ${fmtN(ob.imported)} past weigh-ins from Apple Health. Fera can start learning from your history right away.` : 'Connected. No past weigh-ins in Apple Health yet.') : 'Bring in today\'s weigh-in and your past year from Apple Health. Fera can start learning from your history right away.'}</small>${ob.imported == null ? '<button type="button" class="go" data-ob="import">Import from Apple Health</button>' : ''}</span></div>` : ''}
+      <p class="ob-note left">This becomes today's weigh-in, the first of your learning week.</p></div>${foot('Continue')}`;
+  } else if(s === 'goal'){
+    const show = d.wg === 'lose' || d.wg === 'gain';
+    let proj = '';
+    const now = obWeightLb(), g = parseFloat(d.goal);
+    if(show && now && !isNaN(g)){
+      const gl = d.wUnit === 'kg' ? g * 2.20462 : g;
+      const toGo = d.wg === 'lose' ? now - gl : gl - now;
+      if(toGo > 0.05){ const days = Math.ceil(toGo / d.rate * 7); const when = wtDate(wtAddDays(todayStr(), days), true);
+        proj = `<div class="ob-proj"><b>${(d.wUnit === 'kg' ? toGo / 2.20462 : toGo).toFixed(1)} ${d.wUnit} to go.</b> At ${d.rate} lb a week, around <b>${when}</b>. Fera updates the date as it learns your real pace.</div>`; }
+      else proj = `<div class="ob-proj warn">That's ${d.wg === 'lose' ? 'above' : 'below'} your weight today. Pick a ${d.wg === 'lose' ? 'lower' : 'higher'} goal.</div>`;
+    }
+    h = `${top()}<div class="ob-body"><div class="ob-k">Your goal</div><h1 class="ob-h">Where do you want to go?</h1>
+      <div class="ob-seg three">${opt('wg', 'lose', 'Lose', '', obIco('lose'))}${opt('wg', 'maintain', 'Maintain', '', obIco('maintain'))}${opt('wg', 'gain', 'Gain', '', obIco('gain'))}</div>
+      ${show ? `<div class="ob-label">How fast</div><div class="ob-seg">${opt('rate', 0.5, '0.5 lb', 'a week · easier')}${opt('rate', 1, '1 lb', 'a week · faster')}</div>
+      <label class="ob-label" for="obGoalW">Goal weight <span class="ob-opt-l">· optional</span></label>
+      <label class="ob-field${d.goal !== '' ? ' on' : ''}"><input type="number" inputmode="decimal" step="0.1" id="obGoalW" data-ob-in="goal" value="${d.goal}" placeholder="Your goal"><span>${d.wUnit}</span></label><div id="obProj">${proj}</div>` : ''}
+      </div>${foot('Continue')}`;
+  } else if(s === 'muscle'){
+    h = `${top()}<div class="ob-body"><div class="ob-k">Muscle</div><h1 class="ob-h">And your muscle?</h1>
+      <p class="ob-p">This sets your protein. Losing weight while keeping muscle needs more of it.</p>
+      <div class="ob-rows">${row('mg', 'maintain', obIco('mm'), 'Keep what I have', d.wg === 'lose' ? '1.8 g of protein per kg while losing' : d.wg === 'gain' ? '1.6 g of protein per kg' : '1.4 g of protein per kg')}
+      ${row('mg', 'gain', obIco('mg'), 'Build muscle', '2.0 g per kg · pairs well with lifting 2–4 times a week')}</div></div>${foot('Continue')}`;
+  } else if(s === 'devices'){
+    const apple = d.path && d.path !== 'manual';
+    const label = IS_NATIVE && nativeHealth() && apple && !ob.health ? 'Connect Apple Health' : 'Continue';
+    h = `${top()}<div class="ob-body"><div class="ob-k">Your burn</div><h1 class="ob-h">What tracks your movement?</h1>
+      <p class="ob-p">Fera adds up your burn from what your devices record, counting each calorie once.</p>
+      <div class="ob-rows">${row('path', 'watch', '⌚️', 'Apple Watch', 'All-day movement and workouts')}
+        ${row('path', 'wearable', '💍', 'Another watch or ring', 'WHOOP, Oura, Garmin, Fitbit via Apple Health')}
+        ${row('path', 'phone', '📱', 'Just my iPhone', 'Steps from your phone; you log workouts')}
+        ${row('path', 'manual', '✍️', 'Nothing', 'Fera estimates movement; you log workouts')}</div>
+      <p class="ob-note left">${apple ? (IS_NATIVE && nativeHealth() ? (ob.health ? 'Apple Health is connected.' : 'Next, Apple Health asks to share steps, active energy, workouts and weight. Health data is never sold or used for ads.') : 'On the web, Apple Health comes in through a Shortcut. You can set it up after this from the menu → Apple Health.') : ''}</p>
+      </div>${foot(label)}`;
+  } else if(s === 'reveal'){
+    const t = computeTargets();
+    if(!t){
+      h = `${top({ skip: false })}<div class="ob-body"><div class="ob-k">Almost there</div><h1 class="ob-h">Fera needs a little more</h1>
+        <p class="ob-p">To work out your targets, Fera needs ${setupGap() ? setupGap().text.replace(/^Add your |^Pick your |^Finish setting up: /, '').replace(/ to see your targets$/, '') : 'your profile and goals'}.</p></div>
+        <div class="ob-foot"><button type="button" class="ob-btn" data-ob="fix">Add them now</button><button type="button" class="ob-btn ghost" data-ob="next">Later</button></div>`;
+    } else {
+      const days = Array.from({ length: 7 }, (_, i) => { const iso = wtAddDays(todayStr(), i); return `<div><i class="${i === 0 ? 'now' : ''}">${i === 0 || i === 6 ? '⚖️' : ''}</i>${i === 0 ? 'Today' : parseISO(iso).toLocaleDateString(undefined, { weekday: 'short' })}</div>`; }).join('');
+      const wg = userGoals.weightGoal;
+      h = `${top({ skip: false })}<div class="ob-body"><div class="ob-k">Your starting point</div><h1 class="ob-h">Here's your plan for day one</h1>
+        <div class="ob-card col"><div class="ob-rh"><span>Daily target</span>${learnPillHTML('mini')}</div>
+          <div class="ob-tgt">${fmtN(t.calorieTarget)}<span>kcal a day</span></div>
+          <div class="ob-sub">Your baseline burn ${fmtN(t.tdee)}${wg === 'lose' ? ` − ${fmtN(t.dailyDelta)} for ${t.rate} lb a week` : wg === 'gain' ? ` + ${fmtN(t.dailyDelta)} for ${t.rate} lb a week` : ', to maintain'}</div>
+          <div class="ob-tg"><div><b style="color:${MACRO_COLOR.protein}">${fmtN(t.proteinTarget)}</b><small>g protein</small></div><div><b style="color:${MACRO_COLOR.carbs}">${fmtN(t.carbsTarget)}</b><small>g carbs</small></div><div><b style="color:${MACRO_COLOR.fat}">${fmtN(t.fatTarget)}</b><small>g fat</small></div></div></div>
+        <div class="ob-days">${days}</div>
+        <p class="ob-p small">This is a starting point. Log everything you eat for 7 days and weigh in on the first and the last (every morning is best). Then Fera learns your real burn and these numbers become yours.</p></div>${foot('Continue')}`;
+    }
+  } else if(s === 'notify'){
+    h = `<div class="ob-top"></div><div class="ob-body"><div class="ob-k">Reminders</div><h1 class="ob-h">A nudge at the right moment?</h1>
+      <p class="ob-p">Two kinds of help while Fera learns. Never more than two a day, and none at night.</p>
+      <div class="ob-notes"><div class="ob-n"><span class="ob-n-i">F</span><span><b>Morning weigh-in</b><small>Before breakfast. Fera is learning your real burn: 6 days to go.</small></span><span class="t">7:30</span></div>
+        <div class="ob-n"><span class="ob-n-i">F</span><span><b>Lunch?</b><small>You usually log around 12:40. Snap it before you forget.</small></span><span class="t">13:25</span></div></div></div>
+      <div class="ob-foot"><button type="button" class="ob-btn" data-ob="notify">Turn on reminders</button><button type="button" class="ob-btn ghost" data-ob="next">Not now</button></div>`;
+  }
+  el.innerHTML = `<div class="ob-wrap">${h}</div>`;
+  el.scrollTop = 0;
+}
+// keeps what's been answered, as it's answered
+async function obSave(step){
+  const d = ob.d;
+  if(step === 'about'){
+    if(d.sex) userProfile.sex = d.sex;
+    if(d.dob) userProfile.dob = d.dob;
+    userProfile.heightUnit = d.hUnit;
+    const hIn = d.hUnit === 'cm' ? (parseFloat(d.cm) / 2.54) : (+d.ft * 12 + +d.inch);
+    if(hIn && hIn > 36 && hIn < 100) userProfile.heightIn = hIn;
+    await persistProfile();
+  } else if(step === 'weight'){
+    const lb = obWeightLb();
+    if(lb && lb > 50 && lb < 700){
+      userProfile.initialWeightUnit = d.wUnit; userProfile.initialWeightLb = lb;
+      const today = todayStr();
+      if(!Object.keys(weightReadings).some(k => k.startsWith(today))){ weightReadings[`${today}T${currentHHMM()}`] = { value: +parseFloat(d.w).toFixed(1), unit: d.wUnit }; await persistWeights(); }
+      await persistProfile();
+    }
+  } else if(step === 'goal'){
+    if(d.wg) userGoals.weightGoal = d.wg;
+    if(d.wg === 'lose' || d.wg === 'gain'){ userGoals.weightRate = +d.rate;
+      const g = parseFloat(d.goal), now = obWeightLb();
+      if(!isNaN(g) && g > 0){ const lb = d.wUnit === 'kg' ? g * 2.20462 : g; userGoals.goalWeight = { lb: Math.round(lb * 10) / 10, setAt: todayStr(), fromLb: now ? Math.round(now * 10) / 10 : Math.round(lb * 10) / 10 }; }
+      else delete userGoals.goalWeight;
+    } else delete userGoals.goalWeight;
+    await persistGoals();
+  } else if(step === 'muscle'){
+    if(d.mg){ userGoals.muscleGoal = d.mg; await persistGoals(); }
+  } else if(step === 'devices'){
+    if(d.path){ userProfile.burnPath = d.path; if(d.path !== 'manual') userProfile.lastApplePath = d.path; await persistProfile(); syncDerivedBurns(); await persist(); }
+  }
+}
+async function obConnectHealth(){
+  const NH = nativeHealth(); if(!NH) return null;
+  try { await NH.requestAuthorization(); } catch(e){ return null; }
+  setNativeHealthOn(true); ob.health = true;
+  try { await nativeHealthSync(62, true); } catch(e){}
+  const n = await nativeImportWeights().catch(() => null);
+  return n;
+}
+async function obFinish(){
+  userProfile.onboarded = todayStr();
+  await persistProfile();
+  closeOnboarding();
+  if(window.setView) window.setView('home');
+  window.scrollTo(0, 0);
+  renderAll();
+}
+async function obNext(){
+  const steps = obSteps(), i = steps.indexOf(ob.step);
+  await obSave(ob.step);
+  if(i >= steps.length - 1){ await obFinish(); return; }
+  ob.step = steps[i + 1];
+  obRender();
+}
+document.addEventListener('click', async (ev) => {
+  if(!ob) return;
+  const root = document.getElementById('onboard'); if(!root || !root.contains(ev.target)) return;
+  const set = ev.target.closest('[data-ob-set]');
+  if(set){
+    haptic();
+    const k = set.dataset.obSet, v = set.dataset.v;
+    ob.d[k] = k === 'rate' ? +v : v;
+    if(k === 'wUnit' && ob.d.w !== ''){ const w = parseFloat(ob.d.w); if(!isNaN(w)) ob.d.w = Math.round((v === 'kg' ? w / 2.20462 : w * 2.20462) * 10) / 10; const g = parseFloat(ob.d.goal); if(!isNaN(g)) ob.d.goal = Math.round((v === 'kg' ? g / 2.20462 : g * 2.20462) * 10) / 10; }
+    obRender(); return;
+  }
+  const b = ev.target.closest('[data-ob]'); if(!b) return;
+  haptic();
+  const a = b.dataset.ob;
+  if(a === 'back'){ const steps = obSteps(), i = steps.indexOf(ob.step); if(i > 0){ ob.step = steps[i - 1]; obRender(); } return; }
+  if(a === 'skip'){ const steps = obSteps(), i = steps.indexOf(ob.step); ob.step = steps[Math.min(steps.length - 1, i + 1)]; obRender(); return; }
+  if(a === 'fix'){ ob.step = 'about'; obRender(); return; }
+  if(a === 'import'){ b.disabled = true; b.textContent = 'Connecting…'; const n = await obConnectHealth(); ob.imported = n || 0;
+    const lb = currentWeightLb(); if(lb && ob.d.w === '') ob.d.w = ob.d.wUnit === 'kg' ? Math.round(lb / 2.20462 * 10) / 10 : Math.round(lb * 10) / 10;
+    obRender(); return; }
+  if(a === 'notify'){ try { await window.feraNotifyEnable(); } catch(e){} await obNext(); return; }
+  if(a === 'next'){
+    if(ob.step === 'devices' && IS_NATIVE && nativeHealth() && ob.d.path && ob.d.path !== 'manual' && !ob.health){ b.disabled = true; b.textContent = 'Connecting…'; await obSave('devices'); await obConnectHealth(); }
+    await obNext();
+  }
+});
+document.addEventListener('input', (ev) => {
+  if(!ob) return;
+  const inp = ev.target.closest('[data-ob-in]'); if(!inp) return;
+  ob.d[inp.dataset.obIn] = inp.value;
+  if(inp.dataset.obIn === 'dob'){ const sp = inp.parentElement.querySelector('span'); const a = obAge(); if(sp) sp.textContent = a != null ? a + ' years' : ''; }
+  if(inp.dataset.obIn === 'goal'){ inp.parentElement.classList.toggle('on', inp.value !== ''); const keep = inp.selectionStart; obRender(); const n = document.getElementById('obGoalW'); if(n){ n.focus(); try { n.setSelectionRange(keep, keep); } catch(e){} } }
+});
+document.addEventListener('change', (ev) => { if(ob && ev.target.closest('[data-ob-in]')){ const inp = ev.target; ob.d[inp.dataset.obIn] = inp.value; } });
+
+// ---- Today: the first week, while Fera is learning
+function renderFirstWeek(){
+  const el = document.getElementById('firstWeek'); if(!el) return;
+  const s = learnStatus();
+  const t = computeTargets();
+  const show = !userProfile.firstWeekHide && selectedDate === todayStr() && (s.state === 'learning' || !t);
+  el.hidden = !show; if(!show){ el.innerHTML = ''; return; }
+  const fw = userProfile.fw || {};
+  const e = entries[todayStr()] || {};
+  const items = e.mode === 'items' ? (e.items || []) : [];
+  const meals = new Set(items.map(i => i.meal).filter(m => m === 'breakfast' || m === 'lunch' || m === 'dinner'));
+  const done = LEARN_MIN_DAYS - (s.toGo != null ? s.toGo : LEARN_MIN_DAYS);
+  const C = 2 * Math.PI * 18, f = Math.max(0.04, done / LEARN_MIN_DAYS);
+  const learnDay = s.toGo ? parseISO(wtAddDays(todayStr(), s.toGo)).toLocaleDateString(undefined, { weekday: 'long' }) : null;
+  const it = (ok, label, em, act, cls) => `<button type="button" class="fw-i${ok ? ' done' : ''}${cls ? ' ' + cls : ''}" ${act && !ok ? `data-fw="${act}"` : 'tabindex="-1"'}><i aria-hidden="true"></i><span>${label}</span>${em && !ok ? `<em>${em}</em>` : ''}</button>`;
+  const weighed = !!dailyWeightMap()[todayStr()];
+  const list = [
+    it(!!t, 'Set up your profile and goals', 'Finish', 'setup'),
+    it(weighed, 'Weigh in today', 'Add', 'weigh'),
+    it(meals.size >= 3 || items.length >= 4, 'Log everything you eat today', items.length ? `${items.length} logged` : 'Log', 'log', weighed && t ? 'next' : ''),
+    IS_NATIVE ? it(!!fw.widget, 'Add the Fera widget to your Home Screen', 'How', 'widget') : '',
+    IS_NATIVE ? it(!!fw.siri, 'Try “Log food in Fera” with Siri', 'How', 'siri') : ''
+  ].join('');
+  const tip = fw.tip === 'widget' ? `<div class="fw-tip">Touch and hold an empty spot on your Home Screen, tap <b>Edit</b> → <b>Add Widget</b>, search for <b>Fera</b> and pick a size. For the Lock Screen, touch and hold it, then <b>Customize</b>.<button type="button" data-fw="widget-done">Done</button></div>`
+    : fw.tip === 'siri' ? `<div class="fw-tip">Say <b>“Hey Siri, log food in Fera”</b>, then what you ate, like “two eggs and toast”. Siri adds it to the right meal and tells you what's left. You'll find it in the Shortcuts app too.<button type="button" data-fw="tip-close">Got it</button></div>` : '';
+  el.innerHTML = `<div class="fw-h"><span class="fw-ring"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(155,124,255,.22)" stroke-width="5"/><circle cx="22" cy="22" r="18" fill="none" stroke="#9B7CFF" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(C * f).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 22 22)"/></svg><b>${done}/7</b></span>
+    <span class="fw-ht"><b>Your first week</b><small>${!t ? 'Finish setup to get your targets' : s.weigh === 'start' ? 'Weigh in to start the count' : `Day ${Math.min(7, done + 1)} of 7 · Fera learns your burn ${learnDay ? 'on ' + learnDay : 'soon'}`}</small></span>
+    <button type="button" class="fw-x" data-fw="hide" aria-label="Hide">×</button></div><div class="fw-list">${list}</div>${tip}`;
+}
+document.addEventListener('click', async (ev) => {
+  const b = ev.target.closest('[data-fw]'); if(!b) return;
+  haptic();
+  const a = b.dataset.fw, fw = Object.assign({}, userProfile.fw || {});
+  if(a === 'hide'){ userProfile.firstWeekHide = true; await persistProfile(); renderFirstWeek(); return; }
+  if(a === 'setup'){ const gap = setupGap(); openOnboarding(gap && gap.page === 'goals' ? 'goal' : 'about'); return; }
+  if(a === 'weigh'){ if(typeof openWeighIn === 'function') openWeighIn(); return; }
+  if(a === 'log'){ if(window.setView) window.setView('food'); return; }
+  if(a === 'widget' || a === 'siri'){ fw.tip = fw.tip === a ? null : a; }
+  if(a === 'widget-done'){ fw.widget = true; fw.tip = null; }
+  if(a === 'tip-close'){ fw.tip = null; }
+  userProfile.fw = fw; await persistProfile(); renderFirstWeek();
+});
+
+// ---- the day Fera learns: once
+function maybeShowLearnedMoment(){
+  if(ob || !document.getElementById('onboard').hidden) return;
+  const L = bmrLearnState();
+  if(L.status !== 'learned' || !L.since || userProfile.learnedSeen) return;
+  if(wtDiff(todayStr(), L.since) > 2){ userProfile.learnedSeen = L.since; persistProfile(); return; }
+  const t = computeTargets(); if(!t) return;
+  const C = calState();
+  const first = C.log.find(x => x.d === L.since) || C.log[C.log.length - 1];
+  const before = first ? first.target[0] : null;
+  const el = document.getElementById('onboard'); el.hidden = false; document.body.classList.add('ob-open');
+  el.innerHTML = `<div class="ob-wrap"><div class="ob-top"></div><div class="ob-body" style="text-align:center">
+    <div class="ob-orb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <div class="ob-k" style="color:#4ADE80">Learned</div><h1 class="ob-h">Fera learned your burn</h1>
+    <p class="ob-p">You burn about <b>${fmtN(Math.round(t.tdee / 10) * 10)} kcal</b> on an average day.${L.adj ? ` At rest, about ${fmtN(Math.abs(L.adj))} ${L.adj > 0 ? 'more' : 'less'} than the formula said.` : ' At rest, right where the formula said.'} Your targets now come from your own days.</p>
+    ${before != null ? `<div class="ob-cmp"><div><small>Before</small><b>${fmtN(before)}</b></div><span>→</span><div class="new"><small>Daily target</small><b>${fmtN(t.calorieTarget)}</b></div></div>` : ''}
+    <p class="ob-note">Fera keeps checking every day. Keep weighing in and it keeps getting sharper.</p></div>
+    <div class="ob-foot"><button type="button" class="ob-btn" data-lm="open">See what Fera learned</button><button type="button" class="ob-btn ghost" data-lm="done">Done</button></div></div>`;
+  userProfile.learnedSeen = L.since; persistProfile();
+}
+document.addEventListener('click', (ev) => {
+  const b = ev.target.closest('[data-lm]'); if(!b) return;
+  haptic(); closeOnboarding();
+  if(b.dataset.lm === 'open') openLearnPage();
+});
 
 // ---------- the Learning page ----------
 // One page: where learning stands, the resting burn against the formula, the daily target it gives, and
@@ -11566,7 +11953,7 @@ function showRecap(cards, opt){
         added++;
       });
       await ref.set({ items: [], updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
-      if(added){ await persist(); renderAll(); if(typeof renderFoodForm === 'function') renderFoodForm(); }
+      if(added){ userProfile.fw = Object.assign({}, userProfile.fw || {}, { siri: true }); persistProfile(); await persist(); renderAll(); if(typeof renderFoodForm === 'function') renderFoodForm(); }
       return added;
     } catch(e){ return 0; }
   };
@@ -11911,5 +12298,6 @@ function hkwPlan(){
   };
 })();
 </script>
+<div id="onboard" class="ob-root" hidden role="dialog" aria-modal="true" aria-label="Set up Fera"></div>
 </body>
 </html>

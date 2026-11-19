@@ -2320,6 +2320,102 @@
   .wd-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
   .wd-t b{font-size:14px;} .wd-t small{font-size:12px;color:var(--muted);line-height:1.35;}
   .wo-detect button{flex-shrink:0;border:0;background:none;color:var(--accent);font:600 12.5px 'Inter',sans-serif;cursor:pointer;padding:6px 0;}
+
+  /* ---- Weight section ---- */
+  .wt-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:4px 0 12px;}
+  .wt-k{font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  .wt-big{font:700 46px/1 'Sora',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:8px;}
+  .wt-big small{font:600 15px 'Inter',sans-serif;color:var(--muted);margin-left:5px;letter-spacing:0;}
+  .wt-day{text-align:right;padding:9px 12px;border-radius:14px;background:var(--surface-2);border:1px solid var(--rule);min-width:0;display:flex;flex-direction:column;gap:2px;}
+  .wt-day b{font:700 18px 'Sora',sans-serif;font-variant-numeric:tabular-nums;} .wt-day b small{font:600 11px 'Inter',sans-serif;color:var(--muted);margin-left:3px;}
+  .wt-day span{font-size:11px;color:var(--muted);font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;justify-content:flex-end;}
+  .wt-day .ah-ico{width:11px;height:11px;}
+  .wt-day.none b{font-size:13px;color:var(--muted);}
+  .wt-chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px;}
+  .wt-chip{display:inline-flex;align-items:baseline;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(244,245,250,.05);border:1px solid var(--rule);font-size:11.5px;color:var(--muted);font-weight:600;}
+  .wt-chip b{font:700 13px 'Sora',sans-serif;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .wt-chip b.good{color:var(--deficit);} .wt-chip b.bad{color:var(--surplus);}
+  .wt-chartbox{border-radius:18px;border:1px solid var(--rule);background:linear-gradient(180deg,rgba(76,141,255,.07),rgba(244,245,250,.012) 70%);padding:10px 8px 6px;margin-bottom:14px;}
+  .wt-ranges{display:flex;gap:4px;margin:0 2px 4px;padding:3px;border-radius:12px;background:rgba(244,245,250,.04);}
+  .wt-ranges button{flex:1;border:0;background:none;color:var(--muted);font:700 12px 'Inter',sans-serif;padding:7px 0;border-radius:9px;cursor:pointer;}
+  .wt-ranges button.on{background:rgba(76,141,255,.18);color:#A9C8FF;}
+  .wt-read{min-height:30px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 6px 2px;font-size:11.5px;color:var(--muted);font-weight:600;}
+  .wt-read b{color:var(--ink);font:700 13.5px 'Sora',sans-serif;}
+  .wt-legend{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;}
+  .wt-legend i{display:inline-block;width:12px;height:3px;border-radius:2px;background:#4C8DFF;margin-left:6px;}
+  .wt-legend i.dot{width:6px;height:6px;border-radius:50%;background:rgba(156,192,255,.6);margin-left:0;}
+  .wt-legend i.gl{background:none;border-top:2px dashed #4ADE80;height:0;}
+  .bc-wo.static{cursor:default;} .bc-wo.static.dim{opacity:.75;}
+  .bc-dg{display:flex;flex-direction:column;gap:2px;padding:4px 0 2px;}
+  .bc-dg-r{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:12px;background:rgba(244,245,250,.03);}
+  .bc-dg-r i{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .bc-dg-r span{flex:1;display:flex;flex-direction:column;font-size:13px;font-weight:600;min-width:0;} .bc-dg-r small{font-size:11.5px;color:var(--muted);font-weight:500;}
+  .bc-dg-r b{font:700 13px 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
+  .wt-goal-off{color:#4ADE80;font-weight:700;white-space:nowrap;}
+  .wt-svg{display:block;width:100%;height:auto;touch-action:pan-y;cursor:crosshair;}
+  .wt-svg text,.wt-path text{font-family:'Inter',sans-serif;}
+  .wt-empty{padding:22px 14px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.5;border:1px dashed var(--rule);border-radius:16px;margin-bottom:14px;}
+  .wt-card{display:block;width:100%;text-align:left;color:var(--ink);border-radius:18px;border:1px solid var(--rule);background:linear-gradient(180deg,rgba(244,245,250,.045),rgba(244,245,250,.015));padding:14px;margin-top:12px;}
+  .wt-h{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .wt-h > span{font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  .wt-h > b{font:700 18px 'Sora',sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap;} .wt-h > b small{font:600 11.5px 'Inter',sans-serif;color:var(--muted);margin-left:4px;}
+  .wt-h > b.wt-hint{font:600 11px 'Inter',sans-serif;color:var(--muted);}
+  .wt-p{margin:10px 0 0;font-size:13px;line-height:1.5;color:var(--muted);} .wt-p b{color:var(--ink);}
+  .wt-p em{font-style:normal;font-weight:700;white-space:nowrap;} .wt-p em.ok{color:var(--deficit);} .wt-p em.warn{color:#F4B740;}
+  .wt-bar{position:relative;height:10px;border-radius:99px;background:rgba(244,245,250,.08);margin:12px 0 7px;overflow:hidden;}
+  .wt-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:linear-gradient(90deg,#3B7BF5,#4ADE80);}
+  .wt-ends{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--muted);font-weight:600;} .wt-ends b{color:var(--ink);}
+  .wt-path{display:block;width:100%;height:auto;margin-top:12px;}
+  .wt-keys{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;font-size:11px;color:var(--muted);font-weight:600;}
+  .wt-keys i{display:inline-block;width:14px;height:0;margin-right:5px;vertical-align:middle;border-top:2.6px solid #4C8DFF;}
+  .wt-keys i.pace{border-top:2.4px dotted #4C8DFF;} .wt-keys i.plan{border-top:1.6px dashed rgba(244,245,250,.5);}
+  .wt-cta{display:flex;align-items:center;gap:12px;cursor:pointer;}
+  .wt-cta > span:nth-child(2){flex:1;display:flex;flex-direction:column;gap:2px;} .wt-cta b{font-size:14.5px;} .wt-cta small{color:var(--muted);font-size:12.5px;line-height:1.4;}
+  .wt-cta-ico{width:36px;height:36px;border-radius:12px;background:rgba(74,222,128,.14);color:#4ADE80;display:flex;align-items:center;justify-content:center;flex-shrink:0;} .wt-cta-ico svg{width:20px;height:20px;}
+  .wt-cta > i{font-style:normal;color:var(--muted);font-size:20px;}
+  .wt-pace{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:10px;}
+  .wt-pace .v{font:700 30px/1 'Sora',sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.02em;} .wt-pace .v small{font:600 13px 'Inter',sans-serif;color:var(--muted);letter-spacing:0;}
+  .wt-pace-r{display:flex;flex-direction:column;align-items:flex-end;gap:3px;font-size:11.5px;color:var(--muted);font-weight:600;} .wt-pace-r b{color:var(--ink);}
+  .wt-badge{padding:5px 10px;border-radius:999px;font:700 11px 'Inter',sans-serif;white-space:nowrap;}
+  .wt-badge.ok{background:rgba(74,222,128,.14);color:#4ADE80;} .wt-badge.warn{background:rgba(244,183,64,.14);color:#F4B740;} .wt-badge.mid{background:rgba(244,245,250,.08);color:var(--ink);}
+  .wt-weeks{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;align-items:end;margin-top:12px;height:150px;}
+  .wt-wk{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:100%;min-width:0;}
+  .wt-wk i{display:block;width:100%;max-width:34px;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,#4C8DFF,rgba(76,141,255,.28));}
+  .wt-wk.now i{background:repeating-linear-gradient(135deg,rgba(76,141,255,.75) 0 5px,rgba(76,141,255,.35) 5px 10px);}
+  .wt-wk.empty i{background:rgba(244,245,250,.08);}
+  .wt-wk b{font:700 11.5px 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
+  .wt-wk small{font:700 10.5px 'Inter',sans-serif;color:var(--muted);min-height:13px;} .wt-wk small.good{color:var(--deficit);} .wt-wk small.bad{color:var(--surplus);}
+  .wt-wk span{font-size:10px;color:var(--muted);font-weight:600;white-space:nowrap;margin-top:3px;}
+  .wt-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+  .wt-tile{padding:12px;border-radius:16px;border:1px solid var(--rule);background:rgba(244,245,250,.03);display:flex;flex-direction:column;gap:3px;min-width:0;}
+  .wt-tile span{font:700 10px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  .wt-tile b{font:700 20px 'Sora',sans-serif;font-variant-numeric:tabular-nums;} .wt-tile b i{font:600 11.5px 'Inter',sans-serif;font-style:normal;color:var(--muted);}
+  .wt-tile.ok b{color:#4ADE80;} .wt-tile.ok b i{color:var(--muted);}
+  .wt-tile small{font-size:11.5px;color:var(--muted);line-height:1.38;}
+  #weightMore{margin-bottom:4px;}
+  /* Goals: goal weight, activity */
+  .gw-opt{color:var(--muted);font:500 12px 'Inter',sans-serif;margin-left:6px;}
+  .gw-in{display:flex;align-items:center;gap:10px;}
+  .gw-field{flex:1;display:flex;align-items:center;gap:6px;padding:0 14px;border-radius:14px;border:1.5px solid var(--rule);background:var(--surface-2);}
+  .gw-field:focus-within{border-color:rgba(76,141,255,.7);background:rgba(76,141,255,.08);}
+  .gw-field input{flex:1;min-width:0;border:0;background:none;margin:0;padding:12px 0;font:700 22px 'Sora',sans-serif;color:var(--ink);box-shadow:none;}
+  .gw-field input:focus{outline:none;box-shadow:none;}
+  .gw-field span{color:var(--muted);font-size:14px;font-weight:600;}
+  .gw-clear{border:0;background:none;color:var(--muted);font:600 13px 'Inter',sans-serif;padding:8px 4px;cursor:pointer;}
+  .gw-proj{margin-top:10px;padding:12px 14px;border-radius:14px;background:rgba(244,245,250,.04);border:1px solid var(--rule);font-size:13.5px;line-height:1.5;color:var(--muted);} .gw-proj b{color:var(--ink);}
+  .ag-note{margin:-2px 0 10px;color:var(--muted);font-size:13px;line-height:1.45;}
+  .ag-m{padding:14px;border-radius:16px;border:1px solid rgba(74,222,128,.35);background:linear-gradient(180deg,rgba(74,222,128,.09),rgba(74,222,128,.02));margin-bottom:10px;}
+  .ag-num{display:flex;align-items:baseline;gap:8px;} .ag-num b{font:700 26px 'Sora',sans-serif;font-variant-numeric:tabular-nums;} .ag-num span{color:var(--muted);font-size:13px;font-weight:600;}
+  .ag-tag{display:inline-block;margin-left:auto;padding:3px 9px;border-radius:999px;background:rgba(74,222,128,.15);color:#4ADE80;font:700 11px 'Inter',sans-serif;}
+  .ag-m p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.5;} .ag-m p b{color:var(--ink);}
+  .ag-m .bc-link{margin-top:8px;}
+  /* Today: goal reached */
+  .gw-nudge{margin:0 0 14px;padding:14px;border-radius:18px;border:1px solid rgba(74,222,128,.45);background:linear-gradient(180deg,rgba(74,222,128,.12),rgba(74,222,128,.02));display:flex;flex-direction:column;gap:12px;}
+  .gn-t{display:flex;gap:12px;align-items:flex-start;}
+  .gn-ic{flex:none;width:36px;height:36px;border-radius:12px;background:rgba(74,222,128,.16);color:#4ADE80;display:flex;align-items:center;justify-content:center;} .gn-ic svg{width:20px;height:20px;}
+  .gw-nudge b{font:700 15px 'Sora',sans-serif;display:block;} .gw-nudge small{display:block;color:var(--muted);font-size:13px;line-height:1.45;margin-top:3px;}
+  .gn-acts{display:flex;gap:8px;} .gn-acts button{flex:1;border:0;border-radius:12px;padding:12px;font:700 14px 'Inter',sans-serif;cursor:pointer;}
+  .gn-go{background:#4ADE80;color:#0B1A10;} .gn-no{background:rgba(244,245,250,.07);color:var(--ink);}
 </style>
 </head>
 <body>
@@ -2353,6 +2449,7 @@
       <button class="my-goals" id="myGoals" type="button" style="display:none;"></button>
       <div class="wnudge" id="weighNudge" hidden></div>
       <div class="wnudge" id="planNudge" hidden></div>
+      <div class="wnudge gw-nudge" id="goalNudge" hidden></div>
       <div class="wnudge" id="notifyOffer" hidden></div>
 
       <div class="ring-section" id="ringSection">
@@ -2690,6 +2787,7 @@
         <input type="file" id="importWeightFile" accept=".csv,text/csv">
       </div>
       <p class="status" id="weightStatus"></p>
+      <div id="weightMore"></div>
       <div class="wc-list-h">Weigh-ins · <span id="weightListDay"></span></div>
       <div id="weightEntriesList"></div>
       <div class="empty" id="weightEntriesEmpty" style="padding:6px 0;">No weigh-ins this day.</div>
@@ -3065,8 +3163,15 @@
         <button class="goal-pill goal-pill-rate" data-rate="1" type="button"><b>1 lb</b><small>per week</small></button>
       </div>
     </div>
-    <div class="goal-group">
-      <div class="goal-group-title">Activity level</div>
+    <div class="goal-group" id="goalWeightGroup" style="display:none;">
+      <div class="goal-group-title">Goal weight<span class="gw-opt">optional</span></div>
+      <div class="gw-in"><label class="gw-field"><input type="number" id="goalWeightInput" inputmode="decimal" step="0.1" min="0" placeholder="Your goal" aria-label="Goal weight"><span id="goalWeightUnit">lb</span></label><button class="gw-clear" id="goalWeightClear" type="button" hidden>Clear</button></div>
+      <div class="gw-proj" id="goalWeightProj"></div>
+    </div>
+    <div class="goal-group" id="activityGroup">
+      <div class="goal-group-title" id="activityTitle">Activity level</div>
+      <div class="ag-m" id="agMeasured" hidden></div>
+      <p class="ag-note" id="agNote"></p>
       <div class="goal-pill-row goal-pill-row-4" id="activityGoalRow">
         <button class="goal-pill" data-activity="sedentary" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 10V8a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v2"/><path d="M3.5 18v-5a2 2 0 0 1 4 0v1h9v-1a2 2 0 0 1 4 0v5z"/><path d="M5.5 18v2M18.5 18v2"/></svg>Sedentary</button>
         <button class="goal-pill" data-activity="light" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.2" r="1.9"/><path d="M12.6 8.5l-1.6 6.5 3 2.5v4"/><path d="M11 15l-2 6"/><path d="M12.6 8.5l-3.4 2.4-.9 3.2"/><path d="M12.6 8.5l2.4 3.4 2.8.6"/></svg>Lightly active</button>
@@ -4109,6 +4214,30 @@ function burnPartSub(p, q){
   }
   return '';
 }
+// Workouts Apple Health recorded that day (the iPhone app reads them: Apple Watch, WHOOP, Oura, Garmin,
+// apps), listed under the active energy they're part of, with the rest as everyday movement.
+const HK_WO_EMOJI = { Running: '🏃', Walking: '🚶', Hiking: '🥾', Cycling: '🚴', Swimming: '🏊', Rowing: '🚣', Elliptical: '⛷️', Stairs: '🪜',
+  'Strength training': '🏋️', 'Functional strength': '🏋️', HIIT: '🔥', 'Cross training': '🔥', 'Core training': '💪', Yoga: '🧘', Pilates: '🧘', Dance: '💃',
+  'Mixed cardio': '❤️', Tennis: '🎾', Pickleball: '🏓', Soccer: '⚽', Basketball: '🏀', Golf: '⛳', Boxing: '🥊', 'Martial arts': '🥋', 'Snow sports': '🎿', 'Mind and body': '🧘', Stretching: '🤸' };
+function hkWorkoutsHTML(p, q){
+  const list = p.health && Array.isArray(p.health.workouts) ? p.health.workouts : null;
+  if(!list || !list.length) return '';
+  const sum = list.reduce((s, w) => s + (w.kcal || 0), 0);
+  const rest = Math.round(q.value - sum);
+  const rows = list.map(w => `<div class="bc-wo static"><span class="bc-wo-e" aria-hidden="true">${HK_WO_EMOJI[w.name] || '✨'}</span>
+    <span class="bc-wo-t"><b>${escapeHtml(w.name)}</b><small>${w.start ? fmtClock(w.start) + ' · ' : ''}${w.min} min${w.src ? ' · ' + escapeHtml(w.src) : ''}</small></span>
+    <span class="bc-wo-k">${w.kcal != null ? '+' + fmtN(w.kcal) : '—'}</span></div>`).join('');
+  const other = rest > 0 ? `<div class="bc-wo static dim"><span class="bc-wo-e" aria-hidden="true">👣</span><span class="bc-wo-t"><b>Everyday movement</b><small>Walking around, chores, the rest of the day</small></span><span class="bc-wo-k">+${fmtN(rest)}</span></div>` : '';
+  return `<div class="bc-extra"><div class="bc-wos">${rows}${other}</div></div>`;
+}
+// digestion, split by what was eaten: protein costs the most to digest
+function digestRowsHTML(p){
+  const e = entries[p.iso || selectedDate], dg = p.digestion;
+  if(!dg || dg.how !== 'macros') return '';
+  const P = consumedMacro(e, 'protein'), C = consumedMacro(e, 'carbs'), F = consumedMacro(e, 'fat');
+  const row = (k, name, g, per, rate) => { const kcal = g * per * rate; return `<div class="bc-dg-r"><i style="background:${MACRO_COLOR[k]}"></i><span>${name}<small>${fmtN(g)} g · ${fmtN(g * per)} kcal × ${+(rate * 100).toFixed(1)}%</small></span><b>+${fmtN(kcal)}</b></div>`; };
+  return `<div class="bc-extra"><div class="bc-dg">${row('protein', 'Protein', P, 4, TEF.protein)}${row('carbs', 'Carbs', C, 4, TEF.carbs)}${row('fat', 'Fat', F, 9, TEF.fat)}</div></div>`;
+}
 function workoutRowsHTML(p){
   const rows = p.workouts.map(w => {
     const def = WORKOUT_BY_KEY[w.type] || { e: '✨', n: 'Workout' };
@@ -4170,6 +4299,8 @@ function renderBurnCard(){
         <div class="bc-num">${(q.key === 'rest' ? '' : '+') + fmtN(q.value)}</div>
         ${editing ? '' : `<button class="bc-pen" data-bc="edit" data-k="${q.key}" type="button" aria-label="Edit ${info.label}">${PENCIL}</button>`}</div>`;
       if(q.key === 'workouts' && !editing) html += `<div class="bc-extra">${workoutRowsHTML(p)}</div>`;
+      if((q.key === 'watch' || q.key === 'active') && !editing && !q.edited) html += hkWorkoutsHTML(p, q);
+      if(q.key === 'digest' && !editing && !q.edited) html += digestRowsHTML(p);
     });
     html += `</div>`;
     html += `<button class="bc-info-btn" data-bc="info" type="button">${bcInfoOpen ? 'Hide how this works' : 'How this is calculated'}</button>`;
@@ -4442,6 +4573,360 @@ function weightSparkSVG(wMap, d, unit){
     ${pts.map(p => `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="1.8" fill="#4C8DFF"/>`).join('')}${sel}
     <text x="${pad}" y="${H - 1}" font-size="9.5" fill="#8B90A0" font-weight="600">30 days</text><text x="${W - pad}" y="${H - 1}" font-size="9.5" fill="#8B90A0" font-weight="600" text-anchor="end">${d === todayStr() ? 'Today' : dayLabel(d)}</text></svg>`;
 }
+// ---------- Weight section: trend, pace, goal weight ----------
+// Every number here comes from the daily weigh-ins (the average of a day's readings, in the person's
+// unit). The 7-day average is the number to trust; the pace is a straight line fitted through the
+// last 28 days of weigh-ins; an optional goal weight (Goals) turns the pace into a date.
+const WT_KG = 2.20462;
+const WT_RANGES = { '1m': 30, '3m': 91, '6m': 182, '1y': 365, all: null };
+let wtRange = null;
+try { const v = localStorage.getItem('wt-range'); if(v in WT_RANGES) wtRange = v; } catch(e){}
+function wtUnitFromLb(lb){ return weightUnit() === 'kg' ? lb / WT_KG : lb; }
+function wtLbFromUnit(v){ return weightUnit() === 'kg' ? v * WT_KG : v; }
+function wtAddDays(iso, n){ const d = parseISO(iso); d.setDate(d.getDate() + n); return toISO(d); }
+function wtDiff(a, b){ return Math.round((parseISO(a) - parseISO(b)) / 864e5); }
+function wtDate(iso, withYear){
+  const d = parseISO(iso), o = { month: 'short', day: 'numeric' };
+  if(withYear || d.getFullYear() !== new Date().getFullYear()) o.year = 'numeric';
+  return d.toLocaleDateString(undefined, o);
+}
+function wtFmt(v, dec = 1){ return v == null || isNaN(v) ? '—' : v.toFixed(dec); }
+function wtSigned(v, dec = 1){ if(v == null || isNaN(v)) return '—'; const r = +v.toFixed(dec); return (r > 0 ? '+' : r < 0 ? '−' : '±') + Math.abs(r).toFixed(dec); }
+// { 'YYYY-MM-DD': { v, first: 'HH:MM', n, src } }
+function wtDays(){
+  const unit = weightUnit(), all = allWeights(), b = {};
+  for(const ts in all){
+    const r = all[ts]; if(!r || typeof r.value !== 'number') continue;
+    let v = r.value; if(r.unit && r.unit !== unit) v = unit === 'kg' ? v / WT_KG : v * WT_KG;
+    const d = ts.slice(0, 10); (b[d] = b[d] || []).push({ t: ts.slice(11, 16), v, src: r.src });
+  }
+  const out = {};
+  Object.keys(b).forEach(d => { const a = b[d].sort((x, y) => x.t < y.t ? -1 : 1); out[d] = { v: a.reduce((s, x) => s + x.v, 0) / a.length, first: a[0].t, n: a.length, src: a[a.length - 1].src }; });
+  return out;
+}
+function wtAvg7(W, iso){ const v = []; for(let i = 0; i < 7; i++){ const k = wtAddDays(iso, -i); if(W[k]) v.push(W[k].v); } return v.length ? v.reduce((s, x) => s + x, 0) / v.length : null; }
+// per week, from a straight line through the weigh-ins of the `days` days up to `end`
+function wtPace(W, end, days){
+  const pts = []; for(let i = days - 1; i >= 0; i--){ const k = wtAddDays(end, -i); if(W[k]) pts.push([days - 1 - i, W[k].v]); }
+  if(pts.length < 5 || pts[pts.length - 1][0] - pts[0][0] < 10) return null;
+  const n = pts.length, mx = pts.reduce((s, p) => s + p[0], 0) / n, my = pts.reduce((s, p) => s + p[1], 0) / n;
+  let sxy = 0, sxx = 0; pts.forEach(([x, y]) => { sxy += (x - mx) * (y - my); sxx += (x - mx) * (x - mx); });
+  return sxx ? sxy / sxx * 7 : null;
+}
+function goalWeight(){ const g = userGoals.goalWeight; return g && typeof g.lb === 'number' && g.lb > 0 ? g : null; }
+// a week at or past the goal: the 7-day average on each of the last 7 days
+function goalHeldWeek(W, goal, wg){
+  const today = todayStr();
+  for(let i = 0; i < 7; i++){ const a = wtAvg7(W, wtAddDays(today, -i)); if(a == null) return false; if(wg === 'lose' ? a > goal + 0.05 : a < goal - 0.05) return false; }
+  return true;
+}
+// What the Weight section, Goals, Learning, Today and the recap say about the goal weight.
+function goalInfo(W){
+  const g = goalWeight(); if(!g) return null;
+  W = W || wtDays();
+  const today = todayStr(), wg = userGoals.weightGoal;
+  const goal = wtUnitFromLb(g.lb);
+  const ks = Object.keys(W).sort();
+  const now = wtAvg7(W, today) != null ? wtAvg7(W, today) : (ks.length ? W[ks[ks.length - 1]].v : (currentWeightLb() ? wtUnitFromLb(currentWeightLb()) : null));
+  if(now == null) return null;
+  const start = g.fromLb != null ? wtUnitFromLb(g.fromLb) : now;
+  const dir = wg === 'gain' ? 1 : -1;
+  const toGo = Math.max(0, dir * (goal - now));
+  const span = Math.abs(start - goal);
+  const pct = span > 0.05 ? Math.max(0, Math.min(1, dir * (now - start) / span)) : (toGo < 0.05 ? 1 : 0);
+  const pace = wtPace(W, today, 28);
+  const plan = wg === 'lose' ? -wtUnitFromLb(weightRate()) : wg === 'gain' ? wtUnitFromLb(weightRate()) : 0;
+  const eta = (r) => { if(!r || Math.sign(r) !== dir || toGo < 0.05) return null; const days = Math.ceil(toGo / Math.abs(r) * 7); return days > 730 ? 'far' : wtAddDays(today, days); };
+  const wrongWay = (wg === 'lose' && goal > start + 0.05) || (wg === 'gain' && goal < start - 0.05);
+  return { g, goal, now, start, toGo, pct, pace, plan, etaPace: eta(pace), etaPlan: eta(plan), wg, dir, wrongWay,
+    held: (wg === 'lose' || wg === 'gain') && !wrongWay && goalHeldWeek(W, goal, wg), unit: weightUnit(), since: g.setAt || null };
+}
+// "Jan 4", or a phrase when there's no date
+function goalWhen(iso){ return iso === 'far' ? 'more than two years away' : iso ? wtDate(iso) : null; }
+function goalWeeksApart(a, b){ if(!a || !b || a === 'far' || b === 'far') return null; return Math.round(wtDiff(b, a) / 7); }
+
+// ---- the main chart: daily weigh-ins as dots, the 7-day average as the line
+function wtChartRange(W){
+  const ks = Object.keys(W).sort(); const today = todayStr();
+  if(!ks.length) return null;
+  const first = ks[0], spanDays = wtDiff(today, first) + 1;
+  const avail = Object.keys(WT_RANGES).filter(k => k === 'all' || spanDays > (k === '1m' ? 0 : WT_RANGES[{ '3m': '1m', '6m': '3m', '1y': '6m' }[k]]));
+  let r = wtRange && avail.includes(wtRange) ? wtRange : (spanDays > 45 ? '3m' : '1m');
+  if(!avail.includes(r)) r = avail[0];
+  const n = WT_RANGES[r];
+  let start = n ? wtAddDays(today, -(n - 1)) : first;
+  if(start < first) start = first;
+  return { r, avail, start, end: today };
+}
+function wtNiceTicks(lo, hi){
+  const span = hi - lo, raw = span / 3, mag = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+  const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(s => s >= raw) || raw;
+  const out = []; for(let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(2));
+  return out;
+}
+function wtChartSVG(W, R, info, sel){
+  const days = []; for(let d = R.start; d <= R.end; d = wtAddDays(d, 1)) days.push(d);
+  const N = days.length;
+  const dots = days.map((d, i) => W[d] ? [i, W[d].v] : null).filter(Boolean);
+  const line = days.map((d, i) => { const a = wtAvg7(W, d); return a == null ? null : [i, a]; });
+  const vals = dots.map(p => p[1]).concat(line.filter(Boolean).map(p => p[1]));
+  if(vals.length < 1) return '';
+  let lo = Math.min(...vals), hi = Math.max(...vals);
+  const span0 = Math.max(hi - lo, weightUnit() === 'kg' ? 1 : 2);
+  let showGoal = false;
+  if(info && info.goal >= lo - span0 * 0.9 && info.goal <= hi + span0 * 0.9){ lo = Math.min(lo, info.goal); hi = Math.max(hi, info.goal); showGoal = true; }
+  const pad = Math.max((hi - lo) * 0.12, 0.4); lo -= pad; hi += pad;
+  const VW = 340, VH = 176, L = 34, Rr = 10, T = 10, B = 22;
+  const x = i => L + (N <= 1 ? (VW - L - Rr) / 2 : i / (N - 1) * (VW - L - Rr));
+  const y = v => T + (hi - v) / (hi - lo) * (VH - T - B);
+  let g = `<defs><linearGradient id="wtg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4C8DFF" stop-opacity=".30"/><stop offset="1" stop-color="#4C8DFF" stop-opacity="0"/></linearGradient></defs>`;
+  wtNiceTicks(lo, hi).forEach(v => { g += `<line x1="${L}" x2="${VW - Rr}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="rgba(244,245,250,.07)"/><text x="${L - 6}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" font-weight="600" fill="#6E7385">${Number.isInteger(v) ? v : v.toFixed(1)}</text>`; });
+  if(showGoal){
+    const gy = y(info.goal).toFixed(1);
+    g += `<line x1="${L}" x2="${VW - Rr}" y1="${gy}" y2="${gy}" stroke="#4ADE80" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+      <rect x="${VW - Rr - 58}" y="${(+gy - 17).toFixed(1)}" width="58" height="14" rx="7" fill="rgba(74,222,128,.16)"/><text x="${VW - Rr - 29}" y="${(+gy - 7).toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#4ADE80">Goal ${wtFmt(info.goal, info.goal % 1 ? 1 : 0)}</text>`;
+  }
+  // the 7-day line, broken where there's no data
+  const segs = []; let cur = [];
+  line.forEach(p => { if(p) cur.push(p); else if(cur.length){ segs.push(cur); cur = []; } }); if(cur.length) segs.push(cur);
+  segs.forEach(s => {
+    const d = s.map((p, k) => (k ? 'L' : 'M') + x(p[0]).toFixed(1) + ' ' + y(p[1]).toFixed(1)).join(' ');
+    if(s.length > 1) g += `<path d="${d} L${x(s[s.length - 1][0]).toFixed(1)} ${VH - B} L${x(s[0][0]).toFixed(1)} ${VH - B} Z" fill="url(#wtg)"/>`;
+    g += `<path d="${d}" fill="none" stroke="#4C8DFF" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>`;
+  });
+  const r = N > 200 ? 1.4 : N > 100 ? 1.8 : 2.4;
+  dots.forEach(p => { g += `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="${r}" fill="#9CC0FF" fill-opacity=".55"/>`; });
+  const si = sel ? days.indexOf(sel) : -1;
+  const li = si >= 0 && line[si] ? si : (() => { for(let i = N - 1; i >= 0; i--) if(line[i]) return i; return -1; })();
+  if(li >= 0) g += `<circle cx="${x(li).toFixed(1)}" cy="${y(line[li][1]).toFixed(1)}" r="4.6" fill="#0E1014" stroke="#4C8DFF" stroke-width="2.6"/>`;
+  // dates along the bottom
+  const marks = N <= 1 ? [0] : [0, Math.round((N - 1) / 3), Math.round((N - 1) * 2 / 3), N - 1];
+  marks.forEach((i, k) => { const anchor = k === 0 ? 'start' : k === marks.length - 1 ? 'end' : 'middle'; g += `<text x="${x(i).toFixed(1)}" y="${VH - 6}" text-anchor="${anchor}" font-size="9.5" font-weight="600" fill="#8B90A0">${i === N - 1 && days[i] === todayStr() ? 'Today' : wtDate(days[i])}</text>`; });
+  g += `<g class="wt-guide" style="display:none"><line y1="${T}" y2="${VH - B}" stroke="rgba(244,245,250,.45)" stroke-width="1"/><circle r="5" fill="#4C8DFF" stroke="#0E1014" stroke-width="2"/></g>`;
+  wtGeom = { days, x, y, L, Rr, VW, line, W, showGoal };
+  return `<svg class="wt-svg" viewBox="0 0 ${VW} ${VH}" role="img" aria-label="Weight, ${wtDate(R.start)} to ${wtDate(R.end)}: daily weigh-ins and the 7-day average">${g}</svg>`;
+}
+let wtGeom = null;
+function wtReadDefault(W, info){
+  const u = weightUnit();
+  let right = '';
+  if(info && info.goal != null){
+    right = wtGeom && wtGeom.showGoal ? '<span class="wt-legend"><i class="gl"></i>Goal</span>'
+      : `<span class="wt-goal-off">Goal ${wtFmt(info.goal, info.goal % 1 ? 1 : 0)} · ${wtFmt(Math.abs(info.now - info.goal))} ${u} ${info.goal < info.now ? 'below ↓' : 'above ↑'}</span>`;
+  }
+  return `<span class="wt-legend"><i class="dot"></i>Weigh-ins <i></i>7-day avg</span>${right}`;
+}
+function wtScrub(svg, clientX){
+  const G = wtGeom; if(!G) return;
+  const r = svg.getBoundingClientRect();
+  const vx = (clientX - r.left) / r.width * G.VW;
+  const N = G.days.length; let i = N <= 1 ? 0 : Math.round((vx - G.L) / (G.VW - G.L - G.Rr) * (N - 1));
+  i = Math.max(0, Math.min(N - 1, i));
+  // snap to the nearest day with a 7-day average
+  let j = i; for(let k = 0; k < N; k++){ if(G.line[i - k]){ j = i - k; break; } if(G.line[i + k]){ j = i + k; break; } }
+  if(!G.line[j]) return;
+  const d = G.days[j], a = G.line[j][1], w = G.W[d];
+  const guide = svg.querySelector('.wt-guide'); guide.style.display = '';
+  guide.querySelector('line').setAttribute('x1', G.x(j)); guide.querySelector('line').setAttribute('x2', G.x(j));
+  guide.querySelector('circle').setAttribute('cx', G.x(j)); guide.querySelector('circle').setAttribute('cy', G.y(a));
+  const u = weightUnit();
+  svg.closest('.wt-chartbox').querySelector('.wt-read').innerHTML = `<span>${parseISO(d).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</span><span>${w ? `Weighed <b>${wtFmt(w.v)}</b> · ` : 'No weigh-in · '}7-day <b>${wtFmt(a)}</b> ${u}</span>`;
+}
+function wtScrubEnd(svg){
+  const box = svg.closest('.wt-chartbox'); if(!box) return;
+  const g = svg.querySelector('.wt-guide'); if(g) g.style.display = 'none';
+  box.querySelector('.wt-read').innerHTML = wtReadDefault(null, goalInfo());
+}
+document.addEventListener('pointerdown', (ev) => { const s = ev.target.closest('.wt-svg'); if(!s) return; s._scrub = true; wtScrub(s, ev.clientX); });
+document.addEventListener('pointermove', (ev) => { const s = ev.target.closest('.wt-svg'); if(s && (s._scrub || ev.pointerType === 'mouse')) wtScrub(s, ev.clientX); });
+['pointerup', 'pointercancel'].forEach(t => document.addEventListener(t, () => { document.querySelectorAll('.wt-svg').forEach(s => { if(s._scrub){ s._scrub = false; setTimeout(() => wtScrubEnd(s), 1400); } }); }));
+document.addEventListener('pointerout', (ev) => { const s = ev.target.closest && ev.target.closest('.wt-svg'); if(s && ev.pointerType === 'mouse' && !s.contains(ev.relatedTarget)) wtScrubEnd(s); });
+document.addEventListener('click', (ev) => {
+  const b = ev.target.closest('[data-wt-range]'); if(b){ haptic(); wtRange = b.dataset.wtRange; try { localStorage.setItem('wt-range', wtRange); } catch(e){} renderWeightCard(); return; }
+  const gq = ev.target.closest('[data-wt-goal]'); if(gq){ haptic(); openGoalsAt('goalWeightGroup'); }
+});
+
+// ---- the goal's own chart: where you started, the plan's line, your pace, the goal
+function wtPathSVG(W, info){
+  const today = todayStr();
+  const from = info.since && info.since < today ? info.since : wtAddDays(today, -28);
+  const ends = [info.etaPace, info.etaPlan].filter(d => d && d !== 'far');
+  let to = ends.length ? ends.sort()[ends.length - 1] : wtAddDays(today, 56);
+  if(wtDiff(to, today) < 14) to = wtAddDays(today, 14);
+  const N = wtDiff(to, from);
+  const VW = 340, VH = 118, L = 8, Rr = 8, T = 14, B = 20;
+  const lo = Math.min(info.goal, info.start, info.now) - 0.6, hi = Math.max(info.goal, info.start, info.now) + 0.6;
+  const x = d => L + wtDiff(d, from) / N * (VW - L - Rr);
+  const y = v => T + (hi - v) / (hi - lo) * (VH - T - B);
+  let g = '';
+  const gy = y(info.goal).toFixed(1);
+  g += `<line x1="${L}" x2="${VW - Rr}" y1="${gy}" y2="${gy}" stroke="#4ADE80" stroke-opacity=".6" stroke-dasharray="4 4"/>`;
+  // plan: a straight line from where you started at the plan's pace
+  if(info.plan){ const pe = info.etaPlan && info.etaPlan !== 'far' ? info.etaPlan : to; const pv = Math.max(Math.min(info.start + info.plan * wtDiff(pe, from) / 7, hi), lo);
+    g += `<line x1="${x(from).toFixed(1)}" y1="${y(info.start).toFixed(1)}" x2="${x(pe).toFixed(1)}" y2="${y(info.dir < 0 ? Math.max(pv, info.goal) : Math.min(pv, info.goal)).toFixed(1)}" stroke="rgba(244,245,250,.38)" stroke-width="1.4" stroke-dasharray="2 4"/>`; }
+  // you so far: the 7-day average since the start
+  const pts = []; for(let d = from; d <= today; d = wtAddDays(d, 1)){ const a = wtAvg7(W, d); if(a != null) pts.push([x(d), y(a)]); }
+  if(pts.length > 1) g += `<path d="${pts.map((p, k) => (k ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ')}" fill="none" stroke="#4C8DFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+  // your pace from here
+  if(info.etaPace && info.etaPace !== 'far') g += `<line x1="${x(today).toFixed(1)}" y1="${y(info.now).toFixed(1)}" x2="${x(info.etaPace).toFixed(1)}" y2="${gy}" stroke="#4C8DFF" stroke-width="2.2" stroke-dasharray="1 5" stroke-linecap="round"/>
+    <circle cx="${x(info.etaPace).toFixed(1)}" cy="${gy}" r="5" fill="#4ADE80" stroke="#0E1014" stroke-width="2"/>`;
+  g += `<circle cx="${x(today).toFixed(1)}" cy="${y(info.now).toFixed(1)}" r="4.4" fill="#0E1014" stroke="#4C8DFF" stroke-width="2.4"/>`;
+  g += `<text x="${L}" y="${VH - 5}" font-size="9.5" font-weight="600" fill="#8B90A0">${wtDate(from)}</text><text x="${x(today).toFixed(1)}" y="${VH - 5}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#8DB6FF">Today</text><text x="${VW - Rr}" y="${VH - 5}" text-anchor="end" font-size="9.5" font-weight="600" fill="#8B90A0">${wtDate(to)}</text>`;
+  return `<svg class="wt-path" viewBox="0 0 ${VW} ${VH}" role="img" aria-label="Path to your goal weight">${g}</svg>`;
+}
+
+// the goal card in the Weight section
+function wtGoalCardHTML(W, info){
+  const u = weightUnit(), wg = userGoals.weightGoal;
+  if(!info){
+    if(wg !== 'lose' && wg !== 'gain') return '';
+    return `<button type="button" class="wt-card wt-cta" data-wt-goal><span class="wt-cta-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></span><span><b>Set a goal weight</b><small>Optional. Fera shows when you'll get there at your real pace.</small></span><i aria-hidden="true">›</i></button>`;
+  }
+  if(wg === 'maintain' || info.wrongWay){
+    const off = info.now - info.goal;
+    return `<div class="wt-card"><div class="wt-h"><span>${wg === 'maintain' ? 'Holding at' : 'Goal'} · ${wtFmt(info.goal, info.goal % 1 ? 1 : 0)} ${u}</span><b>${wtSigned(off)}<small>${u}</small></b></div>
+      <p class="wt-p">${wg === 'maintain' ? `Your 7-day average is <b>${wtFmt(info.now)} ${u}</b>${info.g.reached ? `. You reached your goal on ${wtDate(info.g.reached)}` : ''}. Staying within about ${u === 'kg' ? '1 kg' : '2 lb'} either way is normal day-to-day water and food.` : `Your goal is ${info.goal > info.now ? 'above' : 'below'} your current weight while your plan is to ${wg}. <button type="button" class="bc-link" data-wt-goal>Change it in Goals</button>`}</p></div>`;
+  }
+  const lost = Math.abs(info.now - info.start), pct = Math.round(info.pct * 100);
+  const wp = goalWhen(info.etaPace), wl = goalWhen(info.etaPlan), apart = goalWeeksApart(info.etaPace, info.etaPlan);
+  const ahead = apart != null && Math.abs(apart) >= 1 ? `<em class="${apart > 0 ? 'ok' : 'warn'}">${Math.abs(apart)} week${Math.abs(apart) === 1 ? '' : 's'} ${apart > 0 ? 'ahead of' : 'behind'} plan</em>` : apart != null ? '<em class="ok">right on plan</em>' : '';
+  let line;
+  if(info.toGo < 0.05) line = `You're at your goal. Hold it for a week and Fera will offer to switch you to Maintain.`;
+  else if(wp) line = `At your pace, <b>${wtSigned(info.pace)} ${u} a week</b>, you'll get there around <b>${wp}</b>. ${ahead}`;
+  else if(info.pace != null) line = `Your weight is ${info.pace * info.dir < 0 ? `moving away from your goal (${wtSigned(info.pace)} ${u} a week)` : 'holding steady'} over the last 4 weeks. At your plan's pace you'd get there around <b>${wl}</b>.`;
+  else line = `Fera needs a couple of weeks of weigh-ins to show your pace. At your plan's pace, around <b>${wl}</b>.`;
+  return `<div class="wt-card">
+    <div class="wt-h"><span>Goal · ${wtFmt(info.goal, info.goal % 1 ? 1 : 0)} ${u}</span><b>${wtFmt(info.toGo)}<small>${u} to go</small></b></div>
+    <div class="wt-bar"><i style="width:${Math.max(3, pct)}%"></i></div>
+    <div class="wt-ends"><span>Start <b>${wtFmt(info.start)}</b>${info.since ? ` · ${wtDate(info.since)}` : ''}</span><span><b>${wtFmt(lost)} ${u}</b> ${info.dir < 0 ? 'down' : 'up'} · ${pct}%</span></div>
+    ${wtPathSVG(W, info)}
+    <div class="wt-keys"><span><i class="me"></i>You</span><span><i class="pace"></i>Your pace</span><span><i class="plan"></i>Plan${wl ? ` · ${wl}` : ''}</span></div>
+    <p class="wt-p">${line}</p></div>`;
+}
+// pace: measured over 4 weeks, against the plan and a sensible range
+function wtPaceCardHTML(W){
+  const today = todayStr(), u = weightUnit(), wg = userGoals.weightGoal;
+  const pace = wtPace(W, today, 28); if(pace == null) return '';
+  const now = wtAvg7(W, today) || 0;
+  const pctBw = now ? Math.abs(pace) / now * 100 : null;
+  const plan = wg === 'lose' ? -wtUnitFromLb(weightRate()) : wg === 'gain' ? wtUnitFromLb(weightRate()) : 0;
+  const kcal = Math.round(wtLbFromUnit(pace) * 500 / 10) * 10; // ~3,500 kcal per lb, per day
+  let badge = '', note = '';
+  if(wg === 'lose'){
+    if(pace >= 0) { badge = '<span class="wt-badge warn">Not losing</span>'; note = `Over the last 4 weeks your weight ${pace > 0.05 ? 'went up' : 'held steady'}. If your logging is complete, the weekly update will lower your target.`; }
+    else if(pctBw > 1) { badge = '<span class="wt-badge warn">Faster than 1% a week</span>'; note = `Losing more than 1% of your body weight a week makes it harder to keep muscle. Keep protein up, or eat a little more.`; }
+    else { const diff = -pace - -plan; badge = Math.abs(diff) < 0.15 * Math.abs(plan) ? '<span class="wt-badge ok">On plan</span>' : diff > 0 ? '<span class="wt-badge ok">Ahead of plan</span>' : '<span class="wt-badge mid">Behind plan</span>';
+      note = `Most guidance puts a sustainable loss at 0.5 to 1% of body weight a week: ${wtFmt(now * 0.005)} to ${wtFmt(now * 0.01)} ${u} for you.`; }
+  } else if(wg === 'gain'){
+    badge = pace > 0 ? (pctBw > 0.5 ? '<span class="wt-badge warn">Fast gain</span>' : '<span class="wt-badge ok">Gaining</span>') : '<span class="wt-badge mid">Not gaining</span>';
+    note = `For gaining mostly muscle, research suggests about 0.25 to 0.5% of body weight a week: ${wtFmt(now * 0.0025)} to ${wtFmt(now * 0.005)} ${u} for you.`;
+  } else {
+    badge = Math.abs(pace) < (u === 'kg' ? 0.15 : 0.3) ? '<span class="wt-badge ok">Steady</span>' : `<span class="wt-badge mid">${pace > 0 ? 'Drifting up' : 'Drifting down'}</span>`;
+    note = 'When maintaining, a drift of more than a few tenths a week is worth a look at the weekly average burn.';
+  }
+  return `<div class="wt-card"><div class="wt-h"><span>Your pace · last 4 weeks</span>${badge}</div>
+    <div class="wt-pace"><div class="v">${wtSigned(pace)}<small> ${u} a week</small></div>
+      <div class="wt-pace-r">${plan ? `<span>Plan <b>${wtSigned(plan)}</b></span>` : ''}${pctBw != null ? `<span><b>${pctBw.toFixed(1)}%</b> of body weight</span>` : ''}</div></div>
+    <p class="wt-p">${Math.abs(kcal) >= 50 ? `That's about <b>${fmtN(Math.abs(kcal))} kcal a day</b> ${kcal < 0 ? 'below' : 'above'} what you burn, judging by the scale. ` : ''}${note}</p></div>`;
+}
+// week by week: the average of each week's weigh-ins
+function wtWeeksHTML(W){
+  const today = todayStr(), mon = weekStartISO(today), u = weightUnit();
+  const weeks = [];
+  for(let k = 5; k >= 0; k--){
+    const a = wtAddDays(mon, -7 * k), b = wtAddDays(a, 6);
+    const v = []; for(let d = a; d <= b; d = wtAddDays(d, 1)) if(W[d]) v.push(W[d].v);
+    weeks.push({ a, avg: v.length ? v.reduce((s, x) => s + x, 0) / v.length : null, n: v.length, now: k === 0 });
+  }
+  const have = weeks.filter(w => w.avg != null); if(have.length < 2) return '';
+  const lo = Math.min(...have.map(w => w.avg)), hi = Math.max(...have.map(w => w.avg)), sp = (hi - lo) || 1;
+  const good = (d) => d == null || Math.abs(d) < 0.05 ? '' : (userGoals.weightGoal === 'lose' ? d < 0 : userGoals.weightGoal === 'gain' ? d > 0 : Math.abs(d) < 0.3) ? 'good' : 'bad';
+  const cols = weeks.map((w, i) => {
+    if(w.avg == null) return `<div class="wt-wk empty"><b>—</b><i style="height:6%"></i><span>${wtDate(w.a)}</span></div>`;
+    const prev = weeks.slice(0, i).reverse().find(x => x.avg != null);
+    const d = prev ? w.avg - prev.avg : null;
+    return `<div class="wt-wk${w.now ? ' now' : ''}"><small class="${good(d)}">${d == null ? '' : wtSigned(d)}</small><b>${wtFmt(w.avg)}</b><i style="height:${(28 + (w.avg - lo) / sp * 62).toFixed(0)}%"></i><span>${w.now ? 'This wk' : wtDate(w.a)}</span></div>`;
+  }).join('');
+  return `<div class="wt-card"><div class="wt-h"><span>Week by week · average ${u}</span><b class="wt-hint">vs. week before</b></div><div class="wt-weeks">${cols}</div></div>`;
+}
+// small facts that help read the scale
+function wtTilesHTML(W){
+  const today = todayStr(), u = weightUnit();
+  const last30 = []; for(let i = 0; i < 30; i++){ const d = wtAddDays(today, -i); if(W[d]) last30.push(d); }
+  if(last30.length < 4) return '';
+  const dev = last30.map(d => { const a = wtAvg7(W, d); return a == null ? null : Math.abs(W[d].v - a); }).filter(v => v != null);
+  const noise = dev.length ? dev.reduce((s, x) => s + x, 0) / dev.length : null;
+  let n14 = 0; for(let i = 0; i < 14; i++) if(W[wtAddDays(today, -i)]) n14++;
+  const low = last30.reduce((m, d) => (!m || W[d].v < W[m].v) ? d : m, null);
+  const times = last30.map(d => W[d].first).filter(t => /^\d{2}:\d{2}$/.test(t)).sort();
+  const med = times.length ? times[Math.floor(times.length / 2)] : null;
+  const spread = times.length > 2 ? (() => { const m = t => +t.slice(0, 2) * 60 + +t.slice(3); const ms = times.map(m); const md = m(med); return Math.round(ms.reduce((s, x) => s + Math.abs(x - md), 0) / ms.length); })() : null;
+  const tile = (k, v, s, cls) => `<div class="wt-tile ${cls || ''}"><span>${k}</span><b>${v}</b><small>${s}</small></div>`;
+  return `<div class="wt-tiles">
+    ${tile('Scale noise', noise != null ? `±${wtFmt(noise)}<i> ${u}</i>` : '—', 'How far a single weigh-in strays from your 7-day average. Trust the average.')}
+    ${tile('Weigh-ins', `${n14}<i> of 14 days</i>`, n14 >= 8 ? 'Plenty for a steady average.' : 'Three or more a week keeps the average honest.', n14 >= 8 ? 'ok' : '')}
+    ${tile('Lowest · 30 days', `${wtFmt(W[low].v)}<i> ${u}</i>`, wtDate(low))}
+    ${tile('Usual time', med ? fmtClock(med) : '—', spread != null ? (spread <= 45 ? 'Consistent. Same time, same conditions, steadier numbers.' : `Varies by about ${Math.round(spread / 60 * 10) / 10} h. Weigh at the same time for steadier numbers.`) : '')}
+  </div>`;
+}
+// Goals: the goal weight field and what it would mean
+function renderGoalWeightGroup(){
+  const grp = document.getElementById('goalWeightGroup'); if(!grp) return;
+  const wg = userGoals.weightGoal, u = weightUnit();
+  grp.style.display = wg === 'lose' || wg === 'gain' ? '' : 'none';
+  document.getElementById('goalWeightUnit').textContent = u;
+  const inp = document.getElementById('goalWeightInput');
+  const g = goalWeight();
+  if(document.activeElement !== inp) inp.value = g ? (+wtUnitFromLb(g.lb).toFixed(1)).toString() : '';
+  document.getElementById('goalWeightClear').hidden = !g;
+  const proj = document.getElementById('goalWeightProj');
+  const info = goalInfo();
+  if(!info){ proj.innerHTML = `Optional. Your pace sets your daily targets; a goal weight adds the finish line, a date, and an offer to switch to Maintain when you get there.`; return; }
+  if(info.wrongWay || info.toGo < 0.05){
+    proj.innerHTML = info.wrongWay ? `That's ${info.goal > info.now ? 'above' : 'below'} your 7-day average of ${wtFmt(info.now)} ${u}. Pick a ${wg === 'lose' ? 'lower' : 'higher'} weight, or change your goal above.` : (info.held ? `You've been at or past it for a week: you reached your goal. Pick a new one, or switch to Maintain above.` : `You're already there. Fera will offer Maintain once you've held it for a week.`);
+    return;
+  }
+  const wl = goalWhen(info.etaPlan), wp = goalWhen(info.etaPace);
+  proj.innerHTML = `<b>${wtFmt(info.toGo)} ${u} to go</b> from your 7-day average of ${wtFmt(info.now)}. At ${weightRate()} lb a week you'd get there around <b>${wl || '—'}</b>${wp && info.etaPace !== info.etaPlan ? `; at your measured pace, <b>${wp}</b>` : ''}.<br>Your pace sets your daily targets; the goal weight is the finish line. When you reach it, Fera offers to switch you to Maintain.`;
+}
+function setGoalWeightFromInput(){
+  const inp = document.getElementById('goalWeightInput');
+  const v = parseFloat(inp.value);
+  const old = goalWeight();
+  if(isNaN(v) || v <= 0){ delete userGoals.goalWeight; }
+  else {
+    const lb = Math.round(wtLbFromUnit(v) * 10) / 10;
+    const W = wtDays(); const now = wtAvg7(W, todayStr());
+    userGoals.goalWeight = Object.assign({}, old || {}, { lb, setAt: old && old.setAt ? old.setAt : todayStr(), fromLb: old && old.fromLb != null ? old.fromLb : Math.round(wtLbFromUnit(now != null ? now : wtUnitFromLb(currentWeightLb() || lb)) * 10) / 10 });
+    delete userGoals.goalWeight.reached; delete userGoals.goalWeight.nudgeOff;
+  }
+  renderGoalWeightGroup();
+}
+function openGoalsAt(id){
+  document.getElementById('openGoalsBtn').click();
+  setTimeout(() => { const el = document.getElementById(id); if(el){ el.scrollIntoView({ block: 'center' }); const i = el.querySelector('input'); if(i) i.focus(); } }, 120);
+}
+// Today: a week at the goal → offer Maintain
+function renderGoalNudge(){
+  const el = document.getElementById('goalNudge'); if(!el) return;
+  const info = goalInfo();
+  const show = info && info.held && !(info.g.nudgeOff === info.g.lb);
+  el.hidden = !show; if(!show){ el.innerHTML = ''; return; }
+  const u = weightUnit(), t = computeTargets();
+  el.innerHTML = `<div class="gn-t"><span class="gn-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+    <span><b>You reached ${wtFmt(info.goal, info.goal % 1 ? 1 : 0)} ${u}</b><small>Your 7-day average has been ${info.wg === 'lose' ? 'at or under' : 'at or over'} your goal for a week. Switch to Maintain? Your daily target becomes your burn${t ? `, about ${fmtN(Math.round(t.tdee / 10) * 10)} kcal` : ''}, and Fera keeps learning.</small></span></div>
+    <div class="gn-acts"><button type="button" class="gn-go" data-gn="maintain">Maintain</button><button type="button" class="gn-no" data-gn="new">Set a new goal</button></div>`;
+}
+document.addEventListener('click', async (ev) => {
+  const b = ev.target.closest('[data-gn]'); if(!b) return;
+  haptic();
+  if(b.dataset.gn === 'maintain'){
+    userGoals.weightGoal = 'maintain';
+    userGoals.goalWeight = Object.assign({}, userGoals.goalWeight, { reached: todayStr() });
+    await persistGoals(); renderAll(); if(window.toast) toast('Switched to Maintain');
+  } else { openGoalsAt('goalWeightGroup'); }
+});
+
 function renderWeightCard(){
   const valEl = document.getElementById('weightSummaryVal');
   if(!valEl) return;
@@ -4465,27 +4950,35 @@ function renderWeightCard(){
   const all = allWeights();
   const dayKeys = Object.keys(all).filter(ts => ts.slice(0,10) === d).sort();
   const isToday = d === todayStr();
-  // top: the day's weight, where it came from, and how it's moving
-  const prev7 = (() => { const dt = parseISO(d); dt.setDate(dt.getDate() - 7); return trailingAvg(iso => wMap[iso] ? wMap[iso].avg : null, 7, 1, toISO(dt)); })();
-  const d30 = (() => { const dt = parseISO(d); dt.setDate(dt.getDate() - 30); const base = trailingAvg(iso => wMap[iso] ? wMap[iso].avg : null, 7, 1, toISO(dt)); return avg7 != null && base != null ? Math.round((avg7 - base) * 10) / 10 : null; })();
-  const wk = avg7 != null && prev7 != null ? Math.round((avg7 - prev7) * 10) / 10 : null;
-  const goal = userGoals && userGoals.weightGoal;
-  const chCls = v => v == null || v === 0 || !goal || goal === 'maintain' ? '' : ((goal === 'lose' ? v < 0 : v > 0) ? 'good' : 'bad');
-  const sgn = v => v == null ? '—' : (v > 0 ? '+' : v < 0 ? '−' : '±') + Math.abs(v).toFixed(1);
+  // top: the 7-day average, the day's weigh-in and how it's moving; then the chart
+  const W = wtDays(), info = goalInfo(W), R = wtChartRange(W);
   const last = dayKeys.length ? all[dayKeys[dayKeys.length - 1]] : null;
   const lastTs = dayKeys.length ? dayKeys[dayKeys.length - 1] : null;
-  let src;
-  if(!last) src = `No weigh-in ${isToday ? 'yet today' : 'this day'}`;
-  else if(last.src === 'apple') src = `${AH_ICON}Apple Health · ${fmtClock(lastTs.slice(11, 16))}`;
-  else src = `Logged by you · ${fmtClock(lastTs.slice(11, 16))}`;
-  document.getElementById('weightTop').innerHTML = `<div class="bc-top">
-      <div class="bc-top-l"><div class="bc-when">${isToday ? 'Today' : escapeHtml(dayLabel(d))}</div><div class="bc-src">${src}</div></div>
-      <div class="bc-total">${dayW != null ? dayW.toFixed(1) : '—'}<small>${unit}</small></div></div>
-    <div class="wc-stats">
-      <div><span>7-day average</span><b>${avg7 != null ? avg7.toFixed(1) : '—'}</b></div>
-      <div><span>Week change</span><b class="${chCls(wk)}">${sgn(wk)}</b></div>
-      <div><span>30-day change</span><b class="${chCls(d30)}">${sgn(d30)}</b></div>
-    </div>${weightSparkSVG(wMap, d, unit)}`;
+  const a7 = wtAvg7(W, d);
+  const goal = userGoals && userGoals.weightGoal;
+  const chCls = v => v == null || Math.abs(v) < 0.05 || !goal || goal === 'maintain' ? '' : ((goal === 'lose' ? v < 0 : v > 0) ? 'good' : 'bad');
+  const ch = (k, v) => `<span class="wt-chip">${k}<b class="${chCls(v)}">${wtSigned(v)}</b></span>`;
+  const firstDay = Object.keys(W).sort()[0];
+  const a7ago = n => wtAvg7(W, wtAddDays(d, -n));
+  const startAvg = firstDay ? wtAvg7(W, wtAddDays(firstDay, 6)) : null;
+  let top;
+  if(!R){
+    top = `<div class="wt-empty">No weigh-ins yet. Add one below${weightFromHealth() ? '' : ', import a CSV from your scale,'} or connect Apple Health to bring in your smart scale.</div>`;
+  } else {
+    const dayBox = last
+      ? `<div class="wt-day"><span>${isToday ? 'Today' : escapeHtml(dayLabel(d))}</span><b>${(+dayW).toFixed(1)}<small>${unit}</small></b><span>${last.src === 'apple' ? AH_ICON + 'Apple Health' : 'You'} · ${fmtClock(lastTs.slice(11, 16))}</span></div>`
+      : `<div class="wt-day none"><span>${isToday ? 'Today' : escapeHtml(dayLabel(d))}</span><b>No weigh-in</b><span>${isToday ? 'Add one below' : ''}</span></div>`;
+    const chips = [a7 != null && a7ago(7) != null ? ch('This week', a7 - a7ago(7)) : '', a7 != null && a7ago(30) != null ? ch('30 days', a7 - a7ago(30)) : '',
+      a7 != null && startAvg != null && wtDiff(d, firstDay) > 13 ? ch('Since ' + wtDate(firstDay), a7 - startAvg) : ''].join('');
+    const chartSvg = wtChartSVG(W, R, info, d);
+    const ranges = R.avail.length > 1 ? `<div class="wt-ranges" role="tablist">${R.avail.map(k => `<button type="button" data-wt-range="${k}" class="${k === R.r ? 'on' : ''}" role="tab" aria-selected="${k === R.r}">${{ '1m': '1M', '3m': '3M', '6m': '6M', '1y': '1Y', all: 'All' }[k]}</button>`).join('')}</div>` : '';
+    top = `<div class="wt-hero"><div><div class="wt-k">7-day average${isToday ? '' : ' · ' + escapeHtml(dayLabel(d))}</div><div class="wt-big">${wtFmt(a7)}<small>${unit}</small></div></div>${dayBox}</div>
+      ${chips ? `<div class="wt-chips">${chips}</div>` : ''}
+      <div class="wt-chartbox">${ranges}<div class="wt-read">@@READ@@</div>${chartSvg}</div>`.replace('@@READ@@', wtReadDefault(W, info));
+  }
+  document.getElementById('weightTop').innerHTML = top;
+  const more = document.getElementById('weightMore');
+  if(more) more.innerHTML = R ? wtGoalCardHTML(W, info) + wtPaceCardHTML(W) + wtWeeksHTML(W) + wtTilesHTML(W) : '';
   document.getElementById('weightUnitLbl').textContent = unit;
   document.getElementById('weightListDay').textContent = isToday ? 'today' : dayLabel(d);
   const hn = document.getElementById('weightHealthNote');
@@ -4743,6 +5236,33 @@ function macroSplit(cal, proteinG, fatFixed){
   }
   return { fat: Math.round(fat), carbs: Math.max(0, Math.round(carbs)), fatPct: Math.round(fat * 9 / cal * 100), floorHit };
 }
+// Goals → activity level. Before Fera has measured your burn it's the starting estimate; after the
+// first weekly update the measured burn replaces it, and the level only matters if learning is off.
+let agOpen = false;
+function renderActivityGroup(){
+  const box = document.getElementById('agMeasured'); if(!box) return;
+  const note = document.getElementById('agNote'), title = document.getElementById('activityTitle'), row = document.getElementById('activityGoalRow');
+  const t = computeTargets(), L = bmrLearnState(), C = calState();
+  const learned = calTdee() != null && t;
+  const lvl = ACTIVITY_LABELS[userGoals.activity] || '';
+  const est = t ? Math.round(t.bmr * (ACTIVITY_MULTIPLIERS[userGoals.activity] || 1.2) / 10) * 10 : null;
+  if(learned){
+    title.textContent = 'Your daily burn';
+    box.hidden = false;
+    box.innerHTML = `<div class="ag-num"><b>${fmtN(t.tdee)}</b><span>kcal a day</span><span class="ag-tag">Measured</span></div>
+      <p>What you actually burn on an average day, from your last 4 weeks. Fera updates it every Monday${C.at ? ` (last on ${blDate(C.at)})` : ''}. It replaced the starting estimate from your activity level${est && lvl ? `: ${lvl}, ${fmtN(est)}` : ''}.</p>
+      <button type="button" class="bc-link" data-ag-toggle>${agOpen ? 'Hide the starting estimate' : 'Change the starting estimate'}</button>`;
+    note.hidden = !agOpen; row.style.display = agOpen ? '' : 'none';
+    note.textContent = 'Only used if you turn learning off.';
+  } else {
+    title.textContent = 'Activity level';
+    box.hidden = true; note.hidden = false; row.style.display = '';
+    const c = L && typeof calibrate === 'function' ? calibrate() : null;
+    note.textContent = L
+      ? `Your starting point. Fera estimates your burn from it until it has two weeks of your days${c ? ` (${Math.min(c.days, c.need)} of ${c.need} so far)` : ''}, then measures it instead.`
+      : 'Fera estimates your daily burn from it. Turn on learning (menu → Learning) to measure it from your own days instead.';
+  }
+}
 function computeTargets(){
   const hasProfile = userProfile.dob && userProfile.heightIn && (currentWeightLb() != null);
   const hasGoals = userGoals.weightGoal && userGoals.activity && userGoals.muscleGoal;
@@ -4859,13 +5379,15 @@ function targetsMethodologyHTML(t){
   }
   return `
     <p><b>BMR</b> ${t.bmr} kcal/day — Mifflin-St Jeor equation, from your weight (${t.weightLb} lb), height, age (${t.age}) and sex${t.bmrAdj ? ` (${t.bmrEst}), ${t.bmrAdj > 0 ? 'plus' : 'minus'} ${Math.abs(t.bmrAdj)} kcal Fera learned from how your weight actually moved against your logs over the last 28 days` : ''}.${bmrLearnState() && !t.bmrAdj ? ' Learning your own resting burn is on — it takes over once there’s about a month of complete logs and weigh-ins.' : ''}</p>
-    <p><b>TDEE</b> ${t.tdee} kcal/day — BMR × ${t.activityMult} activity multiplier (${ACTIVITY_LABELS[userGoals.activity]}).</p>
+    ${calTdee() != null
+      ? `<p><b>Daily burn (TDEE)</b> ${fmtN(t.tdee)} kcal/day — <b>measured</b>, not estimated: the average of what you actually burned each day over your last 4 weeks (resting + steps + workouts + digestion, with your learned resting burn). Fera updates it every Monday, by at most ${CAL_STEP_MAX} kcal at a time${calState().at ? `; last on ${blDate(calState().at)}` : ''}. Before that, it was estimated from your activity level: BMR × ${t.activityMult} (${ACTIVITY_LABELS[userGoals.activity]}) = ${fmtN(Math.round(t.bmr * t.activityMult))}.</p>`
+      : `<p><b>Daily burn (TDEE)</b> ${t.tdee} kcal/day — BMR × ${t.activityMult} activity multiplier (${ACTIVITY_LABELS[userGoals.activity]}). ${bmrLearnState() ? 'This is the starting estimate: once Fera has two weeks of your days, the weekly update replaces it with what you actually burn.' : 'Turn on learning to replace this estimate with what you actually burn.'}</p>`}
     <p><b>Calorie target</b> ${t.calorieTarget} kcal/day — ${wg === 'maintain' ? 'your TDEE, to maintain weight' : `your TDEE ${wg === 'lose' ? 'minus' : 'plus'} ${t.dailyDelta} kcal a day`}.${yours('calorie')}</p>
     ${pace}
     <p><b>Protein target</b> ${t.proteinTarget} g/day — ${t.proteinPerKg} g per kg of bodyweight, the range the sports-nutrition literature (ISSN/ACSM) backs for your goal to ${mgLabel} while you ${wgLabel}.${yours('protein')}</p>
     <p><b>Fat target</b> ${t.fatTarget} g/day — ${t.fatPct}% of your calories. The National Academies' acceptable range for adults is 20–35% of calories from fat, 45–65% from carbohydrate and 10–35% from protein (${AMDR}); the app starts fat at 25%, the lower-middle of its range, leaving room for protein and carbs.${yours('fat')}</p>
     <p><b>Carbs target</b> ${t.carbsTarget} g/day — whatever calories are left once protein (×4) and fat (×9) are counted, at 4 kcal a gram. The app keeps carbs at or above 130 g a day, the adult recommended minimum, by lowering fat toward 20% first${t.carbFloorHit ? ' — which it did for you' : ''}. A high protein target pushes carbs toward the low end of their range; that's expected when building or keeping muscle.${yours('carbs')}</p>
-    <p><b>Burn target</b> ${t.burnTarget} kcal/day — your estimated total daily energy expenditure at this activity level; a directional guide, not a clinical measurement.${yours('burn')}</p>
+    <p><b>Burn target</b> ${t.burnTarget} kcal/day — ${calTdee() != null ? 'your measured daily burn, from the weekly update. It\'s what an average day of yours burns, so the Burn ring shows whether today is above or below your usual.' : 'your estimated total daily energy expenditure at this activity level; a directional guide until Fera measures it.'}${yours('burn')}</p>
     <p><b>Calorie quality</b> isn't a goal of its own: it's each macro's share of your calories, worked out from the targets above — protein ${t.qualityTargets.protein}%, carbs ${t.qualityTargets.carbs}%, fat ${t.qualityTargets.fat}%.</p>
   `;
 }
@@ -6582,6 +7104,7 @@ function renderAll(){
   if(typeof renderAiState === 'function') try { renderAiState(); } catch(e){}
   if(typeof renderWeighNudge === 'function') try { renderWeighNudge(); } catch(e){}
   if(typeof renderPlanNudge === 'function') try { renderPlanNudge(); renderLearnPage(); } catch(e){}
+  if(typeof renderGoalNudge === 'function') try { renderGoalNudge(); } catch(e){}
   if(window.feraWidgetSync) window.feraWidgetSync();
   if(window.feraNotifySync) window.feraNotifySync();
   if(typeof renderNotifyOffer === 'function') try { renderNotifyOffer(); renderIphoneCard(); } catch(e){}
@@ -8511,7 +9034,7 @@ async function init(){
     const b = ev.target.closest('.goal-pill'); if(!b) return;
     haptic();
     userGoals.weightRate = parseFloat(b.dataset.rate);
-    renderRateRow(); renderGoalsTargets();
+    renderRateRow(); renderGoalWeightGroup(); renderGoalsTargets();
   });
   document.querySelectorAll('.target-input').forEach(inp=>{
     inp.addEventListener('change', ()=>{
@@ -8531,6 +9054,8 @@ async function init(){
   });
   function fillGoalsForm(){
     renderRateRow();
+    renderGoalWeightGroup();
+    renderActivityGroup();
     weightGoalRow.querySelectorAll('.goal-pill').forEach(b=> b.classList.toggle('active', b.dataset.weightGoal === userGoals.weightGoal));
     activityGoalRow.querySelectorAll('.goal-pill').forEach(b=> b.classList.toggle('active', b.dataset.activity === userGoals.activity));
     muscleGoalRow.querySelectorAll('.goal-pill').forEach(b=> b.classList.toggle('active', b.dataset.muscleGoal === userGoals.muscleGoal));
@@ -8586,7 +9111,7 @@ async function init(){
       <div class="bc-bar">${seg(rest, BURN_PARTS.rest.color)}${seg(active, '#FF375F')}${seg(digest, BURN_PARTS.digest.color)}</div>
       <div class="btb-cols">
         <div><span class="btb-l"><i style="background:${BURN_PARTS.rest.color}"></i>Resting<button type="button" class="bc-tag bl-open ${st.tag.toLowerCase()}" data-bmr-open aria-label="Resting burn: ${st.tag}. Open details">${st.tag}<span aria-hidden="true">›</span></button></span><b>${fmtN(rest)}</b>${learnedLine}</div>
-        <div><span class="btb-l"><i style="background:#FF375F"></i>Active</span><b>${fmtN(active)}</b><small>${t.custom.burn ? 'from your own target' : 'your activity level'}</small></div>
+        <div><span class="btb-l"><i style="background:#FF375F"></i>Active</span><b>${fmtN(active)}</b><small>${t.custom.burn ? 'from your own target' : calTdee() != null ? 'measured, last 4 weeks' : 'your activity level'}</small></div>
         <div><span class="btb-l"><i style="background:${BURN_PARTS.digest.color}"></i>Digestion</span><b>${fmtN(digest)}</b><small>~10% of what you eat</small></div>
       </div>`;
   }
@@ -8597,11 +9122,16 @@ async function init(){
       row.querySelectorAll('.goal-pill').forEach(x=>x.classList.remove('active'));
       b.classList.add('active');
       userGoals[stateKey] = b.dataset[datasetKey];
-      if(stateKey === 'weightGoal') renderRateRow();
+      if(stateKey === 'weightGoal'){ renderRateRow(); renderGoalWeightGroup(); }
+      if(stateKey === 'activity') renderActivityGroup();
       renderGoalsTargets();
     });
   }
   wireGoalPillRow(weightGoalRow, 'weightGoal', 'weightGoal');
+  document.getElementById('goalWeightInput').addEventListener('input', setGoalWeightFromInput);
+  document.getElementById('goalWeightInput').addEventListener('blur', renderGoalWeightGroup);
+  document.getElementById('goalWeightClear').addEventListener('click', () => { haptic(); document.getElementById('goalWeightInput').value = ''; setGoalWeightFromInput(); });
+  document.getElementById('agMeasured').addEventListener('click', (ev) => { if(!ev.target.closest('[data-ag-toggle]')) return; haptic(); agOpen = !agOpen; renderActivityGroup(); });
   wireGoalPillRow(activityGoalRow, 'activity', 'activity');
   wireGoalPillRow(muscleGoalRow, 'muscleGoal', 'muscleGoal');
 
@@ -10277,7 +10807,7 @@ function renderBmrPage(){
     const t = computeTargets();
     const mult = ACTIVITY_MULTIPLIERS[userGoals.activity] || 1.2;
     const custom = userGoals.custom && typeof userGoals.custom.calorie === 'number' && userGoals.custom.calorie > 0;
-    const tShift = Math.round(adj * mult);
+    const tShift = Math.round(calTdee() != null ? adj : adj * mult); // measured burn moves one for one
     const wk = blW(adj * 7 / 3500);
     h += `<div class="bl-impact">
       <div><small>Every day</small><b>${blSigned(adj)}</b><span>kcal burned</span></div>
@@ -10572,6 +11102,13 @@ function renderLearnPage(){
       </div>
       <button type="button" class="bc-link lp-ev" data-bl-evidence>See the evidence ›</button></div>`;
   }
+  { const gi = goalInfo();
+    if(gi && (gi.wg === 'lose' || gi.wg === 'gain') && !gi.wrongWay && gi.toGo >= 0.05){
+      const u = weightUnit(), wp = goalWhen(gi.etaPace), wl = goalWhen(gi.etaPlan), apart = goalWeeksApart(gi.etaPace, gi.etaPlan);
+      h += `<div class="pw-card"><div class="lp-eyebrow"><span>Your goal weight</span><span>${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)} ${u}</span></div>
+        <div class="lp-facts" style="margin-top:4px"><div><b>${wp || '—'}</b><small>${gi.pace != null ? `at your measured ${wtSigned(gi.pace)} ${u} a week` : 'needs 2 weeks of weigh-ins'}</small></div><div><b>${wl || '—'}</b><small>at your plan's ${weightRate()} lb a week</small></div></div>
+        <p class="lp-why">${apart != null && Math.abs(apart) >= 1 ? `You're ${apart > 0 ? 'ahead of' : 'behind'} your plan, so you'd get there about <b>${Math.abs(apart)} week${Math.abs(apart) === 1 ? '' : 's'} ${apart > 0 ? 'early' : 'late'}</b>. ` : apart != null ? 'You\'re right on plan. ' : ''}${wtFmt(gi.toGo)} ${u} to go. The date moves with your weigh-ins; your targets move with each weekly update.</p></div>`;
+    } }
 
   // ---- settings
   const sw = (k, val, title, sub) => `<button type="button" class="pb-tg${val ? ' on' : ''}" data-lp="${k}" role="switch" aria-checked="${val}"><span class="pb-tg-t"><b>${title}</b><small>${sub}</small></span><span class="pb-sw"><i></i></span></button>`;
@@ -10710,6 +11247,11 @@ function recapWeekCard(w){
   if(w.wNow != null) stats.push(stat('Weight', w.wPrev != null ? `${w.wNow - w.wPrev > 0 ? '+' : w.wNow - w.wPrev < 0 ? '−' : '±'}${Math.abs(w.wNow - w.wPrev).toFixed(1)}<i> ${weightUnit()}</i>` : `${w.wNow.toFixed(1)}<i> ${weightUnit()}</i>`, w.wPrev != null ? 'week avg vs the week before' : 'week average', ''));
   if(w.avgEaten != null) stats.push(stat('Avg eaten', fmtN(w.avgEaten), w.avgBurn != null ? `burned ${fmtN(w.avgBurn)} a day` : 'kcal a day', ''));
   const notes = [];
+  { const gi = goalInfo();
+    if(gi && (gi.wg === 'lose' || gi.wg === 'gain') && !gi.wrongWay){
+      const wp = goalWhen(gi.etaPace);
+      notes.push(`<p class="g"><i>◎</i>${gi.toGo < 0.05 ? `At your goal of ${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)} ${weightUnit()}.` : `Goal ${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)} ${weightUnit()}: ${wtFmt(gi.toGo)} to go${wp ? `, on pace for ${wp}` : ''}.`}</p>`);
+    } }
   if(w.best && w.best.net != null) notes.push(`<p class="g"><i>★</i>Best day: ${parseISO(w.best.iso).toLocaleDateString(undefined, { weekday: 'long' })}, ${signedN(w.best.net)} kcal.</p>`);
   if(w.weekendGap != null && Math.abs(w.weekendGap) >= 250) notes.push(`<p class="${w.weekendGap > 0 ? 'w' : 'g'}"><i>${w.weekendGap > 0 ? '!' : '✓'}</i>Weekends ran ${fmtN(Math.abs(w.weekendGap))} kcal a day ${w.weekendGap > 0 ? 'higher' : 'lower'} than weekdays.</p>`);
   if(w.weighIns < 3) notes.push(`<p class="w"><i>!</i>${w.weighIns ? `Only ${w.weighIns} weigh-in${w.weighIns === 1 ? '' : 's'}` : 'No weigh-ins'} last week. Aim for three or more.</p>`);
@@ -11016,7 +11558,7 @@ function planNotifications(now){
   // recaps: tomorrow morning, if today has food in it; Mondays it's the week
   if(eaten != null){
     const monday = parseISO(tomorrow).getDay() === 1;
-    add('recap', atTime(tomorrow, 8 * 60 + 15), monday ? 'Your week in review is ready' : 'Yesterday’s recap is ready', monday ? 'How last week went against your plan.' : 'How yesterday went against your plan.', 'fera://today', 3);
+    add('recap', atTime(tomorrow, 8 * 60 + 15), monday ? 'Your week in review is ready' : 'Yesterday’s recap is ready', monday ? 'How last week went against your plan.' + (() => { const gi = goalInfo(); const wp = gi && (gi.wg === 'lose' || gi.wg === 'gain') && !gi.wrongWay ? goalWhen(gi.etaPace) : null; return wp ? ` On pace for ${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)} ${weightUnit()} by ${wp}.` : ''; })() : 'How yesterday went against your plan.', 'fera://today', 3);
   }
   // the weekly update: Monday morning, when there's one to make
   if(typeof calibrate === 'function' && bmrLearnState()){

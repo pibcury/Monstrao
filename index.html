@@ -11132,9 +11132,10 @@ function baselineTdee(bmr){
   const def = BURN_PATHS[burnPath()];
   const burns = [];
   learnDayList(LEARN_MAX_DAYS, 0).forEach(d => {
+    // a logged day: food in it (so digestion counts) and, with Apple Health, its movement
+    if(consumedTotal(entries[d]) == null) return;
     const p = burnParts(d, bmr); if(!p) return;
-    const measured = def.apple ? !!p.health : consumedTotal(entries[d]) != null;
-    if(measured && !p.manual) burns.push(p.calc);
+    if((def.apple ? !!p.health : true) && !p.manual) burns.push(p.calc);
   });
   const val = burns.length >= 3 ? { tdee: burns.reduce((s, x) => s + x, 0) / burns.length, days: burns.length, how: 'measured' } : { tdee: bmr * CAL_BASE_MULT, days: burns.length, how: 'formula' };
   baseMemo = { key, val };
@@ -11161,7 +11162,7 @@ function calibrate(){
   });
   const avg = burns.length ? burns.reduce((s, x) => s + x, 0) / burns.length : null;
   const tdeeFrom = Math.round(t.tdee);
-  const tdeeTo = ready && avg != null ? Math.round(Math.max(tdeeFrom - CAL_STEP_DAY, Math.min(tdeeFrom + CAL_STEP_DAY, avg)) / 10) * 10 : tdeeFrom;
+  const tdeeTo = ready && avg != null ? Math.max(tdeeFrom - CAL_STEP_DAY, Math.min(tdeeFrom + CAL_STEP_DAY, Math.round(avg / 10) * 10)) : tdeeFrom;
   const sign = userGoals.weightGoal === 'lose' ? -1 : userGoals.weightGoal === 'gain' ? 1 : 0;
   let targetTo = Math.round(tdeeTo + sign * t.dailyDelta);
   if(sign < 0 && targetTo < t.floor) targetTo = t.floor;

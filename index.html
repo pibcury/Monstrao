@@ -3866,7 +3866,7 @@ function setupGap(){
   if(!userGoals.weightGoal) goals.push('weight goal');
   if(!userGoals.muscleGoal) goals.push('muscle goal');
   if(!prof.length && !goals.length) return null;
-  if(prof.length === 3 && goals.length === 3) return { page: 'profile', text: 'Finish setting up: add your profile, then your goals' };
+  if(prof.length === 3 && goals.length === 2) return { page: 'profile', text: 'Finish setting up: add your profile, then your goals' };
   if(prof.length) return { page: 'profile', text: `Add your ${list(prof)}${goals.length ? ', then your goals,' : ''} to see your targets` };
   if(goals.length === 1) return { page: 'goals', text: `Pick ${goals[0] === 'activity level' ? 'an' : 'a'} ${goals[0]} to see your targets` };
   return { page: 'goals', text: `Pick your ${list(goals)} to see your targets` };

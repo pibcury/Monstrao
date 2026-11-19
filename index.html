@@ -325,6 +325,9 @@
     margin-top:8px; background:linear-gradient(165deg,var(--surface),var(--surface-2));
     border:1px solid var(--rule); border-radius:18px; padding:18px;
   }
+  .targets-grid:has(.target-tile-burn[hidden]){grid-template-columns:1fr;}
+  .target-tile-burn[hidden]{display:none !important;}
+  #activityGroup .btb{margin-top:10px;}
   .targets-summary-head{font-family:'Sora',sans-serif;font-weight:700;font-size:15px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
   .targets-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .target-tile{
@@ -1191,7 +1194,7 @@
   .track-chip.locked{cursor:default;opacity:.85;}
   /* Today card v2: calories + burn on top, macros below, a ruler per macro */
   .today-card .metrics-top{grid-template-columns:1fr 1fr;gap:10px;}
-  .today-card .metrics-top .mring{max-width:118px;}
+  .today-card .metrics-top .mring{max-width:min(98px, 25vw);}
   .today-card .metrics-top .mring-fig{font-size:clamp(17px,5.4vw,22px);}
   .today-card .metrics-macros{margin-top:12px;padding-top:12px;border-top:1px solid rgba(244,245,250,0.07);grid-template-columns:repeat(3,minmax(0,1fr));}
   .today-card .metrics-macros[data-n="1"]{grid-template-columns:minmax(0,1fr);}
@@ -1436,16 +1439,16 @@
   /* past days: net between the Calories and Burn rings */
   .metrics-top{position:relative;}
   .ring-net{position:absolute;left:50%;top:calc(50% - 8px);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;
-    min-width:58px;max-width:70px;padding:6px 7px 5px;border-radius:13px;background:linear-gradient(180deg,#181B23,#121419);border:1px solid var(--rule);
+    width:58px;padding:6px 4px 5px;border-radius:13px;background:linear-gradient(180deg,#181B23,#121419);border:1px solid var(--rule);
     box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;z-index:2;animation:netIn .35s ease;}
-  .ring-net b{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;line-height:1;}
-  .ring-net .rn-k{font-size:8.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+  .ring-net b{font-family:'Sora',sans-serif;font-size:13.5px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;line-height:1;}
+  .ring-net .rn-k{font-size:8px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
   .ring-net .rn-k{display:inline-flex;align-items:center;gap:4px;}
   .rn-live{display:inline-block;width:5px;height:5px;border-radius:50%;background:currentColor;animation:rnPulse 1.8s ease-in-out infinite;}
   @keyframes rnPulse{0%,100%{opacity:1;}50%{opacity:.3;}}
-  .ring-net .rn-bar{display:block;width:40px;height:3px;border-radius:3px;background:rgba(244,245,250,.1);overflow:hidden;}
+  .ring-net .rn-bar{display:block;width:36px;height:3px;border-radius:3px;background:rgba(244,245,250,.1);overflow:hidden;}
   .ring-net .rn-bar i{display:block;height:100%;border-radius:3px;background:currentColor;}
-  .ring-net .rn-g{font-size:9px;font-weight:600;color:var(--muted);white-space:nowrap;} .ring-net .rn-g em{font-style:normal;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .ring-net .rn-g{font-size:8.5px;font-weight:600;color:var(--muted);white-space:nowrap;} .ring-net .rn-g em{font-style:normal;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
   .ring-net .rn-k{color:var(--muted);} .ring-net.good .rn-k,.ring-net.bad .rn-k{color:inherit;}
   .ring-net.good{color:var(--deficit);border-color:rgba(74,222,128,.28);} .ring-net.bad{color:var(--surplus);border-color:rgba(255,92,122,.3);}
   .ring-net.good b{color:var(--deficit);} .ring-net.bad b{color:var(--surplus);}
@@ -2446,6 +2449,7 @@
   .lpill.warn.learned{color:#4ADE80;}
   .lpill.mini{font-size:10.5px;padding:4px 8px 4px 6px;gap:5px;} .lpill.mini svg{width:12px;height:12px;}
   .lpill-row{display:flex;justify-content:center;margin:2px 0 10px;}
+  #ringLearn{margin:-4px 0 12px;}
   .ag-m.learning{border-color:rgba(155,124,255,.32);background:linear-gradient(180deg,rgba(155,124,255,.09),rgba(155,124,255,.02));}
   .ag-num .lpill{margin-left:auto;}
   .pb-learnrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--rule);margin-top:12px;}
@@ -2522,6 +2526,7 @@
           </label>
           <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
         </div>
+    <div class="lpill-row" id="ringLearn"></div>
     <div class="metrics metrics-top">
       <div class="metric metric-cal">
         <div class="metric-name">Calories from Food</div>
@@ -2555,7 +2560,6 @@
       </div>
       <div class="ring-net" id="ringNet" aria-live="polite"></div>
     </div>
-    <div class="lpill-row" id="ringLearn"></div>
     <div class="metrics metrics-macros" id="macroRings">
       <div class="metric metric-protein" data-macro="protein">
         <div class="metric-name">Protein</div>
@@ -3222,6 +3226,7 @@
     <div class="goal-group" id="activityGroup">
       <div class="goal-group-title" id="activityTitle">Your daily burn</div>
       <div class="ag-m" id="agMeasured"></div>
+      <div class="btb" id="burnTargetBreak"></div>
     </div>
     <div class="goal-group">
       <div class="goal-group-title">Muscle</div>
@@ -3239,13 +3244,12 @@
           <input class="target-tile-value target-input" id="targetCalVal" data-target="calorie" type="number" inputmode="numeric" aria-label="kcal target">
           <div class="target-tile-label">kcal<span class="tt-edited" data-edited="calorie">· yours</span></div>
         </div>
-        <div class="target-tile target-tile-burn">
+        <div class="target-tile target-tile-burn" hidden>
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c.7 3.5 5.5 5.6 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.4 2.7-5.6.3 2 1.3 3.2 2.7 3.6-.3-3.4-.7-6.2.1-9.3z"/></svg></div>
           <input class="target-tile-value target-input" id="targetBurnVal" data-target="burn" type="number" inputmode="numeric" aria-label="kcal burn target">
           <div class="target-tile-label">kcal burn<span class="tt-edited" data-edited="burn">· yours</span></div>
         </div>
       </div>
-      <div class="btb" id="burnTargetBreak"></div>
       <div class="targets-grid targets-grid-macros" id="targetsMacros">
         <div class="target-tile target-tile-protein" data-macro-tile="protein">
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.6 3.4a5 5 0 0 1 .3 9.9c-1.2.1-2.3-.2-3.2-.8l-4.5 4.5a2.1 2.1 0 1 1-2.8 2.8 2.1 2.1 0 1 1-1.2-3.6l4.5-4.5a5 5 0 0 1 6.9-8.3z"/></svg></div>
@@ -4137,7 +4141,7 @@ function renderBalances(s){
     const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
     start = toISO(mon); end = toISO(sun); labels = 'week';
   }
-  const kinds = ['cal'].concat(trackedMacros(), s ? [] : ['quality', 'eaten', 'burn', 'weight']);
+  const kinds = ['cal'].concat(trackedMacros(), s ? [] : ['eaten', 'burn', 'weight']);
   const mode = balanceMode;
   if(box.dataset.sig !== kinds.join(',')){
     box.dataset.sig = kinds.join(',');
@@ -9299,12 +9303,11 @@ async function init(){
     const active = Math.max(0, t.burnTarget - rest - digest);
     const tot = Math.max(1, rest + active + digest);
     const seg = (v, c) => `<i style="width:${(v / tot * 100).toFixed(1)}%;background:${c}"></i>`;
-    const learnedLine = st.tag === 'Learned' ? `<small>estimate ${fmtN(t.bmrEst)} ${t.bmrAdj >= 0 ? '+' : '−'} ${fmtN(Math.abs(t.bmrAdj))} learned</small>`
-      : st.tag === 'Learning' ? `<small>${st.line.replace('Still learning · ', '')}</small>` : '<small>Mifflin-St Jeor</small>';
-    el.innerHTML = `<div class="btb-h"><span>Your burn target is made of</span></div>
+    const learnedLine = st.tag === 'Learned' ? `<small>formula ${fmtN(t.bmrEst)} ${t.bmrAdj >= 0 ? '+' : '−'} ${fmtN(Math.abs(t.bmrAdj))} learned</small>` : '<small>the formula, until learned</small>';
+    el.innerHTML = `<div class="btb-h"><span>Your daily burn is made of</span></div>
       <div class="bc-bar">${seg(rest, BURN_PARTS.rest.color)}${seg(active, '#FF375F')}${seg(digest, BURN_PARTS.digest.color)}</div>
       <div class="btb-cols">
-        <div><span class="btb-l"><i style="background:${BURN_PARTS.rest.color}"></i>Resting<button type="button" class="bc-tag bl-open ${st.tag.toLowerCase()}" data-bmr-open aria-label="Resting burn: ${st.tag}. Open details">${st.tag}<span aria-hidden="true">›</span></button></span><b>${fmtN(rest)}</b>${learnedLine}</div>
+        <div><span class="btb-l"><i style="background:${BURN_PARTS.rest.color}"></i>Resting</span><b>${fmtN(rest)}</b>${learnedLine}</div>
         <div><span class="btb-l"><i style="background:#FF375F"></i>Active</span><b>${fmtN(active)}</b><small>${t.custom.burn ? 'from your own target' : calTdee() != null ? 'learned from your days' : 'baseline, while learning'}</small></div>
         <div><span class="btb-l"><i style="background:${BURN_PARTS.digest.color}"></i>Digestion</span><b>${fmtN(digest)}</b><small>~10% of what you eat</small></div>
       </div>`;
@@ -11653,7 +11656,7 @@ const NOTIFY_KINDS = [
   ['close', 'Finish the day', 'At night, if today looks only partly logged'],
   ['weigh', 'Weigh-in reminder', 'In the morning when Fera needs one to keep learning'],
   ['recap', 'Recaps ready', 'Yesterday’s recap in the morning, your week on Mondays'],
-  ['learn', 'Learning', 'When Fera has learned your burn, and a nudge if a day is missing'],
+  ['learn', 'Learning', 'The evening before Fera can learn your burn, if today still needs logging'],
   ['pattern', 'Patterns', 'A weekly pattern from your logs · Premium'],
   ['trial', 'Trial ending', 'Two days before a free trial ends']
 ];

@@ -1311,6 +1311,7 @@
 
   /* Your Data page */
   .yd-section{margin-bottom:22px;}
+  .profile-account{margin-top:22px;}
   .yd-h{display:flex;flex-direction:column;gap:2px;margin:2px 2px 10px;}
   .yd-h b{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;letter-spacing:-0.01em;}
   .yd-h small{font-size:12px;color:var(--muted);font-weight:500;}
@@ -2913,7 +2914,6 @@
       </div>
       <div class="ring-net" id="ringNetT" aria-live="polite" style="display:none;"></div>
     </div>
-    <div class="lpill-row" id="trendLearn"></div>
     <div class="metrics metrics-macros" id="macroRingsT">
       <div class="metric metric-protein" data-macro="protein">
         <div class="metric-name">Protein</div>
@@ -3109,23 +3109,6 @@
       </div>
       <div class="hist-scroll hist-scroll-page" id="histScroll"><div id="tableWrap"></div></div>
     </section>
-    <section class="yd-section">
-      <div class="yd-h"><b>AI features</b><small>AI estimates and Fera AI send some of your data to Anthropic</small></div>
-      <div class="yd-card yd-row"><p id="ydAiState">—</p><button class="yd-link" id="ydAiBtn" type="button">Turn off</button></div>
-    </section>
-    <section class="yd-section">
-      <div class="yd-h"><b>Delete account</b><small>Removes your account and everything in it</small></div>
-      <div class="yd-card yd-danger" id="ydDeleteCard">
-        <p id="ydDeleteText">This permanently deletes your food log, weigh-ins, goals, profile, Apple Health data, Fera AI memory and your sign-in. It can't be undone. Export your data first if you want a copy.</p>
-        <button class="btn-danger-ghost" id="ydDeleteBtn" type="button">Delete my account…</button>
-        <div class="yd-del-confirm" id="ydDeleteConfirm" hidden>
-          <label for="ydDeleteInput" style="font-size:13px;color:var(--muted);">Type <b style="color:var(--ink);">DELETE</b> to confirm</label>
-          <input id="ydDeleteInput" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false">
-          <button class="btn-danger" id="ydDeleteGo" type="button" disabled>Delete my account permanently</button>
-          <p class="status" id="ydDeleteStatus" style="margin:0;"></p>
-        </div>
-      </div>
-    </section>
   </div>
 </div>
 
@@ -3193,6 +3176,25 @@
       <div class="goal-group-title">On your iPhone</div>
       <div id="iphoneBody"></div>
     </div>
+    <div class="profile-account">
+    <section class="yd-section">
+      <div class="yd-h"><b>AI features</b><small>AI estimates and Fera AI send some of your data to Anthropic</small></div>
+      <div class="yd-card yd-row"><p id="ydAiState">—</p><button class="yd-link" id="ydAiBtn" type="button">Turn off</button></div>
+    </section>
+    <section class="yd-section">
+      <div class="yd-h"><b>Delete account</b><small>Removes your account and everything in it</small></div>
+      <div class="yd-card yd-danger" id="ydDeleteCard">
+        <p id="ydDeleteText">This permanently deletes your food log, weigh-ins, goals, profile, Apple Health data, Fera AI memory and your sign-in. It can't be undone. Export your data first if you want a copy (menu → Your Data). If you subscribe to Fera Premium through the App Store, deleting your account doesn't cancel it: cancel in Settings → your name → Subscriptions.</p>
+        <button class="btn-danger-ghost" id="ydDeleteBtn" type="button">Delete my account…</button>
+        <div class="yd-del-confirm" id="ydDeleteConfirm" hidden>
+          <label for="ydDeleteInput" style="font-size:13px;color:var(--muted);">Type <b style="color:var(--ink);">DELETE</b> to confirm</label>
+          <input id="ydDeleteInput" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false">
+          <button class="btn-danger" id="ydDeleteGo" type="button" disabled>Delete my account permanently</button>
+          <p class="status" id="ydDeleteStatus" style="margin:0;"></p>
+        </div>
+      </div>
+    </section>
+    </div>
   </div>
 </div>
 
@@ -3223,17 +3225,17 @@
       <div class="gw-in"><label class="gw-field"><input type="number" id="goalWeightInput" inputmode="decimal" step="0.1" min="0" placeholder="Your goal" aria-label="Goal weight"><span id="goalWeightUnit">lb</span></label><button class="gw-clear" id="goalWeightClear" type="button" hidden>Clear</button></div>
       <div class="gw-proj" id="goalWeightProj"></div>
     </div>
-    <div class="goal-group" id="activityGroup">
-      <div class="goal-group-title" id="activityTitle">Your daily burn</div>
-      <div class="ag-m" id="agMeasured"></div>
-      <div class="btb" id="burnTargetBreak"></div>
-    </div>
     <div class="goal-group">
       <div class="goal-group-title">Muscle</div>
       <div class="goal-pill-row" id="muscleGoalRow">
         <button class="goal-pill" data-muscle-goal="maintain" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 7.5v9M17.5 7.5v9M3.5 10v4M20.5 10v4M6.5 12h11"/></svg>Maintain</button>
         <button class="goal-pill" data-muscle-goal="gain" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 9v8M15.5 9v8M3 11.5v3M18 11.5v3M5.5 13h10"/><path d="M19.5 3v5M17 5.5h5"/></svg>Gain</button>
       </div>
+    </div>
+    <div class="goal-group" id="activityGroup">
+      <div class="goal-group-title" id="activityTitle">Your daily burn</div>
+      <div class="ag-m" id="agMeasured"></div>
+      <div class="btb" id="burnTargetBreak"></div>
     </div>
 
     <div class="targets-summary" id="targetsSummary">
@@ -3798,6 +3800,7 @@ function renderRing(){
   });
   renderBurnRingExtras(d);
   renderRingNet(d, cal, burn);
+  if(typeof renderLearnPills === 'function') try { renderLearnPills(); } catch(e){}
   renderAskButtons();
 
   const cta = document.getElementById('goalCtaBtn');
@@ -4148,7 +4151,7 @@ function renderBalances(s){
     box.innerHTML = `<div class="wp"><div class="wp-head"><div><div class="wp-title"></div><div class="wp-sub"></div></div><div class="wp-tog"></div></div>` +
       kinds.map(k => `<div class="wk" data-kind="${k}"><div class="wk-headbox"></div><div class="wk-chart"></div></div>`).join('') + `</div>`;
   }
-  box.querySelector('.wp-title').innerHTML = `<span>${progressTitle(s)}</span>${s ? '' : learnPillHTML('mini')}`;
+  box.querySelector('.wp-title').textContent = progressTitle(s);
   const fmt = iso => parseISO(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
   box.querySelector('.wp-sub').textContent = `${fmt(start)} – ${fmt(end)} · ${mode === 'goal' ? 'against your goal' : 'running total'}`;
   box.querySelector('.wp-tog').innerHTML = toggleHTML(mode);
@@ -5945,7 +5948,7 @@ function learnWhen(iso){ if(!iso) return ''; const t = todayStr(); if(iso === t)
 // every place a target shows gets the pill (Weekly Progress draws its own)
 function renderLearnPills(){
   const has = !!computeTargets();
-  [['ringLearn', 'full'], ['targetsLearnPill', 'mini'], ['trendLearn', 'mini']].forEach(([id, kind]) => { const el = document.getElementById(id); if(el) el.innerHTML = has ? learnPillHTML(kind) : ''; });
+  [['ringLearn', 'full'], ['targetsLearnPill', 'mini']].forEach(([id, kind]) => { const el = document.getElementById(id); if(!el) return; const show = has && (id !== 'ringLearn' || selectedDate === todayStr()); el.innerHTML = show ? learnPillHTML(kind) : ''; el.hidden = !show; });
   if(document.getElementById('agMeasured') && document.getElementById('goalsOverlay') && document.getElementById('goalsOverlay').style.display !== 'none') renderActivityGroup();
 }
 // The small status pill shown wherever targets are. kind: 'full' | 'mini'
@@ -6507,7 +6510,8 @@ function renderTrendsRingAndRuler(){
       const good = goal == null ? null : goal < 0 ? n <= 0 : goal > 0 ? n >= 0 : Math.abs(n) <= 150;
       const frac = goal ? Math.max(0, Math.min(1, n / goal)) : null;
       netT.className = `ring-net ${kind} ${good == null ? '' : good ? 'good' : 'bad'}`;
-      netT.innerHTML = `<span class="rn-k">avg ${kind}</span><b>${signedN(n)}</b>${frac != null ? `<span class="rn-bar"><i style="width:${(frac * 100).toFixed(0)}%"></i></span>` : ''}${goal != null ? `<span class="rn-g">goal <em>${goal === 0 ? '±0' : signedN(goal)}</em></span>` : ''}`;
+      netT.className = 'ring-net ' + kind;
+      netT.innerHTML = `<b>${signedN(n)}</b><span class="rn-k">avg ${kind}</span>`;
     }
   }
   tracked.forEach(m => {
@@ -9144,14 +9148,7 @@ async function init(){
         ${dev('wearable', '<span class="pb-emo">💍</span>', 'Another watch or ring', 'WHOOP, Oura, Garmin, Fitbit… writing workouts to Apple Health')}
         ${dev('phone', '<span class="pb-emo">📱</span>', 'Just my iPhone', 'Your iPhone counts steps; you log workouts')}
       </div>` : ''}
-      <div class="pb-how">
-        <div class="pb-how-t">How your daily burn is built</div>
-        <div class="pb-formula">${chips}</div>
-        <div class="pb-role"><span>Your part</span>${def.role}</div>
-        ${def.apple ? `<button class="bm-wear" data-bm-health type="button">${connected ? 'Manage Apple Health' : 'Finish Apple Health setup'} ›</button>` : ''}
-      </div>
       ${def.apple ? tg('weight', !!userProfile.weightFromHealth, 'Weight from Apple Health', 'Weigh-ins from a smart scale come in with each sync. You can still add weights by hand.') : ''}
-      <div class="pb-learnrow"><span><b>Resting burn</b><small>${st.tag === 'Learned' ? `${fmtN(bmrNow())} kcal a day · ${st.line}` : `The formula's ${fmtN(bmrBase() || 0)} kcal a day until Fera learns yours`}</small></span>${learnPillHTML('mini')}</div>
       <p class="bm-explain small">Any day, you can change any part or type your own total in the Burn card.</p>
       <p class="status" id="burnModeStatus"></p>`;
   }
@@ -9193,6 +9190,7 @@ async function init(){
     fillProfileForm();
     renderTrackRow();
     renderBurnModeSection();
+    renderYourDataAi(); renderYourDataDelete();
     profileOverlay.style.display = 'flex';
   });
   document.getElementById('profileBackBtn').addEventListener('click', ()=>{ profileOverlay.style.display = 'none'; renderAll(); });

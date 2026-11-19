@@ -325,7 +325,10 @@
     margin-top:8px; background:linear-gradient(165deg,var(--surface),var(--surface-2));
     border:1px solid var(--rule); border-radius:18px; padding:18px;
   }
-  .targets-summary-head{font-family:'Sora',sans-serif;font-weight:700;font-size:15px;margin-bottom:14px;}
+  .targets-grid:has(.target-tile-burn[hidden]){grid-template-columns:1fr;}
+  .target-tile-burn[hidden]{display:none !important;}
+  #activityGroup .btb{margin-top:10px;}
+  .targets-summary-head{font-family:'Sora',sans-serif;font-weight:700;font-size:15px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
   .targets-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .target-tile{
     background:var(--surface); border:1px solid var(--rule); border-radius:14px;
@@ -1191,7 +1194,7 @@
   .track-chip.locked{cursor:default;opacity:.85;}
   /* Today card v2: calories + burn on top, macros below, a ruler per macro */
   .today-card .metrics-top{grid-template-columns:1fr 1fr;gap:10px;}
-  .today-card .metrics-top .mring{max-width:118px;}
+  .today-card .metrics-top .mring{max-width:min(98px, 25vw);}
   .today-card .metrics-top .mring-fig{font-size:clamp(17px,5.4vw,22px);}
   .today-card .metrics-macros{margin-top:12px;padding-top:12px;border-top:1px solid rgba(244,245,250,0.07);grid-template-columns:repeat(3,minmax(0,1fr));}
   .today-card .metrics-macros[data-n="1"]{grid-template-columns:minmax(0,1fr);}
@@ -1224,6 +1227,8 @@
   .balances .wk{margin-top:0;}
   .wp{width:100%;margin-top:12px;padding:14px 14px 6px;border-radius:18px;background:rgba(255,255,255,0.025);border:1px solid rgba(244,245,250,0.07);box-sizing:border-box;}
   .wp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px;}
+  .wp-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .qm-mix{font-weight:700;} .qm-mix i{font-style:normal;color:var(--muted);margin:0 1px;}
   .wp-title{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);}
   .wp-sub{font-size:11px;color:var(--muted);margin-top:3px;font-weight:600;}
   .wp .wk{background:none;border:0;border-radius:0;padding:12px 0 4px;margin:0;border-top:1px solid rgba(244,245,250,0.07);}
@@ -1433,15 +1438,25 @@
 
   /* past days: net between the Calories and Burn rings */
   .metrics-top{position:relative;}
-  .ring-net{position:absolute;left:50%;top:calc(50% + 2px);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:1px;
-    padding:6px 8px;border-radius:12px;background:var(--surface);border:1px solid var(--rule);pointer-events:none;z-index:2;animation:netIn .35s ease;}
-  .ring-net b{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;line-height:1.1;}
-  .ring-net span{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
-  .ring-net.deficit b{color:var(--deficit);} .ring-net.surplus b{color:var(--surplus);}
+  .ring-net{position:absolute;left:50%;top:calc(50% - 8px);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;
+    width:58px;padding:6px 4px 5px;border-radius:13px;background:linear-gradient(180deg,#181B23,#121419);border:1px solid var(--rule);
+    box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;z-index:2;animation:netIn .35s ease;}
+  .ring-net b{font-family:'Sora',sans-serif;font-size:13.5px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;line-height:1;}
+  .ring-net .rn-k{font-size:8px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+  .ring-net .rn-k{display:inline-flex;align-items:center;gap:4px;}
+  .rn-live{display:inline-block;width:5px;height:5px;border-radius:50%;background:currentColor;animation:rnPulse 1.8s ease-in-out infinite;}
+  @keyframes rnPulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+  .ring-net .rn-bar{display:block;width:36px;height:3px;border-radius:3px;background:rgba(244,245,250,.1);overflow:hidden;}
+  .ring-net .rn-bar i{display:block;height:100%;border-radius:3px;background:currentColor;}
+  .ring-net .rn-g{font-size:8.5px;font-weight:600;color:var(--muted);white-space:nowrap;} .ring-net .rn-g em{font-style:normal;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .ring-net .rn-k{color:var(--muted);} .ring-net.good .rn-k,.ring-net.bad .rn-k{color:inherit;}
+  .ring-net.good{color:var(--deficit);border-color:rgba(74,222,128,.28);} .ring-net.bad{color:var(--surplus);border-color:rgba(255,92,122,.3);}
+  .ring-net.good b{color:var(--deficit);} .ring-net.bad b{color:var(--surplus);}
+  .ring-net.empty b{color:var(--muted);}
   /* Trends sits one card deeper, so its top rings get a little smaller to leave room for the average between them */
   #trendRingSection .metrics-top .mring{max-width:100px;}
-  #ringNetT{padding:5px 7px;}
-  #ringNetT b{font-size:12.5px;} #ringNetT span{font-size:8.5px;}
+  #ringNetT{padding:6px 7px 5px;min-width:58px;}
+  #ringNetT b{font-size:13px;}
   @keyframes netIn{from{opacity:0;transform:translate(-50%,-40%);}to{opacity:1;transform:translate(-50%,-50%);}}
 
   /* Goals: burn target breakdown */
@@ -1578,7 +1593,7 @@
   body.tabs[data-view="weight"] [data-view-card="weight"],body.tabs[data-view="trends"] [data-view-card="trends"]{display:block;animation:viewIn .28s ease both;}
   @keyframes viewIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
   body.tabs:not([data-view="home"]) #headerStats,body.tabs:not([data-view="home"]) #myGoals,body.tabs:not([data-view="home"]) .wnudge,
-  body.tabs:not([data-view="home"]) #ringSection .metrics,body.tabs:not([data-view="home"]) #ringNet,body.tabs:not([data-view="home"]) #goalCtaBtn,
+  body.tabs:not([data-view="home"]) #ringSection .metrics,body.tabs:not([data-view="home"]) #ringNet,body.tabs:not([data-view="home"]) #ringLearn,body.tabs:not([data-view="home"]) #goalCtaBtn,
   body.tabs:not([data-view="home"]) #dq,body.tabs:not([data-view="home"]) #dayAsk,body.tabs:not([data-view="home"]) #balances{display:none !important;}
   body[data-view="trends"] #ringSection{display:none !important;}
   body.tabs:not([data-view="home"]) #ringSection .today-card{background:none;border:0;box-shadow:none;padding:0;margin:0 0 4px;}
@@ -1594,6 +1609,7 @@
   .ai-fab:active{transform:scale(0.94);}
   .ai-fab svg{width:21px;height:21px;flex-shrink:0;}
   .ai-fab-lbl{max-width:140px;overflow:hidden;white-space:nowrap;padding-left:8px;transition:max-width .32s ease,opacity .2s ease,padding .32s ease;}
+  #burnSrcTag{display:none;}
   .ai-fab.compact{padding:0 15px;}
   .ai-fab.compact .ai-fab-lbl{max-width:0;opacity:0;padding-left:0;}
   .ai-fab.hide{opacity:0;transform:translateY(24px) scale(0.9);pointer-events:none;}
@@ -1755,8 +1771,14 @@
   .fl .fi:has(+ .fl-meal){border-bottom:0;}
   .fl-meal-k{font-size:13px;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums;}
   .fi-time{font-size:11px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;}
-  .meal-row{display:flex;align-items:center;gap:6px;overflow-x:auto;margin:-2px -2px 10px;padding:2px;scrollbar-width:none;}
+  .meal-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 10px;padding:0;}
+  .meal-row .meal-lbl{grid-column:1/-1;margin:0 0 1px;}
+  .meal-row .meal-chip{justify-content:center;padding:8px 6px;border-radius:12px;min-width:0;}
   .meal-row::-webkit-scrollbar{display:none;}
+  #foodFormWrap .status:empty{display:none;}
+  .card-logged .logged-today-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;}
+  .card-logged .logged-today-title{font-family:'Sora',sans-serif;font-size:17px;font-weight:700;color:var(--ink);text-transform:none;letter-spacing:-.01em;}
+  .logged-today-total{font-size:13px;color:var(--muted);font-weight:600;} .logged-today-total b{color:var(--ink);font-family:'Sora',sans-serif;}
   .meal-lbl{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px;flex-shrink:0;}
   .meal-chip{flex-shrink:0;display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--surface-2);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
   .meal-chip.on{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);}
@@ -1803,7 +1825,7 @@
   .cmp:focus-within{border-color:rgba(76,141,255,0.6);box-shadow:0 0 0 4px rgba(76,141,255,0.10);}
   .cmp.listening{border-color:rgba(255,92,122,0.6);box-shadow:0 0 0 4px rgba(255,92,122,0.10);}
   .cmp .ai-desc-wrap{position:relative;}
-  .cmp textarea#aiDesc{display:block;width:100%;border:0;background:transparent;box-shadow:none;padding:8px 34px 6px 8px;min-height:58px;max-height:180px;resize:none;font-size:16px;line-height:1.45;color:var(--ink);overflow-y:auto;}
+  .cmp textarea#aiDesc{display:block;width:100%;border:0;background:transparent;box-shadow:none;padding:8px 34px 6px 8px;min-height:84px;max-height:200px;resize:none;font-size:16px;line-height:1.45;color:var(--ink);overflow-y:auto;}
   .cmp textarea#aiDesc:focus{outline:none;box-shadow:none;}
   .cmp textarea#aiDesc::placeholder{color:var(--muted);opacity:.85;}
   .cmp .ai-desc-clear{top:6px;right:4px;width:26px;height:26px;border:0;background:rgba(244,245,250,0.07);color:var(--muted);}
@@ -2416,6 +2438,46 @@
   .gw-nudge b{font:700 15px 'Sora',sans-serif;display:block;} .gw-nudge small{display:block;color:var(--muted);font-size:13px;line-height:1.45;margin-top:3px;}
   .gn-acts{display:flex;gap:8px;} .gn-acts button{flex:1;border:0;border-radius:12px;padding:12px;font:700 14px 'Inter',sans-serif;cursor:pointer;}
   .gn-go{background:#4ADE80;color:#0B1A10;} .gn-no{background:rgba(244,245,250,.07);color:var(--ink);}
+
+  /* ---- Learning status pill: wherever targets show ---- */
+  .lpill{display:inline-flex;align-items:center;gap:6px;border:0;cursor:pointer;font:700 11.5px 'Inter',sans-serif;letter-spacing:.01em;white-space:nowrap;
+    padding:5px 10px 5px 7px;border-radius:999px;line-height:1;-webkit-tap-highlight-color:transparent;}
+  .lpill svg{width:14px;height:14px;flex-shrink:0;}
+  .lpill.learning{color:#B8A6FF;background:rgba(155,124,255,.13);box-shadow:inset 0 0 0 1px rgba(155,124,255,.22);}
+  .lpill.learned{color:#4ADE80;background:rgba(74,222,128,.11);box-shadow:inset 0 0 0 1px rgba(74,222,128,.2);}
+  .lpill.warn.learning{color:#F4C25B;background:rgba(244,183,64,.12);box-shadow:inset 0 0 0 1px rgba(244,183,64,.24);}
+  .lpill.warn.learned{color:#4ADE80;}
+  .lpill.mini{font-size:10.5px;padding:4px 8px 4px 6px;gap:5px;} .lpill.mini svg{width:12px;height:12px;}
+  .lpill-row{display:flex;justify-content:center;margin:2px 0 10px;}
+  #ringLearn{margin:-4px 0 12px;}
+  .ag-m.learning{border-color:rgba(155,124,255,.32);background:linear-gradient(180deg,rgba(155,124,255,.09),rgba(155,124,255,.02));}
+  .ag-num .lpill{margin-left:auto;}
+  .pb-learnrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--rule);margin-top:12px;}
+  .pb-learnrow > span{display:flex;flex-direction:column;gap:2px;min-width:0;} .pb-learnrow b{font-size:14px;} .pb-learnrow small{font-size:12px;color:var(--muted);line-height:1.4;}
+  /* Learning page */
+  .lp-state{border-radius:18px;padding:14px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px;}
+  .lp-state.learning{background:linear-gradient(180deg,rgba(155,124,255,.14),rgba(155,124,255,.03));border:1px solid rgba(155,124,255,.32);}
+  .lp-state.learned{background:linear-gradient(180deg,rgba(74,222,128,.12),rgba(74,222,128,.02));border:1px solid rgba(74,222,128,.32);flex-direction:row;align-items:center;justify-content:space-between;}
+  .lp-ok-ico{width:40px;height:40px;border-radius:13px;background:rgba(74,222,128,.16);color:#4ADE80;display:flex;align-items:center;justify-content:center;flex-shrink:0;} .lp-ok-ico svg{width:22px;height:22px;}
+  .lp-state.learned{justify-content:flex-start;gap:12px;}
+  .lp-state-t{display:flex;flex-direction:column;gap:3px;} .lp-state-t b{font:700 20px 'Sora',sans-serif;} .lp-state-t span{font-size:13px;color:var(--muted);font-weight:600;}
+  .lp-state p{margin:0;font-size:13px;line-height:1.5;color:var(--muted);} .lp-state p b{color:var(--ink);} .lp-state p b.warn{color:#F4C25B;}
+  .lp-seg{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+  .lp-seg i{height:8px;border-radius:99px;background:rgba(244,245,250,.1);} .lp-seg i.on{background:linear-gradient(90deg,#9B7CFF,#B8A6FF);}
+  .lp-weigh{margin:-4px 0 12px;padding:11px 13px;border-radius:14px;background:rgba(244,183,64,.1);border:1px solid rgba(244,183,64,.3);font-size:13px;line-height:1.45;color:var(--muted);} .lp-weigh b{color:#F4C25B;}
+  .lp-card .lp-k{font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px;}
+  .lp-dates{letter-spacing:0;text-transform:none;font-weight:600;}
+  .lp-big{font:700 36px/1 'Sora',sans-serif;letter-spacing:-.02em;margin:10px 0 6px;font-variant-numeric:tabular-nums;} .lp-big span{font:600 13px 'Inter',sans-serif;color:var(--muted);margin-left:6px;letter-spacing:0;}
+  .lp-eq{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+  .lp-eq > div{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:12px;background:rgba(244,245,250,.04);font-size:13px;color:var(--muted);font-weight:600;}
+  .lp-eq b{color:var(--ink);font:700 14px 'Sora',sans-serif;font-variant-numeric:tabular-nums;} .lp-eq .fl b{color:#F4C25B;}
+  .lp-facts3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0;}
+  .lp-facts3 > div{padding:10px;border-radius:12px;background:rgba(244,245,250,.04);display:flex;flex-direction:column;gap:3px;min-width:0;}
+  .lp-facts3 b{font:700 18px 'Sora',sans-serif;font-variant-numeric:tabular-nums;} .lp-facts3 b i{font:600 11.5px 'Inter',sans-serif;font-style:normal;color:var(--muted);}
+  .lp-facts3 .ok b{color:#4ADE80;} .lp-facts3 .ok b i{color:var(--muted);}
+  .lp-facts3 small{font-size:11px;color:var(--muted);line-height:1.3;}
+  .lp-wline{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;}
+  .lp-wline i{flex:1;height:0;border-top:1.5px dashed rgba(244,245,250,.25);} .lp-wline b{color:var(--ink);}
 </style>
 </head>
 <body>
@@ -2464,9 +2526,10 @@
           </label>
           <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
         </div>
+    <div class="lpill-row" id="ringLearn"></div>
     <div class="metrics metrics-top">
       <div class="metric metric-cal">
-        <div class="metric-name">Calories</div>
+        <div class="metric-name">Calories from Food</div>
         <div class="mring">
           <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
@@ -2481,7 +2544,7 @@
         <div class="metric-goal" id="mGoalCal"></div>
       </div>
       <div class="metric metric-burn">
-        <div class="metric-name">Burn<span class="burn-src" id="burnSrcTag"></span></div>
+        <div class="metric-name">Calories from Burn<span class="burn-src" id="burnSrcTag"></span></div>
         <div class="mring">
           <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
@@ -2557,7 +2620,7 @@
 
   <div class="card card-fuel" data-view-card="food">
     <button class="burn-summary-row" id="foodSummaryBtn" type="button">
-      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 21V3c-2.2 1.3-3.3 4-3.3 7.5V13H17"/></svg>Food</span>
+      <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 21V3c-2.2 1.3-3.3 4-3.3 7.5V13H17"/></svg>Log food</span>
       <span class="burn-summary-val" id="foodSummaryVal">—</span>
       <span class="burn-chevron" id="foodChevron">›</span>
     </button>
@@ -2592,7 +2655,7 @@
             <button class="ai-photo-remove" id="aiPhotoRemoveBtn" type="button" aria-label="Remove photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
           </div>
           <div class="ai-desc-wrap">
-            <textarea id="aiDesc" rows="2" placeholder="What did you eat? Snap it, say it or type it." aria-label="Describe your food"></textarea>
+            <textarea id="aiDesc" rows="3" placeholder="What did you eat? Snap it, say it or type it." aria-label="Describe your food"></textarea>
             <button class="ai-desc-clear" id="aiDescClearBtn" type="button" aria-label="Clear text"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
           </div>
           <div class="cmp-bar">
@@ -2737,15 +2800,16 @@
       <button class="lg-undo" id="aiUndoBtn" type="button">Undo</button>
     </div>
     <p class="status" id="foodStatus"></p>
+    </div>
+  </div>
 
-    <div class="hist-divider" style="margin:16px 0;"></div>
-
+  <div class="card card-fuel card-logged" data-view-card="food" id="loggedCard">
     <div class="logged-today-head">
-      <span class="logged-today-title" id="loggedSub">Logged today</span>
+      <span class="logged-today-title" id="loggedSub">Food logged today</span>
+      <span class="logged-today-total" id="loggedTotal"></span>
     </div>
     <div id="itemsList"></div>
     <div class="empty" id="loggedEmptyMsg" style="padding:6px 0;">Nothing logged yet.</div>
-    </div>
   </div>
 
   <div class="card card-burn" data-view-card="burn">
@@ -2818,7 +2882,7 @@
     <div class="today-card">
     <div class="metrics metrics-top">
       <div class="metric metric-cal">
-        <div class="metric-name">Calories</div>
+        <div class="metric-name">Calories from Food</div>
         <div class="mring">
           <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
@@ -2833,7 +2897,7 @@
         <div class="metric-goal" id="mGoalCalT"></div>
       </div>
       <div class="metric metric-burn">
-        <div class="metric-name">Burn</div>
+        <div class="metric-name">Calories from Burn</div>
         <div class="mring">
           <svg viewBox="0 0 120 120" class="mring-svg" aria-hidden="true">
           <circle class="mring-track" cx="60" cy="60" r="50"></circle>
@@ -2849,6 +2913,7 @@
       </div>
       <div class="ring-net" id="ringNetT" aria-live="polite" style="display:none;"></div>
     </div>
+    <div class="lpill-row" id="trendLearn"></div>
     <div class="metrics metrics-macros" id="macroRingsT">
       <div class="metric metric-protein" data-macro="protein">
         <div class="metric-name">Protein</div>
@@ -2919,7 +2984,7 @@
 
       <div class="trend-chart-block" id="blockConsumed">
         <button class="chart-collapse-btn" id="toggleConsumedBtn" type="button">
-          <span class="chart-name">Consumed</span>
+          <span class="chart-name">Calories from Food</span>
           <span class="chart-stats" id="trendConsumedChartTitle"></span>
           <span class="burn-chevron" id="consumedChevron">›</span>
         </button>
@@ -2928,7 +2993,7 @@
 
       <div class="trend-chart-block" id="blockBurned">
         <button class="chart-collapse-btn" id="toggleBurnedBtn" type="button">
-          <span class="chart-name">Burned</span>
+          <span class="chart-name">Calories from Burn</span>
           <span class="chart-stats" id="trendBurnedChartTitle"></span>
           <span class="burn-chevron" id="burnedChevron">›</span>
         </button>
@@ -3121,16 +3186,6 @@
       <p class="status" id="profileStatus"></p>
     </div>
     <div class="overlay-card burn-mode-card">
-      <div class="goal-group-title">What you track</div>
-      <p class="card-sub" style="margin:0 0 12px;">Calories always. Pick the macros you want rings, rulers and balances for.</p>
-      <div class="track-row" id="trackRow">
-        <span class="track-chip on locked"><svg class="mg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 21V3c-2.2 1.3-3.3 4-3.3 7.5V13H17"/></svg>Calories</span>
-        <button class="track-chip" data-track="protein" type="button"><svg class="mg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.6 3.4a5 5 0 0 1 .3 9.9c-1.2.1-2.3-.2-3.2-.8l-4.5 4.5a2.1 2.1 0 1 1-2.8 2.8 2.1 2.1 0 1 1-1.2-3.6l4.5-4.5a5 5 0 0 1 6.9-8.3z"/></svg>Protein</button>
-        <button class="track-chip" data-track="carbs" type="button"><svg class="mg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21V9"/><path d="M12 9c0-3 2-5 5-5 0 3-2 5-5 5zM12 9c0-3-2-5-5-5 0 3 2 5 5 5z"/><path d="M12 15c0-3 2-5 5-5 0 3-2 5-5 5zM12 15c0-3-2-5-5-5 0 3 2 5 5 5z"/></svg>Carbs</button>
-        <button class="track-chip" data-track="fat" type="button"><svg class="mg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c3 4 6 7.2 6 10.5a6 6 0 0 1-12 0c0-3.3 3-6.5 6-10.5z"/><path d="M9.5 14.5a2.6 2.6 0 0 0 2.5 2.4"/></svg>Fat</button>
-      </div>
-    </div>
-    <div class="overlay-card burn-mode-card">
       <div class="goal-group-title">Daily burn</div>
       <div id="burnModeBody"></div>
     </div>
@@ -3169,15 +3224,9 @@
       <div class="gw-proj" id="goalWeightProj"></div>
     </div>
     <div class="goal-group" id="activityGroup">
-      <div class="goal-group-title" id="activityTitle">Activity level</div>
-      <div class="ag-m" id="agMeasured" hidden></div>
-      <p class="ag-note" id="agNote"></p>
-      <div class="goal-pill-row goal-pill-row-4" id="activityGoalRow">
-        <button class="goal-pill" data-activity="sedentary" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 10V8a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v2"/><path d="M3.5 18v-5a2 2 0 0 1 4 0v1h9v-1a2 2 0 0 1 4 0v5z"/><path d="M5.5 18v2M18.5 18v2"/></svg>Sedentary</button>
-        <button class="goal-pill" data-activity="light" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.2" r="1.9"/><path d="M12.6 8.5l-1.6 6.5 3 2.5v4"/><path d="M11 15l-2 6"/><path d="M12.6 8.5l-3.4 2.4-.9 3.2"/><path d="M12.6 8.5l2.4 3.4 2.8.6"/></svg>Lightly active</button>
-        <button class="goal-pill" data-activity="moderate" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15.2" cy="4.2" r="1.9"/><path d="M13.6 8.6l-2.6 6.1 3.4 2.6-1 4"/><path d="M11 14.7l-2.2 3.6-4.3.6"/><path d="M13.6 8.6l-4.1 1.1-2.1 3"/><path d="M13.6 8.6l2.4 3.4 3.6.6"/></svg>Moderately active</button>
-        <button class="goal-pill" data-activity="very" type="button"><svg class="goal-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c.7 3.5 5.5 5.6 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.4 2.7-5.6.3 2 1.3 3.2 2.7 3.6-.3-3.4-.7-6.2.1-9.3z"/></svg>Very active</button>
-      </div>
+      <div class="goal-group-title" id="activityTitle">Your daily burn</div>
+      <div class="ag-m" id="agMeasured"></div>
+      <div class="btb" id="burnTargetBreak"></div>
     </div>
     <div class="goal-group">
       <div class="goal-group-title">Muscle</div>
@@ -3188,20 +3237,19 @@
     </div>
 
     <div class="targets-summary" id="targetsSummary">
-      <div class="targets-summary-head">Your daily targets</div>
+      <div class="targets-summary-head"><span>Your daily targets</span><span id="targetsLearnPill"></span></div>
       <div class="targets-grid">
         <div class="target-tile target-tile-cal">
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 21V3c-2.2 1.3-3.3 4-3.3 7.5V13H17"/></svg></div>
           <input class="target-tile-value target-input" id="targetCalVal" data-target="calorie" type="number" inputmode="numeric" aria-label="kcal target">
           <div class="target-tile-label">kcal<span class="tt-edited" data-edited="calorie">· yours</span></div>
         </div>
-        <div class="target-tile target-tile-burn">
+        <div class="target-tile target-tile-burn" hidden>
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c.7 3.5 5.5 5.6 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.4 2.7-5.6.3 2 1.3 3.2 2.7 3.6-.3-3.4-.7-6.2.1-9.3z"/></svg></div>
           <input class="target-tile-value target-input" id="targetBurnVal" data-target="burn" type="number" inputmode="numeric" aria-label="kcal burn target">
           <div class="target-tile-label">kcal burn<span class="tt-edited" data-edited="burn">· yours</span></div>
         </div>
       </div>
-      <div class="btb" id="burnTargetBreak"></div>
       <div class="targets-grid targets-grid-macros" id="targetsMacros">
         <div class="target-tile target-tile-protein" data-macro-tile="protein">
           <div class="target-tile-icon"><svg class="tt-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.6 3.4a5 5 0 0 1 .3 9.9c-1.2.1-2.3-.2-3.2-.8l-4.5 4.5a2.1 2.1 0 1 1-2.8 2.8 2.1 2.1 0 1 1-1.2-3.6l4.5-4.5a5 5 0 0 1 6.9-8.3z"/></svg></div>
@@ -3467,10 +3515,8 @@ const MACRO_INFO = {
   carbs:   { label: 'Carbs',   key: 'Carbs',   kcal: 4 },
   fat:     { label: 'Fat',     key: 'Fat',     kcal: 9 }
 };
-function trackedMacros(){
-  const t = userProfile.track;
-  return Array.isArray(t) ? MACROS.filter(m => t.includes(m)) : ['protein'];
-}
+// everyone tracks calories, protein, carbs and fat
+function trackedMacros(){ return MACROS.slice(); }
 function consumedMacro(e, m){
   if(m === 'protein') return consumedProtein(e);
   if(!e) return null;
@@ -3597,8 +3643,9 @@ function renderMetricRing(key, s, o){
   if(over){
     if(o.goal && frac > 1){
       setArcFrac(over, Math.min(frac - 1, 1));
-      over.style.stroke = o.overIsBad ? '#FF5C7A' : '#FFFFFF';
-      over.style.strokeOpacity = o.overIsBad ? '0.95' : '0.55';
+      // over goal: food in red, burn in green
+      over.style.stroke = key === 'Burn' ? '#4ADE80' : o.overIsBad ? '#FF5C7A' : '#FFFFFF';
+      over.style.strokeOpacity = key === 'Burn' || o.overIsBad ? '0.95' : '0.55';
     } else setArcFrac(over, 0);
   }
   fig.textContent = fmtN(o.value);
@@ -3741,7 +3788,7 @@ function renderRing(){
   showTrackedMacros();
 
   renderMetricRing('Cal', '', { value: cal != null ? cal : 0, goal: t && t.calorieTarget,
-    placeholder: 2000, overIsBad: calOverIsBad });
+    placeholder: 2000, overIsBad: true });
   renderMetricRing('Burn', '', { value: burn, goal: t && t.burnTarget,
     placeholder: 2200, overIsBad: false });
   tracked.forEach(m => {
@@ -3766,17 +3813,29 @@ function renderRing(){
   renderBalances('');
   renderMyGoals();
 }
-// Past days only: the day's total deficit or surplus, between the Calories and Burn rings.
+// Between the two rings: the day's balance (food − burn; on today, the burn so far) and the goal for it.
 function renderRingNet(d, cal, burn){
   const el = document.getElementById('ringNet');
   if(!el) return;
-  const show = d !== todayStr() && cal != null && burn != null && cal > 0;
-  el.style.display = show ? '' : 'none';
-  if(!show) return;
-  const net = Math.round(cal - burn);
+  const t = computeTargets();
+  const goal = t ? Math.round(t.calorieTarget - t.burnTarget) : null;
+  const isToday = d === todayStr();
+  el.style.display = '';
+  if(burn == null && cal == null){
+    el.className = 'ring-net empty';
+    el.innerHTML = `<span class="rn-k">Balance</span><b>—</b>${goal != null ? `<span class="rn-g">goal <em>${goal === 0 ? '±0' : signedN(goal)}</em></span>` : ''}`;
+    return;
+  }
+  const net = Math.round((cal || 0) - (burn || 0));
   const kind = net < 0 ? 'deficit' : net > 0 ? 'surplus' : 'even';
-  el.className = 'ring-net ' + kind;
-  el.innerHTML = `<b>${signedN(net)}</b><span>${kind === 'even' ? 'even' : kind}</span>`;
+  // good: on the side the plan asks for (maintain: within 150 either way)
+  const good = goal == null ? null : goal < 0 ? net <= 0 : goal > 0 ? net >= 0 : Math.abs(net) <= 150;
+  const frac = goal ? Math.max(0, Math.min(1, net / goal)) : null;
+  el.className = `ring-net ${kind} ${good == null ? '' : good ? 'good' : 'bad'}`;
+  el.setAttribute('aria-label', `${isToday ? 'Balance so far' : 'Balance'}: ${signedN(net)} kcal ${kind}. Goal ${goal == null ? 'not set' : signedN(goal)}.`);
+  el.innerHTML = `<span class="rn-k">${isToday ? '<i class="rn-live" aria-hidden="true"></i>' : ''}${kind === 'even' ? 'Even' : kind}</span><b>${signedN(net)}</b>
+    ${frac != null ? `<span class="rn-bar"><i style="width:${(frac * 100).toFixed(0)}%"></i></span>` : ''}
+    ${goal != null ? `<span class="rn-g">goal <em>${goal === 0 ? '±0' : signedN(goal)}</em></span>` : ''}`;
 }
 // Under the Burn label, a tiny tag says where the number comes from. In the center: "Log" when it's
 // a manual day with nothing logged yet, or the day's activity level when the app is estimating.
@@ -3805,7 +3864,6 @@ function setupGap(){
   if(currentWeightLb() == null) prof.push('weight');
   const goals = [];
   if(!userGoals.weightGoal) goals.push('weight goal');
-  if(!userGoals.activity) goals.push('activity level');
   if(!userGoals.muscleGoal) goals.push('muscle goal');
   if(!prof.length && !goals.length) return null;
   if(prof.length === 3 && goals.length === 3) return { page: 'profile', text: 'Finish setting up: add your profile, then your goals' };
@@ -3843,25 +3901,51 @@ function renderMyGoals(){
 // as a dashed line; "vs. goal" subtracts the goal pace, so the dashed goal becomes the zero line and
 // the line shows how far ahead or behind the goal the period is.
 function balanceSeries(startISO, endISO, kind){
+  if(kind === 'weight') return weightBalanceSeries(startISO, endISO);
   const t = computeTargets();
   const today = todayStr();
-  const daily = t ? (kind === 'cal' ? t.calorieTarget - t.burnTarget : macroTarget(kind, t)) : null;
+  const daily = t ? (kind === 'cal' ? t.calorieTarget - t.burnTarget : kind === 'eaten' ? t.calorieTarget : kind === 'burn' ? t.burnTarget : macroTarget(kind, t)) : null;
   const days = [];
   let run = 0, counted = 0;
   for(const dt = parseISO(startISO); toISO(dt) <= endISO; dt.setDate(dt.getDate() + 1)){
     const iso = toISO(dt);
     const e = entries[iso];
     // today is left out until it's over: a half-logged day makes the running total jump around
-    const n = iso >= today ? null : (kind === 'cal' ? net(e) : consumedMacro(e, kind));
+    const n = iso >= today ? null : (kind === 'cal' ? net(e) : kind === 'eaten' ? consumedTotal(e) : kind === 'burn' ? (hasBurned(e) ? e.burned : null) : consumedMacro(e, kind));
     if(n != null){ run += n; counted++; }
     days.push({ iso, net: n, cum: iso < today ? run : null, pace: daily != null ? daily * counted : null, future: iso >= today, today: iso === today });
   }
   return { kind, days, daily, counted, total: counted ? run : null, goalTotal: daily != null ? daily * counted : null };
 }
-const BALANCE_NAME = { cal: 'Calorie Deficit/Surplus', protein: 'Protein', carbs: 'Carbs', fat: 'Fats' };
-const balanceUnit = k => k === 'cal' ? 'kcal' : 'g';
-// Which side of the goal is good: under it for calories, carbs and fat; over it for protein.
-const balanceGoodLow = k => k !== 'protein';
+// Weight: the change in the 7-day average since the day before the period, against the plan's pace.
+// Counted on every day (weight moves whether or not you log), carried forward over days without data.
+function weightBalanceSeries(startISO, endISO){
+  const W = wtDays(), today = todayStr(), wg = userGoals.weightGoal;
+  const perDay = wg === 'lose' ? -wtUnitFromLb(weightRate()) / 7 : wg === 'gain' ? wtUnitFromLb(weightRate()) / 7 : 0;
+  let base = wtAvg7(W, wtAddDays(startISO, -1));
+  const days = []; let last = null, n = 0;
+  for(let iso = startISO; iso <= endISO; iso = wtAddDays(iso, 1)){
+    const done = iso <= today && (iso < today || W[iso]);
+    let cum = null;
+    if(done){
+      const a = wtAvg7(W, iso);
+      if(base == null && a != null) base = W[iso] ? W[iso].v : a;
+      if(a != null && base != null) last = a - base;
+      cum = last != null ? last : 0;
+      n++;
+    }
+    days.push({ iso, net: done && W[iso] ? W[iso].v : null, cum: done ? cum : null, pace: perDay * (done ? n : n), future: !done, today: iso === today });
+  }
+  const past = days.filter(d => !d.future);
+  return { kind: 'weight', days, daily: perDay, counted: n, total: base != null && last != null ? last : null, goalTotal: n ? perDay * n : null };
+}
+const BALANCE_NAME = { cal: 'Calorie Deficit/Surplus', protein: 'Protein', carbs: 'Carbs', fat: 'Fats', eaten: 'Calories from Food', burn: 'Calories from Burn', weight: 'Weight', quality: 'Calorie Quality Mix' };
+const BALANCE_COLOR = { eaten: '#4C8DFF', burn: '#FF8A4C', weight: '#38BDF8' };
+const balColor = k => MACRO_COLOR[k] || BALANCE_COLOR[k] || '#4C8DFF';
+const balanceUnit = k => k === 'cal' || k === 'eaten' || k === 'burn' ? 'kcal' : k === 'weight' ? weightUnit() : 'g';
+// Which side of the goal is good: under it for calories, food, carbs and fat; over it for protein and burn;
+// for weight, the way the plan goes.
+const balanceGoodLow = k => k === 'weight' ? userGoals.weightGoal !== 'gain' : k !== 'protein' && k !== 'burn';
 // one view for every chart, on the main page and in Trends
 let balanceMode = 'total';
 try{ const v = localStorage.getItem('balance-mode'); if(v === 'goal' || v === 'total') balanceMode = v; }catch(e){}
@@ -3894,7 +3978,7 @@ function balanceSVG(ser, o, tm){
   const uid = 'b' + o.key;
   const isCal = ser.kind === 'cal', goodLow = balanceGoodLow(ser.kind);
   const endV = disp[disp.length - 1];
-  const GREEN = '#4ADE80', RED = '#FF5C7A', BLUE = MACRO_COLOR[ser.kind] || '#4C8DFF';
+  const GREEN = '#4ADE80', RED = '#FF5C7A', BLUE = balColor(ser.kind);
   const totalCol = isCal ? ((ser.total == null || ser.total <= 0) ? GREEN : RED) : BLUE;
   const goalDiff = ser.total == null || ser.goalTotal == null ? null : ser.total - ser.goalTotal;
   const goalCol = goalDiff == null ? BLUE : ((goodLow ? goalDiff <= 0 : goalDiff >= 0) ? GREEN : RED);
@@ -3943,7 +4027,73 @@ function balanceSVG(ser, o, tm){
   else ser.days.forEach((d, i) => { if(d.iso.slice(8) === '15') g += lab(i, MONTH_LETTERS[+d.iso.slice(5, 7) - 1], '#8B90A0'); });
   return `<svg class="wk-svg" viewBox="0 0 ${W} ${H}" aria-hidden="true">${g}</svg>`;
 }
-function balanceGoalText(k, v){ return v == null ? '—' : (k === 'cal' ? (v === 0 ? '0' : signedN(v)) : fmtN(v) + ' g'); }
+// Calorie quality mix, day by day: each finished day's calories split into protein, carbs and fat
+// (a 100% column), then the week so far as one wider column. Two dashed lines mark your goal split,
+// so a column whose protein band reaches its line hit the protein share. The header gives the week's
+// protein share against the goal ("Total"), or how many points each macro is off ("vs. goal").
+function qualitySeries(startISO, endISO){
+  const t = computeTargets(), today = todayStr();
+  const goal = t ? t.qualityTargets : null;
+  const days = [], kc = { protein: 0, carbs: 0, fat: 0 };
+  for(let iso = startISO; iso <= endISO; iso = wtAddDays(iso, 1)){
+    const e = entries[iso], g = MACROS.map(m => consumedMacro(e, m));
+    let mix = null;
+    if(iso < today && g.every(v => v != null) && g.some(v => v > 0)){
+      const k = MACROS.map((m, i) => g[i] * MACRO_INFO[m].kcal), sum = k.reduce((a, b) => a + b, 0);
+      mix = {}; MACROS.forEach((m, i) => { mix[m] = k[i] / sum * 100; kc[m] += k[i]; });
+    }
+    days.push({ iso, mix, future: iso >= today, today: iso === today });
+  }
+  const tot = kc.protein + kc.carbs + kc.fat;
+  const week = tot > 0 ? { protein: kc.protein / tot * 100, carbs: kc.carbs / tot * 100, fat: kc.fat / tot * 100 } : null;
+  return { days, week, goal, n: days.filter(d => d.mix).length };
+}
+function qualityHeadHTML(q, mode){
+  const w = q.week, g = q.goal;
+  let val = '—', cls = 'pro', small = '% protein', sub;
+  if(w){
+    if(mode === 'goal' && g){
+      const dp = Math.round(w.protein - g.protein);
+      val = (dp > 0 ? '+' : dp < 0 ? '−' : '±') + Math.abs(dp); small = ' pts protein'; cls = dp >= -2 ? 'def' : 'sur';
+    } else val = Math.round(w.protein);
+    sub = MACROS.map(m => `<span style="color:${MACRO_COLOR[m]}">${Math.round(w[m])}</span>`).join('<i>/</i>');
+  }
+  const gtxt = g ? MACROS.map(m => g[m]).join('/') : '—';
+  return `<div class="wk-head"><div class="wk-title" style="color:${MACRO_COLOR.protein}">${BALANCE_NAME.quality}</div>
+    <div class="wk-now"><div class="wk-val ${cls}"${cls === 'pro' ? ` style="color:${MACRO_COLOR.protein}"` : ''}>${val}<small>${small}</small></div>
+    <div class="wk-goal">${w ? `<span class="qm-mix">${sub}</span> · ` : ''}Goal <b>${gtxt}</b></div></div></div>`;
+}
+function qualitySVG(q, sel){
+  const W = 320, H = 92, top = 6, bot = H - 17, padX = 6;
+  const cols = q.days.length + 1, gap = 6, wkGap = 8;
+  const cw = (W - 2 * padX - gap * (cols - 1) - wkGap) / (cols + 0.6);
+  const x = i => padX + i * (cw + gap) + (i >= q.days.length ? wkGap : 0);
+  const y = p => top + (100 - p) / 100 * (bot - top);
+  const col = (x0, w, mix, dim) => {
+    if(!mix) return `<rect x="${x0.toFixed(1)}" y="${top}" width="${w.toFixed(1)}" height="${bot - top}" rx="5" fill="rgba(244,245,250,.05)"/>`;
+    // protein at the bottom, then carbs, then fat
+    let acc = 0, g = '';
+    MACROS.forEach(m => { const h = mix[m] / 100 * (bot - top); const y1 = bot - acc - h; g += `<rect x="${x0.toFixed(1)}" y="${y1.toFixed(1)}" width="${w.toFixed(1)}" height="${Math.max(0, h - 1.2).toFixed(1)}" fill="${MACRO_COLOR[m]}" fill-opacity="${dim ? .55 : .9}"/>`; acc += h; });
+    return `<g clip-path="inset(0 round 5px)">${g}</g>`;
+  };
+  let g = '';
+  q.days.forEach((d, i) => { g += col(x(i), cw, d.mix, false); });
+  const wx = x(q.days.length), ww = cw * 1.6;
+  g += col(wx, ww, q.week, false);
+  // goal split: protein line and protein+carbs line
+  if(q.goal){
+    const p1 = q.goal.protein, p2 = q.goal.protein + q.goal.carbs;
+    [p1, p2].forEach((p, k) => { const yy = (bot - p / 100 * (bot - top)).toFixed(1);
+      g += `<line x1="${padX}" x2="${W - padX}" y1="${yy}" y2="${yy}" stroke="rgba(244,245,250,.6)" stroke-width="1.1" stroke-dasharray="3 3"/>`; });
+  }
+  q.days.forEach((d, i) => { const cx = x(i) + cw / 2;
+    if(d.today) g += `<rect x="${(cx - 8).toFixed(1)}" y="${H - 14}" width="16" height="14" rx="7" fill="rgba(76,141,255,0.22)"/>`;
+    g += `<text x="${cx.toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${d.today ? '#8DB6FF' : d.iso === sel ? '#F4F5F7' : '#8B90A0'}">${WK_LETTERS[i] || ''}</text>`; });
+  g += `<text x="${(wx + ww / 2).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9.5" font-weight="800" fill="#F4F5F7">Week</text>`;
+  return `<svg class="wk-svg qm-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Calorie mix by day: protein, carbs and fat, with your goal split">${g}</svg>`;
+}
+function balanceGoalText(k, v){ return v == null ? '—' : k === 'weight' ? wtSigned(v) + ' ' + weightUnit() : k === 'cal' ? (v === 0 ? '0' : signedN(v)) : k === 'eaten' || k === 'burn' ? fmtN(v) : fmtN(v) + ' g'; }
+const balanceFmt = (k, v, signed) => k === 'weight' ? wtSigned(v) : signed ? signedN(v) : fmtN(v);
 // Each chart's header: its name, the number for the view, and the goal so far.
 function balanceHeadHTML(ser, mode){
   const k = ser.kind, unit = balanceUnit(k), goodLow = balanceGoodLow(k);
@@ -3951,14 +4101,14 @@ function balanceHeadHTML(ser, mode){
   if(mode === 'goal'){
     if(ser.total != null && ser.goalTotal != null){
       const d = ser.total - ser.goalTotal;
-      val = signedN(d); cls = (goodLow ? d <= 0 : d >= 0) ? 'def' : 'sur';
+      val = balanceFmt(k, d, true); cls = (goodLow ? d <= 0 : d >= 0) ? 'def' : 'sur';
     }
   } else if(ser.total != null){
     if(k === 'cal'){ val = signedN(ser.total); cls = ser.total <= 0 ? 'def' : 'sur'; }
-    else { val = fmtN(ser.total); cls = 'pro'; }
+    else { val = balanceFmt(k, ser.total, false); cls = 'pro'; }
   }
-  return `<div class="wk-head"><div class="wk-title"${k === 'cal' ? '' : ` style="color:${MACRO_COLOR[k]}"`}>${BALANCE_NAME[k]}</div>
-    <div class="wk-now"><div class="wk-val ${cls}"${k !== 'cal' && cls === 'pro' ? ` style="color:${MACRO_COLOR[k]}"` : ''}>${val}<small>${unit}</small></div>
+  return `<div class="wk-head"><div class="wk-title"${k === 'cal' ? '' : ` style="color:${balColor(k)}"`}>${BALANCE_NAME[k]}</div>
+    <div class="wk-now"><div class="wk-val ${cls}"${k !== 'cal' && cls === 'pro' ? ` style="color:${balColor(k)}"` : ''}>${val}<small>${unit}</small></div>
     <div class="wk-goal"><i class="wk-dash"></i>Goal <b>${balanceGoalText(k, ser.goalTotal)}</b></div></div></div>`;
 }
 function progressTitle(s){
@@ -3991,19 +4141,25 @@ function renderBalances(s){
     const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
     start = toISO(mon); end = toISO(sun); labels = 'week';
   }
-  const kinds = ['cal'].concat(trackedMacros());
+  const kinds = ['cal'].concat(trackedMacros(), s ? [] : ['eaten', 'burn', 'weight']);
   const mode = balanceMode;
   if(box.dataset.sig !== kinds.join(',')){
     box.dataset.sig = kinds.join(',');
     box.innerHTML = `<div class="wp"><div class="wp-head"><div><div class="wp-title"></div><div class="wp-sub"></div></div><div class="wp-tog"></div></div>` +
       kinds.map(k => `<div class="wk" data-kind="${k}"><div class="wk-headbox"></div><div class="wk-chart"></div></div>`).join('') + `</div>`;
   }
-  box.querySelector('.wp-title').textContent = progressTitle(s);
+  box.querySelector('.wp-title').innerHTML = `<span>${progressTitle(s)}</span>${s ? '' : learnPillHTML('mini')}`;
   const fmt = iso => parseISO(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
   box.querySelector('.wp-sub').textContent = `${fmt(start)} – ${fmt(end)} · ${mode === 'goal' ? 'against your goal' : 'running total'}`;
   box.querySelector('.wp-tog').innerHTML = toggleHTML(mode);
   kinds.forEach(k => {
     const card = box.querySelector(`[data-kind="${k}"]`);
+    if(k === 'quality'){
+      card._q = qualitySeries(start, end); card._mode = mode;
+      card.querySelector('.wk-headbox').innerHTML = qualityHeadHTML(card._q, mode);
+      card.querySelector('.wk-chart').innerHTML = qualitySVG(card._q, selectedDate);
+      return;
+    }
     const ser = balanceSeries(start, end, k);
     card._ser = ser;
     card._o = { H: s ? 74 : 66, labels, selected: s ? null : selectedDate, key: (s || 'm') + k };
@@ -4043,11 +4199,12 @@ function wkHoldShow(card, clientX){
   const totCls = k === 'cal' ? (d.cum <= 0 ? 'def' : 'sur') : 'pro';
   const goalCls = vsGoal == null ? '' : ((goodLow ? vsGoal <= 0 : vsGoal >= 0) ? 'def' : 'sur');
   const isGoal = card._mode === 'goal';
-  const main = isGoal ? (vsGoal == null ? '—' : signedN(vsGoal)) : (k === 'cal' ? signedN(d.cum) : fmtN(d.cum));
-  const other = isGoal ? `Total <b>${k === 'cal' ? signedN(d.cum) : fmtN(d.cum) + ' g'}</b>` : `vs. goal <b class="${goalCls}">${vsGoal == null ? '—' : signedN(vsGoal) + (k === 'cal' ? '' : ' g')}</b>`;
+  const u2 = k === 'cal' || k === 'eaten' || k === 'burn' ? '' : ' ' + unit;
+  const main = isGoal ? (vsGoal == null ? '—' : balanceFmt(k, vsGoal, true)) : (k === 'cal' ? signedN(d.cum) : balanceFmt(k, d.cum, false));
+  const other = isGoal ? `Total <b>${k === 'cal' ? signedN(d.cum) : balanceFmt(k, d.cum, false) + u2}</b>` : `vs. goal <b class="${goalCls}">${vsGoal == null ? '—' : balanceFmt(k, vsGoal, true) + u2}</b>`;
   const lbl = parseISO(d.iso).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
   const now = card.querySelector('.wk-now');
-  if(now) now.innerHTML = `<div class="wk-val ${isGoal ? goalCls : totCls}"${!isGoal && k !== 'cal' ? ` style="color:${MACRO_COLOR[k]}"` : ''}>${main}<small>${unit}</small></div>
+  if(now) now.innerHTML = `<div class="wk-val ${isGoal ? goalCls : totCls}"${!isGoal && k !== 'cal' ? ` style="color:${balColor(k)}"` : ''}>${main}<small>${unit}</small></div>
     <div class="wk-goal wk-hold-sub">through ${lbl} · ${other}</div>`;
 }
 function wkHoldEnd(){
@@ -4081,6 +4238,7 @@ document.addEventListener('contextmenu', (ev)=>{ if(ev.target.closest('.wk-chart
 // Switching view: the header updates at once; the chart morphs over ~0.55 s.
 function switchBalanceMode(card, mode){
   const k = card.dataset.kind;
+  if(k === 'quality'){ if(card._q && card._mode !== mode){ card._mode = mode; const head = card.querySelector('.wk-headbox'); head.innerHTML = qualityHeadHTML(card._q, mode); head.classList.remove('wk-swap'); void head.offsetWidth; head.classList.add('wk-swap'); } return; }
   if(!card._ser || card._mode === mode) return;
   card._mode = mode;
   const head = card.querySelector('.wk-headbox');
@@ -4813,7 +4971,7 @@ function wtPaceCardHTML(W){
   const kcal = Math.round(wtLbFromUnit(pace) * 500 / 10) * 10; // ~3,500 kcal per lb, per day
   let badge = '', note = '';
   if(wg === 'lose'){
-    if(pace >= 0) { badge = '<span class="wt-badge warn">Not losing</span>'; note = `Over the last 4 weeks your weight ${pace > 0.05 ? 'went up' : 'held steady'}. If your logging is complete, the weekly update will lower your target.`; }
+    if(pace >= 0) { badge = '<span class="wt-badge warn">Not losing</span>'; note = `Over the last 4 weeks your weight ${pace > 0.05 ? 'went up' : 'held steady'}. If your logging is complete, Fera’s daily learning will lower your target.`; }
     else if(pctBw > 1) { badge = '<span class="wt-badge warn">Faster than 1% a week</span>'; note = `Losing more than 1% of your body weight a week makes it harder to keep muscle. Keep protein up, or eat a little more.`; }
     else { const diff = -pace - -plan; badge = Math.abs(diff) < 0.15 * Math.abs(plan) ? '<span class="wt-badge ok">On plan</span>' : diff > 0 ? '<span class="wt-badge ok">Ahead of plan</span>' : '<span class="wt-badge mid">Behind plan</span>';
       note = `Most guidance puts a sustainable loss at 0.5 to 1% of body weight a week: ${wtFmt(now * 0.005)} to ${wtFmt(now * 0.01)} ${u} for you.`; }
@@ -4822,7 +4980,7 @@ function wtPaceCardHTML(W){
     note = `For gaining mostly muscle, research suggests about 0.25 to 0.5% of body weight a week: ${wtFmt(now * 0.0025)} to ${wtFmt(now * 0.005)} ${u} for you.`;
   } else {
     badge = Math.abs(pace) < (u === 'kg' ? 0.15 : 0.3) ? '<span class="wt-badge ok">Steady</span>' : `<span class="wt-badge mid">${pace > 0 ? 'Drifting up' : 'Drifting down'}</span>`;
-    note = 'When maintaining, a drift of more than a few tenths a week is worth a look at the weekly average burn.';
+    note = 'When maintaining, a drift of more than a few tenths a week is worth a look: Fera’s daily learning adjusts your target to follow it.';
   }
   return `<div class="wt-card"><div class="wt-h"><span>Your pace · last 4 weeks</span>${badge}</div>
     <div class="wt-pace"><div class="v">${wtSigned(pace)}<small> ${u} a week</small></div>
@@ -5079,6 +5237,7 @@ async function loadEntries(){
   }
 }
 async function persist(){
+  learnTick++;
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }catch(e){}
   // Local copy is already saved above, so the UI can move on right away. The Firestore write
   // itself is NOT awaited: while offline, Firestore's write queue (enablePersistence) only
@@ -5114,6 +5273,7 @@ async function loadWeights(){
   }
 }
 async function persistWeights(){
+  learnTick++;
   try{ localStorage.setItem(WEIGHT_KEY, JSON.stringify(weightReadings)); }catch(e){}
   // the latest weight sets BMR, so every calculated burn moves with it
   if(typeof syncDerivedBurns === 'function'){ const before = JSON.stringify(entries); syncDerivedBurns(); if(JSON.stringify(entries) !== before) persist(); }
@@ -5236,36 +5396,20 @@ function macroSplit(cal, proteinG, fatFixed){
   }
   return { fat: Math.round(fat), carbs: Math.max(0, Math.round(carbs)), fatPct: Math.round(fat * 9 / cal * 100), floorHit };
 }
-// Goals → activity level. Before Fera has measured your burn it's the starting estimate; after the
-// first weekly update the measured burn replaces it, and the level only matters if learning is off.
-let agOpen = false;
+// Goals → your daily burn: the baseline while Fera learns, then what it learned.
 function renderActivityGroup(){
   const box = document.getElementById('agMeasured'); if(!box) return;
-  const note = document.getElementById('agNote'), title = document.getElementById('activityTitle'), row = document.getElementById('activityGoalRow');
-  const t = computeTargets(), L = bmrLearnState(), C = calState();
-  const learned = calTdee() != null && t;
-  const lvl = ACTIVITY_LABELS[userGoals.activity] || '';
-  const est = t ? Math.round(t.bmr * (ACTIVITY_MULTIPLIERS[userGoals.activity] || 1.2) / 10) * 10 : null;
-  if(learned){
-    title.textContent = 'Your daily burn';
-    box.hidden = false;
-    box.innerHTML = `<div class="ag-num"><b>${fmtN(t.tdee)}</b><span>kcal a day</span><span class="ag-tag">Measured</span></div>
-      <p>What you actually burn on an average day, from your last 4 weeks. Fera updates it every Monday${C.at ? ` (last on ${blDate(C.at)})` : ''}. It replaced the starting estimate from your activity level${est && lvl ? `: ${lvl}, ${fmtN(est)}` : ''}.</p>
-      <button type="button" class="bc-link" data-ag-toggle>${agOpen ? 'Hide the starting estimate' : 'Change the starting estimate'}</button>`;
-    note.hidden = !agOpen; row.style.display = agOpen ? '' : 'none';
-    note.textContent = 'Only used if you turn learning off.';
-  } else {
-    title.textContent = 'Activity level';
-    box.hidden = true; note.hidden = false; row.style.display = '';
-    const c = L && typeof calibrate === 'function' ? calibrate() : null;
-    note.textContent = L
-      ? `Your starting point. Fera estimates your burn from it until it has two weeks of your days${c ? ` (${Math.min(c.days, c.need)} of ${c.need} so far)` : ''}, then measures it instead.`
-      : 'Fera estimates your daily burn from it. Turn on learning (menu → Learning) to measure it from your own days instead.';
-  }
+  const t = computeTargets(); if(!t){ box.innerHTML = ''; return; }
+  const s = learnStatus(), learned = s.state === 'learned';
+  box.className = 'ag-m ' + (learned ? 'learned' : 'learning');
+  box.innerHTML = `<div class="ag-num"><b>${fmtN(t.tdee)}</b><span>kcal a day</span>${learnPillHTML('mini')}</div>
+    <p>${learned
+      ? `What you actually burn on an average day, measured over your last ${s.a ? s.a.window : LEARN_MAX_DAYS} days with the resting burn your scale taught Fera. Updated ${learnWhen(s.at)}; it keeps updating every day.`
+      : `Your baseline while Fera learns: the formula's resting burn (${fmtN(t.bmrEst)})${t.tdeeHow === 'measured' ? ` plus the movement Fera measured on your ${t.baseDays} logged days` : ` × ${CAL_BASE_MULT}, a typical day`}. ${s.weigh === 'start' ? 'Weigh in tomorrow morning to start learning.' : `Keep logging: ${s.toGo} day${s.toGo === 1 ? '' : 's'} to go, with a weigh-in on the first and last.`}`}</p>`;
 }
 function computeTargets(){
   const hasProfile = userProfile.dob && userProfile.heightIn && (currentWeightLb() != null);
-  const hasGoals = userGoals.weightGoal && userGoals.activity && userGoals.muscleGoal;
+  const hasGoals = userGoals.weightGoal && userGoals.muscleGoal;
   if(!hasProfile || !hasGoals) return null;
 
   const weightLb = currentWeightLb();
@@ -5279,10 +5423,11 @@ function computeTargets(){
   const bmrEst = bmr;
   bmr += bmrAdj();
 
-  const activityMult = ACTIVITY_MULTIPLIERS[userGoals.activity] || 1.2;
-  // with learning on, the weekly update replaces the activity-level guess with the measured average burn
+  // learned: the daily update's measured burn. Before that: the baseline (formula + measured movement)
   const learnedTdee = typeof calTdee === 'function' ? calTdee() : null;
-  const tdee = learnedTdee != null ? learnedTdee : bmr * activityMult;
+  const baseInfo = learnedTdee == null ? baselineTdee(bmr) : null;
+  const tdee = learnedTdee != null ? learnedTdee : baseInfo.tdee;
+  const activityMult = CAL_BASE_MULT;
 
   const rate = (userGoals.weightGoal === 'maintain') ? 0 : weightRate();
   const dailyDelta = rate * 3500 / 7; // 250 or 500 kcal
@@ -5339,7 +5484,7 @@ function computeTargets(){
     bmr: Math.round(bmr), bmrEst: Math.round(bmrEst), bmrAdj: bmrAdj(),
     tdee: Math.round(tdee),
     rate, dailyDelta: Math.round(dailyDelta), floor, floored,
-    age, weightLb: Math.round(weightLb*10)/10, proteinPerKg, activityMult
+    age, weightLb: Math.round(weightLb*10)/10, proteinPerKg, activityMult, tdeeHow: learnedTdee != null ? 'learned' : baseInfo.how, baseDays: baseInfo ? baseInfo.days : null
   };
 }
 function targetsMethodologyHTML(t){
@@ -5380,14 +5525,14 @@ function targetsMethodologyHTML(t){
   return `
     <p><b>BMR</b> ${t.bmr} kcal/day — Mifflin-St Jeor equation, from your weight (${t.weightLb} lb), height, age (${t.age}) and sex${t.bmrAdj ? ` (${t.bmrEst}), ${t.bmrAdj > 0 ? 'plus' : 'minus'} ${Math.abs(t.bmrAdj)} kcal Fera learned from how your weight actually moved against your logs over the last 28 days` : ''}.${bmrLearnState() && !t.bmrAdj ? ' Learning your own resting burn is on — it takes over once there’s about a month of complete logs and weigh-ins.' : ''}</p>
     ${calTdee() != null
-      ? `<p><b>Daily burn (TDEE)</b> ${fmtN(t.tdee)} kcal/day — <b>measured</b>, not estimated: the average of what you actually burned each day over your last 4 weeks (resting + steps + workouts + digestion, with your learned resting burn). Fera updates it every Monday, by at most ${CAL_STEP_MAX} kcal at a time${calState().at ? `; last on ${blDate(calState().at)}` : ''}. Before that, it was estimated from your activity level: BMR × ${t.activityMult} (${ACTIVITY_LABELS[userGoals.activity]}) = ${fmtN(Math.round(t.bmr * t.activityMult))}.</p>`
-      : `<p><b>Daily burn (TDEE)</b> ${t.tdee} kcal/day — BMR × ${t.activityMult} activity multiplier (${ACTIVITY_LABELS[userGoals.activity]}). ${bmrLearnState() ? 'This is the starting estimate: once Fera has two weeks of your days, the weekly update replaces it with what you actually burn.' : 'Turn on learning to replace this estimate with what you actually burn.'}</p>`}
+      ? `<p><b>Daily burn (TDEE)</b> ${fmtN(t.tdee)} kcal/day — <b>learned</b>: the average of what you actually burned each day over your last ${(learnStatus().a || {}).window || LEARN_MAX_DAYS} days (resting + movement + digestion), with the resting burn your scale taught Fera. It updates every day, by at most ${CAL_STEP_DAY} kcal at a time; last on ${blDate(calState().at)}.</p>`
+      : `<p><b>Daily burn (TDEE)</b> ${fmtN(t.tdee)} kcal/day — <b>baseline</b>, while Fera learns: ${t.tdeeHow === 'measured' ? `your formula resting burn plus the movement and digestion Fera measured on your ${t.baseDays} logged days` : `your formula resting burn × ${CAL_BASE_MULT}, a typical day, until you've logged a few days`}. After 7 complete days with a weigh-in on the first and last, Fera replaces it with what your scale shows.</p>`}
     <p><b>Calorie target</b> ${t.calorieTarget} kcal/day — ${wg === 'maintain' ? 'your TDEE, to maintain weight' : `your TDEE ${wg === 'lose' ? 'minus' : 'plus'} ${t.dailyDelta} kcal a day`}.${yours('calorie')}</p>
     ${pace}
     <p><b>Protein target</b> ${t.proteinTarget} g/day — ${t.proteinPerKg} g per kg of bodyweight, the range the sports-nutrition literature (ISSN/ACSM) backs for your goal to ${mgLabel} while you ${wgLabel}.${yours('protein')}</p>
     <p><b>Fat target</b> ${t.fatTarget} g/day — ${t.fatPct}% of your calories. The National Academies' acceptable range for adults is 20–35% of calories from fat, 45–65% from carbohydrate and 10–35% from protein (${AMDR}); the app starts fat at 25%, the lower-middle of its range, leaving room for protein and carbs.${yours('fat')}</p>
     <p><b>Carbs target</b> ${t.carbsTarget} g/day — whatever calories are left once protein (×4) and fat (×9) are counted, at 4 kcal a gram. The app keeps carbs at or above 130 g a day, the adult recommended minimum, by lowering fat toward 20% first${t.carbFloorHit ? ' — which it did for you' : ''}. A high protein target pushes carbs toward the low end of their range; that's expected when building or keeping muscle.${yours('carbs')}</p>
-    <p><b>Burn target</b> ${t.burnTarget} kcal/day — ${calTdee() != null ? 'your measured daily burn, from the weekly update. It\'s what an average day of yours burns, so the Burn ring shows whether today is above or below your usual.' : 'your estimated total daily energy expenditure at this activity level; a directional guide until Fera measures it.'}${yours('burn')}</p>
+    <p><b>Burn target</b> ${t.burnTarget} kcal/day — ${calTdee() != null ? 'your learned daily burn. It\'s what an average day of yours burns, so the Burn ring shows whether today is above or below your usual.' : 'your baseline daily burn while Fera learns; a directional guide until your scale confirms it.'}${yours('burn')}</p>
     <p><b>Calorie quality</b> isn't a goal of its own: it's each macro's share of your calories, worked out from the targets above — protein ${t.qualityTargets.protein}%, carbs ${t.qualityTargets.carbs}%, fat ${t.qualityTargets.fat}%.</p>
   `;
 }
@@ -5643,14 +5788,14 @@ function bmrBase(){
   if(!w || !userProfile.heightIn || age == null) return null;
   return 10 * w * 0.453592 + 6.25 * userProfile.heightIn * 2.54 - 5 * age + (userProfile.sex === 'male' ? 5 : -161);
 }
-function bmrLearnState(){ const L = userProfile.bmrLearn; return L && L.on ? L : null; }
-function bmrAdj(){ const L = bmrLearnState(); return (L && L.status === 'learned' && typeof L.adj === 'number') ? L.adj : 0; }
-function bmrNow(){ const b = bmrBase(); return b == null ? null : b + bmrAdj(); }
 function dayFractionNow(){ const now = new Date(), mid = new Date(now); mid.setHours(0, 0, 0, 0); return Math.min(1, (now - mid) / 86400000); }
 // The day's burn, piece by piece. Returns null when the profile can't give a BMR yet.
 // bmrOverride: used by the learning step to see what the plain estimate would have given.
 function burnParts(iso, bmrOverride){
-  const bmr = bmrOverride != null ? bmrOverride : bmrNow();
+  // a finished day keeps the resting burn it had (syncDerivedBurns locks it); learning passes its own
+  const e0 = entries[iso];
+  const locked = bmrOverride == null && iso < todayStr() && e0 && typeof e0.restLock === 'number';
+  const bmr = bmrOverride != null ? bmrOverride : locked ? e0.restLock : bmrNow();
   if(bmr == null) return null;
   const path = burnPath(), def = BURN_PATHS[path];
   const e = entries[iso] || {};
@@ -5686,32 +5831,40 @@ function burnParts(iso, bmrOverride){
   const manual = typeof e.burned === 'number' && e.burnSource !== 'calc' && e.burnSource !== 'whoop';
   const kept = manual && e.burnSource === 'kept';
   const L = bmrLearnState();
-  return { bmr: Math.round(bmr), bmrBase: Math.round(bmrBase() || bmr), bmrAdj: bmrOverride != null ? 0 : bmrAdj(), learn: L,
+  return { bmr: Math.round(bmr), bmrBase: Math.round(locked ? bmr - (e0.restAdj || 0) : (bmrBase() || bmr)), bmrAdj: bmrOverride != null ? 0 : locked ? (e0.restAdj || 0) : bmrAdj(), learn: L, locked,
     path, kind: def.apple && h ? 'apple' : 'estimate', noHealth, parts, calc, workouts: workoutList, legacyActivity: !workoutList.length && e.activity && e.activity !== 'sedentary' ? e.activity : null,
     frac, isToday, health: h, digestion: dg, src: def.apple && h ? 'apple' : 'activity', manual, kept, keptFrom: e.keptFrom || 'WHOOP', total: manual ? e.burned : calc };
 }
 function estimatedBurn(iso){ const p = burnParts(iso); return p ? p.calc : null; }
 
-// ---------- learning the person's BMR ----------
-// With permission (Profile → Daily burn), Fera compares what the numbers predicted with what the
-// scale did. Over the last 28 finished days: the average daily balance the app worked out
-// (food − burn, using the plain BMR estimate) against the balance the weight trend implies
-// (lb/day × 3,500). If the weight fell faster than predicted, the body burns more than estimated
-// — and the difference becomes the learned adjustment to BMR. It needs good data: at least 24 of
-// the 28 days with food fully logged and a burn the app calculated, and weigh-ins on 8+ days spread
-// over 3+ weeks. The adjustment is shrunk toward zero a little (food logs tend to miss things) and
-// capped at ±15% of the estimate. It's recomputed every day, so it keeps following the data.
-const LEARN_WINDOW = 28, LEARN_MIN_GOOD = 24, LEARN_MIN_WEIGH = 8, LEARN_CAP = 0.15, LEARN_SPREAD = 21;
-// The analysis behind the learning, for the 28 days ending `back` days before yesterday. Pure: it
-// changes nothing, so the BMR page can also show what Fera would learn before it's turned on, and
-// how the result has moved over past weeks.
+// ---------- learning: how Fera works for everyone ----------
+// Fera starts from the formula (resting burn from weight, height, age and sex) plus the movement it
+// measures each day. Every day it compares what the numbers predicted with what the scale did:
+// the average daily balance (food − burn, with the plain formula) against the balance the weight trend
+// implies (slope × 3,500 kcal/lb). The difference becomes the learned resting-burn adjustment.
+// The first update needs 7 finished days with food fully logged and a burn Fera worked out, with a
+// weigh-in on the first and the last of them. As days pile up the window grows to 28, which stays the
+// window from then on; Fera always uses the longest stretch (7 to 28 days, ending yesterday) that has
+// good data. Rules for a window of N days: complete days ≥ max(7, 85% of N); weigh-ins ≥ max(2, N/4),
+// with one in the first N/7 days and one in the last N/7 days. The adjustment is shrunk toward zero
+// while evidence is thin (good / (good + 7)) and capped at ±15% of the formula.
+const LEARN_MIN_DAYS = 7, LEARN_MAX_DAYS = 28, LEARN_GOOD_SHARE = 0.85, LEARN_CAP = 0.15;
+const LEARN_WINDOW = LEARN_MAX_DAYS;   // older name, still used by a few labels
+function learnDayList(n, back){ const out = []; for(let i = n + back; i >= 1 + back; i--){ const d = new Date(); d.setDate(d.getDate() - i); out.push(toISO(d)); } return out; }
+function learnWindowRule(N){ const edge = Math.ceil(N / 7); return { good: Math.max(LEARN_MIN_DAYS, Math.ceil(N * LEARN_GOOD_SHARE)), weigh: Math.max(2, Math.ceil(N / 4)), edge }; }
+let learnMemo = { key: '', val: null };
+function learnKey(back){ return todayStr() + '|' + back + '|' + Object.keys(entries).length + '|' + JSON.stringify(userGoals.custom || {}) + '|' + Object.keys(allWeights()).length + '|' + (userProfile.burnPath || '') + '|' + Object.keys(healthData).length + '|' + learnTick; }
+let learnTick = 0;   // bumped by persist() so edits to a day are seen
+// Pure: what Fera would learn from the days ending `back` days before yesterday. Changes nothing.
 function learnAnalysis(back = 0){
+  const key = learnKey(back);
+  if(back === 0 && learnMemo.key === key) return learnMemo.val;
   const base = bmrBase();
   if(base == null) return null;
   const t = computeTargets();
-  const days = [];
-  for(let i = LEARN_WINDOW + back; i >= 1 + back; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push(toISO(d)); }
-  const good = new Set(days.filter(d => {
+  const all = learnDayList(LEARN_MAX_DAYS, back);
+  // a day counts once food is fully logged and Fera worked out its burn
+  const goodSet = new Set(all.filter(d => {
     const e = entries[d];
     const cal = consumedTotal(e);
     if(cal == null) return false;
@@ -5723,45 +5876,103 @@ function learnAnalysis(back = 0){
   }));
   const wmap = dailyWeightMap();
   const lb = (d) => wmap[d].avg * (wmap[d].unit === 'kg' ? 2.20462 : 1);
-  const wdays = days.filter(d => wmap[d]);
-  const spread = wdays.length ? (parseISO(wdays[wdays.length - 1]) - parseISO(wdays[0])) / 86400000 : 0;
-  const r = { days: days.map(d => ({ d, good: good.has(d), lb: wmap[d] ? lb(d) : null })), good: good.size, weighIns: wdays.length, spread: Math.round(spread), base: Math.round(base), ready: false };
-  if(good.size >= LEARN_MIN_GOOD && wdays.length >= LEARN_MIN_WEIGH && spread >= LEARN_SPREAD){
-    // weight trend: least-squares slope of daily weights (lb/day)
-    const pts = wdays.map(d => [(parseISO(d) - parseISO(days[0])) / 86400000, lb(d)]);
+  // days since the first day with anything logged: the window can't reach before that
+  const first = typeof firstLogISO === 'function' ? firstLogISO() : null;
+  const avail = first ? all.filter(d => d >= first).length : 0;
+  // the longest window that passes
+  let pick = null;
+  for(let N = Math.min(LEARN_MAX_DAYS, avail); N >= LEARN_MIN_DAYS; N--){
+    const days = all.slice(-N), R = learnWindowRule(N);
+    const good = days.filter(d => goodSet.has(d)).length;
+    const wdays = days.filter(d => wmap[d]);
+    const startOk = days.slice(0, R.edge).some(d => wmap[d]), endOk = days.slice(-R.edge).some(d => wmap[d]);
+    if(good >= R.good && wdays.length >= R.weigh && startOk && endOk){ pick = { N, days, good, wdays }; break; }
+  }
+  const N0 = Math.max(LEARN_MIN_DAYS, Math.min(LEARN_MAX_DAYS, avail));
+  const show = pick ? pick.days : all.slice(-N0);
+  const wshow = show.filter(d => wmap[d]);
+  const r = { days: show.map(d => ({ d, good: goodSet.has(d), lb: wmap[d] ? lb(d) : null })), window: show.length,
+    good: show.filter(d => goodSet.has(d)).length, weighIns: wshow.length,
+    spread: wshow.length ? Math.round((parseISO(wshow[wshow.length - 1]) - parseISO(wshow[0])) / 864e5) : 0,
+    firstW: wshow.length ? { d: wshow[0], lb: lb(wshow[0]) } : null, lastW: wshow.length ? { d: wshow[wshow.length - 1], lb: lb(wshow[wshow.length - 1]) } : null,
+    base: Math.round(base), ready: false, rule: learnWindowRule(show.length) };
+  // where the first update stands: a run of complete days ending yesterday
+  let run = 0; for(let i = all.length - 1; i >= 0 && goodSet.has(all[i]); i--) run++;
+  r.run = run;
+  if(pick){
+    const pts = pick.wdays.map(d => [(parseISO(d) - parseISO(pick.days[0])) / 86400000, lb(d)]);
     const mx = pts.reduce((s, q) => s + q[0], 0) / pts.length, my = pts.reduce((s, q) => s + q[1], 0) / pts.length;
     let num = 0, den = 0; pts.forEach(([x, y]) => { num += (x - mx) * (y - my); den += (x - mx) * (x - mx); });
     const slope = den ? num / den : 0;
     const observed = slope * 3500;
-    const predicted = [...good].reduce((s, d) => s + (consumedTotal(entries[d]) - burnParts(d, base).calc), 0) / good.size;
+    const goodDays = pick.days.filter(d => goodSet.has(d));
+    const predicted = goodDays.reduce((s, d) => s + (consumedTotal(entries[d]) - burnParts(d, base).calc), 0) / goodDays.length;
     const residual = predicted - observed;
-    const shrunk = residual * good.size / (good.size + 7);
+    const shrunk = residual * goodDays.length / (goodDays.length + 7);
     const cap = base * LEARN_CAP;
     Object.assign(r, { ready: true, adj: Math.round(Math.max(-cap, Math.min(cap, shrunk)) / 10) * 10, capped: Math.abs(shrunk) > cap,
-      slope, observed, predicted, fit: { mx, my }, end: days[days.length - 1] });
+      slope, observed, predicted, fit: { mx, my }, end: pick.days[pick.days.length - 1] });
   }
+  if(back === 0) learnMemo = { key, val: r };
   return r;
 }
-function learnBmr(){
-  const L = userProfile.bmrLearn;
-  if(!L || !L.on) return null;
-  const a = learnAnalysis(0);
-  if(!a) return null;
-  const next = Object.assign({}, L, { good: a.good, weighIns: a.weighIns, spread: a.spread, need: LEARN_MIN_GOOD, window: LEARN_WINDOW, checked: todayStr() });
-  // progress only: the learned adjustment itself changes once a week, with the daily target (calApply)
-  if(L.status !== 'learned') next.status = 'learning';
-  next.ready = !!a.ready;
-  const changed = ['status', 'ready', 'good', 'weighIns'].some(k => next[k] !== L[k]);
-  if(changed){ userProfile.bmrLearn = next; persistProfile(); }
-  return next;
+// Learning is how Fera works: always on.
+function bmrLearnState(){ const L = userProfile.bmrLearn || {}; return Object.assign({ status: 'learning', adj: 0 }, L, { on: true }); }
+function bmrAdj(){ const L = bmrLearnState(); return (L.status === 'learned' && typeof L.adj === 'number') ? L.adj : 0; }
+function bmrNow(){ const b = bmrBase(); return b == null ? null : b + bmrAdj(); }
+function learnBmr(){ return bmrLearnState(); }   // progress lives in learnStatus() now
+// Where learning stands, for every pill, nudge and page.
+//   learning: { state, toGo, weigh: 'start' | 'today' | null, a }
+//   learned:  { state, at, weigh: 'soon' | null, a }
+function learnStatus(){
+  const L = bmrLearnState(), C = calState();
+  const a = bmrBase() == null ? null : learnAnalysis(0);
+  const since = typeof daysSinceWeighIn === 'function' ? daysSinceWeighIn() : null;
+  const hasToday = !!dailyWeightMap()[todayStr()];
+  if(L.status === 'learned' && C.tdee != null){
+    return { state: 'learned', at: C.at || L.asOf || null, weigh: since == null || since >= 3 ? 'soon' : null, a };
+  }
+  if(!a) return { state: 'learning', toGo: LEARN_MIN_DAYS, weigh: null, a };
+  const toGo = Math.max(0, LEARN_MIN_DAYS - Math.min(a.run, LEARN_MIN_DAYS));
+  // the first update needs weigh-ins at both ends of the 7 days: nudge every morning until it's done
+  let weigh = null;
+  if(a.ready) weigh = null;
+  else if(toGo === 0 || !a.weighIns) weigh = hasToday ? null : 'start';
+  else if(!hasToday && (since == null || since >= 1)) weigh = 'today';
+  return { state: 'learning', toGo: a.ready ? 0 : (toGo || 1), weigh, a };
 }
-// One short line describing where the BMR stands, for the Burn card, Goals and Profile.
+function learnWhen(iso){ if(!iso) return ''; const t = todayStr(); if(iso === t) return 'today'; if(wtAddDays(t, -1) === iso) return 'yesterday'; return blDate(iso); }
+// every place a target shows gets the pill (Weekly Progress draws its own)
+function renderLearnPills(){
+  const has = !!computeTargets();
+  [['ringLearn', 'full'], ['targetsLearnPill', 'mini'], ['trendLearn', 'mini']].forEach(([id, kind]) => { const el = document.getElementById(id); if(el) el.innerHTML = has ? learnPillHTML(kind) : ''; });
+  if(document.getElementById('agMeasured') && document.getElementById('goalsOverlay') && document.getElementById('goalsOverlay').style.display !== 'none') renderActivityGroup();
+}
+// The small status pill shown wherever targets are. kind: 'full' | 'mini'
+function learnPillHTML(kind = 'full'){
+  const s = learnStatus();
+  let cls, text, ico;
+  if(s.state === 'learned'){
+    cls = s.weigh ? 'learned warn' : 'learned';
+    text = kind === 'mini' ? 'Learned' : s.weigh ? 'Learned · weigh in to keep it current' : `Learned · ${learnWhen(s.at)}`;
+    ico = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".18"/><path d="M4.8 8.3l2.1 2.1 4.3-4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  } else {
+    const prog = Math.max(0.08, (LEARN_MIN_DAYS - s.toGo) / LEARN_MIN_DAYS), C = 2 * Math.PI * 5.5;
+    cls = 'learning' + (s.weigh ? ' warn' : '');
+    const days = `${s.toGo} day${s.toGo === 1 ? '' : 's'} to go`;
+    text = kind === 'mini' ? (s.weigh === 'start' ? 'Learning · weigh in' : `Learning · ${s.toGo}d`)
+      : s.weigh === 'start' ? 'Learning · weigh in to start' : s.weigh === 'today' ? `Learning · ${days} · weigh in today` : `Learning · ${days}`;
+    ico = `<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="2" opacity=".25"/><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="${(C * prog).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 8 8)"/></svg>`;
+  }
+  return `<button type="button" class="lpill ${kind} ${cls}" data-bmr-open aria-label="${text}. Open Learning">${ico}<span>${text}</span></button>`;
+}
+// One short line describing where the resting burn stands, for the Burn card and Profile.
 function bmrStatusText(){
-  const L = bmrLearnState();
-  if(!L) return { tag: 'Estimated', line: 'Mifflin-St Jeor estimate from your profile' };
-  if(L.status === 'learned') return { tag: 'Learned', line: `${L.adj >= 0 ? '+' : '−'}${fmtN(Math.abs(L.adj || 0))} kcal/day vs the estimate, from your last ${LEARN_WINDOW} days` };
-  return { tag: 'Learning', line: `Still learning · ${Math.min(L.good || 0, LEARN_MIN_GOOD)} of ${LEARN_MIN_GOOD} good days, ${Math.min(L.weighIns || 0, LEARN_MIN_WEIGH)} of ${LEARN_MIN_WEIGH} weigh-ins` };
+  const L = bmrLearnState(), s = learnStatus();
+  if(s.state === 'learned') return { tag: 'Learned', line: `${(L.adj || 0) >= 0 ? '+' : '−'}${fmtN(Math.abs(L.adj || 0))} kcal/day vs the formula, from your last ${s.a ? s.a.window : LEARN_MAX_DAYS} days` };
+  return { tag: 'Learning', line: s.weigh === 'start' ? 'Learning · weigh in to start' : `Learning · ${s.toGo} day${s.toGo === 1 ? '' : 's'} to go` };
 }
+
 // Keeps every day's burn in line with the rules above. A total the person typed always stays.
 function syncDerivedBurns(){
   const today = todayStr();
@@ -5769,7 +5980,10 @@ function syncDerivedBurns(){
     (consumedTotal(entries[d]) != null || entries[d].activity || (entries[d].workouts || []).length || entries[d].burnOv || entries[d].burnSource === 'calc' || entries[d].burnSource === 'whoop')));
   if(burnMode() === 'apple') Object.keys(healthData).forEach(d => { if(d <= today && healthFor(d)) days.add(d); });
   days.add(today);
+  const restNow = bmrNow(), adjNow = bmrAdj();
   days.forEach(d => {
+    // the resting burn of each day: today's follows learning; a finished day keeps the one it ended with
+    if(restNow != null && entries[d] && (d === today || typeof entries[d].restLock !== 'number')){ entries[d].restLock = Math.round(restNow); entries[d].restAdj = adjNow; }
     const e = entries[d];
     // typed totals stay: burnSource 'manual', or a burn saved before sources existed
     if(e && typeof e.burned === 'number' && e.burnSource !== 'calc' && e.burnSource !== 'whoop') return;
@@ -5778,6 +5992,7 @@ function syncDerivedBurns(){
     if(!entries[d]) entries[d] = blankEntry();
     entries[d].burned = v;
     entries[d].burnSource = 'calc';
+    if(restNow != null && typeof entries[d].restLock !== 'number'){ entries[d].restLock = Math.round(restNow); entries[d].restAdj = adjNow; }
     entries[d].burnFinal = d < today;
   });
 }
@@ -6278,7 +6493,7 @@ function renderTrendsRingAndRuler(){
   const tracked = trackedMacros();
   showTrackedMacros();
 
-  renderMetricRing('Cal', 'T', { value: avgOf(cal), goal: t && t.calorieTarget, placeholder: 2000, overIsBad: calOverIsBad });
+  renderMetricRing('Cal', 'T', { value: avgOf(cal), goal: t && t.calorieTarget, placeholder: 2000, overIsBad: true });
   renderMetricRing('Burn', 'T', { value: avgOf(brn), goal: t && t.burnTarget, placeholder: 2200, overIsBad: false });
   // between the two rings: the period's average deficit/surplus (finished days with food and burn)
   const netT = document.getElementById('ringNetT');
@@ -6288,8 +6503,11 @@ function renderTrendsRingAndRuler(){
     netT.style.display = a == null ? 'none' : '';
     if(a != null){
       const n = Math.round(a), kind = n < 0 ? 'deficit' : n > 0 ? 'surplus' : 'even';
-      netT.className = 'ring-net ' + kind;
-      netT.innerHTML = `<b>${signedN(n)}</b><span>${kind === 'even' ? 'avg even' : 'avg ' + kind}</span>`;
+      const goal = t ? Math.round(t.calorieTarget - t.burnTarget) : null;
+      const good = goal == null ? null : goal < 0 ? n <= 0 : goal > 0 ? n >= 0 : Math.abs(n) <= 150;
+      const frac = goal ? Math.max(0, Math.min(1, n / goal)) : null;
+      netT.className = `ring-net ${kind} ${good == null ? '' : good ? 'good' : 'bad'}`;
+      netT.innerHTML = `<span class="rn-k">avg ${kind}</span><b>${signedN(n)}</b>${frac != null ? `<span class="rn-bar"><i style="width:${(frac * 100).toFixed(0)}%"></i></span>` : ''}${goal != null ? `<span class="rn-g">goal <em>${goal === 0 ? '±0' : signedN(goal)}</em></span>` : ''}`;
     }
   }
   tracked.forEach(m => {
@@ -7105,6 +7323,7 @@ function renderAll(){
   if(typeof renderWeighNudge === 'function') try { renderWeighNudge(); } catch(e){}
   if(typeof renderPlanNudge === 'function') try { renderPlanNudge(); renderLearnPage(); } catch(e){}
   if(typeof renderGoalNudge === 'function') try { renderGoalNudge(); } catch(e){}
+  try { renderLearnPills(); } catch(e){}
   if(window.feraWidgetSync) window.feraWidgetSync();
   if(window.feraNotifySync) window.feraNotifySync();
   if(typeof renderNotifyOffer === 'function') try { renderNotifyOffer(); renderIphoneCard(); } catch(e){}
@@ -7899,7 +8118,8 @@ document.addEventListener('click', (ev)=>{
 function renderLoggedCard(d, e){
   renderMealRow();
   const sub = document.getElementById('loggedSub');
-  if(sub) sub.textContent = (d === todayStr()) ? 'Logged today' : `Logged — ${fmtDate(d)}`;
+  if(sub) sub.textContent = (d === todayStr()) ? 'Food logged today' : `Food logged · ${fmtDate(d)}`;
+  { const tot = document.getElementById('loggedTotal'); if(tot){ const c = consumedTotal(entries[d]); tot.innerHTML = c != null ? `<b>${fmtN(c)}</b> kcal` : ''; } }
 
   const list = document.getElementById('itemsList');
   const emptyMsg = document.getElementById('loggedEmptyMsg');
@@ -8015,7 +8235,7 @@ async function init(){
     aiComposer.classList.toggle('has-text', !!t);
     aiComposer.classList.toggle('ready', !!(t || selectedPhoto));
     aiDesc.style.height = 'auto';
-    aiDesc.style.height = Math.min(Math.max(aiDesc.scrollHeight, 58), 180) + 'px';
+    aiDesc.style.height = Math.min(Math.max(aiDesc.scrollHeight, 84), 200) + 'px';
   }
   aiDesc.addEventListener('input', syncComposer);
   aiLabelInput.addEventListener('input', () => fitLabel());
@@ -8896,20 +9116,7 @@ async function init(){
     userProfile.sex = b.dataset.sex;
   });
 
-  function renderTrackRow(){
-    const tracked = trackedMacros();
-    document.querySelectorAll('#trackRow [data-track]').forEach(b => b.classList.toggle('on', tracked.includes(b.dataset.track)));
-  }
-  document.getElementById('trackRow').addEventListener('click', async (ev)=>{
-    const b = ev.target.closest('[data-track]'); if(!b) return;
-    haptic();
-    const set = new Set(trackedMacros());
-    if(set.has(b.dataset.track)) set.delete(b.dataset.track); else set.add(b.dataset.track);
-    userProfile.track = MACROS.filter(m => set.has(m));
-    renderTrackRow();
-    await persistProfile();
-    renderAll();
-  });
+  function renderTrackRow(){}   // everyone tracks calories, protein, carbs and fat
   window.renderBurnModeSection = () => renderBurnModeSection();
   function renderBurnModeSection(){
     const body = document.getElementById('burnModeBody');
@@ -8928,7 +9135,7 @@ async function init(){
     const chips = def.parts.map(k => `<span style="--c:${BURN_PARTS[k].color}"><b>${partLbl[k][0]}</b>${partLbl[k][1]}</span>`).join('<i>+</i>');
     const tg = (key, on, title, sub, extra) => `<button type="button" class="pb-tg${on ? ' on' : ''}" data-pb-toggle="${key}" role="switch" aria-checked="${on}">
         <span class="pb-tg-t"><b>${title}</b><small>${sub}</small>${extra || ''}</span><span class="pb-sw"><i></i></span></button>`;
-    const learnExtra = L.on ? `<span class="pb-learn ${st.tag.toLowerCase()}"><em>${st.tag}</em>${st.tag === 'Learned' ? `BMR ${fmtN(bmrNow())} kcal (estimate ${fmtN(bmrBase())}) · ${st.line}` : st.line}</span>` : '';
+    const learnExtra = false ? `<span class="pb-learn ${st.tag.toLowerCase()}"><em>${st.tag}</em>${st.tag === 'Learned' ? `BMR ${fmtN(bmrNow())} kcal (estimate ${fmtN(bmrBase())}) · ${st.line}` : st.line}</span>` : '';
     body.innerHTML = `
       <div class="pb-q">Do you use Apple Health?</div>
       <div class="pb-seg">${seg('yes', `${AH_ICON}Yes`, def.apple)}${seg('no', 'No', !def.apple)}</div>
@@ -8944,8 +9151,7 @@ async function init(){
         ${def.apple ? `<button class="bm-wear" data-bm-health type="button">${connected ? 'Manage Apple Health' : 'Finish Apple Health setup'} ›</button>` : ''}
       </div>
       ${def.apple ? tg('weight', !!userProfile.weightFromHealth, 'Weight from Apple Health', 'Weigh-ins from a smart scale come in with each sync. You can still add weights by hand.') : ''}
-      ${tg('learn', !!L.on, 'Learn my resting burn', 'After about a month of complete food logs and regular weigh-ins, Fera compares how your weight actually moved with what your numbers predicted — and adjusts your BMR to match.', learnExtra)}
-      <button class="bm-wear bl-link" data-bmr-open type="button">${L.on && L.status === 'learned' ? 'See what Fera learned' : 'See how learning works'} ›</button>
+      <div class="pb-learnrow"><span><b>Resting burn</b><small>${st.tag === 'Learned' ? `${fmtN(bmrNow())} kcal a day · ${st.line}` : `The formula's ${fmtN(bmrBase() || 0)} kcal a day until Fera learns yours`}</small></span>${learnPillHTML('mini')}</div>
       <p class="bm-explain small">Any day, you can change any part or type your own total in the Burn card.</p>
       <p class="status" id="burnModeStatus"></p>`;
   }
@@ -8971,12 +9177,6 @@ async function init(){
     } else {
       const k = tgb.dataset.pbToggle;
       if(k === 'weight'){ userProfile.weightFromHealth = !userProfile.weightFromHealth; msg = userProfile.weightFromHealth ? 'Weigh-ins from Apple Health will show up in Weight. Add the weight step to your shortcut (Apple Health page).' : 'Apple Health weigh-ins are hidden. Your own entries stay.'; }
-      if(k === 'learn'){
-        const L = userProfile.bmrLearn || {};
-        userProfile.bmrLearn = L.on ? Object.assign({}, L, { on: false }) : Object.assign({ status: 'learning', adj: 0 }, L, { on: true });
-        if(userProfile.bmrLearn.on) learnBmr();
-        msg = userProfile.bmrLearn.on ? 'Fera will learn your resting burn as data comes in.' : 'Back to the standard BMR estimate.';
-      }
     }
     delete userProfile.burnMode; delete userProfile.activeAllDay;
     await persistProfile();
@@ -9015,7 +9215,6 @@ async function init(){
   });
 
   const weightGoalRow = document.getElementById('weightGoalRow');
-  const activityGoalRow = document.getElementById('activityGoalRow');
   const muscleGoalRow = document.getElementById('muscleGoalRow');
   const methodologyToggleBtn = document.getElementById('methodologyToggleBtn');
   const methodologyText = document.getElementById('methodologyText');
@@ -9057,7 +9256,6 @@ async function init(){
     renderGoalWeightGroup();
     renderActivityGroup();
     weightGoalRow.querySelectorAll('.goal-pill').forEach(b=> b.classList.toggle('active', b.dataset.weightGoal === userGoals.weightGoal));
-    activityGoalRow.querySelectorAll('.goal-pill').forEach(b=> b.classList.toggle('active', b.dataset.activity === userGoals.activity));
     muscleGoalRow.querySelectorAll('.goal-pill').forEach(b=> b.classList.toggle('active', b.dataset.muscleGoal === userGoals.muscleGoal));
   }
   function renderGoalsTargets(){
@@ -9105,13 +9303,12 @@ async function init(){
     const active = Math.max(0, t.burnTarget - rest - digest);
     const tot = Math.max(1, rest + active + digest);
     const seg = (v, c) => `<i style="width:${(v / tot * 100).toFixed(1)}%;background:${c}"></i>`;
-    const learnedLine = st.tag === 'Learned' ? `<small>estimate ${fmtN(t.bmrEst)} ${t.bmrAdj >= 0 ? '+' : '−'} ${fmtN(Math.abs(t.bmrAdj))} learned</small>`
-      : st.tag === 'Learning' ? `<small>${st.line.replace('Still learning · ', '')}</small>` : '<small>Mifflin-St Jeor</small>';
-    el.innerHTML = `<div class="btb-h"><span>Your burn target is made of</span></div>
+    const learnedLine = st.tag === 'Learned' ? `<small>formula ${fmtN(t.bmrEst)} ${t.bmrAdj >= 0 ? '+' : '−'} ${fmtN(Math.abs(t.bmrAdj))} learned</small>` : '<small>the formula, until learned</small>';
+    el.innerHTML = `<div class="btb-h"><span>Your daily burn is made of</span></div>
       <div class="bc-bar">${seg(rest, BURN_PARTS.rest.color)}${seg(active, '#FF375F')}${seg(digest, BURN_PARTS.digest.color)}</div>
       <div class="btb-cols">
-        <div><span class="btb-l"><i style="background:${BURN_PARTS.rest.color}"></i>Resting<button type="button" class="bc-tag bl-open ${st.tag.toLowerCase()}" data-bmr-open aria-label="Resting burn: ${st.tag}. Open details">${st.tag}<span aria-hidden="true">›</span></button></span><b>${fmtN(rest)}</b>${learnedLine}</div>
-        <div><span class="btb-l"><i style="background:#FF375F"></i>Active</span><b>${fmtN(active)}</b><small>${t.custom.burn ? 'from your own target' : calTdee() != null ? 'measured, last 4 weeks' : 'your activity level'}</small></div>
+        <div><span class="btb-l"><i style="background:${BURN_PARTS.rest.color}"></i>Resting</span><b>${fmtN(rest)}</b>${learnedLine}</div>
+        <div><span class="btb-l"><i style="background:#FF375F"></i>Active</span><b>${fmtN(active)}</b><small>${t.custom.burn ? 'from your own target' : calTdee() != null ? 'learned from your days' : 'baseline, while learning'}</small></div>
         <div><span class="btb-l"><i style="background:${BURN_PARTS.digest.color}"></i>Digestion</span><b>${fmtN(digest)}</b><small>~10% of what you eat</small></div>
       </div>`;
   }
@@ -9123,7 +9320,6 @@ async function init(){
       b.classList.add('active');
       userGoals[stateKey] = b.dataset[datasetKey];
       if(stateKey === 'weightGoal'){ renderRateRow(); renderGoalWeightGroup(); }
-      if(stateKey === 'activity') renderActivityGroup();
       renderGoalsTargets();
     });
   }
@@ -9131,8 +9327,7 @@ async function init(){
   document.getElementById('goalWeightInput').addEventListener('input', setGoalWeightFromInput);
   document.getElementById('goalWeightInput').addEventListener('blur', renderGoalWeightGroup);
   document.getElementById('goalWeightClear').addEventListener('click', () => { haptic(); document.getElementById('goalWeightInput').value = ''; setGoalWeightFromInput(); });
-  document.getElementById('agMeasured').addEventListener('click', (ev) => { if(!ev.target.closest('[data-ag-toggle]')) return; haptic(); agOpen = !agOpen; renderActivityGroup(); });
-  wireGoalPillRow(activityGoalRow, 'activity', 'activity');
+
   wireGoalPillRow(muscleGoalRow, 'muscleGoal', 'muscleGoal');
 
   methodologyToggleBtn.addEventListener('click', ()=>{
@@ -9194,7 +9389,7 @@ async function init(){
   syncDerivedBurns();
   // estimated burn keeps growing through the day
   setInterval(()=>{ if(!isEditingField()){ syncDerivedBurns(); renderRing(); renderBurnCard(); } }, 5 * 60000); // today's base grows through the day
-  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && IS_NATIVE) nativeHealthSync(3).catch(()=>{}); if(!document.hidden){ if(bmrLearnState() && userProfile.bmrLearn.checked !== todayStr()) learnBmr(); syncDerivedBurns(); renderAll(); maybeShowDaySummary(); } });
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && typeof calAutoStep === 'function') setTimeout(() => { try { calAutoStep(); } catch(e){} }, 900); if(!document.hidden && IS_NATIVE) nativeHealthSync(3).catch(()=>{}); if(!document.hidden){ syncDerivedBurns(); renderAll(); maybeShowDaySummary(); } });
   if(!userProfile.name && authDisplayName()){ userProfile.name = authDisplayName(); persistProfile(); }
   renderAll();
   renderFoodForm();
@@ -10883,13 +11078,19 @@ function daysSinceWeighIn(){
 }
 function weighNudgeText(n){
   const L = userProfile && userProfile.bmrLearn;
+  const ls = typeof learnStatus === 'function' ? learnStatus() : null;
+  if(ls && ls.state === 'learning') return { title: n == null ? 'Weigh in to start learning' : ls.weigh === 'start' ? 'Weigh in to start learning' : `No weigh-in for ${n} days`, sub: `Fera learns your real burn from your weigh-ins: one on the first and the last of ${LEARN_MIN_DAYS} complete days.` };
   return { title: `No weigh-in for ${n} days`, sub: L && L.on ? 'Fera needs regular weigh-ins to keep learning your resting burn.' : 'A quick weigh-in keeps your trend and targets honest.' };
 }
 function renderWeighNudge(){
   const el = document.getElementById('weighNudge'); if(!el) return;
   const n = daysSinceWeighIn();
   let snooze = null; try { snooze = localStorage.getItem('weigh-nudge-snooze'); } catch(e){}
-  const show = n != null && n >= WEIGH_NUDGE_DAYS && snooze !== todayStr();
+  const ls = typeof learnStatus === 'function' ? learnStatus() : null;
+  const learning = ls && ls.state === 'learning' && !!computeTargets();
+  const weighedToday = !!dailyWeightMap()[todayStr()];
+  // while learning, weigh-ins are what it runs on: ask sooner (and when the count can't start without one)
+  const show = snooze !== todayStr() && !weighedToday && (learning ? (ls.weigh === 'start' || (n != null && n >= 2)) : (n != null && n >= WEIGH_NUDGE_DAYS));
   el.hidden = !show;
   if(!show) return;
   const tx = weighNudgeText(n);
@@ -10909,111 +11110,106 @@ function openWeighIn(){
   }, 80);
 }
 
-// ---------- Learning: one weekly update for both learned numbers ----------
-// Fera learns one thing about the body — the resting burn (BMR), from the scale against what was eaten
-// and burned — and measures the rest every day (activity from Apple Health or logged workouts). Once a
-// week, on the first open from Monday, it updates two numbers together from the last 28 days:
-//   1. resting burn: the formula plus what the scale says (learnAnalysis). It feeds every day's burn.
-//   2. daily target: the average daily burn those days, recomputed with the new resting burn, minus the
-//      plan's deficit (or plus its surplus). It replaces the activity-level guess from Goals.
-// The target moves at most CAL_STEP_MAX a week and never below the floor. "Automatically" applies the
-// update; "Ask me" shows it and waits for Apply. Turning learning off goes back to the formula and the
-// activity level. Within a week both numbers stay put, so days and goals line up.
-const CAL_STEP_MAX = 200, CAL_MIN_DAYS = 14, CAL_WINDOW = 28;
-function calState(){ const p = userGoals.plan || {}; return { auto: p.auto !== false, tdee: typeof p.tdee === 'number' ? p.tdee : null, log: Array.isArray(p.log) ? p.log : [], seen: p.seen || null, at: p.at || null }; }
-function calTdee(){ const C = calState(); return bmrLearnState() && C.tdee != null ? C.tdee : null; }
+// ---------- Learning: the daily update ----------
+// Every day (on the first open), once learnAnalysis has a window that passes, Fera updates two numbers
+// together from that window (7 to 28 days):
+//   1. resting burn: the formula plus what the scale says. It feeds every day's burn from then on;
+//      finished days keep the resting burn they had (syncDerivedBurns locks it).
+//   2. daily burn: the average burn over the window, recomputed with the new resting burn. The calorie
+//      target is that minus the plan's deficit (or plus its surplus).
+// The daily burn moves at most CAL_STEP_DAY a day and the target never goes below the floor. Before the
+// first update, targets come from the baseline: the formula's resting burn plus the movement measured
+// so far (baselineTdee).
+const CAL_STEP_DAY = 100, CAL_BASE_MULT = 1.4, CAL_MIN_DAYS = LEARN_MIN_DAYS, CAL_WINDOW = LEARN_MAX_DAYS;
+const CAL_STEP_MAX = CAL_STEP_DAY;
+function calState(){ const p = userGoals.plan || {}; return { auto: true, tdee: typeof p.tdee === 'number' ? p.tdee : null, log: Array.isArray(p.log) ? p.log : [], seen: p.seen || null, at: p.at || null }; }
+function calTdee(){ const C = calState(), L = bmrLearnState(); return L.status === 'learned' && C.tdee != null ? C.tdee : null; }
 function weekStartISO(iso){ const d = parseISO(iso); const k = (d.getDay() + 6) % 7; d.setDate(d.getDate() - k); return toISO(d); }
-function calNextDate(){ const d = parseISO(weekStartISO(todayStr())); d.setDate(d.getDate() + 7); return toISO(d); }
-// Pure: what this week's update would be. Changes nothing.
+function calNextDate(){ return wtAddDays(todayStr(), 1); }
+// Before Fera has learned: the formula's resting burn plus the movement measured on the days logged so
+// far (at least 3), or the formula × 1.4 (a typical day) with nothing logged yet.
+let baseMemo = { key: '', val: null };
+function baselineTdee(bmr){
+  const key = todayStr() + '|' + Math.round(bmr) + '|' + learnTick + '|' + Object.keys(entries).length + '|' + Object.keys(healthData).length + '|' + (userProfile.burnPath || '');
+  if(baseMemo.key === key) return baseMemo.val;
+  const def = BURN_PATHS[burnPath()];
+  const burns = [];
+  learnDayList(LEARN_MAX_DAYS, 0).forEach(d => {
+    // a logged day: food in it (so digestion counts) and, with Apple Health, its movement
+    if(consumedTotal(entries[d]) == null) return;
+    const p = burnParts(d, bmr); if(!p) return;
+    if((def.apple ? !!p.health : true) && !p.manual) burns.push(p.calc);
+  });
+  const val = burns.length >= 3 ? { tdee: burns.reduce((s, x) => s + x, 0) / burns.length, days: burns.length, how: 'measured' } : { tdee: bmr * CAL_BASE_MULT, days: burns.length, how: 'formula' };
+  baseMemo = { key, val };
+  return val;
+}
+// Pure: what today's update would be. Changes nothing.
 function calibrate(){
   const t = computeTargets(), base = bmrBase();
   if(!t || base == null) return null;
-  const L = userProfile.bmrLearn || {}, C = calState();
+  const L = bmrLearnState();
   const restFrom = Math.round(base + bmrAdj());
   const a = learnAnalysis(0);
-  const adjTo = a && a.ready ? a.adj : (L.status === 'learned' ? (L.adj || 0) : 0);
+  const ready = !!(a && a.ready);
+  const adjTo = ready ? a.adj : bmrAdj();
   const restTo = Math.round(base + adjTo);
-  // the average daily burn over the window, with the new resting burn
+  // the average daily burn over the learning window, with the new resting burn
   const def = BURN_PATHS[burnPath()];
-  const days = [];
-  for(let i = CAL_WINDOW; i >= 1; i--){ const d = new Date(); d.setDate(d.getDate() - i); days.push(toISO(d)); }
+  const days = ready ? a.days.map(x => x.d) : learnDayList(LEARN_MAX_DAYS, 0);
   const burns = [];
   days.forEach(d => {
     const p = burnParts(d, restTo); if(!p) return;
     const measured = def.apple ? !!p.health : consumedTotal(entries[d]) != null;
-    if(measured) burns.push(p.total);
+    if(measured) burns.push(p.manual ? p.total : p.calc);
   });
   const avg = burns.length ? burns.reduce((s, x) => s + x, 0) / burns.length : null;
-  const ready = burns.length >= CAL_MIN_DAYS;
   const tdeeFrom = Math.round(t.tdee);
-  const tdeeTo = ready ? Math.round(Math.max(tdeeFrom - CAL_STEP_MAX, Math.min(tdeeFrom + CAL_STEP_MAX, avg)) / 10) * 10 : tdeeFrom;
+  const tdeeTo = ready && avg != null ? Math.max(tdeeFrom - CAL_STEP_DAY, Math.min(tdeeFrom + CAL_STEP_DAY, Math.round(avg / 10) * 10)) : tdeeFrom;
   const sign = userGoals.weightGoal === 'lose' ? -1 : userGoals.weightGoal === 'gain' ? 1 : 0;
   let targetTo = Math.round(tdeeTo + sign * t.dailyDelta);
   if(sign < 0 && targetTo < t.floor) targetTo = t.floor;
-  // the scale against the plan, for the "why"
-  const slope = a && a.ready ? a.slope * 7 : null;           // lb/week
+  const slope = ready ? a.slope * 7 : null;           // lb/week
   return {
-    week: weekStartISO(todayStr()), ready, days: burns.length, need: CAL_MIN_DAYS, logged: a ? a.good : 0, weighIns: a ? a.weighIns : 0,
-    restReady: !!(a && a.ready), rest: { from: restFrom, to: restTo }, adj: { from: bmrAdj(), to: adjTo },
-    avg: avg == null ? null : Math.round(avg), capped: ready && Math.abs(avg - tdeeFrom) > CAL_STEP_MAX,
+    day: todayStr(), week: todayStr(), ready, days: burns.length, need: LEARN_MIN_DAYS, window: a ? a.window : 0, logged: a ? a.good : 0, weighIns: a ? a.weighIns : 0,
+    restReady: ready, rest: { from: restFrom, to: restTo }, adj: { from: bmrAdj(), to: adjTo },
+    avg: avg == null ? null : Math.round(avg), capped: ready && avg != null && Math.abs(avg - tdeeFrom) > CAL_STEP_DAY,
     tdee: { from: tdeeFrom, to: tdeeTo }, target: { from: t.calc.calorie, to: targetTo }, custom: !!t.custom.calorie, floored: sign < 0 && targetTo === t.floor,
-    slope, planRate: sign * t.rate, a
+    slope, planRate: sign * t.rate, a, first: L.status !== 'learned'
   };
 }
-// This week's update, if there is one the person hasn't seen yet.
+// Today's update, if it hasn't run yet.
 function calPending(){
-  const L = bmrLearnState(); if(!L) return null;
   const c = calibrate();
   if(!c || !c.ready) return null;
-  if(calState().seen === c.week) return null;
-  const moves = Math.abs(c.rest.to - c.rest.from) >= 10 || Math.abs(c.target.to - c.target.from) >= 20;
-  return moves ? c : null;
+  if(calState().seen === c.day) return null;
+  return c;
 }
-async function calApply(c, how){
+async function calApply(c){
   const C = calState();
   const L = userProfile.bmrLearn || {};
-  if(c.restReady) userProfile.bmrLearn = Object.assign({}, L, { adj: c.adj.to, status: 'learned', asOf: todayStr(), slope: Math.round(c.a.slope * 7 * 100) / 100, predicted: Math.round(c.a.predicted) });
-  userGoals.plan = Object.assign({}, userGoals.plan || {}, { auto: C.auto, tdee: c.tdee.to, at: todayStr(), seen: c.week,
-    log: [{ d: todayStr(), how: how || 'you', rest: [c.rest.from, c.rest.to], target: [c.target.from, c.target.to], avg: c.avg }].concat(C.log).slice(0, 26) });
+  const moved = Math.abs(c.rest.to - c.rest.from) >= 10 || Math.abs(c.target.to - c.target.from) >= 10 || L.status !== 'learned';
+  userProfile.bmrLearn = Object.assign({}, L, { on: true, adj: c.adj.to, status: 'learned', asOf: todayStr(), window: c.window, slope: Math.round(c.a.slope * 7 * 100) / 100, predicted: Math.round(c.a.predicted), since: L.since || (L.status === 'learned' ? null : todayStr()) });
+  const log = moved ? [{ d: todayStr(), how: 'auto', rest: [c.rest.from, c.rest.to], target: [c.target.from, c.target.to], avg: c.avg, n: c.window }].concat(C.log).slice(0, 60) : C.log;
+  userGoals.plan = Object.assign({}, userGoals.plan || {}, { tdee: c.tdee.to, at: todayStr(), seen: c.day, log });
+  delete userGoals.plan.auto;
   await persistProfile();
   await persistGoals();
   syncDerivedBurns(); await persist();
   renderAll(); if(window.renderBurnModeSection) window.renderBurnModeSection();
 }
-async function calKeep(c){
-  userGoals.plan = Object.assign({}, userGoals.plan || {}, { auto: calState().auto, seen: c.week });
-  await persistGoals();
-  renderAll();
-}
-async function calSetAuto(on){
-  userGoals.plan = Object.assign({}, userGoals.plan || {}, { auto: !!on });
-  await persistGoals();
-  if(on){ const c = calPending(); if(c){ await calApply(c, 'auto'); return; } }
-  renderAll();
-}
-// the weekly step in automatic mode, on the first open of the week
-function calAutoStep(){ if(!calState().auto) return; const c = calPending(); if(c) calApply(c, 'auto'); }
+// the daily step, on the first open of the day
+let calRunning = false;
+async function calAutoStep(){ if(calRunning) return; const c = calPending(); if(!c) return; calRunning = true; try { await calApply(c); } finally { calRunning = false; } }
+function calSetAuto(){}   // updates always apply now
+async function calKeep(){}
 
-// The Today nudge: an update to approve, or (automatic) what changed this week.
-function renderPlanNudge(){
-  const el = document.getElementById('planNudge'); if(!el) return;
-  const C = calState(), wk = weekStartISO(todayStr());
-  const c = !C.auto ? calPending() : null;
-  const last = C.log[0];
-  const fresh = !c && last && weekStartISO(last.d) === wk && last.how === 'auto';
-  let hidden = null; try { hidden = localStorage.getItem('plan-nudge-hide'); } catch(e){}
-  const show = (c || fresh) && hidden !== wk;
-  el.hidden = !show;
-  if(!show) return;
-  const tgt = c ? c.target : { from: last.target[0], to: last.target[1] };
-  const title = c ? 'Your weekly update is ready' : 'Fera updated your numbers';
-  const sub = `Daily target ${fmtN(tgt.from)} → <b>${fmtN(tgt.to)}</b> kcal`;
-  el.innerHTML = `<span class="wn-ico pn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></span>
-    <span class="wn-t"><b>${title}</b><small>${sub}</small></span>
-    <span class="wn-act"><button type="button" class="wn-go" data-pn="open">${c ? 'Review' : 'See why'}</button><button type="button" class="wn-later" data-pn="hide" aria-label="Hide until next week">Later</button></span>`;
-}
+// The old Today nudge for updates is gone: the Learning pill carries it.
+function renderPlanNudge(){ const el = document.getElementById('planNudge'); if(el){ el.hidden = true; el.innerHTML = ''; } }
 
 // ---------- the Learning page ----------
+// One page: where learning stands, the resting burn against the formula, the daily target it gives, and
+// the evidence (the days it's learning from, which were complete, which had a weigh-in).
 function openLearnPage(){
   haptic();
   const dd = document.getElementById('appMenuDropdown'); if(dd) dd.style.display = 'none';
@@ -11022,106 +11218,88 @@ function openLearnPage(){
   renderLearnPage();
 }
 function closeLearnPage(){ document.getElementById('learnOverlay').style.display = 'none'; }
-function lpChange(from, to){ const d = to - from; return d === 0 ? '<em class="lp-d same">no change</em>' : `<em class="lp-d ${d > 0 ? 'up' : 'down'}">${d > 0 ? '+' : '−'}${fmtN(Math.abs(d))}</em>`; }
-function lpWhy(c){
-  const bits = [];
-  if(c.restReady && c.rest.to !== c.rest.from){
-    bits.push(c.rest.to < c.rest.from ? 'Your scale moved less than your logs predicted, so your body burns a little less at rest than Fera assumed.'
-      : 'Your scale moved more than your logs predicted, so your body burns a little more at rest than Fera assumed.');
-  }
-  if(c.avg != null){
-    const gap = c.avg - c.tdee.from;
-    if(Math.abs(gap) >= 20) bits.push(`Over the last 4 weeks you burned <b>${fmtN(c.avg)}</b> a day on average${calTdee() == null ? `, ${gap > 0 ? 'more' : 'less'} than “${ACTIVITY_LABELS[userGoals.activity] || 'your activity level'}” assumed` : ''}.`);
-  }
-  if(c.capped) bits.push(`Fera moves your target at most ${CAL_STEP_MAX} kcal a week, so the rest follows next week if it holds.`);
-  if(c.floored) bits.push('Your target is held at the minimum safe level.');
-  return bits.join(' ');
-}
 function renderLearnPage(){
   const body = document.getElementById('learnBody');
   if(!body || document.getElementById('learnOverlay').style.display === 'none') return;
-  const base = bmrBase();
-  const c = base == null ? null : calibrate();
-  if(!c){
-    body.innerHTML = `<div class="bl"><div class="pw-card"><b class="bl-h">Fera needs your profile and goals first</b><p class="bl-p">Add your weight, height, birthday and sex in Profile, and pick your goals. Then Fera can start learning from your days.</p></div></div>`;
+  const base = bmrBase(), t = computeTargets();
+  if(base == null || !t){
+    body.innerHTML = `<div class="bl"><div class="pw-card"><b class="bl-h">Fera needs your profile and goals first</b><p class="bl-p">Add your weight, height, birthday and sex in Profile, and pick your goals. Then Fera starts learning from your days.</p></div></div>`;
     return;
   }
-  const L = userProfile.bmrLearn || {}, on = !!L.on, C = calState();
-  const t = computeTargets();
-  const learned = on && (L.status === 'learned' || C.tdee != null);
-  const pend = on ? calPending() : null;
-  const last = C.log[0], thisWeek = last && weekStartISO(last.d) === c.week;
+  const s = learnStatus(), a = s.a, learned = s.state === 'learned';
+  const L = bmrLearnState(), C = calState(), u = blUnit();
   let h = '<div class="bl lp">';
 
-  // ---- the two numbers, as they stand
-  h += `<div class="lp-now">
-    <div class="lp-now-head"><span class="lp-k">Your numbers</span><span class="bc-tag ${!on ? 'estimated' : learned ? 'learned' : 'learning'}">${!on ? 'Learning off' : learned ? 'Learned' : 'Learning'}</span></div>
-    <div class="lp-pair">
-      <div><small>Resting burn</small><b>${fmtN(Math.round(bmrNow()))}</b><span>kcal a day</span></div>
-      <div><small>Daily target</small><b>${fmtN(t.calorieTarget)}</b><span>kcal a day</span></div>
+  // ---- where it stands
+  if(learned){
+    h += `<div class="lp-state learned"><span class="lp-ok-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div class="lp-state-t"><b>Learned</b><span>Updated ${learnWhen(s.at)} · from your last ${a ? a.window : LEARN_MAX_DAYS} days</span></div></div>`;
+    if(s.weigh) h += `<div class="lp-weigh"><b>Weigh in to keep learning.</b> Your last weigh-in was ${daysSinceWeighIn() == null ? 'a while ago' : daysSinceWeighIn() + ' days ago'}. Fera needs one near the start and the end of the days it learns from.</div>`;
+  } else {
+    const done = LEARN_MIN_DAYS - s.toGo;
+    const segs = Array.from({ length: LEARN_MIN_DAYS }, (_, i) => `<i class="${i < done ? 'on' : ''}"></i>`).join('');
+    h += `<div class="lp-state learning"><div class="lp-state-t"><b>Learning</b><span>${s.weigh === 'start' ? 'Weigh in to start' : `${s.toGo} day${s.toGo === 1 ? '' : 's'} to go`}</span></div>
+      <div class="lp-seg" aria-label="${done} of ${LEARN_MIN_DAYS} complete days in a row">${segs}</div>
+      <p>Fera learns your real burn from <b>${LEARN_MIN_DAYS} complete days in a row</b> (all your food logged) with a weigh-in on the first and the last. Until then your targets use the baseline below.${s.weigh ? ` <b class="warn">${s.weigh === 'start' ? 'Step on the scale tomorrow morning: it starts the count.' : 'Weigh in today: every weigh-in helps.'}</b>` : ''}</p></div>`;
+  }
+
+  // ---- resting burn against the formula
+  const adj = learned ? (L.adj || 0) : 0, now = Math.round(base + adj), pct = adj / base;
+  const pos = 50 + Math.max(-1, Math.min(1, pct / LEARN_CAP)) * 50;
+  h += `<div class="pw-card lp-card"><div class="lp-k">Resting burn · BMR</div>
+    <div class="lp-big">${fmtN(now)}<span>kcal a day</span></div>
+    <div class="bl-sub">${learned && adj ? `<b class="${adj >= 0 ? 'up' : 'down'}">${blSigned(adj)} kcal</b> vs the formula’s ${fmtN(Math.round(base))} · ${blSigned(pct * 100, 1)}%` : learned ? 'Your scale agrees with the formula.' : 'The formula, from your weight, height, age and sex. Fera corrects it once it has learned.'}</div>
+    <div class="bl-scale" aria-hidden="true">
+      <div class="bl-track"><i class="bl-fill" style="left:${Math.min(50, pos)}%;width:${Math.abs(pos - 50)}%"></i><i class="bl-mid"></i><i class="bl-dot${learned ? ' on' : ''}" style="left:${pos}%"></i></div>
+      <div class="bl-ticks"><span>−15%</span><span>Formula</span><span>+15%</span></div>
+    </div></div>`;
+
+  // ---- the daily target it gives
+  const wg = userGoals.weightGoal, delta = t.dailyDelta;
+  h += `<div class="pw-card lp-card"><div class="lp-k">Daily target</div>
+    <div class="lp-big">${fmtN(t.calorieTarget)}<span>kcal a day</span></div>
+    <div class="lp-eq">
+      <div><span>${learned ? 'Your daily burn, learned' : 'Your daily burn, baseline'}</span><b>${fmtN(t.tdee)}</b></div>
+      ${wg !== 'maintain' ? `<div><span>${wg === 'lose' ? 'Deficit' : 'Surplus'} for ${t.rate} lb a week</span><b>${wg === 'lose' ? '−' : '+'}${fmtN(delta)}</b></div>` : '<div><span>Maintain</span><b>±0</b></div>'}
+      ${t.floored ? `<div class="fl"><span>Held at the safe minimum</span><b>${fmtN(t.floor)}</b></div>` : ''}
+      ${t.custom.calorie ? `<div class="fl"><span>You set your own target in Goals</span><b>${fmtN(t.calorieTarget)}</b></div>` : ''}
     </div>
-    <p class="lp-when">${!on ? 'From the formula and your activity level in Goals.'
-      : C.at ? `Updated ${blDate(C.at)} · next update ${blDate(calNextDate())}`
-      : c.ready ? `First update ready · then every Monday` : `Still learning · ${c.days} of ${c.need} days measured`}</p>
-  </div>`;
+    <p class="bl-note">${learned ? `Your daily burn is the average you actually burned over those days, with the learned resting burn. It moves at most ${CAL_STEP_DAY} kcal a day.` : t.tdeeHow === 'measured' ? `Baseline: the formula’s resting burn plus the movement and digestion Fera measured on your ${t.baseDays} logged days.` : `Baseline: the formula’s resting burn × ${CAL_BASE_MULT}, a typical day, until you’ve logged a few days.`}</p></div>`;
 
-  // ---- this week's update
-  if(on && c.ready && !t.custom.calorie){
-    const showC = pend || null;
-    const R = showC ? { rest: showC.rest, target: showC.target } : thisWeek ? { rest: { from: last.rest[0], to: last.rest[1] }, target: { from: last.target[0], to: last.target[1] } } : null;
-    if(R){
-      h += `<div class="pw-card lp-upd${showC ? ' due' : ''}">
-        <div class="lp-eyebrow"><span>${showC ? 'This week’s update' : thisWeek && last.how === 'auto' ? 'Applied automatically' : 'Applied this week'}</span><span>Week of ${blDate(c.week)}</span></div>
-        <div class="lp-rows">
-          <div class="lp-row"><span>Resting burn</span><span class="lp-ft">${fmtN(R.rest.from)} → <b>${fmtN(R.rest.to)}</b></span>${lpChange(R.rest.from, R.rest.to)}</div>
-          <div class="lp-row"><span>Daily target</span><span class="lp-ft">${fmtN(R.target.from)} → <b>${fmtN(R.target.to)}</b></span>${lpChange(R.target.from, R.target.to)}</div>
-        </div>
-        ${showC ? `<p class="lp-why">${lpWhy(showC)}</p>
-          <div class="lp-acts"><button type="button" class="lp-keep" data-lp="keep">Keep current</button><button type="button" class="lp-apply" data-lp="apply">Apply</button></div>` : ''}
-      </div>`;
-    } else {
-      h += `<div class="pw-card lp-upd"><div class="lp-ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><p>Nothing to change this week. Your numbers still match what your body and scale show. Next update ${blDate(calNextDate())}.</p></div></div>`;
-    }
-  } else if(on && t.custom.calorie){
-    h += `<div class="pw-card"><p class="bl-p" style="margin:0">You set your own calorie target in Goals, so Fera keeps it. Your resting burn still updates every week.</p></div>`;
-  } else if(on){
-    h += `<div class="pw-card"><b class="bl-h">Getting to know you</b><p class="bl-p">Fera needs ${c.need} days with a measured burn and a few weigh-ins before the first update. Keep logging and weighing in.</p>
-      <div class="pw-bar"><span style="width:${Math.min(100, c.days / c.need * 100)}%"></span></div><p class="bl-note">${c.days} of ${c.need} days · ${c.weighIns} weigh-ins</p></div>`;
-  }
-
-  // ---- what it's based on
-  if(on){
-    const u = blUnit();
-    const scale = c.slope == null ? '—' : `${blSigned(blW(c.slope), 1)} ${u}`;
-    h += `<div class="pw-card"><b class="bl-h">Based on your last 4 weeks</b>
-      <div class="lp-facts">
-        <div><b>${c.logged}</b><small>days fully logged</small></div>
-        <div><b>${c.weighIns}</b><small>weigh-ins</small></div>
-        <div><b>${c.avg != null ? fmtN(c.avg) : '—'}</b><small>average burn a day</small></div>
-        <div><b>${scale}</b><small>scale per week${userGoals.weightGoal && userGoals.weightGoal !== 'maintain' ? ` · plan ${blSigned(blW(c.planRate), 1)}` : ''}</small></div>
+  // ---- the evidence
+  if(a){
+    const R = a.rule;
+    const cells = a.days.map(d => `<i class="${d.good ? 'g' : ''}${d.lb != null ? ' w' : ''}" title="${blDate(d.d)}${d.good ? ' · complete' : ''}${d.lb != null ? ' · weigh-in' : ''}"></i>`).join('');
+    const fw = a.firstW, lw = a.lastW;
+    const fact = (v, need, label, ok) => `<div class="${ok ? 'ok' : ''}"><b>${v}${need != null ? `<i> / ${need}</i>` : ''}</b><small>${label}</small></div>`;
+    const startOk = a.days.slice(0, R.edge).some(d => d.lb != null), endOk = a.days.slice(-R.edge).some(d => d.lb != null);
+    h += `<div class="pw-card lp-card"><div class="lp-k">Learning from the last ${a.window} days <span class="lp-dates">${blDate(a.days[0].d)} – ${blDate(a.days[a.days.length - 1].d)}</span></div>
+      <div class="lp-facts3">
+        ${fact(a.good, R.good, 'complete food days', a.good >= R.good)}
+        ${fact(a.weighIns, R.weigh, 'days with a weigh-in', a.weighIns >= R.weigh)}
+        ${fact(fw && lw && fw.d !== lw.d ? `${a.spread}<i> days</i>` : '—', null, fw && lw && fw.d !== lw.d ? `first to last weigh-in` : 'first to last weigh-in', startOk && endOk)}
       </div>
-      <button type="button" class="bc-link lp-ev" data-bl-evidence>See the evidence ›</button></div>`;
+      <div class="bl-days" role="img" aria-label="${a.good} complete days and ${a.weighIns} weigh-ins">${cells}</div>
+      <div class="bl-legend"><span><i class="g"></i>Complete day</span><span><i class="wdot"></i>Weigh-in</span></div>
+      ${fw && lw && fw.d !== lw.d ? `<div class="lp-wline"><span>${blDate(fw.d)} <b>${blW(fw.lb).toFixed(1)}</b></span><i></i><span>${blDate(lw.d)} <b>${blW(lw.lb).toFixed(1)}</b> ${u}</span></div>` : ''}
+      ${a.ready ? (() => { const exp = blW(a.predicted * 7 / 3500), got = blW(a.slope * 7);
+        return `<p class="bl-p">From what you ate and burned, the formula expected <b>${blSigned(exp, 1)} ${u}</b> a week. Your scale moved <b>${blSigned(got, 1)} ${u}</b> a week. ${a.adj === 0 ? 'They match, so the formula fits you.' : `So your body burns about <b>${fmtN(Math.abs(a.adj))} kcal a day ${a.adj > 0 ? 'more' : 'less'}</b> than the formula says${a.capped ? ' (capped at 15%)' : ''}.`}</p>`; })()
+        : `<p class="bl-note">Fera uses the longest stretch, from ${LEARN_MIN_DAYS} up to ${LEARN_MAX_DAYS} days, where most days are complete and there’s a weigh-in near the start and the end. A complete day has all its food logged and a burn Fera worked out.</p>`}
+    </div>`;
   }
+
+  // ---- goal weight
   { const gi = goalInfo();
     if(gi && (gi.wg === 'lose' || gi.wg === 'gain') && !gi.wrongWay && gi.toGo >= 0.05){
-      const u = weightUnit(), wp = goalWhen(gi.etaPace), wl = goalWhen(gi.etaPlan), apart = goalWeeksApart(gi.etaPace, gi.etaPlan);
-      h += `<div class="pw-card"><div class="lp-eyebrow"><span>Your goal weight</span><span>${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)} ${u}</span></div>
-        <div class="lp-facts" style="margin-top:4px"><div><b>${wp || '—'}</b><small>${gi.pace != null ? `at your measured ${wtSigned(gi.pace)} ${u} a week` : 'needs 2 weeks of weigh-ins'}</small></div><div><b>${wl || '—'}</b><small>at your plan's ${weightRate()} lb a week</small></div></div>
-        <p class="lp-why">${apart != null && Math.abs(apart) >= 1 ? `You're ${apart > 0 ? 'ahead of' : 'behind'} your plan, so you'd get there about <b>${Math.abs(apart)} week${Math.abs(apart) === 1 ? '' : 's'} ${apart > 0 ? 'early' : 'late'}</b>. ` : apart != null ? 'You\'re right on plan. ' : ''}${wtFmt(gi.toGo)} ${u} to go. The date moves with your weigh-ins; your targets move with each weekly update.</p></div>`;
+      const wu = weightUnit(), wp = goalWhen(gi.etaPace), wl = goalWhen(gi.etaPlan), apart = goalWeeksApart(gi.etaPace, gi.etaPlan);
+      h += `<div class="pw-card"><div class="lp-eyebrow"><span>Your goal weight</span><span>${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)} ${wu}</span></div>
+        <div class="lp-facts" style="margin-top:4px"><div><b>${wp || '—'}</b><small>${gi.pace != null ? `at your measured ${wtSigned(gi.pace)} ${wu} a week` : 'needs 2 weeks of weigh-ins'}</small></div><div><b>${wl || '—'}</b><small>at your plan's ${weightRate()} lb a week</small></div></div>
+        <p class="lp-why">${apart != null && Math.abs(apart) >= 1 ? `You're ${apart > 0 ? 'ahead of' : 'behind'} your plan, so you'd get there about <b>${Math.abs(apart)} week${Math.abs(apart) === 1 ? '' : 's'} ${apart > 0 ? 'early' : 'late'}</b>. ` : apart != null ? 'You\'re right on plan. ' : ''}${wtFmt(gi.toGo)} ${wu} to go.</p></div>`;
     } }
 
-  // ---- settings
-  const sw = (k, val, title, sub) => `<button type="button" class="pb-tg${val ? ' on' : ''}" data-lp="${k}" role="switch" aria-checked="${val}"><span class="pb-tg-t"><b>${title}</b><small>${sub}</small></span><span class="pb-sw"><i></i></span></button>`;
-  h += `<div class="pw-card lp-set">
-    ${sw('learn', on, 'Learn from my data', on ? 'Fera updates your resting burn and daily target every Monday.' : 'Off · Fera uses the formula and your activity level from Goals.')}
-    ${on ? sw('auto', C.auto, 'Apply updates automatically', C.auto ? 'Fera applies each update and tells you on Today.' : 'Fera shows each update; nothing changes until you tap Apply.') : ''}
-  </div>`;
-
-  // ---- how it works + history
-  h += `<div class="pw-card bl-how"><b class="bl-h">How it works</b>
-    <ol><li>Every day, Fera adds up what you eat and burn.</li><li>Every Monday, it checks that against your scale. If you lost more or less than the numbers predicted, your resting burn gets corrected.</li><li>Your daily target becomes your real average burn, minus your plan’s deficit${userGoals.weightGoal === 'gain' ? ' (plus its surplus)' : ''}. It moves at most ${CAL_STEP_MAX} kcal a week and never goes below a safe minimum.</li></ol></div>`;
+  // ---- recent changes
   if(C.log.length){
-    h += `<div class="pw-card"><b class="bl-h">Past updates</b><div class="lp-log">${C.log.slice(0, 8).map(x => `<div><span>${blDate(x.d)}</span><b>Target ${fmtN(x.target[0])} → ${fmtN(x.target[1])}</b><small>Resting ${fmtN(x.rest[0])} → ${fmtN(x.rest[1])} · ${x.how === 'auto' ? 'automatic' : 'you applied'}</small></div>`).join('')}</div></div>`;
+    h += `<div class="pw-card"><b class="bl-h">Recent changes</b><div class="lp-log">${C.log.slice(0, 6).map(x => `<div><span>${blDate(x.d)}</span><b>Target ${fmtN(x.target[0])} → ${fmtN(x.target[1])}</b><small>Resting ${fmtN(x.rest[0])} → ${fmtN(x.rest[1])}</small></div>`).join('')}</div>
+      <p class="bl-note">Finished days keep the resting burn they had; only today and the days ahead use the new one.</p></div>`;
   }
   h += '</div>';
   body.innerHTML = h;
@@ -11129,23 +11307,7 @@ function renderLearnPage(){
 (function wireLearnPage(){
   document.getElementById('openLearnBtn').addEventListener('click', openLearnPage);
   document.getElementById('learnBackBtn').addEventListener('click', () => { haptic(); closeLearnPage(); });
-  document.getElementById('learnBody').addEventListener('click', async (ev) => {
-    if(ev.target.closest('[data-bl-evidence]')){ ev.stopPropagation(); openBmrPage(); return; }
-    const b = ev.target.closest('[data-lp]'); if(!b) return;
-    haptic(12);
-    const k = b.dataset.lp;
-    if(k === 'apply'){ const c = calPending(); if(c) await calApply(c, 'you'); }
-    else if(k === 'keep'){ const c = calPending(); if(c) await calKeep(c); }
-    else if(k === 'auto') await calSetAuto(!calState().auto);
-    else if(k === 'learn') await blSetLearning(!(userProfile.bmrLearn && userProfile.bmrLearn.on));
-    renderLearnPage();
-  });
-  document.getElementById('planNudge').addEventListener('click', (ev) => {
-    const b = ev.target.closest('[data-pn]'); if(!b) return;
-    haptic();
-    if(b.dataset.pn === 'hide'){ try { localStorage.setItem('plan-nudge-hide', weekStartISO(todayStr())); } catch(e){} renderPlanNudge(); return; }
-    openLearnPage();
-  });
+  window.openBmrPage = openLearnPage;   // the resting burn page is part of Learning now
 })();
 
 // ---- last week (Mon–Sun) ----
@@ -11472,7 +11634,7 @@ function showRecap(cards, opt){
   });
   window.addEventListener('popstate', (ev) => { const v = (ev.state && ev.state.view) || (location.hash || '').slice(1) || 'home'; setView(v, { fromHistory: true }); });
   let tick = false;
-  function compact(){ bar.classList.toggle('compact', (window.scrollY || 0) > 80); }
+  function compact(){ bar.classList.remove('compact'); }   // the bar stays full: icon and label
   window.addEventListener('scroll', () => { if(tick) return; tick = true; requestAnimationFrame(() => { tick = false; compact(); }); }, { passive: true });
   document.body.classList.add('tabs');
   const start = (location.hash || '').slice(1);
@@ -11492,9 +11654,9 @@ const NOTIFY_KINDS = [
   ['meals', 'Meal reminders', 'When you usually log a meal and haven’t yet'],
   ['left', 'What’s left today', 'Calories and protein left, in the early evening'],
   ['close', 'Finish the day', 'At night, if today looks only partly logged'],
-  ['weigh', 'Weigh-in reminder', 'In the morning, after 3 days without one'],
+  ['weigh', 'Weigh-in reminder', 'In the morning when Fera needs one to keep learning'],
   ['recap', 'Recaps ready', 'Yesterday’s recap in the morning, your week on Mondays'],
-  ['learn', 'Weekly update', 'When Fera has new numbers for you on Monday'],
+  ['learn', 'Learning', 'The evening before Fera can learn your burn, if today still needs logging'],
   ['pattern', 'Patterns', 'A weekly pattern from your logs · Premium'],
   ['trial', 'Trial ending', 'Two days before a free trial ends']
 ];
@@ -11547,25 +11709,24 @@ function planNotifications(now){
   }
   // finish the day: only for people who usually log, and a day that looks partly logged
   const items = e && e.mode === 'items' ? (e.items || []).length : (eaten != null ? 3 : 0);
-  if(active7 >= 3 && items < 2) add('close', atTime(today, 21 * 60 + 15), 'Finish today’s log', 'A complete day keeps your recap and weekly update accurate.', 'fera://log', 5);
-  // weigh-in: the next morning, after 3 days without one
+  if(active7 >= 3 && items < 2) add('close', atTime(today, 21 * 60 + 15), 'Finish today’s log', 'A complete day keeps your recap and what Fera learns accurate.', 'fera://log', 5);
+  // weigh-in: the next morning. While learning, every morning until there's one; once learned, after 2 days without
   const since = typeof daysSinceWeighIn === 'function' ? daysSinceWeighIn() : null;
-  if(since != null && since >= 2){
-    const d = now < atTime(today, 7 * 60 + 30) ? today : tomorrow;
-    const days = d === today ? since : since + 1;
-    if(days >= 3) add('weigh', atTime(d, 7 * 60 + 30), `${days} days since your last weigh-in`, 'Step on the scale before breakfast. Fera learns from every weigh-in.', 'fera://weight', 2);
+  const ls = typeof learnStatus === 'function' ? learnStatus() : null;
+  const learningNow = ls && ls.state === 'learning';
+  if(since == null || since >= (learningNow ? 0 : 1)){
+    const d = now < atTime(today, 7 * 60 + 30) && !dailyWeightMap()[today] ? today : tomorrow;
+    const days = since == null ? null : d === today ? since : since + 1;
+    if(learningNow) add('weigh', atTime(d, 7 * 60 + 30), ls.weigh === 'start' || since == null ? 'Weigh in to start learning' : 'Morning weigh-in', `Before breakfast. Fera is learning your real burn: ${ls.toGo} day${ls.toGo === 1 ? '' : 's'} to go.`, 'fera://weight', 2);
+    else if(days != null && days >= 2) add('weigh', atTime(d, 7 * 60 + 30), `${days} days since your last weigh-in`, 'Step on the scale before breakfast. Fera keeps learning from every weigh-in.', 'fera://weight', 2);
   }
   // recaps: tomorrow morning, if today has food in it; Mondays it's the week
   if(eaten != null){
     const monday = parseISO(tomorrow).getDay() === 1;
     add('recap', atTime(tomorrow, 8 * 60 + 15), monday ? 'Your week in review is ready' : 'Yesterday’s recap is ready', monday ? 'How last week went against your plan.' + (() => { const gi = goalInfo(); const wp = gi && (gi.wg === 'lose' || gi.wg === 'gain') && !gi.wrongWay ? goalWhen(gi.etaPace) : null; return wp ? ` On pace for ${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)} ${weightUnit()} by ${wp}.` : ''; })() : 'How yesterday went against your plan.', 'fera://today', 3);
   }
-  // the weekly update: Monday morning, when there's one to make
-  if(typeof calibrate === 'function' && bmrLearnState()){
-    const nextMon = [today, tomorrow].find(d => parseISO(d).getDay() === 1);
-    const c = nextMon ? calibrate() : null;
-    if(c && c.ready && calState().seen !== weekStartISO(nextMon)) add('learn', atTime(nextMon, 9 * 60), 'Your weekly update is ready', calState().auto ? 'Open Fera to see how your resting burn and target changed.' : 'New numbers for your resting burn and target, ready to review.', 'fera://learning', 1);
-  }
+  // learning: the evening before the first update could run, if today is still missing food
+  if(ls && ls.state === 'learning' && ls.toGo === 1 && items < 3) add('learn', atTime(today, 20 * 60 + 30), 'One more complete day', 'Log the rest of today and Fera learns your real burn tomorrow.', 'fera://log', 4);
   // a pattern from the logs (Premium): Sunday evening, worked out on the phone
   const plan = typeof pwPlan === 'function' ? pwPlan() : null;
   if(plan && plan.id === 'premium'){

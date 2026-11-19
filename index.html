@@ -948,6 +948,13 @@
   .auth-tab{flex:1;background:none;border:none;color:var(--muted);font-size:13.5px;font-weight:700;padding:9px;border-radius:9px;}
   .auth-tab.active{background:var(--accent-strong);color:#FFFFFF;}
   .auth-field{margin-bottom:14px;}
+  /* Sign in with Apple: Apple's white button style on Fera's dark background */
+  .apple-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:48px;border:none;border-radius:12px;
+    background:#FFFFFF;color:#000000;font:600 16px/1 -apple-system,BlinkMacSystemFont,'Inter',system-ui,sans-serif;letter-spacing:-0.01em;cursor:pointer;}
+  .apple-btn svg{width:16px;height:19px;margin-top:-3px;}
+  .apple-btn:disabled{opacity:.6;}
+  .auth-or{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--muted);font-size:12.5px;}
+  .auth-or::before,.auth-or::after{content:"";flex:1;height:1px;background:var(--rule);}
   #authSubmitBtn{margin-top:4px;}
   .auth-link{display:block;margin:12px auto 0;background:none;border:none;color:var(--accent);font-size:13.5px;font-weight:600;padding:6px;}
   .auth-gate-title{font-family:'Sora',sans-serif;font-weight:600;font-size:19px;letter-spacing:-0.02em;margin-bottom:8px;}
@@ -3414,6 +3421,10 @@
     <p class="auth-tag">Track what you eat and what you burn.</p>
 
     <div class="auth-card" id="authFormCard">
+      <div class="auth-apple" id="authAppleWrap" hidden>
+        <button class="apple-btn" id="authAppleBtn" type="button"><svg viewBox="0 0 17 20" aria-hidden="true"><path fill="currentColor" d="M14.09 10.63c-.02-2.3 1.88-3.41 1.97-3.46-1.07-1.57-2.74-1.78-3.33-1.8-1.42-.14-2.77.84-3.49.84-.72 0-1.83-.82-3.01-.8-1.55.02-2.98.9-3.78 2.29-1.61 2.8-.41 6.94 1.16 9.21.77 1.11 1.68 2.36 2.88 2.31 1.16-.05 1.59-.75 2.99-.75 1.4 0 1.79.75 3.01.72 1.24-.02 2.03-1.13 2.79-2.25.88-1.29 1.24-2.53 1.26-2.6-.03-.01-2.42-.93-2.45-3.71zM11.8 3.87c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.78-.97 2.83 1.02.08 2.07-.52 2.71-1.29z"/></svg><span>Continue with Apple</span></button>
+        <div class="auth-or"><span>or use your email</span></div>
+      </div>
       <div class="auth-tabs" id="authTabs" role="tablist">
         <button class="auth-tab active" data-auth-mode="signin" type="button" role="tab">Sign in</button>
         <button class="auth-tab" data-auth-mode="signup" type="button" role="tab">Create account</button>
@@ -7789,7 +7800,7 @@ function renderYourDataDelete(){
   const owner = !!(sessionInfo && sessionInfo.isOwner);
   document.getElementById('ydDeleteText').textContent = owner
     ? "This is the owner account, so it can't be deleted from the app."
-    : "This permanently deletes your food log, weigh-ins, goals, profile, Apple Health data, Fera AI memory and your sign-in. It can't be undone. Export your data first if you want a copy.";
+    : "This permanently deletes your food log, weigh-ins, goals, profile, Apple Health data, Fera AI memory and your sign-in. It can't be undone. Export your data first if you want a copy." + (appleLinked() ? ' Apple will ask you to confirm, and Fera stops using your Apple ID.' : '');
   document.getElementById('ydDeleteBtn').hidden = owner;
   document.getElementById('ydDeleteConfirm').hidden = true;
   document.getElementById('ydDeleteInput').value = '';
@@ -7815,8 +7826,14 @@ function wireYourDataExtras(){
   });
   document.getElementById('ydDeleteGo').addEventListener('click', async () => {
     const go = document.getElementById('ydDeleteGo'), st = document.getElementById('ydDeleteStatus');
-    go.disabled = true; st.textContent = 'Deleting…';
+    go.disabled = true;
     try {
+      if(appleLinked()){
+        st.textContent = 'Confirm with Apple to finish…';
+        try { await appleRevokeForDelete(); }
+        catch(e){ go.disabled = false; st.textContent = 'Canceled. Your account wasn’t deleted.'; return; }
+      }
+      st.textContent = 'Deleting…';
       await callApi('account.delete', { confirm: 'DELETE' });
       st.textContent = 'Your account has been deleted.';
       try { Object.keys(localStorage).forEach((k) => localStorage.removeItem(k)); } catch(e){}
@@ -9614,8 +9631,83 @@ function afterAppStart(){
   if(/^#whoop=/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
 }
 
+// ---------- Sign in with Apple ----------
+// Off until Apple and Firebase are set up (Apple provider in Firebase, the App ID capability, and for the web a
+// Services ID and key). Flip native / web on once each works. localStorage 'fera.appleSignIn' = '1' shows it for testing.
+const APPLE_SIGNIN = { native: false, web: false };
+function appleSignInOn(){
+  let test = false; try { test = localStorage.getItem('fera.appleSignIn') === '1'; } catch(e){}
+  if(IS_NATIVE) return !!nativeHealth() && (APPLE_SIGNIN.native || test);
+  return APPLE_SIGNIN.web || test;
+}
+function appleNonce(){
+  const b = new Uint8Array(32); crypto.getRandomValues(b);
+  return btoa(String.fromCharCode.apply(null, b)).replace(/[+/=]/g, '').slice(0, 32);
+}
+function appleCanceled(e){ const c = (e && (e.code || e.message)) || ''; return /canceled|cancelled|popup-closed-by-user|cancelled-popup-request|user-cancelled/i.test(c); }
+// Native: Apple's sheet in the app, then Firebase with the identity token. Returns the Apple reply (name, code).
+async function appleNativeCredential(){
+  const nonce = appleNonce();
+  const r = await nativeHealth().signInWithApple({ nonce });
+  return { r, cred: new firebase.auth.OAuthProvider('apple.com').credential({ idToken: r.identityToken, rawNonce: nonce }) };
+}
+function appleProvider(){ const p = new firebase.auth.OAuthProvider('apple.com'); p.addScope('email'); p.addScope('name'); return p; }
+async function signInWithApple(){
+  const btn = document.getElementById('authAppleBtn');
+  btn.disabled = true; setAuthStatus('Signing in with Apple…');
+  try {
+    if(IS_NATIVE){
+      const { r, cred } = await appleNativeCredential();
+      if(r.givenName) pendingSignupName = r.givenName;   // Apple sends the name only the first time
+      const res = await firebase.auth().signInWithCredential(cred);
+      if(r.givenName && res.user && !res.user.displayName) res.user.updateProfile({ displayName: r.givenName }).catch(() => {});
+    } else {
+      const res = await firebase.auth().signInWithPopup(appleProvider());
+      const prof = res && res.additionalUserInfo && res.additionalUserInfo.profile;
+      const first = res && res.user && res.user.displayName ? res.user.displayName.split(' ')[0] : (prof && prof.name && prof.name.firstName) || '';
+      if(first) pendingSignupName = first;
+    }
+    setAuthStatus('');
+  } catch(e){
+    if(appleCanceled(e)) setAuthStatus('');
+    else if(/account-exists-with-different-credential/.test(e && e.code || '')) setAuthStatus('There’s already a Fera account with this email. Sign in with your email and password.', 'error');
+    else if(/network-request-failed/.test(e && e.code || '')) setAuthStatus(friendlyAuthError(e), 'error');
+    else setAuthStatus('Sign in with Apple didn’t work. Try again, or use your email.', 'error');
+  }
+  btn.disabled = false;
+}
+function appleLinked(){ const u = firebase.auth().currentUser; return !!(u && (u.providerData || []).some(p => p && p.providerId === 'apple.com')); }
+// Before deleting an account that uses Sign in with Apple: confirm with Apple again and revoke Fera's Apple
+// tokens (App Store rule 5.1.1(v)). Throws if the person cancels; other failures are logged and the delete goes on.
+async function appleRevokeForDelete(){
+  if(!appleLinked()) return;
+  const u = firebase.auth().currentUser;
+  try {
+    if(IS_NATIVE && nativeHealth()){
+      const { r, cred } = await appleNativeCredential();
+      await u.reauthenticateWithCredential(cred);
+      if(r.authorizationCode){
+        const resp = await fetch(`https://identitytoolkit.googleapis.com/v2/accounts:revokeToken?key=${encodeURIComponent(firebaseConfig.apiKey)}`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ providerId: 'apple.com', tokenType: 'CODE', token: r.authorizationCode, idToken: await u.getIdToken(true) })
+        });
+        if(!resp.ok) console.warn('Apple revoke failed', resp.status);
+      }
+    } else {
+      const res = await u.reauthenticateWithPopup(appleProvider());
+      const tok = res && res.credential && res.credential.accessToken;
+      if(tok) await firebase.auth().revokeAccessToken(tok);
+    }
+  } catch(e){
+    if(appleCanceled(e)) throw e;
+    console.warn('Apple revoke failed', e);
+  }
+}
+
 function bootAuth(){
   if(typeof firebase === 'undefined' || !fbDb || !firebase.auth){ init(); return; } // no backend: local-only
+  document.getElementById('authAppleWrap').hidden = !appleSignInOn();
+  document.getElementById('authAppleBtn').addEventListener('click', () => { haptic(); signInWithApple(); });
   document.getElementById('authTabs').addEventListener('click', (ev)=>{
     const b = ev.target.closest('.auth-tab'); if(!b) return;
     setAuthMode(b.dataset.authMode);

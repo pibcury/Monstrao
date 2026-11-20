@@ -2673,43 +2673,46 @@
   .ob-feat .i .li, .ob-card .ic .li, .wn-ico .li{width:22px;height:22px;}
   .wd-ico .li{width:22px;height:22px;color:#8DB6FF;} .ob-days i .li{width:16px;height:16px;color:#C4B5FD;}
 
-  /* ===== Design preview "d2" (?d2=1): compact header, one card level, flat surfaces, quieter taps. Off unless asked. ===== */
-  .d2-title{display:none;}
-  body.d2 .app-menu-btn{top:2px;height:40px;width:40px;padding:0;border:0;background:none;box-shadow:none;justify-content:center;}
-  body.d2 .app-menu-btn > svg{display:none;}
-  body.d2 .app-menu-avatar{width:36px;height:36px;font-size:15px;background:var(--accent);color:#fff;}
-  body.d2 .app-menu-dropdown{top:46px;}
-  body.d2 .app-header .eyebrow{padding-right:52px;}
+  /* ===== Nov 20 design: compact header, one card level, flat surfaces, quieter taps ===== */
+  .page-title{display:none;}
+  body .app-menu-btn{top:0;height:44px;width:44px;padding:0;border:0;background:none;box-shadow:none;justify-content:center;}
+  body .app-menu-btn > svg{display:none;}
+  body .app-menu-avatar{width:36px;height:36px;font-size:15px;background:var(--accent);color:#fff;}
+  body .app-menu-dropdown{top:46px;}
+  body .app-header .eyebrow{padding-right:52px;}
   /* Today: a small logo row, then the greeting as the page title */
-  body.d2[data-view="home"] .app-header-inner{display:grid;grid-template-columns:auto 1fr;column-gap:10px;}
-  body.d2[data-view="home"] .app-header-inner > *{grid-column:1 / -1;}
-  body.d2 h1.brand{grid-column:1;grid-row:1;margin:0 0 12px;min-height:40px;align-items:center;}
-  body.d2 h1.brand .brand-tile{width:34px;height:34px;border-radius:10px;box-shadow:none;}
-  body.d2 h1.brand .tile-emoji{font-size:20px;}
-  body.d2 h1.brand .title-word{display:none;}
-  body.d2 #greetingLine{grid-column:2;grid-row:1;align-self:center;font:700 22px 'Sora',sans-serif;color:var(--ink);letter-spacing:-0.02em;margin:0 0 12px;padding-right:52px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  body[data-view="home"] .app-header-inner{display:grid;grid-template-columns:auto minmax(0, 1fr);column-gap:12px;}
+  body[data-view="home"] .app-header-inner > *{grid-column:1 / -1;}
+  body[data-view="home"] .app-header-inner > h1.brand{grid-column:1;grid-row:1;}
+  body h1.brand{margin:0 0 12px;height:44px;gap:0;align-items:center;}
+  body h1.brand .brand-tile{width:34px;height:34px;border-radius:10px;box-shadow:none;}
+  body h1.brand .tile-emoji{font-size:20px;}
+  body h1.brand .title-word{display:none;}
+  body[data-view="home"] .app-header-inner > #greetingLine{grid-column:2;grid-row:1;}
+  body #greetingLine{align-self:center;font:700 22px 'Sora',sans-serif;color:var(--ink);letter-spacing:-0.02em;margin:0 0 12px;padding-right:52px;min-width:0;line-height:44px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   /* other tabs: just the tab's name, large, where the logo was */
-  body.d2:not([data-view="home"]) h1.brand, body.d2:not([data-view="home"]) #greetingLine{display:none;}
-  body.d2:not([data-view="home"]) .d2-title{display:flex;align-items:center;min-height:40px;margin:0 0 12px;padding-right:52px;font:700 28px 'Sora',sans-serif;letter-spacing:-0.02em;color:var(--ink);}
-  body.d2.tabs:not([data-view="home"]) [data-view-card] > .burn-summary-row{display:none;}
+  body:not([data-view="home"]) h1.brand, body:not([data-view="home"]) #greetingLine{display:none;}
+  body:not([data-view="home"]) .page-title{display:flex;align-items:center;gap:10px;height:44px;margin:0 0 12px;padding-right:52px;font:700 28px 'Sora',sans-serif;letter-spacing:-0.02em;color:var(--ink);}
+  .page-title .pt-ico{width:26px;height:26px;color:var(--accent);stroke-width:2;}
+  body.tabs:not([data-view="home"]) [data-view-card] > .burn-summary-row{display:none;}
   /* one card level: what sits inside a card is separated by space and hairlines, not more boxes */
-  body.d2 #trendRingSection .today-card{background:none;border:0;padding:4px 0 0;border-radius:0;}
-  body.d2 .wk, body.d2 .wp{background:none;border:0;border-radius:0;padding:14px 0 6px;border-top:1px solid var(--rule);}
-  body.d2 .wc-add{background:none;border:0;border-radius:0;padding:14px 0 0;border-top:1px solid var(--rule);}
-  body.d2 .wt-chartbox{background:none;border:0;border-radius:0;padding:4px 0 0;}
-  body.d2 .wt-card{background:none;border:0;border-radius:0;padding:14px 0 0;border-top:1px solid var(--rule);}
-  body.d2 .fl-total{background:none;border:0;border-radius:0;padding:4px 0 10px;border-bottom:1px solid var(--rule);}
-  body.d2 .wt-empty, body.d2 .mix-bar.empty{border-style:solid;}
+  body #trendRingSection .today-card{background:none;border:0;padding:4px 0 0;border-radius:0;}
+  body .wk, body .wp{background:none;border:0;border-radius:0;padding:14px 0 6px;border-top:1px solid var(--rule);}
+  body .wc-add{background:none;border:0;border-radius:0;padding:14px 0 0;border-top:1px solid var(--rule);}
+  body .wt-chartbox{background:none;border:0;border-radius:0;padding:4px 0 0;}
+  body .wt-card{background:none;border:0;border-radius:0;padding:14px 0 0;border-top:1px solid var(--rule);}
+  body .fl-total{background:none;border:0;border-radius:0;padding:4px 0 10px;border-bottom:1px solid var(--rule);}
+  body .wt-empty, body .mix-bar.empty{border-style:solid;}
   /* flat: no glows, no lit edges, no gradient buttons */
-  body.d2 .card, body.d2 .card.card-fuel, body.d2 .card.card-burn{background:var(--surface);box-shadow:none;}
-  body.d2 .brand-tile, body.d2 .ring-net, body.d2 .lpill, body.d2 .seg-pill, body.d2 .wk-toggle-thumb, body.d2 .es-btn{box-shadow:none;}
-  body.d2 .ring-net{background:var(--surface-2);}
-  body.d2 .btn-primary{background:var(--accent);color:#fff;}
-  body.d2 .ai-fab{box-shadow:0 4px 14px rgba(0,0,0,.45);}
-  body.d2::before{display:none;}
+  body .card, body .card.card-fuel, body .card.card-burn{background:var(--surface);box-shadow:none;}
+  body .brand-tile, body .ring-net, body .lpill, body .seg-pill, body .wk-toggle-thumb, body .es-btn{box-shadow:none;}
+  body .ring-net{background:var(--surface-2);}
+  body .btn-primary{background:var(--accent);color:#fff;}
+  body .ai-fab{box-shadow:0 4px 14px rgba(0,0,0,.45);}
+  body::before{display:none;}
   /* taps: only small round controls shrink; rows, cards and wide buttons dim instead */
-  body.d2 button:active{transform:none;filter:brightness(.82);}
-  body.d2 :is(.tabbar button, .ai-fab, .date-nav-btn, .app-menu-btn, .fi-edit, .bc-pen, .item-del, .meal-chip, .lpill, .goal-pill, .chat-sug, #chatSendBtn, #chatMicBtn):active{transform:scale(.94);filter:none;}
+  body button:active{transform:none;filter:brightness(.82);}
+  body :is(.tabbar button, .ai-fab, .date-nav-btn, .app-menu-btn, .fi-edit, .bc-pen, .item-del, .meal-chip, .lpill, .goal-pill, .chat-sug, #chatSendBtn, #chatMicBtn):active{transform:scale(.94);filter:none;}
 </style>
 </head>
 <body>
@@ -2734,7 +2737,7 @@
       <button class="app-menu-item menu-ai" id="openChatBtn" type="button" style="display:none;"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg></span><span><b>Fera AI</b><small>Ask about your data</small></span></button>
     </div>
     <div class="app-header-inner">
-      <h1 class="d2-title" id="d2Title" aria-hidden="true"></h1>
+      <h1 class="page-title" id="pageTitle"></h1>
       <p class="eyebrow" id="greetingLine">Fuel in · burn out</p>
       <h1 class="brand"><span class="brand-tile flex-arm" role="img" aria-label="Fera logo"><span class="tile-emoji" aria-hidden="true">💪</span></span><span class="title-word">Fera</span></h1>
 
@@ -3677,9 +3680,7 @@ try{ fbFns = firebase.app().functions('us-central1'); }catch(e){ /* functions SD
 // that looks technical become a short message instead.
 // A button that saves something does it once per tap: while its save is running, more taps (a double tap,
 // an impatient second press) are ignored and the button shows as busy.
-// design preview: ?d2=1 turns it on (remembered on this device), ?d2=0 off
-try { const q = new URLSearchParams(location.search).get('d2'); if(q != null) localStorage.setItem('feraD2', q); if(localStorage.getItem('feraD2') === '1') document.documentElement.classList.add('d2-on'); } catch(e){}
-document.addEventListener('DOMContentLoaded', () => { if(document.documentElement.classList.contains('d2-on')) document.body.classList.add('d2'); });
+try { localStorage.removeItem('feraD2'); } catch(e){}
 function guardTap(fn){
   let busy = false;
   return async function(ev){
@@ -4720,6 +4721,7 @@ const LI_PATHS = {
   bell: '<path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.5 2h-14ZM10 20.5a2 2 0 0 0 4 0"/>',
   trends: '<path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/>',
   fork: '<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M16.5 21V3c-2 1-3.5 3.5-3.5 7 0 2 1.5 3 3.5 3"/>',
+  flame: '<path d="M12 3c.6 3 4.8 4.9 4.8 9.8a4.8 4.8 0 0 1-9.6 0c0-2.3 1.1-3.8 2.4-4.9.2 1.7 1.1 2.8 2.3 3.1-.3-3-.6-5.4.1-8z"/>',
   heart: '<path d="M12 20s-7.6-4.4-7.6-10A4.2 4.2 0 0 1 12 7.4 4.2 4.2 0 0 1 19.6 10c0 5.6-7.6 10-7.6 10Z"/><path d="M5 12.5h3.4l1.5-2.4 2.4 4.6 1.9-3.2H19"/>',
 };
 // One empty state for every screen: an icon, a short headline, one or two lines on what to do, and at
@@ -12595,7 +12597,8 @@ function showRecap(cards, opt){
     const changed = v !== current;
     current = v;
     document.body.dataset.view = v;
-    { const t = document.getElementById('d2Title'); if(t) t.textContent = { food: 'Food', burn: 'Burn', weight: 'Weight', trends: 'Trends' }[v] || ''; }
+    { const t = document.getElementById('pageTitle'), P = { food: ['fork', 'Food'], burn: ['flame', 'Burn'], weight: ['scale', 'Weight'], trends: ['trends', 'Trends'] }[v];
+      if(t) t.innerHTML = P ? `${LI(P[0], 'pt-ico')}<span>${P[1]}</span>` : ''; }
     bar.querySelectorAll('[data-view]').forEach(b => { b.classList.toggle('on', b.dataset.view === v); b.setAttribute('aria-current', b.dataset.view === v ? 'page' : 'false'); });
     if(open[v]) open[v]();
     if(!opts.keepScroll) window.scrollTo(0, 0);

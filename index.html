@@ -2672,6 +2672,44 @@
   #trendsFormWrap.t-empty > :not(#trendHorizonRow):not(#trendPeriodNav):not(#trendEmpty){display:none !important;}
   .ob-feat .i .li, .ob-card .ic .li, .wn-ico .li{width:22px;height:22px;}
   .wd-ico .li{width:22px;height:22px;color:#8DB6FF;} .ob-days i .li{width:16px;height:16px;color:#C4B5FD;}
+
+  /* ===== Design preview "d2" (?d2=1): compact header, one card level, flat surfaces, quieter taps. Off unless asked. ===== */
+  .d2-title{display:none;}
+  body.d2 .app-menu-btn{top:2px;height:40px;width:40px;padding:0;border:0;background:none;box-shadow:none;justify-content:center;}
+  body.d2 .app-menu-btn > svg{display:none;}
+  body.d2 .app-menu-avatar{width:36px;height:36px;font-size:15px;background:var(--accent);color:#fff;}
+  body.d2 .app-menu-dropdown{top:46px;}
+  body.d2 .app-header .eyebrow{padding-right:52px;}
+  /* Today: a small logo row, then the greeting as the page title */
+  body.d2[data-view="home"] .app-header-inner{display:grid;grid-template-columns:auto 1fr;column-gap:10px;}
+  body.d2[data-view="home"] .app-header-inner > *{grid-column:1 / -1;}
+  body.d2 h1.brand{grid-column:1;grid-row:1;margin:0 0 12px;min-height:40px;align-items:center;}
+  body.d2 h1.brand .brand-tile{width:34px;height:34px;border-radius:10px;box-shadow:none;}
+  body.d2 h1.brand .tile-emoji{font-size:20px;}
+  body.d2 h1.brand .title-word{display:none;}
+  body.d2 #greetingLine{grid-column:2;grid-row:1;align-self:center;font:700 22px 'Sora',sans-serif;color:var(--ink);letter-spacing:-0.02em;margin:0 0 12px;padding-right:52px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  /* other tabs: just the tab's name, large, where the logo was */
+  body.d2:not([data-view="home"]) h1.brand, body.d2:not([data-view="home"]) #greetingLine{display:none;}
+  body.d2:not([data-view="home"]) .d2-title{display:flex;align-items:center;min-height:40px;margin:0 0 12px;padding-right:52px;font:700 28px 'Sora',sans-serif;letter-spacing:-0.02em;color:var(--ink);}
+  body.d2.tabs:not([data-view="home"]) [data-view-card] > .burn-summary-row{display:none;}
+  /* one card level: what sits inside a card is separated by space and hairlines, not more boxes */
+  body.d2 #trendRingSection .today-card{background:none;border:0;padding:4px 0 0;border-radius:0;}
+  body.d2 .wk, body.d2 .wp{background:none;border:0;border-radius:0;padding:14px 0 6px;border-top:1px solid var(--rule);}
+  body.d2 .wc-add{background:none;border:0;border-radius:0;padding:14px 0 0;border-top:1px solid var(--rule);}
+  body.d2 .wt-chartbox{background:none;border:0;border-radius:0;padding:4px 0 0;}
+  body.d2 .wt-card{background:none;border:0;border-radius:0;padding:14px 0 0;border-top:1px solid var(--rule);}
+  body.d2 .fl-total{background:none;border:0;border-radius:0;padding:4px 0 10px;border-bottom:1px solid var(--rule);}
+  body.d2 .wt-empty, body.d2 .mix-bar.empty{border-style:solid;}
+  /* flat: no glows, no lit edges, no gradient buttons */
+  body.d2 .card, body.d2 .card.card-fuel, body.d2 .card.card-burn{background:var(--surface);box-shadow:none;}
+  body.d2 .brand-tile, body.d2 .ring-net, body.d2 .lpill, body.d2 .seg-pill, body.d2 .wk-toggle-thumb, body.d2 .es-btn{box-shadow:none;}
+  body.d2 .ring-net{background:var(--surface-2);}
+  body.d2 .btn-primary{background:var(--accent);color:#fff;}
+  body.d2 .ai-fab{box-shadow:0 4px 14px rgba(0,0,0,.45);}
+  body.d2::before{display:none;}
+  /* taps: only small round controls shrink; rows, cards and wide buttons dim instead */
+  body.d2 button:active{transform:none;filter:brightness(.82);}
+  body.d2 :is(.tabbar button, .ai-fab, .date-nav-btn, .app-menu-btn, .fi-edit, .bc-pen, .item-del, .meal-chip, .lpill, .goal-pill, .chat-sug, #chatSendBtn, #chatMicBtn):active{transform:scale(.94);filter:none;}
 </style>
 </head>
 <body>
@@ -2696,6 +2734,7 @@
       <button class="app-menu-item menu-ai" id="openChatBtn" type="button" style="display:none;"><span class="app-menu-ico"><svg class="menu-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg></span><span><b>Fera AI</b><small>Ask about your data</small></span></button>
     </div>
     <div class="app-header-inner">
+      <h1 class="d2-title" id="d2Title" aria-hidden="true"></h1>
       <p class="eyebrow" id="greetingLine">Fuel in · burn out</p>
       <h1 class="brand"><span class="brand-tile flex-arm" role="img" aria-label="Fera logo"><span class="tile-emoji" aria-hidden="true">💪</span></span><span class="title-word">Fera</span></h1>
 
@@ -3638,6 +3677,9 @@ try{ fbFns = firebase.app().functions('us-central1'); }catch(e){ /* functions SD
 // that looks technical become a short message instead.
 // A button that saves something does it once per tap: while its save is running, more taps (a double tap,
 // an impatient second press) are ignored and the button shows as busy.
+// design preview: ?d2=1 turns it on (remembered on this device), ?d2=0 off
+try { const q = new URLSearchParams(location.search).get('d2'); if(q != null) localStorage.setItem('feraD2', q); if(localStorage.getItem('feraD2') === '1') document.documentElement.classList.add('d2-on'); } catch(e){}
+document.addEventListener('DOMContentLoaded', () => { if(document.documentElement.classList.contains('d2-on')) document.body.classList.add('d2'); });
 function guardTap(fn){
   let busy = false;
   return async function(ev){
@@ -12553,6 +12595,7 @@ function showRecap(cards, opt){
     const changed = v !== current;
     current = v;
     document.body.dataset.view = v;
+    { const t = document.getElementById('d2Title'); if(t) t.textContent = { food: 'Food', burn: 'Burn', weight: 'Weight', trends: 'Trends' }[v] || ''; }
     bar.querySelectorAll('[data-view]').forEach(b => { b.classList.toggle('on', b.dataset.view === v); b.setAttribute('aria-current', b.dataset.view === v ? 'page' : 'false'); });
     if(open[v]) open[v]();
     if(!opts.keepScroll) window.scrollTo(0, 0);

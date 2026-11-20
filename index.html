@@ -3899,7 +3899,7 @@ function paintQualityTrack(fill, over, tick, v, g){
 // shows "—" rather than 0 when unlogged — it's normally logged a day late.
 function renderRing(){
   const d = selectedDate;
-  const t = computeTargets();
+  const tNow = computeTargets(), t = dayTargetsFrom(tNow, d);   // a past day shows the goals it had
   const cal = consumedTotal(entries[d]);
   const burn = hasBurned(entries[d]) ? entries[d].burned : null;
   const calOverIsBad = !(userGoals && userGoals.weightGoal === 'gain');
@@ -3922,7 +3922,7 @@ function renderRing(){
 
   const cta = document.getElementById('goalCtaBtn');
   if(cta){
-    const gap = t ? null : setupGap();
+    const gap = tNow ? null : setupGap();
     cta.style.display = gap ? '' : 'none';
     if(gap){ cta.innerHTML = `${gap.text} <span aria-hidden="true">›</span>`; cta.dataset.open = gap.page; }
   }
@@ -3937,7 +3937,7 @@ function renderRing(){
 function renderRingNet(d, cal, burn){
   const el = document.getElementById('ringNet');
   if(!el) return;
-  const t = computeTargets();
+  const t = dayTargets(d);
   const goal = t ? Math.round(t.calorieTarget - t.burnTarget) : null;
   const isToday = d === todayStr();
   el.style.display = '';
@@ -4024,18 +4024,20 @@ function balanceSeries(startISO, endISO, kind){
   if(kind === 'weight') return weightBalanceSeries(startISO, endISO);
   const t = computeTargets();
   const today = todayStr();
-  const daily = t ? (kind === 'cal' ? t.calorieTarget - t.burnTarget : kind === 'eaten' ? t.calorieTarget : kind === 'burn' ? t.burnTarget : macroTarget(kind, t)) : null;
+  const goalOf = (tt) => tt ? (kind === 'cal' ? tt.calorieTarget - tt.burnTarget : kind === 'eaten' ? tt.calorieTarget : kind === 'burn' ? tt.burnTarget : macroTarget(kind, tt)) : null;
+  const daily = goalOf(t);   // today's goal: the pace for the days still ahead
   const days = [];
-  let run = 0, counted = 0;
+  let run = 0, counted = 0, gsum = 0;
   for(const dt = parseISO(startISO); toISO(dt) <= endISO; dt.setDate(dt.getDate() + 1)){
     const iso = toISO(dt);
     const e = entries[iso];
     // today is left out until it's over: a half-logged day makes the running total jump around
     const n = iso >= today ? null : (kind === 'cal' ? net(e) : kind === 'eaten' ? consumedTotal(e) : kind === 'burn' ? (hasBurned(e) ? e.burned : null) : consumedMacro(e, kind));
-    if(n != null){ run += n; counted++; }
-    days.push({ iso, net: n, cum: iso < today ? run : null, pace: daily != null ? daily * counted : null, future: iso >= today, today: iso === today });
+    // the goal builds with each logged day's own goal (a finished day keeps the goals it had)
+    if(n != null){ run += n; counted++; const g = goalOf(dayTargetsFrom(t, iso)); gsum += g != null ? g : 0; }
+    days.push({ iso, net: n, cum: iso < today ? run : null, pace: daily != null ? gsum : null, future: iso >= today, today: iso === today });
   }
-  return { kind, days, daily, counted, total: counted ? run : null, goalTotal: daily != null ? daily * counted : null };
+  return { kind, days, daily, counted, total: counted ? run : null, goalTotal: daily != null ? gsum : null };
 }
 // Weight: the change in the 7-day average since the day before the period, against the plan's pace.
 // Counted on every day (weight moves whether or not you log), carried forward over days without data.
@@ -4153,7 +4155,9 @@ function balanceSVG(ser, o, tm){
 // protein share against the goal ("Total"), or how many points each macro is off ("vs. goal").
 function qualitySeries(startISO, endISO){
   const t = computeTargets(), today = todayStr();
-  const goal = t ? t.qualityTargets : null;
+  const lastDone = endISO < today ? endISO : wtAddDays(today, -1);
+  const tg = startISO <= lastDone ? dayTargetsFrom(t, lastDone) : t;   // a past week shows the goal mix it had
+  const goal = tg ? tg.qualityTargets : null;
   const days = [], kc = { protein: 0, carbs: 0, fat: 0 };
   for(let iso = startISO; iso <= endISO; iso = wtAddDays(iso, 1)){
     const e = entries[iso], g = MACROS.map(m => consumedMacro(e, m));
@@ -5588,6 +5592,23 @@ const CAL_FLOOR = { female: 1200, male: 1500 }; // lower end of the AHA/ACC/TOS 
 // Fat at 25% of calories (inside the 20–35% acceptable range), carbs take the rest. If that leaves
 // carbs under 130 g a day (the adult RDA), fat gives way down to 20% before carbs go lower.
 function macroTarget(m, t){ return t ? ({ protein: t.proteinTarget, carbs: t.carbsTarget, fat: t.fatTarget })[m] : null; }
+// ---------- each day keeps its goals ----------
+// A finished day is judged against the goals it had. Today's goals are written onto today's entry as they
+// change (goalLock, with the resting burn, in syncDerivedBurns) and stop changing once the day is over, so
+// changing a goal never rewrites history. Today and days without a lock use the current goals.
+function goalLockOf(t){
+  if(!t) return null;
+  return { cal: Math.round(t.calorieTarget), burn: Math.round(t.burnTarget), protein: Math.round(t.proteinTarget), carbs: Math.round(t.carbsTarget), fat: Math.round(t.fatTarget),
+    q: Object.assign({}, t.qualityTargets), wg: userGoals.weightGoal || null };
+}
+function dayTargetsFrom(t, iso){
+  const e = t && iso && iso < todayStr() ? entries[iso] : null, g = e && e.goalLock;
+  if(!g) return t;
+  const q = g.q || t.qualityTargets;
+  return Object.assign({}, t, { calorieTarget: g.cal, burnTarget: g.burn, proteinTarget: g.protein, carbsTarget: g.carbs, fatTarget: g.fat,
+    qualityTargets: q, qualityTarget: q.protein, dayLocked: true, dayWeightGoal: g.wg || null });
+}
+function dayTargets(iso){ return dayTargetsFrom(computeTargets(), iso); }
 function macroSplit(cal, proteinG, fatFixed){
   let fat = fatFixed != null ? fatFixed : cal * 0.25 / 9, floorHit = false;
   let carbs = (cal - proteinG * 4 - fat * 9) / 4;
@@ -6077,7 +6098,7 @@ function learnAnalysis(back = 0, assume = null){
     const cal = consumedTotal(e);
     if(cal == null) return false;
     const items = e.mode === 'items' ? (e.items || []).length : 2;
-    const target = t ? t.calorieTarget : 1800;
+    const td = dayTargetsFrom(t, d), target = td ? td.calorieTarget : 1800;
     if(cal < target * 0.6 && items < 3) return false;          // looks like a partly logged day
     return !!burnParts(d);
   }));
@@ -6215,7 +6236,10 @@ function syncDerivedBurns(){
   if(burnMode() === 'apple') Object.keys(healthData).forEach(d => { if(d <= today && healthFor(d)) days.add(d); });
   days.add(today);
   const restNow = bmrNow(), adjNow = bmrAdj();
+  const goalNow = goalLockOf(computeTargets()), goalNowJ = JSON.stringify(goalNow);
   days.forEach(d => {
+    // the goals of each day: today's follow the current goals; a finished day keeps the ones it ended with
+    if(goalNow && entries[d] && (d === today ? JSON.stringify(entries[d].goalLock) !== goalNowJ : !entries[d].goalLock)) entries[d].goalLock = JSON.parse(goalNowJ);
     // the resting burn of each day: today's follows learning; a finished day keeps the one it ended with
     if(restNow != null && entries[d] && (d === today || typeof entries[d].restLock !== 'number')){ entries[d].restLock = Math.round(restNow); entries[d].restAdj = adjNow; }
     const e = entries[d];
@@ -6698,12 +6722,15 @@ function aggregateByMonth(dates){
 // A flat, dashed reference line across the whole chart at the ideal/target level — drawn on top,
 // flagged _isOverlay so the hold-to-inspect hit-test (see setupChartTooltip below) never treats it
 // as a real data point.
+// targetVal: one number, or a function iso → that day's goal (finished days keep the goals they had)
 function buildTargetOverlay(dates, targetVal, color){
   if(targetVal == null) return null;
+  const data = typeof targetVal === 'function' ? dates.map(targetVal) : new Array(dates.length).fill(targetVal);
+  if(data.every(v => v == null)) return null;
   return {
     type: 'line',
     label: 'Target',
-    data: new Array(dates.length).fill(targetVal),
+    data,
     borderColor: color,
     backgroundColor: 'transparent',
     borderWidth: 1.5,
@@ -6777,7 +6804,8 @@ function renderConsumedChart(){
     const tickFn = horizonXTicks(trendHorizon, dates);
     const avgConsumed = avgOf(consumedVals);
     const t = computeTargets();
-    const target = t ? t.calorieTarget : null;
+    const goalOn = (iso) => { const x = dayTargetsFrom(t, iso); return x ? x.calorieTarget : null; };
+    const target = dates.length ? goalOn(dates[dates.length - 1]) : (t ? t.calorieTarget : null);
 
     if(titleEl){
       titleEl.innerHTML = chartStatsHTML([
@@ -6791,7 +6819,7 @@ function renderConsumedChart(){
       const o = buildAvgOverlay(dates, bucketType, consumedVals, '#FFFFFF', 0, '');
       overlayDatasets = o.datasets; segs = o.segments;
     }
-    const targetDs = buildTargetOverlay(dates, target, '#F4F5FA');
+    const targetDs = buildTargetOverlay(dates, t ? goalOn : null, '#F4F5FA');
 
     const ctx = document.getElementById('consumedChart');
     const datasets = [
@@ -6835,7 +6863,8 @@ function renderBurnedChart(){
     const tickFn = horizonXTicks(trendHorizon, dates);
     const avgBurned = avgOf(burnedVals);
     const t = computeTargets();
-    const target = t ? t.burnTarget : null;
+    const goalOn = (iso) => { const x = dayTargetsFrom(t, iso); return x ? x.burnTarget : null; };
+    const target = dates.length ? goalOn(dates[dates.length - 1]) : (t ? t.burnTarget : null);
 
     if(titleEl){
       titleEl.innerHTML = chartStatsHTML([
@@ -6849,7 +6878,7 @@ function renderBurnedChart(){
       const o = buildAvgOverlay(dates, bucketType, burnedVals, '#FFFFFF', 0, '');
       overlayDatasets = o.datasets; segs = o.segments;
     }
-    const targetDs = buildTargetOverlay(dates, target, '#F4F5FA');
+    const targetDs = buildTargetOverlay(dates, t ? goalOn : null, '#F4F5FA');
 
     const ctx = document.getElementById('burnedChart');
     const datasets = [
@@ -7069,11 +7098,13 @@ function renderMacroChart(m){
     const tickFn = horizonXTicks(trendHorizon, dates);
     const avgProtein = avgOf(proteinVals);
 
+    const t = computeTargets();
+    const goalOn = (iso) => macroTarget(m, dayTargetsFrom(t, iso));
     if(titleEl){
-      const pt = computeTargets();
+      const g = dates.length ? goalOn(dates[dates.length - 1]) : macroTarget(m, t);
       titleEl.innerHTML = chartStatsHTML([
         `avg <b style="color:${MACRO_COLOR[m]}">${fmtN(avgProtein)}</b>${avgProtein != null ? ' g' : ''}`,
-        `goal <b>${fmtN(macroTarget(m, pt))}</b>${pt ? ' g' : ''}`
+        `goal <b>${fmtN(g)}</b>${g != null ? ' g' : ''}`
       ]);
     }
 
@@ -7082,8 +7113,7 @@ function renderMacroChart(m){
       const o = buildAvgOverlay(dates, bucketType, proteinVals, '#FFFFFF', 0, 'g');
       overlayDatasets = o.datasets; segs = o.segments;
     }
-    const t = computeTargets();
-    const targetDs = buildTargetOverlay(dates, macroTarget(m, t), '#F4F5FA');
+    const targetDs = buildTargetOverlay(dates, t ? goalOn : null, '#F4F5FA');
 
     const ctx = document.getElementById(m + 'Chart');
     const datasets = [{
@@ -7159,7 +7189,8 @@ function wtChartOptions(min, max, ticks){
     interaction: { mode: 'index', intersect: false },
     plugins: { legend: { display: false }, tooltip: { enabled: false } },
     scales: { x: { ticks, grid: { display: false } },
-      y: { min, max, ticks: { color: '#8D90A8', font: { family: 'Inter', size: 10 }, maxTicksLimit: 5, callback: (v) => Number.isInteger(v) ? v : (+v).toFixed(1) }, grid: { color: '#2E3040' } } } };
+      // suggested bounds: Chart.js rounds the axis out to tidy numbers instead of labelling the exact edges
+      y: { suggestedMin: min, suggestedMax: max, ticks: { color: '#8D90A8', font: { family: 'Inter', size: 10 }, maxTicksLimit: 5, callback: (v) => Number.isInteger(v) ? v : (+v).toFixed(1) }, grid: { color: '#2E3040' } } } };
 }
 function wtHoldInfo(titleEl, labels, cd){
   const u = ' ' + weightUnit();
@@ -7487,7 +7518,7 @@ function wireDetailEvents(){
 // =====================================================================================
 function daySummaryData(d){
   const e = entries[d];
-  const t = computeTargets();
+  const t = dayTargets(d);   // the goals that day had
   const cal = consumedTotal(e);
   const burn = hasBurned(e) ? e.burned : null;
   const n = cal != null && burn != null ? Math.round(cal - burn) : null;
@@ -9541,9 +9572,11 @@ async function init(){
   }
   function goalsChanged(){
     clearTimeout(goalsSaveTimer);
-    goalsSaveTimer = setTimeout(() => { goalsSaveTimer = null; persistGoals(); goalsSavedNote(); }, 450);
+    goalsSaveTimer = setTimeout(() => { goalsSaveTimer = null; goalsSaveNow(); goalsSavedNote(); }, 450);
   }
-  function goalsFlush(){ if(goalsSaveTimer){ clearTimeout(goalsSaveTimer); goalsSaveTimer = null; persistGoals(); } }
+  // goals, and today's copy of them on today's entry (past days keep theirs)
+  function goalsSaveNow(){ persistGoals(); const before = JSON.stringify(entries[todayStr()] || null); syncDerivedBurns(); if(JSON.stringify(entries[todayStr()] || null) !== before) persist(); }
+  function goalsFlush(){ if(goalsSaveTimer){ clearTimeout(goalsSaveTimer); goalsSaveTimer = null; goalsSaveNow(); } }
   window.goalsChanged = goalsChanged;
   function wireGoalPillRow(row, datasetKey, stateKey){
     row.addEventListener('click', (ev)=>{
@@ -10529,8 +10562,15 @@ bootAuth();
     }
     const now = new Date(), mid = new Date(now); mid.setHours(0, 0, 0, 0);
     const L = bmrLearnState();
-    return { today: todayStr(), selectedDate, tracked: tr, targets, burnMode: burnMode(), burnPath: burnPath(),
-      bmr: t ? { estimate: t.bmrEst, used: t.bmr, learned: L && L.status === 'learned' ? L.adj : null, learning: !!(L && L.status !== 'learned') } : null,
+    // where learning stands, as the app reads it (new / learned / lapsed)
+    let learning = null;
+    try { const ls = learnStatus(), a = ls.a || {};
+      learning = { phase: ls.phase || (ls.state === 'learned' ? 'learned' : 'new'), adj: learnEver() ? (L.adj || 0) : null, toGo: ls.toGo != null ? ls.toGo : null,
+        window: a.window || null, good: a.good != null ? a.good : null, weighIns: a.weighIns != null ? a.weighIns : null, at: ls.at || null, need: ls.need || null,
+        dailyBurn: t ? Math.round(t.tdee) : null };
+    } catch(e){}
+    return { today: todayStr(), selectedDate, tracked: tr, targets, burnMode: burnMode(), burnPath: burnPath(), learning,
+      bmr: t ? { estimate: t.bmrEst, used: t.bmr, learned: learnEver() ? L.adj : null, learning: !!(learning && learning.phase !== 'learned') } : null,
       timeNow: now.toTimeString().slice(0, 5), tzOffset: now.getTimezoneOffset(), dayFraction: Math.round((now - mid) / 86400000 * 1000) / 1000 };
   }
 
@@ -11957,8 +11997,8 @@ function weekRecapData(monday){
   const tracked = trackedMacros();
   let protein = null;
   if(tracked.includes('protein') && t){
-    const g = macroTarget('protein', t);
-    const hit = days.filter(d => { const v = consumedMacro(entries[d.iso], 'protein'); return v != null && g && v >= g * 0.95; }).length;
+    const g = macroTarget('protein', dayTargetsFrom(t, sunday < todayStr() ? sunday : wtAddDays(todayStr(), -1)));
+    const hit = days.filter(d => { const v = consumedMacro(entries[d.iso], 'protein'), gd = macroTarget('protein', dayTargetsFrom(t, d.iso)); return v != null && gd && v >= gd * 0.95; }).length;
     const vals = days.map(d => consumedMacro(entries[d.iso], 'protein')).filter(v => v != null);
     protein = { goal: g, hit, avg: avg(vals) };
   }

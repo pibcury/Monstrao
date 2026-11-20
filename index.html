@@ -1034,6 +1034,31 @@
   .bm-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--rule);flex-shrink:0;box-sizing:border-box;}
   .bm-opt2.active .bm-radio{border:5px solid var(--accent);}
   /* Burn card: base + active */
+  /* Burn page: the total inside a ring of its parts, then each part with its icon and its share of the day */
+  .bcx-hero{position:relative;width:min(216px,60vw);aspect-ratio:1;margin:4px auto 8px;}
+  .bcx-hero svg{width:100%;height:100%;transform:rotate(-90deg);display:block;}
+  .bcx-hero.dim svg{opacity:.4;}
+  .bcx-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+  .bcx-c small{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);max-width:70%;}
+  .bcx-c .bc-total{font-size:44px;margin:7px 0 3px;}
+  .bcx-c span{font-size:13px;color:var(--muted);}
+  .bcx-src{display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;text-align:center;font-size:12.5px;font-weight:500;color:var(--muted);margin:0 0 12px;}
+  .bcx-src .ah-ico{width:13px;height:13px;}
+  .bc-rows.bcx-rows{border:0;border-radius:0;overflow:visible;}
+  .bcx-part{border-top:1px solid var(--rule);padding:13px 0;}
+  .bcx-part .bc-row{padding:0;gap:12px;align-items:flex-start;}
+  .bcx-ico{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:none;}
+  .bcx-ico svg{width:18px;height:18px;}
+  .bcx-part .bc-main b{font-size:15px;}
+  .bcx-part .bc-main small{font-size:12.5px;line-height:1.38;}
+  .bcx-part .bc-num{font-size:17px;margin-top:4px;}
+  .bcx-part .bc-pen{margin:-1px -4px 0 0;}
+  .bcx-share{display:flex;align-items:center;gap:10px;margin:10px 0 0 46px;}
+  .bcx-share div{flex:1;height:5px;border-radius:3px;background:rgba(244,245,250,.06);overflow:hidden;}
+  .bcx-share i{display:block;height:100%;border-radius:3px;}
+  .bcx-share small{font-size:11.5px;font-weight:600;color:var(--muted);min-width:30px;text-align:right;font-variant-numeric:tabular-nums;}
+  .bcx-part .bc-extra{padding:10px 0 0 46px;margin:0;}
+  .bcx-part .bc-row.editing + .bcx-share{display:none;}
   .bc-top{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:2px 0 10px;}
   .bc-when{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
   .bc-src{font-size:13px;color:var(--ink);margin-top:3px;font-weight:600;}
@@ -4475,6 +4500,16 @@ function relTimeShort(ms){
   if(h < 24) return h + ' h ago';
   return Math.round(h / 24) + ' d ago';
 }
+// an icon for each part of the burn (Burn page)
+const BURN_ICONS = {
+  rest: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',
+  living: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.5" r="1.8"/><path d="M9 21l2.5-6.5L14 17v4M7.5 12l2-4h4l2.5 3.5H19M11.5 14.5l1-5"/></svg>',
+  steps: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 16.5c-1.7 0-3-1.8-3-4.5S6 6 8 6s2.5 3 2.3 5.2C10 14 9.6 16.5 8 16.5z"/><path d="M6 19.5h4"/><path d="M16 12.5c-1.6 0-2.3-2.5-2.5-5.3C13.3 5 14 2 16 2s3 3.2 3 6-1.3 4.5-3 4.5z"/><path d="M14 15.5h4"/></svg>',
+  watch: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="3.5"/><path d="M9 6l.6-3h4.8l.6 3M9 18l.6 3h4.8l.6-3M12 9.5V12l1.5 1.5"/></svg>',
+  active: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2.5L5 13.5h6l-1 8 8-11h-6l1-8z"/></svg>',
+  workouts: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3 9.5v5M21 9.5v5M6.5 12h11"/></svg>',
+  digest: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v8a2 2 0 0 0 2 2v8M5 3v5M9 3v5M17 3c-1.7 1.3-2.5 3.5-2.5 6.5V13H17v8"/></svg>'
+};
 const PENCIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>';
 const AH_SRC = () => `<span class="bc-ah">${AH_ICON}Apple Health</span>`;
 function burnPartSub(p, q){
@@ -4562,35 +4597,43 @@ function renderBurnCard(){
     else if(def.apple && p.health) srcLine = `${AH_ICON}Apple Health · synced ${relTimeShort(p.health.at) || '—'}`;
     else if(def.apple) srcLine = `${AH_ICON}No Apple Health data for this day${isToday ? ' yet' : ''}`;
     else srcLine = 'Calculated from your profile, food and workouts';
-    html += `<div class="bc-top">
-        <div class="bc-top-l"><div class="bc-when">${escapeHtml(when)}</div><div class="bc-src">${srcLine}</div></div>
-        <div class="bc-total">${fmtN(p.total)}<small>kcal</small></div>
-      </div>`;
+    // the day's total inside a ring made of its parts
+    const shownParts = p.parts.filter(q => q.value > 0);
+    const ringTot = Math.max(1, shownParts.reduce((s, q) => s + q.value, 0));
+    const R = 92, CIRC = 2 * Math.PI * R, GAP = shownParts.length > 1 ? 3 : 0;
+    let ringOff = 0;
+    const arcs = shownParts.map(q => { const len = q.value / ringTot * CIRC; const a = `<circle cx="108" cy="108" r="${R}" fill="none" stroke="${BURN_PARTS[q.key].color}" stroke-width="16" stroke-dasharray="${Math.max(0, len - GAP).toFixed(1)} ${CIRC.toFixed(1)}" stroke-dashoffset="${(-ringOff).toFixed(1)}"/>`; ringOff += len; return a; }).join('');
+    const ringLabel = `${when}: ${fmtN(p.total)} kcal burned. ` + shownParts.map(q => `${BURN_PARTS[q.key].label} ${Math.round(q.value / ringTot * 100)}%`).join(', ');
+    html += `<div class="bcx-hero${p.manual ? ' dim' : ''}" role="img" aria-label="${escapeHtml(ringLabel)}">
+        <svg viewBox="0 0 216 216" aria-hidden="true"><circle cx="108" cy="108" r="${R}" fill="none" stroke="rgba(244,245,250,.06)" stroke-width="16"/>${arcs}</svg>
+        <div class="bcx-c"><small>${escapeHtml(when)}</small><b class="bc-total">${fmtN(p.total)}</b><span>kcal burned</span></div>
+      </div>
+      <div class="bcx-src bc-src">${srcLine}</div>`;
     if(p.manual){
       html += `<div class="bc-manual"><span>${p.kept ? `Kept from ${p.keptFrom}: <b>${fmtN(p.total)} kcal</b>. Days before the switch keep their old number; the parts below would add up to ${fmtN(p.calc)}.` : `You set this day to <b>${fmtN(p.total)} kcal</b>. The parts below would add up to ${fmtN(p.calc)}.`}</span>
         <button class="btn-small" data-bc="use-calc" type="button">Use parts</button></div>`;
     }
-    const tot = Math.max(1, p.parts.reduce((s, q) => s + Math.max(0, q.value), 0));
-    html += `<div class="bc-bar${p.manual ? ' dim' : ''}" aria-hidden="true">${p.parts.filter(q => q.value > 0).map(q =>
-      `<i style="width:${(q.value / tot * 100).toFixed(1)}%;background:${BURN_PARTS[q.key].color}"></i>`).join('')}</div>`;
-    html += `<div class="bc-rows${p.manual ? ' dim' : ''}">`;
+    html += `<div class="bc-rows bcx-rows${p.manual ? ' dim' : ''}">`;
     p.parts.forEach(q => {
       const info = BURN_PARTS[q.key];
       const editing = bcEditing === q.key;
       let tag = '';
       if(q.key === 'rest') tag = learnPillHTML();
       if(q.edited) tag += '<em class="bc-edited">edited</em>';
-      html += `<div class="bc-row${editing ? ' editing' : ''}"><span class="bc-dot" style="background:${info.color}"></span>
+      const share = Math.round(Math.max(0, q.value) / ringTot * 100);
+      html += `<div class="bcx-part" data-part="${q.key}"><div class="bc-row${editing ? ' editing' : ''}"><span class="bcx-ico" style="background:${info.color}22;color:${info.color}">${BURN_ICONS[q.key] || ''}</span>
         <div class="bc-main"><b>${q.key === 'living' && p.noHealth ? 'Everyday movement' : info.label}${tag}</b><small>${burnPartSub(p, q)}</small>
           ${q.key === 'rest' && learnStatus().state !== 'learned' ? `<small class="bc-learn">${bmrStatusText().line}</small>` : ''}
           ${editing ? `<div class="bc-edit"><input type="number" inputmode="numeric" id="bcPartInput" value="${q.value}" aria-label="${info.label}, kcal"><span>kcal</span>
             <button class="btn-small btn-accent" data-bc="save" data-k="${q.key}" type="button">Save</button><button class="btn-small" data-bc="cancel" type="button">Cancel</button></div>` : ''}
           ${q.edited && !editing ? `<button class="bc-link" data-bc="reset" data-k="${q.key}" type="button">Reset to ${fmtN(q.auto)}</button>` : ''}</div>
         <div class="bc-num">${(q.key === 'rest' ? '' : '+') + fmtN(q.value)}</div>
-        ${editing ? '' : `<button class="bc-pen" data-bc="edit" data-k="${q.key}" type="button" aria-label="Edit ${info.label}">${PENCIL}</button>`}</div>`;
+        ${editing ? '' : `<button class="bc-pen" data-bc="edit" data-k="${q.key}" type="button" aria-label="Edit ${info.label}">${PENCIL}</button>`}</div>
+        <div class="bcx-share" aria-label="${share}% of the day's burn"><div><i style="width:${share}%;background:${info.color}"></i></div><small>${share}%</small></div>`;
       if(q.key === 'workouts' && !editing) html += `<div class="bc-extra">${workoutRowsHTML(p)}</div>`;
       if((q.key === 'watch' || q.key === 'active') && !editing && !q.edited) html += hkWorkoutsHTML(p, q);
       if(q.key === 'digest' && !editing && !q.edited) html += digestRowsHTML(p);
+      html += `</div>`;
     });
     html += `</div>`;
     html += `<button class="bc-info-btn" data-bc="info" type="button">${bcInfoOpen ? 'Hide how this works' : 'How this is calculated'}</button>`;

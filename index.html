@@ -427,7 +427,7 @@
   .ring-avg-cal,.ring-today-cal{stroke:var(--fuel);}
   .ring-avg-protein,.ring-today-protein{stroke:var(--accent);}
   .ring-avg-burn,.ring-today-burn{stroke:var(--burn);}
-  .ring-legend{display:flex;gap:14px;justify-content:center;font-size:10.5px;color:var(--muted);font-weight:600;}
+  .ring-legend{display:flex;gap:14px;justify-content:center;font-size:11px;color:var(--muted);font-weight:600;}
   .ring-legend-item{display:flex;align-items:center;gap:5px;}
   .ring-legend-dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
   .ring-legend-dot-bright{background:var(--ink);}
@@ -604,7 +604,7 @@
     border-bottom:1.5px solid var(--rule);margin-bottom:2px;
   }
   .hist-header .hist-date, .hist-header .hist-col, .hist-header .hist-net{
-    font-size:10.5px;font-weight:700;color:var(--muted);text-transform:none;
+    font-size:11px;font-weight:700;color:var(--muted);text-transform:none;
   }
   /* the open day gets its own tinted, rounded panel so it reads as clearly distinct from the
      rest of the (closed) list above and below it */
@@ -621,7 +621,7 @@
   .hist-scroll.hist-scroll-expanded{max-height:640px;}
   .hist-col-stack{display:flex;flex-direction:column;align-items:flex-end;line-height:1.3;gap:1px;}
   .hist-col-main{font-size:12.5px;}
-  .hist-col-protein{font-size:10px;color:var(--muted);font-weight:600;}
+  .hist-col-protein{font-size:11px;color:var(--muted);font-weight:600;}
   .hist-section-label{font-size:11.5px;color:var(--muted);font-weight:700;margin:10px 0 6px;}
   .hist-section-label:first-child{margin-top:0;}
   /* item rows inside the open day reuse .item-row's own look (same spacing/colors as the
@@ -728,7 +728,7 @@
   .mring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
   .mring-fig{font-family:'Sora',sans-serif;font-weight:700;font-size:clamp(15px,5.2vw,21px);line-height:1;
     font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap;}
-  .mring-unit{font-size:10px;color:var(--muted);font-weight:600;margin-top:3px;}
+  .mring-unit{font-size:11px;color:var(--muted);font-weight:600;margin-top:3px;}
   .metric-goal,.metric-avg{
     font-size:11px;color:var(--muted);font-weight:600;line-height:1.3;text-align:center;
     display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;max-width:100%;
@@ -738,10 +738,10 @@
   .metric-goal b,.metric-avg b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums;}
   .metric-goal .mg-over{color:var(--surplus);}
   .metric-goal .mg-hit{color:var(--deficit);}
-  .goal-ico{font-size:10px;line-height:1;}
+  .goal-ico{font-size:11px;line-height:1;}
   .avg-swatch{display:inline-block;width:10px;height:10px;border-radius:50%;border:2.5px solid var(--ink);background:var(--bg);box-sizing:border-box;flex-shrink:0;}
 
-  .rings-key{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:10.5px;color:var(--muted);font-weight:600;text-align:center;}
+  .rings-key{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--muted);font-weight:600;text-align:center;}
   .rings-key span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
   .key-ring{display:inline-block;width:12px;height:12px;border-radius:50%;flex-shrink:0;
     background:conic-gradient(var(--ink) 0 72%, rgba(244,245,250,0.22) 0);
@@ -767,7 +767,7 @@
   .dq-sub{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.3;}
   .dq-now{text-align:right;flex-shrink:0;}
   .dq-now-val{font-family:'Sora',sans-serif;font-size:24px;font-weight:700;color:var(--dq);line-height:1;font-variant-numeric:tabular-nums;}
-  .dq-now-lbl{font-size:10.5px;color:var(--muted);font-weight:600;margin-top:4px;white-space:nowrap;}
+  .dq-now-lbl{font-size:11px;color:var(--muted);font-weight:600;margin-top:4px;white-space:nowrap;}
   .dq-now-lbl .ok{color:var(--deficit);}
   .dq-scale{position:relative;padding:28px 2px 30px;}
   #dqScaleT{padding-bottom:10px;}
@@ -781,7 +781,7 @@
   .dq-goal-line{position:absolute;top:-6px;bottom:-6px;width:3px;margin-left:-1.5px;border-radius:2px;background:var(--ink);transition:left .6s ease;}
   .dq-avg-dot{position:absolute;top:50%;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;border-radius:50%;
     background:var(--bg);border:3px solid var(--ink);box-sizing:border-box;transition:left .6s ease;}
-  .dq-flag{position:absolute;transform:translateX(-50%);white-space:nowrap;font-size:10.5px;font-weight:700;
+  .dq-flag{position:absolute;transform:translateX(-50%);white-space:nowrap;font-size:11px;font-weight:700;
     padding:3px 8px;border-radius:7px;line-height:1.25;transition:left .6s ease;}
   .dq-flag:empty{display:none;}
   .dq-flag-goal{top:0;background:var(--ink);color:#0D0E13;}
@@ -803,7 +803,7 @@
 
   /* collapsed-card summary grid (Food / Burn / Weight) */
   .sum-grid{display:grid;grid-template-columns:auto auto;column-gap:9px;row-gap:1px;align-items:baseline;justify-content:end;}
-  .sg-lbl{font-size:10.5px;color:var(--muted);font-weight:700;text-align:right;white-space:nowrap;letter-spacing:.02em;}
+  .sg-lbl{font-size:11px;color:var(--muted);font-weight:700;text-align:right;white-space:nowrap;letter-spacing:.02em;}
   .sg-val{font-size:13px;font-weight:700;color:var(--ink);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;}
   .sg-val.dim{color:var(--muted);font-size:12px;}
   .sg-gap{margin-top:5px;}
@@ -1021,7 +1021,7 @@
   .ah-day .ah-bar{height:6px;border-radius:3px;background:rgba(255,55,95,0.12);overflow:hidden;display:block;}
   .ah-day .ah-bar i{display:block;height:100%;border-radius:3px;background:#FF375F;}
   .ah-day.off{opacity:.45;}
-  .ah-day.off small{position:absolute;right:56px;font-size:10px;color:var(--muted);}
+  .ah-day.off small{position:absolute;right:56px;font-size:11px;color:var(--muted);}
   .ah-foot{font-size:11.5px;color:var(--muted);margin:8px 0 0;}
   .ah-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;background:none;border:0;padding:10px 2px;color:var(--ink);font-size:13.5px;font-weight:700;cursor:pointer;}
   .ah-toggle span{color:var(--muted);}
@@ -1041,7 +1041,7 @@
   .bm-act-ico{width:20px;height:20px;color:var(--accent);}
   .bm-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
   .bm-txt b{font-size:14px;display:flex;align-items:center;gap:8px;}
-  .bm-txt b em{font-style:normal;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(74,222,128,0.14);color:var(--deficit);}
+  .bm-txt b em{font-style:normal;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(74,222,128,0.14);color:var(--deficit);}
   .bm-txt small{font-size:11.8px;color:var(--muted);line-height:1.4;font-weight:500;}
   .bm-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--rule);flex-shrink:0;box-sizing:border-box;}
   .bm-opt2.active .bm-radio{border:5px solid var(--accent);}
@@ -1082,7 +1082,7 @@
   .bc-pen{flex-shrink:0;width:30px;height:30px;margin:-4px -4px 0 0;padding:0;border-radius:15px;border:0;background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;}
   .bc-pen svg{width:15px;height:15px;}
   .bc-pen:active{background:rgba(244,245,250,0.08);color:var(--ink);}
-  .bc-edited{font-style:normal;font-size:10px;font-weight:700;margin-left:7px;padding:2px 6px;border-radius:999px;background:rgba(255,159,67,0.15);color:var(--warn);vertical-align:1px;}
+  .bc-edited{font-style:normal;font-size:11px;font-weight:700;margin-left:7px;padding:2px 6px;border-radius:999px;background:rgba(255,159,67,0.15);color:var(--warn);vertical-align:1px;}
   .bc-num.muted{color:var(--muted);font-size:13px;}
   .bc-main small .ah-ico{width:12px;height:12px;margin-right:3px;vertical-align:-2px;}
   .bc-info-btn{display:block;margin:10px 0 0;background:none;border:0;padding:4px 0;color:var(--accent);font-size:12.5px;font-weight:700;cursor:pointer;}
@@ -1107,7 +1107,7 @@
   .bc-extra{padding:0 12px 12px 32px;}
   .bc-row + .bc-extra{margin-top:-4px;}
   .bc-levels{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
-  .bc-level{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px;border-radius:11px;border:1.5px solid var(--rule);background:var(--surface-2);color:var(--muted);font-size:10.5px;font-weight:700;cursor:pointer;line-height:1.1;}
+  .bc-level{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px;border-radius:11px;border:1.5px solid var(--rule);background:var(--surface-2);color:var(--muted);font-size:11px;font-weight:700;cursor:pointer;line-height:1.1;}
   .bc-level.on{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);}
   .bc-level-ico{width:17px;height:17px;}
   .bc-level.on .bc-level-ico{color:var(--accent);}
@@ -1136,7 +1136,7 @@
   .header-stats{margin:0 0 10px;}
   .app-header-inner > .date-selector{margin:0 0 16px;}
   /* rings: goal + signed difference */
-  .metric-goal{gap:0 3px;font-size:10.5px;flex-wrap:nowrap;white-space:nowrap;overflow:hidden;max-width:100%;letter-spacing:-0.01em;justify-content:center;}
+  .metric-goal{gap:0 3px;font-size:11px;flex-wrap:nowrap;white-space:nowrap;overflow:hidden;max-width:100%;letter-spacing:-0.01em;justify-content:center;}
   .metric-goal .mg-sep{color:var(--muted);opacity:.6;margin:0 1px;}
   .metric-goal > *{white-space:nowrap;}
   .metric{padding-left:3px;padding-right:3px;}
@@ -1161,7 +1161,7 @@
   .dq-over{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:0 6px 6px 0;background:rgba(244,245,250,0.6);opacity:0;
     transition:width .9s cubic-bezier(.34,1.05,.4,1), left .6s ease, opacity .3s;}
   .dq-goal-tick{position:absolute;top:-4px;bottom:-4px;width:2px;margin-left:-1px;border-radius:1px;background:var(--ink);transition:left .6s ease;}
-  .dq-axis{display:flex;justify-content:space-between;margin-top:6px;font-size:9.5px;font-weight:600;color:#5E6372;font-variant-numeric:tabular-nums;}
+  .dq-axis{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;font-weight:600;color:#5E6372;font-variant-numeric:tabular-nums;}
   /* floating top bar ruler */
   /* your goals */
   .my-goals{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;width:100%;margin-top:14px;padding:0;background:none;border:0;cursor:pointer;}
@@ -1192,14 +1192,14 @@
   #ringSection .today-card .goal-cta{margin:10px 0 0;}
   .wk-val.pro{color:var(--accent);}
   /* burn ring: where the number comes from, plus "Log" / the day's activity */
-  .burn-src{margin-left:5px;font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  .burn-src{margin-left:5px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
   .burn-src:empty{display:none;}
   #mUnitBurn{margin-top:3px;}
   .burn-act{position:relative;display:inline-flex;align-items:center;gap:3px;padding:2px 6px 2px 7px;margin:0;border-radius:8px;
-    background:rgba(76,141,255,0.14);color:var(--ink);font-size:9.5px;font-weight:700;white-space:nowrap;cursor:pointer;}
+    background:rgba(76,141,255,0.14);color:var(--ink);font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer;}
   .burn-act svg{width:8px;height:5px;color:var(--accent);}
   .burn-act select{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;cursor:pointer;-webkit-appearance:none;appearance:none;}
-  .burn-log-btn{display:inline-flex;align-items:center;gap:0;padding:2px 7px;border-radius:8px;border:0;background:rgba(255,159,67,0.14);color:var(--ink);font-size:10px;font-weight:700;cursor:pointer;}
+  .burn-log-btn{display:inline-flex;align-items:center;gap:0;padding:2px 7px;border-radius:8px;border:0;background:rgba(255,159,67,0.14);color:var(--ink);font-size:11px;font-weight:700;cursor:pointer;}
   .burn-log-btn .warn-dot{width:6px;height:6px;margin-right:4px;vertical-align:0;}
   .cs-src{color:var(--muted);font-weight:600;}
   /* Profile: daily burn */
@@ -1238,7 +1238,7 @@
   .track-chip.locked{cursor:default;opacity:.85;}
   /* Today card v2: calories + burn on top, macros below, a ruler per macro */
   .today-card .metrics-top{grid-template-columns:1fr 1fr;gap:10px;}
-  .today-card .metrics-top .mring{max-width:min(98px, 25vw);}
+  .today-card .metrics-top .mring{max-width:min(88px, 22.5vw);}
   .today-card .metrics-top .mring-fig{font-size:clamp(17px,5.4vw,22px);}
   .today-card .metrics-macros{margin-top:12px;padding-top:12px;border-top:1px solid rgba(244,245,250,0.07);grid-template-columns:repeat(3,minmax(0,1fr));}
   .today-card .metrics-macros[data-n="1"]{grid-template-columns:minmax(0,1fr);}
@@ -1310,7 +1310,7 @@
   .ie-tot{display:flex;flex-direction:column;align-items:center;gap:1px;padding:9px 2px 8px;border-radius:12px;background:rgba(76,141,255,0.08);border:1px solid rgba(76,141,255,0.18);min-width:0;}
   .ie-tot b{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;}
   .ie-tot b small{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--muted);margin-left:1px;}
-  .ie-tot span{font-size:10.5px;font-weight:600;color:var(--muted);text-transform:lowercase;}
+  .ie-tot span{font-size:11px;font-weight:600;color:var(--muted);text-transform:lowercase;}
   .ie-row{padding:10px 0 9px;border-bottom:1px solid var(--rule);}
   .ie-row:last-child{border-bottom:0;}
   .ie-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
@@ -1327,7 +1327,7 @@
   .hist-detail .ie{margin-bottom:6px;}
   /* Burn ring: the day's activity chip + its bottom sheet */
   .burn-act{position:relative;display:inline-flex;align-items:center;gap:4px;padding:3px 7px 3px 6px;margin:0;border-radius:999px;border:1px solid rgba(76,141,255,0.45);
-    background:rgba(76,141,255,0.14);color:var(--ink);font-size:10px;font-weight:700;white-space:nowrap;cursor:pointer;line-height:1.1;}
+    background:rgba(76,141,255,0.14);color:var(--ink);font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer;line-height:1.1;}
   .burn-act:active{background:rgba(76,141,255,0.26);}
   .burn-act-ico{width:11px;height:11px;color:var(--accent);flex-shrink:0;}
   .burn-act-chev{width:7px;height:5px;color:var(--accent);}
@@ -1350,7 +1350,7 @@
   .act-txt b{font-size:14px;font-weight:700;}
   .act-txt small{font-size:11.5px;color:var(--muted);font-weight:500;}
   .act-kcal{font-family:'Sora',sans-serif;font-weight:600;font-size:14px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;}
-  .act-kcal small{display:block;font-family:'Inter',sans-serif;font-size:10px;color:var(--muted);font-weight:600;}
+  .act-kcal small{display:block;font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);font-weight:600;}
   body.sheet-open{overflow:hidden;}
 
   /* Your Data page */
@@ -1404,24 +1404,24 @@
   .ds-hero span{font-size:12.5px;color:var(--muted);font-weight:600;}
   .ds-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
   .ds-tile{display:flex;flex-direction:column;gap:2px;padding:9px 10px;border-radius:13px;background:rgba(244,245,250,0.04);border:1px solid var(--rule);min-width:0;}
-  .ds-tile span{font-size:10.5px;font-weight:700;color:var(--muted);}
+  .ds-tile span{font-size:11px;font-weight:700;color:var(--muted);}
   .ds-tile b{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;}
-  .ds-tile b small{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--muted);margin-left:2px;font-weight:600;}
+  .ds-tile b small{font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);margin-left:2px;font-weight:600;}
   .ds-tile b.good{color:var(--deficit);}
-  .ds-tile > small{font-size:10px;color:var(--muted);font-weight:500;line-height:1.25;display:flex;align-items:center;gap:3px;}
+  .ds-tile > small{font-size:11px;color:var(--muted);font-weight:500;line-height:1.25;display:flex;align-items:center;gap:3px;}
   .ds-tile .ah-ico{width:10px;height:10px;}
   .ds-warn{display:flex;flex-direction:column;align-items:flex-start;gap:5px;margin-top:12px;padding:12px;border-radius:14px;background:rgba(255,159,67,0.10);border:1px solid rgba(255,159,67,0.35);font-size:12.5px;line-height:1.4;}
   .ds-warn b{color:var(--warn);} .ds-warn span{color:var(--ink);}
   .ds-warn .btn-small{margin-top:3px;}
   .ds-list{margin-top:12px;display:flex;flex-direction:column;gap:6px;}
   .ds-list p{margin:0;display:flex;gap:8px;font-size:13px;line-height:1.4;}
-  .ds-list i{flex-shrink:0;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:10.5px;font-weight:800;}
+  .ds-list i{flex-shrink:0;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;font-weight:800;}
   .ds-list.good i{background:rgba(74,222,128,0.16);color:var(--deficit);}
   .ds-list.watch i{background:rgba(255,92,122,0.16);color:var(--surplus);}
   .ds-foot{text-align:center;font-size:11px;color:var(--muted);margin-top:14px;}
 
   /* History: burn breakdown, item meta */
-  .ie-meta{display:flex;gap:8px;font-size:10.5px;font-weight:700;color:var(--muted);margin:0 0 3px;letter-spacing:.02em;}
+  .ie-meta{display:flex;gap:8px;font-size:11px;font-weight:700;color:var(--muted);margin:0 0 3px;letter-spacing:.02em;}
   .hb-top{display:flex;align-items:baseline;justify-content:space-between;margin:2px 0 8px;font-size:12px;color:var(--muted);font-weight:600;}
   .hb-top b{font-family:'Sora',sans-serif;font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums;}
   .hb-top small{font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);margin-left:3px;}
@@ -1429,7 +1429,7 @@
   .hb-parts.dim{opacity:.5;}
   .hb-part{display:flex;align-items:center;gap:8px;font-size:12.5px;}
   .hb-part i{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
-  .hb-part span{flex:1;color:var(--muted);font-weight:600;} .hb-part em{font-style:normal;color:var(--warn);font-size:10.5px;}
+  .hb-part span{flex:1;color:var(--muted);font-weight:600;} .hb-part em{font-style:normal;color:var(--warn);font-size:11px;}
   .hb-part b{font-variant-numeric:tabular-nums;font-weight:700;}
   .hb-wos{display:flex;flex-direction:column;gap:3px;margin-top:7px;font-size:12px;color:var(--muted);font-weight:500;}
   .hb-wos b{color:#FF6B85;}
@@ -1440,7 +1440,7 @@
   /* Weight card (v3) */
   .wc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:2px 0 8px;}
   .wc-stats div{display:flex;flex-direction:column;gap:3px;padding:9px 10px;border-radius:12px;background:var(--surface-2);border:1px solid var(--rule);min-width:0;}
-  .wc-stats span{font-size:10.5px;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .wc-stats span{font-size:11px;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .wc-stats b{font-family:'Sora',sans-serif;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums;}
   .wc-stats b.good{color:var(--deficit);} .wc-stats b.bad{color:var(--surplus);}
   .wc-spark{display:block;width:100%;height:auto;margin:4px 0 12px;}
@@ -1466,7 +1466,7 @@
   .wc-when .wc-time-in{flex:none;width:auto !important;min-width:0;margin:0;padding:0 !important;border:none !important;background:none !important;box-shadow:none !important;font-size:12px !important;color:var(--muted);height:auto;}
   .wc-time{flex:0 0 76px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;}
   .wc-time-in{flex:0 0 116px;width:116px !important;margin:0;padding:6px 8px !important;font-size:14px !important;}
-  .wc-src{font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(244,245,250,0.07);color:var(--muted);display:inline-flex;align-items:center;gap:3px;}
+  .wc-src{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(244,245,250,0.07);color:var(--muted);display:inline-flex;align-items:center;gap:3px;}
   .wc-src.ah{background:rgba(255,55,95,0.12);color:#FF8FA3;} .wc-src .ah-ico{width:10px;height:10px;}
   .wc-v{margin-left:auto;display:flex;align-items:baseline;gap:4px;font-family:'Sora',sans-serif;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;}
   .wc-v small{font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);font-weight:600;}
@@ -1491,16 +1491,16 @@
   /* past days: net between the Calories and Burn rings */
   .metrics-top{position:relative;}
   .ring-net{position:absolute;left:50%;top:calc(50% - 8px);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;
-    width:58px;padding:6px 4px 5px;border-radius:13px;background:linear-gradient(180deg,#181B23,#121419);border:1px solid var(--rule);
+    width:clamp(64px, 19vw, 74px);padding:7px 4px 6px;border-radius:14px;background:linear-gradient(180deg,#181B23,#121419);border:1px solid var(--rule);
     box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;z-index:2;animation:netIn .35s ease;}
-  .ring-net b{font-family:'Sora',sans-serif;font-size:13.5px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;line-height:1;}
-  .ring-net .rn-k{font-size:8px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+  .ring-net b{font-family:'Sora',sans-serif;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;line-height:1;}
+  .ring-net .rn-k{font-size:11px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
   .ring-net .rn-k{display:inline-flex;align-items:center;gap:4px;}
   .rn-live{display:inline-block;width:5px;height:5px;border-radius:50%;background:currentColor;animation:rnPulse 1.8s ease-in-out infinite;}
   @keyframes rnPulse{0%,100%{opacity:1;}50%{opacity:.3;}}
-  .ring-net .rn-bar{display:block;width:36px;height:3px;border-radius:3px;background:rgba(244,245,250,.1);overflow:hidden;}
+  .ring-net .rn-bar{display:block;width:44px;height:3px;border-radius:3px;background:rgba(244,245,250,.1);overflow:hidden;}
   .ring-net .rn-bar i{display:block;height:100%;border-radius:3px;background:currentColor;}
-  .ring-net .rn-g{font-size:8.5px;font-weight:600;color:var(--muted);white-space:nowrap;} .ring-net .rn-g em{font-style:normal;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .ring-net .rn-g{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap;} .ring-net .rn-g em{font-style:normal;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
   .ring-net .rn-k{color:var(--muted);} .ring-net.good .rn-k,.ring-net.bad .rn-k{color:inherit;}
   /* deficit in green, surplus in red, wherever the chip shows */
   .ring-net.deficit{color:var(--deficit);border-color:rgba(74,222,128,.28);} .ring-net.surplus{color:var(--surplus);border-color:rgba(255,92,122,.3);}
@@ -1522,9 +1522,9 @@
   .btb-cols div{display:flex;flex-direction:column;gap:2px;min-width:0;}
   .btb-l{display:flex;align-items:center;flex-wrap:wrap;gap:4px;font-size:11.5px;color:var(--muted);font-weight:600;}
   .btb-l i{width:8px;height:8px;border-radius:2px;}
-  .btb-l .bc-tag{margin-left:0;font-size:9.5px;padding:1px 6px;}
+  .btb-l .bc-tag{margin-left:0;font-size:11px;padding:1px 6px;}
   .btb-cols b{font-family:'Sora',sans-serif;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums;}
-  .btb-cols small{font-size:10.5px;color:var(--muted);line-height:1.3;}
+  .btb-cols small{font-size:11px;color:var(--muted);line-height:1.3;}
 
   /* Apple Health page: setup line + weekly table */
   .ah-setup{display:flex;align-items:center;gap:8px;margin:-4px 0 10px;font-size:12.5px;}
@@ -1533,8 +1533,8 @@
   .ah-tr{display:grid;align-items:center;gap:6px;padding:7px 2px;font-size:12.8px;border-top:1px solid rgba(244,245,250,0.05);}
   .ah-tr > span{text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .ah-tr > span:first-child{text-align:left;color:var(--ink);font-weight:600;}
-  .ah-tr span small{color:var(--muted);font-size:10.5px;font-weight:500;}
-  .ah-th{border-top:0;padding-top:0;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+  .ah-tr span small{color:var(--muted);font-size:11px;font-weight:500;}
+  .ah-th{border-top:0;padding-top:0;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
   .ah-th span, .ah-th span:first-child{color:var(--muted);font-weight:700;}
   .ah-th > span{white-space:normal;line-height:1.15;align-self:end;}
   .ah-wk{margin-top:6px;padding:6px 8px;border-radius:9px;background:var(--surface-2);border-top:0;font-size:11px;}
@@ -1555,11 +1555,11 @@
   .pb-how{padding:13px;border-radius:15px;background:linear-gradient(180deg,rgba(76,141,255,0.07),rgba(76,141,255,0.02));border:1px solid var(--rule);margin-bottom:12px;}
   .pb-how-t{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
   .pb-formula{display:flex;align-items:stretch;gap:4px;}
-  .pb-formula span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;padding:8px 6px 7px;border-radius:10px;background:var(--surface-2);border-top:3px solid var(--c);font-size:10.5px;color:var(--muted);font-weight:600;line-height:1.2;text-align:center;}
+  .pb-formula span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;padding:8px 6px 7px;border-radius:10px;background:var(--surface-2);border-top:3px solid var(--c);font-size:11px;color:var(--muted);font-weight:600;line-height:1.2;text-align:center;}
   .pb-formula span b{font-size:11.5px;color:var(--ink);}
   .pb-formula i{font-style:normal;align-self:center;color:var(--muted);font-weight:700;font-size:12px;}
   .pb-role{margin-top:10px;font-size:12.5px;line-height:1.45;color:var(--ink);}
-  .pb-role span{display:inline-block;margin-right:7px;padding:2px 8px;border-radius:999px;background:rgba(255,55,95,0.14);color:#FF6B85;font-size:10.5px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;vertical-align:1px;}
+  .pb-role span{display:inline-block;margin-right:7px;padding:2px 8px;border-radius:999px;background:rgba(255,55,95,0.14);color:#FF6B85;font-size:11px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;vertical-align:1px;}
   .pb-how .bm-wear{margin-top:10px;}
   .pb-tg{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;padding:12px 2px;border:0;border-top:1px solid var(--rule);background:none;color:var(--ink);cursor:pointer;}
   .pb-tg-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
@@ -1568,12 +1568,12 @@
   .pb-sw i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s ease;}
   .pb-tg.on .pb-sw{background:#34C759;} .pb-tg.on .pb-sw i{transform:translateX(18px);}
   .pb-learn{display:block;margin-top:6px;font-size:11.8px;line-height:1.45;color:var(--muted);}
-  .pb-learn em{font-style:normal;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;margin-right:6px;}
+  .pb-learn em{font-style:normal;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;margin-right:6px;}
   .pb-learn.learning em{background:rgba(244,183,64,0.15);color:#F4B740;}
   .pb-learn.learned em{background:rgba(74,222,128,0.15);color:var(--deficit);}
 
   /* Burn v3: BMR tag, workouts list, workout sheet */
-  .bc-tag{font-style:normal;font-size:10px;font-weight:700;margin-left:7px;padding:2px 7px;border-radius:999px;vertical-align:1px;letter-spacing:.01em;}
+  .bc-tag{font-style:normal;font-size:11px;font-weight:700;margin-left:7px;padding:2px 7px;border-radius:999px;vertical-align:1px;letter-spacing:.01em;}
   .bc-tag.estimated{background:rgba(244,245,250,0.07);color:var(--muted);}
   .bc-tag.learning{background:rgba(244,183,64,0.15);color:#F4B740;}
   .bc-tag.learned{background:rgba(74,222,128,0.15);color:var(--deficit);}
@@ -1614,7 +1614,7 @@
   .wo-int{display:flex;flex-direction:column;gap:4px;padding:10px 9px;border-radius:13px;border:1.5px solid var(--rule);background:var(--surface-2);color:var(--ink);text-align:left;cursor:pointer;min-width:0;}
   .wo-int b{font-size:13.5px;}
   .wo-int small{font-size:11px;color:var(--ink);opacity:.8;line-height:1.3;}
-  .wo-int i{font-style:normal;font-size:10.5px;color:var(--muted);line-height:1.3;}
+  .wo-int i{font-style:normal;font-size:11px;color:var(--muted);line-height:1.3;}
   .wo-int.on{border-color:#FF375F;background:rgba(255,55,95,0.10);box-shadow:0 0 0 1px #FF375F inset;}
   .wo-est{padding:12px 14px;border-radius:14px;background:rgba(255,55,95,0.07);border:1px solid rgba(255,55,95,0.25);margin-bottom:12px;}
   .wo-est div{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
@@ -1629,7 +1629,7 @@
     display:flex;gap:2px;padding:4px;border-radius:26px;background:rgba(24,26,33,0.86);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);
     border:1px solid rgba(255,255,255,0.10);box-shadow:0 14px 34px -12px rgba(0,0,0,0.7);transition:padding .3s ease;}
   .tabbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:56px;height:48px;padding:0;margin:0;border:0;border-radius:22px;background:none;color:#8E93A3;cursor:pointer;
-    font:600 10px 'Inter',sans-serif;letter-spacing:.01em;transition:width .3s ease,height .3s ease,background .2s ease,color .2s ease;}
+    font:600 11px 'Inter',sans-serif;letter-spacing:.01em;transition:width .3s ease,height .3s ease,background .2s ease,color .2s ease;}
   .tabbar button svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
   .tabbar button span{flex-shrink:0;line-height:12px;max-height:12px;overflow:hidden;transition:max-height .3s ease,opacity .2s ease;}
   .tabbar button.on{background:rgba(76,141,255,0.16);color:#fff;}
@@ -1771,7 +1771,7 @@
   .chat-send{background:var(--accent);color:#fff;}
   .chat-send:disabled{background:rgba(244,245,250,0.08);color:var(--muted);cursor:default;}
   .chat-send.stop{background:var(--ink);color:var(--bg);}
-  .chat-fine{text-align:center;font-size:10.5px;color:var(--muted);opacity:.75;margin-top:7px;}
+  .chat-fine{text-align:center;font-size:11px;color:var(--muted);opacity:.75;margin-top:7px;}
   .chat-overlay.kb .chat-fine{display:none;}
   body.chat-open{overflow:hidden;}
   .trend-note{margin:10px 2px 0;font-size:11px;line-height:1.35;color:var(--muted);text-align:center;}
@@ -1793,7 +1793,7 @@
   .dq-ask.big i{font-style:normal;color:var(--muted);font-size:18px;line-height:1;}
   .dq2-legend{display:flex;gap:12px;font-size:12px;font-weight:700;}
   .dq2-row{display:flex;flex-direction:column;gap:5px;margin-top:10px;}
-  .dq2-lbl{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+  .dq2-lbl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
   .mix-bar{display:flex;gap:3px;height:24px;border-radius:8px;overflow:hidden;}
   .mix-bar.goal{height:20px;}
   .mix-bar.empty{background:rgba(244,245,250,0.05);border:1px dashed rgba(244,245,250,0.12);align-items:center;justify-content:center;font-size:11px;color:var(--muted);font-weight:600;}
@@ -1801,7 +1801,7 @@
   .mix-bar.goal .mix-seg{background:color-mix(in srgb, var(--c) 14%, transparent);box-shadow:inset 0 0 0 1.5px var(--c);border-radius:6px;}
   .mix-bar.goal{border-radius:6px;}
   .mix-seg b{font-size:11px;font-weight:800;color:#0D0E13;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;}
-  .mix-bar.goal .mix-seg b{color:var(--c);font-size:10.5px;}
+  .mix-bar.goal .mix-seg b{color:var(--c);font-size:11px;}
   .date-selector.in-card{margin:2px 0 14px;padding-bottom:12px;border-bottom:1px solid rgba(244,245,250,0.07);}
   /* Food card: input mode switch, suggestions, compact list */
   .fseg{position:relative;display:grid;grid-template-columns:1fr 1fr;width:100%;padding:3px;border-radius:12px;background:var(--surface-2);border:1px solid var(--rule);}
@@ -1813,7 +1813,7 @@
   .food-input-head{margin-bottom:10px;}
   .sugg{display:none;margin-top:8px;border-radius:12px;border:1px solid var(--rule);background:var(--surface-2);overflow:hidden;}
   .sugg.on{display:block;animation:chatIn .25s ease both;}
-  .sugg-h{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:8px 12px 4px;}
+  .sugg-h{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:8px 12px 4px;}
   .sugg-row{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:8px 10px 8px 12px;border:0;border-top:1px solid rgba(244,245,250,0.06);background:none;color:var(--ink);cursor:pointer;border-radius:0;}
   .sugg-row:first-of-type{border-top:0;}
   .sugg-row:active{background:rgba(76,141,255,0.10);}
@@ -1830,7 +1830,7 @@
   .fl-total-nums::-webkit-scrollbar{display:none;}
   .fl-total b{font-family:'Sora',sans-serif;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums;}
   .fl-total i, .fi-nums i{font-style:normal;opacity:.45;}
-  .fl-total-lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;}
+  .fl-total-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
   .fl-meal{display:flex;align-items:center;justify-content:space-between;margin:14px 0 4px;padding:8px 12px;border-radius:12px;background:linear-gradient(90deg,rgba(76,141,255,0.14),rgba(76,141,255,0.05));border:1px solid rgba(76,141,255,0.18);}
   .fl-meal-n{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);}
   .fl-meal-n i{font-style:normal;font-size:14px;}
@@ -1845,7 +1845,7 @@
   .card-logged .logged-today-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;}
   .card-logged .logged-today-title{font-family:'Sora',sans-serif;font-size:17px;font-weight:700;color:var(--ink);text-transform:none;letter-spacing:-.01em;}
   .logged-today-total{font-size:13px;color:var(--muted);font-weight:600;} .logged-today-total b{color:var(--ink);font-family:'Sora',sans-serif;}
-  .meal-lbl{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px;flex-shrink:0;}
+  .meal-lbl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px;flex-shrink:0;}
   .meal-chip{flex-shrink:0;display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--surface-2);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
   .meal-chip.on{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);}
   .meal-chip.sm{padding:4px 8px;font-size:11px;}
@@ -1854,7 +1854,7 @@
   .fi:last-child{border-bottom:0;}
   .fi-main{flex:1;min-width:0;}
   .fi-name{font-size:14px;font-weight:600;line-height:1.3;color:var(--ink);display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 7px;}
-  .fi-src{font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:999px;background:rgba(244,245,250,0.07);color:var(--muted);}
+  .fi-src{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:999px;background:rgba(244,245,250,0.07);color:var(--muted);}
   .fi-src.ai{background:rgba(76,141,255,0.14);color:#8DB6FF;}
   .fi-nums{display:flex;flex-wrap:wrap;gap:1px 5px;margin-top:3px;font-size:11.5px;color:var(--muted);font-weight:500;}
   .fi-nums b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
@@ -1865,7 +1865,7 @@
   .fi-trash.armed{width:auto;padding:0 11px;background:rgba(255,92,122,0.16);color:var(--surplus);font-size:12px;font-weight:700;border-radius:999px;}
   .fi-edit:active{background:rgba(244,245,250,0.08);color:var(--ink);}
   .fi.editing{display:block;padding:12px;margin:6px 0;border-radius:14px;background:var(--surface-2);border:1px solid rgba(76,141,255,0.3);}
-  .ie-nums-lbl{display:grid;gap:6px;margin:4px 0 3px;font-size:10px;font-weight:600;color:var(--muted);text-align:center;}
+  .ie-nums-lbl{display:grid;gap:6px;margin:4px 0 3px;font-size:11px;font-weight:600;color:var(--muted);text-align:center;}
   .fi-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
   .fi-del{background:none;border:0;padding:6px 2px;color:var(--surplus);font-size:12.5px;font-weight:700;cursor:pointer;}
   /* History page */
@@ -1925,7 +1925,7 @@
   .lg-result,.lg-thinking{animation:lgIn .38s cubic-bezier(.2,.9,.3,1.15) both;}
   .lg-result.leaving{animation:lgOut .32s ease-in both;}
   .lg-res-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;}
-  .lg-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;}
+  .lg-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font:700 11px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;}
   .lg-badge svg{width:11px;height:11px;}
   .lg-meal-tag{font:600 12px 'Inter',sans-serif;color:var(--muted);}
   .lg-res-title{display:flex;align-items:flex-start;gap:12px;}
@@ -2039,7 +2039,7 @@
   .scn-prod-img.photo{background:rgba(244,245,250,0.05);} .scn-prod-img.photo img{object-fit:cover;}
   .scn-prod-img.none{background:rgba(76,141,255,0.12);color:var(--accent);} .scn-prod-img.none svg{width:30px;height:22px;}
   .scn-prod-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
-  .scn-brand{font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  .scn-brand{font:700 11px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
   textarea#scanName{width:100%;min-height:0;max-height:96px;border:0;background:transparent;box-shadow:none;padding:2px 4px;margin:-2px -4px;border-radius:8px;font:600 16px/1.35 'Sora',sans-serif;letter-spacing:-0.01em;color:var(--ink);resize:none;overflow:hidden;}
   textarea#scanName:focus{outline:none;background:rgba(244,245,250,0.05);}
   .scn-meta{font-size:12px;color:var(--muted);}
@@ -2147,7 +2147,7 @@
   .pw-pl-price{text-align:right;flex-shrink:0;}
   .pw-pl-price b{display:block;font:700 16px/1.1 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
   .pw-pl-price small{display:block;margin-top:3px;color:var(--muted);font:500 12px 'Inter',sans-serif;}
-  .pw-tag{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.04em;text-transform:uppercase;background:rgba(52,211,153,.16);color:#6EE7B7;}
+  .pw-tag{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;font:700 11px/1 'Inter',sans-serif;letter-spacing:.04em;text-transform:uppercase;background:rgba(52,211,153,.16);color:#6EE7B7;}
   .pw-tag.trial{background:rgba(167,139,250,.18);color:#C4B5FD;}
   .pw-cta{width:100%;height:56px;border:0;border-radius:18px;cursor:pointer;color:#fff;font:700 16.5px 'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:9px;
     background:linear-gradient(135deg,#4C8DFF,#6F7BFA 60%,#8B7CF8);box-shadow:0 16px 34px -14px rgba(96,110,255,.95),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .12s,filter .15s;}
@@ -2238,7 +2238,7 @@
   .lp-pair span{color:var(--muted);font-size:12px;}
   .lp-when{margin:14px 0 0;padding-top:11px;border-top:1px solid var(--rule);color:var(--muted);font-size:12.5px;}
   .lp-upd.due{border-color:rgba(76,141,255,.45);background:linear-gradient(180deg,rgba(76,141,255,.10),rgba(76,141,255,.02));}
-  .lp-eyebrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;color:var(--muted);font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;}
+  .lp-eyebrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;color:var(--muted);font:700 11px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;}
   .lp-rows{display:flex;flex-direction:column;}
   .lp-row{display:grid;grid-template-columns:1fr auto 74px;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--rule);font-size:14px;color:var(--muted);}
   .lp-row:last-child{border-bottom:0;}
@@ -2263,14 +2263,14 @@
   .lp-tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;padding:14px 14px 12px;border-radius:20px;border:1px solid var(--rule);text-align:left;color:var(--ink);cursor:pointer;
     background:radial-gradient(120% 90% at 0% 0%,rgba(47,111,232,.18),transparent 62%),linear-gradient(180deg,rgba(244,245,250,.05),rgba(244,245,250,.015));}
   .lp-tile + .lp-tile{background:radial-gradient(120% 90% at 0% 0%,rgba(255,55,95,.16),transparent 62%),linear-gradient(180deg,rgba(244,245,250,.05),rgba(244,245,250,.015));}
-  .lp-k{display:flex;flex-wrap:wrap;align-items:center;gap:6px;color:var(--muted);font:700 10.5px/1.2 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;}
+  .lp-k{display:flex;flex-wrap:wrap;align-items:center;gap:6px;color:var(--muted);font:700 11px/1.2 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;}
   .lp-k .bc-tag{letter-spacing:0;text-transform:none;}
   .lp-tile b{margin-top:10px;font:700 32px/1 'Sora',sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
   .lp-tile small{color:var(--muted);font-size:12px;}
   .lp-s{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:10px;padding-top:9px;border-top:1px solid var(--rule);color:var(--ink);font:600 12.5px 'Inter',sans-serif;}
   .lp-s i{font-style:normal;color:var(--muted);font-size:16px;}
   .lp-check.due{border-color:rgba(76,141,255,.45);background:linear-gradient(180deg,rgba(76,141,255,.10),rgba(76,141,255,.02));}
-  .lp-eyebrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;color:var(--muted);font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;}
+  .lp-eyebrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;color:var(--muted);font:700 11px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;}
   .lp-mode{padding:4px 8px;border-radius:999px;background:rgba(244,245,250,.07);letter-spacing:.02em;text-transform:none;font-size:11px;}
   .lp-bars{display:flex;flex-direction:column;gap:9px;margin-top:12px;}
   .lp-bar{display:grid;grid-template-columns:92px 1fr 54px;align-items:center;gap:10px;font-size:12.5px;color:var(--muted);}
@@ -2411,7 +2411,7 @@
 
   /* ---- Weight section ---- */
   .wt-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:4px 0 12px;}
-  .wt-k{font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  .wt-k{font:700 11px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
   .wt-big{font:700 46px/1 'Sora',sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:8px;}
   .wt-big small{font:600 15px 'Inter',sans-serif;color:var(--muted);margin-left:5px;letter-spacing:0;}
   .wt-day{text-align:right;padding:9px 12px;border-radius:14px;background:var(--surface-2);border:1px solid var(--rule);min-width:0;display:flex;flex-direction:column;gap:2px;}
@@ -2448,7 +2448,7 @@
   .wt-empty{padding:22px 14px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.5;border:1px dashed var(--rule);border-radius:16px;margin-bottom:14px;}
   .wt-card{display:block;width:100%;text-align:left;color:var(--ink);border-radius:18px;border:1px solid var(--rule);background:linear-gradient(180deg,rgba(244,245,250,.045),rgba(244,245,250,.015));padding:14px;margin-top:12px;}
   .wt-h{display:flex;justify-content:space-between;align-items:center;gap:10px;}
-  .wt-h > span{font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  .wt-h > span{font:700 11px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
   .wt-h > b{font:700 18px 'Sora',sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap;} .wt-h > b small{font:600 11.5px 'Inter',sans-serif;color:var(--muted);margin-left:4px;}
   .wt-h > b.wt-hint{font:600 11px 'Inter',sans-serif;color:var(--muted);}
   .wt-p{margin:10px 0 0;font-size:13px;line-height:1.5;color:var(--muted);} .wt-p b{color:var(--ink);}
@@ -2475,11 +2475,11 @@
   .wt-wk.now i{background:repeating-linear-gradient(135deg,rgba(76,141,255,.75) 0 5px,rgba(76,141,255,.35) 5px 10px);}
   .wt-wk.empty i{background:rgba(244,245,250,.08);}
   .wt-wk b{font:700 11.5px 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
-  .wt-wk small{font:700 10.5px 'Inter',sans-serif;color:var(--muted);min-height:13px;} .wt-wk small.good{color:var(--deficit);} .wt-wk small.bad{color:var(--surplus);}
-  .wt-wk span{font-size:10px;color:var(--muted);font-weight:600;white-space:nowrap;margin-top:3px;}
+  .wt-wk small{font:700 11px 'Inter',sans-serif;color:var(--muted);min-height:13px;} .wt-wk small.good{color:var(--deficit);} .wt-wk small.bad{color:var(--surplus);}
+  .wt-wk span{font-size:11px;color:var(--muted);font-weight:600;white-space:nowrap;margin-top:3px;}
   .wt-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
   .wt-tile{padding:12px;border-radius:16px;border:1px solid var(--rule);background:rgba(244,245,250,.03);display:flex;flex-direction:column;gap:3px;min-width:0;}
-  .wt-tile span{font:700 10px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  .wt-tile span{font:700 11px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
   .wt-tile b{font:700 20px 'Sora',sans-serif;font-variant-numeric:tabular-nums;} .wt-tile b i{font:600 11.5px 'Inter',sans-serif;font-style:normal;color:var(--muted);}
   .wt-tile.ok b{color:#4ADE80;} .wt-tile.ok b i{color:var(--muted);}
   .wt-tile small{font-size:11.5px;color:var(--muted);line-height:1.38;}
@@ -2516,7 +2516,7 @@
   .lpill.learned{color:#4ADE80;background:rgba(74,222,128,.11);box-shadow:inset 0 0 0 1px rgba(74,222,128,.2);}
   .lpill.warn.learning{color:#F4C25B;background:rgba(244,183,64,.12);box-shadow:inset 0 0 0 1px rgba(244,183,64,.24);}
   .lpill.warn.learned{color:#4ADE80;}
-  .lpill.mini{font-size:10.5px;padding:4px 8px 4px 6px;gap:5px;} .lpill.mini svg{width:12px;height:12px;}
+  .lpill.mini{font-size:11px;padding:4px 8px 4px 6px;gap:5px;} .lpill.mini svg{width:12px;height:12px;}
   .lpill-row{display:flex;justify-content:center;margin:2px 0 10px;}
   #ringLearn{margin:-4px 0 12px;}
   .ag-m.learning{border-color:rgba(155,124,255,.32);background:linear-gradient(180deg,rgba(155,124,255,.09),rgba(155,124,255,.02));}
@@ -2534,7 +2534,7 @@
   .lp-seg{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
   .lp-seg i{height:8px;border-radius:99px;background:rgba(244,245,250,.1);} .lp-seg i.on{background:linear-gradient(90deg,#9B7CFF,#B8A6FF);}
   .lp-weigh{margin:-4px 0 12px;padding:11px 13px;border-radius:14px;background:rgba(244,183,64,.1);border:1px solid rgba(244,183,64,.3);font-size:13px;line-height:1.45;color:var(--muted);} .lp-weigh b{color:#F4C25B;}
-  .lp-card .lp-k{font:700 10.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px;}
+  .lp-card .lp-k{font:700 11px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px;}
   .lp-dates{letter-spacing:0;text-transform:none;font-weight:600;}
   .lp-big{font:700 36px/1 'Sora',sans-serif;letter-spacing:-.02em;margin:10px 0 6px;font-variant-numeric:tabular-nums;} .lp-big span{font:600 13px 'Inter',sans-serif;color:var(--muted);margin-left:6px;letter-spacing:0;}
   .lp-eq{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
@@ -2606,7 +2606,7 @@
   .ob-sub{font-size:12.5px;color:var(--muted);}
   .ob-tg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;} .ob-tg div{border-radius:14px;background:#1B1D27;border:1px solid var(--rule);padding:10px;text-align:center;} .ob-tg b{display:block;font:700 20px Sora,sans-serif;} .ob-tg small{font-size:11px;color:var(--muted);}
   .ob-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:16px 0 6px;}
-  .ob-days div{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:10.5px;color:var(--muted);font-weight:600;}
+  .ob-days div{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:600;}
   .ob-days i{width:100%;height:30px;border-radius:9px;background:rgba(244,245,250,.06);border:1px dashed rgba(244,245,250,.14);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:13px;}
   .ob-days i.now{background:rgba(155,124,255,.18);border:1.5px solid #9B7CFF;}
   .ob-notes{display:flex;flex-direction:column;gap:10px;margin:8px 0 10px;}
@@ -2634,6 +2634,44 @@
   .fw-i.next{background:rgba(76,141,255,.1);} .fw-i.next i{border-color:#4C8DFF;}
   .fw-tip{margin:6px 0 0;padding:12px;border-radius:12px;background:rgba(244,245,250,.05);font-size:13px;line-height:1.5;color:#A3A6BC;} .fw-tip b{color:var(--ink);}
   .fw-tip button{display:block;margin-top:8px;border:0;background:rgba(76,141,255,.18);color:#A9C8FF;font:700 12.5px Inter,sans-serif;padding:7px 12px;border-radius:10px;cursor:pointer;}
+
+  /* Tap areas: every small control answers to at least a 44×44pt touch, Apple's minimum. The extra area is an
+     invisible layer around the control, so nothing moves or looks different. */
+  :where(.fi-edit, #dateSelPrevBtn, #dateSelNextBtn, #trendPrevBtn, #trendNextBtn, .bc-pen, #burnActBtn, .item-del, .lpill,
+      .bc-info-btn, .bc-ownbtn, #importWeightBtn, .bc-link, .ob-back, .ob-skip, .fw-x, #chatAiState, .profile-legal a,
+      .auth-legal a, .pw-links a, .pw-links button, .wk-toggle button, .wt-ranges button, .mode-btn, .meal-chip, #prevHistMonthBtn, #nextHistMonthBtn,
+      .burn-summary-row, #myGoals, .dq-ask, .trend-ask, .bc-wo-add, .ob-unit button, .ob-mini button, .methodology-toggle, #methodologyToggleBtn,
+      .pb-seg-b, .btn-small, #chatMicBtn, #chatSendBtn, #chatNewBtn, .fl-tab, .seg button, .wc-del, .burn-log-btn, .bc-tag, .fseg button, .ai-desc-tools button, .es-btn, #aiEstimateBtn, #aiUndoBtn){position:relative;}
+  :where(.fi-edit, #dateSelPrevBtn, #dateSelNextBtn, #trendPrevBtn, #trendNextBtn, .bc-pen, #burnActBtn, .item-del, .lpill,
+      .bc-info-btn, .bc-ownbtn, #importWeightBtn, .bc-link, .ob-back, .ob-skip, .fw-x, #chatAiState, .profile-legal a,
+      .auth-legal a, .pw-links a, .pw-links button, .wk-toggle button, .wt-ranges button, .mode-btn, .meal-chip, #prevHistMonthBtn, #nextHistMonthBtn,
+      .burn-summary-row, #myGoals, .dq-ask, .trend-ask, .bc-wo-add, .ob-unit button, .ob-mini button, .methodology-toggle, #methodologyToggleBtn,
+      .pb-seg-b, .btn-small, #chatMicBtn, #chatSendBtn, #chatNewBtn, .fl-tab, .seg button, .wc-del, .burn-log-btn, .bc-tag, .fseg button, .ai-desc-tools button, .es-btn, #aiEstimateBtn, #aiUndoBtn)::after{
+    content:"";position:absolute;left:50%;top:50%;width:max(100%, 44px);height:max(100%, 44px);transform:translate(-50%,-50%);}
+  .profile-legal a, .pw-links a{display:inline-block;}
+  .fit-wrap{flex-wrap:wrap !important;white-space:normal !important;overflow:visible !important;row-gap:2px;}
+  .fit-wrap > *{white-space:nowrap;}
+
+  /* line icons */
+  .li{width:1.2em;height:1.2em;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-0.22em;}
+  .li .f{fill:currentColor;stroke:none;}
+  .meal-chip .li{width:16px;height:16px;margin-right:6px;color:var(--muted);vertical-align:-3px;} .meal-chip.on .li{color:#8DB6FF;}
+  .ie-meta .li, #aiMealTag .li, #scanMealTag .li, .ie-meals .li{width:13px;height:13px;margin-right:4px;vertical-align:-2px;}
+  .fl-meal-n i .li{width:15px;height:15px;color:var(--muted);vertical-align:-3px;}
+  .bc-wo-e .li, .pb-emo.li{width:20px;height:20px;color:#AEB3C2;}
+  .wo-e .li{width:26px;height:26px;color:#C9CCDA;} .wo-tile:hover .wo-e .li{color:#8DB6FF;}
+  .wo-head-e .li{width:30px;height:30px;color:#8DB6FF;}
+  .es{display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 18px 24px;}
+  .es-ico{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:rgba(76,141,255,.12);color:#8DB6FF;margin-bottom:14px;}
+  .es-ico .li{width:26px;height:26px;}
+  .es-t{font:700 16px 'Sora',sans-serif;color:var(--ink);letter-spacing:-0.01em;}
+  .es-p{margin:6px 0 0;max-width:290px;font-size:13.5px;line-height:1.5;color:var(--muted);}
+  .es-btn{margin-top:16px;min-height:44px;padding:0 20px;border-radius:12px;border:0;background:var(--accent);color:#fff;font:700 14px Inter,sans-serif;cursor:pointer;}
+  .es-btn:active{filter:brightness(.88);}
+  .header-stats.none{display:none;}
+  #trendsFormWrap.t-empty > :not(#trendHorizonRow):not(#trendPeriodNav):not(#trendEmpty){display:none !important;}
+  .ob-feat .i .li, .ob-card .ic .li, .wn-ico .li{width:22px;height:22px;}
+  .wd-ico .li{width:22px;height:22px;color:#8DB6FF;} .ob-days i .li{width:16px;height:16px;color:#C4B5FD;}
 </style>
 </head>
 <body>
@@ -2968,7 +3006,7 @@
       <span class="logged-today-total" id="loggedTotal"></span>
     </div>
     <div id="itemsList"></div>
-    <div class="empty" id="loggedEmptyMsg" style="padding:6px 0;">Nothing logged yet.</div>
+    <div id="loggedEmptyMsg"></div>
   </div>
 
   <div class="card card-burn" data-view-card="burn">
@@ -3011,9 +3049,9 @@
       </div>
       <p class="status" id="weightStatus"></p>
       <div id="weightMore"></div>
-      <div class="wc-list-h">Recent weigh-ins<span id="weightListDay" hidden></span></div>
+      <div class="wc-list-h" id="weightListHead">Recent weigh-ins<span id="weightListDay" hidden></span></div>
       <div id="weightEntriesList"></div>
-      <div class="empty" id="weightEntriesEmpty" style="padding:6px 0;">No weigh-ins yet.</div>
+      <div class="empty" id="weightEntriesEmpty" style="display:none"></div>
     </div>
   </div>
 
@@ -3033,6 +3071,7 @@
         <div class="period-label" id="trendPeriodLabel">This week</div>
         <button class="date-nav-btn" id="trendNextBtn" type="button" aria-label="Next period">›</button>
       </div>
+      <div id="trendEmpty" hidden></div>
       <div class="trend-asks" id="trendAsks" style="display:none;">
         <button class="trend-ask" id="trendAskBtn" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span id="trendAskLbl">Ask about this week</span></button>
         <button class="trend-ask" id="trendCompareBtn" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span id="trendCompareLbl">Compare this week</span></button>
@@ -3326,8 +3365,7 @@
         </div>
       </div>
       <p class="card-sub" style="margin-top:4px;">Used only for the calorie/protein target formula below (Mifflin-St Jeor), which calibrates differently by sex.</p>
-      <button class="btn-primary burn-variant" id="saveProfileBtn" type="button" style="margin-top:18px;">Save profile</button>
-      <p class="status" id="profileStatus"></p>
+      <p class="goals-autosave" style="margin-top:16px;"><span id="profileStatus" aria-live="polite">Changes save as you make them.</span></p>
     </div>
     <div class="overlay-card burn-mode-card">
       <div class="goal-group-title">Daily burn</div>
@@ -3595,6 +3633,32 @@ function namespaceLocalKeys(uid){
 }
 let fbFns = null;
 try{ fbFns = firebase.app().functions('us-central1'); }catch(e){ /* functions SDK unavailable — app runs local-only */ }
+// One plain-English message for anything that goes wrong talking to Fera's server, Apple or the network.
+// Sentences the server or Apple wrote for people pass through; codes, browser network errors and anything
+// that looks technical become a short message instead.
+// A button that saves something does it once per tap: while its save is running, more taps (a double tap,
+// an impatient second press) are ignored and the button shows as busy.
+function guardTap(fn){
+  let busy = false;
+  return async function(ev){
+    if(busy) return; busy = true;
+    const btn = ev && ev.currentTarget && ev.currentTarget.tagName === 'BUTTON' ? ev.currentTarget : null;
+    if(btn) btn.setAttribute('aria-busy', 'true');
+    try { return await fn.apply(this, arguments); }
+    finally { busy = false; if(btn) btn.removeAttribute('aria-busy'); }
+  };
+}
+const NET_MSG = 'Couldn’t reach Fera. Check your connection and try again.';
+function friendlyError(e, fallback = 'Something went wrong. Please try again.'){
+  const msg = String((e && (e.message || e.errorMessage)) || (typeof e === 'string' ? e : '') || '').trim();
+  const code = String((e && e.code) || '').replace(/^functions\//, '');
+  if((typeof navigator !== 'undefined' && navigator.onLine === false) || /^offline$|load failed|failed to fetch|networkerror|network error|network request|timed? ?out|the internet connection|ERR_[A-Z_]+/i.test(msg)
+    || ['unavailable', 'deadline-exceeded'].includes(code)) return NET_MSG;
+  if(['internal', 'unknown', 'aborted', 'data-loss'].includes(code)) return fallback;
+  const human = /^[A-Z“"‘'].{3,}\s/.test(msg) && msg.length < 240
+    && !/TypeError|SyntaxError|ReferenceError|undefined|\bnull\b|NaN|\bat [\w.]+ \(|https?:\/\/|[{}<>]|Firebase|^Error\b|INTERNAL|status code|JSON/.test(msg);
+  return human ? msg : fallback;
+}
 async function callApi(action, params){
   if(!fbFns) throw new Error('offline');
   const res = await fbFns.httpsCallable('api')(Object.assign({ action }, params || {}));
@@ -3742,7 +3806,9 @@ function computeStreak(loggedDates){
 function renderHeaderStats(){
   const streakEl = document.getElementById('streakVal');
   if(!streakEl) return;
-  streakEl.textContent = computeStreak(allLoggedDates());
+  const n = computeStreak(allLoggedDates());
+  streakEl.textContent = n;
+  const hs = document.getElementById('headerStats'); if(hs) hs.classList.toggle('none', !n);
 }
 
 // ---------- today ring: today's consumed total vs. a trailing-30-day (else all-time) average ----------
@@ -3833,12 +3899,14 @@ function renderMetricRing(key, s, o){
     fitOneLine(goalEl);
   }
 }
-// Keeps a short label on one line: shrinks the font a step at a time until it fits its box.
+// Keeps a short label on one line: shrinks the font a step at a time until it fits its box, but never under
+// 11px; if it still doesn't fit there, it wraps onto a second line instead (each part stays whole).
 function fitOneLine(el){
-  el.style.fontSize = '';
+  el.style.fontSize = ''; el.classList.remove('fit-wrap');
   if(!el.clientWidth) return;
-  let size = parseFloat(getComputedStyle(el).fontSize) || 10.5;
-  while(el.scrollWidth > el.clientWidth + 0.5 && size > 7.5){ size -= 0.5; el.style.fontSize = size + 'px'; }
+  let size = parseFloat(getComputedStyle(el).fontSize) || 11;
+  while(el.scrollWidth > el.clientWidth + 0.5 && size > 11){ size -= 0.5; el.style.fontSize = size + 'px'; }
+  if(el.scrollWidth > el.clientWidth + 0.5) el.classList.add('fit-wrap');
 }
 // "−506" / "+120" with a real minus sign.
 function signedN(v){ const r = Math.round(v); return (r > 0 ? '+' : r < 0 ? '−' : '±') + Math.abs(r).toLocaleString(); }
@@ -4026,6 +4094,20 @@ function renderBurnRingExtras(d){
 
 // What's still missing before targets can be worked out, in plain words, and which page fixes it.
 // Profile comes first: goals can't produce numbers without it.
+// What's missing, as words that fit "Fera needs …" (e.g. "your height and weight, then your goals")
+function setupNeeds(){
+  const list = a => a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
+  const prof = [], goals = [];
+  if(!userProfile.dob) prof.push('date of birth');
+  if(!userProfile.heightIn) prof.push('height');
+  if(currentWeightLb() == null) prof.push('weight');
+  if(!userGoals.weightGoal) goals.push('weight goal');
+  if(!userGoals.muscleGoal) goals.push('muscle goal');
+  if(prof.length === 3 && goals.length) return 'your profile, then your goals';
+  if(prof.length) return `your ${list(prof)}${goals.length ? ', then your goals' : ''}`;
+  if(goals.length) return `your ${list(goals)}`;
+  return 'your profile and goals';
+}
 function setupGap(){
   const list = a => a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
   const prof = [];
@@ -4193,7 +4275,7 @@ function balanceSVG(ser, o, tm){
     if(o.labels === 'week') g += `<rect x="${(tx - 8).toFixed(1)}" y="${H - 14}" width="16" height="14" rx="7" fill="rgba(76,141,255,0.22)"/>`;
     else g += `<circle cx="${tx.toFixed(1)}" cy="${(bot + 3).toFixed(1)}" r="2.6" fill="#4C8DFF"/>`;
   }
-  const lab = (i, txt, col) => `<text x="${xc(i).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${col}">${txt}</text>`;
+  const lab = (i, txt, col) => `<text x="${xc(i).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="11" font-weight="700" fill="${col}">${txt}</text>`;
   if(o.labels === 'week') ser.days.forEach((d, i) => { g += lab(i, WK_LETTERS[i], d.today ? '#8DB6FF' : (d.iso === o.selected ? '#F4F5F7' : '#8B90A0')); });
   else if(o.labels === 'month') ser.days.forEach((d, i) => { const dn = +d.iso.slice(8); if(dn % 7 === 1) g += lab(i, dn, '#8B90A0'); });
   else ser.days.forEach((d, i) => { if(d.iso.slice(8) === '15') g += lab(i, MONTH_LETTERS[+d.iso.slice(5, 7) - 1], '#8B90A0'); });
@@ -4262,8 +4344,8 @@ function qualitySVG(q, sel){
   }
   q.days.forEach((d, i) => { const cx = x(i) + cw / 2;
     if(d.today) g += `<rect x="${(cx - 8).toFixed(1)}" y="${H - 14}" width="16" height="14" rx="7" fill="rgba(76,141,255,0.22)"/>`;
-    g += `<text x="${cx.toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${d.today ? '#8DB6FF' : d.iso === sel ? '#F4F5F7' : '#8B90A0'}">${WK_LETTERS[i] || ''}</text>`; });
-  g += `<text x="${(wx + ww / 2).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9.5" font-weight="800" fill="#F4F5F7">Week</text>`;
+    g += `<text x="${cx.toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="11" font-weight="700" fill="${d.today ? '#8DB6FF' : d.iso === sel ? '#F4F5F7' : '#8B90A0'}">${WK_LETTERS[i] || ''}</text>`; });
+  g += `<text x="${(wx + ww / 2).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="11" font-weight="800" fill="#F4F5F7">Week</text>`;
   return `<svg class="wk-svg qm-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Calorie mix by day: protein, carbs and fat, with your goal split">${g}</svg>`;
 }
 function balanceGoalText(k, v){ return v == null ? '—' : k === 'weight' ? wtSigned(v) + ' ' + weightUnit() : k === 'cal' ? (v === 0 ? '0' : signedN(v)) : k === 'eaten' || k === 'burn' ? fmtN(v) : fmtN(v) + ' g'; }
@@ -4556,20 +4638,76 @@ function burnPartSub(p, q){
   }
   return '';
 }
+// ---------- line icons: the app's own icon set (24×24, 1.8 stroke, round ends), used everywhere an emoji used to be ----------
+const LI_PATHS = {
+  breakfast: '<path d="M3 17h18M7 17a5 5 0 0 1 10 0M12 5.5v3M5.6 9.8l1.8 1.4M18.4 9.8l-1.8 1.4M7.5 20.5h9"/>',
+  amsnack: '<path d="M12 8.2c-1.5-1-4.2-1.2-5.8.6-2 2.3-1.2 6.6 1 9.4 1.4 1.8 2.8 2.4 4.8 1.5 2 .9 3.4.3 4.8-1.5 2.2-2.8 3-7.1 1-9.4-1.6-1.8-4.3-1.6-5.8-.6ZM12 8.2c-.2-2 .8-3.7 2.8-4.6"/>',
+  lunch: '<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/>',
+  pmsnack: '<path d="M20.4 12.6A8.5 8.5 0 1 1 11.4 3.6a2.8 2.8 0 0 0 3.6 3.4 2.8 2.8 0 0 0 5.4 5.6Z"/><circle cx="8.6" cy="10.4" r=".9" class="f"/><circle cx="12" cy="15.4" r=".9" class="f"/><circle cx="15.8" cy="13.6" r=".9" class="f"/><circle cx="8.2" cy="15" r=".9" class="f"/>',
+  dinner: '<path d="M3.5 17.5h17M5 17.5a7 7 0 0 1 14 0M12 10.5V8.6M10.4 8.6h3.2M5 20.5h14"/>',
+  late: '<path d="M19.5 14.6A7.6 7.6 0 1 1 9.4 4.5a6 6 0 0 0 10.1 10.1Z"/>',
+  camera: '<path d="M4 8.6A1.6 1.6 0 0 1 5.6 7h2.1l1.6-2.2h5.4L16.3 7h2.1A1.6 1.6 0 0 1 20 8.6v8.8a1.6 1.6 0 0 1-1.6 1.6H5.6A1.6 1.6 0 0 1 4 17.4Z"/><circle cx="12" cy="12.8" r="3.4"/>',
+  scale: '<rect x="3.5" y="4" width="17" height="16" rx="4"/><path d="M8.5 9.5a4.5 4.5 0 0 1 7 0M12 9.6l1.4-1.9"/>',
+  spark: '<path d="M12 3.5l1.6 5a3 3 0 0 0 1.9 1.9l5 1.6-5 1.6a3 3 0 0 0-1.9 1.9l-1.6 5-1.6-5a3 3 0 0 0-1.9-1.9l-5-1.6 5-1.6a3 3 0 0 0 1.9-1.9Z"/>',
+  watch: '<rect x="6.5" y="6" width="11" height="12" rx="3.2"/><path d="M9 6l.7-3h4.6l.7 3M9 18l.7 3h4.6l.7-3M12 9.5V12l1.6 1"/>',
+  ring: '<circle cx="12" cy="14.5" r="6"/><path d="M9.6 8.9 8.8 6.2 10.4 4h3.2l1.6 2.2-.8 2.7"/>',
+  phone: '<rect x="7" y="3" width="10" height="18" rx="2.6"/><path d="M11 17.8h2"/>',
+  pencil: '<path d="M4.5 19.5l.9-3.9L16.2 4.8a1.9 1.9 0 0 1 2.7 0l.3.3a1.9 1.9 0 0 1 0 2.7L8.4 18.6Z M14.5 6.5l3 3"/>',
+  steps: '<path d="M4.5 15.5v-2.2c0-2-1-3-1-5.3C3.5 5.4 4.9 2.5 7.5 2.5c1.7 0 2.4 1.6 2.4 3.2 0 2.9-1.9 5.2-1.9 8v1.8a1.8 1.8 0 1 1-3.5 0ZM19.5 19.5v-2.2c0-2 1-3 1-5.3 0-2.6-1.4-5.5-4-5.5-1.7 0-2.4 1.6-2.4 3.2 0 2.9 1.9 5.2 1.9 8v1.8a1.8 1.8 0 1 0 3.5 0ZM4.5 12.5h3.5M16 16.5h3.5"/>',
+  shoe: '<path d="M3 17.5c0-2.6.6-6.4 1.6-8.9l3.6.9 2.4 2.6 5.6 1.7c2.9.9 4.8 1.9 4.8 3.7Z M3 20.5h18M9.4 11l1.1-1.1M11.5 12.6l1.1-1.1"/>',
+  mountain: '<path d="M2.5 19.5 9 8.5l4 6.2 2.6-3.7 5.9 8.5Z"/>',
+  summit: '<path d="M2.5 19.5 9 8.5l4 6.2 2.6-3.7 5.9 8.5ZM9 8.5V3l3.2 1.3L9 5.6"/>',
+  bike: '<circle cx="5.8" cy="15.8" r="3.6"/><circle cx="18.2" cy="15.8" r="3.6"/><path d="M5.8 15.8l3.8-7h5.2l3.4 7M9.6 8.8l3.6 7h-7.4M13.4 5.6h2.6"/>',
+  swim: '<circle cx="16.5" cy="6.5" r="2"/><path d="M5 12.5l4.5-3.3 3.5 2.6 2-1.4M2.5 16c1.6 0 1.6 1.1 3.2 1.1s1.6-1.1 3.2-1.1 1.6 1.1 3.2 1.1 1.6-1.1 3.2-1.1 1.6 1.1 3.2 1.1 1.6-1.1 3-1.1M2.5 20c1.6 0 1.6 1 3.2 1s1.6-1 3.2-1 1.6 1 3.2 1 1.6-1 3.2-1 1.6 1 3.2 1 1.6-1 3-1"/>',
+  oar: '<path d="M4 20 16.4 7.6M15.2 3.6l5.2 5.2-1.8 1.8a2.6 2.6 0 0 1-3.7 0l-1.5-1.5a2.6 2.6 0 0 1 0-3.7Z"/>',
+  stairs: '<path d="M3 20h5v-4h4v-4h4V8h5"/>',
+  rope: '<rect x="4.7" y="2.5" width="2.6" height="6" rx="1.3"/><rect x="16.7" y="2.5" width="2.6" height="6" rx="1.3"/><path d="M6 8.5v1.5c0 8.5 12 8.5 12 0V8.5"/>',
+  dumbbell: '<path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/>',
+  bolt: '<path d="M13 2.8 5.2 13.5h6l-1 7.7 7.8-10.7h-6Z"/>',
+  repeat: '<path d="M4.5 11.5a7.5 7.5 0 0 1 13-4.6L19.5 9M19.5 4.5V9H15M19.5 12.5a7.5 7.5 0 0 1-13 4.6L4.5 15M4.5 19.5V15H9"/>',
+  kettlebell: '<path d="M8.6 9.6 8.2 7a1.7 1.7 0 0 1 1.7-2h4.2A1.7 1.7 0 0 1 15.8 7l-.4 2.6"/><path d="M12 9.2a5.8 5.8 0 0 0-5 8.8l.7 1.5h8.6l.7-1.5a5.8 5.8 0 0 0-5-8.8Z"/>',
+  lotus: '<path d="M12 19.5c-2.4-2-3.6-4.4-3.6-7.2S9.6 7 12 5c2.4 2 3.6 4.5 3.6 7.3s-1.2 5.2-3.6 7.2ZM12 19.5c-3.2 0-6.6-1.7-8.5-5 2.3-.6 4.4-.3 5.9.5M12 19.5c3.2 0 6.6-1.7 8.5-5-2.3-.6-4.4-.3-5.9.5"/>',
+  note: '<path d="M9 17.5V5.5l10-2v12"/><circle cx="6.6" cy="17.5" r="2.4"/><circle cx="16.6" cy="15.5" r="2.4"/>',
+  glove: '<path d="M7.2 11V8.2a5 5 0 0 1 5-5h1.4a4.6 4.6 0 0 1 4.6 4.6V13a5 5 0 0 1-5 5H9.7a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M7.2 11h-.6a2 2 0 0 0 0 4h2.6a1.5 1.5 0 0 0 0-3H7.2M9.2 18v3h7.4v-3.4"/>',
+  racket: '<ellipse cx="9.8" cy="9.2" rx="5.2" ry="6.4" transform="rotate(-45 9.8 9.2)"/><path d="M13.6 13l6.4 6.4M7.2 7.2l5.2 5.2M6 10.4l3.6-3.6"/>',
+  ball: '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.3 3.7 5.1 3.7 8.5s-1.3 6.2-3.7 8.5M12 3.5C9.6 5.8 8.3 8.6 8.3 12s1.3 6.2 3.7 8.5"/>',
+  flag: '<path d="M6.5 21V3.5l10.5 4-10.5 4M3.5 21h9"/>',
+  snow: '<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9.8 4.6 12 6.6l2.2-2M9.8 19.4l2.2-2 2.2 2"/>',
+  wave: '<path d="M2.5 16c2.6 0 3.2-5.2 7.2-8.1 2.6-1.9 6.1-1.8 7.5.2-2.6-.4-4 1-4 3 0 3 2.9 4.9 6.3 4.9M2.5 20h19"/>',
+  bag: '<path d="M6.5 8.5h11l1 11.5h-13Z"/><path d="M9.5 8.5V7a2.5 2.5 0 0 1 5 0v1.5"/>',
+  bell: '<path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.5 2h-14ZM10 20.5a2 2 0 0 0 4 0"/>',
+  trends: '<path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/>',
+  fork: '<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M16.5 21V3c-2 1-3.5 3.5-3.5 7 0 2 1.5 3 3.5 3"/>',
+  heart: '<path d="M12 20s-7.6-4.4-7.6-10A4.2 4.2 0 0 1 12 7.4 4.2 4.2 0 0 1 19.6 10c0 5.6-7.6 10-7.6 10Z"/><path d="M5 12.5h3.4l1.5-2.4 2.4 4.6 1.9-3.2H19"/>',
+};
+// One empty state for every screen: an icon, a short headline, one or two lines on what to do, and at
+// most one button. data-es names what the button does (handled in one place below).
+function emptyStateHTML(o){
+  return `<div class="es"><span class="es-ico">${LI(o.icon)}</span><b class="es-t">${o.title}</b>${o.text ? `<p class="es-p">${o.text}</p>` : ''}${o.action ? `<button type="button" class="es-btn" data-es="${o.action}">${o.button}</button>` : ''}</div>`;
+}
+document.addEventListener('click', (ev) => {
+  const b = ev.target.closest('[data-es]'); if(!b) return;
+  haptic();
+  const a = b.dataset.es;
+  if(a === 'food'){ setView('food'); scrollTo(0, 0); setTimeout(() => { const t = document.getElementById('aiDesc'); if(t) t.focus(); }, 350); }
+  else if(a === 'weigh'){ const i = document.getElementById('weightValueInput'); if(i){ i.scrollIntoView({ block: 'center', behavior: 'smooth' }); i.focus(); } }
+  else if(a === 'prev-period'){ const p = document.getElementById('trendPrevBtn'); if(p) p.click(); }
+});
+function LI(name, cls){ return `<svg class="li${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true">${LI_PATHS[name] || LI_PATHS.spark}</svg>`; }
 // Workouts Apple Health recorded that day (the iPhone app reads them: Apple Watch, WHOOP, Oura, Garmin,
 // apps), listed under the active energy they're part of, with the rest as everyday movement.
-const HK_WO_EMOJI = { Running: '🏃', Walking: '🚶', Hiking: '🥾', Cycling: '🚴', Swimming: '🏊', Rowing: '🚣', Elliptical: '⛷️', Stairs: '🪜',
-  'Strength training': '🏋️', 'Functional strength': '🏋️', HIIT: '🔥', 'Cross training': '🔥', 'Core training': '💪', Yoga: '🧘', Pilates: '🧘', Dance: '💃',
-  'Mixed cardio': '❤️', Tennis: '🎾', Pickleball: '🏓', Soccer: '⚽', Basketball: '🏀', Golf: '⛳', Boxing: '🥊', 'Martial arts': '🥋', 'Snow sports': '🎿', 'Mind and body': '🧘', Stretching: '🤸' };
+const HK_WO_ICON = { Running: 'shoe', Walking: 'steps', Hiking: 'mountain', Cycling: 'bike', Swimming: 'swim', Rowing: 'oar', Elliptical: 'heart', Stairs: 'stairs',
+  'Strength training': 'dumbbell', 'Functional strength': 'kettlebell', HIIT: 'bolt', 'Cross training': 'bolt', 'Core training': 'kettlebell', Yoga: 'lotus', Pilates: 'lotus', Dance: 'note',
+  'Mixed cardio': 'heart', Tennis: 'racket', Pickleball: 'racket', Soccer: 'ball', Basketball: 'ball', Golf: 'flag', Boxing: 'glove', 'Martial arts': 'glove', 'Snow sports': 'snow', 'Mind and body': 'lotus', Stretching: 'lotus' };
 function hkWorkoutsHTML(p, q){
   const list = p.health && Array.isArray(p.health.workouts) ? p.health.workouts : null;
   if(!list || !list.length) return '';
   const sum = list.reduce((s, w) => s + (w.kcal || 0), 0);
   const rest = Math.round(q.value - sum);
-  const rows = list.map(w => `<div class="bc-wo static"><span class="bc-wo-e" aria-hidden="true">${HK_WO_EMOJI[w.name] || '✨'}</span>
+  const rows = list.map(w => `<div class="bc-wo static"><span class="bc-wo-e" aria-hidden="true">${LI(HK_WO_ICON[w.name] || 'spark')}</span>
     <span class="bc-wo-t"><b>${escapeHtml(w.name)}</b><small>${w.start ? fmtClock(w.start) + ' · ' : ''}${w.min} min${w.src ? ' · ' + escapeHtml(w.src) : ''}</small></span>
     <span class="bc-wo-k">${w.kcal != null ? '+' + fmtN(w.kcal) : '—'}</span></div>`).join('');
-  const other = rest > 0 ? `<div class="bc-wo static dim"><span class="bc-wo-e" aria-hidden="true">👣</span><span class="bc-wo-t"><b>Everyday movement</b><small>Walking around, chores, the rest of the day</small></span><span class="bc-wo-k">+${fmtN(rest)}</span></div>` : '';
+  const other = rest > 0 ? `<div class="bc-wo static dim"><span class="bc-wo-e" aria-hidden="true">${LI('steps')}</span><span class="bc-wo-t"><b>Everyday movement</b><small>Walking around, chores, the rest of the day</small></span><span class="bc-wo-k">+${fmtN(rest)}</span></div>` : '';
   return `<div class="bc-extra"><div class="bc-wos">${rows}${other}</div></div>`;
 }
 // digestion, split by what was eaten: protein costs the most to digest
@@ -4582,7 +4720,7 @@ function digestRowsHTML(p){
 }
 function workoutRowsHTML(p){
   const rows = p.workouts.map(w => {
-    const def = WORKOUT_BY_KEY[w.type] || { e: '✨', n: 'Workout' };
+    const def = WORKOUT_BY_KEY[w.type] || { e: LI('spark'), n: 'Workout' };
     const it = INTENSITY[INT_IDX[w.int] ?? 1];
     return `<button class="bc-wo" type="button" data-wo-edit="${w.id}">
       <span class="bc-wo-e" aria-hidden="true">${def.e}</span>
@@ -4711,6 +4849,7 @@ document.addEventListener('click', async (ev)=>{
 });
 
 // ---------- logging a workout: a bottom sheet — pick the activity, then time and effort ----------
+let woSaving = false;
 let woState = null;   // { id, type, min, int, q }
 function openWorkoutSheet(editId){
   const d = selectedDate;
@@ -4801,7 +4940,7 @@ function renderWorkoutSheet(){
         <b>${it.label}</b><small>${escapeHtml(def.h[i])}</small><i>${it.hint}</i></button>`).join('')}</div>
       ${canDetect ? `<div class="wo-label">When did you finish?</div>
       <div class="wo-end"><input type="time" id="woEnd" value="${woState.end}" aria-label="Finished at"><span>${woState.min} min, from ${woStartText()}</span></div>` : ''}
-      ${known ? `<div class="wo-detect ${det.status}"><span class="wd-ico" aria-hidden="true">${det.status === 'with' ? '📱' : '🎒'}</span><span class="wd-t"><b>${det.status === 'with' ? `Your iPhone counted ${fmtN(det.iphone)} steps then` : 'Your iPhone counted almost no steps then'}</b><small>${det.status === 'with' ? 'Those are already in your burn, so Fera adds the rest of the workout.' : 'It stayed aside, so all of the workout counts.'}</small></span><button type="button" data-wo-override>Not right?</button></div>`
+      ${known ? `<div class="wo-detect ${det.status}"><span class="wd-ico" aria-hidden="true">${det.status === 'with' ? LI('phone') : LI('bag')}</span><span class="wd-t"><b>${det.status === 'with' ? `Your iPhone counted ${fmtN(det.iphone)} steps then` : 'Your iPhone counted almost no steps then'}</b><small>${det.status === 'with' ? 'Those are already in your burn, so Fera adds the rest of the workout.' : 'It stayed aside, so all of the workout counts.'}</small></span><button type="button" data-wo-override>Not right?</button></div>`
         : canDetect && det && det.status === 'checking' ? `<div class="wo-detect checking"><span class="wd-ico" aria-hidden="true">⏳</span><span class="wd-t"><b>Checking your iPhone's steps…</b></span></div>` : ''}
       ${askPhone && !known && !(det && det.status === 'checking' && canDetect) ? `<div class="wo-label">Was your iPhone with you?</div>
       <div class="wo-phone" role="radiogroup" aria-label="Was your iPhone with you?">
@@ -4844,6 +4983,8 @@ document.addEventListener('click', async (ev)=>{
   if(it){ haptic(); woState.int = it.dataset.woInt; renderWorkoutSheet(); woDetect(); return; }
   const d = selectedDate;
   if(ev.target.closest('[data-wo-save]')){
+    if(woSaving) return; woSaving = true;
+    try {
     haptic();
     if(!entries[d]) entries[d] = blankEntry();
     const list = entries[d].workouts = entries[d].workouts || [];
@@ -4857,9 +4998,11 @@ document.addEventListener('click', async (ev)=>{
     if(entries[d].burnOv) delete entries[d].burnOv.workouts;
     syncDerivedBurns(); await persist(); renderAll();
     closeWorkoutSheet();
+    } finally { woSaving = false; }
     return;
   }
   if(ev.target.closest('[data-wo-del]')){
+    if(woSaving) return;
     haptic();
     if(entries[d] && entries[d].workouts) entries[d].workouts = entries[d].workouts.filter(w => w.id !== woState.id);
     syncDerivedBurns(); await persist(); renderAll();
@@ -4921,7 +5064,7 @@ function weightSparkSVG(wMap, d, unit){
   return `<svg class="wc-spark" viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><linearGradient id="wcg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4C8DFF" stop-opacity=".28"/><stop offset="1" stop-color="#4C8DFF" stop-opacity="0"/></linearGradient></defs>
     <path d="${area}" fill="url(#wcg)"/><path d="${path}" fill="none" stroke="#4C8DFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
     ${pts.map(p => `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="1.8" fill="#4C8DFF"/>`).join('')}${sel}
-    <text x="${pad}" y="${H - 1}" font-size="9.5" fill="#8B90A0" font-weight="600">30 days</text><text x="${W - pad}" y="${H - 1}" font-size="9.5" fill="#8B90A0" font-weight="600" text-anchor="end">${d === todayStr() ? 'Today' : dayLabel(d)}</text></svg>`;
+    <text x="${pad}" y="${H - 1}" font-size="11" fill="#8B90A0" font-weight="600">30 days</text><text x="${W - pad}" y="${H - 1}" font-size="11" fill="#8B90A0" font-weight="600" text-anchor="end">${d === todayStr() ? 'Today' : dayLabel(d)}</text></svg>`;
 }
 // ---------- Weight section: trend, pace, goal weight ----------
 // Every number here comes from the daily weigh-ins (the average of a day's readings, in the person's
@@ -5030,11 +5173,11 @@ function wtChartSVG(W, R, info, sel){
   const x = i => L + (N <= 1 ? (VW - L - Rr) / 2 : i / (N - 1) * (VW - L - Rr));
   const y = v => T + (hi - v) / (hi - lo) * (VH - T - B);
   let g = `<defs><linearGradient id="wtg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4C8DFF" stop-opacity=".30"/><stop offset="1" stop-color="#4C8DFF" stop-opacity="0"/></linearGradient></defs>`;
-  wtNiceTicks(lo, hi).forEach(v => { g += `<line x1="${L}" x2="${VW - Rr}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="rgba(244,245,250,.07)"/><text x="${L - 6}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" font-weight="600" fill="#6E7385">${Number.isInteger(v) ? v : v.toFixed(1)}</text>`; });
+  wtNiceTicks(lo, hi).forEach(v => { g += `<line x1="${L}" x2="${VW - Rr}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="rgba(244,245,250,.07)"/><text x="${L - 6}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end" font-size="11" font-weight="600" fill="#6E7385">${Number.isInteger(v) ? v : v.toFixed(1)}</text>`; });
   if(showGoal){
     const gy = y(info.goal).toFixed(1);
     g += `<line x1="${L}" x2="${VW - Rr}" y1="${gy}" y2="${gy}" stroke="#4ADE80" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
-      <rect x="${VW - Rr - 58}" y="${(+gy - 17).toFixed(1)}" width="58" height="14" rx="7" fill="rgba(74,222,128,.16)"/><text x="${VW - Rr - 29}" y="${(+gy - 7).toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#4ADE80">Goal ${wtFmt(info.goal, info.goal % 1 ? 1 : 0)}</text>`;
+      <rect x="${VW - Rr - 58}" y="${(+gy - 17).toFixed(1)}" width="58" height="14" rx="7" fill="rgba(74,222,128,.16)"/><text x="${VW - Rr - 29}" y="${(+gy - 7).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="#4ADE80">Goal ${wtFmt(info.goal, info.goal % 1 ? 1 : 0)}</text>`;
   }
   // the 7-day line, broken where there's no data
   const segs = []; let cur = [];
@@ -5051,7 +5194,7 @@ function wtChartSVG(W, R, info, sel){
   if(li >= 0) g += `<circle cx="${x(li).toFixed(1)}" cy="${y(line[li][1]).toFixed(1)}" r="4.6" fill="#0E1014" stroke="#4C8DFF" stroke-width="2.6"/>`;
   // dates along the bottom
   const marks = N <= 1 ? [0] : [0, Math.round((N - 1) / 3), Math.round((N - 1) * 2 / 3), N - 1];
-  marks.forEach((i, k) => { const anchor = k === 0 ? 'start' : k === marks.length - 1 ? 'end' : 'middle'; g += `<text x="${x(i).toFixed(1)}" y="${VH - 6}" text-anchor="${anchor}" font-size="9.5" font-weight="600" fill="#8B90A0">${i === N - 1 && days[i] === todayStr() ? 'Today' : wtDate(days[i])}</text>`; });
+  marks.forEach((i, k) => { const anchor = k === 0 ? 'start' : k === marks.length - 1 ? 'end' : 'middle'; g += `<text x="${x(i).toFixed(1)}" y="${VH - 6}" text-anchor="${anchor}" font-size="11" font-weight="600" fill="#8B90A0">${i === N - 1 && days[i] === todayStr() ? 'Today' : wtDate(days[i])}</text>`; });
   g += `<g class="wt-guide" style="display:none"><line y1="${T}" y2="${VH - B}" stroke="rgba(244,245,250,.45)" stroke-width="1"/><circle r="5" fill="#4C8DFF" stroke="#0E1014" stroke-width="2"/></g>`;
   wtGeom = { days, x, y, L, Rr, VW, line, W, showGoal };
   return `<svg class="wt-svg" viewBox="0 0 ${VW} ${VH}" role="img" aria-label="Weight, ${wtDate(R.start)} to ${wtDate(R.end)}: daily weigh-ins and the 7-day average">${g}</svg>`;
@@ -5064,7 +5207,7 @@ function wtCardChartDraw(W, R, info){
     const cd = wtChartData(days, W, info && info.goal != null ? info.goal : null);
     const labels = days.map(d => d === todayStr() ? 'Today' : wtDate(d));
     if(wtCardChart){ try { wtCardChart.destroy(); } catch(e){} }
-    const ticks = { color: '#8B90A0', font: { family: 'Inter', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 4 };
+    const ticks = { color: '#8B90A0', font: { family: 'Inter', size: 11 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 4 };
     wtCardChart = new Chart(cv, { type: 'line', data: { labels, datasets: cd.datasets }, options: wtChartOptions(cd.min, cd.max, ticks) });
     wtCardChart.$dates = days;
     wtCardChart.$holdInfo = wtHoldInfo(document.querySelector('#weightTop .wt-read'), labels, cd);
@@ -5136,7 +5279,7 @@ function wtPathSVG(W, info){
   if(info.etaPace && info.etaPace !== 'far') g += `<line x1="${x(today).toFixed(1)}" y1="${y(info.now).toFixed(1)}" x2="${x(info.etaPace).toFixed(1)}" y2="${gy}" stroke="#4C8DFF" stroke-width="2.2" stroke-dasharray="1 5" stroke-linecap="round"/>
     <circle cx="${x(info.etaPace).toFixed(1)}" cy="${gy}" r="5" fill="#4ADE80" stroke="#0E1014" stroke-width="2"/>`;
   g += `<circle cx="${x(today).toFixed(1)}" cy="${y(info.now).toFixed(1)}" r="4.4" fill="#0E1014" stroke="#4C8DFF" stroke-width="2.4"/>`;
-  g += `<text x="${L}" y="${VH - 5}" font-size="9.5" font-weight="600" fill="#8B90A0">${wtDate(from)}</text><text x="${x(today).toFixed(1)}" y="${VH - 5}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#8DB6FF">Today</text><text x="${VW - Rr}" y="${VH - 5}" text-anchor="end" font-size="9.5" font-weight="600" fill="#8B90A0">${wtDate(to)}</text>`;
+  g += `<text x="${L}" y="${VH - 5}" font-size="11" font-weight="600" fill="#8B90A0">${wtDate(from)}</text><text x="${x(today).toFixed(1)}" y="${VH - 5}" text-anchor="middle" font-size="11" font-weight="700" fill="#8DB6FF">Today</text><text x="${VW - Rr}" y="${VH - 5}" text-anchor="end" font-size="11" font-weight="600" fill="#8B90A0">${wtDate(to)}</text>`;
   return `<svg class="wt-path" viewBox="0 0 ${VW} ${VH}" role="img" aria-label="Path to your goal weight">${g}</svg>`;
 }
 
@@ -5333,7 +5476,7 @@ function renderWeightCard(){
   const startAvg = firstDay ? wtAvg7(W, wtAddDays(firstDay, 6)) : null;
   let top;
   if(!R){
-    top = `<div class="wt-empty">No weigh-ins yet. Add one below${weightFromHealth() ? '' : ', import a CSV from your scale,'} or connect Apple Health to bring in your smart scale.</div>`;
+    top = emptyStateHTML({ icon: 'scale', title: 'No weigh-ins yet', text: `Weigh in each morning, before breakfast. Add it below${weightFromHealth() ? '' : ', import a CSV from your scale,'} or connect Apple Health to bring in your smart scale.` });
   } else {
     const dayBox = last
       ? `<div class="wt-day"><span>${isToday ? 'Today' : escapeHtml(dayLabel(d))}</span><b>${(+dayW).toFixed(1)}<small>${unit}</small></b><span>${last.src === 'apple' ? AH_ICON + 'Apple Health' : 'You'} · ${fmtClock(lastTs.slice(11, 16))}</span></div>`
@@ -5369,7 +5512,8 @@ function renderWeightCard(){
         <button class="item-del" data-weight-del="${ts}" type="button" aria-label="Delete">✕</button></div>`;
     }).join('');
     emptyMsg.style.display = 'none';
-  } else { list.innerHTML = ''; emptyMsg.style.display = ''; }
+  } else { list.innerHTML = ''; emptyMsg.style.display = 'none'; }
+  { const h = document.getElementById('weightListHead'); if(h) h.style.display = recent.length ? '' : 'none'; }
 }
 // "07:12" → "7:12 AM" in the person's locale
 function fmtClock(hhmm){
@@ -6000,40 +6144,41 @@ function digestionFor(iso){
 // steps: cadence (steps/min) for activities an iPhone counts as steps — on the iPhone-only setup the
 // walking those steps already added is taken off, so a logged walk isn't counted twice.
 const WORKOUTS = [
-  { k: 'walk',     n: 'Walking',            e: '🚶', g: 'Cardio',   m: [2.8, 3.8, 5.5],  c: '17152 · 17190 · 17220', steps: [95, 110, 125], h: ['Easy stroll', 'Steady pace (~3 mph)', 'Very brisk (4+ mph)'] },
-  { k: 'run',      n: 'Running',            e: '🏃', g: 'Cardio',   m: [7.5, 9.3, 12.0], c: '12020 · 12050 · 12090', steps: [150, 160, 170], h: ['Easy jog', '~10 min/mile', '~7.5 min/mile or faster'] },
-  { k: 'hike',     n: 'Hiking',             e: '🥾', g: 'Cardio',   m: [5.3, 6.0, 8.8],  c: '17082 · 17080 · 17036', steps: [90, 100, 105], h: ['Easy trail', 'Cross-country', 'Steep uphill'] },
-  { k: 'cycle',    n: 'Cycling',            e: '🚴', g: 'Cardio',   m: [6.8, 8.0, 12.0], c: '01020 · 01030 · 01050', h: ['10–12 mph', '12–14 mph', '16–19 mph'] },
-  { k: 'spin',     n: 'Spin class / indoor bike', e: '🚲', g: 'Cardio', m: [5.0, 9.0, 10.8], c: '01216 · 01270 · 01236', h: ['Easy spin', 'Spin class', 'Hard, 200 W+'] },
-  { k: 'mtb',      n: 'Mountain biking',    e: '🚵', g: 'Cardio',   m: [6.8, 8.5, 14.0], c: '~ · 01009 · 01003', h: ['Easy trails', 'General', 'Steep climbs'] },
-  { k: 'swim',     n: 'Swimming',           e: '🏊', g: 'Cardio',   m: [4.8, 5.8, 9.8],  c: '18255 · 18240 · 18230', h: ['Relaxed', 'Steady laps', 'Fast laps'] },
-  { k: 'row',      n: 'Rowing machine',     e: '🚣', g: 'Cardio',   m: [5.0, 7.5, 11.0], c: '02071 · 02072 · 02073', h: ['Under 100 W', '100–149 W', '150–199 W'] },
-  { k: 'ellip',    n: 'Elliptical',         e: '⚙️', g: 'Cardio',   m: [4.0, 5.0, 9.0],  c: '~ · 02048 · 02049', h: ['Easy', 'Moderate', 'Vigorous'] },
-  { k: 'stairs',   n: 'Stair climber',      e: '🪜', g: 'Cardio',   m: [4.0, 6.5, 9.3],  c: '~ · ~ · 02065', h: ['Slow', 'Steady', 'Hard'] },
-  { k: 'rope',     n: 'Jump rope',          e: '🪢', g: 'Cardio',   m: [9.0, 11.0, 12.3], c: '02069 · 02068 · ~', h: ['Slow', 'Steady', 'Fast'] },
-  { k: 'weights',  n: 'Weightlifting',      e: '🏋️', g: 'Strength & classes', m: [3.5, 5.0, 6.0], c: '02054 · 02052 · 02050', h: ['Machines, long rests', 'Squats, deadlifts', 'Heavy, powerlifting'] },
-  { k: 'hiit',     n: 'HIIT / CrossFit',    e: '⚡', g: 'Strength & classes', m: [5.0, 7.0, 11.0], c: '02035 · 02210 · 02214', h: ['Easier intervals', 'Moderate HIIT', 'Burpees, Tabata'] },
-  { k: 'circuit',  n: 'Circuit / bootcamp', e: '🔁', g: 'Strength & classes', m: [3.5, 5.0, 7.5], c: '02034 · 02035 · 02040', h: ['Light', 'Moderate', 'Kettlebells, little rest'] },
-  { k: 'bodyweight', n: 'Calisthenics',     e: '🤸', g: 'Strength & classes', m: [2.8, 3.8, 7.5], c: '02024 · 02022 · 02020', h: ['Planks, crunches', 'Push-ups, pull-ups', 'Burpees, jumping jacks'] },
-  { k: 'yoga',     n: 'Yoga',               e: '🧘', g: 'Strength & classes', m: [2.3, 3.0, 4.0], c: '02150 · 02155 · 02160', h: ['Hatha', 'Hot yoga', 'Power yoga'] },
-  { k: 'pilates',  n: 'Pilates',            e: '🤍', g: 'Strength & classes', m: [1.8, 2.8, 3.5], c: '02103 · 02105 · ~', h: ['Mat', 'General', 'Hard reformer'] },
-  { k: 'dance',    n: 'Dance / Zumba',      e: '💃', g: 'Strength & classes', m: [3.8, 6.5, 8.0], c: '03070 · 02310 · 02006', h: ['Social dancing', 'Zumba class', 'High-impact'] },
-  { k: 'aerobics', n: 'Aerobics / step',    e: '👟', g: 'Strength & classes', m: [4.8, 7.3, 9.0], c: '02005 · 02000 · 02003', h: ['Low impact', 'General', 'High step'] },
-  { k: 'boxing',   n: 'Boxing / kickboxing', e: '🥊', g: 'Strength & classes', m: [5.8, 7.8, 12.3], c: '15110 · 15120 · 15100', h: ['Bag work', 'Sparring', 'In the ring'] },
-  { k: 'martial',  n: 'Martial arts / jiu-jitsu', e: '🥋', g: 'Strength & classes', m: [5.3, 7.8, 10.3], c: '15425 · ~ · 15430', h: ['Drills', 'Training', 'Hard rolling / sparring'] },
-  { k: 'tennis',   n: 'Tennis',             e: '🎾', g: 'Sports',   m: [4.5, 6.8, 8.0],  c: '15685 · 15675 · 15690', h: ['Easy doubles', 'General', 'Competitive singles'] },
-  { k: 'padel',    n: 'Padel / pickleball / beach tennis', e: '🏓', g: 'Sports', m: [4.5, 6.0, 6.8], c: 'not in the Compendium — tennis doubles values', h: ['Easy', 'General', 'Competitive'] },
-  { k: 'squash',   n: 'Squash',             e: '🟢', g: 'Sports',   m: [6.0, 7.3, 12.0], c: '~ · 15652 · 15650', h: ['Easy rally', 'General', 'Competitive'] },
-  { k: 'soccer',   n: 'Soccer',             e: '⚽', g: 'Sports',   m: [5.0, 7.0, 9.5],  c: '~ · 15610 · 15605', h: ['Kickabout', 'Casual game', 'Competitive'] },
-  { k: 'basketball', n: 'Basketball',       e: '🏀', g: 'Sports',   m: [5.0, 7.5, 8.0],  c: '15070 · 15055 · 15040', h: ['Shooting around', 'General', 'Full game'] },
-  { k: 'volley',   n: 'Volleyball',         e: '🏐', g: 'Sports',   m: [4.0, 6.0, 8.0],  c: '15710 · 15711 · 15725', h: ['Casual', 'Competitive (indoor)', 'Beach'] },
-  { k: 'golf',     n: 'Golf',               e: '⛳', g: 'Sports',   m: [3.5, 4.3, 4.8],  c: '15290 · 15265 · ~', h: ['With a cart', 'Walking, carrying clubs', 'Walking, fast'] },
-  { k: 'climb',    n: 'Climbing',           e: '🧗', g: 'Outdoors & water', m: [5.8, 8.0, 8.8], c: '~ · 15533 · 15534', h: ['Easy routes', 'General', 'Bouldering'] },
-  { k: 'ski',      n: 'Skiing / snowboarding', e: '⛷️', g: 'Outdoors & water', m: [4.3, 6.3, 8.0], c: '19150 · 19160 · 19170', h: ['Light', 'Moderate', 'Vigorous'] },
-  { k: 'surf',     n: 'Surfing',            e: '🏄', g: 'Outdoors & water', m: [3.0, 4.0, 5.0], c: '18220 · ~ · 18222', h: ['Casual', 'Steady paddling', 'Competitive'] },
-  { k: 'sup',      n: 'Stand-up paddle',    e: '🛶', g: 'Outdoors & water', m: [3.8, 6.5, 9.8], c: '18226 · 18224 · 18228', h: ['Easy strokes', 'General', 'Racing pace'] },
-  { k: 'other',    n: 'Other workout',      e: '✨', g: 'Outdoors & water', m: [3.8, 5.5, 7.8], c: '02064 · 02060 · 02062', h: ['Light', 'Moderate', 'Hard'] }
+  { k: 'walk',     n: 'Walking',            ic: 'steps', g: 'Cardio',   m: [2.8, 3.8, 5.5],  c: '17152 · 17190 · 17220', steps: [95, 110, 125], h: ['Easy stroll', 'Steady pace (~3 mph)', 'Very brisk (4+ mph)'] },
+  { k: 'run',      n: 'Running',            ic: 'shoe', g: 'Cardio',   m: [7.5, 9.3, 12.0], c: '12020 · 12050 · 12090', steps: [150, 160, 170], h: ['Easy jog', '~10 min/mile', '~7.5 min/mile or faster'] },
+  { k: 'hike',     n: 'Hiking',             ic: 'mountain', g: 'Cardio',   m: [5.3, 6.0, 8.8],  c: '17082 · 17080 · 17036', steps: [90, 100, 105], h: ['Easy trail', 'Cross-country', 'Steep uphill'] },
+  { k: 'cycle',    n: 'Cycling',            ic: 'bike', g: 'Cardio',   m: [6.8, 8.0, 12.0], c: '01020 · 01030 · 01050', h: ['10–12 mph', '12–14 mph', '16–19 mph'] },
+  { k: 'spin',     n: 'Spin class / indoor bike', ic: 'bike', g: 'Cardio', m: [5.0, 9.0, 10.8], c: '01216 · 01270 · 01236', h: ['Easy spin', 'Spin class', 'Hard, 200 W+'] },
+  { k: 'mtb',      n: 'Mountain biking',    ic: 'bike', g: 'Cardio',   m: [6.8, 8.5, 14.0], c: '~ · 01009 · 01003', h: ['Easy trails', 'General', 'Steep climbs'] },
+  { k: 'swim',     n: 'Swimming',           ic: 'swim', g: 'Cardio',   m: [4.8, 5.8, 9.8],  c: '18255 · 18240 · 18230', h: ['Relaxed', 'Steady laps', 'Fast laps'] },
+  { k: 'row',      n: 'Rowing machine',     ic: 'oar', g: 'Cardio',   m: [5.0, 7.5, 11.0], c: '02071 · 02072 · 02073', h: ['Under 100 W', '100–149 W', '150–199 W'] },
+  { k: 'ellip',    n: 'Elliptical',         ic: 'heart', g: 'Cardio',   m: [4.0, 5.0, 9.0],  c: '~ · 02048 · 02049', h: ['Easy', 'Moderate', 'Vigorous'] },
+  { k: 'stairs',   n: 'Stair climber',      ic: 'stairs', g: 'Cardio',   m: [4.0, 6.5, 9.3],  c: '~ · ~ · 02065', h: ['Slow', 'Steady', 'Hard'] },
+  { k: 'rope',     n: 'Jump rope',          ic: 'rope', g: 'Cardio',   m: [9.0, 11.0, 12.3], c: '02069 · 02068 · ~', h: ['Slow', 'Steady', 'Fast'] },
+  { k: 'weights',  n: 'Weightlifting',      ic: 'dumbbell', g: 'Strength & classes', m: [3.5, 5.0, 6.0], c: '02054 · 02052 · 02050', h: ['Machines, long rests', 'Squats, deadlifts', 'Heavy, powerlifting'] },
+  { k: 'hiit',     n: 'HIIT / CrossFit',    ic: 'bolt', g: 'Strength & classes', m: [5.0, 7.0, 11.0], c: '02035 · 02210 · 02214', h: ['Easier intervals', 'Moderate HIIT', 'Burpees, Tabata'] },
+  { k: 'circuit',  n: 'Circuit / bootcamp', ic: 'repeat', g: 'Strength & classes', m: [3.5, 5.0, 7.5], c: '02034 · 02035 · 02040', h: ['Light', 'Moderate', 'Kettlebells, little rest'] },
+  { k: 'bodyweight', n: 'Calisthenics',     ic: 'kettlebell', g: 'Strength & classes', m: [2.8, 3.8, 7.5], c: '02024 · 02022 · 02020', h: ['Planks, crunches', 'Push-ups, pull-ups', 'Burpees, jumping jacks'] },
+  { k: 'yoga',     n: 'Yoga',               ic: 'lotus', g: 'Strength & classes', m: [2.3, 3.0, 4.0], c: '02150 · 02155 · 02160', h: ['Hatha', 'Hot yoga', 'Power yoga'] },
+  { k: 'pilates',  n: 'Pilates',            ic: 'lotus', g: 'Strength & classes', m: [1.8, 2.8, 3.5], c: '02103 · 02105 · ~', h: ['Mat', 'General', 'Hard reformer'] },
+  { k: 'dance',    n: 'Dance / Zumba',      ic: 'note', g: 'Strength & classes', m: [3.8, 6.5, 8.0], c: '03070 · 02310 · 02006', h: ['Social dancing', 'Zumba class', 'High-impact'] },
+  { k: 'aerobics', n: 'Aerobics / step',    ic: 'note', g: 'Strength & classes', m: [4.8, 7.3, 9.0], c: '02005 · 02000 · 02003', h: ['Low impact', 'General', 'High step'] },
+  { k: 'boxing',   n: 'Boxing / kickboxing', ic: 'glove', g: 'Strength & classes', m: [5.8, 7.8, 12.3], c: '15110 · 15120 · 15100', h: ['Bag work', 'Sparring', 'In the ring'] },
+  { k: 'martial',  n: 'Martial arts / jiu-jitsu', ic: 'glove', g: 'Strength & classes', m: [5.3, 7.8, 10.3], c: '15425 · ~ · 15430', h: ['Drills', 'Training', 'Hard rolling / sparring'] },
+  { k: 'tennis',   n: 'Tennis',             ic: 'racket', g: 'Sports',   m: [4.5, 6.8, 8.0],  c: '15685 · 15675 · 15690', h: ['Easy doubles', 'General', 'Competitive singles'] },
+  { k: 'padel',    n: 'Padel / pickleball / beach tennis', ic: 'racket', g: 'Sports', m: [4.5, 6.0, 6.8], c: 'not in the Compendium — tennis doubles values', h: ['Easy', 'General', 'Competitive'] },
+  { k: 'squash',   n: 'Squash',             ic: 'racket', g: 'Sports',   m: [6.0, 7.3, 12.0], c: '~ · 15652 · 15650', h: ['Easy rally', 'General', 'Competitive'] },
+  { k: 'soccer',   n: 'Soccer',             ic: 'ball', g: 'Sports',   m: [5.0, 7.0, 9.5],  c: '~ · 15610 · 15605', h: ['Kickabout', 'Casual game', 'Competitive'] },
+  { k: 'basketball', n: 'Basketball',       ic: 'ball', g: 'Sports',   m: [5.0, 7.5, 8.0],  c: '15070 · 15055 · 15040', h: ['Shooting around', 'General', 'Full game'] },
+  { k: 'volley',   n: 'Volleyball',         ic: 'ball', g: 'Sports',   m: [4.0, 6.0, 8.0],  c: '15710 · 15711 · 15725', h: ['Casual', 'Competitive (indoor)', 'Beach'] },
+  { k: 'golf',     n: 'Golf',               ic: 'flag', g: 'Sports',   m: [3.5, 4.3, 4.8],  c: '15290 · 15265 · ~', h: ['With a cart', 'Walking, carrying clubs', 'Walking, fast'] },
+  { k: 'climb',    n: 'Climbing',           ic: 'summit', g: 'Outdoors & water', m: [5.8, 8.0, 8.8], c: '~ · 15533 · 15534', h: ['Easy routes', 'General', 'Bouldering'] },
+  { k: 'ski',      n: 'Skiing / snowboarding', ic: 'snow', g: 'Outdoors & water', m: [4.3, 6.3, 8.0], c: '19150 · 19160 · 19170', h: ['Light', 'Moderate', 'Vigorous'] },
+  { k: 'surf',     n: 'Surfing',            ic: 'wave', g: 'Outdoors & water', m: [3.0, 4.0, 5.0], c: '18220 · ~ · 18222', h: ['Casual', 'Steady paddling', 'Competitive'] },
+  { k: 'sup',      n: 'Stand-up paddle',    ic: 'wave', g: 'Outdoors & water', m: [3.8, 6.5, 9.8], c: '18226 · 18224 · 18228', h: ['Easy strokes', 'General', 'Racing pace'] },
+  { k: 'other',    n: 'Other workout',      ic: 'spark', g: 'Outdoors & water', m: [3.8, 5.5, 7.8], c: '02064 · 02060 · 02062', h: ['Light', 'Moderate', 'Hard'] }
 ];
+WORKOUTS.forEach((w) => { w.e = LI(w.ic); });
 const WORKOUT_BY_KEY = Object.fromEntries(WORKOUTS.map(w => [w.k, w]));
 const INTENSITY = [
   { k: 'light', label: 'Light', hint: 'Easy — you could chat the whole time' },
@@ -6581,6 +6726,7 @@ function renderTrendPeriodNav(){
 }
 function renderTrendsAll(){
   renderTrendPeriodNav();
+  renderTrendEmpty();
   renderTrendsRingAndRuler();
   renderConsumedChart();
   renderBurnedChart();
@@ -6588,6 +6734,25 @@ function renderTrendsAll(){
   renderHealthCharts();
   renderProteinChart();
   renderWeightChart();
+}
+// Nothing finished in this period yet (no food, burn or weigh-in on a past day): one empty state in place
+// of rings and charts that would all read "—".
+function renderTrendEmpty(){
+  const wrap = document.getElementById('trendsFormWrap'), box = document.getElementById('trendEmpty');
+  if(!wrap || !box) return;
+  const today = todayStr(), r = trendRange(trendHorizon, trendOffset);
+  const done = (d) => d < today && (consumedTotal(entries[d]) || hasBurned(entries[d]));
+  const wDone = (d) => Object.keys(weightReadings || {}).some((ts) => ts.slice(0, 10) === d);
+  const inPeriod = sortedDates().some((d) => d >= r.start && d <= r.end && done(d))
+    || Object.keys(weightReadings || {}).some((ts) => { const d = ts.slice(0, 10); return d < today && d >= r.start && d <= r.end; });
+  const ever = sortedDates().some(done) || Object.keys(weightReadings || {}).some((ts) => ts.slice(0, 10) < today);
+  wrap.classList.toggle('t-empty', !inPeriod);
+  box.hidden = inPeriod;
+  if(inPeriod) return;
+  const word = trendHorizon === 'month' ? 'month' : trendHorizon === 'year' ? 'year' : 'week';
+  box.innerHTML = !ever
+    ? emptyStateHTML({ icon: 'trends', title: 'Your trends start tomorrow', text: 'Trends are built from finished days. Log what you eat today and weigh in, and your first day shows up here tomorrow.', action: 'food', button: 'Log food' })
+    : emptyStateHTML({ icon: 'trends', title: trendOffset ? `Nothing logged that ${word}` : `Nothing finished this ${word} yet`, text: trendOffset ? 'No food, burn or weigh-ins were logged in this period.' : 'Trends count finished days, so today joins tomorrow.', action: 'prev-period', button: `See last ${word}` });
 }
 // Groups a (horizon-filtered, chronological) dates array into consecutive runs sharing the same
 // week (Mon-start) or month, returning each run's start/end index into that same dates array —
@@ -6704,10 +6869,10 @@ function ensureWeekendPlugin(){
 // falls in rather than a specific day, since 365 individual dates would be unreadable anyway.
 function horizonXTicks(horizon, dates){
   if(horizon === 'week'){
-    return { color:'#8D90A8', font: { family:'Inter', size: 10 }, maxRotation: 0, autoSkip: false };
+    return { color:'#8D90A8', font: { family:'Inter', size: 11 }, maxRotation: 0, autoSkip: false };
   }
   if(horizon === 'month'){
-    return { color:'#8D90A8', font: { family:'Inter', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 };
+    return { color:'#8D90A8', font: { family:'Inter', size: 11 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 };
   }
   // autoSkip picks indices before our callback ever runs, so it can't line up with month
   // boundaries — it was landing on several indices within the same month, each formatted to
@@ -6722,7 +6887,7 @@ function horizonXTicks(horizon, dates){
     centerLabelByIndex[mid] = monthLabel(monthKey(dates[mid]));
   });
   return {
-    color:'#8D90A8', font: { family:'Inter', size: 10 }, maxRotation: 0, autoSkip: false,
+    color:'#8D90A8', font: { family:'Inter', size: 11 }, maxRotation: 0, autoSkip: false,
     callback(value, index){ return centerLabelByIndex[index] || ''; }
   };
 }
@@ -6904,8 +7069,8 @@ function renderConsumedChart(){
       plugins: { legend: { display:false }, tooltip: { enabled: false } },
       scales: {
         x: { ticks: tickFn, grid: { display:false } },
-        y: { ticks:{ color:'#8D90A8', font:{ family:'Inter', size:10 } }, grid:{ color:'#2E3040' },
-             title:{ display:true, text:'kcal', color:'#8D90A8', font:{ family:'Inter', size:10 } } }
+        y: { ticks:{ color:'#8D90A8', font:{ family:'Inter', size:11 } }, grid:{ color:'#2E3040' },
+             title:{ display:true, text:'kcal', color:'#8D90A8', font:{ family:'Inter', size:11 } } }
       }
     };
     const holdInfo = { titleEl, baseHTML: null, labels, series: [ { color:'#4C8DFF', decimals:0, suffix:' kcal', vals: consumedVals } ] };
@@ -6963,8 +7128,8 @@ function renderBurnedChart(){
       plugins: { legend: { display:false }, tooltip: { enabled: false } },
       scales: {
         x: { ticks: tickFn, grid: { display:false } },
-        y: { ticks:{ color:'#8D90A8', font:{ family:'Inter', size:10 } }, grid:{ color:'#2E3040' },
-             title:{ display:true, text:'kcal', color:'#8D90A8', font:{ family:'Inter', size:10 } } }
+        y: { ticks:{ color:'#8D90A8', font:{ family:'Inter', size:11 } }, grid:{ color:'#2E3040' },
+             title:{ display:true, text:'kcal', color:'#8D90A8', font:{ family:'Inter', size:11 } } }
       }
     };
     const holdInfo = { titleEl, baseHTML: null, labels, series: [ { color:'#4C8DFF', decimals:0, suffix:' kcal', vals: burnedVals } ],
@@ -7028,8 +7193,8 @@ function renderHealthCharts(){
       const options = { responsive: true, maintainAspectRatio: false, events: [], interaction: { mode: 'index', intersect: false },
         plugins: { legend: { display: false }, tooltip: { enabled: false } },
         scales: { x: { ticks: horizonXTicks(trendHorizon, dates), grid: { display: false } },
-          y: { beginAtZero: true, ticks: { color: '#8D90A8', font: { family: 'Inter', size: 10 } }, grid: { color: '#2E3040' },
-               title: { display: true, text: k === 'steps' ? 'steps' : 'kcal', color: '#8D90A8', font: { family: 'Inter', size: 10 } } } } };
+          y: { beginAtZero: true, ticks: { color: '#8D90A8', font: { family: 'Inter', size: 11 } }, grid: { color: '#2E3040' },
+               title: { display: true, text: k === 'steps' ? 'steps' : 'kcal', color: '#8D90A8', font: { family: 'Inter', size: 11 } } } } };
       const hold = { titleEl, baseHTML: null, labels, series: [{ color, decimals: 0, suffix: k === 'steps' ? ' steps' : ' kcal', vals }], note: srcNote };
       let c = healthCharts[k];
       if(c){ c.data = data; c.options = options; c.update(); }
@@ -7107,9 +7272,9 @@ function renderNetChart(){
       scales: {
         x: { ticks: tickFn, grid: { display:false } },
         y: {
-          ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 } },
+          ticks: { color:'#8D90A8', font: { family:'Inter', size: 11 } },
           grid: { color: '#2E3040' },
-          title: { display:true, text: 'kcal', color:'#8D90A8', font: { family:'Inter', size: 10 } }
+          title: { display:true, text: 'kcal', color:'#8D90A8', font: { family:'Inter', size: 11 } }
         }
       }
     };
@@ -7204,9 +7369,9 @@ function renderMacroChart(m){
       scales: {
         x: { ticks: tickFn, grid: { display:false } },
         y: {
-          ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 } },
+          ticks: { color:'#8D90A8', font: { family:'Inter', size: 11 } },
           grid: { color: '#2E3040' },
-          title: { display:true, text: 'g', color:'#8D90A8', font: { family:'Inter', size: 10 } }
+          title: { display:true, text: 'g', color:'#8D90A8', font: { family:'Inter', size: 11 } }
         }
       }
     };
@@ -7258,7 +7423,7 @@ function wtChartOptions(min, max, ticks){
     plugins: { legend: { display: false }, tooltip: { enabled: false } },
     scales: { x: { ticks, grid: { display: false } },
       // suggested bounds: Chart.js rounds the axis out to tidy numbers instead of labelling the exact edges
-      y: { suggestedMin: min, suggestedMax: max, ticks: { color: '#8D90A8', font: { family: 'Inter', size: 10 }, maxTicksLimit: 5, callback: (v) => Number.isInteger(v) ? v : (+v).toFixed(1) }, grid: { color: '#2E3040' } } } };
+      y: { suggestedMin: min, suggestedMax: max, ticks: { color: '#8D90A8', font: { family: 'Inter', size: 11 }, maxTicksLimit: 5, callback: (v) => Number.isInteger(v) ? v : (+v).toFixed(1) }, grid: { color: '#2E3040' } } } };
 }
 function wtHoldInfo(titleEl, labels, cd){
   const u = ' ' + weightUnit();
@@ -7433,7 +7598,7 @@ function histBurnHTML(d, e){
     const src = p.kept ? `Kept from ${p.keptFrom}` : p.manual ? 'Your own total' : (p.health ? 'Apple Health + your profile' : 'Calculated');
     h += `<div class="hb-top"><span>${src}</span><b>${fmtN(p.total)}<small>kcal</small></b></div>`;
     h += `<div class="hb-parts${p.manual ? ' dim' : ''}">${p.parts.map(q => `<div class="hb-part"><i style="background:${BURN_PARTS[q.key].color}"></i><span>${q.key === 'living' && p.noHealth ? 'Everyday movement' : BURN_PARTS[q.key].label}${q.edited ? ' <em>edited</em>' : ''}</span><b>${q.key === 'rest' ? '' : '+'}${fmtN(q.value)}</b></div>`).join('')}</div>`;
-    if(p.workouts.length) h += `<div class="hb-wos">${p.workouts.map(w => { const def = WORKOUT_BY_KEY[w.type] || { e: '✨', n: 'Workout' };
+    if(p.workouts.length) h += `<div class="hb-wos">${p.workouts.map(w => { const def = WORKOUT_BY_KEY[w.type] || { e: LI('spark'), n: 'Workout' };
       return `<span>${def.e} ${escapeHtml(def.n)} · ${w.min} min · ${(INTENSITY[INT_IDX[w.int] ?? 1] || {}).label} · <b>+${fmtN(w.kcal)}</b></span>`; }).join('')}</div>`;
     const hd = healthData[d];
     if(hd && (typeof hd.steps === 'number' || typeof hd.active === 'number')){
@@ -7646,6 +7811,7 @@ function renderAll(){
   if(typeof renderNotifyOffer === 'function') try { renderNotifyOffer(); renderIphoneCard(); } catch(e){}
   if(window.feraHealthWriteSync && healthWriteOn()) window.feraHealthWriteSync();
   renderTrendPeriodNav();
+  renderTrendEmpty();
   renderTrendsRingAndRuler();
   renderConsumedChart();
   renderBurnedChart();
@@ -8059,7 +8225,7 @@ function wireYourDataExtras(){
       setTimeout(() => { try { firebase.auth().signOut(); } catch(e){} location.reload(); }, 1200);
     } catch(e){
       go.disabled = false;
-      st.textContent = (e && e.message && e.message !== 'offline') ? e.message : "Couldn't reach Fera. Check your connection and try again.";
+      st.textContent = friendlyError(e, 'Your account couldn’t be deleted. Please try again.');
     }
   });
 }
@@ -8256,13 +8422,14 @@ function itemNumsHTML(it){
 }
 // ---------- meals: an optional tag on each food, suggested from the time of day ----------
 const MEALS = [
-  { k: 'breakfast', label: 'Breakfast',  e: '🍳', from: 4 * 60,       to: 10 * 60 + 30 },
-  { k: 'amsnack',   label: 'AM snack',   e: '🍎', from: 10 * 60 + 30, to: 12 * 60 },
-  { k: 'lunch',     label: 'Lunch',      e: '🥗', from: 12 * 60,      to: 15 * 60 },
-  { k: 'pmsnack',   label: 'PM snack',   e: '🥨', from: 15 * 60,      to: 18 * 60 },
-  { k: 'dinner',    label: 'Dinner',     e: '🍽️', from: 18 * 60,      to: 21 * 60 + 30 },
-  { k: 'late',      label: 'Late snack', e: '🌙', from: 21 * 60 + 30, to: 28 * 60 }
+  { k: 'breakfast', label: 'Breakfast',  ic: 'breakfast', from: 4 * 60,       to: 10 * 60 + 30 },
+  { k: 'amsnack',   label: 'AM snack',   ic: 'amsnack', from: 10 * 60 + 30, to: 12 * 60 },
+  { k: 'lunch',     label: 'Lunch',      ic: 'lunch', from: 12 * 60,      to: 15 * 60 },
+  { k: 'pmsnack',   label: 'PM snack',   ic: 'pmsnack', from: 15 * 60,      to: 18 * 60 },
+  { k: 'dinner',    label: 'Dinner',     ic: 'dinner', from: 18 * 60,      to: 21 * 60 + 30 },
+  { k: 'late',      label: 'Late snack', ic: 'late', from: 21 * 60 + 30, to: 28 * 60 }
 ];
+MEALS.forEach((m) => { m.e = LI(m.ic); });
 const MEAL_BY_KEY = Object.fromEntries(MEALS.map(m => [m.k, m]));
 function mealForTime(date){
   let m = date.getHours() * 60 + date.getMinutes();
@@ -8284,7 +8451,7 @@ function renderMealRow(){
   // the Add buttons say where the item goes
   const m = cur ? MEAL_BY_KEY[cur] : null;
   document.querySelectorAll('.lg-add-lbl').forEach((l) => { l.textContent = m ? `Add to ${m.label}` : 'Add'; });
-  const tag = document.getElementById('aiMealTag'); if(tag && document.getElementById('aiResult').style.display !== 'none') tag.textContent = m ? `${m.e} ${m.label}` : '';
+  const tag = document.getElementById('aiMealTag'); if(tag && document.getElementById('aiResult').style.display !== 'none') tag.innerHTML = m ? `${m.e}${m.label}` : '';
 }
 document.addEventListener('click', (ev)=>{
   const b = ev.target.closest('#mealRow [data-meal]');
@@ -8464,6 +8631,8 @@ function renderLoggedCard(d, e){
     emptyMsg.style.display = 'none';
   } else {
     list.innerHTML = '';
+    emptyMsg.innerHTML = emptyStateHTML({ icon: 'fork', title: d === todayStr() ? 'Nothing logged today' : `Nothing logged ${dayLabel(d) === 'Yesterday' ? 'yesterday' : 'on ' + escapeHtml(dayLabel(d))}`,
+      text: d === todayStr() ? 'Describe a meal above, snap a photo or scan a barcode. It shows up here, grouped by meal.' : 'You can still add what you ate that day above.' });
     emptyMsg.style.display = '';
   }
 }
@@ -8763,7 +8932,7 @@ async function init(){
       const th = document.getElementById('aiResultThumb');
       if(photoSrc){ th.src = photoSrc; th.style.display = ''; } else { th.removeAttribute('src'); th.style.display = 'none'; }
       const m = MEAL_BY_KEY[currentFoodMeal()];
-      document.getElementById('aiMealTag').textContent = m ? `${m.e} ${m.label}` : '';
+      document.getElementById('aiMealTag').innerHTML = m ? `${m.e}${m.label}` : '';
       renderAiContext(est);
       aiResult.style.display = '';
       fitLabel();
@@ -8774,7 +8943,7 @@ async function init(){
     }catch(err){
       hideThinking();
       // AI turned off: the note under the composer already says so, with Turn on
-      if(!(err && err.message === AI_NOT_ALLOWED)) setAiStatus('' + (err && err.message ? err.message : 'Estimate failed.'), 'error');
+      if(!(err && err.message === AI_NOT_ALLOWED)) setAiStatus(friendlyError(err, 'Fera couldn’t estimate that. Please try again.'), 'error');
       if(err && err.limit && window.offerPremiumForLimit) offerPremiumForLimit('est', err.limit);
     }
     aiEstimateBtn.disabled = false;
@@ -8792,7 +8961,7 @@ async function init(){
     const n = aiDesc.value.length; try { aiDesc.setSelectionRange(n, n); } catch(e){}
   });
 
-  document.getElementById('aiAddBtn').addEventListener('click', async ()=>{
+  document.getElementById('aiAddBtn').addEventListener('click', guardTap(async ()=>{
     const d = selectedDate;
     const desc = aiLabelInput.value.trim();
     const n = readNutri('aiNutri');
@@ -8821,9 +8990,9 @@ async function init(){
     setAiStatus('');
     renderAll(); renderFoodForm();
     showAddToast(d, added);
-  });
+  }));
 
-  document.getElementById('addItemBtn').addEventListener('click', async ()=>{
+  document.getElementById('addItemBtn').addEventListener('click', guardTap(async ()=>{
     const d = selectedDate;
     const descInput = document.getElementById('itemDesc');
     const desc = descInput.value.trim();
@@ -8850,7 +9019,7 @@ async function init(){
     foodStatus.textContent = ''; foodStatus.className = 'status';
     renderAll(); renderFoodForm();
     showAddToast(d, added);
-  });
+  }));
 
 
   // ---- Scan: a barcode (looked up in Open Food Facts by the server) or a photo of the nutrition label
@@ -9019,7 +9188,7 @@ async function init(){
       scanCards('miss');
     } catch(e){
       scanCards(null);
-      setScanStatus(e && e.message && e.message !== 'offline' ? e.message : "Couldn't reach Fera. Check your connection and try again.", 'error');
+      setScanStatus(friendlyError(e, 'That barcode couldn’t be looked up. Please try again.'), 'error');
     }
   }
 
@@ -9092,7 +9261,7 @@ async function init(){
       ? (P.unreadable ? 'Parts of the label were hard to read — check the numbers before adding.' : 'Numbers as printed on the label. Tap any to adjust.')
       : 'From Open Food Facts, a free food database. Tap any number to adjust.';
     const m = MEAL_BY_KEY[currentFoodMeal()];
-    document.getElementById('scanMealTag').textContent = m ? `${m.e} ${m.label}` : '';
+    document.getElementById('scanMealTag').innerHTML = m ? `${m.e}${m.label}` : '';
     renderNutriFields('scanNutri');
     renderScanAmount();
     scanCards('result');
@@ -9150,12 +9319,12 @@ async function init(){
     } catch(err){
       scanCards(null);
       if(err && err.message === AI_NOT_ALLOWED) setScanStatus('Reading labels uses AI, which is off. Barcode scans still work.', 'error', 6000);
-      else setScanStatus('' + (err && err.message ? err.message : 'Reading the label failed.'), 'error');
+      else setScanStatus(friendlyError(err, 'Fera couldn’t read that label. Try a sharper photo of the nutrition panel.'), 'error');
       if(err && err.limit && window.offerPremiumForLimit) offerPremiumForLimit('est', err.limit);
     }
   });
 
-  document.getElementById('scanAddBtn').addEventListener('click', async () => {
+  document.getElementById('scanAddBtn').addEventListener('click', guardTap(async () => {
     const d = selectedDate, P = scan.product;
     const name = scanNameEl.value.trim();
     const n = readNutri('scanNutri');
@@ -9177,7 +9346,7 @@ async function init(){
     scanCards(null); setScanStatus('');
     renderAll(); renderFoodForm();
     showAddToast(d, added);
-  });
+  }));
   window.__startScan = startScan;
 
   // confirmation after adding: what went where, with Undo; the new row in the list flashes
@@ -9213,7 +9382,7 @@ async function init(){
   });
   syncComposer();
 
-  document.getElementById('saveBurnBtn').addEventListener('click', async ()=>{
+  document.getElementById('saveBurnBtn').addEventListener('click', guardTap(async ()=>{
     const d = selectedDate;
     const val = parseInt(document.getElementById('burnedInput').value, 10);
     if(isNaN(val)){
@@ -9231,7 +9400,7 @@ async function init(){
     burnStatus.className = 'status success';
     setTimeout(()=>{ burnStatus.textContent=''; burnStatus.className='status'; }, 1400);
     renderAll();
-  });
+  }));
 
   document.getElementById('trendsSummaryBtn').addEventListener('click', ()=>{
     haptic();
@@ -9332,7 +9501,7 @@ async function init(){
     renderWeightCard();
   });
 
-  document.getElementById('saveWeightBtn').addEventListener('click', async ()=>{
+  document.getElementById('saveWeightBtn').addEventListener('click', guardTap(async ()=>{
     const d = selectedDate;
     const val = parseFloat(document.getElementById('weightValueInput').value);
     if(isNaN(val)){
@@ -9355,7 +9524,7 @@ async function init(){
     setTimeout(()=>{ weightStatus.textContent=''; weightStatus.className='status'; }, 1400);
     renderWeightChart();
     renderWeightCard();
-  });
+  }));
 
   document.getElementById('prevHistMonthBtn').addEventListener('click', ()=>{
     histViewMonth--; if(histViewMonth < 0){ histViewMonth = 11; histViewYear--; }
@@ -9424,6 +9593,7 @@ async function init(){
       profileHeightInput.value = newUnit === 'cm' ? Math.round(raw*2.54*10)/10 : Math.round((raw/2.54)*10)/10;
     }
     userProfile.heightUnit = newUnit;
+    profileChanged();
   });
   profileWeightUnitRow.addEventListener('click', (ev)=>{
     const b = ev.target.closest('.mode-btn'); if(!b) return;
@@ -9436,12 +9606,14 @@ async function init(){
       profileWeightInput.value = newUnit === 'kg' ? Math.round(raw*0.453592*10)/10 : Math.round((raw/0.453592)*10)/10;
     }
     userProfile.initialWeightUnit = newUnit;
+    profileChanged();
   });
   profileSexRow.addEventListener('click', (ev)=>{
     const b = ev.target.closest('.mode-btn'); if(!b) return;
     profileSexRow.querySelectorAll('.mode-btn').forEach(x=>x.classList.remove('active'));
     b.classList.add('active');
     userProfile.sex = b.dataset.sex;
+    profileChanged();
   });
 
   function renderTrackRow(){}   // everyone tracks calories, protein, carbs and fat
@@ -9468,9 +9640,9 @@ async function init(){
       <div class="pb-q">Do you use Apple Health?</div>
       <div class="pb-seg">${seg('yes', `${AH_ICON}Yes`, def.apple)}${seg('no', 'No', !def.apple)}</div>
       ${def.apple ? `<div class="pb-q">What records your movement?</div><div class="bm-opts2">
-        ${dev('watch', '<span class="pb-emo">⌚️</span>', 'Apple Watch', 'Counts all-day movement and workouts on its own')}
-        ${dev('wearable', '<span class="pb-emo">💍</span>', 'Another watch or ring', 'WHOOP, Oura, Garmin, Fitbit… writing workouts to Apple Health')}
-        ${dev('phone', '<span class="pb-emo">📱</span>', 'Just my iPhone', 'Your iPhone counts steps; you log workouts')}
+        ${dev('watch', LI('watch', 'pb-emo'), 'Apple Watch', 'Counts all-day movement and workouts on its own')}
+        ${dev('wearable', LI('ring', 'pb-emo'), 'Another watch or ring', 'WHOOP, Oura, Garmin, Fitbit… writing workouts to Apple Health')}
+        ${dev('phone', LI('phone', 'pb-emo'), 'Just my iPhone', 'Your iPhone counts steps; you log workouts')}
       </div>` : ''}
       ${def.apple ? tg('weight', !!userProfile.weightFromHealth, 'Weight from Apple Health', 'Weigh-ins from a smart scale come in with each sync. You can still add weights by hand.') : ''}
       <p class="bm-explain small">Any day, you can change any part or type your own total in the Burn card.</p>
@@ -9517,9 +9689,21 @@ async function init(){
     renderYourDataAi(); renderYourDataDelete();
     profileOverlay.style.display = 'flex';
   });
-  document.getElementById('profileBackBtn').addEventListener('click', ()=>{ profileOverlay.style.display = 'none'; renderAll(); });
-  document.getElementById('saveProfileBtn').addEventListener('click', async ()=>{
-    haptic();
+  document.getElementById('profileBackBtn').addEventListener('click', ()=>{ profileFlush(); profileOverlay.style.display = 'none'; renderAll(); });
+  // Profile saves as you go, like Goals: a moment after each change (typing pauses, a toggle, leaving a field)
+  // and at once on Back.
+  let profileSaveTimer = null, profileSavedTimer = null;
+  function profileChanged(delay = 600){
+    clearTimeout(profileSaveTimer);
+    profileSaveTimer = setTimeout(() => { profileSaveTimer = null; profileSaveNow(); }, delay);
+  }
+  function profileFlush(){ if(profileSaveTimer){ clearTimeout(profileSaveTimer); profileSaveTimer = null; profileSaveNow(); } }
+  window.profileFlush = profileFlush;
+  [profileNameInput, profileDobInput, profileHeightInput, profileWeightInput].forEach((inp) => {
+    inp.addEventListener('input', () => profileChanged(800));
+    inp.addEventListener('change', () => profileChanged(0));
+  });
+  async function profileSaveNow(){
     userProfile.name = profileNameInput.value.trim() || null;
     userProfile.dob = profileDobInput.value || null;
     const hUnit = userProfile.heightUnit || 'in';
@@ -9531,10 +9715,11 @@ async function init(){
     await persistProfile();
     renderGreeting();
     renderGoalsTargets();
+    syncDerivedBurns();
     renderAll();
-    profileStatus.textContent = 'Profile saved.';
-    setTimeout(()=>{ profileStatus.textContent=''; }, 2000);
-  });
+    profileStatus.innerHTML = '<span class="saved">✓ Saved</span>';
+    clearTimeout(profileSavedTimer); profileSavedTimer = setTimeout(() => { profileStatus.textContent = 'Changes save as you make them.'; }, 1600);
+  }
 
   const weightGoalRow = document.getElementById('weightGoalRow');
   const muscleGoalRow = document.getElementById('muscleGoalRow');
@@ -10300,7 +10485,7 @@ async function healthAction(act, btn){
       callApi('health.key').then((r) => { healthKey = r.key; renderHealthPage(); }).catch(() => {});
     }
   }catch(e){
-    healthMsg = { text: (e && e.message) || 'That didn’t work. Try again.', error: true };
+    healthMsg = { text: friendlyError(e, 'That didn’t work. Please try again.'), error: true };
   }
   btn.disabled = false;
   syncDerivedBurns();
@@ -10853,7 +11038,7 @@ bootAuth();
       }
     } catch(e){
       if(e && e.name === 'AbortError') stopped = true;
-      else { failed = (e && e.message) || 'Something went wrong.'; failedLimit = (e && e.limit) || null; }
+      else { failed = friendlyError(e, 'Fera AI couldn’t answer just now. Please try again.'); failedLimit = (e && e.limit) || null; }
     }
     setStatus(el, '');
     if(stopped){ st.cut(); el.classList.add('stopped'); }
@@ -11186,7 +11371,7 @@ async function pwBuy(){
     const r = await P.purchasePackage({ aPackage: pkg });
     await pwAfterStore(r && r.customerInfo);
   } catch(e){
-    if(!pwCancelled(e)) pw.error = 'The purchase didn’t go through. ' + (e && e.message ? e.message : 'Please try again.');
+    if(!pwCancelled(e)){ const m = friendlyError(e, ''); pw.error = 'The purchase didn’t go through. ' + (m && m !== NET_MSG ? m : m === NET_MSG ? 'Check your connection and try again.' : 'Please try again.'); }
   }
   pw.busy = null; renderPremium();
 }
@@ -11198,7 +11383,7 @@ async function pwRestore(){
     if(!P) throw new Error('Restoring purchases works in the Fera iPhone app.');
     const r = await P.restorePurchases();
     if(!(await pwAfterStore(r && r.customerInfo))) pw.error = 'No Fera subscription was found for this Apple Account.';
-  } catch(e){ pw.error = (e && e.message) || 'Couldn’t restore purchases. Please try again.'; }
+  } catch(e){ pw.error = friendlyError(e, 'Couldn’t restore purchases. Please try again.'); }
   pw.busy = null; renderPremium();
 }
 
@@ -11215,7 +11400,7 @@ function pwMetersHTML(p){
   return `<div class="pw-meters">${est}${chat}</div>`;
 }
 function pwCompareHTML(p){
-  const F = (p && p.free) || { estDay: 3, chatMonth: 6 }, Pm = (p && p.premium) || { estDay: 40, chatMonth: 300 };
+  const F = (p && p.free) || { estDay: 2, chatMonth: 5 }, Pm = (p && p.premium) || { estDay: 40, chatMonth: 300 };
   const est = (l) => l.estDay !== null && l.estDay !== undefined ? pwLimitText(l.estDay, 'day') : pwLimitText(l.estMonth, 'month');
   const chat = (l) => l.chatMonth !== null && l.chatMonth !== undefined ? pwLimitText(l.chatMonth, 'month') : pwLimitText(l.chatDay, 'day');
   const row = (label, f, pr) => `<div class="l">${label}</div><div class="f">${f}</div><div class="p">${pr}</div>`;
@@ -11355,8 +11540,8 @@ function blChartSVG(a){
   const yT = y(trend(n)), yP = y(pred(n));
   return `<div class="bl-key"><span><i class="s"></i>Your scale</span><span><i class="f"></i>What the formula predicted</span></div><svg class="bl-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Weight over the last 28 days: the scale's trend against what the formula predicted">
     <line x1="${px}" x2="${W - px}" y1="${H - bot + 8}" y2="${H - bot + 8}" stroke="rgba(244,245,250,.08)"/>
-    <text x="${px}" y="${H - 4}" fill="#6F7486" font-size="10" font-family="Inter,sans-serif">${blDate(a.days[0].d)}</text>
-    <text x="${W - px}" y="${H - 4}" text-anchor="end" fill="#6F7486" font-size="10" font-family="Inter,sans-serif">${blDate(a.days[n].d)}</text>
+    <text x="${px}" y="${H - 4}" fill="#6F7486" font-size="11" font-family="Inter,sans-serif">${blDate(a.days[0].d)}</text>
+    <text x="${W - px}" y="${H - 4}" text-anchor="end" fill="#6F7486" font-size="11" font-family="Inter,sans-serif">${blDate(a.days[n].d)}</text>
     <line x1="${x(0)}" y1="${y(pred(0))}" x2="${x(n)}" y2="${yP}" stroke="${BL_C.formula}" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round"/>
     <line x1="${x(0)}" y1="${y(trend(0))}" x2="${x(n)}" y2="${yT}" stroke="${BL_C.learned}" stroke-width="3" stroke-linecap="round"/>
     ${dots}
@@ -11373,8 +11558,8 @@ function blHistorySVG(pts){
     <path d="${line(p => p.base)}" fill="none" stroke="${BL_C.formula}" stroke-width="2" stroke-dasharray="5 5"/>
     <path d="${line(p => p.base + p.adj)}" fill="none" stroke="${BL_C.learned}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
     ${pts.map((p, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(p.base + p.adj).toFixed(1)}" r="3.5" fill="${BL_C.learned}"/>`).join('')}
-    <text x="${px}" y="${H - 3}" fill="#6F7486" font-size="10" font-family="Inter,sans-serif">${blDate(pts[0].end)}</text>
-    <text x="${W - px}" y="${H - 3}" text-anchor="end" fill="#6F7486" font-size="10" font-family="Inter,sans-serif">${blDate(pts[pts.length - 1].end)}</text>
+    <text x="${px}" y="${H - 3}" fill="#6F7486" font-size="11" font-family="Inter,sans-serif">${blDate(pts[0].end)}</text>
+    <text x="${W - px}" y="${H - 3}" text-anchor="end" fill="#6F7486" font-size="11" font-family="Inter,sans-serif">${blDate(pts[pts.length - 1].end)}</text>
   </svg>`;
 }
 
@@ -11711,9 +11896,9 @@ function obRender(){
       <h1 class="ob-h big">Your real burn,<br>learned.</h1>
       <p class="ob-p">Most apps guess what you burn. Fera measures it from your own days, and sets targets that fit you.</p>
       <div class="ob-feat">
-        <div><span class="i" style="background:rgba(76,141,255,.14)">📸</span><span><b>Log what you eat</b><small>A photo, your voice, a barcode or one line. About ten seconds.</small></span></div>
-        <div><span class="i" style="background:rgba(56,189,248,.14)">⚖️</span><span><b>Weigh in each morning</b><small>Before breakfast. Your scale is how Fera checks its math.</small></span></div>
-        <div><span class="i" style="background:rgba(155,124,255,.16)">✨</span><span><b>In 7 days, your numbers</b><small>Fera learns your real burn and keeps tuning your targets every day.</small></span></div>
+        <div><span class="i" style="background:rgba(76,141,255,.14);color:#8DB6FF">${LI('camera')}</span><span><b>Log what you eat</b><small>A photo, your voice, a barcode or one line. About ten seconds.</small></span></div>
+        <div><span class="i" style="background:rgba(56,189,248,.14);color:#7DD3FC">${LI('scale')}</span><span><b>Weigh in each morning</b><small>Before breakfast. Your scale is how Fera checks its math.</small></span></div>
+        <div><span class="i" style="background:rgba(155,124,255,.16);color:#C4B5FD">${LI('spark')}</span><span><b>In 7 days, your numbers</b><small>Fera learns your real burn and keeps tuning your targets every day.</small></span></div>
       </div></div>${foot('Get started', '<div class="ob-note">Takes about a minute</div>')}`;
   } else if(s === 'about'){
     const age = obAge();
@@ -11732,7 +11917,7 @@ function obRender(){
     h = `${top()}<div class="ob-body"><div class="ob-k">Weight</div><h1 class="ob-h">What do you weigh today?</h1>
       <label class="ob-bigin"><input type="number" inputmode="decimal" step="0.1" data-ob-in="w" value="${d.w}" placeholder="${d.wUnit === 'kg' ? '80' : '180'}" aria-label="Your weight"><span>${d.wUnit}</span></label>
       <div class="ob-unit">${['lb', 'kg'].map(u => `<button type="button" class="${d.wUnit === u ? 'on' : ''}" data-ob-set="wUnit" data-v="${u}">${u}</button>`).join('')}</div>
-      ${IS_NATIVE && nativeHealth() ? `<div class="ob-card"><span class="ic" style="background:rgba(255,92,122,.14)">❤️</span><span><b>Use your smart scale</b><small>${ob.imported != null ? (ob.imported ? `Brought in ${fmtN(ob.imported)} past weigh-ins from Apple Health. Fera can start learning from your history right away.` : 'Connected. No past weigh-ins in Apple Health yet.') : 'Bring in today\'s weigh-in and your past year from Apple Health. Fera can start learning from your history right away.'}</small>${ob.imported == null ? '<button type="button" class="go" data-ob="import">Import from Apple Health</button>' : ''}</span></div>` : ''}
+      ${IS_NATIVE && nativeHealth() ? `<div class="ob-card"><span class="ic" style="background:rgba(255,92,122,.14);color:#FF6B85">${LI('heart')}</span><span><b>Use your smart scale</b><small>${ob.imported != null ? (ob.imported ? `Brought in ${fmtN(ob.imported)} past weigh-ins from Apple Health. Fera can start learning from your history right away.` : 'Connected. No past weigh-ins in Apple Health yet.') : 'Bring in today\'s weigh-in and your past year from Apple Health. Fera can start learning from your history right away.'}</small>${ob.imported == null ? '<button type="button" class="go" data-ob="import">Import from Apple Health</button>' : ''}</span></div>` : ''}
       <p class="ob-note left">This becomes today's weigh-in, the first of your learning week.</p></div>${foot('Continue')}`;
   } else if(s === 'goal'){
     const show = d.wg === 'lose' || d.wg === 'gain';
@@ -11761,20 +11946,20 @@ function obRender(){
     const label = IS_NATIVE && nativeHealth() && apple && !ob.health ? 'Connect Apple Health' : 'Continue';
     h = `${top()}<div class="ob-body"><div class="ob-k">Your burn</div><h1 class="ob-h">What tracks your movement?</h1>
       <p class="ob-p">Fera adds up your burn from what your devices record, counting each calorie once.</p>
-      <div class="ob-rows">${row('path', 'watch', '⌚️', 'Apple Watch', 'All-day movement and workouts')}
-        ${row('path', 'wearable', '💍', 'Another watch or ring', 'WHOOP, Oura, Garmin, Fitbit via Apple Health')}
-        ${row('path', 'phone', '📱', 'Just my iPhone', 'Steps from your phone; you log workouts')}
-        ${row('path', 'manual', '✍️', 'Nothing', 'Fera estimates movement; you log workouts')}</div>
+      <div class="ob-rows">${row('path', 'watch', LI('watch'), 'Apple Watch', 'All-day movement and workouts')}
+        ${row('path', 'wearable', LI('ring'), 'Another watch or ring', 'WHOOP, Oura, Garmin, Fitbit via Apple Health')}
+        ${row('path', 'phone', LI('phone'), 'Just my iPhone', 'Steps from your phone; you log workouts')}
+        ${row('path', 'manual', LI('pencil'), 'Nothing', 'Fera estimates movement; you log workouts')}</div>
       <p class="ob-note left">${apple ? (IS_NATIVE && nativeHealth() ? (ob.health ? 'Apple Health is connected.' : 'Next, Apple Health asks to share steps, active energy, workouts and weight. Health data is never sold or used for ads.') : 'On the web, Apple Health comes in through a Shortcut. You can set it up after this from the menu → Apple Health.') : ''}</p>
       </div>${foot(label)}`;
   } else if(s === 'reveal'){
     const t = computeTargets();
     if(!t){
       h = `${top({ skip: false })}<div class="ob-body"><div class="ob-k">Almost there</div><h1 class="ob-h">Fera needs a little more</h1>
-        <p class="ob-p">To work out your targets, Fera needs ${setupGap() ? setupGap().text.replace(/^Add your |^Pick your |^Finish setting up: /, '').replace(/ to see your targets$/, '') : 'your profile and goals'}.</p></div>
+        <p class="ob-p">To work out your targets, Fera needs ${setupNeeds()}.</p></div>
         <div class="ob-foot"><button type="button" class="ob-btn" data-ob="fix">Add them now</button><button type="button" class="ob-btn ghost" data-ob="next">Later</button></div>`;
     } else {
-      const days = Array.from({ length: 7 }, (_, i) => { const iso = wtAddDays(todayStr(), i); return `<div><i class="${i === 0 ? 'now' : ''}">${i === 0 || i === 6 ? '⚖️' : ''}</i>${i === 0 ? 'Today' : parseISO(iso).toLocaleDateString(undefined, { weekday: 'short' })}</div>`; }).join('');
+      const days = Array.from({ length: 7 }, (_, i) => { const iso = wtAddDays(todayStr(), i); return `<div><i class="${i === 0 ? 'now' : ''}">${i === 0 || i === 6 ? LI('scale') : ''}</i>${i === 0 ? 'Today' : parseISO(iso).toLocaleDateString(undefined, { weekday: 'short' })}</div>`; }).join('');
       const wg = userGoals.weightGoal;
       h = `${top({ skip: false })}<div class="ob-body"><div class="ob-k">Your starting point</div><h1 class="ob-h">Here's your plan for day one</h1>
         <div class="ob-card col"><div class="ob-rh"><span>Daily target</span>${learnPillHTML()}</div>
@@ -12609,7 +12794,7 @@ function renderNotifyOffer(){
   const show = !!N && !n.on && !n.asked && !n.declined && logged >= 3;
   el.hidden = !show;
   if(!show) return;
-  el.innerHTML = `<span class="wn-ico" aria-hidden="true">🔔</span><span class="wn-t"><b>Want a nudge when you usually eat?</b><small>Fera learns your meal times. At most two reminders a day.</small></span>
+  el.innerHTML = `<span class="wn-ico" aria-hidden="true">${LI('bell')}</span><span class="wn-t"><b>Want a nudge when you usually eat?</b><small>Fera learns your meal times. At most two reminders a day.</small></span>
     <span class="wn-act"><button type="button" class="wn-go" data-no="on">Turn on</button><button type="button" class="wn-later" data-no="no">No thanks</button></span>`;
 }
 document.getElementById('notifyOffer').addEventListener('click', async (ev) => {

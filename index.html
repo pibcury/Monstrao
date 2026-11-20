@@ -1509,8 +1509,7 @@
   .ring-net.empty b{color:var(--muted);}
   /* Trends sits one card deeper, so its top rings get a little smaller to leave room for the average between them */
   #trendRingSection .metrics-top .mring{max-width:100px;}
-  #ringNetT{padding:6px 7px 5px;min-width:58px;}
-  #ringNetT b{font-size:13px;}
+  #ringNetT b{font-size:17px;}
   @keyframes netIn{from{opacity:0;transform:translate(-50%,-40%);}to{opacity:1;transform:translate(-50%,-50%);}}
 
   /* Goals: burn target breakdown */
@@ -2637,12 +2636,12 @@
 
   /* Tap areas: every small control answers to at least a 44×44pt touch, Apple's minimum. The extra area is an
      invisible layer around the control, so nothing moves or looks different. */
-  :where(.fi-edit, #dateSelPrevBtn, #dateSelNextBtn, #trendPrevBtn, #trendNextBtn, .bc-pen, #burnActBtn, .item-del, .lpill,
+  :where(.burn-wo-btn, .fi-edit, #dateSelPrevBtn, #dateSelNextBtn, #trendPrevBtn, #trendNextBtn, .bc-pen, #burnActBtn, .item-del, .lpill,
       .bc-info-btn, .bc-ownbtn, #importWeightBtn, .bc-link, .ob-back, .ob-skip, .fw-x, #chatAiState, .profile-legal a,
       .auth-legal a, .pw-links a, .pw-links button, .wk-toggle button, .wt-ranges button, .mode-btn, .meal-chip, #prevHistMonthBtn, #nextHistMonthBtn,
       .burn-summary-row, #myGoals, .dq-ask, .trend-ask, .bc-wo-add, .ob-unit button, .ob-mini button, .methodology-toggle, #methodologyToggleBtn,
       .pb-seg-b, .btn-small, #chatMicBtn, #chatSendBtn, #chatNewBtn, .fl-tab, .seg button, .wc-del, .burn-log-btn, .bc-tag, .fseg button, .ai-desc-tools button, .es-btn, #aiEstimateBtn, #aiUndoBtn){position:relative;}
-  :where(.fi-edit, #dateSelPrevBtn, #dateSelNextBtn, #trendPrevBtn, #trendNextBtn, .bc-pen, #burnActBtn, .item-del, .lpill,
+  :where(.burn-wo-btn, .fi-edit, #dateSelPrevBtn, #dateSelNextBtn, #trendPrevBtn, #trendNextBtn, .bc-pen, #burnActBtn, .item-del, .lpill,
       .bc-info-btn, .bc-ownbtn, #importWeightBtn, .bc-link, .ob-back, .ob-skip, .fw-x, #chatAiState, .profile-legal a,
       .auth-legal a, .pw-links a, .pw-links button, .wk-toggle button, .wt-ranges button, .mode-btn, .meal-chip, #prevHistMonthBtn, #nextHistMonthBtn,
       .burn-summary-row, #myGoals, .dq-ask, .trend-ask, .bc-wo-add, .ob-unit button, .ob-mini button, .methodology-toggle, #methodologyToggleBtn,
@@ -2713,6 +2712,16 @@
   /* taps: only small round controls shrink; rows, cards and wide buttons dim instead */
   body button:active{transform:none;filter:brightness(.82);}
   body :is(.tabbar button, .ai-fab, .date-nav-btn, .app-menu-btn, .fi-edit, .bc-pen, .item-del, .meal-chip, .lpill, .goal-pill, .chat-sug, #chatSendBtn, #chatMicBtn):active{transform:scale(.94);filter:none;}
+
+  /* the deficit/surplus chip: placed by layoutRingPair (top = the rings' center line) */
+  .metrics-top .ring-net{top:50%;}
+  .burn-wo-row:empty{display:none;}
+  .burn-wo-row{display:flex;justify-content:center;margin-top:8px;}
+  .burn-wo-btn{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:0 12px;border-radius:999px;border:1px solid rgba(76,141,255,.35);background:rgba(76,141,255,.1);color:var(--ink);font:600 12.5px Inter,sans-serif;}
+  .burn-wo-btn .li{width:15px;height:15px;color:var(--accent);}
+  .burn-wo-btn.has{border-color:rgba(255,55,95,.4);background:rgba(255,55,95,.1);}
+  .burn-wo-btn.has .li{color:#FF6B85;}
+  .burn-wo-btn i{font-style:normal;color:var(--muted);margin-left:2px;}
 </style>
 </head>
 <body>
@@ -2796,6 +2805,7 @@
           </div>
         </div>
         <div class="metric-goal" id="mGoalBurn"></div>
+        <div class="burn-wo-row" id="burnWoRow"></div>
       </div>
       <div class="ring-net" id="ringNet" aria-live="polite"></div>
     </div>
@@ -4118,21 +4128,46 @@ function renderRingNet(d, cal, burn){
     ${frac != null ? `<span class="rn-bar"><i style="width:${(frac * 100).toFixed(0)}%"></i></span>` : ''}
     ${goal != null ? `<span class="rn-g">goal <em>${goal === 0 ? '±0' : signedN(goal)}</em></span>` : ''}`;
 }
+// The two big rings and the deficit/surplus chip between them: the rings get as large as the space
+// allows (up to 100px) while staying clear of the chip, the chip sits level with the rings' centers,
+// and both numbers share one font size, shrunk together if either would spill out of its ring.
+function layoutRingPair(s){
+  const sec = document.getElementById(s ? 'trendRingSection' : 'ringSection');
+  const top = sec && sec.querySelector('.metrics-top');
+  const figs = [document.getElementById('mFigCal' + s), document.getElementById('mFigBurn' + s)];
+  if(!top || !top.clientWidth || !figs[0] || !figs[1]) return;
+  const chip = document.getElementById(s ? 'ringNetT' : 'ringNet');
+  const rings = figs.map((f) => f.closest('.mring'));
+  const chipOn = !!(chip && chip.getClientRects().length);
+  if(chipOn){ const nb = chip.querySelector('b'); if(nb){ nb.style.fontSize = ''; let f = parseFloat(getComputedStyle(nb).fontSize); while(nb.scrollWidth > chip.clientWidth - 8 && f > 12){ f -= 0.5; nb.style.fontSize = f + 'px'; } } }
+  const mid = rings.map((r) => { const m = r.closest('.metric').getBoundingClientRect(); return m.left + m.width / 2; });
+  const D = mid[1] - mid[0], SHIFT = chipOn ? 7 : 0, CLEAR = 6;
+  const size = Math.max(72, Math.min(100, Math.floor(chipOn ? D + 2 * SHIFT - chip.offsetWidth - 2 * CLEAR : 100)));
+  rings.forEach((r, i) => { r.style.maxWidth = size + 'px'; r.style.width = size + 'px'; r.style.transform = SHIFT ? `translateX(${i ? SHIFT : -SHIFT}px)` : ''; });
+  const base = Math.min(23, Math.round(size * 0.235 * 2) / 2), avail = size * 0.62;
+  figs.forEach((f) => { f.style.fontSize = base + 'px'; });
+  const widest = Math.max(...figs.map((f) => f.scrollWidth));
+  const fs = widest > avail ? Math.max(12, Math.floor(base * avail / widest * 2) / 2) : base;
+  figs.forEach((f) => { f.style.fontSize = fs + 'px'; });
+  if(chipOn){ const rr = rings[0].getBoundingClientRect(), tr = top.getBoundingClientRect(); chip.style.top = (rr.top + rr.height / 2 - tr.top) + 'px'; }
+}
+function layoutRings(){ layoutRingPair(''); layoutRingPair('T'); }
+window.addEventListener('resize', () => requestAnimationFrame(layoutRings));
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(() => layoutRings());
 // Under the Burn label, a tiny tag says where the number comes from. In the center: "Log" when it's
 // a manual day with nothing logged yet, or the day's activity level when the app is estimating.
 function renderBurnRingExtras(d){
-  const tag = document.getElementById('burnSrcTag'), unit = document.getElementById('mUnitBurn');
+  const tag = document.getElementById('burnSrcTag'), unit = document.getElementById('mUnitBurn'), row = document.getElementById('burnWoRow');
   if(!tag || !unit) return;
+  unit.textContent = 'kcal';
   const mode = burnMode(), e = entries[d];
   const has = hasBurned(e);
   const p = burnParts(d);
   tag.textContent = has ? burnSourceLabel(e, d) : (mode === 'apple' ? 'Apple Health' : 'Estimated');
   if(p && !p.manual && logsWorkouts()){
     const n = p.workouts.length;
-    unit.innerHTML = `<button class="burn-act${n ? ' has' : ''}" id="burnActBtn" type="button" aria-haspopup="dialog" aria-label="${n ? n + ' workouts logged. Add another' : 'Log a workout'}">${n ? `<span>${n} workout${n === 1 ? '' : 's'}</span>` : '<span>＋ Workout</span>'}</button>`;
-  } else {
-    unit.textContent = 'kcal';
-  }
+    if(row) row.innerHTML = `<button class="burn-wo-btn${n ? ' has' : ''}" id="burnActBtn" type="button" aria-haspopup="dialog" aria-label="${n ? n + (n === 1 ? ' workout' : ' workouts') + ' logged. Add another' : 'Log a workout'}">${LI('dumbbell')}${n ? `<span>${n} workout${n === 1 ? '' : 's'}</span><i aria-hidden="true">＋</i>` : '<span>Log a workout</span>'}</button>`;
+  } else if(row) row.innerHTML = '';
 }
 
 // What's still missing before targets can be worked out, in plain words, and which page fixes it.
@@ -7048,7 +7083,7 @@ function renderTrendsRingAndRuler(){
       const n = Math.round(a), kind = n < 0 ? 'deficit' : n > 0 ? 'surplus' : 'even';
       netT.className = 'ring-net ' + kind;
       netT.setAttribute('aria-label', `Average balance: ${signedN(n)} kcal ${kind} a day`);
-      netT.innerHTML = `<span class="rn-k">avg ${kind === 'even' ? 'balance' : kind}</span><b>${signedN(n)}</b>`;
+      netT.innerHTML = `<span class="rn-k">${kind === 'even' ? 'Even' : kind}</span><b>${signedN(n)}</b><span class="rn-g">avg a day</span>`;
     }
   }
   tracked.forEach(m => avgRing(MACRO_INFO[m].key, avgOf(pick(d => consumedMacro(entries[d], m)))));
@@ -7870,6 +7905,7 @@ function renderAll(){
   renderBurnCard();
   renderWeightCard();
   renderHeaderStats();
+  try { layoutRings(); } catch(e){}
 }
 
 // ---------- the single shared date selector (Food / Burn / Weight cards + both rings) ----------
@@ -12597,6 +12633,7 @@ function showRecap(cards, opt){
     const changed = v !== current;
     current = v;
     document.body.dataset.view = v;
+    requestAnimationFrame(() => { try { layoutRings(); } catch(e){} });
     { const t = document.getElementById('pageTitle'), P = { food: ['fork', 'Food'], burn: ['flame', 'Burn'], weight: ['scale', 'Weight'], trends: ['trends', 'Trends'] }[v];
       if(t) t.innerHTML = P ? `${LI(P[0], 'pt-ico')}<span>${P[1]}</span>` : ''; }
     bar.querySelectorAll('[data-view]').forEach(b => { b.classList.toggle('on', b.dataset.view === v); b.setAttribute('aria-current', b.dataset.view === v ? 'page' : 'false'); });

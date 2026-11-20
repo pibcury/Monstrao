@@ -1614,7 +1614,7 @@
   body.tabs:not([data-view="home"]) #dq,body.tabs:not([data-view="home"]) #dayAsk,body.tabs:not([data-view="home"]) #balances{display:none !important;}
   body[data-view="trends"] #ringSection{display:none !important;}
   body.tabs:not([data-view="home"]) #ringSection .today-card{background:none;border:0;box-shadow:none;padding:0;margin:0 0 4px;}
-  body.tabs:not([data-view="home"]) .date-selector.in-card{border-bottom:0;margin-bottom:0;padding-bottom:0;}
+  body.tabs:not([data-view="home"]) .app-header-inner > .date-selector{margin-bottom:2px;}
   body.tabs:not([data-view="home"]) [data-view-card] .burn-summary-row{pointer-events:none;}
   body.tabs:not([data-view="home"]) [data-view-card] .burn-chevron{display:none;}
   /* ---- Fera AI: floating button, chat page ---- */
@@ -1632,6 +1632,12 @@
   .ai-fab.hide{opacity:0;transform:translateY(24px) scale(0.9);pointer-events:none;}
   body.ai-on .wrap{padding-bottom:44px;}
   .app-menu-item.menu-ai .app-menu-ico{color:var(--accent);}
+  /* swiping between tabs: the new page slides in from that side */
+  @keyframes swipeInL{from{transform:translateX(26px);opacity:0;}to{transform:none;opacity:1;}}
+  @keyframes swipeInR{from{transform:translateX(-26px);opacity:0;}to{transform:none;opacity:1;}}
+  .swipe-in-l{animation:swipeInL .22s cubic-bezier(.2,.8,.2,1);}
+  .swipe-in-r{animation:swipeInR .22s cubic-bezier(.2,.8,.2,1);}
+  @media (prefers-reduced-motion: reduce){ .swipe-in-l,.swipe-in-r{animation:none;} }
   .goals-autosave{margin:18px 0 0;text-align:center;font-size:12px;color:var(--muted);}
   .goals-autosave .saved{color:#4ADE80;font-weight:600;}
   .trend-asks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:-4px auto 14px;}
@@ -2616,6 +2622,17 @@
       <p class="eyebrow" id="greetingLine">Fuel in · burn out</p>
       <h1 class="brand"><span class="brand-tile flex-arm" role="img" aria-label="Fera logo"><span class="tile-emoji" aria-hidden="true">💪</span></span><span class="title-word">Fera</span></h1>
 
+      <!-- the date bar: in the same spot on Today, Food, Burn and Weight -->
+      <div class="date-selector" id="globalDateSelector">
+          <button class="date-nav-btn" id="dateSelPrevBtn" type="button" aria-label="Previous day">‹</button>
+          <label class="date-sel-pick" id="dateSelPick">
+            <span class="date-sel-label" id="dateSelLabel">Today</span>
+            <svg class="date-sel-ico" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+            <input type="date" id="dateSelInput" class="date-sel-input" aria-label="Pick a date">
+          </label>
+          <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
+        </div>
+
       <div class="header-stats" id="headerStats">
         <span class="header-stat"><span id="streakVal">0</span>-day streak</span>
       </div>
@@ -2628,15 +2645,6 @@
       <div class="ring-section" id="ringSection">
         <div class="metrics-panel">
     <div class="today-card">
-      <div class="date-selector in-card" id="globalDateSelector">
-          <button class="date-nav-btn" id="dateSelPrevBtn" type="button" aria-label="Previous day">‹</button>
-          <label class="date-sel-pick" id="dateSelPick">
-            <span class="date-sel-label" id="dateSelLabel">Today</span>
-            <svg class="date-sel-ico" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
-            <input type="date" id="dateSelInput" class="date-sel-input" aria-label="Pick a date">
-          </label>
-          <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
-        </div>
     <div class="fw" id="firstWeek" hidden></div>
     <div class="metrics metrics-top">
       <div class="metric metric-cal">
@@ -12303,6 +12311,48 @@ function showRecap(cards, opt){
   }
   window.setView = setView;
   window.currentView = () => current;
+  // ---- swipe left or right to move between the tabs, in tab-bar order ----
+  // Only a clear horizontal flick counts (70px+, mostly sideways, under 0.7s). A flick over a chart works too,
+  // but once press-and-hold takes over a chart (finger still for 280ms) that touch reads days instead. It
+  // never starts in a text field or something that scrolls sideways, or while a page, sheet or the menu is
+  // open over the tabs.
+  (function wireTabSwipe(){
+    let sx = 0, sy = 0, st = 0, track = false;
+    const sideScroll = (el) => { for(let n = el; n && n !== document.body; n = n.parentElement){ const cs = getComputedStyle(n); if((cs.overflowX === 'auto' || cs.overflowX === 'scroll') && n.scrollWidth > n.clientWidth + 2) return true; } return false; };
+    const shown = (e) => !e.hidden && e.getClientRects().length > 0 && getComputedStyle(e).display !== 'none' && getComputedStyle(e).visibility !== 'hidden';
+    const somethingOpen = () => ['sheet-open', 'chat-open', 'ob-open', 'auth-open', 'typing'].some((c) => document.body.classList.contains(c))
+      || [...document.querySelectorAll('[id$="Overlay"], [role="dialog"], #appMenuDropdown')].some(shown);
+    const blocked = (el) => !!(el && el.closest && el.closest('input, textarea, select, [contenteditable="true"], [data-no-swipe], .tabbar')) || sideScroll(el);
+    document.addEventListener('touchstart', (e) => {
+      track = false;
+      if(e.touches.length !== 1 || !document.body.classList.contains('tabs') || blocked(e.target) || somethingOpen()) return;
+      const t = e.touches[0]; sx = t.clientX; sy = t.clientY; st = Date.now(); track = true;
+    }, { passive: true });
+    document.addEventListener('touchmove', (e) => {
+      if(!track) return;
+      if(e.touches.length !== 1) { track = false; return; }
+      const cv = e.target && e.target.closest && e.target.closest('canvas');
+      if(cv && cv.style.touchAction === 'none') track = false;   // the chart is reading days: not a swipe
+    }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      if(!track) return; track = false;
+      const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+      if(Date.now() - st > 700 || Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.8) return;
+      if(window.getSelection && String(window.getSelection()).length) return;
+      const i = VIEWS.indexOf(current), j = i + (dx < 0 ? 1 : -1);
+      if(i < 0 || j < 0 || j >= VIEWS.length) return;
+      haptic(); setView(VIEWS[j]);
+      // the new page slides in from the side it came from
+      const cls = dx < 0 ? 'swipe-in-l' : 'swipe-in-r';
+      document.querySelectorAll('#ringSection, [data-view-card]').forEach((el) => {
+        if(el.id !== 'ringSection' && el.closest('#ringSection')) return;
+        if(!shown(el)) return;
+        el.classList.remove('swipe-in-l', 'swipe-in-r'); void el.offsetWidth; el.classList.add(cls);
+        el.addEventListener('animationend', () => el.classList.remove(cls), { once: true });
+      });
+    }, { passive: true });
+    window.__tabSwipe = { blocked, somethingOpen };
+  })();
   bar.addEventListener('click', (ev) => {
     const b = ev.target.closest('[data-view]'); if(!b) return;
     haptic();

@@ -1421,6 +1421,12 @@
   .wc-add-foot .ah-ico{width:12px;height:12px;}
   .wc-list-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px;}
   .wc-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(244,245,250,0.07);}
+  /* recent weigh-ins: the day and time stacked on the left, the weight on the right */
+  .wc-when{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:1px;}
+  .wc-when b{font-size:13.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+  .wc-when small{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-weight:500;}
+  .wc-when small .ah-ico{width:11px;height:11px;color:#FF8FA3;}
+  .wc-when .wc-time-in{flex:none;width:auto !important;min-width:0;margin:0;padding:0 !important;border:none !important;background:none !important;box-shadow:none !important;font-size:12px !important;color:var(--muted);height:auto;}
   .wc-time{flex:0 0 76px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;}
   .wc-time-in{flex:0 0 116px;width:116px !important;margin:0;padding:6px 8px !important;font-size:14px !important;}
   .wc-src{font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(244,245,250,0.07);color:var(--muted);display:inline-flex;align-items:center;gap:3px;}
@@ -1459,8 +1465,10 @@
   .ring-net .rn-bar i{display:block;height:100%;border-radius:3px;background:currentColor;}
   .ring-net .rn-g{font-size:8.5px;font-weight:600;color:var(--muted);white-space:nowrap;} .ring-net .rn-g em{font-style:normal;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
   .ring-net .rn-k{color:var(--muted);} .ring-net.good .rn-k,.ring-net.bad .rn-k{color:inherit;}
-  .ring-net.good{color:var(--deficit);border-color:rgba(74,222,128,.28);} .ring-net.bad{color:var(--surplus);border-color:rgba(255,92,122,.3);}
-  .ring-net.good b{color:var(--deficit);} .ring-net.bad b{color:var(--surplus);}
+  /* deficit in green, surplus in red, wherever the chip shows */
+  .ring-net.deficit{color:var(--deficit);border-color:rgba(74,222,128,.28);} .ring-net.surplus{color:var(--surplus);border-color:rgba(255,92,122,.3);}
+  .ring-net.deficit b{color:var(--deficit);} .ring-net.surplus b{color:var(--surplus);}
+  .ring-net.deficit .rn-k,.ring-net.surplus .rn-k{color:inherit;}
   .ring-net.empty b{color:var(--muted);}
   /* Trends sits one card deeper, so its top rings get a little smaller to leave room for the average between them */
   #trendRingSection .metrics-top .mring{max-width:100px;}
@@ -1624,7 +1632,11 @@
   .ai-fab.hide{opacity:0;transform:translateY(24px) scale(0.9);pointer-events:none;}
   body.ai-on .wrap{padding-bottom:44px;}
   .app-menu-item.menu-ai .app-menu-ico{color:var(--accent);}
-  .trend-ask{display:flex;align-items:center;justify-content:center;gap:6px;margin:-4px auto 14px;padding:7px 13px;border-radius:999px;
+  .goals-autosave{margin:18px 0 0;text-align:center;font-size:12px;color:var(--muted);}
+  .goals-autosave .saved{color:#4ADE80;font-weight:600;}
+  .trend-asks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:-4px auto 14px;}
+  .trend-asks .trend-ask{font-size:12px;padding:7px 9px;gap:4px;}
+  .trend-ask{display:flex;align-items:center;justify-content:center;gap:6px;margin:0;padding:7px 12px;border-radius:999px;white-space:nowrap;
     border:1px solid rgba(76,141,255,0.35);background:rgba(76,141,255,0.10);color:var(--ink);font-size:12.5px;font-weight:600;cursor:pointer;}
   .trend-ask svg{width:13px;height:13px;color:var(--accent);}
   .trend-ask:active{background:rgba(76,141,255,0.22);}
@@ -2384,6 +2396,9 @@
   .bc-dg-r b{font:700 13px 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
   .wt-goal-off{color:#4ADE80;font-weight:700;white-space:nowrap;}
   .wt-svg{display:block;width:100%;height:auto;touch-action:pan-y;cursor:crosshair;}
+  .wt-canvas{position:relative;height:190px;}
+  .wt-read .cs-line{display:block;} .wt-read .cs-date{color:var(--ink);font-weight:700;} .wt-read .cs-src{color:var(--muted);font-weight:600;}
+  .wt-read .hold-hint{margin-left:auto;}
   .wt-svg text,.wt-path text{font-family:'Inter',sans-serif;}
   .wt-empty{padding:22px 14px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.5;border:1px dashed var(--rule);border-radius:16px;margin-bottom:14px;}
   .wt-card{display:block;width:100%;text-align:left;color:var(--ink);border-radius:18px;border:1px solid var(--rule);background:linear-gradient(180deg,rgba(244,245,250,.045),rgba(244,245,250,.015));padding:14px;margin-top:12px;}
@@ -2409,9 +2424,9 @@
   .wt-pace-r{display:flex;flex-direction:column;align-items:flex-end;gap:3px;font-size:11.5px;color:var(--muted);font-weight:600;} .wt-pace-r b{color:var(--ink);}
   .wt-badge{padding:5px 10px;border-radius:999px;font:700 11px 'Inter',sans-serif;white-space:nowrap;}
   .wt-badge.ok{background:rgba(74,222,128,.14);color:#4ADE80;} .wt-badge.warn{background:rgba(244,183,64,.14);color:#F4B740;} .wt-badge.mid{background:rgba(244,245,250,.08);color:var(--ink);}
-  .wt-weeks{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;align-items:end;margin-top:12px;height:150px;}
-  .wt-wk{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:100%;min-width:0;}
-  .wt-wk i{display:block;width:100%;max-width:34px;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,#4C8DFF,rgba(76,141,255,.28));}
+  .wt-weeks{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;align-items:end;margin-top:12px;}
+  .wt-wk{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;min-width:0;}
+  .wt-wk i{display:block;flex:none;width:100%;max-width:34px;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,#4C8DFF,rgba(76,141,255,.28));}
   .wt-wk.now i{background:repeating-linear-gradient(135deg,rgba(76,141,255,.75) 0 5px,rgba(76,141,255,.35) 5px 10px);}
   .wt-wk.empty i{background:rgba(244,245,250,.08);}
   .wt-wk b{font:700 11.5px 'Sora',sans-serif;font-variant-numeric:tabular-nums;}
@@ -2485,6 +2500,7 @@
   .lp-facts3 b{font:700 18px 'Sora',sans-serif;font-variant-numeric:tabular-nums;} .lp-facts3 b i{font:600 11.5px 'Inter',sans-serif;font-style:normal;color:var(--muted);}
   .lp-facts3 .ok b{color:#4ADE80;} .lp-facts3 .ok b i{color:var(--muted);}
   .lp-facts3 small{font-size:11px;color:var(--muted);line-height:1.3;}
+  .lp-facts3 .lp-need{opacity:.75;}
   .lp-wline{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;}
   .lp-wline i{flex:1;height:0;border-top:1.5px dashed rgba(244,245,250,.25);} .lp-wline b{color:var(--ink);}
 
@@ -2622,7 +2638,6 @@
           <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
         </div>
     <div class="fw" id="firstWeek" hidden></div>
-    <div class="lpill-row" id="ringLearn"></div>
     <div class="metrics metrics-top">
       <div class="metric metric-cal">
         <div class="metric-name">Calories from Food</div>
@@ -2948,9 +2963,9 @@
       </div>
       <p class="status" id="weightStatus"></p>
       <div id="weightMore"></div>
-      <div class="wc-list-h">Weigh-ins · <span id="weightListDay"></span></div>
+      <div class="wc-list-h">Recent weigh-ins<span id="weightListDay" hidden></span></div>
       <div id="weightEntriesList"></div>
-      <div class="empty" id="weightEntriesEmpty" style="padding:6px 0;">No weigh-ins this day.</div>
+      <div class="empty" id="weightEntriesEmpty" style="padding:6px 0;">No weigh-ins yet.</div>
     </div>
   </div>
 
@@ -2970,7 +2985,10 @@
         <div class="period-label" id="trendPeriodLabel">This week</div>
         <button class="date-nav-btn" id="trendNextBtn" type="button" aria-label="Next period">›</button>
       </div>
-      <button class="trend-ask" id="trendAskBtn" type="button" style="display:none;"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span id="trendAskLbl">Ask about this week</span></button>
+      <div class="trend-asks" id="trendAsks" style="display:none;">
+        <button class="trend-ask" id="trendAskBtn" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span id="trendAskLbl">Ask about this week</span></button>
+        <button class="trend-ask" id="trendCompareBtn" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span id="trendCompareLbl">Compare this week</span></button>
+      </div>
 
       <!-- same ring+ruler language as the main page, one layer lighter: target + period average only -->
       <div class="ring-section ring-section-trend" id="trendRingSection">
@@ -3371,8 +3389,7 @@
       <div class="methodology-text" id="methodologyText" style="display:none;"></div>
     </div>
 
-    <button class="btn-primary burn-variant" id="saveGoalsBtn" type="button" style="margin-top:18px;">Save goals</button>
-    <p class="status" id="goalsStatus"></p>
+    <p class="goals-autosave"><span id="goalsStatus" aria-live="polite">Changes save as you make them.</span></p>
   </div>
 </div>
 
@@ -3751,7 +3768,8 @@ function renderMetricRing(key, s, o){
   }
   fig.textContent = fmtN(o.value);
 
-  if(goalEl){
+  if(goalEl && o.caption != null){ goalEl.innerHTML = o.caption; fitOneLine(goalEl); }
+  else if(goalEl){
     goalEl.innerHTML = goalDiffHTML(o.value, o.goal, o.overIsBad, '');
     if(o.goal && o.value != null){
       // Trends rings compare the period's average with the goal: always "over" / "under"
@@ -3836,7 +3854,7 @@ function renderQualityList(s, shares, t){
   const has = MACROS.every(m => typeof shares[m] === 'number');
   el.innerHTML = `<div class="dq2-head"><div class="dq-title">Calorie quality</div>
       <div class="dq2-legend">${MACROS.map(m => `<span style="color:${MACRO_COLOR[m]}">${MACRO_INFO[m].label}</span>`).join('')}</div></div>
-    <div class="dq2-row"><span class="dq2-lbl">Goal mix</span>${mixBarHTML(goal, 'Set your goals to see your target mix', 'goal')}</div>
+    ${s ? '' : `<div class="dq2-row"><span class="dq2-lbl">Goal mix</span>${mixBarHTML(goal, 'Set your goals to see your target mix', 'goal')}</div>`}
     <div class="dq2-row"><span class="dq2-lbl">${actualLbl}</span>${mixBarHTML(has ? shares : null, s ? 'No finished days with food yet' : 'Log food to see your mix', 'actual')}</div>`;
 }
 // "How do I reach my goal today?" — a chip under the calorie-quality rulers, on today only.
@@ -3933,7 +3951,7 @@ function renderRingNet(d, cal, burn){
   // good: on the side the plan asks for (maintain: within 150 either way)
   const good = goal == null ? null : goal < 0 ? net <= 0 : goal > 0 ? net >= 0 : Math.abs(net) <= 150;
   const frac = goal ? Math.max(0, Math.min(1, net / goal)) : null;
-  el.className = `ring-net ${kind} ${good == null ? '' : good ? 'good' : 'bad'}`;
+  el.className = `ring-net ${kind}`;
   el.setAttribute('aria-label', `${isToday ? 'Balance so far' : 'Balance'}: ${signedN(net)} kcal ${kind}. Goal ${goal == null ? 'not set' : signedN(goal)}.`);
   el.innerHTML = `<span class="rn-k">${isToday ? '<i class="rn-live" aria-hidden="true"></i>' : ''}${kind === 'even' ? 'Even' : kind}</span><b>${signedN(net)}</b>
     ${frac != null ? `<span class="rn-bar"><i style="width:${(frac * 100).toFixed(0)}%"></i></span>` : ''}
@@ -4452,7 +4470,7 @@ function burnPartSub(p, q){
   switch(q.key){
     case 'rest': {
       const st = bmrStatusText();
-      return `BMR ${fmtN(p.bmr)} a day${pct}${p.learn && p.learn.status === 'learned' ? ` · ${st.line.split(',')[0]}` : ''}`;
+      return `BMR ${fmtN(p.bmr)} a day${pct}${learnEver() && p.bmrAdj ? ` · ${p.bmrAdj > 0 ? '+' : '−'}${fmtN(Math.abs(p.bmrAdj))} learned` : ''}`;
     }
     case 'living': return p.noHealth ? `No Apple Health data for this day — standing, walking around, chores${pct}` : `Standing, walking around, chores${pct}`;
     case 'steps': {
@@ -4548,11 +4566,11 @@ function renderBurnCard(){
       const info = BURN_PARTS[q.key];
       const editing = bcEditing === q.key;
       let tag = '';
-      if(q.key === 'rest'){ const st = bmrStatusText(); tag = `<button type="button" class="bc-tag bl-open ${st.tag.toLowerCase()}" data-bmr-open aria-label="Resting burn: ${st.tag}. Open details">${st.tag}<span aria-hidden="true">›</span></button>`; }
+      if(q.key === 'rest') tag = learnPillHTML();
       if(q.edited) tag += '<em class="bc-edited">edited</em>';
       html += `<div class="bc-row${editing ? ' editing' : ''}"><span class="bc-dot" style="background:${info.color}"></span>
         <div class="bc-main"><b>${q.key === 'living' && p.noHealth ? 'Everyday movement' : info.label}${tag}</b><small>${burnPartSub(p, q)}</small>
-          ${q.key === 'rest' && p.learn && p.learn.status !== 'learned' ? `<small class="bc-learn">${bmrStatusText().line}</small>` : ''}
+          ${q.key === 'rest' && learnStatus().state !== 'learned' ? `<small class="bc-learn">${bmrStatusText().line}</small>` : ''}
           ${editing ? `<div class="bc-edit"><input type="number" inputmode="numeric" id="bcPartInput" value="${q.value}" aria-label="${info.label}, kcal"><span>kcal</span>
             <button class="btn-small btn-accent" data-bc="save" data-k="${q.key}" type="button">Save</button><button class="btn-small" data-bc="cancel" type="button">Cancel</button></div>` : ''}
           ${q.edited && !editing ? `<button class="bc-link" data-bc="reset" data-k="${q.key}" type="button">Reset to ${fmtN(q.auto)}</button>` : ''}</div>
@@ -4565,7 +4583,7 @@ function renderBurnCard(){
     html += `</div>`;
     html += `<button class="bc-info-btn" data-bc="info" type="button">${bcInfoOpen ? 'Hide how this works' : 'How this is calculated'}</button>`;
     if(bcInfoOpen) html += `<div class="bc-info">
-      <p><b>Resting</b> — your BMR: what your body burns doing nothing. ${bmrLearnState() ? (bmrLearnState().status === 'learned' ? `Fera has learned it from your food and weigh-ins: ${bmrStatusText().line}.` : 'Fera is learning it from your food and weigh-ins; until then it’s the Mifflin-St Jeor estimate from your weight, height, age and sex.') + ' <button class="bc-link" data-bmr-open type="button">See the details</button>' : 'Mifflin-St Jeor estimate from your weight, height, age and sex.'}</p>
+      <p><b>Resting</b> — your BMR: what your body burns doing nothing. ${bmrLearnState() ? (learnEver() ? `Fera has learned it from your food and weigh-ins: ${bmrStatusText().line}.` : 'Fera is learning it from your food and weigh-ins; until then it’s the Mifflin-St Jeor estimate from your weight, height, age and sex.') + ' <button class="bc-link" data-bmr-open type="button">See the details</button>' : 'Mifflin-St Jeor estimate from your weight, height, age and sex.'}</p>
       ${def.parts.includes('steps') ? `<p><b>Steps</b> — walking costs about 0.57 kcal per kg per km (0.67 from age 65), from a systematic review and meta-analysis (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6620279/" target="_blank" rel="noopener">Das Gupta et al., 2019</a>); distance = steps × stride, with stride ≈ 41% of your height.</p>` : ''}
       ${def.parts.includes('active') ? `<p><b>Active energy</b> — what your watch or ring records in Apple Health. WHOOP, Oura and Garmin write workouts there, so steps are counted separately.</p>` : ''}
       ${def.parts.includes('watch') ? `<p><b>Apple Watch activity</b> — the active energy your Apple Watch records all day. It already includes your walking and workouts, so nothing is added on top.</p>` : ''}
@@ -4966,7 +4984,22 @@ function wtChartSVG(W, R, info, sel){
   wtGeom = { days, x, y, L, Rr, VW, line, W, showGoal };
   return `<svg class="wt-svg" viewBox="0 0 ${VW} ${VH}" role="img" aria-label="Weight, ${wtDate(R.start)} to ${wtDate(R.end)}: daily weigh-ins and the 7-day average">${g}</svg>`;
 }
-let wtGeom = null;
+let wtGeom = null, wtCardChart = null;
+function wtCardChartDraw(W, R, info){
+  const cv = document.getElementById('wtCardChart'); if(!cv) return;
+  try {
+    const days = []; for(let d = R.start; d <= R.end; d = wtAddDays(d, 1)) days.push(d);
+    const cd = wtChartData(days, W, info && info.goal != null ? info.goal : null);
+    const labels = days.map(d => d === todayStr() ? 'Today' : wtDate(d));
+    if(wtCardChart){ try { wtCardChart.destroy(); } catch(e){} }
+    const ticks = { color: '#8B90A0', font: { family: 'Inter', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 4 };
+    wtCardChart = new Chart(cv, { type: 'line', data: { labels, datasets: cd.datasets }, options: wtChartOptions(cd.min, cd.max, ticks) });
+    wtCardChart.$dates = days;
+    wtCardChart.$holdInfo = wtHoldInfo(document.querySelector('#weightTop .wt-read'), labels, cd);
+    wtGeom = Object.assign({}, wtGeom || {}, { showGoal: cd.showGoal });
+    setupChartTooltip('wtCardChart', () => wtCardChart);
+  } catch(e){}
+}
 function wtReadDefault(W, info){
   const u = weightUnit();
   let right = '';
@@ -4974,7 +5007,7 @@ function wtReadDefault(W, info){
     right = wtGeom && wtGeom.showGoal ? '<span class="wt-legend"><i class="gl"></i>Goal</span>'
       : `<span class="wt-goal-off">Goal ${wtFmt(info.goal, info.goal % 1 ? 1 : 0)} · ${wtFmt(Math.abs(info.now - info.goal))} ${u} ${info.goal < info.now ? 'below ↓' : 'above ↑'}</span>`;
   }
-  return `<span class="wt-legend"><i class="dot"></i>Weigh-ins <i></i>7-day avg</span>${right}`;
+  return `<span class="wt-legend"><i class="dot"></i>Weigh-ins <i></i>7-day avg</span>${right}${typeof Chart !== 'undefined' ? HOLD_HINT : ''}`;
 }
 function wtScrub(svg, clientX){
   const G = wtGeom; if(!G) return;
@@ -5099,13 +5132,17 @@ function wtWeeksHTML(W){
     weeks.push({ a, avg: v.length ? v.reduce((s, x) => s + x, 0) / v.length : null, n: v.length, now: k === 0 });
   }
   const have = weeks.filter(w => w.avg != null); if(have.length < 2) return '';
-  const lo = Math.min(...have.map(w => w.avg)), hi = Math.max(...have.map(w => w.avg)), sp = (hi - lo) || 1;
-  const good = (d) => d == null || Math.abs(d) < 0.05 ? '' : (userGoals.weightGoal === 'lose' ? d < 0 : userGoals.weightGoal === 'gain' ? d > 0 : Math.abs(d) < 0.3) ? 'good' : 'bad';
+  // bar heights in pixels (percentages don't resolve in every browser); a small spread isn't blown up to fill the box
+  const lo = Math.min(...have.map(w => w.avg)), hi = Math.max(...have.map(w => w.avg));
+  const sp = Math.max(hi - lo, u === 'kg' ? 1 : 2), base = lo - (sp - (hi - lo)) / 2;
+  const px = (v) => Math.round(22 + (v - base) / sp * 70);
+  // vs. the week before: a loss in green, a gain in red
+  const good = (d) => d == null || Math.abs(d) < 0.05 ? '' : d < 0 ? 'good' : 'bad';
   const cols = weeks.map((w, i) => {
-    if(w.avg == null) return `<div class="wt-wk empty"><b>—</b><i style="height:6%"></i><span>${wtDate(w.a)}</span></div>`;
+    if(w.avg == null) return `<div class="wt-wk empty"><b>—</b><i style="height:8px"></i><span>${wtDate(w.a)}</span></div>`;
     const prev = weeks.slice(0, i).reverse().find(x => x.avg != null);
     const d = prev ? w.avg - prev.avg : null;
-    return `<div class="wt-wk${w.now ? ' now' : ''}"><small class="${good(d)}">${d == null ? '' : wtSigned(d)}</small><b>${wtFmt(w.avg)}</b><i style="height:${(28 + (w.avg - lo) / sp * 62).toFixed(0)}%"></i><span>${w.now ? 'This wk' : wtDate(w.a)}</span></div>`;
+    return `<div class="wt-wk${w.now ? ' now' : ''}"><small class="${good(d)}">${d == null ? '' : wtSigned(d)}</small><b>${wtFmt(w.avg)}</b><i style="height:${px(w.avg)}px"></i><span>${w.now ? 'This wk' : wtDate(w.a)}</span></div>`;
   }).join('');
   return `<div class="wt-card"><div class="wt-h"><span>Week by week · average ${u}</span><b class="wt-hint">vs. week before</b></div><div class="wt-weeks">${cols}</div></div>`;
 }
@@ -5161,6 +5198,7 @@ function setGoalWeightFromInput(){
     delete userGoals.goalWeight.reached; delete userGoals.goalWeight.nudgeOff;
   }
   renderGoalWeightGroup();
+  if(window.goalsChanged) window.goalsChanged();
 }
 function openGoalsAt(id){
   document.getElementById('openGoalsBtn').click();
@@ -5230,29 +5268,31 @@ function renderWeightCard(){
       : `<div class="wt-day none"><span>${isToday ? 'Today' : escapeHtml(dayLabel(d))}</span><b>No weigh-in</b><span>${isToday ? 'Add one below' : ''}</span></div>`;
     const chips = [a7 != null && a7ago(7) != null ? ch('This week', a7 - a7ago(7)) : '', a7 != null && a7ago(30) != null ? ch('30 days', a7 - a7ago(30)) : '',
       a7 != null && startAvg != null && wtDiff(d, firstDay) > 13 ? ch('Since ' + wtDate(firstDay), a7 - startAvg) : ''].join('');
-    const chartSvg = wtChartSVG(W, R, info, d);
+    const chartSvg = typeof Chart === 'undefined' ? wtChartSVG(W, R, info, d) : '<div class="wt-canvas"><canvas id="wtCardChart" aria-label="Weight: daily weigh-ins and the 7-day average"></canvas></div>';
     const ranges = R.avail.length > 1 ? `<div class="wt-ranges" role="tablist">${R.avail.map(k => `<button type="button" data-wt-range="${k}" class="${k === R.r ? 'on' : ''}" role="tab" aria-selected="${k === R.r}">${{ '1m': '1M', '3m': '3M', '6m': '6M', '1y': '1Y', all: 'All' }[k]}</button>`).join('')}</div>` : '';
     top = `<div class="wt-hero"><div><div class="wt-k">7-day average${isToday ? '' : ' · ' + escapeHtml(dayLabel(d))}</div><div class="wt-big">${wtFmt(a7)}<small>${unit}</small></div></div>${dayBox}</div>
       ${chips ? `<div class="wt-chips">${chips}</div>` : ''}
       <div class="wt-chartbox">${ranges}<div class="wt-read">@@READ@@</div>${chartSvg}</div>`.replace('@@READ@@', wtReadDefault(W, info));
   }
   document.getElementById('weightTop').innerHTML = top;
+  if(R && typeof Chart !== 'undefined') wtCardChartDraw(W, R, info);
   const more = document.getElementById('weightMore');
   if(more) more.innerHTML = R ? wtGoalCardHTML(W, info) + wtPaceCardHTML(W) + wtWeeksHTML(W) + wtTilesHTML(W) : '';
   document.getElementById('weightUnitLbl').textContent = unit;
-  document.getElementById('weightListDay').textContent = isToday ? 'today' : dayLabel(d);
+  document.getElementById('weightListDay').textContent = '';
   const hn = document.getElementById('weightHealthNote');
   if(hn) hn.innerHTML = weightFromHealth() ? `${AH_ICON}Smart-scale weigh-ins sync from Apple Health` : '';
 
   const list = document.getElementById('weightEntriesList');
   const emptyMsg = document.getElementById('weightEntriesEmpty');
-  if(dayKeys.length){
-    list.innerHTML = dayKeys.map(ts => {
+  // the last 10 weigh-ins, newest first
+  const recent = Object.keys(all).sort().slice(-10).reverse();
+  const dayName = (ts) => { const dd = ts.slice(0, 10); return dd === todayStr() ? 'Today' : dd === wtAddDays(todayStr(), -1) ? 'Yesterday' : parseISO(dd).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }); };
+  if(recent.length){
+    list.innerHTML = recent.map(ts => {
       const r = all[ts];
-      if(r.src === 'apple') return `<div class="wc-row"><span class="wc-time">${fmtClock(ts.slice(11,16))}</span><span class="wc-src ah">${AH_ICON}Apple Health</span><b class="wc-v">${r.value}<small>${r.unit}</small></b><span class="wc-lock" title="Change it in Apple Health">·</span></div>`;
-      return `<div class="wc-row" data-weight="${ts}">
-        <input type="time" class="wc-time-in" data-weight-time="${ts}" value="${ts.slice(11,16)}" aria-label="Time">
-        <span class="wc-src">You</span>
+      if(r.src === 'apple') return `<div class="wc-row"><div class="wc-when"><b>${dayName(ts)}</b><small>${fmtClock(ts.slice(11,16))} · ${AH_ICON}Apple Health</small></div><b class="wc-v">${r.value}<small>${r.unit}</small></b><span class="wc-lock" title="Change it in Apple Health">·</span></div>`;
+      return `<div class="wc-row" data-weight="${ts}"><div class="wc-when"><b>${dayName(ts)}</b><input type="time" class="wc-time-in" data-weight-time="${ts}" value="${ts.slice(11,16)}" aria-label="Time"></div>
         <span class="wc-v"><input type="number" class="wc-v-in" data-weight-value="${ts}" value="${r.value}" step="0.1" inputmode="decimal" aria-label="Weight"><small>${r.unit}</small></span>
         <button class="item-del" data-weight-del="${ts}" type="button" aria-label="Delete">✕</button></div>`;
     }).join('');
@@ -5396,7 +5436,7 @@ async function loadProfile(){
     const snap = await docRef.get();
     if(snap.exists){
       const data = snap.data();
-      if(data && data.json) userProfile = Object.assign({}, userProfile, JSON.parse(data.json));
+      if(data && data.json){ const srv = JSON.parse(data.json); userProfile = Object.assign({}, userProfile, srv); docSync.profile.base = JSON.parse(JSON.stringify(userProfile)); }
     } else {
       const raw = loadLocalRaw(PROFILE_KEY);
       if(raw) userProfile = Object.assign({}, userProfile, JSON.parse(raw));
@@ -5408,15 +5448,84 @@ async function loadProfile(){
     if(raw) userProfile = Object.assign({}, userProfile, JSON.parse(raw));
   }
 }
-async function persistProfile(){
-  try{ localStorage.setItem(PROFILE_KEY, JSON.stringify(userProfile)); }catch(e){}
-  const snapshot = JSON.stringify(userProfile);
-  ensureAuth()
-    .then(()=> userDoc('profile').set({
-      json: snapshot,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    }))
-    .catch(()=>{ /* offline or Firestore unreachable — local copy above still saved */ });
+async function persistProfile(){ persistMerged('profile'); }
+
+// ---------- profile and goals: merged writes and live sync ----------
+// Profile and goals are one JSON document each. A session that has stayed open a while holds an old copy, and
+// writing that copy whole undid what another session had changed meanwhile: on Nov 19 a stale tab put
+// "learning" back over "learned". Now each session remembers the copy it last synced (base), writes only the
+// keys it changed, merged into the server's latest inside a transaction, and takes other sessions' changes
+// as they arrive.
+const docSync = { profile: { base: null, pending: false, chain: Promise.resolve() }, goals: { base: null, pending: false, chain: Promise.resolve() } };
+const syncGet = (n) => n === 'profile' ? userProfile : userGoals;
+const syncPut = (n, v) => { if(n === 'profile') userProfile = v; else userGoals = v; };
+const syncLocalKey = (n) => n === 'profile' ? PROFILE_KEY : GOALS_KEY;
+const sjson = (v) => JSON.stringify(v === undefined ? null : v);
+function syncChanged(cur, base){ const ks = new Set(Object.keys(cur || {}).concat(Object.keys(base || {}))); return [...ks].filter(k => sjson((cur || {})[k]) !== sjson((base || {})[k])); }
+// Takes the server's copy for every key this session hasn't changed since it last synced. Returns true if
+// anything here changed.
+function syncAdopt(name, srv){
+  const cur = syncGet(name), base = docSync[name].base || {};
+  const mine = new Set(syncChanged(cur, base));
+  const next = Object.assign({}, cur);
+  let moved = false;
+  new Set(Object.keys(srv).concat(Object.keys(base))).forEach(k => {
+    if(mine.has(k)) return;
+    if(sjson(next[k]) === sjson(srv[k])) return;
+    if(k in srv) next[k] = srv[k]; else delete next[k];
+    moved = true;
+  });
+  docSync[name].base = JSON.parse(JSON.stringify(srv));
+  if(moved){ syncPut(name, next); try{ localStorage.setItem(syncLocalKey(name), JSON.stringify(next)); }catch(e){} }
+  return moved;
+}
+// Saves locally at once; the server write runs in the background, one at a time per document.
+function persistMerged(name){
+  try{ localStorage.setItem(syncLocalKey(name), JSON.stringify(syncGet(name))); }catch(e){}
+  docSync[name].chain = docSync[name].chain.then(() => persistMergedNow(name)).catch(() => {});
+  return docSync[name].chain;
+}
+async function persistMergedNow(name){
+  const cur = syncGet(name);
+  try{
+    await ensureAuth();
+    const ref = userDoc(name), base = docSync[name].base;
+    const keys = base ? syncChanged(cur, base) : null;
+    if(keys && !keys.length && !docSync[name].pending) return;
+    const sent = JSON.parse(JSON.stringify(cur));
+    const merged = await fbDb.runTransaction(async (tx) => {
+      const snap = await tx.get(ref);
+      let srv = {}; try { srv = snap.exists ? JSON.parse((snap.data() || {}).json || '{}') : {}; } catch(e){}
+      const out = Object.assign({}, srv);
+      if(keys) keys.forEach(k => { if(k in sent) out[k] = sent[k]; else delete out[k]; });
+      else Object.assign(out, sent);
+      tx.set(ref, { json: JSON.stringify(out), updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+      return out;
+    });
+    docSync[name].pending = false;
+    // what this session sent is now the base; then take anything other sessions had changed
+    docSync[name].base = sent;
+    if(syncAdopt(name, merged)) syncRerender(name);
+  }catch(e){
+    docSync[name].pending = true;   // offline or unreachable: the local copy is saved; retried on the next write or when back online
+  }
+}
+let syncRenderTimer = null;
+function syncRerender(name){
+  clearTimeout(syncRenderTimer);
+  syncRenderTimer = setTimeout(() => { if(isEditingField()) return; try { renderAll(); if(window.renderBurnModeSection) window.renderBurnModeSection(); } catch(e){} }, 60);
+}
+function attachDocSync(){
+  ['profile', 'goals'].forEach(name => {
+    try {
+      userDoc(name).onSnapshot(snap => {
+        if(!snap.exists || (snap.metadata && snap.metadata.hasPendingWrites)) return;
+        let srv; try { srv = JSON.parse((snap.data() || {}).json || '{}'); } catch(e){ return; }
+        if(syncAdopt(name, srv)) syncRerender(name);
+      }, () => {});
+    } catch(e){}
+  });
+  window.addEventListener('online', () => { ['profile', 'goals'].forEach(n => { if(docSync[n].pending) persistMerged(n); }); });
 }
 
 async function loadGoals(){
@@ -5426,7 +5535,7 @@ async function loadGoals(){
     const snap = await docRef.get();
     if(snap.exists){
       const data = snap.data();
-      if(data && data.json) userGoals = Object.assign({}, userGoals, JSON.parse(data.json));
+      if(data && data.json){ const srv = JSON.parse(data.json); userGoals = Object.assign({}, userGoals, srv); docSync.goals.base = JSON.parse(JSON.stringify(userGoals)); }
     } else {
       const raw = loadLocalRaw(GOALS_KEY);
       if(raw) userGoals = Object.assign({}, userGoals, JSON.parse(raw));
@@ -5438,16 +5547,7 @@ async function loadGoals(){
     if(raw) userGoals = Object.assign({}, userGoals, JSON.parse(raw));
   }
 }
-async function persistGoals(){
-  try{ localStorage.setItem(GOALS_KEY, JSON.stringify(userGoals)); }catch(e){}
-  const snapshot = JSON.stringify(userGoals);
-  ensureAuth()
-    .then(()=> userDoc('goals').set({
-      json: snapshot,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    }))
-    .catch(()=>{ /* offline or Firestore unreachable — local copy above still saved */ });
-}
+async function persistGoals(){ persistMerged('goals'); }
 
 // ---------- target-calculation engine ----------
 // Current bodyweight in lb: prefer the most recent logged weight reading over the profile's
@@ -5504,9 +5604,10 @@ function renderActivityGroup(){
   const t = computeTargets(); if(!t){ box.innerHTML = ''; return; }
   const s = learnStatus(), learned = s.state === 'learned';
   box.className = 'ag-m ' + (learned ? 'learned' : 'learning');
-  box.innerHTML = `<div class="ag-num"><b>${fmtN(t.tdee)}</b><span>kcal a day</span>${learnPillHTML('mini')}</div>
+  box.innerHTML = `<div class="ag-num"><b>${fmtN(t.tdee)}</b><span>kcal a day</span>${learnPillHTML()}</div>
     <p>${learned
       ? `What you actually burn on an average day, measured over your last ${s.a ? s.a.window : LEARN_MAX_DAYS} days with the resting burn your scale taught Fera. Updated ${learnWhen(s.at)}; it keeps updating every day.`
+      : s.phase === 'lapsed' ? `What Fera last learned you burn on an average day (${learnWhen(s.at)}). ${learnLapsedText(s)}`
       : `Your baseline while Fera learns: the formula's resting burn (${fmtN(t.bmrEst)})${t.tdeeHow === 'measured' ? ` plus the movement Fera measured on your ${t.baseDays} logged days` : ` × ${CAL_BASE_MULT}, a typical day`}. ${s.weigh === 'start' ? 'Weigh in tomorrow morning to start learning.' : `Keep logging: ${s.toGo} day${s.toGo === 1 ? '' : 's'} to go, with a weigh-in on the first and last.`}`}</p>`;
 }
 function computeTargets(){
@@ -5625,7 +5726,7 @@ function targetsMethodologyHTML(t){
       about ${pct}% above your TDEE and ${t.rate} lb is about ${bw}% of your body weight a week${bw > 0.5 ? ' — above that range, so expect a bigger share of the gain to be fat' : ' — inside that range'}.</p>`;
   }
   return `
-    <p><b>BMR</b> ${t.bmr} kcal/day — Mifflin-St Jeor equation, from your weight (${t.weightLb} lb), height, age (${t.age}) and sex${t.bmrAdj ? ` (${t.bmrEst}), ${t.bmrAdj > 0 ? 'plus' : 'minus'} ${Math.abs(t.bmrAdj)} kcal Fera learned from how your weight actually moved against your logs over the last 28 days` : ''}.${bmrLearnState() && !t.bmrAdj ? ' Learning your own resting burn is on — it takes over once there’s about a month of complete logs and weigh-ins.' : ''}</p>
+    <p><b>BMR</b> ${t.bmr} kcal/day — Mifflin-St Jeor equation, from your weight (${t.weightLb} lb), height, age (${t.age}) and sex${t.bmrAdj ? ` (${t.bmrEst}), ${t.bmrAdj > 0 ? 'plus' : 'minus'} ${Math.abs(t.bmrAdj)} kcal Fera learned from how your weight actually moved against your logs over the last 28 days` : ''}.${bmrLearnState() && !t.bmrAdj ? ' Fera learns your own resting burn after ${LEARN_MIN_DAYS} complete days with a weigh-in on the first and the last.' : ''}</p>
     ${calTdee() != null
       ? `<p><b>Daily burn (TDEE)</b> ${fmtN(t.tdee)} kcal/day — <b>learned</b>: the average of what you actually burned each day over your last ${(learnStatus().a || {}).window || LEARN_MAX_DAYS} days (resting + movement + digestion), with the resting burn your scale taught Fera. It updates every day, by at most ${CAL_STEP_DAY} kcal at a time; last on ${blDate(calState().at)}.</p>`
       : `<p><b>Daily burn (TDEE)</b> ${fmtN(t.tdee)} kcal/day — <b>baseline</b>, while Fera learns: ${t.tdeeHow === 'measured' ? `your formula resting burn plus the movement and digestion Fera measured on your ${t.baseDays} logged days` : `your formula resting burn × ${CAL_BASE_MULT}, a typical day, until you've logged a few days`}. After 7 complete days with a weigh-in on the first and last, Fera replaces it with what your scale shows.</p>`}
@@ -5954,29 +6055,37 @@ const LEARN_MIN_DAYS = 7, LEARN_MAX_DAYS = 28, LEARN_GOOD_SHARE = 0.85, LEARN_CA
 const LEARN_WINDOW = LEARN_MAX_DAYS;   // older name, still used by a few labels
 function learnDayList(n, back){ const out = []; for(let i = n + back; i >= 1 + back; i--){ const d = new Date(); d.setDate(d.getDate() - i); out.push(toISO(d)); } return out; }
 function learnWindowRule(N){ const edge = Math.ceil(N / 7); return { good: Math.max(LEARN_MIN_DAYS, Math.ceil(N * LEARN_GOOD_SHARE)), weigh: Math.max(2, Math.ceil(N / 4)), edge }; }
-let learnMemo = { key: '', val: null };
+let learnMemo = { key: '', val: null }, learnAheadMemo = {};
 function learnKey(back){ return todayStr() + '|' + back + '|' + Object.keys(entries).length + '|' + JSON.stringify(userGoals.custom || {}) + '|' + Object.keys(allWeights()).length + '|' + (userProfile.burnPath || '') + '|' + Object.keys(healthData).length + '|' + learnTick; }
 let learnTick = 0;   // bumped by persist() so edits to a day are seen
 // Pure: what Fera would learn from the days ending `back` days before yesterday. Changes nothing.
-function learnAnalysis(back = 0){
-  const key = learnKey(back);
-  if(back === 0 && learnMemo.key === key) return learnMemo.val;
+// back = -1 looks one day ahead (the days ending today); `assume` treats today as complete and/or weighed in,
+// to answer "will tomorrow still pass?" and "does a weigh-in today bring it back?".
+function learnAnalysis(back = 0, assume = null){
+  const key = learnKey(back) + (assume ? '|' + (assume.good ? 'g' : '') + (assume.weigh ? 'w' : '') : '');
+  if(back === 0 && !assume && learnMemo.key === key) return learnMemo.val;
+  if(assume && learnAheadMemo[key] !== undefined) return learnAheadMemo[key];
   const base = bmrBase();
   if(base == null) return null;
   const t = computeTargets();
   const all = learnDayList(LEARN_MAX_DAYS, back);
-  // a day counts once food is fully logged and Fera worked out its burn
+  // a day counts once its food is fully logged. Its burn is the one the day shows: Fera's, or a total the
+  // person typed or kept from WHOOP.
   const goodSet = new Set(all.filter(d => {
+    if(assume && assume.good && d === todayStr()) return true;
     const e = entries[d];
     const cal = consumedTotal(e);
     if(cal == null) return false;
     const items = e.mode === 'items' ? (e.items || []).length : 2;
     const target = t ? t.calorieTarget : 1800;
     if(cal < target * 0.6 && items < 3) return false;          // looks like a partly logged day
-    const p = burnParts(d);
-    return !!(p && !p.manual);
+    return !!burnParts(d);
   }));
-  const wmap = dailyWeightMap();
+  let wmap = dailyWeightMap();
+  if(assume && assume.weigh && !wmap[todayStr()]){
+    const last = Object.keys(wmap).sort().pop();
+    if(last){ wmap = Object.assign({}, wmap); wmap[todayStr()] = wmap[last]; }
+  }
   const lb = (d) => wmap[d].avg * (wmap[d].unit === 'kg' ? 2.20462 : 1);
   // days since the first day with anything logged: the window can't reach before that
   const first = typeof firstLogISO === 'function' ? firstLogISO() : null;
@@ -6008,71 +6117,94 @@ function learnAnalysis(back = 0){
     const slope = den ? num / den : 0;
     const observed = slope * 3500;
     const goodDays = pick.days.filter(d => goodSet.has(d));
-    const predicted = goodDays.reduce((s, d) => s + (consumedTotal(entries[d]) - burnParts(d, base).calc), 0) / goodDays.length;
+    const predicted = goodDays.reduce((s, d) => { const bp = burnParts(d, base); return s + ((consumedTotal(entries[d]) || 0) - (bp.manual ? bp.total : bp.calc)); }, 0) / goodDays.length;
     const residual = predicted - observed;
     const shrunk = residual * goodDays.length / (goodDays.length + 7);
     const cap = base * LEARN_CAP;
     Object.assign(r, { ready: true, adj: Math.round(Math.max(-cap, Math.min(cap, shrunk)) / 10) * 10, capped: Math.abs(shrunk) > cap,
       slope, observed, predicted, fit: { mx, my }, end: pick.days[pick.days.length - 1] });
   }
-  if(back === 0) learnMemo = { key, val: r };
+  if(back === 0 && !assume) learnMemo = { key, val: r };
+  if(assume){ if(Object.keys(learnAheadMemo).length > 20) learnAheadMemo = {}; learnAheadMemo[key] = r; }
   return r;
 }
 // Learning is how Fera works: always on.
 function bmrLearnState(){ const L = userProfile.bmrLearn || {}; return Object.assign({ status: 'learning', adj: 0 }, L, { on: true }); }
-function bmrAdj(){ const L = bmrLearnState(); return (L.status === 'learned' && typeof L.adj === 'number') ? L.adj : 0; }
+// Once Fera has learned, its numbers stay in use, also while it waits for more data (the lapsed phase).
+function learnEver(){ const L = userProfile.bmrLearn || {}, p = userGoals.plan || {}; return typeof p.tdee === 'number' && (L.status === 'learned' || !!L.since || (Array.isArray(p.log) && p.log.length > 0)); }
+function bmrAdj(){ const L = bmrLearnState(); return (learnEver() && typeof L.adj === 'number') ? L.adj : 0; }
 function bmrNow(){ const b = bmrBase(); return b == null ? null : b + bmrAdj(); }
 function learnBmr(){ return bmrLearnState(); }   // progress lives in learnStatus() now
-// Where learning stands, for every pill, nudge and page.
-//   learning: { state, toGo, weigh: 'start' | 'today' | null, a }
-//   learned:  { state, at, weigh: 'soon' | null, a }
+// Where learning stands, for every pill, nudge and page. It's worked out from the data every time, so a
+// stale copy of the profile can't put it in the wrong phase.
+//   new:     never learned. { state: 'learning', phase: 'new', toGo, weigh: 'start' | 'today' | null }
+//            Today's first-week card counts to 7 complete days with a weigh-in on the first and the last.
+//   learned: the last 7–28 days pass the rules. { state: 'learned', phase: 'learned', at, weigh: 'keep' | 'soon' | null }
+//            'keep' = without a weigh-in today, tomorrow's days won't pass; 'soon' = 3+ days since one.
+//   lapsed:  learned before, but the recent days no longer pass. Targets stay where Fera last learned them.
+//            { state: 'learning', phase: 'lapsed', need: 'weigh' | 'food', back: true when a weigh-in today
+//            (and a full day of food) gets it back tomorrow }
 function learnStatus(){
-  const L = bmrLearnState(), C = calState();
+  const C = calState();
   const a = bmrBase() == null ? null : learnAnalysis(0);
   const since = typeof daysSinceWeighIn === 'function' ? daysSinceWeighIn() : null;
   const hasToday = !!dailyWeightMap()[todayStr()];
-  if(L.status === 'learned' && C.tdee != null){
-    return { state: 'learned', at: C.at || L.asOf || null, weigh: since == null || since >= 3 ? 'soon' : null, a };
+  const ever = learnEver();
+  if(ever && a && a.ready){
+    let weigh = null;
+    if(!hasToday){
+      const next = learnAnalysis(-1, { good: true });
+      weigh = next && !next.ready ? 'keep' : since == null || since >= 3 ? 'soon' : null;
+    }
+    return { state: 'learned', phase: 'learned', at: C.at, weigh, a };
   }
-  if(!a) return { state: 'learning', toGo: LEARN_MIN_DAYS, weigh: null, a };
+  if(ever){
+    const back = !!(a && (learnAnalysis(-1, { good: true, weigh: true }) || {}).ready);
+    return { state: 'learning', phase: 'lapsed', at: C.at, need: learnNeed(a), back, weigh: hasToday ? null : 'back', a };
+  }
+  if(!a) return { state: 'learning', phase: 'new', toGo: LEARN_MIN_DAYS, weigh: null, a };
   const toGo = Math.max(0, LEARN_MIN_DAYS - Math.min(a.run, LEARN_MIN_DAYS));
   // the first update needs weigh-ins at both ends of the 7 days: nudge every morning until it's done
   let weigh = null;
   if(a.ready) weigh = null;
   else if(toGo === 0 || !a.weighIns) weigh = hasToday ? null : 'start';
   else if(!hasToday && (since == null || since >= 1)) weigh = 'today';
-  return { state: 'learning', toGo: a.ready ? 0 : (toGo || 1), weigh, a };
+  return { state: 'learning', phase: 'new', toGo: a.ready ? 0 : (toGo || 1), weigh, a };
+}
+// What a lapsed stretch is missing most: recent weigh-ins (the usual case) or fully logged days.
+function learnNeed(a){
+  if(!a) return 'weigh';
+  const N = a.window, R = a.rule || learnWindowRule(N), days = a.days || [];
+  const endOk = days.slice(-R.edge).some(d => d.lb != null), startOk = days.slice(0, R.edge).some(d => d.lb != null);
+  if(!endOk || !startOk || a.weighIns < R.weigh) return 'weigh';
+  return a.good < R.good ? 'food' : 'weigh';
+}
+// One sentence on what the lapsed phase needs, for the Today card, the Learning page and Goals.
+function learnLapsedText(s){
+  if(s.need === 'food') return `Fera needs fully logged days to keep learning: ${s.a ? `${s.a.good} of your last ${s.a.window} days are complete` : 'log everything you eat'}. Your targets stay where Fera last learned them.`;
+  return `${s.back ? 'Weigh in today and Fera is back to Learned tomorrow.' : 'Weigh in every few days and Fera is back to Learned soon.'} Until then your targets stay where Fera last learned them.`;
 }
 function learnWhen(iso){ if(!iso) return ''; const t = todayStr(); if(iso === t) return 'today'; if(wtAddDays(t, -1) === iso) return 'yesterday'; return blDate(iso); }
-// every place a target shows gets the pill (Weekly Progress draws its own)
+// The pill lives in Goals (Your daily burn) and on the Burn card. It says only Learning or Learned.
 function renderLearnPills(){
-  const has = !!computeTargets();
-  [['ringLearn', 'full'], ['targetsLearnPill', 'mini']].forEach(([id, kind]) => { const el = document.getElementById(id); if(!el) return; const show = has && (id !== 'ringLearn' || selectedDate === todayStr()); el.innerHTML = show ? learnPillHTML(kind) : ''; el.hidden = !show; });
+  ['ringLearn', 'targetsLearnPill'].forEach(id => { const el = document.getElementById(id); if(el){ el.innerHTML = ''; el.hidden = true; } });
   if(document.getElementById('agMeasured') && document.getElementById('goalsOverlay') && document.getElementById('goalsOverlay').style.display !== 'none') renderActivityGroup();
 }
-// The small status pill shown wherever targets are. kind: 'full' | 'mini'
-function learnPillHTML(kind = 'full'){
-  const s = learnStatus();
-  let cls, text, ico;
-  if(s.state === 'learned'){
-    cls = s.weigh ? 'learned warn' : 'learned';
-    text = kind === 'mini' ? 'Learned' : s.weigh ? 'Learned · weigh in to keep it current' : `Learned · ${learnWhen(s.at)}`;
-    ico = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".18"/><path d="M4.8 8.3l2.1 2.1 4.3-4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  } else {
-    const prog = Math.max(0.08, (LEARN_MIN_DAYS - s.toGo) / LEARN_MIN_DAYS), C = 2 * Math.PI * 5.5;
-    cls = 'learning' + (s.weigh ? ' warn' : '');
-    const days = `${s.toGo} day${s.toGo === 1 ? '' : 's'} to go`;
-    text = kind === 'mini' ? (s.weigh === 'start' ? 'Learning · weigh in' : `Learning · ${s.toGo}d`)
-      : s.weigh === 'start' ? 'Learning · weigh in to start' : s.weigh === 'today' ? `Learning · ${days} · weigh in today` : `Learning · ${days}`;
-    ico = `<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="2" opacity=".25"/><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="${(C * prog).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 8 8)"/></svg>`;
-  }
-  return `<button type="button" class="lpill ${kind} ${cls}" data-bmr-open aria-label="${text}. Open Learning">${ico}<span>${text}</span></button>`;
+function learnPillHTML(){
+  const s = learnStatus(), learned = s.state === 'learned';
+  const text = learned ? 'Learned' : 'Learning';
+  const ico = learned
+    ? '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".18"/><path d="M4.8 8.3l2.1 2.1 4.3-4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    : (() => { const prog = s.phase === 'new' ? Math.max(0.08, (LEARN_MIN_DAYS - s.toGo) / LEARN_MIN_DAYS) : 0.5, C = 2 * Math.PI * 5.5;
+        return `<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="2" opacity=".25"/><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="${(C * prog).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 8 8)"/></svg>`; })();
+  return `<button type="button" class="lpill mini ${learned ? 'learned' : 'learning'}" data-bmr-open aria-label="${text}. Open Learning">${ico}<span>${text}</span></button>`;
 }
 // One short line describing where the resting burn stands, for the Burn card and Profile.
 function bmrStatusText(){
   const L = bmrLearnState(), s = learnStatus();
   if(s.state === 'learned') return { tag: 'Learned', line: `${(L.adj || 0) >= 0 ? '+' : '−'}${fmtN(Math.abs(L.adj || 0))} kcal/day vs the formula, from your last ${s.a ? s.a.window : LEARN_MAX_DAYS} days` };
-  return { tag: 'Learning', line: s.weigh === 'start' ? 'Learning · weigh in to start' : `Learning · ${s.toGo} day${s.toGo === 1 ? '' : 's'} to go` };
+  if(s.phase === 'lapsed') return { tag: 'Learning', line: s.need === 'food' ? 'Needs fully logged days to stay current' : 'Needs a recent weigh-in to stay current' };
+  return { tag: 'Learning', line: s.weigh === 'start' ? 'Weigh in to start' : `${s.toGo} day${s.toGo === 1 ? '' : 's'} to go` };
 }
 
 // Keeps every day's burn in line with the rules above. A total the person typed always stays.
@@ -6118,6 +6250,7 @@ function isEditingField(){
 }
 function attachLiveSync(){
   if(!fbDb) return;
+  attachDocSync();
   try{
     userDoc('entries').onSnapshot(snap=>{
       if(!snap.exists) return;
@@ -6351,6 +6484,8 @@ function renderTrendPeriodNav(){
   document.getElementById('trendPrevBtn').disabled = trendRange(trendHorizon, trendOffset + 1).end < earliestLoggedDate();
   const ask = document.getElementById('trendAskLbl');
   if(ask && typeof trendAskLabel === 'function') ask.textContent = trendAskLabel();
+  const cmp = document.getElementById('trendCompareLbl');
+  if(cmp && typeof trendCompareLabel === 'function') cmp.textContent = trendCompareLabel();
 }
 function renderTrendsAll(){
   renderTrendPeriodNav();
@@ -6595,8 +6730,10 @@ function renderTrendsRingAndRuler(){
   const tracked = trackedMacros();
   showTrackedMacros();
 
-  renderMetricRing('Cal', 'T', { value: avgOf(cal), goal: t && t.calorieTarget, placeholder: 2000, overIsBad: true });
-  renderMetricRing('Burn', 'T', { value: avgOf(brn), goal: t && t.burnTarget, placeholder: 2200, overIsBad: false });
+  // goals change over time, so Trends shows plain averages: full rings, no goal or over/under
+  const avgRing = (key, v) => renderMetricRing(key, 'T', { value: v, goal: null, placeholder: v || 1, caption: v == null ? 'no finished days' : 'avg a day' });
+  avgRing('Cal', avgOf(cal));
+  avgRing('Burn', avgOf(brn));
   // between the two rings: the period's average deficit/surplus (finished days with food and burn)
   const netT = document.getElementById('ringNetT');
   if(netT){
@@ -6605,18 +6742,12 @@ function renderTrendsRingAndRuler(){
     netT.style.display = a == null ? 'none' : '';
     if(a != null){
       const n = Math.round(a), kind = n < 0 ? 'deficit' : n > 0 ? 'surplus' : 'even';
-      const goal = t ? Math.round(t.calorieTarget - t.burnTarget) : null;
-      const good = goal == null ? null : goal < 0 ? n <= 0 : goal > 0 ? n >= 0 : Math.abs(n) <= 150;
-      const frac = goal ? Math.max(0, Math.min(1, n / goal)) : null;
-      netT.className = `ring-net ${kind} ${good == null ? '' : good ? 'good' : 'bad'}`;
       netT.className = 'ring-net ' + kind;
-      netT.innerHTML = `<b>${signedN(n)}</b><span class="rn-k">avg ${kind}</span>`;
+      netT.setAttribute('aria-label', `Average balance: ${signedN(n)} kcal ${kind} a day`);
+      netT.innerHTML = `<span class="rn-k">avg ${kind === 'even' ? 'balance' : kind}</span><b>${signedN(n)}</b>`;
     }
   }
-  tracked.forEach(m => {
-    renderMetricRing(MACRO_INFO[m].key, 'T', { value: avgOf(pick(d => consumedMacro(entries[d], m))), goal: macroTarget(m, t),
-      placeholder: MACRO_PLACEHOLDER[m], overIsBad: m !== 'protein' && calOverIsBad });
-  });
+  tracked.forEach(m => avgRing(MACRO_INFO[m].key, avgOf(pick(d => consumedMacro(entries[d], m)))));
   // the period's mix: all macro calories over the finished days that have all three macros
   const shares = {}, kc = { protein: 0, carbs: 0, fat: 0 };
   dates.forEach(d => { const e = entries[d]; const g = MACROS.map(m => consumedMacro(e, m)); if(g.every(v => v != null)) MACROS.forEach((m, i) => { kc[m] += g[i] * MACRO_INFO[m].kcal; }); });
@@ -7003,6 +7134,39 @@ function renderMacroChart(m){
 }
 
 // ---------- rendering: weight vs balance ----------
+// One weight chart for Trends and the Weight card: daily weigh-ins as dots, the 7-day average as the line,
+// the goal weight as a dashed line when it's in view. Press and hold to read a day: the row above the chart
+// shows the date, that day's weigh-in and the 7-day average.
+function wtChartData(days, W, goal){
+  const u = weightUnit(), N = days.length;
+  const dots = days.map(d => W[d] ? Math.round(W[d].v * 10) / 10 : null);
+  const avg = days.map(d => { const a = wtAvg7(W, d); return a == null ? null : Math.round(a * 10) / 10; });
+  const vals = dots.concat(avg).filter(v => v != null);
+  let lo = vals.length ? Math.min(...vals) : 0, hi = vals.length ? Math.max(...vals) : 1;
+  const span0 = Math.max(hi - lo, u === 'kg' ? 1 : 2);
+  const showGoal = goal != null && goal >= lo - span0 * 0.9 && goal <= hi + span0 * 0.9;
+  if(showGoal){ lo = Math.min(lo, goal); hi = Math.max(hi, goal); }
+  const pad = Math.max((hi - lo) * 0.12, 0.4);
+  const datasets = [
+    { label: '7-day average', data: avg, borderColor: '#4C8DFF', backgroundColor: 'rgba(76,141,255,.10)', fill: 'start', tension: 0.35, pointRadius: 0, pointHoverRadius: 4.5, pointHoverBackgroundColor: '#4C8DFF', borderWidth: 2.6, spanGaps: true, order: 2 },
+    { label: 'Weigh-in', data: dots, showLine: false, pointRadius: N > 200 ? 1.4 : N > 100 ? 1.9 : 2.6, pointBackgroundColor: 'rgba(156,192,255,.62)', pointBorderWidth: 0, pointHoverRadius: 4.5, pointHoverBackgroundColor: '#CFE0FF', order: 1 }
+  ];
+  if(showGoal) datasets.push({ label: 'Goal', data: days.map(() => goal), borderColor: 'rgba(74,222,128,.75)', borderDash: [4, 4], borderWidth: 1.3, pointRadius: 0, pointHoverRadius: 0, fill: false, _isOverlay: true, order: 3 });
+  return { datasets, dots, avg, min: lo - pad, max: hi + pad, showGoal };
+}
+function wtChartOptions(min, max, ticks){
+  return { responsive: true, maintainAspectRatio: false, events: [], animation: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+    scales: { x: { ticks, grid: { display: false } },
+      y: { min, max, ticks: { color: '#8D90A8', font: { family: 'Inter', size: 10 }, maxTicksLimit: 5, callback: (v) => Number.isInteger(v) ? v : (+v).toFixed(1) }, grid: { color: '#2E3040' } } } };
+}
+function wtHoldInfo(titleEl, labels, cd){
+  const u = ' ' + weightUnit();
+  return { titleEl, baseHTML: null, labels, joiner: ' · ', series: [
+    { label: 'Weighed', color: '#CFE0FF', decimals: 1, suffix: u, vals: cd.dots },
+    { label: '7-day', color: '#4C8DFF', decimals: 1, suffix: u, vals: cd.avg } ] };
+}
 function renderWeightChart(){
   // Weight shares the Trends card's single Week/Month/Year horizon toggle. Unlike Consumed-vs-
   // burned, Weight always keeps its daily points at every horizon (only Consumed-vs-burned was
@@ -7010,7 +7174,7 @@ function renderWeightChart(){
   const emptyEl = document.getElementById('weightEmpty');
   const wrapEl = document.getElementById('weightChartsWrap');
   const titleEl = document.getElementById('trendWeightChartTitle');
-  const hasWeight = Object.keys(weightReadings).length > 0;
+  const hasWeight = Object.keys(allWeights()).length > 0;
   if(!hasWeight){
     if(titleEl) titleEl.innerHTML = chartStatsHTML(['no data yet']);
     emptyEl.textContent = 'No weight data yet — log one above, in "Log weight".';
@@ -7029,72 +7193,22 @@ function renderWeightChart(){
   try{
     ensureWeekendPlugin();
     ensureAvgLabelPlugin();
-    const bucketType = HORIZON_BUCKET[trendHorizon];
-    const wMap = dailyWeightMap();
-    const unit = weightUnit();
-    const allDates = Array.from(new Set([
-      ...Object.keys(wMap),
-      ...sortedDates().filter(d=>net(entries[d])!=null)
-    ])).sort();
-    const dates = filterDatesByHorizon(allDates, trendHorizon);
-
-    const weightVals = dates.map(d => wMap[d] ? Math.round(wMap[d].avg*10)/10 : null);
+    const W = wtDays(), keys = Object.keys(W).sort();
+    const r = trendRange(trendHorizon, trendOffset), today = todayStr();
+    let from = r.start, to = r.end < today ? r.end : today;
+    if(keys.length && keys[0] > from) from = keys[0];
+    const dates = []; for(let d = from; d <= to; d = wtAddDays(d, 1)) dates.push(d);
+    const gw = goalWeight ? goalWeight() : null;
+    const cd = wtChartData(dates, W, gw ? Math.round(wtUnitFromLb(gw.lb) * 10) / 10 : null);
     const labels = dates.map(trendLabel);
     const tickFn = horizonXTicks(trendHorizon, dates);
-    const avgWeight = avgOf(weightVals);
-
-    if(titleEl){
-      const wv = weightVals.filter(v => v != null);
-      const change = wv.length >= 2 ? Math.round((wv[wv.length-1] - wv[0]) * 10) / 10 : null;
-      titleEl.innerHTML = chartStatsHTML([
-        `avg <b style="color:#4C8DFF">${avgWeight != null ? Math.round(avgWeight*10)/10 : '—'}</b> ${unit}`,
-        `change <b>${change != null ? (change > 0 ? '+' : '') + change : '—'}</b>${change != null ? ' ' + unit : ''}`
-      ]);
-    }
-
-    // White overlay (not purple) so it reads clearly against the main weight line's own color.
-    let overlayDatasets=[], segs=[];
-    if(bucketType){
-      const o = buildAvgOverlay(dates, bucketType, weightVals, '#FFFFFF', 1, ' '+unit);
-      overlayDatasets = o.datasets; segs = o.segments;
-    }
-
+    if(titleEl) titleEl.innerHTML = chartStatsHTML();
     const ctx = document.getElementById('weightChart');
-    const datasets = [{
-      label: `Weight (${unit})`,
-      data: weightVals,
-      borderColor: '#4C8DFF',
-      backgroundColor: 'transparent',
-      tension: 0.3,
-      pointRadius: 2,
-      borderWidth: 2.5,
-      spanGaps: true
-    }, ...overlayDatasets];
-    const weightSegGroups = bucketType ? segs.map(s=>[s]) : null;
-    const data = { labels, datasets };
-    const options = {
-      responsive: true,
-      maintainAspectRatio: false,
-      events: [],
-      interaction: { mode: 'index', intersect: false },
-      plugins: { legend: { display:false }, tooltip: { enabled: false } },
-      scales: {
-        x: { ticks: tickFn, grid: { display:false } },
-        y: {
-          ticks: { color:'#8D90A8', font: { family:'Inter', size: 10 } },
-          grid: { color: '#2E3040' },
-          title: { display:true, text: unit, color:'#8D90A8', font: { family:'Inter', size: 10 } }
-        }
-      }
-    };
-    const weightHoldInfo = {
-      titleEl,
-      baseHTML: null,
-      labels,
-      series: [ { color:'#4C8DFF', decimals:1, suffix:' '+unit, vals: weightVals } ]
-    };
-    if(weightChart){ weightChart.data = data; weightChart.options = options; weightChart.$dates = dates; weightChart.$avgSegments = weightSegGroups; weightChart.$holdInfo = weightHoldInfo; weightChart.update(); }
-    else { weightChart = new Chart(ctx, { type:'line', data, options }); weightChart.$dates = dates; weightChart.$avgSegments = weightSegGroups; weightChart.$holdInfo = weightHoldInfo; }
+    const data = { labels, datasets: cd.datasets };
+    const options = wtChartOptions(cd.min, cd.max, tickFn);
+    const weightHoldInfo = wtHoldInfo(titleEl, labels, cd);
+    if(weightChart){ weightChart.data = data; weightChart.options = options; weightChart.$dates = dates; weightChart.$avgSegments = null; weightChart.$holdInfo = weightHoldInfo; weightChart.update(); }
+    else { weightChart = new Chart(ctx, { type:'line', data, options }); weightChart.$dates = dates; weightChart.$avgSegments = null; weightChart.$holdInfo = weightHoldInfo; }
   }catch(e){ /* charts failed; rest of the app still works */ }
 }
 
@@ -7555,7 +7669,7 @@ function holdTitleHTML(info, index, dates){
       const r = Math.round(v * mult) / mult;
       text = `${(s.showSign && r>0) ? '+' : ''}${r.toLocaleString()}${s.suffix || ''}`;
     }
-    return `<b style="color:${color}">${text}</b>`;
+    return `${s.label ? `<span class="cs-src">${s.label}</span> ` : ''}<b style="color:${color}">${text}</b>`;
   });
   const iso = dates && dates[index];
   const label = iso ? parseISO(iso).toLocaleDateString(undefined, { weekday:'long', month:'short', day:'numeric' }) + (iso === todayStr() ? ' · today' : '')
@@ -9337,7 +9451,7 @@ async function init(){
     const b = ev.target.closest('.goal-pill'); if(!b) return;
     haptic();
     userGoals.weightRate = parseFloat(b.dataset.rate);
-    renderRateRow(); renderGoalWeightGroup(); renderGoalsTargets();
+    renderRateRow(); renderGoalWeightGroup(); renderGoalsTargets(); goalsChanged();
   });
   document.querySelectorAll('.target-input').forEach(inp=>{
     inp.addEventListener('change', ()=>{
@@ -9347,6 +9461,7 @@ async function init(){
       if(isNaN(v) || v <= 0 || (t && Math.round(v) === t.calc[k])) delete userGoals.custom[k];
       else userGoals.custom[k] = Math.round(v);
       renderGoalsTargets();
+      goalsChanged();
     });
     inp.addEventListener('focus', ()=> inp.select());
   });
@@ -9354,6 +9469,7 @@ async function init(){
     haptic();
     userGoals.custom = {};
     renderGoalsTargets();
+    goalsChanged();
   });
   function fillGoalsForm(){
     renderRateRow();
@@ -9416,6 +9532,19 @@ async function init(){
         <div><span class="btb-l"><i style="background:${BURN_PARTS.digest.color}"></i>Digestion</span><b>${fmtN(digest)}</b><small>~10% of what you eat</small></div>
       </div>`;
   }
+  // Goals save as you go: every choice is written a moment after it's made (and at once on Back).
+  let goalsSaveTimer = null, goalsSavedTimer = null;
+  function goalsSavedNote(){
+    const st = document.getElementById('goalsStatus'); if(!st) return;
+    st.innerHTML = '<span class="saved">✓ Saved</span>';
+    clearTimeout(goalsSavedTimer); goalsSavedTimer = setTimeout(() => { st.textContent = 'Changes save as you make them.'; }, 1600);
+  }
+  function goalsChanged(){
+    clearTimeout(goalsSaveTimer);
+    goalsSaveTimer = setTimeout(() => { goalsSaveTimer = null; persistGoals(); goalsSavedNote(); }, 450);
+  }
+  function goalsFlush(){ if(goalsSaveTimer){ clearTimeout(goalsSaveTimer); goalsSaveTimer = null; persistGoals(); } }
+  window.goalsChanged = goalsChanged;
   function wireGoalPillRow(row, datasetKey, stateKey){
     row.addEventListener('click', (ev)=>{
       const b = ev.target.closest('.goal-pill'); if(!b) return;
@@ -9425,6 +9554,7 @@ async function init(){
       userGoals[stateKey] = b.dataset[datasetKey];
       if(stateKey === 'weightGoal'){ renderRateRow(); renderGoalWeightGroup(); }
       renderGoalsTargets();
+      goalsChanged();
     });
   }
   wireGoalPillRow(weightGoalRow, 'weightGoal', 'weightGoal');
@@ -9447,7 +9577,7 @@ async function init(){
     renderGoalsTargets();
     goalsOverlay.style.display = 'flex';
   });
-  document.getElementById('goalsBackBtn').addEventListener('click', ()=>{ goalsOverlay.style.display = 'none'; renderAll(); });
+  document.getElementById('goalsBackBtn').addEventListener('click', ()=>{ goalsFlush(); goalsOverlay.style.display = 'none'; renderAll(); });
   document.getElementById('openWearablesBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openHealthPage(); });
   document.getElementById('openDataBtn').addEventListener('click', ()=>{ setMenuOpen(false); haptic(); openYourData(); });
   document.getElementById('wearablesBackBtn').addEventListener('click', ()=>{ document.getElementById('healthOverlay').style.display = 'none'; healthMsg = null; renderAll(); });
@@ -9462,14 +9592,6 @@ async function init(){
   });
   document.getElementById('goalCtaBtn').addEventListener('click', (ev)=>{
     document.getElementById(ev.currentTarget.dataset.open === 'profile' ? 'openProfileBtn' : 'openGoalsBtn').click();
-  });
-  document.getElementById('saveGoalsBtn').addEventListener('click', async ()=>{
-    haptic();
-    await persistGoals();
-    renderAll();
-    const goalsStatus = document.getElementById('goalsStatus');
-    goalsStatus.textContent = 'Goals saved.';
-    setTimeout(()=>{ goalsStatus.textContent=''; }, 2000);
   });
 
   function renderGreeting(){
@@ -10388,7 +10510,7 @@ bootAuth();
     document.body.classList.toggle('ai-on', on);
     fab.classList.toggle('hide', !on || document.body.classList.contains('typing'));
     const m = $('openChatBtn'); if(m) m.style.display = on ? '' : 'none';
-    const t = $('trendAskBtn'); if(t) t.style.display = on ? '' : 'none';
+    const t = $('trendAsks'); if(t) t.style.display = on ? '' : 'none';
     const u = firebase.auth && firebase.auth().currentUser;
     const uid = u ? u.uid : null;
     if(uid !== chatUid){ chatUid = uid; loaded = false; loading = null; thread = []; notes = []; log.innerHTML = ''; }
@@ -10760,6 +10882,8 @@ bootAuth();
   });
   const trendBtn = $('trendAskBtn');
   if(trendBtn) trendBtn.addEventListener('click', () => { haptic(); openChat({ ask: trendQuestion() }); });
+  const cmpBtn = $('trendCompareBtn');
+  if(cmpBtn) cmpBtn.addEventListener('click', () => { haptic(); openChat({ ask: trendCompareQuestion() }); });
 
   // ---------- voice ----------
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -10795,6 +10919,25 @@ function trendQuestion(){
   else if(trendHorizon === 'year') p = o === 0 ? 'this year' : String(r.startDate.getFullYear());
   else p = o === 0 ? 'this week' : o === 1 ? 'last week' : 'the week of ' + r.startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   return `How did ${p} go?`;
+}
+// "Compare": the period on screen against the one before it, across every number Fera keeps.
+function trendPeriodWords(h, o){
+  const r = trendRange(h, o);
+  if(h === 'month') return o === 0 ? 'this month' : o === 1 ? 'last month' : r.startDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  if(h === 'year') return o === 0 ? 'this year' : o === 1 ? 'last year' : String(r.startDate.getFullYear());
+  return o === 0 ? 'this week' : o === 1 ? 'last week' : 'the week of ' + r.startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+function trendCompareQuestion(){
+  const h = trendHorizon, o = trendOffset, unit = h === 'month' ? 'month' : h === 'year' ? 'year' : 'week';
+  const now = trendPeriodWords(h, o), before = o === 0 ? `last ${unit}` : `the ${unit} before`;
+  const partial = o === 0 ? ` ${now[0].toUpperCase() + now.slice(1)} isn't over yet, so compare daily averages.` : '';
+  return `Compare ${now} with ${before}: calories eaten, burn, deficit or surplus, protein, carbs, fat, how many days I logged, and weight. What got better, what got worse, and what should I focus on?${partial}`;
+}
+function trendCompareLabel(){
+  const o = trendOffset;
+  if(trendHorizon === 'month') return o === 0 ? 'Compare this month' : 'Compare ' + trendRange(trendHorizon, o).startDate.toLocaleDateString('en-US', { month: 'long' });
+  if(trendHorizon === 'year') return o === 0 ? 'Compare this year' : 'Compare ' + trendRange(trendHorizon, o).startDate.getFullYear();
+  return o === 0 ? 'Compare this week' : o === 1 ? 'Compare last week' : 'Compare ' + trendPeriodLabel(trendHorizon, o);
 }
 function trendAskLabel(){
   const o = trendOffset;
@@ -11256,27 +11399,39 @@ function daysSinceWeighIn(){
   if(!days.length) return null;
   return Math.round((parseISO(t) - parseISO(days[days.length - 1])) / 864e5);
 }
-function weighNudgeText(n){
-  const L = userProfile && userProfile.bmrLearn;
-  const ls = typeof learnStatus === 'function' ? learnStatus() : null;
-  if(ls && ls.state === 'learning') return { title: n == null ? 'Weigh in to start learning' : ls.weigh === 'start' ? 'Weigh in to start learning' : `No weigh-in for ${n} days`, sub: `Fera learns your real burn from your weigh-ins: one on the first and the last of ${LEARN_MIN_DAYS} complete days.` };
-  return { title: `No weigh-in for ${n} days`, sub: L && L.on ? 'Fera needs regular weigh-ins to keep learning your resting burn.' : 'A quick weigh-in keeps your trend and targets honest.' };
+function weighNudgeText(n, ls){
+  ls = ls || (typeof learnStatus === 'function' ? learnStatus() : null);
+  const ago = n == null ? '' : ` Last one: ${n === 1 ? 'yesterday' : n + ' days ago'}.`;
+  if(ls && ls.phase === 'new') return { title: n == null || ls.weigh === 'start' ? 'Weigh in to start learning' : `No weigh-in for ${n} days`, sub: `Fera learns your real burn from your weigh-ins: one on the first and the last of ${LEARN_MIN_DAYS} complete days.` };
+  if(ls && ls.phase === 'lapsed'){
+    if(ls.need === 'food') return { title: 'Log full days to get back to Learned', sub: `${ls.a ? `${ls.a.good} of your last ${ls.a.window} days are fully logged.` : ''} Your targets stay as last learned.`, act: 'log' };
+    return { title: 'Weigh in to get back to Learned', sub: `${ls.back ? 'A weigh-in today brings it back tomorrow.' : 'Fera needs a weigh-in every few days.'}${ago}` };
+  }
+  if(ls && ls.weigh === 'keep') return { title: 'Weigh in today to stay Learned', sub: `Fera needs a weigh-in every few days to keep your burn current.${ago}` };
+  return { title: `No weigh-in for ${n} days`, sub: 'A quick weigh-in keeps your learned burn and targets current.' };
 }
 function renderWeighNudge(){
   const el = document.getElementById('weighNudge'); if(!el) return;
   const n = daysSinceWeighIn();
   let snooze = null; try { snooze = localStorage.getItem('weigh-nudge-snooze'); } catch(e){}
   const ls = typeof learnStatus === 'function' ? learnStatus() : null;
-  const learning = ls && ls.state === 'learning' && !!computeTargets();
+  const has = !!computeTargets();
   const weighedToday = !!dailyWeightMap()[todayStr()];
-  // while learning, weigh-ins are what it runs on: ask sooner (and when the count can't start without one)
-  const show = snooze !== todayStr() && !weighedToday && (learning ? (ls.weigh === 'start' || (n != null && n >= 2)) : (n != null && n >= WEIGH_NUDGE_DAYS));
+  // new: weigh-ins are what the first week runs on, so ask sooner. Learned: when tomorrow would stop passing
+  // without one, or after a few days. Lapsed: until it's back (a weigh-in, or full days of food).
+  let show = false;
+  if(snooze !== todayStr() && has && ls && selectedDate === todayStr()){
+    if(ls.phase === 'new') show = !weighedToday && (ls.weigh === 'start' || (n != null && n >= 2));
+    else if(ls.phase === 'lapsed') show = ls.need === 'food' || !weighedToday;
+    else show = !weighedToday && (ls.weigh === 'keep' || (n != null && n >= WEIGH_NUDGE_DAYS));
+  } else if(snooze !== todayStr() && !has) show = !weighedToday && n != null && n >= WEIGH_NUDGE_DAYS;
   el.hidden = !show;
   if(!show) return;
-  const tx = weighNudgeText(n);
+  const tx = weighNudgeText(n, ls);
+  el.className = 'wnudge' + (ls && ls.phase === 'lapsed' ? ' lapsed' : '');
   el.innerHTML = `<span class="wn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="4"/><path d="M8.5 9.5a4.5 4.5 0 0 1 7 0"/><path d="M12 9.6l1.4-1.9"/></svg></span>
     <span class="wn-t"><b>${tx.title}</b><small>${tx.sub}</small></span>
-    <span class="wn-act"><button type="button" class="wn-go" data-wn="go">Weigh in</button><button type="button" class="wn-later" data-wn="later" aria-label="Remind me tomorrow">Later</button></span>`;
+    <span class="wn-act">${tx.act === 'log' ? '<button type="button" class="wn-go" data-wn="log">Log food</button>' : '<button type="button" class="wn-go" data-wn="go">Weigh in</button>'}<button type="button" class="wn-later" data-wn="later" aria-label="Remind me tomorrow">Later</button></span>`;
 }
 function openWeighIn(){
   if(typeof setSelectedDate === 'function' && selectedDate !== todayStr()) setSelectedDate(todayStr());
@@ -11303,7 +11458,7 @@ function openWeighIn(){
 const CAL_STEP_DAY = 100, CAL_BASE_MULT = 1.4, CAL_MIN_DAYS = LEARN_MIN_DAYS, CAL_WINDOW = LEARN_MAX_DAYS;
 const CAL_STEP_MAX = CAL_STEP_DAY;
 function calState(){ const p = userGoals.plan || {}; return { auto: true, tdee: typeof p.tdee === 'number' ? p.tdee : null, log: Array.isArray(p.log) ? p.log : [], seen: p.seen || null, at: p.at || null }; }
-function calTdee(){ const C = calState(), L = bmrLearnState(); return L.status === 'learned' && C.tdee != null ? C.tdee : null; }
+function calTdee(){ const C = calState(); return learnEver() && C.tdee != null ? C.tdee : null; }
 function weekStartISO(iso){ const d = parseISO(iso); const k = (d.getDay() + 6) % 7; d.setDate(d.getDate() - k); return toISO(d); }
 function calNextDate(){ return wtAddDays(todayStr(), 1); }
 // Before Fera has learned: the formula's resting burn plus the movement measured on the days logged so
@@ -11509,7 +11664,7 @@ function obRender(){
       const days = Array.from({ length: 7 }, (_, i) => { const iso = wtAddDays(todayStr(), i); return `<div><i class="${i === 0 ? 'now' : ''}">${i === 0 || i === 6 ? '⚖️' : ''}</i>${i === 0 ? 'Today' : parseISO(iso).toLocaleDateString(undefined, { weekday: 'short' })}</div>`; }).join('');
       const wg = userGoals.weightGoal;
       h = `${top({ skip: false })}<div class="ob-body"><div class="ob-k">Your starting point</div><h1 class="ob-h">Here's your plan for day one</h1>
-        <div class="ob-card col"><div class="ob-rh"><span>Daily target</span>${learnPillHTML('mini')}</div>
+        <div class="ob-card col"><div class="ob-rh"><span>Daily target</span>${learnPillHTML()}</div>
           <div class="ob-tgt">${fmtN(t.calorieTarget)}<span>kcal a day</span></div>
           <div class="ob-sub">Your baseline burn ${fmtN(t.tdee)}${wg === 'lose' ? ` − ${fmtN(t.dailyDelta)} for ${t.rate} lb a week` : wg === 'gain' ? ` + ${fmtN(t.dailyDelta)} for ${t.rate} lb a week` : ', to maintain'}</div>
           <div class="ob-tg"><div><b style="color:${MACRO_COLOR.protein}">${fmtN(t.proteinTarget)}</b><small>g protein</small></div><div><b style="color:${MACRO_COLOR.carbs}">${fmtN(t.carbsTarget)}</b><small>g carbs</small></div><div><b style="color:${MACRO_COLOR.fat}">${fmtN(t.fatTarget)}</b><small>g fat</small></div></div></div>
@@ -11621,7 +11776,7 @@ function renderFirstWeek(){
   const el = document.getElementById('firstWeek'); if(!el) return;
   const s = learnStatus();
   const t = computeTargets();
-  const show = !userProfile.firstWeekHide && selectedDate === todayStr() && (s.state === 'learning' || !t);
+  const show = !userProfile.firstWeekHide && selectedDate === todayStr() && (!t || (s.state === 'learning' && s.phase === 'new'));
   el.hidden = !show; if(!show){ el.innerHTML = ''; return; }
   const fw = userProfile.fw || {};
   const e = entries[todayStr()] || {};
@@ -11711,7 +11866,10 @@ function renderLearnPage(){
   // ---- where it stands
   if(learned){
     h += `<div class="lp-state learned"><span class="lp-ok-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div class="lp-state-t"><b>Learned</b><span>Updated ${learnWhen(s.at)} · from your last ${a ? a.window : LEARN_MAX_DAYS} days</span></div></div>`;
-    if(s.weigh) h += `<div class="lp-weigh"><b>Weigh in to keep learning.</b> Your last weigh-in was ${daysSinceWeighIn() == null ? 'a while ago' : daysSinceWeighIn() + ' days ago'}. Fera needs one near the start and the end of the days it learns from.</div>`;
+    if(s.weigh) h += `<div class="lp-weigh"><b>${s.weigh === 'keep' ? 'Weigh in today to stay Learned.' : 'Weigh in to keep learning.'}</b> Your last weigh-in was ${daysSinceWeighIn() == null ? 'a while ago' : daysSinceWeighIn() === 1 ? 'yesterday' : daysSinceWeighIn() + ' days ago'}. Fera needs one near the start and the end of the days it learns from.</div>`;
+  } else if(s.phase === 'lapsed'){
+    h += `<div class="lp-state learning"><div class="lp-state-t"><b>Learning</b><span>${s.need === 'food' ? 'Needs fully logged days' : 'Needs a recent weigh-in'} · last learned ${learnWhen(s.at)}</span></div>
+      <p>${learnLapsedText(s)}</p></div>`;
   } else {
     const done = LEARN_MIN_DAYS - s.toGo;
     const segs = Array.from({ length: LEARN_MIN_DAYS }, (_, i) => `<i class="${i < done ? 'on' : ''}"></i>`).join('');
@@ -11721,13 +11879,13 @@ function renderLearnPage(){
   }
 
   // ---- resting burn against the formula
-  const adj = learned ? (L.adj || 0) : 0, now = Math.round(base + adj), pct = adj / base;
+  const ever = learnEver(), adj = ever ? (L.adj || 0) : 0, now = Math.round(base + adj), pct = adj / base;
   const pos = 50 + Math.max(-1, Math.min(1, pct / LEARN_CAP)) * 50;
   h += `<div class="pw-card lp-card"><div class="lp-k">Resting burn · BMR</div>
     <div class="lp-big">${fmtN(now)}<span>kcal a day</span></div>
-    <div class="bl-sub">${learned && adj ? `<b class="${adj >= 0 ? 'up' : 'down'}">${blSigned(adj)} kcal</b> vs the formula’s ${fmtN(Math.round(base))} · ${blSigned(pct * 100, 1)}%` : learned ? 'Your scale agrees with the formula.' : 'The formula, from your weight, height, age and sex. Fera corrects it once it has learned.'}</div>
+    <div class="bl-sub">${ever && adj ? `<b class="${adj >= 0 ? 'up' : 'down'}">${blSigned(adj)} kcal</b> vs the formula’s ${fmtN(Math.round(base))} · ${blSigned(pct * 100, 1)}%` : ever ? 'Your scale agrees with the formula.' : 'The formula, from your weight, height, age and sex. Fera corrects it once it has learned.'}</div>
     <div class="bl-scale" aria-hidden="true">
-      <div class="bl-track"><i class="bl-fill" style="left:${Math.min(50, pos)}%;width:${Math.abs(pos - 50)}%"></i><i class="bl-mid"></i><i class="bl-dot${learned ? ' on' : ''}" style="left:${pos}%"></i></div>
+      <div class="bl-track"><i class="bl-fill" style="left:${Math.min(50, pos)}%;width:${Math.abs(pos - 50)}%"></i><i class="bl-mid"></i><i class="bl-dot${ever ? ' on' : ''}" style="left:${pos}%"></i></div>
       <div class="bl-ticks"><span>−15%</span><span>Formula</span><span>+15%</span></div>
     </div></div>`;
 
@@ -11736,32 +11894,32 @@ function renderLearnPage(){
   h += `<div class="pw-card lp-card"><div class="lp-k">Daily target</div>
     <div class="lp-big">${fmtN(t.calorieTarget)}<span>kcal a day</span></div>
     <div class="lp-eq">
-      <div><span>${learned ? 'Your daily burn, learned' : 'Your daily burn, baseline'}</span><b>${fmtN(t.tdee)}</b></div>
+      <div><span>${learned ? 'Your daily burn, learned' : ever ? 'Your daily burn, last learned' : 'Your daily burn, baseline'}</span><b>${fmtN(t.tdee)}</b></div>
       ${wg !== 'maintain' ? `<div><span>${wg === 'lose' ? 'Deficit' : 'Surplus'} for ${t.rate} lb a week</span><b>${wg === 'lose' ? '−' : '+'}${fmtN(delta)}</b></div>` : '<div><span>Maintain</span><b>±0</b></div>'}
       ${t.floored ? `<div class="fl"><span>Held at the safe minimum</span><b>${fmtN(t.floor)}</b></div>` : ''}
       ${t.custom.calorie ? `<div class="fl"><span>You set your own target in Goals</span><b>${fmtN(t.calorieTarget)}</b></div>` : ''}
     </div>
-    <p class="bl-note">${learned ? `Your daily burn is the average you actually burned over those days, with the learned resting burn. It moves at most ${CAL_STEP_DAY} kcal a day.` : t.tdeeHow === 'measured' ? `Baseline: the formula’s resting burn plus the movement and digestion Fera measured on your ${t.baseDays} logged days.` : `Baseline: the formula’s resting burn × ${CAL_BASE_MULT}, a typical day, until you’ve logged a few days.`}</p></div>`;
+    <p class="bl-note">${ever ? `Your daily burn is the average you actually burned over those days, with the learned resting burn. It moves at most ${CAL_STEP_DAY} kcal a day.` : t.tdeeHow === 'measured' ? `Baseline: the formula’s resting burn plus the movement and digestion Fera measured on your ${t.baseDays} logged days.` : `Baseline: the formula’s resting burn × ${CAL_BASE_MULT}, a typical day, until you’ve logged a few days.`}</p></div>`;
 
   // ---- the evidence
   if(a){
     const R = a.rule;
     const cells = a.days.map(d => `<i class="${d.good ? 'g' : ''}${d.lb != null ? ' w' : ''}" title="${blDate(d.d)}${d.good ? ' · complete' : ''}${d.lb != null ? ' · weigh-in' : ''}"></i>`).join('');
     const fw = a.firstW, lw = a.lastW;
-    const fact = (v, need, label, ok) => `<div class="${ok ? 'ok' : ''}"><b>${v}${need != null ? `<i> / ${need}</i>` : ''}</b><small>${label}</small></div>`;
+    const fact = (v, of, label, ok, need) => `<div class="${ok ? 'ok' : ''}"><b>${v}${of != null ? `<i> of ${of}</i>` : ''}</b><small>${label}${need != null ? `<br><span class="lp-need">${need} needed</span>` : ''}</small></div>`;
     const startOk = a.days.slice(0, R.edge).some(d => d.lb != null), endOk = a.days.slice(-R.edge).some(d => d.lb != null);
     h += `<div class="pw-card lp-card"><div class="lp-k">Learning from the last ${a.window} days <span class="lp-dates">${blDate(a.days[0].d)} – ${blDate(a.days[a.days.length - 1].d)}</span></div>
       <div class="lp-facts3">
-        ${fact(a.good, R.good, 'complete food days', a.good >= R.good)}
-        ${fact(a.weighIns, R.weigh, 'days with a weigh-in', a.weighIns >= R.weigh)}
-        ${fact(fw && lw && fw.d !== lw.d ? `${a.spread}<i> days</i>` : '—', null, fw && lw && fw.d !== lw.d ? `first to last weigh-in` : 'first to last weigh-in', startOk && endOk)}
+        ${fact(a.good, a.window, 'days fully logged', a.good >= R.good, R.good)}
+        ${fact(a.weighIns, a.window, 'days with a weigh-in', a.weighIns >= R.weigh, R.weigh)}
+        ${fact(fw && lw && fw.d !== lw.d ? `${a.spread}<i> days</i>` : '—', null, 'first to last weigh-in', startOk && endOk, null)}
       </div>
       <div class="bl-days" role="img" aria-label="${a.good} complete days and ${a.weighIns} weigh-ins">${cells}</div>
-      <div class="bl-legend"><span><i class="g"></i>Complete day</span><span><i class="wdot"></i>Weigh-in</span></div>
+      <div class="bl-legend"><span><i class="g"></i>Fully logged</span><span><i class="wdot"></i>Weigh-in</span></div>
       ${fw && lw && fw.d !== lw.d ? `<div class="lp-wline"><span>${blDate(fw.d)} <b>${blW(fw.lb).toFixed(1)}</b></span><i></i><span>${blDate(lw.d)} <b>${blW(lw.lb).toFixed(1)}</b> ${u}</span></div>` : ''}
       ${a.ready ? (() => { const exp = blW(a.predicted * 7 / 3500), got = blW(a.slope * 7);
         return `<p class="bl-p">From what you ate and burned, the formula expected <b>${blSigned(exp, 1)} ${u}</b> a week. Your scale moved <b>${blSigned(got, 1)} ${u}</b> a week. ${a.adj === 0 ? 'They match, so the formula fits you.' : `So your body burns about <b>${fmtN(Math.abs(a.adj))} kcal a day ${a.adj > 0 ? 'more' : 'less'}</b> than the formula says${a.capped ? ' (capped at 15%)' : ''}.`}</p>`; })()
-        : `<p class="bl-note">Fera uses the longest stretch, from ${LEARN_MIN_DAYS} up to ${LEARN_MAX_DAYS} days, where most days are complete and there’s a weigh-in near the start and the end. A complete day has all its food logged and a burn Fera worked out.</p>`}
+        : `<p class="bl-note">Fera uses the longest stretch, from ${LEARN_MIN_DAYS} up to ${LEARN_MAX_DAYS} days, where most days are fully logged and there’s a weigh-in near the start and the end. A fully logged day has all its food in Fera.</p>`}
     </div>`;
   }
 
@@ -11985,6 +12143,7 @@ function showRecap(cards, opt){
     const b = ev.target.closest('[data-wn]'); if(!b) return;
     haptic();
     if(b.dataset.wn === 'later'){ try { localStorage.setItem('weigh-nudge-snooze', todayStr()); } catch(e){} renderWeighNudge(); }
+    else if(b.dataset.wn === 'log'){ if(window.setView) window.setView('food'); }
     else openWeighIn();
   });
 })();
@@ -12195,7 +12354,9 @@ function planNotifications(now){
   if(since == null || since >= (learningNow ? 0 : 1)){
     const d = now < atTime(today, 7 * 60 + 30) && !dailyWeightMap()[today] ? today : tomorrow;
     const days = since == null ? null : d === today ? since : since + 1;
-    if(learningNow) add('weigh', atTime(d, 7 * 60 + 30), ls.weigh === 'start' || since == null ? 'Weigh in to start learning' : 'Morning weigh-in', `Before breakfast. Fera is learning your real burn: ${ls.toGo} day${ls.toGo === 1 ? '' : 's'} to go.`, 'fera://weight', 2);
+    if(learningNow && ls.phase === 'new') add('weigh', atTime(d, 7 * 60 + 30), ls.weigh === 'start' || since == null ? 'Weigh in to start learning' : 'Morning weigh-in', `Before breakfast. Fera is learning your real burn: ${ls.toGo} day${ls.toGo === 1 ? '' : 's'} to go.`, 'fera://weight', 2);
+    else if(learningNow) add('weigh', atTime(d, 7 * 60 + 30), 'Weigh in to get back to Learned', 'Step on the scale before breakfast. Fera needs a recent weigh-in to keep your burn current.', 'fera://weight', 2);
+    else if(ls && ls.weigh === 'keep') add('weigh', atTime(d, 7 * 60 + 30), 'Weigh in to stay Learned', 'Step on the scale before breakfast. Fera keeps your burn current from regular weigh-ins.', 'fera://weight', 2);
     else if(days != null && days >= 2) add('weigh', atTime(d, 7 * 60 + 30), `${days} days since your last weigh-in`, 'Step on the scale before breakfast. Fera keeps learning from every weigh-in.', 'fera://weight', 2);
   }
   // recaps: tomorrow morning, if today has food in it; Mondays it's the week

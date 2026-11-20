@@ -957,6 +957,10 @@
   .auth-tab.active{background:var(--accent-strong);color:#FFFFFF;}
   .auth-field{margin-bottom:14px;}
   /* Sign in with Apple: Apple's white button style on Fera's dark background */
+  .profile-legal{display:flex;justify-content:center;gap:8px;margin:22px 0 4px;font-size:12px;color:var(--muted);}
+  .profile-legal a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+  .auth-legal{margin:18px auto 0;max-width:340px;text-align:center;font-size:11.5px;line-height:1.5;color:var(--muted);}
+  .auth-legal a{color:var(--ink);text-decoration:underline;text-underline-offset:2px;}
   .apple-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:48px;border:none;border-radius:12px;
     background:#FFFFFF;color:#000000;font:600 16px/1 -apple-system,BlinkMacSystemFont,'Inter',system-ui,sans-serif;letter-spacing:-0.01em;cursor:pointer;}
   .apple-btn svg{width:16px;height:19px;margin-top:-3px;}
@@ -3351,6 +3355,7 @@
         </div>
       </div>
     </section>
+    <p class="profile-legal"><a href="https://getfera.app/privacy/" target="_blank" rel="noopener">Privacy Policy</a><span aria-hidden="true">·</span><a href="https://getfera.app/terms/" target="_blank" rel="noopener">Terms of Use</a><span aria-hidden="true">·</span><a href="https://getfera.app/support/" target="_blank" rel="noopener">Support</a></p>
     </div>
   </div>
 </div>
@@ -3518,6 +3523,7 @@
     </div>
 
     <div class="auth-loading" id="authLoading" style="display:none;"><span class="auth-spinner"></span>Signing you in…</div>
+    <p class="auth-legal">By creating an account you agree to the <a href="https://getfera.app/terms/" target="_blank" rel="noopener">Terms of Use</a> and <a href="https://getfera.app/privacy/" target="_blank" rel="noopener">Privacy Policy</a>. Fera is a wellness tool, not medical advice.</p>
   </div>
 </div>
 <script>
@@ -7935,7 +7941,7 @@ function openAiSettings(){
       <div class="ds-k">AI features</div>
       <h2 id="aisTitle">${on ? 'On' : 'Off'}${on ? `<small> · allowed ${since}</small>` : ''}</h2>
       <p>${on ? 'AI estimates and Fera AI send what they need to <b>Anthropic</b>, the company behind the Claude model, only when you use them.' : 'Nothing is sent to Anthropic. You can still log food by hand and see all your numbers.'}</p>
-      <p class="aic-where">The same switch is in Menu → Your Data. <a href="https://getfera.app/privacy/" target="_blank" rel="noopener">Privacy policy</a></p>
+      <p class="aic-where">The same switch is in Menu → Profile → AI features. <a href="https://getfera.app/privacy/" target="_blank" rel="noopener">Privacy policy</a></p>
       <div class="aic-actions">
         <button class="${on ? 'aic-off' : 'btn-primary'}" type="button" data-ais="${on ? 'off' : 'on'}">${on ? 'Turn off AI features' : 'Turn on AI features'}</button>
         <button class="aic-later" type="button" data-ais="close">Close</button>
@@ -7967,9 +7973,9 @@ function ensureAiConsent(){
         <p>To answer, Fera sends some of your data to <b>Anthropic</b>, the company that makes the Claude AI model:</p>
         <div class="aic-list">
           <div><b>AI estimates</b>The food description or photo you add.</div>
-          <div><b>Fera AI</b>Your question, plus the parts of your food log, burn, weigh-ins, profile and goals needed to answer it.</div>
+          <div><b>Fera AI</b>Your question, plus the parts of your food log, burn, weigh-ins, profile and goals needed to answer it, including steps, active energy, workouts and weight from Apple Health if you connected it.</div>
         </div>
-        <p>Anthropic uses it only to produce the answer and doesn't train its models on it. Nothing is sent unless you use an AI feature, and you can turn it off anytime in Menu → Your Data, or from Fera AI. <a href="https://getfera.app/privacy/" target="_blank" rel="noopener">Privacy policy</a></p>
+        <p>Anthropic uses it only to produce the answer and doesn't train its models on it. Nothing is sent unless you use an AI feature, and you can turn it off anytime in Menu → Profile → AI features, or from Fera AI. <a href="https://getfera.app/privacy/" target="_blank" rel="noopener">Privacy policy</a></p>
         <div class="aic-actions">
           <button class="btn-primary" type="button" data-aic="yes">Allow AI features</button>
           <button class="aic-later" type="button" data-aic="no">Not now</button>

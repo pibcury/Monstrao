@@ -823,7 +823,15 @@
     min-width:132px;padding:7px 14px;border-radius:18px;margin:0;cursor:pointer;
     background:rgba(244,245,250,0.07);border:1px solid rgba(244,245,250,0.12);color:var(--ink);}
   .date-sel-pick:active{background:rgba(244,245,250,0.14);}
-  .date-sel-pick .date-sel-label{min-width:0;}
+  .date-sel-pick .date-sel-label{min-width:0;display:inline-flex;align-items:center;}
+  /* today: a small live dot; a past day: the pill turns amber, with a way straight back */
+  .ds-live{width:7px;height:7px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.18);margin-right:8px;flex:none;animation:rnPulse 1.8s ease-in-out infinite;}
+  @media (prefers-reduced-motion: reduce){ .ds-live{animation:none;} }
+  .date-selector.past .date-sel-pick{background:rgba(255,159,67,.10);border-color:rgba(255,159,67,.55);color:#FFB870;}
+  .date-selector.past .date-sel-ico{color:#FFB870;}
+  .date-today-btn{display:flex;align-items:center;gap:5px;margin:-6px auto 12px;padding:5px 12px;border-radius:999px;border:1px solid rgba(255,159,67,.4);background:rgba(255,159,67,.08);color:#FFB870;font:700 12.5px/1.2 inherit;font-family:inherit;cursor:pointer;}
+  .date-today-btn:active{background:rgba(255,159,67,.18);}
+  .date-today-btn[hidden]{display:none;}
   .date-sel-ico{color:var(--muted);flex-shrink:0;}
   input.date-sel-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;
     padding:0;margin:0;border:0;-webkit-appearance:none;appearance:none;font-size:16px;}
@@ -1638,6 +1646,8 @@
   body.tabs:not([data-view="home"]) #ringSection .metrics,body.tabs:not([data-view="home"]) #ringNet,body.tabs:not([data-view="home"]) #ringLearn,body.tabs:not([data-view="home"]) #firstWeek,body.tabs:not([data-view="home"]) #goalCtaBtn,
   body.tabs:not([data-view="home"]) #dq,body.tabs:not([data-view="home"]) #dayAsk,body.tabs:not([data-view="home"]) #balances{display:none !important;}
   body[data-view="trends"] #ringSection{display:none !important;}
+  body[data-view="trends"] #globalDateSelector,body[data-view="trends"] #dateTodayBtn{display:none !important;}   /* Trends steps by week, month or year */
+  body.tabs:not([data-view="home"]) .date-today-btn{margin:8px auto 4px;}
   body.tabs:not([data-view="home"]) #ringSection .today-card{background:none;border:0;box-shadow:none;padding:0;margin:0 0 4px;}
   body.tabs:not([data-view="home"]) .app-header-inner > .date-selector{margin-bottom:2px;}
   body.tabs:not([data-view="home"]) [data-view-card] .burn-summary-row{pointer-events:none;}
@@ -2657,6 +2667,7 @@
           </label>
           <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
         </div>
+      <button class="date-today-btn" id="dateTodayBtn" type="button" hidden><span aria-hidden="true">↩</span> Back to today</button>
 
       <div class="header-stats" id="headerStats">
         <span class="header-stat"><span id="streakVal">0</span>-day streak</span>
@@ -7651,11 +7662,16 @@ function renderDateSelector(){
   const nextBtn = document.getElementById('dateSelNextBtn');
   if(!label) return;
   const today = todayStr();
-  label.textContent = selectedDate === today ? 'Today' : (selectedDate === yesterdayStr() ? 'Yesterday' : fmtDate(selectedDate));
+  const isToday = selectedDate === today;
+  label.innerHTML = isToday ? '<i class="ds-live" aria-hidden="true"></i>Today' : escapeHtml(selectedDate === yesterdayStr() ? 'Yesterday' : fmtDate(selectedDate));
   if(nextBtn) nextBtn.disabled = (selectedDate >= today);
+  // a past day stands out, with one tap back to today
+  const bar = document.getElementById('globalDateSelector'); if(bar) bar.classList.toggle('past', !isToday);
+  const back = document.getElementById('dateTodayBtn'); if(back) back.hidden = isToday;
   const input = document.getElementById('dateSelInput');
   if(input){ input.max = today; if(document.activeElement !== input) input.value = selectedDate; }
 }
+document.addEventListener('click', (ev) => { if(ev.target.closest('#dateTodayBtn')){ haptic(); setSelectedDate(todayStr()); } });
 function shiftSelectedDate(deltaDays){
   const dt = parseISO(selectedDate);
   dt.setDate(dt.getDate() + deltaDays);

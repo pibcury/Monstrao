@@ -2441,7 +2441,10 @@
   .wt-goal-off{color:#4ADE80;font-weight:700;white-space:nowrap;}
   .wt-svg{display:block;width:100%;height:auto;touch-action:pan-y;cursor:crosshair;}
   .wt-canvas{position:relative;height:190px;}
-  .wt-read .cs-line{display:block;} .wt-read .cs-date{color:var(--ink);font-weight:700;} .wt-read .cs-src{color:var(--muted);font-weight:600;}
+  /* the line above the chart keeps one height (room for two lines) whether it shows the legend or a held day, so the chart never moves */
+  .wt-read{height:38px;min-height:0;overflow:hidden;line-height:17px;}
+  .wt-read > div, .wt-read > span{min-width:0;}
+  .wt-read .cs-line{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;} .wt-read .cs-date{color:var(--ink);font-weight:700;} .wt-read .cs-src{color:var(--muted);font-weight:600;}
   .wt-read .hold-hint{margin-left:auto;}
   .wt-svg text,.wt-path text{font-family:'Inter',sans-serif;}
   .wt-empty{padding:22px 14px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.5;border:1px dashed var(--rule);border-radius:16px;margin-bottom:14px;}
@@ -2722,6 +2725,11 @@
   .burn-wo-btn.has{border-color:rgba(255,55,95,.4);background:rgba(255,55,95,.1);}
   .burn-wo-btn.has .li{color:#FF6B85;}
   .burn-wo-btn i{font-style:normal;color:var(--muted);margin-left:2px;}
+
+  /* menu pages (Profile, Goals, Learning, Apple Health, Data, Premium): they scroll up and down only.
+     No sideways drag or bounce, no tab change underneath, and scrolling never leaks to the page behind. */
+  [id$="Overlay"]:not(#chatOverlay){touch-action:pan-y;overscroll-behavior:contain;overflow-x:hidden;}
+  .overlay-scroll{overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;}
 </style>
 </head>
 <body>
@@ -3234,6 +3242,15 @@
         </div>
       </div>
 
+      <div class="trend-chart-block" id="blockNet">
+        <button class="chart-collapse-btn" id="toggleNetBtn" type="button">
+          <span class="chart-name">Calorie Deficit/Surplus</span>
+          <span class="chart-stats" id="trendNetChartTitle"></span>
+          <span class="burn-chevron" id="netChevron">›</span>
+        </button>
+        <div id="netChartWrap" style="display:none;"><canvas id="netChart"></canvas></div>
+      </div>
+
       <div class="trend-chart-block" id="blockConsumed">
         <button class="chart-collapse-btn" id="toggleConsumedBtn" type="button">
           <span class="chart-name">Calories from Food</span>
@@ -3250,15 +3267,6 @@
           <span class="burn-chevron" id="burnedChevron">›</span>
         </button>
         <div id="burnedChartWrap" style="display:none;"><canvas id="burnedChart"></canvas></div>
-      </div>
-
-      <div class="trend-chart-block" id="blockNet">
-        <button class="chart-collapse-btn" id="toggleNetBtn" type="button">
-          <span class="chart-name">Calorie Deficit/Surplus</span>
-          <span class="chart-stats" id="trendNetChartTitle"></span>
-          <span class="burn-chevron" id="netChevron">›</span>
-        </button>
-        <div id="netChartWrap" style="display:none;"><canvas id="netChart"></canvas></div>
       </div>
 
       <div class="trend-chart-block" id="blockProtein" data-macro="protein">
@@ -3620,7 +3628,7 @@
 let STORAGE_KEY = 'calorie-log';
 let entries = {}; // { 'YYYY-MM-DD': { mode: 'items'|'simple'|null, items: [{id,desc,cal,protein}]|null, total: number|null, proteinTotal: number|null, burned: number|null } }
 let consumedChart = null, burnedChart = null, netChart = null;
-let trendHorizon = 'week'; // 'week'|'month'|'year'
+let trendHorizon = 'month'; // 'week'|'month'|'year' — opens on Month
 let trendOffset = 0;       // 0 = current period, 1 = the one before it, …
 let expandedDate = null;
 let histViewYear, histViewMonth;
@@ -9720,9 +9728,9 @@ async function init(){
       <div class="pb-q">Do you use Apple Health?</div>
       <div class="pb-seg">${seg('yes', `${AH_ICON}Yes`, def.apple)}${seg('no', 'No', !def.apple)}</div>
       ${def.apple ? `<div class="pb-q">What records your movement?</div><div class="bm-opts2">
+        ${dev('phone', LI('phone', 'pb-emo'), 'Just my iPhone', 'Your iPhone counts steps; you log workouts')}
         ${dev('watch', LI('watch', 'pb-emo'), 'Apple Watch', 'Counts all-day movement and workouts on its own')}
         ${dev('wearable', LI('ring', 'pb-emo'), 'Another watch or ring', 'WHOOP, Oura, Garmin, Fitbit… writing workouts to Apple Health')}
-        ${dev('phone', LI('phone', 'pb-emo'), 'Just my iPhone', 'Your iPhone counts steps; you log workouts')}
       </div>` : ''}
       ${def.apple ? tg('weight', !!userProfile.weightFromHealth, 'Weight from Apple Health', 'Weigh-ins from a smart scale come in with each sync. You can still add weights by hand.') : ''}
       <p class="bm-explain small">Any day, you can change any part or type your own total in the Burn card.</p>
@@ -12026,9 +12034,9 @@ function obRender(){
     const label = IS_NATIVE && nativeHealth() && apple && !ob.health ? 'Connect Apple Health' : 'Continue';
     h = `${top()}<div class="ob-body"><div class="ob-k">Your burn</div><h1 class="ob-h">What tracks your movement?</h1>
       <p class="ob-p">Fera adds up your burn from what your devices record, counting each calorie once.</p>
-      <div class="ob-rows">${row('path', 'watch', LI('watch'), 'Apple Watch', 'All-day movement and workouts')}
+      <div class="ob-rows">${row('path', 'phone', LI('phone'), 'Just my iPhone', 'Steps from your phone; you log workouts')}
+        ${row('path', 'watch', LI('watch'), 'Apple Watch', 'All-day movement and workouts')}
         ${row('path', 'wearable', LI('ring'), 'Another watch or ring', 'WHOOP, Oura, Garmin, Fitbit via Apple Health')}
-        ${row('path', 'phone', LI('phone'), 'Just my iPhone', 'Steps from your phone; you log workouts')}
         ${row('path', 'manual', LI('pencil'), 'Nothing', 'Fera estimates movement; you log workouts')}</div>
       <p class="ob-note left">${apple ? (IS_NATIVE && nativeHealth() ? (ob.health ? 'Apple Health is connected.' : 'Next, Apple Health asks to share steps, active energy, workouts and weight. Health data is never sold or used for ads.') : 'On the web, Apple Health comes in through a Shortcut. You can set it up after this from the menu → Apple Health.') : ''}</p>
       </div>${foot(label)}`;

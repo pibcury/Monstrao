@@ -2730,6 +2730,52 @@
      No sideways drag or bounce, no tab change underneath, and scrolling never leaks to the page behind. */
   [id$="Overlay"]:not(#chatOverlay){touch-action:pan-y;overscroll-behavior:contain;overflow-x:hidden;}
   .overlay-scroll{overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;}
+
+  /* the day recap's sections: macros, meals, weight, reminders */
+  .rc-track{position:relative;overflow:visible;}
+  .rc-track u{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;border-radius:1px;background:rgba(244,245,250,.75);text-decoration:none;}
+  .rc-sec{margin-top:15px;padding-top:13px;border-top:1px solid var(--rule);}
+  .rc-day .rc-head{font-size:28px;} .rc-day .rc-hero{margin-top:10px;} .rc-day .rc-hero b{font-size:46px;} .rc-day .rc-bars{margin-top:14px;} .rc-day .rc-chips{margin-top:14px;} .rc-day .rc-notes{margin-top:12px;}
+  .rc-sh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px;}
+  .rc-sh span{font:800 11px/1 'Inter',sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
+  .rc-sh em{font-style:normal;font-size:12.5px;color:var(--muted);font-weight:600;text-align:right;}
+  .rc-sh em b{font-weight:700;color:var(--ink);} .rc-sh em b.ok{color:#4ADE80;} .rc-sh em b.lo{color:#FFB46B;}
+  .rc-mac{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:12px;}
+  .rc-mac > div{min-width:0;}
+  .rc-mac span{display:block;font-size:11.5px;font-weight:700;}
+  .rc-mac b{display:block;margin-top:4px;font:700 17px/1 'Sora',sans-serif;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .rc-mac b i{font:600 11px 'Inter',sans-serif;font-style:normal;color:var(--muted);}
+  .rc-mt{height:5px;margin-top:7px;border-radius:3px;background:rgba(244,245,250,.08);overflow:hidden;}
+  .rc-mt i{display:block;height:100%;width:var(--w);border-radius:3px;animation:rcGrow .8s cubic-bezier(.2,.9,.3,1) both;}
+  .rc-mac small{display:block;margin-top:5px;font-size:11px;color:var(--muted);white-space:nowrap;}
+  .rc-mac small.ok{color:#4ADE80;} .rc-mac small.lo, .rc-mac small.hi{color:#FFB46B;}
+  .rc-mbar{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:2px;}
+  .rc-mbar i{display:block;min-width:4px;animation:rcFade .6s ease both;}
+  .rc-meals{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:8px;margin-top:10px;}
+  .rc-meals > div{min-width:0;}
+  .rc-meals span{display:block;line-height:0;} .rc-meals .li{width:17px;height:17px;}
+  .rc-meals b{display:block;margin-top:6px;font:700 15px/1 'Sora',sans-serif;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .rc-meals small{display:block;margin-top:4px;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .rc-gt{height:8px;border-radius:4px;background:rgba(244,245,250,.08);overflow:hidden;}
+  .rc-gt i{display:block;height:100%;width:var(--w);border-radius:4px;background:linear-gradient(90deg,#2F6BEA,#4ADE80);animation:rcGrow .9s cubic-bezier(.2,.9,.3,1) both;}
+  .rc-gl{display:flex;align-items:flex-start;justify-content:space-between;margin-top:8px;font-size:11.5px;color:var(--muted);font-weight:600;}
+  .rc-gl b{font:700 17px/1 'Sora',sans-serif;color:var(--ink);text-align:center;}
+  .rc-gl b small{display:block;margin-top:3px;font:600 11px 'Inter',sans-serif;color:var(--muted);}
+  .rc-gp{margin:10px 0 0;font-size:13px;line-height:1.45;color:var(--muted);} .rc-gp b{color:var(--ink);}
+  .rc-wsolo{font-size:13px;color:var(--muted);} .rc-wsolo b{font:700 22px 'Sora',sans-serif;color:var(--ink);} .rc-wsolo small{display:block;font-size:11px;}
+  .rc-rems{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+  .rc-rem{display:flex;align-items:center;gap:11px;padding:12px;border-radius:16px;background:rgba(76,141,255,.1);border:1px solid rgba(76,141,255,.25);}
+  .rc-rem.learn{background:rgba(155,124,255,.1);border-color:rgba(155,124,255,.28);}
+  .rc-rem > div{flex:1;min-width:0;}
+  .rc-rem b{display:block;font-size:13.5px;color:var(--ink);}
+  .rc-rem small{display:block;margin-top:3px;font-size:12px;line-height:1.4;color:var(--muted);}
+  .rc-ri{width:34px;height:34px;flex-shrink:0;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(76,141,255,.16);color:#8DB6FF;}
+  .rc-rem.learn .rc-ri{background:rgba(155,124,255,.18);color:#C4B5FD;}
+  .rc-ri .li{width:19px;height:19px;}
+  .rc-ra{flex-shrink:0;min-height:36px;padding:0 13px;border-radius:11px;border:0;background:var(--accent);color:#fff;font:700 12.5px 'Inter',sans-serif;cursor:pointer;position:relative;}
+  .rc-ra::after{content:"";position:absolute;left:50%;top:50%;width:max(100%,44px);height:max(100%,44px);transform:translate(-50%,-50%);}
+  .rc-dots{display:flex;gap:4px;margin-top:6px;} .rc-dots i{width:14px;height:5px;border-radius:3px;background:rgba(244,245,250,.14);} .rc-dots i.on{background:#C4B5FD;}
+  @keyframes rcFade{from{opacity:0}to{opacity:1}}
 </style>
 </head>
 <body>
@@ -7852,7 +7898,53 @@ function daySummaryData(d){
   let wNow = wMap[d] ? wMap[d].avg : null, wPrev = null, wPrevDay = null;
   if(wNow != null){ const prior = Object.keys(wMap).filter(x => x < d).sort(); if(prior.length){ wPrevDay = prior[prior.length - 1]; wPrev = wMap[wPrevDay].avg; } }
   return { d, e, t, cal, burn, net: n, goalNet, items, incomplete, macros, health: h, workouts: dayWorkouts(d), wNow, wPrev, wPrevDay,
-    streak: computeStreak(allLoggedDates()), parts: burnParts(d) };
+    streak: computeStreak(allLoggedDates()), parts: burnParts(d), meals: dayMeals(e), weight: recapWeight(d) };
+}
+// Which meal an item belongs to: the one it was tagged with, or the one its time falls in.
+function itemMealKey(it){
+  if(it && it.meal && MEAL_BY_KEY[it.meal]) return it.meal;
+  if(it && typeof it.ts === 'number') return mealForTime(new Date(it.ts));
+  return null;
+}
+// A day's calories by Breakfast / Lunch / Dinner / Snacks (AM, PM and late snacks together). Null when
+// less than 60% of the day's calories can be placed in a meal.
+const MEAL_GROUPS = [
+  { k: 'breakfast', label: 'Breakfast', ic: 'breakfast', keys: ['breakfast'], c: '#FBBF24' },
+  { k: 'lunch', label: 'Lunch', ic: 'lunch', keys: ['lunch'], c: '#4C8DFF' },
+  { k: 'dinner', label: 'Dinner', ic: 'dinner', keys: ['dinner'], c: '#A78BFA' },
+  { k: 'snacks', label: 'Snacks', ic: 'pmsnack', keys: ['amsnack', 'pmsnack', 'late'], c: '#FF8A3D' } ];
+function dayMeals(e){
+  if(!e || e.mode !== 'items' || !(e.items || []).length) return null;
+  const by = {}; let placed = 0, all = 0;
+  e.items.forEach((it) => { const c = typeof it.cal === 'number' ? it.cal : 0; all += c; const k = itemMealKey(it); if(!k) return;
+    const g = MEAL_GROUPS.find((x) => x.keys.includes(k)); by[g.k] = by[g.k] || { cal: 0, p: 0, c: 0, f: 0, n: 0 };
+    by[g.k].cal += c; by[g.k].p += it.protein || 0; by[g.k].c += it.carbs || 0; by[g.k].f += it.fat || 0; by[g.k].n++; placed += c; });
+  return all > 0 && placed / all >= 0.6 ? { by, total: all } : null;
+}
+// Weight as of a day: its 7-day average, the change over the week before, and the goal's progress.
+function recapWeight(d){
+  const W = wtDays(); if(!Object.keys(W).length) return null;
+  const a = wtAvg7(W, d), b = wtAvg7(W, wtAddDays(d, -7));
+  if(a == null) return null;
+  return { avg: a, week: b != null ? a - b : null, goal: goalInfo(W) };
+}
+// What the recap should remind about: learning for a new user, weigh-ins for everyone, as on Today.
+function recapReminders(){
+  const out = [], ls = typeof learnStatus === 'function' ? learnStatus() : null;
+  const n = daysSinceWeighIn(), weighedToday = !!dailyWeightMap()[todayStr()], has = !!computeTargets();
+  if(ls && ls.phase === 'new' && has){
+    const done = Math.max(0, LEARN_MIN_DAYS - (ls.toGo || 0));
+    out.push({ kind: 'learn', title: `Learning your burn: ${done} of ${LEARN_MIN_DAYS} days`, dots: [done, LEARN_MIN_DAYS],
+      sub: ls.weigh ? 'Log everything you eat today, and weigh in this morning.' : 'Log everything you eat today. Each complete day counts.', act: ls.weigh ? 'weigh' : 'log' });
+    return out;
+  }
+  let show = false;
+  if(has && ls){
+    if(ls.phase === 'lapsed') show = ls.need === 'food' || !weighedToday;
+    else show = !weighedToday && (ls.weigh === 'keep' || (n != null && n >= WEIGH_NUDGE_DAYS));
+  } else show = !weighedToday && n != null && n >= WEIGH_NUDGE_DAYS;
+  if(show){ const tx = weighNudgeText(n, ls); out.push({ kind: 'weigh', title: tx.title, sub: tx.sub, act: tx.act === 'log' ? 'log' : 'weigh' }); }
+  return out;
 }
 function daySummaryInsights(x){
   const good = [], watch = [];
@@ -7865,24 +7957,16 @@ function daySummaryInsights(x){
     if(gw === 'gain' ? diff >= -100 : diff <= 100) good.push(gw === 'gain' ? 'Surplus on target — fuel for growth.' : (x.net < 0 ? (diff < -250 ? `A ${fmtN(-x.net)} kcal deficit, ${fmtN(-diff)} more than planned.` : `A ${fmtN(-x.net)} kcal deficit, right on plan.`) : 'Right on your calorie plan.'));
     else watch.push(gw === 'gain' ? `${fmtN(-diff)} kcal short of your planned surplus.` : `${fmtN(diff)} kcal more than your plan allowed.`);
   }
-  x.macros.forEach(({ m, v, g }) => {
-    if(v == null || g == null || x.incomplete) return;
-    const lbl = MACRO_INFO[m].label;
-    if(m === 'protein'){
-      if(v >= g * 0.95) good.push(`Protein goal hit: ${fmtN(v)} g.`);
-      else if(v < g * 0.8) watch.push(`Protein ${fmtN(g - v)} g short of ${fmtN(g)} g.`);
-    } else if(v > g * 1.25) watch.push(`${lbl} ran high: ${fmtN(v)} g vs ${fmtN(g)} g.`);
-  });
+  // macros have their own meters on the card, so no notes about them here
   if(x.health && typeof x.health.steps === 'number'){
     if(x.health.steps >= 10000) good.push(`${fmtN(x.health.steps)} steps — great movement.`);
     else if(x.health.steps < 4000 && burnPath() !== 'watch') watch.push(`Only ${fmtN(x.health.steps)} steps — a walk today helps.`);
   }
   if(x.workouts.length) good.push(`${x.workouts.length} workout${x.workouts.length > 1 ? 's' : ''} logged (+${fmtN(x.workouts.reduce((s, w) => s + workoutKcal(w).kcal, 0))} kcal).`);
-  if(x.wNow != null && x.wPrev != null && gw && gw !== 'maintain'){
-    const ch = Math.round((x.wNow - x.wPrev) * 10) / 10;
-    if((gw === 'lose' && ch < 0) || (gw === 'gain' && ch > 0)) good.push(`Scale moved the right way: ${ch > 0 ? '+' : '−'}${Math.abs(ch).toFixed(1)} ${weightUnit()}.`);
+  if(x.meals && x.cal && !x.incomplete){
+    const sn = x.meals.by.snacks;
+    if(sn && sn.cal / x.cal >= 0.2) watch.push(`Snacks were ${Math.round(sn.cal / x.cal * 100)}% of the day (${fmtN(sn.cal)} kcal).`);
   }
-  if(x.streak >= 3) good.push(`${x.streak}-day logging streak — keep it alive.`);
   return { good: good.slice(0, 2), watch: watch.slice(0, 2) };
 }
 // ---------- render all ----------
@@ -12384,19 +12468,49 @@ function recapVerdict(total, goal, slack, unit = 'day'){
 function recapPlanText(goal){ return Math.abs(goal) < 50 ? 'goal: break even' : `plan ${signedN(goal)}`; }
 const fatEq = (kcal) => { const kg = weightUnit() === 'kg'; return `≈ ${(Math.abs(kcal) / (kg ? 7700 : 3500)).toFixed(1)} ${kg ? 'kg' : 'lb'}`; };
 
-function recapDayCard(x, ins){
+function recapDayCard(x, ins, rem){
   const lbl = parseISO(x.d).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
   const v = x.incomplete ? { tone: 'warn', head: 'Unfinished day' } : recapVerdict(x.net, x.goalNet, 100, 'day');
-  const max = Math.max(x.cal || 0, x.burn || 0, 1);
-  const bar = (k, val, cls) => `<div class="rc-bar"><span>${k}</span><div class="rc-track"><i class="${cls}" style="--w:${val != null ? Math.max(3, val / max * 100) : 0}%"></i></div><b>${val != null ? fmtN(val) : '—'}</b></div>`;
+  const unit = weightUnit();
+  // eaten and burned, each with a tick at that day's goal
+  const gE = x.t ? x.t.calorieTarget : null, gB = x.t ? x.t.burnTarget : null;
+  const max = Math.max(x.cal || 0, x.burn || 0, gE || 0, gB || 0, 1);
+  const bar = (k, val, goal, cls) => `<div class="rc-bar"><span>${k}</span><div class="rc-track"><i class="${cls}" style="--w:${val != null ? Math.max(3, val / max * 100) : 0}%"></i>${goal ? `<u style="left:${(goal / max * 100).toFixed(1)}%" title="Goal ${fmtN(goal)}"></u>` : ''}</div><b>${val != null ? fmtN(val) : '—'}</b></div>`;
+  const sec = (title, side, body) => `<div class="rc-sec"><div class="rc-sh"><span>${title}</span>${side ? `<em>${side}</em>` : ''}</div>${body}</div>`;
+  // macros: three small meters against the day's goals
+  const mac = x.macros.filter((q) => q.v != null);
+  const macHTML = !x.incomplete && mac.length ? sec('Macros', '', `<div class="rc-mac" style="--n:${mac.length}">${mac.map(({ m, v, g }) => {
+    const pct = g ? Math.min(100, v / g * 100) : 0, over = g && v > g * 1.1, hit = g && v >= g * 0.95 && !over;
+    return `<div><span style="color:${MACRO_COLOR[m]}">${MACRO_INFO[m].label}</span><b>${fmtN(v)}<i>${g ? ` / ${fmtN(g)}` : ''} g</i></b><div class="rc-mt"><i style="--w:${pct.toFixed(0)}%;background:${MACRO_COLOR[m]}"></i></div><small class="${m === 'protein' ? (hit || over ? 'ok' : g && v < g * 0.8 ? 'lo' : '') : over ? 'hi' : ''}">${!g ? '' : m === 'protein' ? (v >= g * 0.95 ? 'goal hit' : `${fmtN(g - v)} g short`) : over ? `${fmtN(v - g)} g over` : 'within goal'}</small></div>`; }).join('')}</div>`) : '';
+  // meals: where the calories came from
+  let mealHTML = '';
+  if(!x.incomplete && x.meals){
+    const T = x.meals.total, gs = MEAL_GROUPS.filter((g) => x.meals.by[g.k] && x.meals.by[g.k].cal > 0);
+    const big = gs.slice().sort((a, b) => x.meals.by[b.k].cal - x.meals.by[a.k].cal)[0];
+    mealHTML = sec('Meals', big ? `${big.label} was the biggest` : '', `<div class="rc-mbar">${gs.map((g) => `<i style="flex-basis:${(x.meals.by[g.k].cal / T * 100).toFixed(1)}%;background:${g.c}"></i>`).join('')}</div>
+      <div class="rc-meals" style="--n:${gs.length}">${gs.map((g) => `<div><span style="color:${g.c}">${LI(g.ic)}</span><b>${fmtN(x.meals.by[g.k].cal)}</b><small>${g.label} · ${Math.round(x.meals.by[g.k].cal / T * 100)}%</small></div>`).join('')}</div>`);
+  }
+  // weight and the goal
+  let wHTML = '';
+  const w = x.weight;
+  if(w){
+    const gi = w.goal, good = (d) => d == null || !userGoals.weightGoal || userGoals.weightGoal === 'maintain' ? '' : (userGoals.weightGoal === 'lose' ? d < 0 : d > 0) ? 'ok' : 'lo';
+    const wk = w.week != null && Math.abs(w.week) >= 0.05 ? `<b class="${good(w.week)}">${w.week > 0 ? '+' : '−'}${Math.abs(w.week).toFixed(1)} ${unit}</b> this week` : w.week != null ? 'steady this week' : '';
+    if(gi && (gi.wg === 'lose' || gi.wg === 'gain') && !gi.wrongWay){
+      const when = goalWhen(gi.etaPace);
+      wHTML = sec('Weight', wk, `<div class="rc-goal"><div class="rc-gt"><i style="--w:${Math.round(gi.pct * 100)}%"></i></div>
+        <div class="rc-gl"><span>${wtFmt(gi.start)}</span><b>${wtFmt(w.avg)} ${unit}<small>7-day avg</small></b><span>Goal ${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)}</span></div></div>
+        <p class="rc-gp">${gi.toGo < 0.05 ? 'You’re at your goal weight. Nice work.' : `<b>${Math.round(gi.pct * 100)}%</b> of the way · ${wtFmt(gi.toGo)} ${unit} to go${when ? ` · on pace for <b>${when}</b>` : gi.pace != null && Math.sign(gi.pace) !== gi.dir ? ' · trend is going the other way' : ''}`}</p>`);
+    } else wHTML = sec('Weight', wk, `<div class="rc-wsolo"><b>${wtFmt(w.avg)}</b> ${unit}<small>7-day average</small></div>`);
+  }
+  // steps, workouts, streak
   const chips = [];
-  x.macros.filter(q => q.m === 'protein' && q.v != null).forEach(q => chips.push(`<span class="rc-chip${q.g && q.v >= q.g * 0.95 ? ' ok' : ''}"><b>${fmtN(q.v)} g</b> protein</span>`));
   if(x.health && typeof x.health.steps === 'number' && burnPath() !== 'manual') chips.push(`<span class="rc-chip${x.health.steps >= 10000 ? ' ok' : ''}"><b>${fmtN(x.health.steps)}</b> steps</span>`);
   if(x.workouts.length) chips.push(`<span class="rc-chip ok"><b>${x.workouts.length}</b> workout${x.workouts.length > 1 ? 's' : ''}</span>`);
-  if(x.wNow != null) chips.push(`<span class="rc-chip"><b>${x.wNow.toFixed(1)}</b> ${weightUnit()}${x.wPrev != null ? ` · ${x.wNow - x.wPrev > 0 ? '+' : x.wNow - x.wPrev < 0 ? '−' : '±'}${Math.abs(x.wNow - x.wPrev).toFixed(1)}` : ''}</span>`);
   if(x.streak >= 2) chips.push(`<span class="rc-chip"><b>${x.streak}-day</b> streak</span>`);
-  const notes = ins.good.map(t => `<p class="g"><i>✓</i>${escapeHtml(t)}</p>`).concat(ins.watch.map(t => `<p class="w"><i>!</i>${escapeHtml(t)}</p>`)).slice(0, 3).join('');
-  return `<section class="rc-card tone-${v.tone}" aria-label="Yesterday, ${lbl}">
+  const notes = ins.good.map((t) => `<p class="g"><i>✓</i>${escapeHtml(t)}</p>`).concat(ins.watch.map((t) => `<p class="w"><i>!</i>${escapeHtml(t)}</p>`)).slice(0, 3).join('');
+  const remHTML = (rem || []).map((r) => `<div class="rc-rem ${r.kind}"><span class="rc-ri">${LI(r.kind === 'learn' ? 'spark' : 'scale')}</span><div><b>${escapeHtml(r.title)}</b>${r.dots ? `<span class="rc-dots">${Array.from({ length: r.dots[1] }, (_, i) => `<i class="${i < r.dots[0] ? 'on' : ''}"></i>`).join('')}</span>` : ''}<small>${escapeHtml(r.sub)}</small></div>${r.act ? `<button type="button" class="rc-ra" data-rc="${r.act === 'log' ? 'log' : 'weigh'}">${r.act === 'log' ? 'Log food' : 'Weigh in'}</button>` : ''}</div>`).join('');
+  return `<section class="rc-card rc-day tone-${v.tone}" aria-label="Yesterday, ${lbl}">
     <div class="rc-k">Yesterday · ${lbl}</div>
     <h2 class="rc-head">${v.head}.</h2>
     ${x.incomplete
@@ -12404,9 +12518,11 @@ function recapDayCard(x, ins){
          <p class="rc-p">${x.items ? `${x.items} item${x.items === 1 ? '' : 's'} logged.` : 'No food logged.'} Finish it so your week stays true.</p>
          <button type="button" class="rc-cta" data-rc="finish">Finish yesterday</button>`
       : `<div class="rc-hero"><b data-count="${x.net != null ? x.net : ''}" data-signed="1">${x.net != null ? signedN(x.net) : '—'}</b><span>${x.net == null ? 'no burn for this day' : x.net <= 0 ? 'kcal deficit' : 'kcal surplus'}</span>${x.goalNet != null && x.net != null ? `<em>${recapPlanText(x.goalNet)}</em>` : ''}</div>
-         <div class="rc-bars">${bar('Eaten', x.cal, 'in')}${bar('Burned', x.burn, 'out')}</div>`}
-    ${chips.length ? `<div class="rc-chips">${chips.slice(0, 5).join('')}</div>` : ''}
+         <div class="rc-bars">${bar('Eaten', x.cal, gE, 'in')}${bar('Burned', x.burn, gB, 'out')}</div>`}
+    ${macHTML}${mealHTML}${wHTML}
+    ${chips.length ? `<div class="rc-chips">${chips.join('')}</div>` : ''}
     ${notes ? `<div class="rc-notes">${notes}</div>` : ''}
+    ${remHTML ? `<div class="rc-rems">${remHTML}</div>` : ''}
   </section>`;
 }
 function recapWeekCard(w){
@@ -12459,9 +12575,7 @@ function maybeShowDaySummary(force){
   try { localStorage.setItem('recap-seen', today); } catch(e){}
   const x = daySummaryData(d);
   const ins = daySummaryInsights(x);
-  const n = daysSinceWeighIn();
-  if(n != null && n >= WEIGH_NUDGE_DAYS) ins.watch.unshift(`No weigh-in for ${n} days. Step on the scale today.`);
-  const cards = [recapDayCard(x, { good: ins.good, watch: ins.watch.slice(0, 2) })];
+  const cards = [recapDayCard(x, { good: ins.good.slice(0, 2), watch: ins.watch.slice(0, 2) }, recapReminders())];
   const isMonday = (window.__recapDow != null ? window.__recapDow : parseISO(today).getDay()) === 1;
   let monday = null;
   if(isMonday || force === 'week'){
@@ -12511,6 +12625,8 @@ function showRecap(cards, opt){
     const b = ev.target.closest('[data-rc]');
     if(b){
       const a = b.dataset.rc; haptic(); close();
+      if(a === 'weigh'){ if(window.setView) window.setView('weight'); setTimeout(() => { try { openWeighIn(); } catch(e){} }, 150); return; }
+      if(a === 'log'){ setSelectedDate(todayStr()); if(window.setView) window.setView('food'); return; }
       if(a === 'finish'){ setSelectedDate(yesterdayStr()); foodExpanded = true; renderFoodForm(); if(window.setView) window.setView('food'); setTimeout(() => { const c = document.getElementById('foodSummaryBtn'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120); }
       else if(a === 'week' && opt.monday){ setSelectedDate(toISO(new Date(parseISO(opt.monday).getTime() + 6 * 864e5))); setTimeout(() => { const c = document.getElementById('balances'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150); }
       return;

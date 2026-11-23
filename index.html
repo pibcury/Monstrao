@@ -2781,29 +2781,19 @@
 
 
   /* ===== Insights (prototype) ===== */
-  .ins-in-trends{display:none;}
-  body.ins-title.ins-on .ins-in-trends{display:block;}
-  body.ins-title.ins-on #trendsFormWrap{display:none !important;}
   body.tabs[data-view="insights"] [data-view-card="insights"]{display:block;animation:viewIn .28s ease both;}
   body[data-view="insights"] #ringSection, body[data-view="insights"] #globalDateSelector, body[data-view="insights"] #dateTodayBtn{display:none !important;}
   body.ins-tab .tabbar button{width:min(56px, calc((min(100vw, 460px) - 32px - 52px - 8px - 18px) / 6));}
-  body.ins-tab .tabbar button span{font-size:10.5px;letter-spacing:0;}
+  body.ins-tab .tabbar button span{font-size:11px;letter-spacing:-0.01em;}
   body.ins-tab .tabbar button .li{width:21px;height:21px;}
-  /* "title" placement: the page title is the switch */
-  .page-title .pt-sw{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0;border:0;background:none;font:inherit;color:var(--muted);opacity:.55;transition:opacity .2s, color .2s;position:relative;}
-  .page-title .pt-sw + .pt-sw{margin-left:18px;font-size:22px;}
-  .page-title .pt-sw:first-child{font-size:22px;}
-  body.ins-title:not(.ins-on) .pt-sw[data-ins-title="trends"], body.ins-title.ins-on .pt-sw[data-ins-title="insights"]{color:var(--ink);opacity:1;font-size:28px;}
-  .page-title .pt-sw .pt-ico{width:22px;height:22px;}
-  body.ins-title:not(.ins-on) .pt-sw[data-ins-title="trends"] .pt-ico, body.ins-title.ins-on .pt-sw[data-ins-title="insights"] .pt-ico{width:26px;height:26px;}
-  /* "today" placement: a strip of headlines on Today */
+  /* Today: a row of insight headlines */
   .ins-teaser{margin:18px 0 4px;}
   body.tabs:not([data-view="home"]) .ins-teaser{display:none !important;}
   .ins-th{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
   .ins-th > span{display:inline-flex;align-items:center;gap:7px;font:800 11px Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
   .ins-th > span .li{width:15px;height:15px;color:#C4B5FD;}
   .ins-th button{min-height:44px;border:0;background:none;color:#8DB6FF;font:700 13px Inter,sans-serif;padding:0 2px;}
-  .ins-tr{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:0 18px 4px;scrollbar-width:none;}
+  .ins-tr{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 18px;margin:0 -18px;padding:0 18px 4px;scrollbar-width:none;}
   .ins-tr::-webkit-scrollbar{display:none;}
   .ins-tc{flex:0 0 74%;scroll-snap-align:start;text-align:left;padding:14px 15px 16px;border-radius:18px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);min-height:118px;display:flex;flex-direction:column;gap:8px;}
   .ins-tch{font:600 16px/1.3 'Sora',sans-serif;letter-spacing:-.01em;} .ins-tch b{color:#8DB6FF;font-weight:700;}
@@ -2812,7 +2802,7 @@
   .ins-k{font:800 11px/1 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
   .ins-h{margin:8px 0 14px;font:600 18px/1.3 'Sora',sans-serif;letter-spacing:-.01em;color:var(--ink);text-wrap:balance;}
   .ins-h b{color:#8DB6FF;font-weight:700;}
-  .ins-foot{margin:12px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted);}
+  .ins-foot{margin:12px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted);} .ins-foot b{color:var(--ink);}
   .ins-win{display:flex;gap:6px;margin-bottom:6px;}
   .ins-win button{min-height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--rule);background:none;color:var(--muted);font:600 12.5px Inter,sans-serif;position:relative;}
   .ins-win button::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%);}
@@ -2858,7 +2848,7 @@
   .ins-dow span{display:block;margin-top:2px;font-size:11px;font-weight:700;color:var(--muted);}
   .ins-tbl{width:100%;margin-top:16px;border-collapse:collapse;font-variant-numeric:tabular-nums;}
   .ins-tbl th, .ins-tbl td{padding:8px 0;text-align:right;border-top:1px solid var(--rule);}
-  .ins-tbl thead th{border-top:0;font-size:11.5px;font-weight:700;color:var(--muted);padding-top:0;}
+  .ins-tbl thead th{border-top:0;font-size:11.5px;font-weight:700;color:var(--muted);padding-top:0;} .ins-tbl thead th:first-child{text-align:left;}
   .ins-tbl tbody th{text-align:left;font-size:13px;font-weight:600;color:var(--muted);}
   .ins-tbl td{font:700 16px 'Sora',sans-serif;color:var(--ink);width:34%;}
   .ins-tbl td.g{color:#4ADE80;} .ins-tbl td.r{color:#FF5C7A;}
@@ -3281,7 +3271,6 @@
       <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/></svg>Trends</span>
       <span class="burn-chevron" id="trendsChevron">›</span>
     </button>
-    <div class="ins-in-trends" id="insightsBox" data-ins-target></div>
     <div id="trendsFormWrap" style="display:none;">
       <div class="mode-toggle" id="trendHorizonRow">
         <button class="mode-btn" data-horizon="week" type="button">Week</button>
@@ -3712,13 +3701,6 @@
 </div>
 
 <!-- ============ Learning: what Fera has learned, and the weekly plan check ============ -->
-<div class="page-overlay" id="insightsOverlay" style="display:none;">
-  <div class="overlay-topbar">
-    <button class="overlay-back" id="insightsBackBtn" type="button" aria-label="Back">Back</button>
-    <div class="overlay-title">Insights</div>
-  </div>
-  <div class="overlay-scroll" id="insightsPageBody"><div data-ins-target></div></div>
-</div>
 <div class="page-overlay" id="learnOverlay" style="display:none;">
   <div class="overlay-topbar">
     <button class="overlay-back" id="learnBackBtn" type="button" aria-label="Back">Back</button>
@@ -4934,6 +4916,7 @@ const LI_PATHS = {
   trends: '<path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/>',
   fork: '<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M16.5 21V3c-2 1-3.5 3.5-3.5 7 0 2 1.5 3 3.5 3"/>',
   flame: '<path d="M12 3c.6 3 4.8 4.9 4.8 9.8a4.8 4.8 0 0 1-9.6 0c0-2.3 1.1-3.8 2.4-4.9.2 1.7 1.1 2.8 2.3 3.1-.3-3-.6-5.4.1-8z"/>',
+  bulb: '<path d="M9.2 17.5h5.6M10.2 20.8h3.6M12 3.2a6.2 6.2 0 0 0-3.8 11.1c.8.6 1.2 1.4 1.2 2.2v1h5.2v-1c0-.8.4-1.6 1.2-2.2A6.2 6.2 0 0 0 12 3.2Z"/>',
   heart: '<path d="M12 20s-7.6-4.4-7.6-10A4.2 4.2 0 0 1 12 7.4 4.2 4.2 0 0 1 19.6 10c0 5.6-7.6 10-7.6 10Z"/><path d="M5 12.5h3.4l1.5-2.4 2.4 4.6 1.9-3.2H19"/>',
 };
 // One empty state for every screen: an icon, a short headline, one or two lines on what to do, and at
@@ -8122,7 +8105,7 @@ function renderAll(){
   renderWeightCard();
   renderHeaderStats();
   try { layoutRings(); } catch(e){}
-  try { if(typeof INS_MODE !== 'undefined' && INS_MODE === 'today') renderInsightsTeaser(); } catch(e){}
+  try { renderInsightsTeaser(); } catch(e){}
 }
 
 // ---------- the single shared date selector (Food / Burn / Weight cards + both rings) ----------
@@ -11031,6 +11014,7 @@ bootAuth();
   <button type="button" data-view="burn" aria-label="Burn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 3 4.8 4.9 4.8 9.8a4.8 4.8 0 0 1-9.6 0c0-2.3 1.1-3.8 2.4-4.9.2 1.7 1.1 2.8 2.3 3.1-.3-3-.6-5.4.1-8z"/></svg><span>Burn</span></button>
   <button type="button" data-view="weight" aria-label="Weight"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="4"/><path d="M8.5 9.5a4.5 4.5 0 0 1 7 0M12 9.6l1.4-1.9"/></svg><span>Weight</span></button>
   <button type="button" data-view="trends" aria-label="Trends"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/></svg><span>Trends</span></button>
+  <button type="button" data-view="insights" aria-label="Insights"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 17.5h5.6M10.2 20.8h3.6M12 3.2a6.2 6.2 0 0 0-3.8 11.1c.8.6 1.2 1.4 1.2 2.2v1h5.2v-1c0-.8.4-1.6 1.2-2.2A6.2 6.2 0 0 0 12 3.2Z"/></svg><span>Insights</span></button>
 </nav>
 <button class="ai-fab hide" id="aiFab" type="button" aria-label="Ask Fera AI"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span class="ai-fab-lbl">Ask Fera</span></button>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -12769,7 +12753,7 @@ function showRecap(cards, opt){
 // phone with plain arithmetic, no AI. A rolling window (4 or 12 weeks) compared with the window before it.
 // =====================================================================================
 let insWindow = 28;
-const INS_MODE = (() => { try { const q = new URLSearchParams(location.search).get('ins'); if(q != null) localStorage.setItem('feraIns', q); const v = localStorage.getItem('feraIns') || ''; return ['tab', 'today', 'title'].includes(v) ? v : ''; } catch(e){ return ''; } })();
+try { localStorage.removeItem('feraIns'); } catch(e){}
 function insDays(n, endOffset){
   const end = wtAddDays(todayStr(), -1 - (endOffset || 0)), out = [];
   for(let i = n - 1; i >= 0; i--){
@@ -12934,9 +12918,10 @@ function insightsHTML(N, opts){
   const nc = (v) => v == null ? '' : v <= 0 ? 'g' : 'r';
   out.push(insCard('Weekdays vs weekends', tough ? `${INS_DAY[tough.k]} is your toughest day: ${insB(signedN(tough.net) + ' kcal')} balance` : 'Your week',
     `<div class="ins-dow">${D.dow.map((x, i) => { const h = x.net == null ? 0 : Math.abs(x.net) / mx * 44; return `<div><div class="ins-col"><i class="${nc(x.net)}" style="height:${h.toFixed(0)}px;${x.net != null && x.net <= 0 ? 'top:50%' : 'bottom:50%'}"></i></div><b>${x.net == null ? '—' : signedN(x.net)}</b><span>${INS_DOW[i]}</span></div>`; }).join('')}</div>
-    <table class="ins-tbl"><thead><tr><th></th><th>Weekdays</th><th>Weekends</th></tr></thead><tbody>
+    <table class="ins-tbl"><thead><tr><th>Average day</th><th>Weekday</th><th>Weekend</th></tr></thead><tbody>
       ${row('Eaten', D.split.wd.cal, D.split.we.cal)}${row('Burned', D.split.wd.burn, D.split.we.burn)}${row('Balance', D.split.wd.net, D.split.we.net, nc)}</tbody></table>`,
-    'Average kcal a day.'));
+    (() => { const sat = D.dow[5].net, sun = D.dow[6].net;
+      return `Kcal on an average weekday and an average weekend day${sat != null && sun != null ? `, so the weekend column sits between Saturday and Sunday. A whole weekend adds up to ${insB(signedN(sat + sun))} (Saturday ${signedN(sat)}, Sunday ${signedN(sun)}).` : '.'}`; })()));
   // 7. burn
   if(D.burn.avg != null){
     const sh = D.burn.share || {}, segs = [['rest', 'Resting', '#4C8DFF'], ['move', 'Movement', '#2DD4BF'], ['workouts', 'Workouts', '#FF6B85'], ['digest', 'Digestion', '#FBBF24']].filter(([k]) => sh[k]);
@@ -12976,45 +12961,28 @@ function insightsHTML(N, opts){
   return { D, html: seg + out.join('') };
 }
 function renderInsights(){
-  document.querySelectorAll('[data-ins-target]').forEach((box) => { if(!box.getClientRects().length && !box.closest('#insightsOverlay')) return; box.innerHTML = insightsHTML(insWindow).html; });
+  document.querySelectorAll('[data-ins-target]').forEach((box) => { if(!box.getClientRects().length) return; box.innerHTML = insightsHTML(insWindow).html; });
   renderInsightsTeaser();
 }
-// Today's teaser ("today" placement): the four headlines, side by side, each opening the full page there.
+// Today's row of headlines: swipe through them; each opens the Insights tab at that insight.
 function renderInsightsTeaser(){
-  const t = document.getElementById('insTeaser'); if(!t || INS_MODE !== 'today') return;
+  const t = document.getElementById('insTeaser'); if(!t) return;
   const D = insightsData(28);
   if(!D.enough){ t.hidden = true; return; }
   t.hidden = false;
   const tmp = document.createElement('div'); tmp.innerHTML = insightsHTML(28).html;
   const cards = [...tmp.querySelectorAll('.ins-card')].slice(0, 6).map((c, i) => `<button type="button" class="ins-tc" data-ins-open="${i}"><span class="ins-k">${c.querySelector('.ins-k').textContent}</span><span class="ins-tch">${c.querySelector('.ins-h').innerHTML}</span></button>`);
-  t.innerHTML = `<div class="ins-th"><span>${LI('spark')}Insights · last 4 weeks</span><button type="button" data-ins-open="0">See all</button></div><div class="ins-tr" data-no-swipe>${cards.join('')}</div>`;
+  t.innerHTML = `<div class="ins-th"><span>${LI('bulb')}Insights · last 4 weeks</span><button type="button" data-ins-open="0">See all</button></div><div class="ins-tr" data-no-swipe>${cards.join('')}</div>`;
 }
 function openInsightsPage(i){
-  const ov = document.getElementById('insightsOverlay'); if(!ov) return;
-  ov.style.display = 'flex'; document.body.classList.add('overlay-open');
-  renderInsights();
-  const body = document.getElementById('insightsPageBody');
-  const c = body.querySelectorAll('.ins-card')[i || 0]; body.scrollTop = 0; if(c && i) c.scrollIntoView({ block: 'start' });
+  if(window.setView) window.setView('insights');
+  requestAnimationFrame(() => { const c = document.querySelectorAll('#insightsTabBox .ins-card')[i || 0]; if(c && i) window.scrollTo({ top: c.getBoundingClientRect().top + scrollY - 70, behavior: 'smooth' }); });
 }
 document.addEventListener('click', (ev) => {
   const w = ev.target.closest('[data-ins-win]'); if(w){ haptic(); insWindow = +w.dataset.insWin; renderInsights(); return; }
   const o = ev.target.closest('[data-ins-open]'); if(o){ haptic(); openInsightsPage(+o.dataset.insOpen); return; }
-  if(ev.target.closest('#insightsBackBtn')){ haptic(); document.getElementById('insightsOverlay').style.display = 'none'; document.body.classList.remove('overlay-open'); return; }
-  const s = ev.target.closest('[data-ins-title]'); if(!s) return;
-  haptic();
-  const on = s.dataset.insTitle === 'insights';
-  document.body.classList.toggle('ins-on', on);
-  if(on) renderInsights();
 });
-(function insSetup(){
-  if(!INS_MODE) return;
-  document.body.classList.add('ins-' + INS_MODE);
-  if(INS_MODE === 'tab'){
-    const bar = document.getElementById('tabBar');
-    const b = document.createElement('button'); b.type = 'button'; b.dataset.view = 'insights'; b.setAttribute('aria-label', 'Insights');
-    b.innerHTML = `${LI('spark')}<span>Insights</span>`; bar.appendChild(b);
-  }
-})();
+document.body.classList.add('ins-tab');
 
 (function wireWeighNudge(){
   const el = document.getElementById('weighNudge'); if(!el) return;
@@ -13120,13 +13088,13 @@ document.addEventListener('click', (ev) => {
 // =====================================================================================
 (function sections(){
   const bar = document.getElementById('tabBar');
-  const VIEWS = ['home', 'food', 'burn', 'weight', 'trends'].concat(typeof INS_MODE !== 'undefined' && INS_MODE === 'tab' ? ['insights'] : []);
+  const VIEWS = ['home', 'food', 'burn', 'weight', 'trends', 'insights'];
   const open = {
     food: () => { if(!foodExpanded) document.getElementById('foodSummaryBtn').click(); },
     burn: () => { if(!burnExpanded) document.getElementById('burnSummaryBtn').click(); },
     weight: () => { if(!weightExpanded) document.getElementById('weightSummaryBtn').click(); },
     insights: () => renderInsights(),
-    trends: () => { if(typeof INS_MODE !== 'undefined' && INS_MODE === 'title' && document.body.classList.contains('ins-on')) renderInsights(); if(!trendsExpanded) document.getElementById('trendsSummaryBtn').click(); else requestAnimationFrame(() => { window.dispatchEvent(new Event('resize')); if(window.renderTrendsRingAndRuler) renderTrendsRingAndRuler(); }); }
+    trends: () => { if(!trendsExpanded) document.getElementById('trendsSummaryBtn').click(); else requestAnimationFrame(() => { window.dispatchEvent(new Event('resize')); if(window.renderTrendsRingAndRuler) renderTrendsRingAndRuler(); }); }
   };
   let current = 'home';
   function setView(v, opts){
@@ -13136,10 +13104,8 @@ document.addEventListener('click', (ev) => {
     current = v;
     document.body.dataset.view = v;
     requestAnimationFrame(() => { try { layoutRings(); } catch(e){} });
-    { const t = document.getElementById('pageTitle'), P = { food: ['fork', 'Food'], burn: ['flame', 'Burn'], weight: ['scale', 'Weight'], trends: ['trends', 'Trends'], insights: ['spark', 'Insights'] }[v];
-      if(t) t.innerHTML = v === 'trends' && typeof INS_MODE !== 'undefined' && INS_MODE === 'title'
-        ? `<button type="button" class="pt-sw" data-ins-title="trends">${LI('trends', 'pt-ico')}<span>Trends</span></button><button type="button" class="pt-sw" data-ins-title="insights">${LI('spark', 'pt-ico')}<span>Insights</span></button>`
-        : P ? `${LI(P[0], 'pt-ico')}<span>${P[1]}</span>` : ''; }
+    { const t = document.getElementById('pageTitle'), P = { food: ['fork', 'Food'], burn: ['flame', 'Burn'], weight: ['scale', 'Weight'], trends: ['trends', 'Trends'], insights: ['bulb', 'Insights'] }[v];
+      if(t) t.innerHTML = P ? `${LI(P[0], 'pt-ico')}<span>${P[1]}</span>` : ''; }
     bar.querySelectorAll('[data-view]').forEach(b => { b.classList.toggle('on', b.dataset.view === v); b.setAttribute('aria-current', b.dataset.view === v ? 'page' : 'false'); });
     if(open[v]) open[v]();
     if(!opts.keepScroll) window.scrollTo(0, 0);

@@ -1678,8 +1678,10 @@
   @media (prefers-reduced-motion: reduce){ .swipe-in-l,.swipe-in-r{animation:none;} }
   .goals-autosave{margin:18px 0 0;text-align:center;font-size:12px;color:var(--muted);}
   .goals-autosave .saved{color:#4ADE80;font-weight:600;}
-  .trend-asks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:-4px auto 14px;}
-  .trend-asks .trend-ask{font-size:12px;padding:7px 9px;gap:4px;}
+  /* the two AI buttons: always side by side on one line, each taking half; a long label (a month's name) shrinks to fit */
+  .trend-asks{display:flex;flex-wrap:nowrap;justify-content:center;gap:6px;margin:-4px auto 14px;}
+  .trend-asks .trend-ask{flex:0 1 auto;font-size:12.5px;padding:7px 8px;gap:4px;min-width:0;}
+  .trend-asks .trend-ask span{min-width:0;overflow:hidden;white-space:nowrap;}
   .trend-ask{display:flex;align-items:center;justify-content:center;gap:6px;margin:0;padding:7px 12px;border-radius:999px;white-space:nowrap;
     border:1px solid rgba(76,141,255,0.35);background:rgba(76,141,255,0.10);color:var(--ink);font-size:12.5px;font-weight:600;cursor:pointer;}
   .trend-ask svg{width:13px;height:13px;color:var(--accent);}
@@ -2777,27 +2779,49 @@
   .rc-dots{display:flex;gap:4px;margin-top:6px;} .rc-dots i{width:14px;height:5px;border-radius:3px;background:rgba(244,245,250,.14);} .rc-dots i.on{background:#C4B5FD;}
   @keyframes rcFade{from{opacity:0}to{opacity:1}}
 
+
   /* ===== Insights (prototype) ===== */
-  #trendsFormWrap.ins-hide{display:none !important;}
-  .ins-seg{display:flex;padding:3px;margin:2px 0 14px;border-radius:12px;background:rgba(244,245,250,.06);}
-  .ins-seg[hidden]{display:none;}
-  .ins-seg button{flex:1;min-height:44px;border:0;border-radius:9px;background:none;color:var(--muted);font:700 14px Inter,sans-serif;position:relative;}
-  .ins-seg button.on{background:rgba(244,245,250,.12);color:var(--ink);}
-  .ins-win{display:flex;gap:6px;margin-bottom:6px;}
-  .ins-win button::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%);}
-  .ins-win button{min-height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--rule);background:none;color:var(--muted);font:600 12.5px Inter,sans-serif;position:relative;}
-  .ins-win button.on{border-color:rgba(76,141,255,.5);background:rgba(76,141,255,.12);color:var(--ink);}
+  .ins-in-trends{display:none;}
+  body.ins-title.ins-on .ins-in-trends{display:block;}
+  body.ins-title.ins-on #trendsFormWrap{display:none !important;}
+  body.tabs[data-view="insights"] [data-view-card="insights"]{display:block;animation:viewIn .28s ease both;}
+  body[data-view="insights"] #ringSection, body[data-view="insights"] #globalDateSelector, body[data-view="insights"] #dateTodayBtn{display:none !important;}
+  body.ins-tab .tabbar button{width:min(56px, calc((min(100vw, 460px) - 32px - 52px - 8px - 18px) / 6));}
+  body.ins-tab .tabbar button span{font-size:10.5px;letter-spacing:0;}
+  body.ins-tab .tabbar button .li{width:21px;height:21px;}
+  /* "title" placement: the page title is the switch */
+  .page-title .pt-sw{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0;border:0;background:none;font:inherit;color:var(--muted);opacity:.55;transition:opacity .2s, color .2s;position:relative;}
+  .page-title .pt-sw + .pt-sw{margin-left:18px;font-size:22px;}
+  .page-title .pt-sw:first-child{font-size:22px;}
+  body.ins-title:not(.ins-on) .pt-sw[data-ins-title="trends"], body.ins-title.ins-on .pt-sw[data-ins-title="insights"]{color:var(--ink);opacity:1;font-size:28px;}
+  .page-title .pt-sw .pt-ico{width:22px;height:22px;}
+  body.ins-title:not(.ins-on) .pt-sw[data-ins-title="trends"] .pt-ico, body.ins-title.ins-on .pt-sw[data-ins-title="insights"] .pt-ico{width:26px;height:26px;}
+  /* "today" placement: a strip of headlines on Today */
+  .ins-teaser{margin:18px 0 4px;}
+  body.tabs:not([data-view="home"]) .ins-teaser{display:none !important;}
+  .ins-th{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+  .ins-th > span{display:inline-flex;align-items:center;gap:7px;font:800 11px Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
+  .ins-th > span .li{width:15px;height:15px;color:#C4B5FD;}
+  .ins-th button{min-height:44px;border:0;background:none;color:#8DB6FF;font:700 13px Inter,sans-serif;padding:0 2px;}
+  .ins-tr{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:0 18px 4px;scrollbar-width:none;}
+  .ins-tr::-webkit-scrollbar{display:none;}
+  .ins-tc{flex:0 0 74%;scroll-snap-align:start;text-align:left;padding:14px 15px 16px;border-radius:18px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);min-height:118px;display:flex;flex-direction:column;gap:8px;}
+  .ins-tch{font:600 16px/1.3 'Sora',sans-serif;letter-spacing:-.01em;} .ins-tch b{color:#8DB6FF;font-weight:700;}
   .ins-card{padding:18px 0 16px;border-top:1px solid var(--rule);}
-  .ins-card:first-of-type{border-top:0;}
+  .ins-win + .ins-card{border-top:0;}
   .ins-k{font:800 11px/1 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
   .ins-h{margin:8px 0 14px;font:600 18px/1.3 'Sora',sans-serif;letter-spacing:-.01em;color:var(--ink);text-wrap:balance;}
   .ins-h b{color:#8DB6FF;font-weight:700;}
   .ins-foot{margin:12px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted);}
-  .ins-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .ins-win{display:flex;gap:6px;margin-bottom:6px;}
+  .ins-win button{min-height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--rule);background:none;color:var(--muted);font:600 12.5px Inter,sans-serif;position:relative;}
+  .ins-win button::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%);}
+  .ins-win button.on{border-color:rgba(76,141,255,.5);background:rgba(76,141,255,.12);color:var(--ink);}
+  .ins-goal{display:flex;flex-wrap:wrap;gap:6px;}
+  .ins-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;} .ins-tiles.four{grid-template-columns:repeat(2,1fr);row-gap:14px;}
   .ins-tiles > div, .ins-vs > div, .ins-pace > div{min-width:0;}
   .ins-tiles span, .ins-vs span, .ins-pace span, .ins-sv span{display:block;font-size:11.5px;font-weight:600;color:var(--muted);}
   .ins-tiles b, .ins-vs b, .ins-pace b{display:block;margin-top:4px;font:700 20px/1.1 'Sora',sans-serif;color:var(--ink);font-variant-numeric:tabular-nums;}
-  .ins-tiles b.g, .ins-vs b.g{color:#4ADE80;} .ins-tiles b.r{color:#FF5C7A;}
   .ins-tiles small, .ins-vs small, .ins-pace small{display:block;margin-top:3px;font-size:11px;color:var(--muted);}
   .ins-days, .ins-strip{display:flex;flex-wrap:wrap;gap:4px;margin-top:14px;}
   .ins-days i, .ins-strip i{width:calc((100% - 13 * 4px) / 14);aspect-ratio:1;border-radius:4px;background:rgba(244,245,250,.08);}
@@ -2807,42 +2831,64 @@
   .ins-pace{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .ins-vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--rule);}
   .ins-meals{display:flex;flex-direction:column;}
-  .ins-meal{display:grid;grid-template-columns:24px 1fr 56px 58px 62px;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--rule);}
+  .ins-snacks{margin-top:10px;}
+  .ins-meal{display:grid;grid-template-columns:24px 1fr 56px 86px;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--rule);}
   .ins-meal:first-child{border-top:0;}
   .ins-mi .li{width:19px;height:19px;}
   .ins-mn{font-size:14px;font-weight:600;color:var(--ink);min-width:0;} .ins-mn small{display:block;font-size:11px;font-weight:500;color:var(--muted);}
-  .ins-meal > b{font:700 16px 'Sora',sans-serif;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums;}
-  .ins-d{font-size:11.5px;font-weight:700;text-align:right;color:var(--muted);white-space:nowrap;} .ins-d.good{color:#4ADE80;} .ins-d.bad{color:#FF8A9C;}
-  .ins-h .ins-d{font-size:13px;margin-left:4px;}
+  .ins-meal > b{font:700 16px 'Sora',sans-serif;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .ins-meal > b i{font:600 11px Inter,sans-serif;font-style:normal;color:var(--muted);margin-left:3px;}
   .ins-q{display:flex;flex-direction:column;gap:10px;}
   .ins-q > div:not(.ins-legend){display:grid;grid-template-columns:72px 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;}
   .ins-q > div > span{font-size:13px;font-weight:600;color:var(--ink);grid-row:1 / 3;}
   .ins-q > div > small{font-size:11px;color:var(--muted);margin-top:3px;}
   .ins-mix{display:flex;height:20px;border-radius:6px;overflow:hidden;gap:2px;}
-  .ins-mix i{display:flex;align-items:center;justify-content:center;font:700 10.5px Inter,sans-serif;color:rgba(10,12,16,.85);font-style:normal;min-width:3px;}
+  .ins-mix i{display:flex;align-items:center;justify-content:center;font:700 11px Inter,sans-serif;color:rgba(10,12,16,.85);font-style:normal;min-width:3px;}
   .ins-legend{display:flex;gap:14px;font-size:11.5px;font-weight:700;margin-top:2px;}
   .ins-sv{display:grid;gap:10px;margin-top:14px;} .ins-sv span{margin-bottom:5px;}
   .ins-badge{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 12px;border-radius:12px;font:800 11px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;}
   .ins-badge span{font:500 13px Inter,sans-serif;letter-spacing:0;text-transform:none;color:var(--ink);}
   .ins-badge.bad{background:rgba(255,138,61,.12);color:#FFB46B;} .ins-badge.good{background:rgba(74,222,128,.1);color:#4ADE80;}
-  .ins-dow, .ins-wk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;}
-  .ins-wk{grid-template-columns:repeat(4,1fr);gap:10px;}
+  .ins-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;}
   .ins-col{position:relative;height:96px;border-radius:8px;background:rgba(244,245,250,.04);}
   .ins-col::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(244,245,250,.18);}
   .ins-col i{position:absolute;left:22%;right:22%;border-radius:4px;}
   .ins-col i.g{background:#4ADE80;} .ins-col i.r{background:#FF5C7A;}
-  .ins-col u{position:absolute;left:8%;right:8%;height:0;border-top:2px dashed rgba(244,245,250,.6);text-decoration:none;}
-  .ins-col.tall{height:110px;}
-  .ins-dow b, .ins-wk b{display:block;margin-top:6px;font:700 11px 'Sora',sans-serif;color:var(--ink);white-space:nowrap;}
-  .ins-dow span, .ins-wk span{display:block;margin-top:2px;font-size:11px;font-weight:700;color:var(--muted);}
+  .ins-dow b{display:block;margin-top:6px;font:700 11px 'Sora',sans-serif;color:var(--ink);white-space:nowrap;}
+  .ins-dow span{display:block;margin-top:2px;font-size:11px;font-weight:700;color:var(--muted);}
+  .ins-tbl{width:100%;margin-top:16px;border-collapse:collapse;font-variant-numeric:tabular-nums;}
+  .ins-tbl th, .ins-tbl td{padding:8px 0;text-align:right;border-top:1px solid var(--rule);}
+  .ins-tbl thead th{border-top:0;font-size:11.5px;font-weight:700;color:var(--muted);padding-top:0;}
+  .ins-tbl tbody th{text-align:left;font-size:13px;font-weight:600;color:var(--muted);}
+  .ins-tbl td{font:700 16px 'Sora',sans-serif;color:var(--ink);width:34%;}
+  .ins-tbl td.g{color:#4ADE80;} .ins-tbl td.r{color:#FF5C7A;}
   .ins-stack{display:flex;height:12px;border-radius:6px;overflow:hidden;gap:2px;}
   .ins-leg2{display:flex;flex-wrap:wrap;gap:6px 14px;margin:10px 0 16px;font-size:12px;color:var(--muted);}
   .ins-leg2 span{display:inline-flex;align-items:center;gap:6px;} .ins-leg2 i{width:8px;height:8px;border-radius:2px;} .ins-leg2 b{color:var(--ink);}
   .ins-hl{display:flex;flex-direction:column;}
-  .ins-hl > div{display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--rule);font-size:13.5px;}
-  .ins-hl > div:first-child{border-top:0;}
-  .ins-hl i{font-style:normal;font-size:10px;} .ins-hl .g i{color:#4ADE80;} .ins-hl .r i{color:#FF8A9C;}
-  .ins-hl span{color:var(--muted);font-weight:600;} .ins-hl b{color:var(--ink);font-weight:600;text-align:right;}
+  .ins-hlh{margin:6px 0 4px;font:800 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;}
+  .ins-hlh.g{color:#4ADE80;} .ins-hlh.r{color:#FF8A9C;margin-top:18px;}
+  .ins-hl > div:not(.ins-hlh){display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--rule);}
+  .ins-hlh + div{border-top:0 !important;}
+  .ins-hi{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+  .ins-hl .g .ins-hi{background:rgba(74,222,128,.12);color:#4ADE80;} .ins-hl .r .ins-hi{background:rgba(255,92,122,.12);color:#FF8A9C;}
+  .ins-hi .li{width:17px;height:17px;}
+  .ins-hk{font-size:13.5px;font-weight:600;color:var(--ink);min-width:0;} .ins-hk small{display:block;font-size:11.5px;font-weight:500;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ins-hl b{font:700 14px 'Sora',sans-serif;color:var(--ink);text-align:right;white-space:nowrap;}
+
+  /* swiping between tabs: the old page slides out, the new one in; the tab bar and AI button stay put */
+  .tabbar{view-transition-name:fera-tabbar;} .ai-fab{view-transition-name:fera-fab;}
+  html.vt-swipe::view-transition-old(root), html.vt-swipe::view-transition-new(root){animation:none;}
+  ::view-transition-group(fera-tabbar), ::view-transition-group(fera-fab){z-index:5;}
+  ::view-transition-group(fera-page-out), ::view-transition-group(fera-page-in){z-index:1;}
+  ::view-transition-old(fera-page-out){animation:vtOutL .34s cubic-bezier(.25,.8,.25,1) both;}
+  ::view-transition-new(fera-page-in){animation:vtInL .34s cubic-bezier(.25,.8,.25,1) both;}
+  html.vt-back::view-transition-old(fera-page-out){animation-name:vtOutR;}
+  html.vt-back::view-transition-new(fera-page-in){animation-name:vtInR;}
+  @keyframes vtOutL{to{transform:translateX(-100vw);}} @keyframes vtInL{from{transform:translateX(100vw);}}
+  @keyframes vtOutR{to{transform:translateX(100vw);}} @keyframes vtInR{from{transform:translateX(-100vw);}}
+  html.vt-swipe [data-view-card]{animation:none !important;}
+  html{scrollbar-gutter:stable;}
 </style>
 </head>
 <body>
@@ -2982,6 +3028,7 @@
     <div class="day-ask" id="dayAsk"></div>
     </div>
     <div class="balances" id="balances"></div>
+    <div class="ins-teaser" id="insTeaser" hidden></div>
   </div>
 
       </div>
@@ -3228,13 +3275,13 @@
     </div>
   </div>
 
+  <div class="card ins-tab-card" data-view-card="insights"><div data-ins-target id="insightsTabBox"></div></div>
   <div class="card" data-view-card="trends">
     <button class="burn-summary-row" id="trendsSummaryBtn" type="button">
       <span class="burn-summary-title"><svg class="ttl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/></svg>Trends</span>
       <span class="burn-chevron" id="trendsChevron">›</span>
     </button>
-    <div class="ins-seg" id="insSeg" role="tablist" hidden><button type="button" data-ins-seg="insights">Insights</button><button type="button" data-ins-seg="charts" class="on">Charts</button></div>
-    <div id="insightsBox" hidden></div>
+    <div class="ins-in-trends" id="insightsBox" data-ins-target></div>
     <div id="trendsFormWrap" style="display:none;">
       <div class="mode-toggle" id="trendHorizonRow">
         <button class="mode-btn" data-horizon="week" type="button">Week</button>
@@ -3665,6 +3712,13 @@
 </div>
 
 <!-- ============ Learning: what Fera has learned, and the weekly plan check ============ -->
+<div class="page-overlay" id="insightsOverlay" style="display:none;">
+  <div class="overlay-topbar">
+    <button class="overlay-back" id="insightsBackBtn" type="button" aria-label="Back">Back</button>
+    <div class="overlay-title">Insights</div>
+  </div>
+  <div class="overlay-scroll" id="insightsPageBody"><div data-ins-target></div></div>
+</div>
 <div class="page-overlay" id="learnOverlay" style="display:none;">
   <div class="overlay-topbar">
     <button class="overlay-back" id="learnBackBtn" type="button" aria-label="Back">Back</button>
@@ -4274,7 +4328,7 @@ function layoutRingPair(s){
   figs.forEach((f) => { f.style.fontSize = fs + 'px'; });
   if(chipOn){ const rr = rings[0].getBoundingClientRect(), tr = top.getBoundingClientRect(); chip.style.top = (rr.top + rr.height / 2 - tr.top) + 'px'; }
 }
-function layoutRings(){ layoutRingPair(''); layoutRingPair('T'); }
+function layoutRings(){ layoutRingPair(''); layoutRingPair('T'); ['trendAskLbl', 'trendCompareLbl'].forEach((id) => { const el = document.getElementById(id); if(el && el.clientWidth) fitOneLine(el); }); }
 window.addEventListener('resize', () => requestAnimationFrame(layoutRings));
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(() => layoutRings());
 // Under the Burn label, a tiny tag says where the number comes from. In the center: "Log" when it's
@@ -6925,6 +6979,7 @@ function renderTrendPeriodNav(){
   if(ask && typeof trendAskLabel === 'function') ask.textContent = trendAskLabel();
   const cmp = document.getElementById('trendCompareLbl');
   if(cmp && typeof trendCompareLabel === 'function') cmp.textContent = trendCompareLabel();
+  requestAnimationFrame(() => [ask, cmp].forEach((el) => { if(el && el.clientWidth) fitOneLine(el); }));
 }
 function renderTrendsAll(){
   renderTrendPeriodNav();
@@ -8067,6 +8122,7 @@ function renderAll(){
   renderWeightCard();
   renderHeaderStats();
   try { layoutRings(); } catch(e){}
+  try { if(typeof INS_MODE !== 'undefined' && INS_MODE === 'today') renderInsightsTeaser(); } catch(e){}
 }
 
 // ---------- the single shared date selector (Food / Burn / Weight cards + both rings) ----------
@@ -12709,10 +12765,11 @@ function showRecap(cards, opt){
 }
 
 // =====================================================================================
-// Insights (prototype, behind ?ins=1): patterns across finished days, worked out on the phone with plain
-// arithmetic, no AI. A rolling window (4 or 12 weeks) compared with the window before it.
+// Insights (prototype, behind ?ins=tab | today | title): patterns across finished days, worked out on the
+// phone with plain arithmetic, no AI. A rolling window (4 or 12 weeks) compared with the window before it.
 // =====================================================================================
 let insWindow = 28;
+const INS_MODE = (() => { try { const q = new URLSearchParams(location.search).get('ins'); if(q != null) localStorage.setItem('feraIns', q); const v = localStorage.getItem('feraIns') || ''; return ['tab', 'today', 'title'].includes(v) ? v : ''; } catch(e){ return ''; } })();
 function insDays(n, endOffset){
   const end = wtAddDays(todayStr(), -1 - (endOffset || 0)), out = [];
   for(let i = n - 1; i >= 0; i--){
@@ -12721,10 +12778,11 @@ function insDays(n, endOffset){
     if(cal == null || cal < 600) continue;               // not a logged day
     const burn = hasBurned(e) ? e.burned : null;
     const t = dayTargets(d);
-    const meals = dayMeals(e);
     const mac = { p: consumedMacro(e, 'protein'), c: consumedMacro(e, 'carbs'), f: consumedMacro(e, 'fat') };
     let parts = null; try { const bp = burnParts(d); if(bp && !bp.manual) parts = bp.parts; } catch(err){}
-    out.push({ d, dow: parseISO(d).getDay(), cal, burn, net: burn != null ? cal - burn : null, plan: t ? t.calorieTarget - t.burnTarget : null, t, meals, mac, parts, steps: (healthFor(d) || {}).steps, wo: dayWorkouts(d) });
+    const items = e && e.mode === 'items' ? (e.items || []) : [];
+    out.push({ d, dow: parseISO(d).getDay(), cal, burn, net: burn != null ? cal - burn : null, plan: t ? t.calorieTarget - t.burnTarget : null, t, meals: dayMeals(e), mac, parts,
+      steps: (healthFor(d) || {}).steps, wo: dayWorkouts(d), items });
   }
   return out;
 }
@@ -12736,178 +12794,226 @@ function insOnPlan(x){
   if(wg === 'maintain' || Math.abs(x.plan) < 50) return Math.abs(x.net) <= 150;
   return x.net <= x.plan + 100;
 }
+const insWeeks = (days, end, N, pick) => [0, 1, 2, 3].map((w) => insAvg(days.filter((x) => { const k = wtDiff(x.d, end); return k >= -(N - 1) + w * N / 4 && k < -(N - 1) + (w + 1) * N / 4; }).map(pick)));
+const SNACK_KINDS = [{ k: 'amsnack', label: 'Morning snack', ic: 'amsnack' }, { k: 'pmsnack', label: 'Afternoon snack', ic: 'pmsnack' }, { k: 'late', label: 'Late-night snack', ic: 'late' }];
 function insightsData(N){
   const cur = insDays(N), prev = insDays(N, N);
   if(cur.length < 7) return { cur, enough: false };
   const D = { cur, prev, enough: true, N };
+  const end = wtAddDays(todayStr(), -1);
   // overview
-  D.net = insAvg(cur.map((x) => x.net)); D.plan = insAvg(cur.map((x) => x.plan)); D.netPrev = insAvg(prev.map((x) => x.net));
+  D.net = insAvg(cur.map((x) => x.net)); D.plan = insAvg(cur.map((x) => x.plan));
   const judged = cur.filter((x) => insOnPlan(x) != null); D.onPlan = judged.filter(insOnPlan).length; D.judged = judged.length;
-  D.eaten = insAvg(cur.map((x) => x.cal)); D.eatenPrev = insAvg(prev.map((x) => x.cal));
-  // weight
-  const W = wtDays(), end = wtAddDays(todayStr(), -1), start = wtAddDays(end, -(N - 1));
-  const a1 = wtAvg7(W, end), a0 = wtAvg7(W, start);
-  D.w = a1 != null && a0 != null ? { now: a1, change: a1 - a0, perWeek: (a1 - a0) / N * 7, goal: goalInfo(W), unit: weightUnit() } : null;
-  if(D.w){
+  // weight: the same pace the Weight page shows (the trend line through the weigh-ins), over this window
+  const W = wtDays(), pace = wtPace(W, todayStr(), N);
+  if(pace != null){
     const kPer = weightUnit() === 'kg' ? 7700 : 3500;
-    D.w.implied = D.w.change * kPer / N;                 // the daily balance the scale points to
-    const r = weightRate(); D.w.planPerWeek = userGoals.weightGoal === 'lose' ? -wtUnitFromLb(r) : userGoals.weightGoal === 'gain' ? wtUnitFromLb(r) : 0;
-    D.w.series = []; for(let i = 0; i < N; i += Math.max(1, Math.round(N / 28))){ const v = wtAvg7(W, wtAddDays(start, i)); if(v != null) D.w.series.push(v); }
+    const r = weightRate();
+    D.w = { pace, change: pace * N / 7, implied: pace * kPer / 7, goal: goalInfo(W), unit: weightUnit(),
+      planPace: userGoals.weightGoal === 'lose' ? -wtUnitFromLb(r) : userGoals.weightGoal === 'gain' ? wtUnitFromLb(r) : 0, series: [] };
+    for(let i = 0; i < N; i += Math.max(1, Math.round(N / 28))){ const v = wtAvg7(W, wtAddDays(end, -(N - 1) + i)); if(v != null) D.w.series.push(v); }
+    let lo = null; Object.keys(W).forEach((k) => { if(k >= wtAddDays(end, -(N - 1)) && k <= end && (lo == null || W[k].v < W[lo].v)) lo = k; });
+    D.w.low = lo ? { d: lo, v: W[lo].v, ever: !Object.keys(W).some((k) => k < lo && W[k].v <= W[lo].v) } : null;
   }
   // meals
-  const mealStats = (days) => MEAL_GROUPS.map((g) => {
-    const on = days.filter((x) => x.meals && x.meals.by[g.k]);
-    const by = on.map((x) => x.meals.by[g.k]);
-    const P = by.reduce((s, m) => s + m.p, 0), C = by.reduce((s, m) => s + m.c, 0), F = by.reduce((s, m) => s + m.f, 0), K = P * 4 + C * 4 + F * 9;
-    return { g, days: on.length, avg: insAvg(by.map((m) => m.cal)), share: insAvg(days.filter((x) => x.meals).map((x) => (x.meals.by[g.k] ? x.meals.by[g.k].cal : 0) / x.meals.total)),
-      mix: K ? { p: P * 4 / K, c: C * 4 / K, f: F * 9 / K } : null, protein: insAvg(by.map((m) => m.p)),
-      weeks: [0, 1, 2, 3].map((w) => insAvg(days.filter((x) => x.meals && x.meals.by[g.k] && wtDiff(x.d, end) >= -(N - 1) + w * N / 4 && wtDiff(x.d, end) < -(N - 1) + (w + 1) * N / 4).map((x) => x.meals.by[g.k].cal))) };
-  });
   D.mealDays = cur.filter((x) => x.meals).length;
-  D.meals = mealStats(cur); D.mealsPrev = mealStats(prev);
-  // snacking
-  const sn = cur.filter((x) => x.meals);
-  const snackDays = sn.filter((x) => x.meals.by.snacks);
+  D.meals = MEAL_GROUPS.map((g) => {
+    const on = cur.filter((x) => x.meals && x.meals.by[g.k]), by = on.map((x) => x.meals.by[g.k]);
+    const P = by.reduce((s, m) => s + m.p, 0), C = by.reduce((s, m) => s + m.c, 0), F = by.reduce((s, m) => s + m.f, 0), K = P * 4 + C * 4 + F * 9;
+    return { g, days: on.length, avg: insAvg(by.map((m) => m.cal)), share: insAvg(cur.filter((x) => x.meals).map((x) => (x.meals.by[g.k] ? x.meals.by[g.k].cal : 0) / x.meals.total)),
+      mix: K ? { p: P * 4 / K, c: C * 4 / K, f: F * 9 / K } : null, protein: insAvg(by.map((m) => m.p)), weeks: insWeeks(on, end, N, (x) => x.meals.by[g.k].cal) };
+  });
+  // snacking, and each kind of snack
+  const sn = cur.filter((x) => x.meals), snackDays = sn.filter((x) => x.meals.by.snacks);
   const dayMix = (x, withSnacks) => { const by = Object.entries(x.meals.by).filter(([k]) => withSnacks || k !== 'snacks').map(([, m]) => m); const P = by.reduce((s, m) => s + m.p, 0) * 4, C = by.reduce((s, m) => s + m.c, 0) * 4, F = by.reduce((s, m) => s + m.f, 0) * 9, K = P + C + F; return K ? { p: P / K, c: C / K, f: F / K } : null; };
   const mixAvg = (arr) => { const v = arr.filter(Boolean); return v.length ? { p: insAvg(v.map((m) => m.p)), c: insAvg(v.map((m) => m.c)), f: insAvg(v.map((m) => m.f)) } : null; };
-  D.snack = { days: snackDays.length, of: sn.length, avg: insAvg(snackDays.map((x) => x.meals.by.snacks.cal)), share: insAvg(snackDays.map((x) => x.meals.by.snacks.cal / x.meals.total)),
-    late: snackDays.filter((x) => ((entries[x.d] || {}).items || []).some((it) => itemMealKey(it) === 'late')).length,
-    withMix: mixAvg(snackDays.map((x) => dayMix(x, true))), withoutMix: mixAvg(snackDays.map((x) => dayMix(x, false))),
-    netWith: insAvg(sn.filter((x) => x.meals.by.snacks).map((x) => x.net)), netWithout: insAvg(sn.filter((x) => !x.meals.by.snacks).map((x) => x.net)),
-    strip: sn.map((x) => !!x.meals.by.snacks), prevDays: prev.filter((x) => x.meals && x.meals.by.snacks).length, prevOf: prev.filter((x) => x.meals).length };
+  const kindCal = (x, k) => x.items.filter((it) => itemMealKey(it) === k).reduce((s, it) => s + (it.cal || 0), 0);
+  D.snack = { days: snackDays.length, of: sn.length, avg: insAvg(snackDays.map((x) => x.meals.by.snacks.cal)),
+    withMix: mixAvg(snackDays.map((x) => dayMix(x, true))), withoutMix: mixAvg(snackDays.map((x) => dayMix(x, false))), strip: sn.map((x) => !!x.meals.by.snacks),
+    kinds: SNACK_KINDS.map((s) => { const on = sn.filter((x) => kindCal(x, s.k) > 0); return Object.assign({}, s, { days: on.length, avg: insAvg(on.map((x) => kindCal(x, s.k))), weeks: insWeeks(on, end, N, (x) => kindCal(x, s.k)) }); }) };
   // week rhythm
   D.dow = [1, 2, 3, 4, 5, 6, 0].map((k) => { const ds = cur.filter((x) => x.dow === k); return { k, n: ds.length, net: insAvg(ds.map((x) => x.net)), cal: insAvg(ds.map((x) => x.cal)), burn: insAvg(ds.map((x) => x.burn)) }; });
   const wkd = cur.filter((x) => x.dow >= 1 && x.dow <= 5), wke = cur.filter((x) => x.dow === 0 || x.dow === 6);
-  D.split = { wd: { cal: insAvg(wkd.map((x) => x.cal)), burn: insAvg(wkd.map((x) => x.burn)), net: insAvg(wkd.map((x) => x.net)), steps: insAvg(wkd.map((x) => x.steps)) },
-              we: { cal: insAvg(wke.map((x) => x.cal)), burn: insAvg(wke.map((x) => x.burn)), net: insAvg(wke.map((x) => x.net)), steps: insAvg(wke.map((x) => x.steps)) } };
+  const sp = (a) => ({ cal: insAvg(a.map((x) => x.cal)), burn: insAvg(a.map((x) => x.burn)), net: insAvg(a.map((x) => x.net)) });
+  D.split = { wd: sp(wkd), we: sp(wke) };
   // burn
   const share = {}; let tot = 0;
   cur.forEach((x) => (x.parts || []).forEach((q) => { const k = q.key === 'rest' ? 'rest' : q.key === 'workouts' ? 'workouts' : q.key === 'digest' ? 'digest' : 'move'; share[k] = (share[k] || 0) + q.value; tot += q.value; }));
-  D.burn = { avg: insAvg(cur.map((x) => x.burn)), prev: insAvg(prev.map((x) => x.burn)), share: tot ? Object.fromEntries(Object.entries(share).map(([k, v]) => [k, v / tot])) : null,
-    workouts: cur.reduce((s, x) => s + x.wo.length, 0), steps: insAvg(cur.map((x) => x.steps)), stepsPrev: insAvg(prev.map((x) => x.steps)),
-    best: D.dow.filter((x) => x.burn != null).sort((a, b) => b.burn - a.burn)[0] };
-  // balance by week
-  D.weeks = [0, 1, 2, 3].map((w) => { const ds = cur.filter((x) => { const k = wtDiff(x.d, end); return k >= -(N - 1) + w * N / 4 && k < -(N - 1) + (w + 1) * N / 4; }); return { net: insAvg(ds.map((x) => x.net)), plan: insAvg(ds.map((x) => x.plan)), from: ds[0] && ds[0].d }; });
+  const act = D.dow.filter((x) => x.burn != null).sort((a, b) => b.burn - a.burn);
+  D.burn = { avg: insAvg(cur.map((x) => x.burn)), share: tot ? Object.fromEntries(Object.entries(share).map(([k, v]) => [k, v / tot])) : null,
+    workouts: cur.reduce((s, x) => s + x.wo.length, 0), steps: insAvg(cur.map((x) => x.steps)), most: act[0], least: act[act.length - 1] };
   // highlights and lowlights
-  const withNet = cur.filter((x) => x.net != null && x.plan != null);
-  const vsPlan = (x) => (userGoals.weightGoal === 'gain' ? -1 : 1) * (x.net - x.plan);   // lower = better
-  const sorted = withNet.slice().sort((a, b) => vsPlan(a) - vsPlan(b));
-  let run = 0, best = 0; cur.forEach((x) => { const o = insOnPlan(x); run = o ? run + 1 : 0; best = Math.max(best, run); });
-  const prot = cur.filter((x) => x.mac.p != null).sort((a, b) => b.mac.p - a.mac.p)[0];
-  D.high = { best: sorted[0], streak: best, protein: prot, steps: cur.filter((x) => x.steps != null).sort((a, b) => b.steps - a.steps)[0] };
-  D.low = { worst: sorted[sorted.length - 1], grew: D.meals.map((m, i) => ({ m, d: m.avg != null && D.mealsPrev[i].avg != null ? m.avg - D.mealsPrev[i].avg : null })).filter((x) => x.d != null).sort((a, b) => b.d - a.d)[0],
-    missed: N - cur.length };
+  const lose = userGoals.weightGoal !== 'gain';
+  const vsPlan = (x) => (lose ? 1 : -1) * (x.net - x.plan);   // lower = better
+  const withNet = cur.filter((x) => x.net != null && x.plan != null).sort((a, b) => vsPlan(a) - vsPlan(b));
+  let run = 0, best = 0, offRun = 0, worstRun = 0; cur.forEach((x) => { const o = insOnPlan(x); run = o ? run + 1 : 0; offRun = o === false ? offRun + 1 : 0; best = Math.max(best, run); worstRun = Math.max(worstRun, offRun); });
+  const weeks = [0, 1, 2, 3].map((w) => { const ds = cur.filter((x) => { const k = wtDiff(x.d, end); return k >= -(N - 1) + w * N / 4 && k < -(N - 1) + (w + 1) * N / 4; }); return { from: ds[0] && ds[0].d, net: insAvg(ds.map((x) => x.net)) }; }).filter((w) => w.net != null);
+  const allMeals = []; cur.forEach((x) => x.meals && Object.entries(x.meals.by).forEach(([k, m]) => { if(k !== 'snacks') allMeals.push({ d: x.d, k, cal: m.cal }); }));
+  const lateItems = []; cur.forEach((x) => x.items.forEach((it) => { if(typeof it.ts === 'number'){ const t = new Date(it.ts), h = t.getHours() + t.getMinutes() / 60; if(h >= 21 || h < 4) lateItems.push({ d: x.d, t, h: h < 4 ? h + 24 : h, desc: it.desc }); } }));
+  const tgtP = (x) => x.t && userGoals.trackProtein !== false ? macroTarget('protein', x.t) : null;
+  const pDays = cur.filter((x) => x.mac.p != null && tgtP(x));
+  const wos = []; cur.forEach((x) => x.wo.forEach((w) => { const k = workoutKcal(w, burnPath()); if(k && k.kcal) wos.push({ d: x.d, w, kcal: k.kcal }); }));
+  const byKcal = (a) => a.slice().sort((p, q) => q - p);
+  D.hl = {
+    best: withNet[0], worst: withNet[withNet.length - 1], streak: best, offStreak: worstRun,
+    bestWeek: weeks.slice().sort((a, b) => (lose ? a.net - b.net : b.net - a.net))[0], worstWeek: weeks.slice().sort((a, b) => (lose ? b.net - a.net : a.net - b.net))[0], weeks: weeks.length,
+    protein: cur.filter((x) => x.mac.p != null).sort((a, b) => b.mac.p - a.mac.p)[0], pHit: pDays.filter((x) => x.mac.p >= tgtP(x) * 0.95).length, pOf: pDays.length,
+    steps: cur.filter((x) => x.steps != null).sort((a, b) => b.steps - a.steps)[0], lowSteps: cur.filter((x) => x.steps != null).sort((a, b) => a.steps - b.steps)[0],
+    burnDay: cur.filter((x) => x.burn != null).sort((a, b) => b.burn - a.burn)[0],
+    bigMeal: allMeals.sort((a, b) => b.cal - a.cal)[0], lightDinner: allMeals.filter((m) => m.k === 'dinner').sort((a, b) => a.cal - b.cal)[0],
+    snackFree: sn.length - snackDays.length, snackHeavy: snackDays.slice().sort((a, b) => b.meals.by.snacks.cal - a.meals.by.snacks.cal)[0],
+    latest: lateItems.sort((a, b) => b.h - a.h)[0], lateNights: new Set(lateItems.map((x) => x.d)).size,
+    workout: wos.sort((a, b) => b.kcal - a.kcal)[0], logged: cur.length, missed: N - cur.length, low: D.w && D.w.low };
   return D;
 }
 // ---- drawing ----
-const INS_GREEN = '#4ADE80', INS_RED = '#FF5C7A', INS_DOW = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-function insSpark(vals, w, h, color, opt){
-  const v = vals.map((x, i) => [i, x]).filter(([, x]) => x != null); if(v.length < 2) return '';
+const INS_DOW = ['M', 'T', 'W', 'T', 'F', 'S', 'S'], INS_DAY = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+function insSpark(vals, w, h, color){
+  const v = vals.map((x, i) => [i, x]).filter(([, x]) => x != null); if(v.length < 2) return `<svg class="ins-spark" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"></svg>`;
   const lo = Math.min(...v.map((p) => p[1])), hi = Math.max(...v.map((p) => p[1])), span = hi - lo || 1;
   const X = (i) => 2 + i / (vals.length - 1) * (w - 4), Y = (x) => h - 3 - (x - lo) / span * (h - 6);
-  const d = v.map(([i, x], j) => `${j ? 'L' : 'M'}${X(i).toFixed(1)} ${Y(x).toFixed(1)}`).join(' ');
-  const last = v[v.length - 1];
+  const d = v.map(([i, x], j) => `${j ? 'L' : 'M'}${X(i).toFixed(1)} ${Y(x).toFixed(1)}`).join(' '), last = v[v.length - 1];
   return `<svg class="ins-spark" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${X(last[0]).toFixed(1)}" cy="${Y(last[1]).toFixed(1)}" r="2.6" fill="${color}"/></svg>`;
-}
-function insDelta(now, prev, unit, goodWhenLower){
-  if(now == null || prev == null) return '';
-  const d = now - prev; if(Math.abs(d) < 10) return '<span class="ins-d flat">steady</span>';
-  const good = goodWhenLower == null ? null : goodWhenLower ? d < 0 : d > 0;
-  return `<span class="ins-d ${good == null ? '' : good ? 'good' : 'bad'}">${d > 0 ? '▲' : '▼'} ${fmtN(Math.abs(d))}${unit || ''}</span>`;
 }
 const insCard = (k, head, body, foot) => `<section class="ins-card"><div class="ins-k">${k}</div><h3 class="ins-h">${head}</h3>${body}${foot ? `<p class="ins-foot">${foot}</p>` : ''}</section>`;
 const insB = (s) => `<b>${s}</b>`;
 const insMixBar = (m) => m ? `<div class="ins-mix">${['p', 'c', 'f'].map((k) => `<i style="flex-basis:${(m[k] * 100).toFixed(1)}%;background:${MACRO_COLOR[{ p: 'protein', c: 'carbs', f: 'fat' }[k]]}">${m[k] >= 0.14 ? Math.round(m[k] * 100) + '%' : ''}</i>`).join('')}</div>` : '';
-function renderInsights(){
-  const box = document.getElementById('insightsBox'); if(!box || box.hidden) return;
-  const N = insWindow, D = insightsData(N), unit = weightUnit(), lose = userGoals.weightGoal !== 'gain';
+const insRow = (ic, color, name, sub, weeks, avg) => `<div class="ins-meal"><span class="ins-mi" style="color:${color}">${LI(ic)}</span><span class="ins-mn">${name}<small>${sub}</small></span>${insSpark(weeks, 56, 22, color)}<b>${fmtN(avg)}<i>kcal</i></b></div>`;
+const insDl = (d) => parseISO(d).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+function insGoalChip(){
+  const wg = userGoals.weightGoal, gw = goalWeight(), u = weightUnit(), r = weightRate();
+  if(!wg) return '';
+  const txt = wg === 'maintain' ? 'Maintain weight' : `${wg === 'lose' ? 'Lose' : 'Gain'} ${wtFmt(wtUnitFromLb(r), r % 1 ? 1 : 0)} ${u} a week`;
+  return `<div class="ins-goal"><span class="mg-chip">${goalIcon(wg)}<span>${txt}</span></span>${gw && wg !== 'maintain' ? `<span class="mg-chip"><span>Goal ${wtFmt(wtUnitFromLb(gw.lb), 0)} ${u}</span></span>` : ''}</div>`;
+}
+function insightsHTML(N, opts){
+  opts = opts || {};
+  const D = insightsData(N), unit = weightUnit(), lose = userGoals.weightGoal !== 'gain';
   const seg = `<div class="ins-win" role="tablist">${[[28, 'Last 4 weeks'], [84, 'Last 12 weeks']].map(([n, l]) => `<button type="button" data-ins-win="${n}" class="${n === N ? 'on' : ''}">${l}</button>`).join('')}</div>`;
-  if(!D.enough){ box.innerHTML = seg + emptyStateHTML({ icon: 'trends', title: 'Insights need a week of logging', text: `Patterns show up after 7 logged days. You have ${D.cur.length} in this window.` }); return; }
+  if(!D.enough) return { D, html: seg + emptyStateHTML({ icon: 'trends', title: 'Insights need a week of logging', text: `Patterns show up after 7 logged days. You have ${D.cur.length} in this window.` }) };
   const out = [];
-  // 1. overview
-  out.push(insCard('Overview', `${D.onPlan} of ${D.judged} days on plan`, `<div class="ins-tiles">
-      <div><span>Avg balance</span><b class="${D.net <= 0 ? 'g' : 'r'}">${signedN(D.net)}</b><small>plan ${signedN(D.plan)} a day</small></div>
-      <div><span>Avg eaten</span><b>${fmtN(D.eaten)}</b><small>${insDelta(D.eaten, D.eatenPrev, '', lose) || 'kcal a day'}</small></div>
-      <div><span>Weight</span><b class="${D.w && (lose ? D.w.change < 0 : D.w.change > 0) ? 'g' : ''}">${D.w ? (D.w.change > 0 ? '+' : '−') + Math.abs(D.w.change).toFixed(1) : '—'}</b><small>${D.w ? `${unit} · ${Math.abs(D.w.perWeek).toFixed(1)}/week` : 'no weigh-ins'}</small></div></div>
-      <div class="ins-days">${D.cur.map((x) => `<i class="${insOnPlan(x) == null ? '' : insOnPlan(x) ? 'on' : 'off'}" title="${x.d}"></i>`).join('')}</div>`, `Each square is a logged day: green on plan, red off plan.`));
+  // 1. overview: how many days went to plan, against which goal
+  out.push(insCard('Overview', `${insB(D.onPlan + ' of ' + D.judged)} days on plan`, `${insGoalChip()}
+      <div class="ins-days">${D.cur.map((x) => `<i class="${insOnPlan(x) == null ? '' : insOnPlan(x) ? 'on' : 'off'}"></i>`).join('')}</div>`, `Each square is a logged day: green on plan, red off plan. Average balance ${signedN(D.net)} a day, plan ${signedN(D.plan)}.`));
   // 2. weight goal
   if(D.w){
     const gi = D.w.goal, when = gi ? goalWhen(gi.etaPace) : null, whenPlan = gi ? goalWhen(gi.etaPlan) : null, gap = gi ? goalWeeksApart(gi.etaPlan, gi.etaPace) : null;
     const head = gi && when ? `On pace for ${wtFmt(gi.goal, 0)} ${unit} by ${insB(when)}` : `${D.w.change < 0 ? 'Down' : 'Up'} ${insB(Math.abs(D.w.change).toFixed(1) + ' ' + unit)} in ${N / 7} weeks`;
     const scale = Math.round(D.w.implied), logs = Math.round(D.net);
     out.push(insCard('Weight goal', head, `<div class="ins-wrow">${insSpark(D.w.series, 150, 54, '#8DB6FF')}
-        <div class="ins-pace"><div><span>Your pace</span><b>${D.w.perWeek > 0 ? '+' : '−'}${Math.abs(D.w.perWeek).toFixed(1)}</b><small>${unit}/week</small></div><div><span>Plan</span><b>${D.w.planPerWeek > 0 ? '+' : D.w.planPerWeek < 0 ? '−' : '±'}${Math.abs(D.w.planPerWeek).toFixed(1)}</b><small>${unit}/week</small></div></div></div>
+        <div class="ins-pace"><div><span>Your pace</span><b>${wtSigned(D.w.pace)}</b><small>${unit} a week</small></div><div><span>Plan</span><b>${wtSigned(D.w.planPace)}</b><small>${unit} a week</small></div></div></div>
       <div class="ins-vs"><div><span>Scale says</span><b>${signedN(scale)}</b><small>kcal a day</small></div><div><span>Your log says</span><b>${signedN(logs)}</b><small>kcal a day</small></div></div>`,
       (gi && gap ? `${Math.abs(gap)} week${Math.abs(gap) === 1 ? '' : 's'} ${gap > 0 ? 'behind' : 'ahead of'} your plan (${whenPlan}). ` : '') + (Math.abs(scale - logs) > 150 ? `Your weight moved as if the daily balance were ${signedN(scale)}; your log shows ${signedN(logs)}. ${scale < logs ? 'You may be burning more than Fera counts.' : 'Some food may be going unlogged.'}` : 'Your weight is moving the way your log says it should.')));
   }
   // 3. meals
-  const ms = D.meals.filter((m) => m.days >= 3), big = ms.slice().sort((a, b) => (b.share || 0) - (a.share || 0))[0];
+  const ms = D.meals.filter((m) => m.days >= 3);
   if(ms.length){
-    out.push(insCard('Meals', `${big.g.label} is your biggest meal, ${insB(Math.round(big.share * 100) + '%')} of the day`, `<div class="ins-meals">${ms.map((m) => { const i = D.meals.indexOf(m), p = D.mealsPrev[i];
-      return `<div class="ins-meal"><span class="ins-mi" style="color:${m.g.c}">${LI(m.g.ic)}</span><span class="ins-mn">${m.g.label}<small>${m.days === D.mealDays ? 'every day' : `${m.days} of ${D.mealDays} days`}</small></span>${insSpark(m.weeks, 56, 22, m.g.c)}<b>${fmtN(m.avg)}</b>${insDelta(m.avg, p.avg, '', lose)}</div>`; }).join('')}</div>`,
-      'Average kcal when you have that meal, the trend by week, and the change from the 4 weeks before.'));
-    // 4. meal quality
-    const pr = ms.filter((m) => m.mix).sort((a, b) => b.mix.p - a.mix.p), fat = ms.filter((m) => m.mix).sort((a, b) => b.mix.f - a.mix.f)[0];
-    out.push(insCard('Calorie quality by meal', `${pr[0].g.label} is your most balanced meal; ${fat.g.label.toLowerCase()} runs highest in fat (${Math.round(fat.mix.f * 100)}%)`,
-      `<div class="ins-q">${ms.filter((m) => m.mix).map((m) => `<div><span>${m.g.label}</span>${insMixBar(m.mix)}<small>${fmtN(m.protein)} g protein</small></div>`).join('')}
+    const big = ms.slice().sort((a, b) => (b.share || 0) - (a.share || 0))[0];
+    out.push(insCard('Meals', `${big.g.label} is your biggest meal, ${insB(Math.round(big.share * 100) + '%')} of the day`,
+      `<div class="ins-meals">${ms.map((m) => insRow(m.g.ic, m.g.c, m.g.label, m.days === D.mealDays ? 'every day' : `${m.days} of ${D.mealDays} days`, m.weeks, m.avg)).join('')}</div>`));
+    // 4. calorie quality by meal
+    const q = ms.filter((m) => m.mix), pr = q.slice().sort((a, b) => b.mix.p - a.mix.p)[0], fat = q.slice().sort((a, b) => b.mix.f - a.mix.f)[0];
+    out.push(insCard('Calorie quality by meal', `${pr.g.label} is your most balanced meal; ${fat.g.label.toLowerCase()} run${fat.g.k === 'snacks' ? '' : 's'} highest in fat (${Math.round(fat.mix.f * 100)}%)`,
+      `<div class="ins-q">${q.map((m) => `<div><span>${m.g.label}</span>${insMixBar(m.mix)}<small>${fmtN(m.protein)} g protein</small></div>`).join('')}
       <div class="ins-legend">${['protein', 'carbs', 'fat'].map((k) => `<span style="color:${MACRO_COLOR[k]}">${MACRO_INFO[k].label}</span>`).join('')}</div></div>`));
   }
   // 5. snacking
   if(D.snack.of >= 7){
     const s = D.snack, dP = s.withMix && s.withoutMix ? s.withMix.p - s.withoutMix.p : null, dF = s.withMix && s.withoutMix ? s.withMix.f - s.withoutMix.f : 0, detract = dP != null && (dP <= -0.015 || dF >= 0.02);
+    const kinds = s.kinds.filter((k) => k.days > 0);
     out.push(insCard('Snacking', `You snacked on ${insB(s.days + ' of ' + s.of)} days, ${fmtN(s.avg)} kcal on average`,
       `<div class="ins-strip">${s.strip.map((x) => `<i class="${x ? 'on' : ''}"></i>`).join('')}</div>
+      ${kinds.length ? `<div class="ins-meals ins-snacks">${kinds.map((k) => insRow(k.ic, '#FF8A3D', k.label, `${k.days} of ${s.of} days`, k.weeks, k.avg)).join('')}</div>` : ''}
       ${s.withMix ? `<div class="ins-sv"><div><span>Days with snacks</span>${insMixBar(s.withMix)}</div><div><span>Same days, without them</span>${insMixBar(s.withoutMix)}</div></div>
-      <div class="ins-badge ${detract ? 'bad' : 'good'}">${detract ? 'Detractor' : 'Supporter'}<span>${detract ? (dP <= -0.015 ? `Snacks pull your protein share down ${Math.max(1, Math.round(-dP * 100))} point${Math.round(-dP * 100) > 1 ? 's' : ''}` : '') + (dF >= 0.02 ? `${dP <= -0.015 ? ' and' : 'Snacks'} push fat up ${Math.round(dF * 100)} point${Math.round(dF * 100) > 1 ? 's' : ''}` : '') : 'Snacks keep your mix balanced'}</span></div>` : ''}`,
-      `${s.late ? `${s.late} late-night snack${s.late === 1 ? '' : 's'}. ` : ''}${s.netWith != null && s.netWithout != null ? `Snack days averaged ${signedN(s.netWith)} vs ${signedN(s.netWithout)} without. ` : ''}${s.prevOf ? `The 4 weeks before: ${s.prevDays} of ${s.prevOf} days.` : ''}`));
+      <div class="ins-badge ${detract ? 'bad' : 'good'}">${detract ? 'Detractor' : 'Supporter'}<span>${detract ? (dP <= -0.015 ? `Snacks pull your protein share down ${Math.max(1, Math.round(-dP * 100))} point${Math.round(-dP * 100) > 1 ? 's' : ''}` : '') + (dF >= 0.02 ? `${dP <= -0.015 ? ' and' : 'Snacks'} push fat up ${Math.round(dF * 100)} point${Math.round(dF * 100) > 1 ? 's' : ''}` : '') : 'Snacks keep your mix balanced'}</span></div>` : ''}`));
   }
   // 6. week rhythm
   const tough = D.dow.filter((x) => x.net != null).sort((a, b) => (lose ? b.net - a.net : a.net - b.net))[0];
-  const gapWE = D.split.we.cal != null && D.split.wd.cal != null ? D.split.we.cal - D.split.wd.cal : null;
   const nets = D.dow.map((x) => x.net).filter((x) => x != null), mx = Math.max(...nets.map(Math.abs), 1);
-  out.push(insCard('Weekdays vs weekends', gapWE != null ? `Weekends add ${insB(fmtN(Math.abs(gapWE)) + ' kcal')} a day${gapWE < 0 ? ' less' : ''}` : 'Your week',
-    `<div class="ins-dow">${D.dow.map((x, i) => { const h = x.net == null ? 0 : Math.abs(x.net) / mx * 44; return `<div><div class="ins-col"><i class="${x.net == null ? '' : x.net <= 0 ? 'g' : 'r'}" style="height:${h.toFixed(0)}px;${x.net != null && x.net <= 0 ? 'top:50%' : 'bottom:50%'}"></i></div><b>${x.net == null ? '—' : signedN(x.net)}</b><span>${INS_DOW[i]}</span></div>`; }).join('')}</div>
-    <div class="ins-vs"><div><span>Weekdays</span><b>${fmtN(D.split.wd.cal)}</b><small>eaten · burned ${fmtN(D.split.wd.burn)}</small></div><div><span>Weekends</span><b>${fmtN(D.split.we.cal)}</b><small>eaten · burned ${fmtN(D.split.we.burn)}</small></div></div>`,
-    tough ? `${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][tough.k]} is your toughest day (${signedN(tough.net)} on average).` : ''));
+  const row = (k, a, b, cls) => `<tr><th>${k}</th><td class="${cls ? cls(a) : ''}">${a == null ? '—' : cls ? signedN(a) : fmtN(a)}</td><td class="${cls ? cls(b) : ''}">${b == null ? '—' : cls ? signedN(b) : fmtN(b)}</td></tr>`;
+  const nc = (v) => v == null ? '' : v <= 0 ? 'g' : 'r';
+  out.push(insCard('Weekdays vs weekends', tough ? `${INS_DAY[tough.k]} is your toughest day: ${insB(signedN(tough.net) + ' kcal')} balance` : 'Your week',
+    `<div class="ins-dow">${D.dow.map((x, i) => { const h = x.net == null ? 0 : Math.abs(x.net) / mx * 44; return `<div><div class="ins-col"><i class="${nc(x.net)}" style="height:${h.toFixed(0)}px;${x.net != null && x.net <= 0 ? 'top:50%' : 'bottom:50%'}"></i></div><b>${x.net == null ? '—' : signedN(x.net)}</b><span>${INS_DOW[i]}</span></div>`; }).join('')}</div>
+    <table class="ins-tbl"><thead><tr><th></th><th>Weekdays</th><th>Weekends</th></tr></thead><tbody>
+      ${row('Eaten', D.split.wd.cal, D.split.we.cal)}${row('Burned', D.split.wd.burn, D.split.we.burn)}${row('Balance', D.split.wd.net, D.split.we.net, nc)}</tbody></table>`,
+    'Average kcal a day.'));
   // 7. burn
   if(D.burn.avg != null){
     const sh = D.burn.share || {}, segs = [['rest', 'Resting', '#4C8DFF'], ['move', 'Movement', '#2DD4BF'], ['workouts', 'Workouts', '#FF6B85'], ['digest', 'Digestion', '#FBBF24']].filter(([k]) => sh[k]);
-    out.push(insCard('Burn', `You burn ${insB(fmtN(D.burn.avg) + ' kcal')} a day ${insDelta(D.burn.avg, D.burn.prev, '', false)}`,
+    const day3 = (x) => x ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][x.k] : '—';
+    out.push(insCard('Burn', `You burn ${insB(fmtN(D.burn.avg) + ' kcal')} a day`,
       `<div class="ins-stack">${segs.map(([k, l, c]) => `<i style="flex-basis:${(sh[k] * 100).toFixed(1)}%;background:${c}"></i>`).join('')}</div>
       <div class="ins-leg2">${segs.map(([k, l, c]) => `<span><i style="background:${c}"></i>${l} <b>${Math.round(sh[k] * 100)}%</b></span>`).join('')}</div>
-      <div class="ins-tiles"><div><span>Steps</span><b>${fmtN(D.burn.steps)}</b><small>${insDelta(D.burn.steps, D.burn.stepsPrev, '', false) || 'a day'}</small></div><div><span>Workouts</span><b>${D.burn.workouts}</b><small>${(D.burn.workouts / (N / 7)).toFixed(1)} a week</small></div><div><span>Most active</span><b>${D.burn.best ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][D.burn.best.k] : '—'}</b><small>${D.burn.best ? fmtN(D.burn.best.burn) + ' kcal' : ''}</small></div></div>`));
+      <div class="ins-tiles four"><div><span>Steps</span><b>${fmtN(D.burn.steps)}</b><small>a day</small></div><div><span>Workouts</span><b>${D.burn.workouts}</b><small>${(D.burn.workouts / (N / 7)).toFixed(1)} a week</small></div>
+        <div><span>Most active</span><b>${day3(D.burn.most)}</b><small>${D.burn.most ? fmtN(D.burn.most.burn) + ' kcal' : ''}</small></div><div><span>Least active</span><b>${day3(D.burn.least)}</b><small>${D.burn.least ? fmtN(D.burn.least.burn) + ' kcal' : ''}</small></div></div>`));
   }
-  // 8. balance by week
-  const wk = D.weeks, wm = Math.max(...wk.map((x) => Math.abs(x.net || 0)), ...wk.map((x) => Math.abs(x.plan || 0)), 1);
-  out.push(insCard('Balance by week', `${wk.filter((x) => x.net != null && x.plan != null && (lose ? x.net <= x.plan + 100 : x.net >= x.plan - 100)).length} of ${wk.length} weeks on plan`,
-    `<div class="ins-wk">${wk.map((x, i) => `<div><div class="ins-col tall">${x.plan != null ? `<u style="top:${(50 - x.plan / wm * 46).toFixed(1)}%"></u>` : ''}<i class="${x.net == null ? '' : x.net <= 0 ? 'g' : 'r'}" style="height:${x.net == null ? 0 : (Math.abs(x.net) / wm * 46).toFixed(1)}%;${x.net != null && x.net <= 0 ? 'top:50%' : 'bottom:50%'}"></i></div><b>${x.net == null ? '—' : signedN(x.net)}</b><span>${x.from ? parseISO(x.from).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ''}</span></div>`).join('')}</div>`,
-    'Average daily balance each week; the line is your plan.'));
-  // 9. highlights and lowlights
-  const H = D.high, L = D.low, dl = (d) => parseISO(d).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
-  const hl = [];
-  if(H.best) hl.push(['g', 'Best day', `${dl(H.best.d)} · ${signedN(H.best.net)} kcal`]);
-  if(H.streak >= 2) hl.push(['g', 'Longest run on plan', `${H.streak} days in a row`]);
-  if(H.protein) hl.push(['g', 'Most protein', `${dl(H.protein.d)} · ${fmtN(H.protein.mac.p)} g`]);
-  if(H.steps) hl.push(['g', 'Most steps', `${dl(H.steps.d)} · ${fmtN(H.steps.steps)}`]);
-  if(L.worst && L.worst !== H.best) hl.push(['r', 'Toughest day', `${dl(L.worst.d)} · ${signedN(L.worst.net)} kcal`]);
-  if(L.grew && L.grew.d > 40) hl.push(['r', `${L.grew.m.g.label} grew`, `+${fmtN(L.grew.d)} kcal vs the 4 weeks before`]);
-  if(L.missed > 0) hl.push(['r', 'Days not logged', `${L.missed} of ${N}`]);
-  out.push(insCard('Highlights & lowlights', 'The standouts', `<div class="ins-hl">${hl.map(([c, k, v]) => `<div class="${c}"><i>${c === 'g' ? '▲' : '▼'}</i><span>${k}</span><b>${v}</b></div>`).join('')}</div>`));
-  box.innerHTML = seg + out.join('');
+  // 8. highlights and lowlights
+  const H = D.hl, u = unit, good = [], bad = [];
+  if(H.best) good.push(['spark', 'Best day', insDl(H.best.d), `${signedN(H.best.net)} kcal`]);
+  if(H.bestWeek && H.weeks > 1) good.push(['trends', 'Best week', `from ${insDl(H.bestWeek.from)}`, `${signedN(H.bestWeek.net)} a day`]);
+  if(H.streak >= 2) good.push(['repeat', 'Longest run on plan', '', `${H.streak} days`]);
+  if(H.low && H.low.ever) good.push(['scale', 'New lowest weight', insDl(H.low.d), `${wtFmt(H.low.v)} ${u}`]);
+  else if(H.low) good.push(['scale', 'Lightest weigh-in', insDl(H.low.d), `${wtFmt(H.low.v)} ${u}`]);
+  if(H.pOf) good.push(['kettlebell', 'Protein goal hit', '', `${H.pHit} of ${H.pOf} days`]);
+  if(H.protein) good.push(['kettlebell', 'Most protein', insDl(H.protein.d), `${fmtN(H.protein.mac.p)} g`]);
+  if(H.steps) good.push(['steps', 'Most steps', insDl(H.steps.d), fmtN(H.steps.steps)]);
+  if(H.burnDay) good.push(['flame', 'Biggest burn', insDl(H.burnDay.d), `${fmtN(H.burnDay.burn)} kcal`]);
+  if(H.workout) good.push(['dumbbell', 'Biggest workout', `${WORKOUT_BY_KEY[H.workout.w.type] ? WORKOUT_BY_KEY[H.workout.w.type].n : 'Workout'} · ${insDl(H.workout.d)}`, `${fmtN(H.workout.kcal)} kcal`]);
+  if(H.snackFree >= 2) good.push(['amsnack', 'Snack-free days', '', `${H.snackFree}`]);
+  if(H.lightDinner) good.push(['dinner', 'Lightest dinner', insDl(H.lightDinner.d), `${fmtN(H.lightDinner.cal)} kcal`]);
+  if(H.missed === 0) good.push(['spark', 'Every day logged', '', `${H.logged} of ${N}`]);
+  if(H.worst && H.worst !== H.best) bad.push(['flame', 'Toughest day', insDl(H.worst.d), `${signedN(H.worst.net)} kcal`]);
+  if(H.worstWeek && H.weeks > 1 && H.worstWeek !== H.bestWeek) bad.push(['trends', 'Toughest week', `from ${insDl(H.worstWeek.from)}`, `${signedN(H.worstWeek.net)} a day`]);
+  if(H.offStreak >= 2) bad.push(['repeat', 'Longest run off plan', '', `${H.offStreak} days`]);
+  if(H.bigMeal) bad.push([MEAL_GROUPS.find((g) => g.k === H.bigMeal.k).ic, 'Biggest meal', `${MEAL_GROUPS.find((g) => g.k === H.bigMeal.k).label} · ${insDl(H.bigMeal.d)}`, `${fmtN(H.bigMeal.cal)} kcal`]);
+  if(H.snackHeavy) bad.push(['pmsnack', 'Most snacking', insDl(H.snackHeavy.d), `${fmtN(H.snackHeavy.meals.by.snacks.cal)} kcal`]);
+  if(H.latest) bad.push(['late', 'Latest bite', `${escapeHtml(H.latest.desc || 'Food')} · ${insDl(H.latest.d)}`, H.latest.t.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })]);
+  if(H.lateNights >= 2) bad.push(['late', 'Late-night eating', 'after 9 pm', `${H.lateNights} nights`]);
+  if(H.lowSteps && H.lowSteps !== H.steps) bad.push(['steps', 'Fewest steps', insDl(H.lowSteps.d), fmtN(H.lowSteps.steps)]);
+  if(H.missed > 0) bad.push(['pencil', 'Days not logged', '', `${H.missed} of ${N}`]);
+  const hlRows = (rows, cls) => rows.map(([ic, k, sub, v]) => `<div class="${cls}"><span class="ins-hi">${LI(ic)}</span><span class="ins-hk">${k}${sub ? `<small>${sub}</small>` : ''}</span><b>${v}</b></div>`).join('');
+  out.push(insCard('Highlights & lowlights', 'The standouts', `<div class="ins-hl">${good.length ? `<div class="ins-hlh g">Highlights</div>${hlRows(good, 'g')}` : ''}${bad.length ? `<div class="ins-hlh r">Lowlights</div>${hlRows(bad, 'r')}` : ''}</div>`));
+  return { D, html: seg + out.join('') };
+}
+function renderInsights(){
+  document.querySelectorAll('[data-ins-target]').forEach((box) => { if(!box.getClientRects().length && !box.closest('#insightsOverlay')) return; box.innerHTML = insightsHTML(insWindow).html; });
+  renderInsightsTeaser();
+}
+// Today's teaser ("today" placement): the four headlines, side by side, each opening the full page there.
+function renderInsightsTeaser(){
+  const t = document.getElementById('insTeaser'); if(!t || INS_MODE !== 'today') return;
+  const D = insightsData(28);
+  if(!D.enough){ t.hidden = true; return; }
+  t.hidden = false;
+  const tmp = document.createElement('div'); tmp.innerHTML = insightsHTML(28).html;
+  const cards = [...tmp.querySelectorAll('.ins-card')].slice(0, 6).map((c, i) => `<button type="button" class="ins-tc" data-ins-open="${i}"><span class="ins-k">${c.querySelector('.ins-k').textContent}</span><span class="ins-tch">${c.querySelector('.ins-h').innerHTML}</span></button>`);
+  t.innerHTML = `<div class="ins-th"><span>${LI('spark')}Insights · last 4 weeks</span><button type="button" data-ins-open="0">See all</button></div><div class="ins-tr" data-no-swipe>${cards.join('')}</div>`;
+}
+function openInsightsPage(i){
+  const ov = document.getElementById('insightsOverlay'); if(!ov) return;
+  ov.style.display = 'flex'; document.body.classList.add('overlay-open');
+  renderInsights();
+  const body = document.getElementById('insightsPageBody');
+  const c = body.querySelectorAll('.ins-card')[i || 0]; body.scrollTop = 0; if(c && i) c.scrollIntoView({ block: 'start' });
 }
 document.addEventListener('click', (ev) => {
   const w = ev.target.closest('[data-ins-win]'); if(w){ haptic(); insWindow = +w.dataset.insWin; renderInsights(); return; }
-  const s = ev.target.closest('[data-ins-seg]'); if(!s) return;
+  const o = ev.target.closest('[data-ins-open]'); if(o){ haptic(); openInsightsPage(+o.dataset.insOpen); return; }
+  if(ev.target.closest('#insightsBackBtn')){ haptic(); document.getElementById('insightsOverlay').style.display = 'none'; document.body.classList.remove('overlay-open'); return; }
+  const s = ev.target.closest('[data-ins-title]'); if(!s) return;
   haptic();
-  const on = s.dataset.insSeg === 'insights';
-  document.querySelectorAll('[data-ins-seg]').forEach((b) => b.classList.toggle('on', b === s));
-  document.getElementById('insightsBox').hidden = !on;
-  document.getElementById('trendsFormWrap').classList.toggle('ins-hide', on);
+  const on = s.dataset.insTitle === 'insights';
+  document.body.classList.toggle('ins-on', on);
   if(on) renderInsights();
 });
-(function insFlag(){
-  let on = false; try { const q = new URLSearchParams(location.search).get('ins'); if(q != null) localStorage.setItem('feraIns', q); on = localStorage.getItem('feraIns') === '1'; } catch(e){}
-  const seg = document.getElementById('insSeg'); if(seg) seg.hidden = !on;
+(function insSetup(){
+  if(!INS_MODE) return;
+  document.body.classList.add('ins-' + INS_MODE);
+  if(INS_MODE === 'tab'){
+    const bar = document.getElementById('tabBar');
+    const b = document.createElement('button'); b.type = 'button'; b.dataset.view = 'insights'; b.setAttribute('aria-label', 'Insights');
+    b.innerHTML = `${LI('spark')}<span>Insights</span>`; bar.appendChild(b);
+  }
 })();
 
 (function wireWeighNudge(){
@@ -13014,12 +13120,13 @@ document.addEventListener('click', (ev) => {
 // =====================================================================================
 (function sections(){
   const bar = document.getElementById('tabBar');
-  const VIEWS = ['home', 'food', 'burn', 'weight', 'trends'];
+  const VIEWS = ['home', 'food', 'burn', 'weight', 'trends'].concat(typeof INS_MODE !== 'undefined' && INS_MODE === 'tab' ? ['insights'] : []);
   const open = {
     food: () => { if(!foodExpanded) document.getElementById('foodSummaryBtn').click(); },
     burn: () => { if(!burnExpanded) document.getElementById('burnSummaryBtn').click(); },
     weight: () => { if(!weightExpanded) document.getElementById('weightSummaryBtn').click(); },
-    trends: () => { if(!trendsExpanded) document.getElementById('trendsSummaryBtn').click(); else requestAnimationFrame(() => { window.dispatchEvent(new Event('resize')); if(window.renderTrendsRingAndRuler) renderTrendsRingAndRuler(); }); }
+    insights: () => renderInsights(),
+    trends: () => { if(typeof INS_MODE !== 'undefined' && INS_MODE === 'title' && document.body.classList.contains('ins-on')) renderInsights(); if(!trendsExpanded) document.getElementById('trendsSummaryBtn').click(); else requestAnimationFrame(() => { window.dispatchEvent(new Event('resize')); if(window.renderTrendsRingAndRuler) renderTrendsRingAndRuler(); }); }
   };
   let current = 'home';
   function setView(v, opts){
@@ -13029,8 +13136,10 @@ document.addEventListener('click', (ev) => {
     current = v;
     document.body.dataset.view = v;
     requestAnimationFrame(() => { try { layoutRings(); } catch(e){} });
-    { const t = document.getElementById('pageTitle'), P = { food: ['fork', 'Food'], burn: ['flame', 'Burn'], weight: ['scale', 'Weight'], trends: ['trends', 'Trends'] }[v];
-      if(t) t.innerHTML = P ? `${LI(P[0], 'pt-ico')}<span>${P[1]}</span>` : ''; }
+    { const t = document.getElementById('pageTitle'), P = { food: ['fork', 'Food'], burn: ['flame', 'Burn'], weight: ['scale', 'Weight'], trends: ['trends', 'Trends'], insights: ['spark', 'Insights'] }[v];
+      if(t) t.innerHTML = v === 'trends' && typeof INS_MODE !== 'undefined' && INS_MODE === 'title'
+        ? `<button type="button" class="pt-sw" data-ins-title="trends">${LI('trends', 'pt-ico')}<span>Trends</span></button><button type="button" class="pt-sw" data-ins-title="insights">${LI('spark', 'pt-ico')}<span>Insights</span></button>`
+        : P ? `${LI(P[0], 'pt-ico')}<span>${P[1]}</span>` : ''; }
     bar.querySelectorAll('[data-view]').forEach(b => { b.classList.toggle('on', b.dataset.view === v); b.setAttribute('aria-current', b.dataset.view === v ? 'page' : 'false'); });
     if(open[v]) open[v]();
     if(!opts.keepScroll) window.scrollTo(0, 0);
@@ -13051,34 +13160,70 @@ document.addEventListener('click', (ev) => {
     const somethingOpen = () => ['sheet-open', 'chat-open', 'ob-open', 'auth-open', 'typing'].some((c) => document.body.classList.contains(c))
       || [...document.querySelectorAll('[id$="Overlay"], [role="dialog"], #appMenuDropdown')].some(shown);
     const blocked = (el) => !!(el && el.closest && el.closest('input, textarea, select, [contenteditable="true"], [data-no-swipe], .tabbar')) || sideScroll(el);
+    // The page follows the finger: once a drag is clearly sideways the whole page moves with it (with some
+    // give at the first and last tab). Let go past a third of the screen, or with a quick flick, and the page
+    // slides out while the next one slides in; otherwise it springs back.
+    const page = document.querySelector('.wrap');
+    let lock = null, dx = 0, edge = false;
+    const reduced = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const springBack = () => { page.style.transition = 'transform .28s cubic-bezier(.2,.8,.2,1)'; page.style.transform = ''; setTimeout(() => { page.style.transition = ''; }, 300); };
     document.addEventListener('touchstart', (e) => {
-      track = false;
+      track = false; lock = null; dx = 0;
       if(e.touches.length !== 1 || !document.body.classList.contains('tabs') || blocked(e.target) || somethingOpen()) return;
       const t = e.touches[0]; sx = t.clientX; sy = t.clientY; st = Date.now(); track = true;
     }, { passive: true });
     document.addEventListener('touchmove', (e) => {
       if(!track) return;
-      if(e.touches.length !== 1) { track = false; return; }
+      if(e.touches.length !== 1){ track = false; if(lock === 'x') springBack(); return; }
       const cv = e.target && e.target.closest && e.target.closest('canvas');
-      if(cv && cv.style.touchAction === 'none') track = false;   // the chart is reading days: not a swipe
-    }, { passive: true });
-    document.addEventListener('touchend', (e) => {
-      if(!track) return; track = false;
-      const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
-      if(Date.now() - st > 700 || Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.8) return;
-      if(window.getSelection && String(window.getSelection()).length) return;
+      if(cv && cv.style.touchAction === 'none'){ track = false; if(lock === 'x') springBack(); return; }   // the chart is reading days
+      const t = e.touches[0], mx = t.clientX - sx, my = t.clientY - sy;
+      if(lock == null){
+        if(Math.abs(mx) > 10 && Math.abs(mx) > Math.abs(my) * 1.3){ lock = 'x'; page.style.transition = 'none'; }
+        else if(Math.abs(my) > 10){ track = false; return; }
+        else return;
+      }
+      if(e.cancelable) e.preventDefault();   // a sideways drag: the page doesn't scroll up or down meanwhile
+      dx = mx;
       const i = VIEWS.indexOf(current), j = i + (dx < 0 ? 1 : -1);
-      if(i < 0 || j < 0 || j >= VIEWS.length) return;
-      haptic(); setView(VIEWS[j]);
-      // the new page slides in from the side it came from
-      const cls = dx < 0 ? 'swipe-in-l' : 'swipe-in-r';
-      document.querySelectorAll('#ringSection, [data-view-card]').forEach((el) => {
-        if(el.id !== 'ringSection' && el.closest('#ringSection')) return;
-        if(!shown(el)) return;
-        el.classList.remove('swipe-in-l', 'swipe-in-r'); void el.offsetWidth; el.classList.add(cls);
-        el.addEventListener('animationend', () => el.classList.remove(cls), { once: true });
-      });
-    }, { passive: true });
+      edge = j < 0 || j >= VIEWS.length;
+      page.style.transform = `translateX(${(edge ? dx * 0.25 : dx).toFixed(1)}px)`;
+    }, { passive: false });
+    const end = (e) => {
+      if(!track) return; track = false;
+      if(lock !== 'x') return;
+      const ms = Math.max(1, Date.now() - st), v = Math.abs(dx) / ms;
+      const i = VIEWS.indexOf(current), j = i + (dx < 0 ? 1 : -1);
+      const go = !edge && e.type === 'touchend' && (Math.abs(dx) > innerWidth * 0.33 || (Math.abs(dx) > 50 && v > 0.35))
+        && !(window.getSelection && String(window.getSelection()).length);
+      if(!go){ springBack(); return; }
+      haptic(); slideTo(VIEWS[j], dx < 0 ? 1 : -1);
+    };
+    document.addEventListener('touchend', end, { passive: true });
+    document.addEventListener('touchcancel', end, { passive: true });
+    // the current page leaves on one side while the new one arrives from the other
+    function slideTo(v, dir){
+      const root = document.documentElement;
+      if(reduced()){ page.style.transform = ''; setView(v); return; }
+      if(document.startViewTransition){
+        root.classList.toggle('vt-back', dir < 0); root.classList.add('vt-swipe');
+        page.style.viewTransitionName = 'fera-page-out';
+        const t = document.startViewTransition(() => { page.style.transition = 'none'; page.style.transform = ''; page.style.viewTransitionName = 'fera-page-in'; setView(v); });
+        const done = () => { page.style.viewTransitionName = ''; page.style.transition = ''; root.classList.remove('vt-back', 'vt-swipe'); };
+        t.finished.then(done, done); if(t.ready) t.ready.catch(() => {}); if(t.updateCallbackDone) t.updateCallbackDone.catch(() => {});
+        return;
+      }
+      // older iPhones: out, then in
+      page.style.transition = 'transform .16s cubic-bezier(.4,0,1,1), opacity .16s';
+      page.style.transform = `translateX(${dir > 0 ? -60 : 60}%)`; page.style.opacity = '0';
+      setTimeout(() => {
+        page.style.transition = 'none'; setView(v);
+        page.style.transform = `translateX(${dir > 0 ? 60 : -60}%)`; void page.offsetWidth;
+        page.style.transition = 'transform .28s cubic-bezier(.2,.8,.2,1), opacity .2s'; page.style.transform = ''; page.style.opacity = '';
+        setTimeout(() => { page.style.transition = ''; }, 300);
+      }, 160);
+    }
+    window.__slideTo = slideTo;
     window.__tabSwipe = { blocked, somethingOpen };
   })();
   bar.addEventListener('click', (ev) => {

@@ -12525,34 +12525,6 @@ function renderLearnPage(){
   window.openBmrPage = openLearnPage;   // the resting burn page is part of Learning now
 })();
 
-// ---- last week (Mon–Sun) ----
-function weekRecapData(monday){
-  const sunday = toISO(new Date(parseISO(monday).getTime() + 6 * 864e5));
-  const cal = balanceSeries(monday, sunday, 'cal');
-  const t = computeTargets();
-  const days = cal.days.map(d => ({ iso: d.iso, net: d.net, eaten: consumedTotal(entries[d.iso]), burn: hasBurned(entries[d.iso]) ? entries[d.iso].burned : null }));
-  const logged = days.filter(d => d.net != null);
-  const avg = (arr) => arr.length ? arr.reduce((s, v) => s + v, 0) / arr.length : null;
-  const tracked = trackedMacros();
-  let protein = null;
-  if(tracked.includes('protein') && t){
-    const g = macroTarget('protein', dayTargetsFrom(t, sunday < todayStr() ? sunday : wtAddDays(todayStr(), -1)));
-    const hit = days.filter(d => { const v = consumedMacro(entries[d.iso], 'protein'), gd = macroTarget('protein', dayTargetsFrom(t, d.iso)); return v != null && gd && v >= gd * 0.95; }).length;
-    const vals = days.map(d => consumedMacro(entries[d.iso], 'protein')).filter(v => v != null);
-    protein = { goal: g, hit, avg: avg(vals) };
-  }
-  // weight: this week's average vs the week before
-  const w = dailyWeightMap();
-  const wAvg = (a, b) => { const v = Object.keys(w).filter(d => d >= a && d <= b).map(d => w[d].avg); return v.length ? avg(v) : null; };
-  const prevMon = toISO(new Date(parseISO(monday).getTime() - 7 * 864e5)), prevSun = toISO(new Date(parseISO(monday).getTime() - 864e5));
-  const wNow = wAvg(monday, sunday), wPrev = wAvg(prevMon, prevSun);
-  const best = logged.length ? logged.slice().sort((a, b) => (userGoals && userGoals.weightGoal === 'gain') ? b.net - a.net : a.net - b.net)[0] : null;
-  const wkend = logged.filter(d => isWeekend(d.iso)), wkday = logged.filter(d => !isWeekend(d.iso));
-  return { monday, sunday, days, logged: logged.length, total: cal.total, goalTotal: cal.goalTotal, daily: cal.daily,
-    avgEaten: avg(logged.map(d => d.eaten).filter(v => v != null)), avgBurn: avg(logged.map(d => d.burn).filter(v => v != null)),
-    protein, wNow, wPrev, weighIns: Object.keys(w).filter(d => d >= monday && d <= sunday).length, best,
-    weekendGap: wkend.length && wkday.length ? avg(wkend.map(d => d.net)) - avg(wkday.map(d => d.net)) : null };
-}
 // a short verdict and its tone, from how a total compares with the plan
 // The headline: plain words for how the day or week went against the goal. Progress words
 // (ahead / on / close to / behind plan) when losing or gaining; eaten-vs-burned words when
@@ -12634,46 +12606,6 @@ function recapDayCard(x, ins, rem){
     ${remHTML ? `<div class="rc-rems">${remHTML}</div>` : ''}
   </section>`;
 }
-function recapWeekCard(w){
-  const v = recapVerdict(w.total, w.goalTotal, 300, 'week');
-  const range = `${parseISO(w.monday).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${parseISO(w.sunday).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`;
-  const pct = w.total != null && w.goalTotal ? Math.round((w.total / w.goalTotal - 1) * 100) : null;
-  // 7 bars of daily net around zero, dashed line at the daily plan
-  const vals = w.days.map(d => d.net).filter(v => v != null).concat(w.daily != null ? [w.daily] : [], [0]);
-  const hi = Math.max(...vals, 1), lo = Math.min(...vals, -1), H = 120, z = H * hi / (hi - lo);
-  const y = (v) => z - v / (hi - lo) * H;
-  const bars = w.days.map((d, i) => {
-    const x = 8 + i * 46;
-    if(d.net == null) return `<rect x="${x + 9}" y="${z - 2}" width="20" height="4" rx="2" fill="rgba(244,245,250,.14)"/>`;
-    const top = Math.min(y(d.net), z), h = Math.max(3, Math.abs(y(d.net) - z));
-    return `<rect class="rc-b" style="--d:${i * 60}ms" x="${x + 9}" y="${top.toFixed(1)}" width="20" height="${h.toFixed(1)}" rx="5" fill="${d.net <= 0 ? '#4ADE80' : '#FF5C7A'}"/>`;
-  }).join('');
-  const plan = w.daily != null ? `<line x1="4" x2="330" y1="${y(w.daily).toFixed(1)}" y2="${y(w.daily).toFixed(1)}" stroke="rgba(244,245,250,.5)" stroke-width="1.4" stroke-dasharray="4 5"/>` : '';
-  const letters = WK_LETTERS.map((l, i) => `<text x="${8 + i * 46 + 19}" y="${H + 18}" text-anchor="middle" font-size="11" font-weight="700" fill="#8B90A0">${l}</text>`).join('');
-  const stat = (k, val, sub, cls) => `<div class="rc-stat"><span>${k}</span><b class="${cls || ''}">${val}</b>${sub ? `<small>${sub}</small>` : ''}</div>`;
-  const stats = [stat('Days logged', `${w.logged}<i>/7</i>`, '', w.logged === 7 ? 'ok' : '')];
-  if(w.protein) stats.push(stat('Protein goal', `${w.protein.hit}<i>/7 days</i>`, w.protein.avg != null ? `avg ${fmtN(w.protein.avg)} g` : '', w.protein.hit >= 5 ? 'ok' : ''));
-  if(w.wNow != null) stats.push(stat('Weight', w.wPrev != null ? `${w.wNow - w.wPrev > 0 ? '+' : w.wNow - w.wPrev < 0 ? '−' : '±'}${Math.abs(w.wNow - w.wPrev).toFixed(1)}<i> ${weightUnit()}</i>` : `${w.wNow.toFixed(1)}<i> ${weightUnit()}</i>`, w.wPrev != null ? 'week avg vs the week before' : 'week average', ''));
-  if(w.avgEaten != null) stats.push(stat('Avg eaten', fmtN(w.avgEaten), w.avgBurn != null ? `burned ${fmtN(w.avgBurn)} a day` : 'kcal a day', ''));
-  const notes = [];
-  { const gi = goalInfo();
-    if(gi && (gi.wg === 'lose' || gi.wg === 'gain') && !gi.wrongWay){
-      const wp = goalWhen(gi.etaPace);
-      notes.push(`<p class="g"><i>◎</i>${gi.toGo < 0.05 ? `At your goal of ${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)} ${weightUnit()}.` : `Goal ${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)} ${weightUnit()}: ${wtFmt(gi.toGo)} to go${wp ? `, on pace for ${wp}` : ''}.`}</p>`);
-    } }
-  if(w.best && w.best.net != null) notes.push(`<p class="g"><i>★</i>Best day: ${parseISO(w.best.iso).toLocaleDateString(undefined, { weekday: 'long' })}, ${signedN(w.best.net)} kcal.</p>`);
-  if(w.weekendGap != null && Math.abs(w.weekendGap) >= 250) notes.push(`<p class="${w.weekendGap > 0 ? 'w' : 'g'}"><i>${w.weekendGap > 0 ? '!' : '✓'}</i>Weekends ran ${fmtN(Math.abs(w.weekendGap))} kcal a day ${w.weekendGap > 0 ? 'higher' : 'lower'} than weekdays.</p>`);
-  if(w.weighIns < 3) notes.push(`<p class="w"><i>!</i>${w.weighIns ? `Only ${w.weighIns} weigh-in${w.weighIns === 1 ? '' : 's'}` : 'No weigh-ins'} last week. Aim for three or more.</p>`);
-  return `<section class="rc-card rc-week tone-${v.tone}" aria-label="Last week, ${range}">
-    <div class="rc-k">Last week · ${range}</div>
-    <h2 class="rc-head">${v.head}.</h2>
-    <div class="rc-hero"><b data-count="${w.total != null ? w.total : ''}" data-signed="1">${w.total != null ? signedN(w.total) : '—'}</b><span>${w.total == null ? '' : w.total <= 0 ? 'kcal deficit' : 'kcal surplus'}${w.total != null ? ` · ${fatEq(w.total)}` : ''}</span>${w.goalTotal != null && w.total != null ? `<em>${recapPlanText(w.goalTotal)}${pct != null && Math.abs(pct) >= 5 ? ` · ${Math.abs(pct)}% ${(w.total - w.goalTotal) * ((userGoals && userGoals.weightGoal === 'gain') ? 1 : -1) > 0 ? 'ahead' : 'behind'}` : ''}</em>` : ''}</div>
-    <svg class="rc-chart" viewBox="0 0 334 ${H + 24}" role="img" aria-label="Each day's deficit or surplus last week">${plan}<line x1="4" x2="330" y1="${z.toFixed(1)}" y2="${z.toFixed(1)}" stroke="rgba(244,245,250,.18)"/>${bars}${letters}</svg>
-    <div class="rc-stats">${stats.slice(0, 4).join('')}</div>
-    ${notes.length ? `<div class="rc-notes">${notes.slice(0, 2).join('')}</div>` : ''}
-    <button type="button" class="rc-cta ghost" data-rc="week">Open Weekly Progress</button>
-  </section>`;
-}
 
 function maybeShowDaySummary(force){
   const today = todayStr(), d = yesterdayStr();
@@ -12685,15 +12617,7 @@ function maybeShowDaySummary(force){
   const x = daySummaryData(d);
   const ins = daySummaryInsights(x);
   const cards = [recapDayCard(x, { good: ins.good.slice(0, 2), watch: ins.watch.slice(0, 2) }, recapReminders())];
-  const isMonday = (window.__recapDow != null ? window.__recapDow : parseISO(today).getDay()) === 1;
-  let monday = null;
-  if(isMonday || force === 'week'){
-    // the Monday that started last week (on a Monday, a week ago)
-    const dt = parseISO(today); const back = (dt.getDay() + 6) % 7 + 7; monday = toISO(new Date(dt.getTime() - back * 864e5));
-    const w = weekRecapData(monday);
-    if(w.logged) cards.push(recapWeekCard(w));
-  }
-  showRecap(cards, { monday });
+  showRecap(cards, {});
 }
 function showRecap(cards, opt){
   const el = document.createElement('div');
@@ -12737,7 +12661,6 @@ function showRecap(cards, opt){
       if(a === 'weigh'){ if(window.setView) window.setView('weight'); setTimeout(() => { try { openWeighIn(); } catch(e){} }, 150); return; }
       if(a === 'log'){ setSelectedDate(todayStr()); if(window.setView) window.setView('food'); return; }
       if(a === 'finish'){ setSelectedDate(yesterdayStr()); foodExpanded = true; renderFoodForm(); if(window.setView) window.setView('food'); setTimeout(() => { const c = document.getElementById('foodSummaryBtn'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120); }
-      else if(a === 'week' && opt.monday){ setSelectedDate(toISO(new Date(parseISO(opt.monday).getTime() + 6 * 864e5))); setTimeout(() => { const c = document.getElementById('balances'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150); }
       return;
     }
     haptic();
@@ -12878,7 +12801,7 @@ function insightsHTML(N, opts){
   const out = [];
   // 1. overview: how many days went to plan, against which goal
   out.push(insCard('Overview', `${insB(D.onPlan + ' of ' + D.judged)} days on plan`, `${insGoalChip()}
-      <div class="ins-days">${D.cur.map((x) => `<i class="${insOnPlan(x) == null ? '' : insOnPlan(x) ? 'on' : 'off'}"></i>`).join('')}</div>`, `Each square is a logged day: green on plan, red off plan. Average balance ${signedN(D.net)} a day, plan ${signedN(D.plan)}.`));
+      <div class="ins-days">${D.cur.map((x) => `<i class="${insOnPlan(x) == null ? '' : insOnPlan(x) ? 'on' : 'off'}"></i>`).join('')}</div>`));
   // 2. weight goal
   if(D.w){
     const gi = D.w.goal, when = gi ? goalWhen(gi.etaPace) : null, whenPlan = gi ? goalWhen(gi.etaPlan) : null, gap = gi ? goalWeeksApart(gi.etaPlan, gi.etaPace) : null;
@@ -12920,8 +12843,7 @@ function insightsHTML(N, opts){
     `<div class="ins-dow">${D.dow.map((x, i) => { const h = x.net == null ? 0 : Math.abs(x.net) / mx * 44; return `<div><div class="ins-col"><i class="${nc(x.net)}" style="height:${h.toFixed(0)}px;${x.net != null && x.net <= 0 ? 'top:50%' : 'bottom:50%'}"></i></div><b>${x.net == null ? '—' : signedN(x.net)}</b><span>${INS_DOW[i]}</span></div>`; }).join('')}</div>
     <table class="ins-tbl"><thead><tr><th>Average day</th><th>Weekday</th><th>Weekend</th></tr></thead><tbody>
       ${row('Eaten', D.split.wd.cal, D.split.we.cal)}${row('Burned', D.split.wd.burn, D.split.we.burn)}${row('Balance', D.split.wd.net, D.split.we.net, nc)}</tbody></table>`,
-    (() => { const sat = D.dow[5].net, sun = D.dow[6].net;
-      return `Kcal on an average weekday and an average weekend day${sat != null && sun != null ? `, so the weekend column sits between Saturday and Sunday. A whole weekend adds up to ${insB(signedN(sat + sun))} (Saturday ${signedN(sat)}, Sunday ${signedN(sun)}).` : '.'}`; })()));
+    ''));
   // 7. burn
   if(D.burn.avg != null){
     const sh = D.burn.share || {}, segs = [['rest', 'Resting', '#4C8DFF'], ['move', 'Movement', '#2DD4BF'], ['workouts', 'Workouts', '#FF6B85'], ['digest', 'Digestion', '#FBBF24']].filter(([k]) => sh[k]);
@@ -13288,10 +13210,9 @@ function planNotifications(now){
     else if(ls && ls.weigh === 'keep') add('weigh', atTime(d, 7 * 60 + 30), 'Weigh in to stay Learned', 'Step on the scale before breakfast. Fera keeps your burn current from regular weigh-ins.', 'fera://weight', 2);
     else if(days != null && days >= 2) add('weigh', atTime(d, 7 * 60 + 30), `${days} days since your last weigh-in`, 'Step on the scale before breakfast. Fera keeps learning from every weigh-in.', 'fera://weight', 2);
   }
-  // recaps: tomorrow morning, if today has food in it; Mondays it's the week
+  // the recap: tomorrow morning, if today has food in it
   if(eaten != null){
-    const monday = parseISO(tomorrow).getDay() === 1;
-    add('recap', atTime(tomorrow, 8 * 60 + 15), monday ? 'Your week in review is ready' : 'Yesterday’s recap is ready', monday ? 'How last week went against your plan.' + (() => { const gi = goalInfo(); const wp = gi && (gi.wg === 'lose' || gi.wg === 'gain') && !gi.wrongWay ? goalWhen(gi.etaPace) : null; return wp ? ` On pace for ${wtFmt(gi.goal, gi.goal % 1 ? 1 : 0)} ${weightUnit()} by ${wp}.` : ''; })() : 'How yesterday went against your plan.', 'fera://today', 3);
+    add('recap', atTime(tomorrow, 8 * 60 + 15), 'Yesterday’s recap is ready', 'How yesterday went against your plan.', 'fera://today', 3);
   }
   // learning: the evening before the first update could run, if today is still missing food
   if(ls && ls.state === 'learning' && ls.toGo === 1 && items < 3) add('learn', atTime(today, 20 * 60 + 30), 'One more complete day', 'Log the rest of today and Fera learns your real burn tomorrow.', 'fera://log', 4);

@@ -2448,6 +2448,8 @@
   .wt-read > div, .wt-read > span{min-width:0;}
   .wt-read .cs-line{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;} .wt-read .cs-date{color:var(--ink);font-weight:700;} .wt-read .cs-src{color:var(--muted);font-weight:600;}
   .wt-read .hold-hint{margin-left:auto;}
+  .wt-legs{display:flex;flex-direction:column;align-items:flex-start;gap:2px;} .wt-legs .wt-legend i.gl{margin-left:0;}
+  .wt-read .hold-hint{text-align:right;max-width:9em;line-height:1.3;}
   .wt-svg text,.wt-path text{font-family:'Inter',sans-serif;}
   .wt-empty{padding:22px 14px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.5;border:1px dashed var(--rule);border-radius:16px;margin-bottom:14px;}
   .wt-card{display:block;width:100%;text-align:left;color:var(--ink);border-radius:18px;border:1px solid var(--rule);background:linear-gradient(180deg,rgba(244,245,250,.045),rgba(244,245,250,.015));padding:14px;margin-top:12px;}
@@ -2821,7 +2823,7 @@
   .ins-pace{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .ins-vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--rule);}
   .ins-meals{display:flex;flex-direction:column;}
-  .ins-snacks{margin-top:10px;}
+  .ins-snacks{margin-top:0;}
   .ins-meal{display:grid;grid-template-columns:24px 1fr 56px 86px;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--rule);}
   .ins-meal:first-child{border-top:0;}
   .ins-mi .li{width:19px;height:19px;}
@@ -2832,6 +2834,15 @@
   .ins-q > div:not(.ins-legend){display:grid;grid-template-columns:72px 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;}
   .ins-q > div > span{font-size:13px;font-weight:600;color:var(--ink);grid-row:1 / 3;}
   .ins-q > div > small{font-size:11px;color:var(--muted);margin-top:3px;}
+  .ins-wfrom{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--rule);}
+  .ins-wfrom span{font-size:11.5px;font-weight:600;color:var(--muted);} .ins-wfrom span:last-child{text-align:right;}
+  .ins-wfrom b{display:block;margin-top:4px;font:700 18px 'Sora',sans-serif;color:var(--ink);} .ins-wfrom small{display:block;margin-top:2px;font-size:11px;}
+  .ins-wfrom i{font-style:normal;color:var(--muted);}
+  .ins-mt{display:flex;flex-direction:column;gap:14px;}
+  .ins-mt span{display:block;font-size:13px;font-weight:700;margin-bottom:6px;}
+  .ins-mtb{display:flex;height:22px;border-radius:6px;overflow:hidden;gap:2px;}
+  .ins-mtb i{display:flex;align-items:center;justify-content:center;font:700 11px Inter,sans-serif;font-style:normal;color:rgba(10,12,16,.85);min-width:3px;}
+  .ins-mt small{display:block;margin-top:5px;font-size:11.5px;color:var(--muted);} .ins-mt small b{color:var(--ink);}
   .ins-mix{display:flex;height:20px;border-radius:6px;overflow:hidden;gap:2px;}
   .ins-mix i{display:flex;align-items:center;justify-content:center;font:700 11px Inter,sans-serif;color:rgba(10,12,16,.85);font-style:normal;min-width:3px;}
   .ins-legend{display:flex;gap:14px;font-size:11.5px;font-weight:700;margin-top:2px;}
@@ -5337,14 +5348,17 @@ function wtDays(){
   return out;
 }
 function wtAvg7(W, iso){ const v = []; for(let i = 0; i < 7; i++){ const k = wtAddDays(iso, -i); if(W[k]) v.push(W[k].v); } return v.length ? v.reduce((s, x) => s + x, 0) / v.length : null; }
-// per week, from a straight line through the weigh-ins of the `days` days up to `end`
-function wtPace(W, end, days){
-  const pts = []; for(let i = days - 1; i >= 0; i--){ const k = wtAddDays(end, -i); if(W[k]) pts.push([days - 1 - i, W[k].v]); }
-  if(pts.length < 5 || pts[pts.length - 1][0] - pts[0][0] < 10) return null;
-  const n = pts.length, mx = pts.reduce((s, p) => s + p[0], 0) / n, my = pts.reduce((s, p) => s + p[1], 0) / n;
-  let sxy = 0, sxx = 0; pts.forEach(([x, y]) => { sxy += (x - mx) * (y - my); sxx += (x - mx) * (x - mx); });
-  return sxx ? sxy / sxx * 7 : null;
+// ONE way to measure weight change, used everywhere (Weight, Insights, Goals, the recap, Fera AI):
+// the trend weight on a day is the 7-day average (the average of the weigh-ins in the 7 days ending that
+// day), and a change over N days is the trend weight at the end minus the trend weight N days before.
+// If there's no trend weight exactly N days back, the nearest later day is used (never under half of N).
+function wtChange(W, end, days){
+  const a = wtAvg7(W, end); if(a == null) return null;
+  for(let i = days; i >= Math.ceil(days / 2); i--){ const from = wtAddDays(end, -i), b = wtAvg7(W, from); if(b != null) return { change: a - b, days: i, from, start: b, end: a }; }
+  return null;
 }
+// pace per week: the same change, divided by the weeks it covers
+function wtPace(W, end, days){ const c = wtChange(W, end, days); return c ? c.change / c.days * 7 : null; }
 function goalWeight(){ const g = userGoals.goalWeight; return g && typeof g.lb === 'number' && g.lb > 0 ? g : null; }
 // a week at or past the goal: the 7-day average on each of the last 7 days
 function goalHeldWeek(W, goal, wg){
@@ -5461,7 +5475,8 @@ function wtReadDefault(W, info){
     right = wtGeom && wtGeom.showGoal ? '<span class="wt-legend"><i class="gl"></i>Goal</span>'
       : `<span class="wt-goal-off">Goal ${wtFmt(info.goal, info.goal % 1 ? 1 : 0)} · ${wtFmt(Math.abs(info.now - info.goal))} ${u} ${info.goal < info.now ? 'below ↓' : 'above ↑'}</span>`;
   }
-  return `<span class="wt-legend"><i class="dot"></i>Weigh-ins <i></i>7-day avg</span>${right}${typeof Chart !== 'undefined' ? HOLD_HINT : ''}`;
+  // the goal goes on its own line under the legend, so the three never collide on a phone
+  return `<span class="wt-legs"><span class="wt-legend"><i class="dot"></i>Weigh-ins <i></i>7-day avg</span>${right}</span>${typeof Chart !== 'undefined' ? HOLD_HINT : ''}`;
 }
 function wtScrub(svg, clientX){
   const G = wtGeom; if(!G) return;
@@ -5720,7 +5735,7 @@ function renderWeightCard(){
     const dayBox = last
       ? `<div class="wt-day"><span>${isToday ? 'Today' : escapeHtml(dayLabel(d))}</span><b>${(+dayW).toFixed(1)}<small>${unit}</small></b><span>${last.src === 'apple' ? AH_ICON + 'Apple Health' : 'You'} · ${fmtClock(lastTs.slice(11, 16))}</span></div>`
       : `<div class="wt-day none"><span>${isToday ? 'Today' : escapeHtml(dayLabel(d))}</span><b>No weigh-in</b><span>${isToday ? 'Add one below' : ''}</span></div>`;
-    const chips = [a7 != null && a7ago(7) != null ? ch('This week', a7 - a7ago(7)) : '', a7 != null && a7ago(30) != null ? ch('30 days', a7 - a7ago(30)) : '',
+    const chips = [a7 != null && a7ago(7) != null ? ch('This week', a7 - a7ago(7)) : '', a7 != null && a7ago(28) != null ? ch('4 weeks', a7 - a7ago(28)) : '',
       a7 != null && startAvg != null && wtDiff(d, firstDay) > 13 ? ch('Since ' + wtDate(firstDay), a7 - startAvg) : ''].join('');
     const chartSvg = typeof Chart === 'undefined' ? wtChartSVG(W, R, info, d) : '<div class="wt-canvas"><canvas id="wtCardChart" aria-label="Weight: daily weigh-ins and the 7-day average"></canvas></div>';
     const ranges = R.avail.length > 1 ? `<div class="wt-ranges" role="tablist">${R.avail.map(k => `<button type="button" data-wt-range="${k}" class="${k === R.r ? 'on' : ''}" role="tab" aria-selected="${k === R.r}">${{ '1m': '1M', '3m': '3M', '6m': '6M', '1y': '1Y', all: 'All' }[k]}</button>`).join('')}</div>` : '';
@@ -6584,10 +6599,16 @@ function learnAnalysis(back = 0, assume = null){
   let run = 0; for(let i = all.length - 1; i >= 0 && goodSet.has(all[i]); i--) run++;
   r.run = run;
   if(pick){
+    // what the scale did, the way the Weight page measures it: the average of the weigh-ins in the first
+    // stretch of the window against the average in the last stretch (a week each in a 3–4 week window),
+    // divided by the days between their middles
     const pts = pick.wdays.map(d => [(parseISO(d) - parseISO(pick.days[0])) / 86400000, lb(d)]);
-    const mx = pts.reduce((s, q) => s + q[0], 0) / pts.length, my = pts.reduce((s, q) => s + q[1], 0) / pts.length;
-    let num = 0, den = 0; pts.forEach(([x, y]) => { num += (x - mx) * (y - my); den += (x - mx) * (x - mx); });
-    const slope = den ? num / den : 0;
+    const g = Math.max(learnWindowRule(pick.N).edge, Math.min(7, Math.floor(pick.N / 3)));
+    const A = pts.filter(([x]) => x < g), B = pts.filter(([x]) => x >= pick.N - g);
+    const mean = (q, i) => q.reduce((s, p) => s + p[i], 0) / q.length;
+    const ax = mean(A, 0), ay = mean(A, 1), bx = mean(B, 0), by = mean(B, 1);
+    const slope = bx > ax ? (by - ay) / (bx - ax) : 0;
+    const mx = (ax + bx) / 2, my = (ay + by) / 2;
     const observed = slope * 3500;
     const goodDays = pick.days.filter(d => goodSet.has(d));
     const predicted = goodDays.reduce((s, d) => { const bp = burnParts(d, base); return s + ((consumedTotal(entries[d]) || 0) - (bp.manual ? bp.total : bp.calc)); }, 0) / goodDays.length;
@@ -6595,7 +6616,8 @@ function learnAnalysis(back = 0, assume = null){
     const shrunk = residual * goodDays.length / (goodDays.length + 7);
     const cap = base * LEARN_CAP;
     Object.assign(r, { ready: true, adj: Math.round(Math.max(-cap, Math.min(cap, shrunk)) / 10) * 10, capped: Math.abs(shrunk) > cap,
-      slope, observed, predicted, fit: { mx, my }, end: pick.days[pick.days.length - 1] });
+      slope, observed, predicted, fit: { mx, my }, end: pick.days[pick.days.length - 1],
+      groups: { g, from: { d: pick.days[0], to: pick.days[g - 1], lb: ay }, upto: { d: pick.days[pick.N - g], to: pick.days[pick.N - 1], lb: by } } });
   }
   if(back === 0 && !assume) learnMemo = { key, val: r };
   if(assume){ if(Object.keys(learnAheadMemo).length > 20) learnAheadMemo = {}; learnAheadMemo[key] = r; }
@@ -11013,8 +11035,8 @@ bootAuth();
   <button type="button" data-view="food" aria-label="Food"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M16.5 21V3c-2 1-3.5 3.5-3.5 7 0 2 1.5 3 3.5 3"/></svg><span>Food</span></button>
   <button type="button" data-view="burn" aria-label="Burn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 3 4.8 4.9 4.8 9.8a4.8 4.8 0 0 1-9.6 0c0-2.3 1.1-3.8 2.4-4.9.2 1.7 1.1 2.8 2.3 3.1-.3-3-.6-5.4.1-8z"/></svg><span>Burn</span></button>
   <button type="button" data-view="weight" aria-label="Weight"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="4"/><path d="M8.5 9.5a4.5 4.5 0 0 1 7 0M12 9.6l1.4-1.9"/></svg><span>Weight</span></button>
-  <button type="button" data-view="trends" aria-label="Trends"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/></svg><span>Trends</span></button>
   <button type="button" data-view="insights" aria-label="Insights"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 17.5h5.6M10.2 20.8h3.6M12 3.2a6.2 6.2 0 0 0-3.8 11.1c.8.6 1.2 1.4 1.2 2.2v1h5.2v-1c0-.8.4-1.6 1.2-2.2A6.2 6.2 0 0 0 12 3.2Z"/></svg><span>Insights</span></button>
+  <button type="button" data-view="trends" aria-label="Trends"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 17l5.5-5.5 4 4 7.5-7.5M14.5 8h6v6"/></svg><span>Trends</span></button>
 </nav>
 <button class="ai-fab hide" id="aiFab" type="button" aria-label="Ask Fera AI"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icoSpark"/></svg><span class="ai-fab-lbl">Ask Fera</span></button>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -12495,7 +12517,8 @@ function renderLearnPage(){
       </div>
       <div class="bl-days" role="img" aria-label="${a.good} complete days and ${a.weighIns} weigh-ins">${cells}</div>
       <div class="bl-legend"><span><i class="g"></i>Fully logged</span><span><i class="wdot"></i>Weigh-in</span></div>
-      ${fw && lw && fw.d !== lw.d ? `<div class="lp-wline"><span>${blDate(fw.d)} <b>${blW(fw.lb).toFixed(1)}</b></span><i></i><span>${blDate(lw.d)} <b>${blW(lw.lb).toFixed(1)}</b> ${u}</span></div>` : ''}
+      ${a.ready && a.groups ? `<div class="lp-wline"><span>${a.groups.g > 1 ? `Avg ${blDate(a.groups.from.d)}–${blDate(a.groups.from.to)}` : blDate(a.groups.from.d)} <b>${blW(a.groups.from.lb).toFixed(1)}</b></span><i></i><span>${a.groups.g > 1 ? `Avg ${blDate(a.groups.upto.d)}–${blDate(a.groups.upto.to)}` : blDate(a.groups.upto.to)} <b>${blW(a.groups.upto.lb).toFixed(1)}</b> ${u}</span></div>`
+        : fw && lw && fw.d !== lw.d ? `<div class="lp-wline"><span>${blDate(fw.d)} <b>${blW(fw.lb).toFixed(1)}</b></span><i></i><span>${blDate(lw.d)} <b>${blW(lw.lb).toFixed(1)}</b> ${u}</span></div>` : ''}
       ${a.ready ? (() => { const exp = blW(a.predicted * 7 / 3500), got = blW(a.slope * 7);
         return `<p class="bl-p">From what you ate and burned, the formula expected <b>${blSigned(exp, 1)} ${u}</b> a week. Your scale moved <b>${blSigned(got, 1)} ${u}</b> a week. ${a.adj === 0 ? 'They match, so the formula fits you.' : `So your body burns about <b>${fmtN(Math.abs(a.adj))} kcal a day ${a.adj > 0 ? 'more' : 'less'}</b> than the formula says${a.capped ? ' (capped at 15%)' : ''}.`}</p>`; })()
         : `<p class="bl-note">Fera uses the longest stretch, from ${LEARN_MIN_DAYS} up to ${LEARN_MAX_DAYS} days, where most days are fully logged and there’s a weigh-in near the start and the end. A fully logged day has all its food in Fera.</p>`}
@@ -12712,16 +12735,23 @@ function insightsData(N){
   D.net = insAvg(cur.map((x) => x.net)); D.plan = insAvg(cur.map((x) => x.plan));
   const judged = cur.filter((x) => insOnPlan(x) != null); D.onPlan = judged.filter(insOnPlan).length; D.judged = judged.length;
   // weight: the same pace the Weight page shows (the trend line through the weigh-ins), over this window
-  const W = wtDays(), pace = wtPace(W, todayStr(), N);
-  if(pace != null){
-    const kPer = weightUnit() === 'kg' ? 7700 : 3500;
-    const r = weightRate();
-    D.w = { pace, change: pace * N / 7, implied: pace * kPer / 7, goal: goalInfo(W), unit: weightUnit(),
+  const W = wtDays(), wc = wtChange(W, todayStr(), N);
+  if(wc){
+    const r = weightRate(), pace = wc.change / wc.days * 7;
+    D.w = { pace, change: wc.change, from: wc.from, startW: wc.start, endW: wc.end, goal: goalInfo(W), unit: weightUnit(),
       planPace: userGoals.weightGoal === 'lose' ? -wtUnitFromLb(r) : userGoals.weightGoal === 'gain' ? wtUnitFromLb(r) : 0, series: [] };
     for(let i = 0; i < N; i += Math.max(1, Math.round(N / 28))){ const v = wtAvg7(W, wtAddDays(end, -(N - 1) + i)); if(v != null) D.w.series.push(v); }
     let lo = null; Object.keys(W).forEach((k) => { if(k >= wtAddDays(end, -(N - 1)) && k <= end && (lo == null || W[k].v < W[lo].v)) lo = k; });
     D.w.low = lo ? { d: lo, v: W[lo].v, ever: !Object.keys(W).some((k) => k < lo && W[k].v <= W[lo].v) } : null;
   }
+  // macros: each day against that day's own targets (under 90%, on target, over 110%)
+  D.macros = ['protein', 'carbs', 'fat'].map((m) => {
+    if(m === 'protein' ? userGoals.trackProtein === false : m === 'carbs' ? userGoals.trackCarbs === false : userGoals.trackFat === false) return null;
+    const k = { protein: 'p', carbs: 'c', fat: 'f' }[m];
+    const ds = cur.filter((x) => x.mac[k] != null && x.t).map((x) => { const g = macroTarget(m, x.t); return g ? x.mac[k] / g : null; }).filter((v) => v != null);
+    if(!ds.length) return null;
+    return { m, n: ds.length, under: ds.filter((v) => v < 0.9).length, on: ds.filter((v) => v >= 0.9 && v <= 1.1).length, over: ds.filter((v) => v > 1.1).length };
+  }).filter(Boolean);
   // meals
   D.mealDays = cur.filter((x) => x.meals).length;
   D.meals = MEAL_GROUPS.map((g) => {
@@ -12802,15 +12832,15 @@ function insightsHTML(N, opts){
   // 1. overview: how many days went to plan, against which goal
   out.push(insCard('Overview', `${insB(D.onPlan + ' of ' + D.judged)} days on plan`, `${insGoalChip()}
       <div class="ins-days">${D.cur.map((x) => `<i class="${insOnPlan(x) == null ? '' : insOnPlan(x) ? 'on' : 'off'}"></i>`).join('')}</div>`));
-  // 2. weight goal
+  // 2. weight goal: the 7-day average now against N days ago, the pace that makes, and the date it points to
   if(D.w){
     const gi = D.w.goal, when = gi ? goalWhen(gi.etaPace) : null, whenPlan = gi ? goalWhen(gi.etaPlan) : null, gap = gi ? goalWeeksApart(gi.etaPlan, gi.etaPace) : null;
-    const head = gi && when ? `On pace for ${wtFmt(gi.goal, 0)} ${unit} by ${insB(when)}` : `${D.w.change < 0 ? 'Down' : 'Up'} ${insB(Math.abs(D.w.change).toFixed(1) + ' ' + unit)} in ${N / 7} weeks`;
-    const scale = Math.round(D.w.implied), logs = Math.round(D.net);
+    const moved = Math.abs(D.w.change) < 0.05 ? 'Steady' : `${D.w.change < 0 ? 'Down' : 'Up'} ${insB(Math.abs(D.w.change).toFixed(1) + ' ' + unit)}`;
+    const head = gi && when ? `On pace for ${wtFmt(gi.goal, 0)} ${unit} by ${insB(when)}` : `${moved} in ${N / 7} weeks`;
     out.push(insCard('Weight goal', head, `<div class="ins-wrow">${insSpark(D.w.series, 150, 54, '#8DB6FF')}
         <div class="ins-pace"><div><span>Your pace</span><b>${wtSigned(D.w.pace)}</b><small>${unit} a week</small></div><div><span>Plan</span><b>${wtSigned(D.w.planPace)}</b><small>${unit} a week</small></div></div></div>
-      <div class="ins-vs"><div><span>Scale says</span><b>${signedN(scale)}</b><small>kcal a day</small></div><div><span>Your log says</span><b>${signedN(logs)}</b><small>kcal a day</small></div></div>`,
-      (gi && gap ? `${Math.abs(gap)} week${Math.abs(gap) === 1 ? '' : 's'} ${gap > 0 ? 'behind' : 'ahead of'} your plan (${whenPlan}). ` : '') + (Math.abs(scale - logs) > 150 ? `Your weight moved as if the daily balance were ${signedN(scale)}; your log shows ${signedN(logs)}. ${scale < logs ? 'You may be burning more than Fera counts.' : 'Some food may be going unlogged.'}` : 'Your weight is moving the way your log says it should.')));
+      <div class="ins-wfrom"><span>7-day average<b>${wtFmt(D.w.startW)} ${unit}</b><small>${insDl(D.w.from)}</small></span><i>→</i><span>7-day average<b>${wtFmt(D.w.endW)} ${unit}</b><small>today</small></span></div>`,
+      gi && gap ? `${Math.abs(gap)} week${Math.abs(gap) === 1 ? '' : 's'} ${gap > 0 ? 'behind' : 'ahead of'} your plan (${whenPlan}).` : ''));
   }
   // 3. meals
   const ms = D.meals.filter((m) => m.days >= 3);
@@ -12824,13 +12854,22 @@ function insightsHTML(N, opts){
       `<div class="ins-q">${q.map((m) => `<div><span>${m.g.label}</span>${insMixBar(m.mix)}<small>${fmtN(m.protein)} g protein</small></div>`).join('')}
       <div class="ins-legend">${['protein', 'carbs', 'fat'].map((k) => `<span style="color:${MACRO_COLOR[k]}">${MACRO_INFO[k].label}</span>`).join('')}</div></div>`));
   }
+  // 4b. macros against their targets
+  if(D.macros.length){
+    const worst = D.macros.slice().sort((a, b) => ((b.m === 'protein' ? b.under : b.over) / b.n) - ((a.m === 'protein' ? a.under : a.over) / a.n))[0];
+    const head = worst.m === 'protein' ? `Protein fell short on ${insB(worst.under + ' of ' + worst.n)} days` : `${MACRO_INFO[worst.m].label} ran over on ${insB(worst.over + ' of ' + worst.n)} days`;
+    const segs = (x) => [['under', 'Under', 'rgba(244,245,250,.22)'], ['on', 'On target', MACRO_COLOR[x.m]], ['over', 'Over', '#FF5C7A']].filter(([k]) => x[k] > 0);
+    out.push(insCard('Macros vs targets', head, `<div class="ins-mt">${D.macros.map((x) => `<div><span style="color:${MACRO_COLOR[x.m]}">${MACRO_INFO[x.m].label}</span>
+        <div class="ins-mtb">${segs(x).map(([k, l, c]) => `<i style="flex-basis:${(x[k] / x.n * 100).toFixed(1)}%;background:${c}">${x[k] / x.n >= 0.12 ? x[k] : ''}</i>`).join('')}</div>
+        <small><b>${x.under}</b> under · <b>${x.on}</b> on target · <b>${x.over}</b> over</small></div>`).join('')}</div>`,
+      'Each day against that day’s own target: under is below 90%, over is above 110%.'));
+  }
   // 5. snacking
   if(D.snack.of >= 7){
     const s = D.snack, dP = s.withMix && s.withoutMix ? s.withMix.p - s.withoutMix.p : null, dF = s.withMix && s.withoutMix ? s.withMix.f - s.withoutMix.f : 0, detract = dP != null && (dP <= -0.015 || dF >= 0.02);
     const kinds = s.kinds.filter((k) => k.days > 0);
     out.push(insCard('Snacking', `You snacked on ${insB(s.days + ' of ' + s.of)} days, ${fmtN(s.avg)} kcal on average`,
-      `<div class="ins-strip">${s.strip.map((x) => `<i class="${x ? 'on' : ''}"></i>`).join('')}</div>
-      ${kinds.length ? `<div class="ins-meals ins-snacks">${kinds.map((k) => insRow(k.ic, '#FF8A3D', k.label, `${k.days} of ${s.of} days`, k.weeks, k.avg)).join('')}</div>` : ''}
+      `${kinds.length ? `<div class="ins-meals ins-snacks">${kinds.map((k) => insRow(k.ic, '#FF8A3D', k.label, `${k.days} of ${s.of} days`, k.weeks, k.avg)).join('')}</div>` : ''}
       ${s.withMix ? `<div class="ins-sv"><div><span>Days with snacks</span>${insMixBar(s.withMix)}</div><div><span>Same days, without them</span>${insMixBar(s.withoutMix)}</div></div>
       <div class="ins-badge ${detract ? 'bad' : 'good'}">${detract ? 'Detractor' : 'Supporter'}<span>${detract ? (dP <= -0.015 ? `Snacks pull your protein share down ${Math.max(1, Math.round(-dP * 100))} point${Math.round(-dP * 100) > 1 ? 's' : ''}` : '') + (dF >= 0.02 ? `${dP <= -0.015 ? ' and' : 'Snacks'} push fat up ${Math.round(dF * 100)} point${Math.round(dF * 100) > 1 ? 's' : ''}` : '') : 'Snacks keep your mix balanced'}</span></div>` : ''}`));
   }
@@ -12893,7 +12932,10 @@ function renderInsightsTeaser(){
   if(!D.enough){ t.hidden = true; return; }
   t.hidden = false;
   const tmp = document.createElement('div'); tmp.innerHTML = insightsHTML(28).html;
-  const cards = [...tmp.querySelectorAll('.ins-card')].slice(0, 6).map((c, i) => `<button type="button" class="ins-tc" data-ins-open="${i}"><span class="ins-k">${c.querySelector('.ins-k').textContent}</span><span class="ins-tch">${c.querySelector('.ins-h').innerHTML}</span></button>`);
+  // a different six, in a different order, each time the app opens (the same six while it stays open)
+  const all = [...tmp.querySelectorAll('.ins-card')].map((c, i) => ({ i, k: c.querySelector('.ins-k').textContent, h: c.querySelector('.ins-h').innerHTML }));
+  if(!window.__insOrder || window.__insOrder.n !== all.length){ const o = all.map((x) => x.i); for(let j = o.length - 1; j > 0; j--){ const r = Math.floor(Math.random() * (j + 1)); [o[j], o[r]] = [o[r], o[j]]; } window.__insOrder = { n: all.length, o }; }
+  const cards = window.__insOrder.o.slice(0, 6).map((i) => all[i]).map((x) => `<button type="button" class="ins-tc" data-ins-open="${x.i}"><span class="ins-k">${x.k}</span><span class="ins-tch">${x.h}</span></button>`);
   t.innerHTML = `<div class="ins-th"><span>${LI('bulb')}Insights · last 4 weeks</span><button type="button" data-ins-open="0">See all</button></div><div class="ins-tr" data-no-swipe>${cards.join('')}</div>`;
 }
 function openInsightsPage(i){
@@ -13010,7 +13052,7 @@ document.body.classList.add('ins-tab');
 // =====================================================================================
 (function sections(){
   const bar = document.getElementById('tabBar');
-  const VIEWS = ['home', 'food', 'burn', 'weight', 'trends', 'insights'];
+  const VIEWS = ['home', 'food', 'burn', 'weight', 'insights', 'trends'];
   const open = {
     food: () => { if(!foodExpanded) document.getElementById('foodSummaryBtn').click(); },
     burn: () => { if(!burnExpanded) document.getElementById('burnSummaryBtn').click(); },

@@ -1841,7 +1841,7 @@
   .fl-total b{font-family:'Sora',sans-serif;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums;}
   .fl-total i, .fi-nums i{font-style:normal;opacity:.45;}
   .fl-total-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
-  .fl-tg{display:flex;justify-content:space-between;gap:6px;margin-top:2px;}
+  .fl-tg{display:grid;column-gap:6px;margin-top:2px;}
   .fl-tg > div{min-width:0;display:flex;flex-direction:column;gap:1px;}
   .fl-tv{display:flex;align-items:baseline;gap:2px;white-space:nowrap;} .fl-tv b{font-size:15px !important;}
   .fl-tv em{font-style:normal;font-size:11px;font-weight:600;color:rgba(244,245,250,.38);font-variant-numeric:tabular-nums;}
@@ -1880,6 +1880,12 @@
   .fi-edit svg{width:15px;height:15px;}
   .fi-edit + .fi-trash{margin-left:-6px;}
   .fi-trash:active{color:var(--surplus);}
+  /* a food: name and buttons on top, its numbers below in the totals' columns */
+  .fi:not(.editing){flex-wrap:wrap;align-items:flex-start;row-gap:4px;}
+  .fi:not(.editing) > .fi-edit{margin-top:-7px;}
+  .fi-cols{display:grid !important;column-gap:6px;flex-basis:100%;margin-top:0;}
+  .fi-cols span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
+  .fi-cols b{font-size:12.5px;}
   .fi-trash.armed{width:auto;padding:0 11px;background:rgba(255,92,122,0.16);color:var(--surplus);font-size:12px;font-weight:700;border-radius:999px;}
   .fi-edit:active{background:rgba(244,245,250,0.08);color:var(--ink);}
   .fi.editing{display:block;padding:12px;margin:6px 0;border-radius:14px;background:var(--surface-2);border:1px solid rgba(76,141,255,0.3);}
@@ -8864,12 +8870,18 @@ function itemTime(it, d){
   if(toISO(t) !== d) return '';   // logged on another day: the clock time says nothing about when it was eaten
   return t.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
 }
+// the same columns for the day's totals and each food under them (kcal wider, fat narrower), so the numbers line up
+function flColsStyle(keys){ return 'grid-template-columns:' + keys.map((k) => k === 'cal' ? 'minmax(0,1.35fr)' : k === 'fat' ? 'minmax(0,.8fr)' : 'minmax(0,1fr)').join(' '); }
+function itemColsHTML(it, keys){
+  return keys.map((k) => { const v = k === 'cal' ? it.cal : it[k], n = typeof v === 'number' ? fmtN(v) : '—';
+    return k === 'cal' ? `<span><b>${n}</b> kcal</span>` : `<span><b style="color:${MACRO_COLOR[k]}">${n}</b>${typeof v === 'number' ? ' g' : ''}</span>`; }).join('');
+}
 function foodListHTML(d, items){
   const keys = nutriKeys();
   const sum = (k, list) => (list || items).reduce((s, it) => s + (Number(k === 'cal' ? it.cal : it[k]) || 0), 0);
   // the day's totals, each with its goal beside it in a quieter shade
   const T = dayTargets(d), goalOf = (k) => !T ? null : k === 'cal' ? T.calorieTarget : macroTarget(k, T);
-  const tot = `<div class="fl-total"><span class="fl-total-lbl">Total</span><div class="fl-tg">${keys.map(k => { const g = goalOf(k);
+  const tot = `<div class="fl-total"><span class="fl-total-lbl">Total</span><div class="fl-tg" style="${flColsStyle(keys)}">${keys.map(k => { const g = goalOf(k);
       return `<div><span class="fl-tv"><b${k === 'cal' ? '' : ` style="color:${MACRO_COLOR[k]}"`}>${fmtN(sum(k))}</b>${g ? `<em>/ ${fmtN(g)}</em>` : ''}</span><small>${k === 'cal' ? 'kcal' : 'g ' + (k === 'fat' ? 'fat' : k)}</small></div>`; }).join('')}</div></div>`;
   const cols = `grid-template-columns:repeat(${keys.length}, minmax(0, 1fr))`;
   const row = it => {
@@ -8882,10 +8894,10 @@ function foodListHTML(d, items){
       <div class="fi-actions"><button class="fi-del" data-ie-del type="button">Delete</button><button class="btn-small btn-accent" data-fi-done type="button">Done</button></div></div>`;
     const tm = itemTime(it, d);
     return `<div class="fi" data-item="${it.id}">
-      <div class="fi-main"><div class="fi-name">${escapeHtml(it.desc || 'Item')}${it.src ? `<span class="fi-src ${it.src}">${SRC_LABEL[it.src] || ''}</span>` : ''}${tm ? `<span class="fi-time">${tm}</span>` : ''}</div>
-        <div class="fi-nums">${itemNumsHTML(it)}</div></div>
+      <div class="fi-main"><div class="fi-name">${escapeHtml(it.desc || 'Item')}${it.src ? `<span class="fi-src ${it.src}">${SRC_LABEL[it.src] || ''}</span>` : ''}${tm ? `<span class="fi-time">${tm}</span>` : ''}</div></div>
       <button class="fi-edit" data-fi-edit type="button" aria-label="Edit ${escapeHtml(it.desc || 'item')}">${PENCIL}</button>
-      <button class="fi-edit fi-trash" data-fi-del type="button" aria-label="Delete ${escapeHtml(it.desc || 'item')}">${TRASH}</button></div>`;
+      <button class="fi-edit fi-trash" data-fi-del type="button" aria-label="Delete ${escapeHtml(it.desc || 'item')}">${TRASH}</button>
+      <div class="fi-nums fi-cols" style="${flColsStyle(keys)}">${itemColsHTML(it, keys)}</div></div>`;
   };
   // grouped by meal when any item has one, in meal order; untagged items last
   let body;

@@ -1854,6 +1854,7 @@
   .fi-time{font-size:11px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;}
   .meal-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 10px;padding:0;}
   .meal-row.off{display:none;}
+  .meal-row + .sugg{margin-top:0;} #aiInputView > .meal-row{margin:12px 0 8px;}
   .lg-card .meal-row{margin:14px 0 12px;}
   #aiMealTag{display:none;}
   .meal-row .meal-lbl{grid-column:1/-1;margin:0 0 1px;}
@@ -3275,7 +3276,6 @@
   <div class="card card-fuel card-logged" data-view-card="food" id="loggedCard">
     <div class="logged-today-head">
       <span class="logged-today-title" id="loggedSub">Food logged today</span>
-      <span class="logged-today-total" id="loggedTotal"></span>
     </div>
     <div id="itemsList"></div>
     <div id="loggedEmptyMsg"></div>
@@ -8826,6 +8826,7 @@ function renderMealRow(){
   // the Add buttons say where the item goes
   const m = cur ? MEAL_BY_KEY[cur] : null;
   document.querySelectorAll('.lg-add-lbl').forEach((l) => { l.textContent = m ? `Add to ${m.label}` : 'Add'; });
+  document.querySelectorAll('.sugg-meal').forEach((l) => { l.textContent = m ? ' to ' + m.label : ''; });
   const tag = document.getElementById('aiMealTag'); if(tag && document.getElementById('aiResult').style.display !== 'none') tag.innerHTML = m ? `${m.e}${m.label}` : '';
 }
 function placeMealRow(){
@@ -8834,6 +8835,8 @@ function placeMealRow(){
   let before = null;
   if(shown('aiResult')) before = document.querySelector('#aiResult .lg-actions');
   else if(shown('scanResult')) before = document.querySelector('#scanResult .lg-actions');
+  // foods from the log, offered while typing: one tap adds them, so the meal goes right above the list
+  else if([...document.querySelectorAll('#aiSugg.on, #manSugg.on')].some((e) => e.getClientRects().length)) before = [...document.querySelectorAll('#aiSugg.on, #manSugg.on')].find((e) => e.getClientRects().length);
   else if(shown('manualInputView') && (document.getElementById('itemDesc').value.trim() || [...document.querySelectorAll('#manualNutri input')].some((i) => i.value))) before = document.getElementById('addItemBtn');
   if(before){ if(row.nextElementSibling !== before) before.parentNode.insertBefore(row, before); row.classList.remove('off'); }
   else row.classList.add('off');
@@ -8976,10 +8979,12 @@ function renderSuggestions(boxId, q){
   const box = document.getElementById(boxId);
   if(!box) return;
   const list = matchFoods(q, 4);
-  if(!list.length){ box.innerHTML = ''; box.classList.remove('on'); return; }
+  if(!list.length){ box.innerHTML = ''; box.classList.remove('on'); placeMealRow(); return; }
   box.classList.add('on');
-  box.innerHTML = `<div class="sugg-h">From your log · tap to add</div>` + list.map(x => `<button type="button" class="sugg-row" data-sugg="${escapeHtml(x.key)}">
+  const m = currentFoodMeal() ? MEAL_BY_KEY[currentFoodMeal()] : null;
+  box.innerHTML = `<div class="sugg-h">From your log · tap to add<span class="sugg-meal">${m ? ' to ' + m.label : ''}</span></div>` + list.map(x => `<button type="button" class="sugg-row" data-sugg="${escapeHtml(x.key)}">
       <span class="sugg-txt"><b>${escapeHtml(x.item.desc)}</b><small>${itemNumsHTML(x.item)}</small></span><span class="sugg-plus" aria-hidden="true">+</span></button>`).join('');
+  placeMealRow();
 }
 async function quickAdd(key){
   const v = foodLibrary().get(key);
@@ -9014,7 +9019,7 @@ function renderLoggedCard(d, e){
   renderMealRow();
   const sub = document.getElementById('loggedSub');
   if(sub) sub.textContent = (d === todayStr()) ? 'Food logged today' : `Food logged · ${fmtDate(d)}`;
-  { const tot = document.getElementById('loggedTotal'); if(tot){ const c = consumedTotal(entries[d]); tot.innerHTML = c != null ? `<b>${fmtN(c)}</b> kcal` : ''; } }
+
 
   const list = document.getElementById('itemsList');
   const emptyMsg = document.getElementById('loggedEmptyMsg');

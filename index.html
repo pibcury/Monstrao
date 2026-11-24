@@ -9138,6 +9138,8 @@ async function init(){
     aiComposer.classList.toggle('ready', !!(t || selectedPhoto));
     aiDesc.style.height = 'auto';
     aiDesc.style.height = Math.min(Math.max(aiDesc.scrollHeight, 84), 200) + 'px';
+    // foods from your log follow the box, however it changed (typing, the × button, voice)
+    renderSuggestions('aiSugg', aiDesc.value);
   }
   aiDesc.addEventListener('input', syncComposer);
   aiLabelInput.addEventListener('input', () => fitLabel());

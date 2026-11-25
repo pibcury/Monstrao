@@ -3537,6 +3537,42 @@
         </button>
         <div id="activeChartWrap" style="display:none;"><canvas id="activeChart"></canvas></div>
       </div>
+      <!-- calories by meal, one chart each, after the others -->
+      <div class="trend-chart-block" id="blockMealBreakfast" data-meal-chart="breakfast">
+        <button class="chart-collapse-btn" id="toggleMealBreakfastBtn" type="button">
+          <span class="chart-name">Breakfast Calories</span>
+          <span class="chart-stats" id="trendMealBreakfastChartTitle"></span>
+          <span class="burn-chevron" id="mealBreakfastChevron">›</span>
+        </button>
+        <div id="mealBreakfastChartWrap" style="display:none;"><canvas id="mealBreakfastChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockMealLunch" data-meal-chart="lunch">
+        <button class="chart-collapse-btn" id="toggleMealLunchBtn" type="button">
+          <span class="chart-name">Lunch Calories</span>
+          <span class="chart-stats" id="trendMealLunchChartTitle"></span>
+          <span class="burn-chevron" id="mealLunchChevron">›</span>
+        </button>
+        <div id="mealLunchChartWrap" style="display:none;"><canvas id="mealLunchChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockMealDinner" data-meal-chart="dinner">
+        <button class="chart-collapse-btn" id="toggleMealDinnerBtn" type="button">
+          <span class="chart-name">Dinner Calories</span>
+          <span class="chart-stats" id="trendMealDinnerChartTitle"></span>
+          <span class="burn-chevron" id="mealDinnerChevron">›</span>
+        </button>
+        <div id="mealDinnerChartWrap" style="display:none;"><canvas id="mealDinnerChart"></canvas></div>
+      </div>
+
+      <div class="trend-chart-block" id="blockMealSnacks" data-meal-chart="snacks">
+        <button class="chart-collapse-btn" id="toggleMealSnacksBtn" type="button">
+          <span class="chart-name">Snack Calories</span>
+          <span class="chart-stats" id="trendMealSnacksChartTitle"></span>
+          <span class="burn-chevron" id="mealSnacksChevron">›</span>
+        </button>
+        <div id="mealSnacksChartWrap" style="display:none;"><canvas id="mealSnacksChart"></canvas></div>
+      </div>
 
     </div>
   </div>
@@ -5356,7 +5392,7 @@ let weightInputMode = 'manual'; // 'manual'|'csv'
 
 // ---------- collapsible "The Trends" card + its individual charts ----------
 let trendsExpanded = false;
-let chartBlockState = { consumed:true, burned:true, net:true, protein:true, carbs:true, fat:true, weight:true, steps:true, active:true }; // all open until closed
+let chartBlockState = { consumed:true, burned:true, net:true, protein:true, carbs:true, fat:true, weight:true, steps:true, active:true, mealbreakfast:true, meallunch:true, mealdinner:true, mealsnacks:true }; // all open until closed
 
 // "14:05" -> "2:05 PM" (readings are keyed "YYYY-MM-DDTHH:MM[:SS]")
 function weightTimeLabel(ts){
@@ -7079,6 +7115,7 @@ function renderTrendsAll(){
   renderNetChart();
   renderHealthCharts();
   renderProteinChart();
+  renderMealCharts();
   renderWeightChart();
 }
 // Nothing finished in this period yet (no food, burn or weigh-in on a past day): one empty state in place
@@ -7742,6 +7779,48 @@ function renderMacroChart(m){
   }catch(e){ /* charts failed; rest of the app still works */ }
 }
 
+// ---------- rendering: calories by meal ----------
+// Breakfast, lunch, dinner and snacks (morning, afternoon and late-night together), one chart each, with the
+// same Week/Month/Year horizon, averages and hold-to-read as the macro charts. A logged day without that meal
+// counts as 0; a day with nothing logged (or mostly unplaced foods) is left out.
+const mealCharts = { breakfast: null, lunch: null, dinner: null, snacks: null };
+const mealKey = (k) => k.charAt(0).toUpperCase() + k.slice(1);
+function renderMealCharts(){ MEAL_GROUPS.forEach((g) => renderMealChart(g)); }
+function renderMealChart(g){
+  const K = mealKey(g.k), titleEl = document.getElementById('trendMeal' + K + 'ChartTitle');
+  try{
+    if(typeof Chart === 'undefined'){ const el = document.getElementById('meal' + K + 'Chart'); if(el) el.style.display = 'none'; return; }
+    ensureWeekendPlugin(); ensureAvgLabelPlugin();
+    const bucketType = HORIZON_BUCKET[trendHorizon];
+    const dates = filterDatesByHorizon(sortedDates(), trendHorizon);
+    const labels = dates.map(trendLabel), tickFn = horizonXTicks(trendHorizon, dates);
+    const dm = dates.map((d) => dayMeals(entries[d]));
+    const vals = dm.map((m) => m ? Math.round((m.by[g.k] || {}).cal || 0) : null);
+    const had = vals.filter((v) => v != null && v > 0), avg = avgOf(had);
+    const tot = dm.reduce((a, m) => a + (m ? m.total : 0), 0), mine = vals.reduce((a, v) => a + (v || 0), 0);
+    if(titleEl) titleEl.innerHTML = chartStatsHTML([
+      `avg <b style="color:${g.c}">${fmtN(avg)}</b>${avg != null ? ' kcal' : ''}`,
+      tot ? `<b>${Math.round(mine / tot * 100)}%</b> of the day` : ''
+    ].filter(Boolean));
+    let overlayDatasets = [], segs = [];
+    if(bucketType){ const o = buildAvgOverlay(dates, bucketType, vals, '#FFFFFF', 0, 'kcal'); overlayDatasets = o.datasets; segs = o.segments; }
+    const datasets = [{ type: 'bar', label: g.label, data: vals, backgroundColor: g.c + 'CC', borderRadius: 3,
+      maxBarThickness: trendHorizon === 'week' ? 22 : (trendHorizon === 'month' ? 14 : 6) }, ...overlayDatasets.map((ds) => ({ ...ds, type: 'line' }))];
+    const segGroups = bucketType ? segs.map((x) => [x]) : null;
+    const data = { labels, datasets };
+    const options = { responsive: true, maintainAspectRatio: false, events: [], interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      scales: { x: { ticks: tickFn, grid: { display: false } },
+        y: { beginAtZero: true, ticks: { color: '#8D90A8', font: { family: 'Inter', size: 11 } }, grid: { color: '#2E3040' },
+          title: { display: true, text: 'kcal', color: '#8D90A8', font: { family: 'Inter', size: 11 } } } } };
+    const holdInfo = { titleEl, baseHTML: null, labels, series: [ { color: g.c, decimals: 0, suffix: ' kcal', vals } ] };
+    let ch = mealCharts[g.k];
+    if(ch){ ch.data = data; ch.options = options; ch.update(); }
+    else ch = mealCharts[g.k] = new Chart(document.getElementById('meal' + K + 'Chart'), { type: 'bar', data, options });
+    ch.$dates = dates; ch.$avgSegments = segGroups; ch.$holdInfo = holdInfo;
+  }catch(e){ /* charts failed; rest of the app still works */ }
+}
+
 // ---------- rendering: weight vs balance ----------
 // One weight chart for Trends and the Weight card: daily weigh-ins as dots, the 7-day average as the line,
 // the goal weight as a dashed line when it's in view. Press and hold to read a day: the row above the chart
@@ -8203,6 +8282,7 @@ function renderAll(){
   renderHealthCharts();
   renderWeightChart();
   renderProteinChart();
+  renderMealCharts();
   renderTable();
   renderDateSelector();
   renderRing();
@@ -9836,7 +9916,8 @@ async function init(){
   });
 
   const chartByKey = { consumed:()=>consumedChart, burned:()=>burnedChart, net:()=>netChart, steps:()=>healthCharts.steps, active:()=>healthCharts.active,
-                       protein:()=>macroCharts.protein, carbs:()=>macroCharts.carbs, fat:()=>macroCharts.fat, weight:()=>weightChart };
+                       protein:()=>macroCharts.protein, carbs:()=>macroCharts.carbs, fat:()=>macroCharts.fat, weight:()=>weightChart,
+                       mealbreakfast:()=>mealCharts.breakfast, meallunch:()=>mealCharts.lunch, mealdinner:()=>mealCharts.dinner, mealsnacks:()=>mealCharts.snacks };
   function wireChartBlockToggle(toggleBtnId, chevronId, wrapId, key){
     document.getElementById(toggleBtnId).addEventListener('click', ()=>{
       haptic();
@@ -9858,10 +9939,12 @@ async function init(){
   wireChartBlockToggle('toggleCarbsBtn', 'carbsChevron', 'carbsChartWrap', 'carbs');
   wireChartBlockToggle('toggleFatBtn', 'fatChevron', 'fatChartWrap', 'fat');
   wireChartBlockToggle('toggleWeightBtn', 'weightChevronT', 'weightChartOuterWrap', 'weight');
+  ['Breakfast', 'Lunch', 'Dinner', 'Snacks'].forEach((K) => wireChartBlockToggle(`toggleMeal${K}Btn`, `meal${K}Chevron`, `meal${K}ChartWrap`, 'meal' + K.toLowerCase()));
   // start each chart in its saved state (open by default)
   [['toggleConsumedBtn','consumedChevron','consumedChartWrap','consumed'],['toggleBurnedBtn','burnedChevron','burnedChartWrap','burned'],['toggleNetBtn','netChevron','netChartWrap','net'],
    ['toggleStepsBtn','stepsChevron','stepsChartWrap','steps'],['toggleActiveBtn','activeChevron','activeChartWrap','active'],['toggleProteinBtn','proteinChevron','proteinChartWrap','protein'],
-   ['toggleCarbsBtn','carbsChevron','carbsChartWrap','carbs'],['toggleFatBtn','fatChevron','fatChartWrap','fat'],['toggleWeightBtn','weightChevronT','weightChartOuterWrap','weight']].forEach(([b, c, w, k]) => {
+   ['toggleCarbsBtn','carbsChevron','carbsChartWrap','carbs'],['toggleFatBtn','fatChevron','fatChartWrap','fat'],['toggleWeightBtn','weightChevronT','weightChartOuterWrap','weight'],
+   ...['Breakfast', 'Lunch', 'Dinner', 'Snacks'].map((K) => [`toggleMeal${K}Btn`, `meal${K}Chevron`, `meal${K}ChartWrap`, 'meal' + K.toLowerCase()])].forEach(([b, c, w, k]) => {
     const bb = document.getElementById(b), cc = document.getElementById(c), ww = document.getElementById(w); if(!bb || !cc || !ww) return;
     ww.style.display = chartBlockState[k] ? '' : 'none';
     bb.closest('.trend-chart-block').classList.toggle('open', chartBlockState[k]);
@@ -10340,6 +10423,7 @@ async function init(){
   setupChartTooltip('proteinChart', ()=>macroCharts.protein);
   setupChartTooltip('carbsChart', ()=>macroCharts.carbs);
   setupChartTooltip('fatChart', ()=>macroCharts.fat);
+  MEAL_GROUPS.forEach((g) => setupChartTooltip('meal' + mealKey(g.k) + 'Chart', () => mealCharts[g.k]));
   setupChartTooltip('weightChart', ()=>weightChart);
 }
 

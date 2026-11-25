@@ -829,8 +829,8 @@
   @media (prefers-reduced-motion: reduce){ .ds-live{animation:none;} }
   .date-selector.past .date-sel-pick{background:rgba(255,159,67,.10);border-color:rgba(255,159,67,.55);color:#FFB870;}
   .date-selector.past .date-sel-ico{color:#FFB870;}
-  .date-today-btn{display:flex;align-items:center;gap:5px;margin:-6px auto 12px;padding:5px 12px;border-radius:999px;border:1px solid rgba(255,159,67,.4);background:rgba(255,159,67,.08);color:#FFB870;font:700 12.5px/1.2 inherit;font-family:inherit;cursor:pointer;}
-  .date-today-btn:active{background:rgba(255,159,67,.18);}
+  .date-today-btn{display:flex;align-items:center;gap:3px;margin:-10px auto 8px;padding:3px 8px;border:0;border-radius:8px;background:none;color:rgba(255,184,112,.8);font:600 12px/1.2 inherit;font-family:inherit;cursor:pointer;}
+  .date-today-btn span{font-size:13px;line-height:1;} .date-today-btn:active{color:#FFB870;background:rgba(255,159,67,.08);}
   .date-today-btn[hidden]{display:none;}
   .date-sel-ico{color:var(--muted);flex-shrink:0;}
   input.date-sel-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;
@@ -1659,7 +1659,7 @@
   body.tabs:not([data-view="home"]) #dq,body.tabs:not([data-view="home"]) #dayAsk,body.tabs:not([data-view="home"]) #balances{display:none !important;}
   body[data-view="trends"] #ringSection{display:none !important;}
   body[data-view="trends"] #globalDateSelector,body[data-view="trends"] #dateTodayBtn{display:none !important;}   /* Trends steps by week, month or year */
-  body.tabs:not([data-view="home"]) .date-today-btn{margin:8px auto 4px;}
+  body.tabs:not([data-view="home"]) .date-today-btn{margin:4px auto 0;}
   body.tabs:not([data-view="home"]) #ringSection .today-card{background:none;border:0;box-shadow:none;padding:0;margin:0 0 4px;}
   body.tabs:not([data-view="home"]) .app-header-inner > .date-selector{margin-bottom:2px;}
   body.tabs:not([data-view="home"]) [data-view-card] .burn-summary-row{pointer-events:none;}
@@ -1872,7 +1872,8 @@
   .fi{display:flex;align-items:center;gap:8px;padding:10px 2px 10px 0;border-bottom:1px solid rgba(244,245,250,0.07);}
   .fi:last-child{border-bottom:0;}
   .fi-main{flex:1;min-width:0;}
-  .fi-name{font-size:14px;font-weight:600;line-height:1.3;color:var(--ink);display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 7px;}
+  .fi-name{font-size:14px;font-weight:600;line-height:1.45;color:var(--ink);display:block;}
+  .fi-name > .fi-src, .fi-name > .fi-time{display:inline-block;margin-left:7px;vertical-align:1px;white-space:nowrap;}
   .fi-src{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:999px;background:rgba(244,245,250,0.07);color:var(--muted);}
   .fi-src.ai{background:rgba(76,141,255,0.14);color:#8DB6FF;}
   .fi-nums{display:flex;flex-wrap:wrap;gap:1px 5px;margin-top:3px;font-size:11.5px;color:var(--muted);font-weight:500;}
@@ -2570,6 +2571,8 @@
   .lp-weigh{margin:-4px 0 12px;padding:11px 13px;border-radius:14px;background:rgba(244,183,64,.1);border:1px solid rgba(244,183,64,.3);font-size:13px;line-height:1.45;color:var(--muted);} .lp-weigh b{color:#F4C25B;}
   .lp-card .lp-k{font:700 11px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px;}
   .lp-dates{letter-spacing:0;text-transform:none;font-weight:600;}
+  .lp-kt{display:inline-flex;align-items:center;} .lp-card .lp-k{align-items:center;}
+  .tip-pop .lp-wline{margin:0 0 10px;white-space:normal;flex-wrap:wrap;font-size:11.5px;} .tip-pop .ins-wrow{margin-bottom:4px;}
   .lp-big{font:700 36px/1 'Sora',sans-serif;letter-spacing:-.02em;margin:10px 0 6px;font-variant-numeric:tabular-nums;} .lp-big span{font:600 13px 'Inter',sans-serif;color:var(--muted);margin-left:6px;letter-spacing:0;}
   .lp-eq{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
   .lp-eq > div{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:12px;background:rgba(244,245,250,.04);font-size:13px;color:var(--muted);font-weight:600;}
@@ -2674,12 +2677,12 @@
   :where(.burn-wo-btn, .fi-edit, #dateSelPrevBtn, #dateSelNextBtn, #trendPrevBtn, #trendNextBtn, .bc-pen, #burnActBtn, .item-del, .lpill,
       .bc-info-btn, .bc-ownbtn, #importWeightBtn, .bc-link, .ob-back, .ob-skip, .fw-x, #chatAiState, .profile-legal a,
       .auth-legal a, .pw-links a, .pw-links button, .wk-toggle button, .wt-ranges button, .mode-btn, .meal-chip, #prevHistMonthBtn, #nextHistMonthBtn,
-      .burn-summary-row, button.mg-chip, .qm, .dq-ask, .trend-ask, .bc-wo-add, .ob-unit button, .ob-mini button, .methodology-toggle, #methodologyToggleBtn,
+      .burn-summary-row, button.mg-chip, .qm, .dq-ask, .trend-ask, .date-today-btn, .bc-wo-add, .ob-unit button, .ob-mini button, .methodology-toggle, #methodologyToggleBtn,
       .pb-seg-b, .btn-small, #chatMicBtn, #chatSendBtn, #chatNewBtn, .fl-tab, .seg button, .wc-del, .burn-log-btn, .bc-tag, .fseg button, .ai-desc-tools button, .es-btn, #aiEstimateBtn, #aiUndoBtn){position:relative;}
   :where(.burn-wo-btn, .fi-edit, #dateSelPrevBtn, #dateSelNextBtn, #trendPrevBtn, #trendNextBtn, .bc-pen, #burnActBtn, .item-del, .lpill,
       .bc-info-btn, .bc-ownbtn, #importWeightBtn, .bc-link, .ob-back, .ob-skip, .fw-x, #chatAiState, .profile-legal a,
       .auth-legal a, .pw-links a, .pw-links button, .wk-toggle button, .wt-ranges button, .mode-btn, .meal-chip, #prevHistMonthBtn, #nextHistMonthBtn,
-      .burn-summary-row, button.mg-chip, .qm, .dq-ask, .trend-ask, .bc-wo-add, .ob-unit button, .ob-mini button, .methodology-toggle, #methodologyToggleBtn,
+      .burn-summary-row, button.mg-chip, .qm, .dq-ask, .trend-ask, .date-today-btn, .bc-wo-add, .ob-unit button, .ob-mini button, .methodology-toggle, #methodologyToggleBtn,
       .pb-seg-b, .btn-small, #chatMicBtn, #chatSendBtn, #chatNewBtn, .fl-tab, .seg button, .wc-del, .burn-log-btn, .bc-tag, .fseg button, .ai-desc-tools button, .es-btn, #aiEstimateBtn, #aiUndoBtn)::after{
     content:"";position:absolute;left:50%;top:50%;width:max(100%, 44px);height:max(100%, 44px);transform:translate(-50%,-50%);}
   .profile-legal a, .pw-links a{display:inline-block;}
@@ -2863,6 +2866,7 @@
   .ins-meals{display:flex;flex-direction:column;}
   .ins-snacks{margin-top:0;}
   .ins-meal{display:grid;grid-template-columns:24px 1fr 56px 86px;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--rule);}
+  .ins-meal.sh{grid-template-columns:24px minmax(0,1fr) 48px auto 34px;gap:7px;}
   .ins-meal:first-child{border-top:0;}
   .ins-mi .li{width:19px;height:19px;}
   .ins-mn{font-size:14px;font-weight:600;color:var(--ink);min-width:0;} .ins-mn small{display:block;font-size:11px;font-weight:500;color:var(--muted);}
@@ -2878,6 +2882,13 @@
   .ins-wfrom i{font-style:normal;color:var(--muted);}
   .ins-wb{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding:9px 12px;border-radius:12px;font:700 13px Inter,sans-serif;}
   .ins-wb span{font-weight:600;font-size:12px;color:var(--muted);} .ins-wb.ok{background:rgba(74,222,128,.1);color:#4ADE80;} .ins-wb.mid{background:rgba(251,191,36,.1);color:#FBBF24;}
+  .ins-win{display:flex;align-items:center;gap:4px;flex-wrap:nowrap;}
+  .ins-win-l{font-size:12px;font-weight:600;color:var(--muted);margin-right:3px;flex-shrink:0;}
+  .ins-win button{flex:1 1 auto;min-width:0;white-space:nowrap;padding-left:6px !important;padding-right:6px !important;}
+  .ins-msh{flex-shrink:0;width:36px;text-align:right;font:700 12.5px 'Inter',sans-serif;font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .ins-mico{flex-shrink:0;width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;} .ins-mico svg{width:19px;height:19px;}
+  .ins-mtr{align-items:center !important;}
+  .ins-tiles b i{font:600 12px 'Inter',sans-serif;font-style:normal;color:var(--muted);}
   .ins-mt2{display:flex;flex-direction:column;}
   .ins-mtr{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--rule);} .ins-mtr:first-child{border-top:0;padding-top:2px;}
   .ins-mr{width:38px;height:38px;flex-shrink:0;}
@@ -2977,7 +2988,7 @@
           </label>
           <button class="date-nav-btn" id="dateSelNextBtn" type="button" aria-label="Next day">›</button>
         </div>
-      <button class="date-today-btn" id="dateTodayBtn" type="button" hidden><span aria-hidden="true">↩</span> Back to today</button>
+      <button class="date-today-btn" id="dateTodayBtn" type="button" hidden>Back to today <span aria-hidden="true">›</span></button>
 
       <div class="wnudge" id="weighNudge" hidden></div>
       <div class="wnudge" id="planNudge" hidden></div>
@@ -5016,7 +5027,7 @@ document.addEventListener('click', (ev) => {
   pop.style.left = left + 'px'; pop.style.top = (below ? r.bottom + 8 : r.top - 8 - ph) + 'px';
   pop.style.setProperty('--ax', (r.left + r.width / 2 - left) + 'px'); pop.classList.add(below ? 'down' : 'up');
 }, true);
-window.addEventListener('scroll', closeTip, { passive: true });
+document.addEventListener('scroll', closeTip, { passive: true, capture: true });   // any scroller, sheets included
 window.addEventListener('resize', closeTip);
 function LI(name, cls){ return `<svg class="li${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true">${LI_PATHS[name] || LI_PATHS.spark}</svg>`; }
 // Workouts Apple Health recorded that day (the iPhone app reads them: Apple Watch, WHOOP, Oura, Garmin,
@@ -12587,7 +12598,7 @@ function renderLearnPage(){
   // ---- resting burn against the formula
   const ever = learnEver(), adj = ever ? (L.adj || 0) : 0, now = Math.round(base + adj), pct = adj / base;
   const pos = 50 + Math.max(-1, Math.min(1, pct / LEARN_CAP)) * 50;
-  h += `<div class="pw-card lp-card"><div class="lp-k">Resting burn · BMR</div>
+  h += `<div class="pw-card lp-card"><div class="lp-k"><span class="lp-kt">Resting burn · BMR${qTip(`<p>Your <b>resting burn</b> (BMR) is what your body uses doing nothing at all: breathing, heart, keeping warm. It’s most of what you burn in a day.</p><p>Fera starts from the Mifflin-St Jeor formula (your weight, height, age and sex), then corrects it with what your food log and the scale show. The bar is where you sit against the formula: Fera allows up to 15% either way.</p>`, 'resting burn')}</span></div>
     <div class="lp-big">${fmtN(now)}<span>kcal a day</span></div>
     <div class="bl-sub">${ever && adj ? `<b class="${adj >= 0 ? 'up' : 'down'}">${blSigned(adj)} kcal</b> vs the formula’s ${fmtN(Math.round(base))} · ${blSigned(pct * 100, 1)}%` : ever ? 'Your scale agrees with the formula.' : 'The formula, from your weight, height, age and sex. Fera corrects it once it has learned.'}</div>
     <div class="bl-scale" aria-hidden="true">
@@ -12597,7 +12608,8 @@ function renderLearnPage(){
 
   // ---- the daily target it gives
   const wg = userGoals.weightGoal, delta = t.dailyDelta;
-  h += `<div class="pw-card lp-card"><div class="lp-k">Daily target</div>
+  const tgtTip = `<p>${ever ? `Your daily burn is the average you actually burned over those days, with the learned resting burn. It moves at most ${CAL_STEP_DAY} kcal a day, so your target shifts gradually.` : t.tdeeHow === 'measured' ? `Baseline: the formula’s resting burn plus the movement and digestion Fera measured on your ${t.baseDays} logged days.` : `Baseline: the formula’s resting burn × ${CAL_BASE_MULT}, a typical day, until you’ve logged a few days.`}</p><p>Your target is that daily burn${wg === 'maintain' ? '' : `, ${wg === 'lose' ? 'minus' : 'plus'} what it takes to ${wg} ${t.rate} lb a week (about 3,500 kcal a pound)`}.</p>`;
+  h += `<div class="pw-card lp-card"><div class="lp-k"><span class="lp-kt">Daily target${qTip(tgtTip, 'the daily target')}</span></div>
     <div class="lp-big">${fmtN(t.calorieTarget)}<span>kcal a day</span></div>
     <div class="lp-eq">
       <div><span>${learned ? 'Your daily burn, learned' : ever ? 'Your daily burn, last learned' : 'Your daily burn, baseline'}</span><b>${fmtN(t.tdee)}</b></div>
@@ -12605,7 +12617,7 @@ function renderLearnPage(){
       ${t.floored ? `<div class="fl"><span>Held at the safe minimum</span><b>${fmtN(t.floor)}</b></div>` : ''}
       ${t.custom.calorie ? `<div class="fl"><span>You set your own target in Goals</span><b>${fmtN(t.calorieTarget)}</b></div>` : ''}
     </div>
-    <p class="bl-note">${ever ? `Your daily burn is the average you actually burned over those days, with the learned resting burn. It moves at most ${CAL_STEP_DAY} kcal a day.` : t.tdeeHow === 'measured' ? `Baseline: the formula’s resting burn plus the movement and digestion Fera measured on your ${t.baseDays} logged days.` : `Baseline: the formula’s resting burn × ${CAL_BASE_MULT}, a typical day, until you’ve logged a few days.`}</p></div>`;
+    </div>`;
 
   // ---- the evidence
   if(a){
@@ -12614,7 +12626,12 @@ function renderLearnPage(){
     const fw = a.firstW, lw = a.lastW;
     const fact = (v, of, label, ok, need) => `<div class="${ok ? 'ok' : ''}"><b>${v}${of != null ? `<i> of ${of}</i>` : ''}</b><small>${label}${need != null ? `<br><span class="lp-need">${need} needed</span>` : ''}</small></div>`;
     const startOk = a.days.slice(0, R.edge).some(d => d.lb != null), endOk = a.days.slice(-R.edge).some(d => d.lb != null);
-    h += `<div class="pw-card lp-card"><div class="lp-k">Learning from the last ${a.window} days <span class="lp-dates">${blDate(a.days[0].d)} – ${blDate(a.days[a.days.length - 1].d)}</span></div>
+    const wline = a.ready && a.groups ? `<div class="lp-wline"><span>${a.groups.g > 1 ? `Avg ${blDate(a.groups.from.d)}–${blDate(a.groups.from.to)}` : blDate(a.groups.from.d)} <b>${blW(a.groups.from.lb).toFixed(1)}</b></span><i></i><span>${a.groups.g > 1 ? `Avg ${blDate(a.groups.upto.d)}–${blDate(a.groups.upto.to)}` : blDate(a.groups.upto.to)} <b>${blW(a.groups.upto.lb).toFixed(1)}</b> ${u}</span></div>`
+        : fw && lw && fw.d !== lw.d ? `<div class="lp-wline"><span>${blDate(fw.d)} <b>${blW(fw.lb).toFixed(1)}</b></span><i></i><span>${blDate(lw.d)} <b>${blW(lw.lb).toFixed(1)}</b> ${u}</span></div>` : '';
+    const reading = a.ready ? (() => { const exp = blW(a.predicted * 7 / 3500), got = blW(a.slope * 7);
+        return `<p>From what you ate and burned, the formula expected <b>${blSigned(exp, 1)} ${u}</b> a week. Your scale moved <b>${blSigned(got, 1)} ${u}</b> a week. ${a.adj === 0 ? 'They match, so the formula fits you.' : `So your body burns about <b>${fmtN(Math.abs(a.adj))} kcal a day ${a.adj > 0 ? 'more' : 'less'}</b> than the formula says${a.capped ? ' (capped at 15%)' : ''}.`}</p>`; })() : '';
+    const learnTip = `${wline ? wline.replace('class="lp-wline"', 'class="lp-wline in-tip"') : ''}${reading}<p>Fera uses the longest stretch, from ${LEARN_MIN_DAYS} up to ${LEARN_MAX_DAYS} days, where most days are fully logged and there’s a weigh-in near the start and the end. A fully logged day has all its food in Fera. The scale’s move compares the average weigh-in of the first and last week.</p>`;
+    h += `<div class="pw-card lp-card"><div class="lp-k"><span class="lp-kt">Learning from the last ${a.window} days${qTip(learnTip, 'how Fera learns')}</span><span class="lp-dates">${blDate(a.days[0].d)} – ${blDate(a.days[a.days.length - 1].d)}</span></div>
       <div class="lp-facts3">
         ${fact(a.good, a.window, 'days fully logged', a.good >= R.good, R.good)}
         ${fact(a.weighIns, a.window, 'days with a weigh-in', a.weighIns >= R.weigh, R.weigh)}
@@ -12622,11 +12639,6 @@ function renderLearnPage(){
       </div>
       <div class="bl-days" role="img" aria-label="${a.good} complete days and ${a.weighIns} weigh-ins">${cells}</div>
       <div class="bl-legend"><span><i class="g"></i>Fully logged</span><span><i class="wdot"></i>Weigh-in</span></div>
-      ${a.ready && a.groups ? `<div class="lp-wline"><span>${a.groups.g > 1 ? `Avg ${blDate(a.groups.from.d)}–${blDate(a.groups.from.to)}` : blDate(a.groups.from.d)} <b>${blW(a.groups.from.lb).toFixed(1)}</b></span><i></i><span>${a.groups.g > 1 ? `Avg ${blDate(a.groups.upto.d)}–${blDate(a.groups.upto.to)}` : blDate(a.groups.upto.to)} <b>${blW(a.groups.upto.lb).toFixed(1)}</b> ${u}</span></div>`
-        : fw && lw && fw.d !== lw.d ? `<div class="lp-wline"><span>${blDate(fw.d)} <b>${blW(fw.lb).toFixed(1)}</b></span><i></i><span>${blDate(lw.d)} <b>${blW(lw.lb).toFixed(1)}</b> ${u}</span></div>` : ''}
-      ${a.ready ? (() => { const exp = blW(a.predicted * 7 / 3500), got = blW(a.slope * 7);
-        return `<p class="bl-p">From what you ate and burned, the formula expected <b>${blSigned(exp, 1)} ${u}</b> a week. Your scale moved <b>${blSigned(got, 1)} ${u}</b> a week. ${a.adj === 0 ? 'They match, so the formula fits you.' : `So your body burns about <b>${fmtN(Math.abs(a.adj))} kcal a day ${a.adj > 0 ? 'more' : 'less'}</b> than the formula says${a.capped ? ' (capped at 15%)' : ''}.`}</p>`; })()
-        : `<p class="bl-note">Fera uses the longest stretch, from ${LEARN_MIN_DAYS} up to ${LEARN_MAX_DAYS} days, where most days are fully logged and there’s a weigh-in near the start and the end. A fully logged day has all its food in Fera.</p>`}
     </div>`;
   }
 
@@ -12641,8 +12653,8 @@ function renderLearnPage(){
 
   // ---- recent changes
   if(C.log.length){
-    h += `<div class="pw-card"><b class="bl-h">Recent changes</b><div class="lp-log">${C.log.slice(0, 6).map(x => `<div><span>${blDate(x.d)}</span><b>Target ${fmtN(x.target[0])} → ${fmtN(x.target[1])}</b><small>Resting ${fmtN(x.rest[0])} → ${fmtN(x.rest[1])}</small></div>`).join('')}</div>
-      <p class="bl-note">Finished days keep the resting burn they had; only today and the days ahead use the new one.</p></div>`;
+    h += `<div class="pw-card"><b class="bl-h lp-kt">Recent changes${qTip('<p>Each day Fera learns, your resting burn and daily target update a little. These are the latest changes.</p><p>Finished days keep the resting burn they had; only today and the days ahead use the new one.</p>', 'recent changes')}</b><div class="lp-log">${C.log.slice(0, 6).map(x => `<div><span>${blDate(x.d)}</span><b>Target ${fmtN(x.target[0])} → ${fmtN(x.target[1])}</b><small>Resting ${fmtN(x.rest[0])} → ${fmtN(x.rest[1])}</small></div>`).join('')}</div>
+      </div>`;
   }
   h += '</div>';
   body.innerHTML = h;
@@ -12831,19 +12843,24 @@ function insOnPlan(x){
 }
 const insWeeks = (days, end, N, pick) => [0, 1, 2, 3].map((w) => insAvg(days.filter((x) => { const k = wtDiff(x.d, end); return k >= -(N - 1) + w * N / 4 && k < -(N - 1) + (w + 1) * N / 4; }).map(pick)));
 const SNACK_KINDS = [{ k: 'amsnack', label: 'Morning snack', ic: 'amsnack' }, { k: 'pmsnack', label: 'Afternoon snack', ic: 'pmsnack' }, { k: 'late', label: 'Late-night snack', ic: 'late' }];
+const insMinDays = (N) => (N <= 7 ? 5 : 7);
+const insSpan = (N) => (N <= 7 ? 'a week' : `${Math.round(N / 7)} weeks`);
 function insightsData(N){
   const cur = insDays(N), prev = insDays(N, N);
-  if(cur.length < 7) return { cur, enough: false };
+  if(cur.length < insMinDays(N)) return { cur, enough: false };
   const D = { cur, prev, enough: true, N };
   const end = wtAddDays(todayStr(), -1);
   // overview
   D.net = insAvg(cur.map((x) => x.net)); D.plan = insAvg(cur.map((x) => x.plan));
   const judged = cur.filter((x) => insOnPlan(x) != null); D.onPlan = judged.filter(insOnPlan).length; D.judged = judged.length;
   // weight: the same pace the Weight page shows (the trend line through the weigh-ins), over this window
-  const W = wtDays(), wc = wtChange(W, todayStr(), N);
+  const W = wtDays();
+  // the whole window when the weigh-ins go back that far, else the longest stretch they cover (two weeks at least)
+  let wc = wtChange(W, todayStr(), N);
+  if(!wc){ const a7 = wtAvg7(W, todayStr()); if(a7 != null) for(let i = N; i >= 14; i--){ const from = wtAddDays(todayStr(), -i), b7 = wtAvg7(W, from); if(b7 != null){ wc = { change: a7 - b7, days: i, from, start: b7, end: a7 }; break; } } }
   if(wc){
     const r = weightRate(), pace = wc.change / wc.days * 7;
-    D.w = { pace, change: wc.change, from: wc.from, startW: wc.start, endW: wc.end, goal: goalInfo(W), unit: weightUnit(),
+    D.w = { pace, change: wc.change, days: wc.days, from: wc.from, startW: wc.start, endW: wc.end, goal: goalInfo(W), unit: weightUnit(),
       planPace: userGoals.weightGoal === 'lose' ? -wtUnitFromLb(r) : userGoals.weightGoal === 'gain' ? wtUnitFromLb(r) : 0, series: [] };
     for(let i = 0; i < N; i += Math.max(1, Math.round(N / 28))){ const v = wtAvg7(W, wtAddDays(end, -(N - 1) + i)); if(v != null) D.w.series.push(v); }
     let lo = null; Object.keys(W).forEach((k) => { if(k >= wtAddDays(end, -(N - 1)) && k <= end && (lo == null || W[k].v < W[lo].v)) lo = k; });
@@ -12887,6 +12904,20 @@ function insightsData(N){
   const act = D.dow.filter((x) => x.burn != null).sort((a, b) => b.burn - a.burn);
   D.burn = { avg: insAvg(cur.map((x) => x.burn)), share: tot ? Object.fromEntries(Object.entries(share).map(([k, v]) => [k, v / tot])) : null,
     workouts: cur.reduce((s, x) => s + x.wo.length, 0), steps: insAvg(cur.map((x) => x.steps)), most: act[0], least: act[act.length - 1] };
+  {
+    const B = D.burn, st = cur.filter((x) => x.steps != null), wos = [];
+    cur.forEach((x) => x.wo.forEach((w) => wos.push(w)));
+    B.prevAvg = prev.length >= 3 ? insAvg(prev.map((x) => x.burn)) : null;
+    B.prevSteps = prev.filter((x) => x.steps != null).length >= 3 ? insAvg(prev.map((x) => x.steps)) : null;
+    B.activeShare = tot ? ((share.move || 0) + (share.workouts || 0)) / tot : null; B.moveAvg = share.move ? share.move / cur.length : null;
+    B.stepDays = st.length; B.tenK = st.filter((x) => x.steps >= 10000).length;
+    B.weSteps = insAvg(st.filter((x) => x.dow === 0 || x.dow === 6).map((x) => x.steps)); B.wdSteps = insAvg(st.filter((x) => x.dow >= 1 && x.dow <= 5).map((x) => x.steps));
+    B.stepGoal = 8000; let r = 0, prevD = null; B.stepRun = 0;
+    st.forEach((x) => { r = x.steps >= B.stepGoal && prevD && wtDiff(x.d, prevD) === 1 && r ? r + 1 : x.steps >= B.stepGoal ? 1 : 0; B.stepRun = Math.max(B.stepRun, r); prevD = x.d; });
+    const kc = wos.map((w) => workoutKcal(w)).filter((v) => v != null);
+    B.woAvg = insAvg(kc); const ty = {}; wos.forEach((w) => { const n = WORKOUT_BY_KEY[w.type] ? WORKOUT_BY_KEY[w.type].n : null; if(n) ty[n] = (ty[n] || 0) + 1; });
+    B.woTop = Object.entries(ty).sort((a, b) => b[1] - a[1]).map((e) => e[0])[0] || null;
+  }
   // highlights and lowlights
   const lose = userGoals.weightGoal !== 'gain';
   const vsPlan = (x) => (lose ? 1 : -1) * (x.net - x.plan);   // lower = better
@@ -12956,7 +12987,7 @@ function insSpark(vals, w, h, color){
 const insCard = (k, head, body, tip) => `<section class="ins-card"><div class="ins-kr"><div class="ins-k">${k}</div>${tip ? qTip(tip, k) : ''}</div><h3 class="ins-h">${head}</h3>${body}</section>`;
 const insB = (s) => `<b>${s}</b>`;
 const insMixBar = (m) => m ? `<div class="ins-mix">${['p', 'c', 'f'].map((k) => `<i style="flex-basis:${(m[k] * 100).toFixed(1)}%;background:${MACRO_COLOR[{ p: 'protein', c: 'carbs', f: 'fat' }[k]]}">${m[k] >= 0.14 ? Math.round(m[k] * 100) + '%' : ''}</i>`).join('')}</div>` : '';
-const insRow = (ic, color, name, sub, weeks, avg) => `<div class="ins-meal"><span class="ins-mi" style="color:${color}">${LI(ic)}</span><span class="ins-mn">${name}<small>${sub}</small></span>${insSpark(weeks, 56, 22, color)}<b>${fmtN(avg)}<i>kcal</i></b></div>`;
+const insRow = (ic, color, name, sub, weeks, avg, share) => `<div class="ins-meal${share != null ? ' sh' : ''}"><span class="ins-mi" style="color:${color}">${LI(ic)}</span><span class="ins-mn">${name}<small>${sub}</small></span>${insSpark(weeks, 48, 22, color)}<b>${fmtN(avg)}<i>kcal</i></b>${share != null ? `<em class="ins-msh">${Math.round(share * 100)}%</em>` : ''}</div>`;
 const insDl = (d) => parseISO(d).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
 function insGoalChip(){
   const wg = userGoals.weightGoal, gw = goalWeight(), u = weightUnit(), r = weightRate();
@@ -12967,31 +12998,30 @@ function insGoalChip(){
 function insightsHTML(N, opts){
   opts = opts || {};
   const D = insightsData(N), unit = weightUnit(), lose = userGoals.weightGoal !== 'gain';
-  const seg = `<div class="ins-win" role="tablist">${[[28, 'Last 4 weeks'], [84, 'Last 12 weeks']].map(([n, l]) => `<button type="button" data-ins-win="${n}" class="${n === N ? 'on' : ''}">${l}</button>`).join('')}</div>`;
-  if(!D.enough) return { D, html: seg + emptyStateHTML({ icon: 'trends', title: 'Insights need a week of logging', text: `Patterns show up after 7 logged days. You have ${D.cur.length} in this window.` }) };
+  const seg = `<div class="ins-win" role="tablist"><span class="ins-win-l">Last</span>${[[7, '1 week'], [28, '4 weeks'], [84, '12 weeks'], [168, '24 weeks']].map(([n, l]) => `<button type="button" data-ins-win="${n}" class="${n === N ? 'on' : ''}">${l}</button>`).join('')}</div>`;
+  if(!D.enough) return { D, html: seg + emptyStateHTML({ icon: 'trends', title: N === 7 ? 'Log a few more days this week' : 'Insights need a week of logging', text: `Patterns show up after ${insMinDays(N)} logged days. You have ${D.cur.length} in this window.` }) };
   const out = [];
   // 1. overview: how many days went to plan, against which goal
-  out.push(insCard('Overview', `${insB(D.onPlan + ' of ' + D.judged)} days on plan`, `${insGoalChip()}
-      <div class="ins-days">${D.cur.map((x) => `<i class="${insOnPlan(x) == null ? '' : insOnPlan(x) ? 'on' : 'off'}"></i>`).join('')}</div>`,
-    `<p>Each square is a logged day, oldest first. <b>Green</b> is on plan, <b>red</b> is off plan.</p><p>${userGoals.weightGoal === 'gain' ? 'On plan means your balance (eaten minus burned) reached your planned surplus, give or take 100 kcal.' : userGoals.weightGoal === 'maintain' ? 'On plan means you ate within 150 kcal of what you burned.' : 'On plan means your balance (eaten minus burned) was at or below your planned deficit, with 100 kcal of slack.'} Days with fewer than 600 kcal logged don’t count.</p>`));
+  out.push(insCard('Overview', `${insB(D.onPlan + ' of ' + D.judged)} days on plan`, `${insGoalChip()}`,
+    `<p>${userGoals.weightGoal === 'gain' ? 'On plan means your balance (eaten minus burned) reached your planned surplus, give or take 100 kcal.' : userGoals.weightGoal === 'maintain' ? 'On plan means you ate within 150 kcal of what you burned.' : 'On plan means your balance (eaten minus burned) was at or below your planned deficit, with 100 kcal of slack.'} Days with fewer than 600 kcal logged don’t count.</p>`));
   // 2. weight goal: the 7-day average now against N days ago, the pace that makes, and the date it points to
   if(D.w){
     const gi = D.w.goal, when = gi ? goalWhen(gi.etaPace) : null, whenPlan = gi ? goalWhen(gi.etaPlan) : null, gap = gi ? goalWeeksApart(gi.etaPlan, gi.etaPace) : null;
     const moved = Math.abs(D.w.change) < 0.05 ? 'Steady' : `${D.w.change < 0 ? 'Down' : 'Up'} ${insB(Math.abs(D.w.change).toFixed(1) + ' ' + unit)}`;
-    const head = gi && when ? `On pace for ${wtFmt(gi.goal, 0)} ${unit} by ${insB(when)}` : `${moved} in ${N / 7} weeks`;
-    out.push(insCard('Weight goal', head, `<div class="ins-wrow">${insSpark(D.w.series, 150, 54, '#8DB6FF')}
+    const head = gi && when ? `On pace for ${wtFmt(gi.goal, 0)} ${unit} by ${insB(when)}` : `${moved} in ${insSpan(D.w.days)}`;
+    const detail = `<div class="ins-wrow">${insSpark(D.w.series, 130, 48, '#8DB6FF')}
         <div class="ins-pace"><div><span>Your pace</span><b>${wtSigned(D.w.pace)}</b><small>${unit} a week</small></div><div><span>Plan</span><b>${wtSigned(D.w.planPace)}</b><small>${unit} a week</small></div></div></div>
-      <div class="ins-wfrom"><span>7-day average<b>${wtFmt(D.w.startW)} ${unit}</b><small>${insDl(D.w.from)}</small></span><i>→</i><span>7-day average<b>${wtFmt(D.w.endW)} ${unit}</b><small>today</small></span></div>
-      ${gi && gap ? `<div class="ins-wb ${gap > 0 ? 'mid' : 'ok'}">${Math.abs(gap)} week${Math.abs(gap) === 1 ? '' : 's'} ${gap > 0 ? 'behind' : 'ahead of'} plan<span>Plan date ${whenPlan}</span></div>` : ''}`,
-      `<p>Fera measures weight with the <b>7-day average</b> of your weigh-ins, so one salty dinner or a glass of water doesn’t move it.</p><p>The change is today’s 7-day average minus the one ${N / 7} weeks ago. <b>Your pace</b> is that change per week, and the goal date assumes the pace holds.</p>`));
+      <div class="ins-wfrom"><span>7-day average<b>${wtFmt(D.w.startW)} ${unit}</b><small>${insDl(D.w.from)}</small></span><i>→</i><span>7-day average<b>${wtFmt(D.w.endW)} ${unit}</b><small>today</small></span></div>`;
+    out.push(insCard('Weight goal', head, gi && gap ? `<div class="ins-wb ${gap > 0 ? 'mid' : 'ok'}">${Math.abs(gap)} week${Math.abs(gap) === 1 ? '' : 's'} ${gap > 0 ? 'behind' : 'ahead of'} plan<span>Plan date ${whenPlan}</span></div>` : '',
+      `${detail}<p style="margin-top:12px">Fera measures weight with the <b>7-day average</b> of your weigh-ins, so one salty dinner or a glass of water doesn’t move it.</p><p>The change is today’s 7-day average minus the one from ${insDl(D.w.from)}. <b>Your pace</b> is that change per week${gi ? ', and the goal date assumes the pace holds' : ''}.</p>`));
   }
   // 3. meals
   const ms = D.meals.filter((m) => m.days >= 3);
   if(ms.length){
     const big = ms.slice().sort((a, b) => (b.share || 0) - (a.share || 0))[0];
     out.push(insCard('Meals', `${big.g.label} is your biggest meal, ${insB(Math.round(big.share * 100) + '%')} of the day`,
-      `<div class="ins-meals">${ms.map((m) => insRow(m.g.ic, m.g.c, m.g.label, m.days === D.mealDays ? 'every day' : `${m.days} of ${D.mealDays} days`, m.weeks, m.avg)).join('')}</div>`,
-      '<p>Average calories of each meal on the days you had it. The line shows it week by week, oldest to newest.</p><p>Foods go to a meal by the meal you pick when logging, or by the time you logged them. Snacks are morning, afternoon and late-night snacks together.</p>'));
+      `<div class="ins-meals">${ms.map((m) => insRow(m.g.ic, m.g.c, m.g.label, m.days === D.mealDays ? 'every day' : `${m.days} of ${D.mealDays} days`, m.weeks, m.avg, m.share)).join('')}</div>`,
+      '<p>Average calories of each meal on the days you had it, and its <b>share</b> of the day’s calories. The line shows how it moved across the window, oldest to newest.</p><p>Foods go to a meal by the meal you pick when logging, or by the time you logged them. Snacks are morning, afternoon and late-night snacks together.</p>'));
     // 4. calorie quality by meal
     const q = ms.filter((m) => m.mix), pr = q.slice().sort((a, b) => b.mix.p - a.mix.p)[0], fat = q.slice().sort((a, b) => b.mix.f - a.mix.f)[0];
     out.push(insCard('Calorie quality by meal', `${pr.g.label} is your most balanced meal; ${fat.g.label.toLowerCase()} run${fat.g.k === 'snacks' ? '' : 's'} highest in fat (${Math.round(fat.mix.f * 100)}%)`,
@@ -13004,15 +13034,16 @@ function insightsHTML(N, opts){
     const lead = (x) => x.over >= x.under && x.over >= x.on ? 'over' : x.under >= x.on ? 'under' : 'on';
     const worst = D.macros.slice().sort((a, b) => ((b.m === 'protein' ? b.under : b.over) / b.n) - ((a.m === 'protein' ? a.under : a.over) / a.n))[0];
     const head = worst.m === 'protein' ? `Protein fell short on ${insB(worst.under + ' of ' + worst.n)} days` : `${MACRO_INFO[worst.m].label} ran over on ${insB(worst.over + ' of ' + worst.n)} days`;
-    const ring = (f, c) => { const r = 15, L = 2 * Math.PI * r; return `<svg class="ins-mr" viewBox="0 0 38 38" aria-hidden="true"><circle cx="19" cy="19" r="${r}" fill="none" stroke="rgba(244,245,250,.1)" stroke-width="4"/><circle cx="19" cy="19" r="${r}" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${(f * L).toFixed(1)} ${L.toFixed(1)}" transform="rotate(-90 19 19)"/></svg>`; };
+    const MICO = { protein: '<path d="M15.6 3.4a5 5 0 0 1 .3 9.9c-1.2.1-2.3-.2-3.2-.8l-4.5 4.5a2.1 2.1 0 1 1-2.8 2.8 2.1 2.1 0 1 1-1.2-3.6l4.5-4.5a5 5 0 0 1 6.9-8.3z"/>',
+      carbs: '<path d="M12 21V9"/><path d="M12 9c0-3 2-5 5-5 0 3-2 5-5 5zM12 9c0-3-2-5-5-5 0 3 2 5 5 5z"/><path d="M12 15c0-3 2-5 5-5 0 3-2 5-5 5zM12 15c0-3-2-5-5-5 0 3 2 5 5 5z"/>',
+      fat: '<path d="M12 3.5c3 4 6 7.2 6 10.5a6 6 0 0 1-12 0c0-3.3 3-6.5 6-10.5z"/><path d="M9.5 14.5a2.6 2.6 0 0 0 2.5 2.4"/>' };
+    const ico = (m, c) => `<span class="ins-mico" style="color:${c};background:${c}1f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${MICO[m]}</svg></span>`;
     const rows = D.macros.map((x) => {
       const k = lead(x), name = MACRO_INFO[x.m].label, c = MACRO_COLOR[x.m], days = `${x[k]} of ${x.n}`;
       const txt = k === 'over' ? `<b style="color:${c}">${name}</b> ran over on <b>${days}</b> days, by <b>${fmtN(x.overG)} g</b> on average`
         : k === 'under' ? `<b style="color:${c}">${name}</b> fell short on <b>${days}</b> days, by <b>${fmtN(x.underG)} g</b> on average`
         : `<b style="color:${c}">${name}</b> was on target on <b>${days}</b> days`;
-      const rest = [['on', 'on target'], ['under', 'under'], ['over', 'over']].filter(([q]) => q !== k).map(([q, l]) => `${x[q]} ${l}`).join(' · ');
-      const pill = { over: ['r', 'Over'], under: [x.m === 'protein' ? 'r' : 'a', 'Short'], on: ['g', 'On target'] }[k];
-      return `<div class="ins-mtr">${ring(x[k] / x.n, c)}<div class="ins-mtt"><p>${txt}</p><small>${rest}<br>Average ${fmtN(x.avgG)} g a day vs. a ${fmtN(x.avgT)} g target</small></div><span class="ins-pill ${pill[0]}">${pill[1]}</span></div>`;
+      return `<div class="ins-mtr">${ico(x.m, c)}<div class="ins-mtt"><p>${txt}</p></div></div>`;
     });
     out.push(insCard('Macros vs targets', head, `<div class="ins-mt2">${rows.join('')}</div>`,
       '<p>Each day’s protein, carbs and fat against that day’s own targets.</p><p><b>On target</b> is 90 to 110% of the target; <b>short</b> is below 90%; <b>over</b> is above 110%. The “by … on average” figure is how far off those days were.</p>'));
@@ -13037,16 +13068,26 @@ function insightsHTML(N, opts){
     <table class="ins-tbl"><thead><tr><th>Average day</th><th>Weekday</th><th>Weekend</th></tr></thead><tbody>
       ${row('Eaten', D.split.wd.cal, D.split.we.cal)}${row('Burned', D.split.wd.burn, D.split.we.burn)}${row('Balance', D.split.wd.net, D.split.we.net, nc)}</tbody></table>`,
     '<p><b>Balance</b> is what you ate minus what you burned: below zero (green) is a deficit, above zero (red) a surplus.</p><p>The bars are your average balance on each day of the week. The table compares an average weekday (Monday to Friday) with an average weekend day.</p>'));
-  // 7. burn
+  // 7. burn: the patterns in how you move, as tiles
   if(D.burn.avg != null){
-    const sh = D.burn.share || {}, segs = [['rest', 'Resting', '#4C8DFF'], ['move', 'Movement', '#2DD4BF'], ['workouts', 'Workouts', '#FF6B85'], ['digest', 'Digestion', '#FBBF24']].filter(([k]) => sh[k]);
-    const day3 = (x) => x ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][x.k] : '—';
-    out.push(insCard('Burn', `You burn ${insB(fmtN(D.burn.avg) + ' kcal')} a day`,
-      `<div class="ins-stack">${segs.map(([k, l, c]) => `<i style="flex-basis:${(sh[k] * 100).toFixed(1)}%;background:${c}"></i>`).join('')}</div>
-      <div class="ins-leg2">${segs.map(([k, l, c]) => `<span><i style="background:${c}"></i>${l} <b>${Math.round(sh[k] * 100)}%</b></span>`).join('')}</div>
-      <div class="ins-tiles four"><div><span>Steps</span><b>${fmtN(D.burn.steps)}</b><small>a day</small></div><div><span>Workouts</span><b>${D.burn.workouts}</b><small>${(D.burn.workouts / (N / 7)).toFixed(1)} a week</small></div>
-        <div><span>Most active</span><b>${day3(D.burn.most)}</b><small>${D.burn.most ? fmtN(D.burn.most.burn) + ' kcal' : ''}</small></div><div><span>Least active</span><b>${day3(D.burn.least)}</b><small>${D.burn.least ? fmtN(D.burn.least.burn) + ' kcal' : ''}</small></div></div>`,
-      '<p>Your daily burn, split into <b>resting</b> (what your body uses at rest), <b>movement</b> (steps), <b>workouts</b> and <b>digestion</b> (the energy it takes to process food).</p><p>Most and least active are the days of the week with the highest and lowest average burn.</p>'));
+    const B = D.burn, DAY = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], day3 = (x) => x ? DAY[x.k].slice(0, 3) : '—';
+    const tile = (k, v, sub) => `<div><span>${k}</span><b>${v}</b><small>${sub || ''}</small></div>`, t = [];
+    t.push(tile('Daily burn', `${fmtN(B.avg)}<i> kcal</i>`, B.prevAvg != null && Math.abs(B.avg - B.prevAvg) >= 10 ? `${signedN(Math.round(B.avg - B.prevAvg))} vs. the ${insSpan(N)} before` : 'a day'));
+    if(B.steps != null) t.push(tile('Steps', fmtN(B.steps), B.prevSteps ? `${B.steps >= B.prevSteps ? '+' : '−'}${Math.abs(Math.round((B.steps / B.prevSteps - 1) * 100))}% vs. the ${insSpan(N)} before` : 'a day'));
+    if(B.activeShare != null) t.push(tile('Active share', `${Math.round(B.activeShare * 100)}%`, 'of your burn is moving'));
+    if(B.steps != null) t.push(tile('10,000-step days', `${B.tenK}`, `of ${B.stepDays} days`));
+    if(B.weSteps != null && B.wdSteps != null) t.push(tile('Weekend steps', fmtN(B.weSteps), `vs. ${fmtN(B.wdSteps)} on weekdays`));
+    if(B.stepRun >= 2) t.push(tile('Best step streak', `${B.stepRun}<i> days</i>`, `${fmtN(B.stepGoal)}+ steps in a row`));
+    t.push(tile('Workouts', `${B.workouts}`, `${(B.workouts / (N / 7)).toFixed(1)} a week`));
+    if(B.workouts) t.push(tile('Per workout', `${fmtN(B.woAvg)}<i> kcal</i>`, B.woTop ? `mostly ${B.woTop.toLowerCase()}` : ''));
+    else if(B.moveAvg) t.push(tile('Movement', `${fmtN(B.moveAvg)}<i> kcal</i>`, 'a day from steps'));
+    if(B.most) t.push(tile('Most active', day3(B.most), `${fmtN(B.most.burn)} kcal`));
+    if(B.least) t.push(tile('Least active', day3(B.least), `${fmtN(B.least.burn)} kcal`));
+    const head = B.most && B.least && B.most !== B.least && B.most.burn - B.least.burn >= 150
+      ? `${DAY[B.most.k]}s burn ${insB(fmtN(B.most.burn - B.least.burn) + ' kcal')} more than ${DAY[B.least.k]}s`
+      : B.steps != null ? `You walk ${insB(fmtN(B.steps))} steps a day${B.tenK ? `, ${insB(B.tenK)} days past 10,000` : ''}` : `You burn ${insB(fmtN(B.avg) + ' kcal')} a day`;
+    out.push(insCard('Burn', head, `<div class="ins-tiles four">${t.join('')}</div>`,
+      `<p><b>Daily burn</b> is everything you burn in a day: resting, movement (steps), workouts and digestion. <b>Active share</b> is the part from moving and workouts.</p><p>Most and least active are the days of the week with the highest and lowest average burn. Comparisons are with the ${insSpan(N)} before this window.</p>`));
   }
   // 8. highlights and lowlights: up to 15 each, strongest first
   const H = D.hl, u = unit, good = [], bad = [], tgtPOf = D.tgtP;

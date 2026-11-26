@@ -1062,6 +1062,8 @@
   .bcx-ico{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:none;}
   .bcx-ico svg{width:18px;height:18px;}
   .bcx-part .bc-main b{font-size:15px;}
+  .bc-name{display:block;} .bc-nl{display:inline;} .bc-name .qm{margin-left:5px;vertical-align:1px;}
+  .bc-name > .lpill{display:flex;width:max-content;margin:6px 0 0;} .bc-name > em{margin-left:6px;}   /* the Learned pill on its own line, so its tap area never covers the ? */
   .bcx-part .bc-main small{font-size:12.5px;line-height:1.38;}
   .bcx-part .bc-num{font-size:17px;margin-top:4px;}
   .bcx-part .bc-pen{margin:-1px -4px 0 0;}
@@ -4957,30 +4959,33 @@ const BURN_ICONS = {
 };
 const PENCIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>';
 const AH_SRC = () => `<span class="bc-ah">${AH_ICON}Apple Health</span>`;
+// Under each part's name: only its source and plain facts (Apple Health, how many workouts logged).
+// How it's worked out lives behind the "?" next to the name (burnPartTip).
 function burnPartSub(p, q){
-  const pct = p.isToday ? ` · ${Math.round(p.frac * 100)}% of the day so far` : '';
   switch(q.key){
-    case 'rest': {
-      const st = bmrStatusText();
-      return `BMR ${fmtN(p.bmr)} a day${pct}${learnEver() && p.bmrAdj ? ` · ${p.bmrAdj > 0 ? '+' : '−'}${fmtN(Math.abs(p.bmrAdj))} learned` : ''}`;
-    }
-    case 'living': return p.noHealth ? `No Apple Health data for this day — standing, walking around, chores${pct}` : `Standing, walking around, chores${pct}`;
-    case 'steps': {
-      const st = p.health && typeof p.health.steps === 'number' ? p.health.steps : null;
-      const sm = strideM();
-      return st == null ? `${AH_SRC()} · no step count for this day` : `${fmtN(st)} steps${sm ? ` × ${sm.toFixed(2)} m stride` : ''} · ${AH_SRC()}`;
-    }
-    case 'watch': {
-      const st = p.health && typeof p.health.steps === 'number' ? ` · ${fmtN(p.health.steps)} steps` : '';
-      return `Movement and workouts${st} · ${AH_SRC()}`;
-    }
-    case 'active': return `Workouts from your watch or ring · ${AH_SRC()}`;
-    case 'workouts': return p.workouts.length ? `${p.workouts.length} logged` : (p.legacyActivity ? `${DAY_ACTIVITY[p.legacyActivity].label} day (older activity tag)` : 'Nothing logged — tap + to add one');
-    case 'digest': {
-      const dg = p.digestion;
-      if(dg.how === 'none') return 'Nothing eaten logged yet';
-      return dg.how === 'macros' ? `Digesting ${fmtN(dg.eaten)} kcal eaten · from its protein, carbs and fat` : `About 10% of ${fmtN(dg.eaten)} kcal eaten`;
-    }
+    case 'living': return p.noHealth ? 'No Apple Health data for this day' : '';
+    case 'steps': return p.health && typeof p.health.steps === 'number' ? AH_SRC() : `${AH_SRC()} · no step count for this day`;
+    case 'watch': case 'active': return AH_SRC();
+    case 'workouts': return p.workouts.length ? `${p.workouts.length} logged` : (p.legacyActivity ? `${DAY_ACTIVITY[p.legacyActivity].label} day (older activity tag)` : 'Nothing logged yet');
+    case 'digest': return p.digestion && p.digestion.how === 'none' ? 'Nothing eaten logged yet' : '';
+  }
+  return '';
+}
+function burnPartTip(p, q, path){
+  const pct = p.isToday ? `<p>So far today: ${Math.round(p.frac * 100)}% of the day has passed, so ${Math.round(p.frac * 100)}% of the day’s resting burn is counted.</p>` : '';
+  switch(q.key){
+    case 'rest': return `<p><b>Resting</b> is your BMR: what your body burns doing nothing at all. Yours is <b>${fmtN(p.bmr)} kcal a day</b>.</p>
+      <p>${bmrLearnState() ? (learnEver() ? `Fera learned it from your food and weigh-ins${p.bmrAdj ? `: <b>${p.bmrAdj > 0 ? '+' : '−'}${fmtN(Math.abs(p.bmrAdj))} kcal</b> against the formula` : ''}. <button class="bc-link" data-bmr-open type="button">See the details</button>` : 'Fera is learning it from your food and weigh-ins; until then it’s the Mifflin-St Jeor estimate from your weight, height, age and sex.') : 'It’s the Mifflin-St Jeor estimate from your weight, height, age and sex.'}</p>${pct}`;
+    case 'steps': { const st = p.health && typeof p.health.steps === 'number' ? p.health.steps : null, sm = strideM();
+      return `<p><b>Steps</b> from Apple Health${st != null ? `: <b>${fmtN(st)}</b> today${sm ? `, × a ${sm.toFixed(2)} m stride (about 41% of your height)` : ''}` : ''}.</p>
+      <p>Walking costs about 0.57 kcal per kg per km (0.67 from age 65), from a meta-analysis (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6620279/" target="_blank" rel="noopener">Das Gupta et al., 2019</a>).</p>`; }
+    case 'active': return `<p><b>Active energy</b> is what your watch or ring records in Apple Health beyond resting: your workouts and other exercise.</p><p>Steps are counted on their own line. Change your setup in Profile → Daily burn.</p>`;
+    case 'watch': return `<p><b>Apple Watch activity</b> is the active energy your Apple Watch records all day. It already includes your walking and workouts, so nothing is added on top.</p><p>Your watch sends hundreds of small readings a day; Apple Health adds them up into one total, with no double counting between your watch and iPhone.</p>`;
+    case 'workouts': return `<p><b>Workouts</b>: each activity has an energy cost (MET) for light, moderate and all-out effort, from the <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10818145/" target="_blank" rel="noopener">2024 Compendium of Physical Activities</a>.</p><p>Calories = (MET − 1) × your weight in kg × hours, minus 1 because resting is already counted.${path === 'phone' ? ' For walks, runs and hikes, the steps your iPhone already counted are taken off, so they aren’t counted twice.' : ''} Tap a workout to change it.</p>`;
+    case 'living': return `<p><b>Everyday movement</b>: standing, walking around and chores, worked out as 10% of your resting burn${BURN_PATHS[path].apple ? ' (used on days Apple Health sent nothing)' : ''}.</p>`;
+    case 'digest': { const dg = p.digestion;
+      return `<p><b>Digestion</b>: your body spends energy digesting food, about 20–30% of protein calories, 5–10% of carbs and 0–3% of fat (<a href="https://doaj.org/article/0f4d3251105d438cb3e663a7fa912eb8" target="_blank" rel="noopener">Westerterp, 2004</a>).</p>
+      <p>Fera uses 25%, 7.5% and 1.5%${dg && dg.eaten ? `, on the <b>${fmtN(dg.eaten)} kcal</b> you’ve eaten${dg.how === 'macros' ? '' : ' (about 10% overall, as this day has no macros)'}` : ''}.</p>`; }
   }
   return '';
 }
@@ -5149,7 +5154,7 @@ function renderBurnCard(){
       if(q.edited) tag += '<em class="bc-edited">edited</em>';
       const share = Math.round(Math.max(0, q.value) / ringTot * 100);
       html += `<div class="bcx-part" data-part="${q.key}"><div class="bc-row${editing ? ' editing' : ''}"><span class="bcx-ico" style="background:${info.color}22;color:${info.color}">${BURN_ICONS[q.key] || ''}</span>
-        <div class="bc-main"><b>${q.key === 'living' && p.noHealth ? 'Everyday movement' : info.label}${tag}</b><small>${burnPartSub(p, q)}</small>
+        <div class="bc-main"><b class="bc-name"><span class="bc-nl">${q.key === 'living' && p.noHealth ? 'Everyday movement' : info.label}${qTip(burnPartTip(p, q, path), info.label)}</span>${tag}</b>${(() => { const sub = burnPartSub(p, q); return sub ? `<small>${sub}</small>` : ''; })()}
           ${q.key === 'rest' && learnStatus().state !== 'learned' ? `<small class="bc-learn">${bmrStatusText().line}</small>` : ''}
           ${editing ? `<div class="bc-edit"><input type="number" inputmode="numeric" id="bcPartInput" value="${q.value}" aria-label="${info.label}, kcal"><span>kcal</span>
             <button class="btn-small btn-accent" data-bc="save" data-k="${q.key}" type="button">Save</button><button class="btn-small" data-bc="cancel" type="button">Cancel</button></div>` : ''}
@@ -5163,16 +5168,6 @@ function renderBurnCard(){
       html += `</div>`;
     });
     html += `</div>`;
-    html += `<button class="bc-info-btn" data-bc="info" type="button">${bcInfoOpen ? 'Hide how this works' : 'How this is calculated'}</button>`;
-    if(bcInfoOpen) html += `<div class="bc-info">
-      <p><b>Resting</b> — your BMR: what your body burns doing nothing. ${bmrLearnState() ? (learnEver() ? `Fera has learned it from your food and weigh-ins: ${bmrStatusText().line}.` : 'Fera is learning it from your food and weigh-ins; until then it’s the Mifflin-St Jeor estimate from your weight, height, age and sex.') + ' <button class="bc-link" data-bmr-open type="button">See the details</button>' : 'Mifflin-St Jeor estimate from your weight, height, age and sex.'}</p>
-      ${def.parts.includes('steps') ? `<p><b>Steps</b> — walking costs about 0.57 kcal per kg per km (0.67 from age 65), from a systematic review and meta-analysis (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6620279/" target="_blank" rel="noopener">Das Gupta et al., 2019</a>); distance = steps × stride, with stride ≈ 41% of your height.</p>` : ''}
-      ${def.parts.includes('active') ? `<p><b>Active energy</b> — what your watch or ring records in Apple Health. WHOOP, Oura and Garmin write workouts there, so steps are counted separately.</p>` : ''}
-      ${def.parts.includes('watch') ? `<p><b>Apple Watch activity</b> — the active energy your Apple Watch records all day. It already includes your walking and workouts, so nothing is added on top.</p>` : ''}
-      ${def.parts.includes('workouts') ? `<p><b>Workouts</b> — each activity has an energy cost (MET) for light, moderate and all-out effort from the <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10818145/" target="_blank" rel="noopener">2024 Compendium of Physical Activities</a>. Calories = (MET − 1) × your weight in kg × hours — minus 1 because resting is already counted.${path === 'phone' ? ' For walks, runs and hikes, the steps your iPhone already counted are taken off so they aren’t counted twice.' : ''}</p>` : ''}
-      ${def.parts.includes('living') ? `<p><b>Everyday movement</b> — BMR × 0.1 for standing, walking around and chores${def.apple ? ' (used on days Apple Health sent nothing)' : ''}.</p>` : ''}
-      <p><b>Digestion</b> — your body spends energy digesting food: about 20–30% of protein calories, 5–10% of carbs and 0–3% of fat (<a href="https://doaj.org/article/0f4d3251105d438cb3e663a7fa912eb8" target="_blank" rel="noopener">Westerterp, 2004</a>). The app uses 25%, 7.5% and 1.5%.</p>
-      <p>Tap the pencil on any part to use your own number for that day. Change your setup in Profile → Daily burn.</p></div>`;
   }
   if(!(p && p.manual)) html += `<button class="bc-ownbtn" data-bc="own" type="button">${bcOwnOpen ? 'Never mind' : 'Use my own total instead'}</button>`;
   if(def.apple && !healthConnected() && !Object.keys(healthData).length) html += `<button class="bc-promo" data-bc="health" type="button">${AH_ICON}<span><b>Finish Apple Health setup</b> — nothing has synced yet.</span><i>›</i></button>`;
@@ -6463,13 +6458,13 @@ function healthConnected(){ return !!(sessionInfo && sessionInfo.health && sessi
 //  total (burnSource 'manual'); days from before the switch keep their old WHOOP number ('kept').
 const BURN_PATHS = {
   wearable: { apple: true,  title: 'Apple Health + a wearable', short: 'Watch or ring (not Apple Watch)', ex: 'WHOOP, Oura, Garmin, Fitbit…',
-              parts: ['rest', 'steps', 'active', 'digest'], role: 'Nothing to do — keep the Monster Health shortcut running.' },
+              parts: ['rest', 'steps', 'active', 'digest'], role: 'Nothing to do: Fera reads your steps and active energy from Apple Health.' },
   watch:    { apple: true,  title: 'Apple Health + Apple Watch', short: 'Apple Watch', ex: 'Records all-day movement and workouts',
-              parts: ['rest', 'watch', 'digest'], role: 'Nothing to do — keep the Monster Health shortcut running.' },
+              parts: ['rest', 'watch', 'digest'], role: 'Nothing to do: Fera reads your Apple Watch activity from Apple Health.' },
   phone:    { apple: true,  title: 'Apple Health, iPhone only', short: 'Just my iPhone', ex: 'No watch or ring',
-              parts: ['rest', 'steps', 'workouts', 'digest'], role: 'Log your workouts — tap the Burn ring.' },
+              parts: ['rest', 'steps', 'workouts', 'digest'], role: 'Log your workouts on the Burn page; steps come from Apple Health.' },
   manual:   { apple: false, title: 'Without Apple Health', short: 'No Apple Health', ex: '',
-              parts: ['rest', 'living', 'workouts', 'digest'], role: 'Log your workouts — tap the Burn ring.' }
+              parts: ['rest', 'living', 'workouts', 'digest'], role: 'Log your workouts on the Burn page.' }
 };
 function burnPath(){
   const p = userProfile.burnPath;

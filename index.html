@@ -2377,7 +2377,8 @@
   .rc-seg i{flex:1;height:3px;border-radius:2px;background:rgba(244,245,250,.18);overflow:hidden;}
   .rc-seg i b{display:block;height:100%;width:0;background:#fff;transition:width .35s ease;}
   .rc-seg i.done b{width:100%;}
-  .rc-x{width:32px;height:32px;border-radius:50%;border:0;background:rgba(244,245,250,.1);color:var(--ink);font-size:14px;cursor:pointer;flex-shrink:0;}
+  .rc-x{width:36px;height:36px;border-radius:50%;border:1px solid rgba(244,245,250,.28);background:rgba(244,245,250,.16);color:#fff;font-size:15px;font-weight:700;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35);}
+  .rc-x:active{background:rgba(244,245,250,.28);}
   .rc-stage{display:grid;}
   .rc-card{grid-area:1/1;position:relative;overflow:hidden;padding:22px 20px 20px;border-radius:28px;border:1px solid var(--rule);
     background:radial-gradient(120% 70% at 100% 0%,var(--rc-glow),transparent 60%),linear-gradient(180deg,#1B2030,#14171E);box-shadow:0 30px 80px rgba(0,0,0,.5);
@@ -2408,6 +2409,8 @@
   .rc-notes p{margin:0;display:flex;gap:9px;font-size:13.5px;line-height:1.4;color:var(--ink);}
   .rc-notes i{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;font-weight:800;}
   .rc-notes .g i{background:rgba(74,222,128,.16);color:#4ADE80;} .rc-notes .w i{background:rgba(255,159,67,.16);color:#FFB46B;}
+  .rc-notes .i i{background:rgba(244,245,250,.1);color:var(--muted);} .rc-notes .n i{background:rgba(76,141,255,.18);color:#8DB6FF;} .rc-notes .n{margin-top:3px;padding-top:9px;border-top:1px solid rgba(244,245,250,.08);}
+  .rc-notes p span b{font-weight:700;}
   .rc-chart{display:block;width:100%;height:auto;margin-top:16px;}
   .rc-b{transform-box:fill-box;transform-origin:center;animation:rcRise .6s cubic-bezier(.2,.9,.3,1) both;animation-delay:var(--d);}
   .rc-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;}
@@ -2794,6 +2797,7 @@
   .rc-meals span{display:block;line-height:0;} .rc-meals .li{width:17px;height:17px;}
   .rc-meals b{display:block;margin-top:6px;font:700 15px/1 'Sora',sans-serif;color:var(--ink);font-variant-numeric:tabular-nums;}
   .rc-meals small{display:block;margin-top:4px;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .rc-meals b{display:flex !important;flex-wrap:wrap;align-items:baseline;gap:2px 4px;} .rc-meals b em{font:600 11px 'Inter',sans-serif;font-style:normal;color:var(--muted);}
   .rc-gt{height:8px;border-radius:4px;background:rgba(244,245,250,.08);overflow:hidden;}
   .rc-gt i{display:block;height:100%;width:var(--w);border-radius:4px;background:linear-gradient(90deg,#2F6BEA,#4ADE80);animation:rcGrow .9s cubic-bezier(.2,.9,.3,1) both;}
   .rc-gl{display:flex;align-items:flex-start;justify-content:space-between;margin-top:8px;font-size:11.5px;color:var(--muted);font-weight:600;}
@@ -12789,6 +12793,63 @@ function recapVerdict(total, goal, slack, unit = 'day'){
 function recapPlanText(goal){ return Math.abs(goal) < 50 ? 'goal: break even' : `plan ${signedN(goal)}`; }
 const fatEq = (kcal) => { const kg = weightUnit() === 'kg'; return `≈ ${(Math.abs(kcal) / (kg ? 7700 : 3500)).toFixed(1)} ${kg ? 'kg' : 'lb'}`; };
 
+// The card's last lines: things it doesn't already show. Yesterday against your own habits, the foods behind
+// the macro that ran over, how the week stands, the timing of the last bite, a streak, then one line for today.
+function recapTakeaways(x){
+  const out = [], d = x.d, e = x.e || {}, items = e.mode === 'items' ? (e.items || []) : [];
+  const gw = (userGoals && userGoals.weightGoal) || 'lose', b = (t) => `<b>${t}</b>`;
+  const past = []; for(let i = 1; i <= 28; i++){ const k = wtAddDays(d, -i), c = consumedTotal(entries[k]); if(c != null && c >= 600) past.push({ k, c, e: entries[k] }); }
+  // 1. the macro that ran most over (or protein well short), and the foods behind it
+  const offs = x.macros.filter((q) => q.v != null && q.g).map((q) => ({ ...q, off: q.m === 'protein' ? (q.v < q.g * 0.85 ? (q.g - q.v) / q.g : 0) : (q.v > q.g * 1.1 ? (q.v - q.g) / q.g : 0) })).filter((q) => q.off > 0).sort((a, b2) => b2.off - a.off);
+  if(offs.length && items.length){
+    const q = offs[0], key = q.m === 'protein' ? 'protein' : q.m, top = items.filter((it) => typeof it[key] === 'number' && it[key] > 0).sort((a, b2) => b2[key] - a[key]).slice(0, 2);
+    if(q.m !== 'protein' && top.length) out.push({ tone: 'w', html: `Most of the ${MACRO_INFO[q.m].label.toLowerCase()} came from ${top.map((it) => `${escapeHtml(it.desc || 'a food')} (${fmtN(it[key])}\u00a0g)`).join(' and ')}.` });
+    else if(q.m === 'protein') out.push({ tone: 'w', html: `Protein came up ${b(fmtN(q.g - q.v) + ' g')} short; a lean protein at dinner usually closes it.` });
+  }
+  // 2. against your habits: the same weekday, or your usual day
+  if(x.cal != null && past.length >= 7){
+    const dow = parseISO(d).getDay(), same = past.filter((p) => parseISO(p.k).getDay() === dow), base = same.length >= 3 ? same : past;
+    const avg = base.reduce((a, p) => a + p.c, 0) / base.length, diff = Math.round((x.cal - avg) / 10) * 10, what = same.length >= 3 ? `your usual ${parseISO(d).toLocaleDateString(undefined, { weekday: 'long' })}` : 'your usual day';
+    if(Math.abs(diff) >= 150) out.push({ tone: (diff > 0) === (gw !== 'gain') ? 'w' : 'g', html: `Ate ${b(fmtN(Math.abs(diff)) + ' kcal ' + (diff > 0 ? 'more' : 'less'))} than ${what} (${fmtN(avg)}).` });
+  }
+  // 3. the week so far against the plan
+  { const ws = weekStartISO(d); let net = 0, plan = 0, n = 0;
+    for(let k = ws; k <= d; k = wtAddDays(k, 1)){ const c = consumedTotal(entries[k]), bu = hasBurned(entries[k]) ? entries[k].burned : null, t = dayTargets(k); if(c == null || bu == null || !t) continue; net += c - bu; plan += t.calorieTarget - t.burnTarget; n++; }
+    const even = gw === 'maintain' && Math.abs(plan) < 50 * n;
+    if(n >= 2 && even){ const g2 = Math.round((net - plan) / 10) * 10;
+      out.push(Math.abs(g2) <= 150 ? { tone: 'g', html: `The week so far is close to even (${signedN(g2)} kcal), right where maintaining should be.` }
+        : { tone: 'w', html: `The week so far is ${b(fmtN(Math.abs(g2)) + ' kcal ' + (g2 > 0 ? 'over' : 'under'))} even, about ${fmtN(Math.round(Math.abs(g2) / Math.max(1, 7 - n) / 10) * 10)} a day ${g2 > 0 ? 'less' : 'more'} to balance it by Sunday.` }); }
+    else if(n >= 2){ const gap = Math.round(((gw === 'gain' ? -1 : 1) * (net - plan)) / 10) * 10;   // > 0 is behind plan
+      out.push(gap <= 0 ? { tone: 'g', html: `The week so far is ${b(fmtN(-gap) + ' kcal')} ${gap === 0 ? 'right on' : 'ahead of'} plan${x.net != null && x.goalNet != null && (gw === 'gain' ? x.net < x.goalNet : x.net > x.goalNet) ? ', so yesterday is covered' : ''}.` }
+        : { tone: 'w', html: `The week so far is ${b(fmtN(gap) + ' kcal')} behind plan, about ${fmtN(Math.round(gap / Math.max(1, 7 - n) / 10) * 10)} a day to make up by Sunday.` }); }
+  }
+  // 4. the last bite, against your usual
+  { const ts = items.map((it) => it.ts).filter((t) => typeof t === 'number' && toISO(new Date(t)) === d).sort((a, b2) => b2 - a)[0];
+    if(ts){ const mins = (t) => { const z = new Date(t); return z.getHours() * 60 + z.getMinutes(); }, last = mins(ts);
+      const usual = past.map((p) => (p.e.items || []).map((it) => it.ts).filter((t) => typeof t === 'number' && toISO(new Date(t)) === p.k).sort((a, b2) => b2 - a)[0]).filter(Boolean).map(mins).sort((a, b2) => a - b2);
+      const med = usual.length >= 5 ? usual[Math.floor(usual.length / 2)] : null, clock = new Date(ts).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+      if(med != null && Math.abs(last - med) >= 60) out.push({ tone: last > med ? 'w' : 'g', html: `Last bite at ${b(clock)}, about ${Math.round(Math.abs(last - med) / 60 * 2) / 2 === 1 ? 'an hour' : Math.round(Math.abs(last - med) / 60 * 2) / 2 + ' hours'} ${last > med ? 'later' : 'earlier'} than usual.` });
+      else if(last >= 21 * 60 + 30) out.push({ tone: 'w', html: `Last bite at ${b(clock)}; late eating tends to push the day over.` }); } }
+  // 5. a protein streak worth keeping
+  { let k = 0; for(let i = 0; i < 60; i++){ const dd = wtAddDays(d, -i), t = dayTargets(dd), pv = consumedMacro(entries[dd], 'protein'), g = t ? macroTarget('protein', t) : null; if(pv != null && g && pv >= g * 0.95) k++; else break; }
+    if(k >= 3 && userGoals.trackProtein !== false) out.push({ tone: 'g', html: `Protein goal hit ${b(k + ' days')} in a row.` }); }
+  // 6. steps against your usual
+  if(x.health && typeof x.health.steps === 'number' && burnPath() !== 'manual'){
+    const st = past.map((p) => healthFor(p.k)).filter((h) => h && typeof h.steps === 'number').map((h) => h.steps);
+    if(st.length >= 7){ const avg = st.reduce((a, v) => a + v, 0) / st.length, r = x.health.steps / avg;
+      if(r <= 0.7 || r >= 1.3) out.push({ tone: r > 1 ? 'g' : 'w', html: `${fmtN(x.health.steps)} steps, ${b(fmtN(Math.round(Math.abs(x.health.steps - avg) / 100) * 100))} ${r > 1 ? 'more' : 'fewer'} than usual.` }); }
+  }
+  // 7. the single biggest food, when it was a big part of the day
+  if(items.length && x.cal){ const top = items.filter((it) => typeof it.cal === 'number').sort((a, b2) => b2.cal - a.cal)[0];
+    if(top && top.cal >= x.cal * 0.25 && top.cal >= 400 && !out.some((n) => n.html.includes(escapeHtml(top.desc || '')))) out.push({ tone: 'i', html: `Biggest single food: ${escapeHtml(top.desc || 'a food')}, ${b(fmtN(top.cal) + ' kcal')}.` }); }
+  // three of these (no more than two warnings when something else is there), then today
+  let pick = out.slice(0, 3);
+  if(pick.filter((n) => n.tone === 'w').length === 3){ const alt = out.slice(3).find((n) => n.tone !== 'w'); if(alt) pick = [pick[0], pick[1], alt]; }
+  const t = computeTargets();
+  if(t && t.calorieTarget){ const pg = macroTarget('protein', t), lean = offs && offs.length && offs[0].m !== 'protein' ? `, lighter on ${MACRO_INFO[offs[0].m].label.toLowerCase()}` : '';
+    pick.push({ tone: 'n', html: `Today: about ${b(fmtN(t.calorieTarget) + ' kcal')}${pg && userGoals.trackProtein !== false ? ` with ${b(fmtN(pg) + ' g')} protein` : ''}${lean}.` }); }
+  return pick;
+}
 function recapDayCard(x, ins, rem){
   const lbl = parseISO(x.d).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
   const v = x.incomplete ? { tone: 'warn', head: 'Unfinished day' } : recapVerdict(x.net, x.goalNet, 100, 'day');
@@ -12809,7 +12870,7 @@ function recapDayCard(x, ins, rem){
     const T = x.meals.total, gs = MEAL_GROUPS.filter((g) => x.meals.by[g.k] && x.meals.by[g.k].cal > 0);
     const big = gs.slice().sort((a, b) => x.meals.by[b.k].cal - x.meals.by[a.k].cal)[0];
     mealHTML = sec('Meals', big ? `${big.label} was the biggest` : '', `<div class="rc-mbar">${gs.map((g) => `<i style="flex-basis:${(x.meals.by[g.k].cal / T * 100).toFixed(1)}%;background:${g.c}"></i>`).join('')}</div>
-      <div class="rc-meals" style="--n:${gs.length}">${gs.map((g) => `<div><span style="color:${g.c}">${LI(g.ic)}</span><b>${fmtN(x.meals.by[g.k].cal)}</b><small>${g.label} · ${Math.round(x.meals.by[g.k].cal / T * 100)}%</small></div>`).join('')}</div>`);
+      <div class="rc-meals" style="--n:${gs.length}">${gs.map((g) => `<div><span style="color:${g.c}">${LI(g.ic)}</span><b>${fmtN(x.meals.by[g.k].cal)}<em>${Math.round(x.meals.by[g.k].cal / T * 100)}%</em></b><small>${g.label}</small></div>`).join('')}</div>`);
   }
   // weight and the goal
   let wHTML = '';
@@ -12829,7 +12890,7 @@ function recapDayCard(x, ins, rem){
   if(x.health && typeof x.health.steps === 'number' && burnPath() !== 'manual') chips.push(`<span class="rc-chip${x.health.steps >= 10000 ? ' ok' : ''}"><b>${fmtN(x.health.steps)}</b> steps</span>`);
   if(x.workouts.length) chips.push(`<span class="rc-chip ok"><b>${x.workouts.length}</b> workout${x.workouts.length > 1 ? 's' : ''}</span>`);
   if(x.streak >= 2) chips.push(`<span class="rc-chip"><b>${x.streak}-day</b> streak</span>`);
-  const notes = ins.good.map((t) => `<p class="g"><i>✓</i>${escapeHtml(t)}</p>`).concat(ins.watch.map((t) => `<p class="w"><i>!</i>${escapeHtml(t)}</p>`)).slice(0, 3).join('');
+  const notes = x.incomplete ? '' : recapTakeaways(x).map((n) => `<p class="${n.tone}"><i>${n.tone === 'g' ? '✓' : n.tone === 'w' ? '!' : n.tone === 'n' ? '→' : '•'}</i><span>${n.html}</span></p>`).join('');
   const remHTML = (rem || []).map((r) => `<div class="rc-rem ${r.kind}"><span class="rc-ri">${LI(r.kind === 'learn' ? 'spark' : 'scale')}</span><div><b>${escapeHtml(r.title)}</b>${r.dots ? `<span class="rc-dots">${Array.from({ length: r.dots[1] }, (_, i) => `<i class="${i < r.dots[0] ? 'on' : ''}"></i>`).join('')}</span>` : ''}<small>${escapeHtml(r.sub)}</small></div>${r.act ? `<button type="button" class="rc-ra" data-rc="${r.act === 'log' ? 'log' : 'weigh'}">${r.act === 'log' ? 'Log food' : 'Weigh in'}</button>` : ''}</div>`).join('');
   return `<section class="rc-card rc-day tone-${v.tone}" aria-label="Yesterday, ${lbl}">
     <div class="rc-k">Yesterday · ${lbl}</div>

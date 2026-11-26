@@ -12928,7 +12928,7 @@ function showRecap(cards, opt){
   el.innerHTML = `<div class="rc-wrap" role="dialog" aria-modal="true" aria-label="Your recap">
     <div class="rc-top">${cards.length > 1 ? `<div class="rc-seg">${cards.map(() => '<i><b></b></i>').join('')}</div>` : '<div class="rc-seg"></div>'}</div>
     <div class="rc-stage">${cards.map((c) => c.replace('<div class="rc-k">', '<button type="button" class="rc-x" data-rc="close" aria-label="Close">✕</button><div class="rc-k">')).join('')}</div>
-    <div class="rc-foot">${cards.length > 1 ? '<span>Tap for next</span>' : '<span>Tap anywhere to close</span>'}</div>
+    ${cards.length > 1 ? '<div class="rc-foot"><span>Tap for next</span></div>' : ''}
   </div>`;
   document.body.appendChild(el);
   document.body.classList.add('sheet-open');
@@ -12945,7 +12945,7 @@ function showRecap(cards, opt){
     i = k;
     secs.forEach((s, j) => s.classList.toggle('on', j === i));
     segs.forEach((s, j) => s.classList.toggle('done', j <= i));
-    const f = el.querySelector('.rc-foot span'); if(f && cards.length > 1) f.textContent = i < cards.length - 1 ? 'Tap for next' : 'Tap to close';
+    const f = el.querySelector('.rc-foot span'); if(f && cards.length > 1) f.textContent = i < cards.length - 1 ? 'Tap for next' : '';
     countUp(secs[i]);
   };
   const close = () => { el.classList.remove('open'); document.body.classList.remove('sheet-open'); setTimeout(() => el.remove(), 260); };
@@ -12954,7 +12954,7 @@ function showRecap(cards, opt){
   el.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
   el.addEventListener('touchend', (e) => {
     if(sx == null) return; const dx = e.changedTouches[0].clientX - sx; sx = null;
-    if(Math.abs(dx) > 50){ e.preventDefault(); haptic(); if(dx < 0){ if(i < secs.length - 1) show(i + 1); else close(); } else if(i > 0) show(i - 1); el.dataset.swiped = '1'; setTimeout(() => delete el.dataset.swiped, 400); }
+    if(Math.abs(dx) > 50 && secs.length > 1){ e.preventDefault(); haptic(); if(dx < 0){ if(i < secs.length - 1) show(i + 1); } else if(i > 0) show(i - 1); el.dataset.swiped = '1'; setTimeout(() => delete el.dataset.swiped, 400); }
   });
   el.addEventListener('click', (ev) => {
     if(el.dataset.swiped) return;
@@ -12966,12 +12966,16 @@ function showRecap(cards, opt){
       if(a === 'finish'){ setSelectedDate(yesterdayStr()); foodExpanded = true; renderFoodForm(); if(window.setView) window.setView('food'); setTimeout(() => { const c = document.getElementById('foodSummaryBtn'); if(c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120); }
       return;
     }
+    // only the close button closes it, so a stray tap while reading never loses the card
+    if(secs.length < 2) return;
     haptic();
     const r = el.querySelector('.rc-wrap').getBoundingClientRect();
     const back = ev.clientX < r.left + r.width * 0.3;
     if(back){ if(i > 0) show(i - 1); return; }
-    if(i < secs.length - 1) show(i + 1); else close();
+    if(i < secs.length - 1) show(i + 1);
   });
+  const onKey = (e) => { if(e.key === 'Escape'){ document.removeEventListener('keydown', onKey); close(); } };
+  document.addEventListener('keydown', onKey);
 }
 
 // =====================================================================================

@@ -4976,10 +4976,12 @@ function burnPartTip(p, q, path){
   switch(q.key){
     case 'rest': return `<p><b>Resting</b> is your BMR: what your body burns doing nothing at all. Yours is <b>${fmtN(p.bmr)} kcal a day</b>.</p>
       <p>${bmrLearnState() ? (learnEver() ? `Fera learned it from your food and weigh-ins${p.bmrAdj ? `: <b>${p.bmrAdj > 0 ? '+' : '−'}${fmtN(Math.abs(p.bmrAdj))} kcal</b> against the formula` : ''}. <button class="bc-link" data-bmr-open type="button">See the details</button>` : 'Fera is learning it from your food and weigh-ins; until then it’s the Mifflin-St Jeor estimate from your weight, height, age and sex.') : 'It’s the Mifflin-St Jeor estimate from your weight, height, age and sex.'}</p>${pct}`;
-    case 'steps': { const st = p.health && typeof p.health.steps === 'number' ? p.health.steps : null, sm = strideM();
-      return `<p><b>Steps</b> from Apple Health${st != null ? `: <b>${fmtN(st)}</b> today${sm ? `, × a ${sm.toFixed(2)} m stride (about 41% of your height)` : ''}` : ''}.</p>
+    case 'steps': { const st = p.health && typeof p.health.steps === 'number' ? p.health.steps : null, sm = strideM(), ws = Math.round(p.woSteps || 0);
+      return `<p><b>Steps</b> from Apple Health${st != null ? `: <b>${fmtN(st)}</b> ${p.isToday ? 'today' : 'that day'}${ws ? `. ${fmtN(ws)} of them were during workouts your watch recorded, so they count there, leaving <b>${fmtN(st - ws)}</b>` : ''}${sm ? `, × a ${sm.toFixed(2)} m stride (about 41% of your height)` : ''}` : ''}.</p>
       <p>Walking costs about 0.57 kcal per kg per km (0.67 from age 65), from a meta-analysis (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6620279/" target="_blank" rel="noopener">Das Gupta et al., 2019</a>).</p>`; }
-    case 'active': return `<p><b>Active energy</b> is what your watch or ring records in Apple Health beyond resting: your workouts and other exercise.</p><p>Steps are counted on their own line. Change your setup in Profile → Daily burn.</p>`;
+    case 'active': { const H = p.health ? (p.health.active || 0) : 0, W = hkWorkoutKcal(p.health), sp = (p.parts.find((x) => x.key === 'steps') || {}).value || 0;
+      return `<p><b>Active energy</b> is what your watch or ring records in Apple Health beyond resting. Some, like WHOOP, record only workouts; others, like Oura and Garmin, record all day, walking included.</p>
+      <p>So walking is never counted twice, Fera takes the larger of your workouts (<b>${fmtN(W)} kcal</b>) and the watch’s all-day total minus your steps line (${fmtN(H)} − ${fmtN(sp)} = <b>${fmtN(Math.max(0, H - sp))} kcal</b>).</p><p>Change your setup in Profile → Daily burn.</p>`; }
     case 'watch': return `<p><b>Apple Watch activity</b> is the active energy your Apple Watch records all day. It already includes your walking and workouts, so nothing is added on top.</p><p>Your watch sends hundreds of small readings a day; Apple Health adds them up into one total, with no double counting between your watch and iPhone.</p>`;
     case 'workouts': return `<p><b>Workouts</b>: each activity has an energy cost (MET) for light, moderate and all-out effort, from the <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10818145/" target="_blank" rel="noopener">2024 Compendium of Physical Activities</a>.</p><p>Calories = (MET − 1) × your weight in kg × hours, minus 1 because resting is already counted.${path === 'phone' ? ' For walks, runs and hikes, the steps your iPhone already counted are taken off, so they aren’t counted twice.' : ''} Tap a workout to change it.</p>`;
     case 'living': return `<p><b>Everyday movement</b>: standing, walking around and chores, worked out as 10% of your resting burn${BURN_PATHS[path].apple ? ' (used on days Apple Health sent nothing)' : ''}.</p>`;
@@ -5084,7 +5086,7 @@ function hkWorkoutsHTML(p, q){
   const rows = list.map(w => `<div class="bc-wo static"><span class="bc-wo-e" aria-hidden="true">${LI(HK_WO_ICON[w.name] || 'spark')}</span>
     <span class="bc-wo-t"><b>${escapeHtml(w.name)}</b><small>${w.start ? fmtClock(w.start) + ' · ' : ''}${w.min} min${w.src ? ' · ' + escapeHtml(w.src) : ''}</small></span>
     <span class="bc-wo-k">${w.kcal != null ? '+' + fmtN(w.kcal) + '<small class="bc-u">kcal</small>' : '—'}</span></div>`).join('');
-  const other = rest > 0 ? `<div class="bc-wo static dim"><span class="bc-wo-e" aria-hidden="true">${LI('steps')}</span><span class="bc-wo-t"><b>Everyday movement</b><small>Walking around, chores, the rest of the day</small></span><span class="bc-wo-k">+${fmtN(rest)}<small class="bc-u">kcal</small></span></div>` : '';
+  const other = rest > (q.key === 'active' ? 15 : 0) ? `<div class="bc-wo static dim"><span class="bc-wo-e" aria-hidden="true">${LI('steps')}</span><span class="bc-wo-t"><b>${q.key === 'active' ? 'Other movement' : 'Everyday movement'}</b><small>${q.key === 'active' ? 'Recorded by your watch beyond steps and workouts' : 'Walking around, chores, the rest of the day'}</small></span><span class="bc-wo-k">+${fmtN(rest)}<small class="bc-u">kcal</small></span></div>` : '';
   return `<div class="bc-extra"><div class="bc-wos">${rows}${other}</div></div>`;
 }
 // digestion, split by what was eaten: protein costs the most to digest
@@ -6597,6 +6599,15 @@ function bmrBase(){
 function dayFractionNow(){ const now = new Date(), mid = new Date(now); mid.setHours(0, 0, 0, 0); return Math.min(1, (now - mid) / 86400000); }
 // The day's burn, piece by piece. Returns null when the profile can't give a BMR yet.
 // bmrOverride: used by the learning step to see what the plain estimate would have given.
+// Apple Health workouts from a watch or ring: their calories, and the steps taken during them (the
+// iPhone app reads those; for older days without them, a typical cadence for walks, runs and hikes)
+const HK_CADENCE = { Walking: 105, Running: 160, Hiking: 100 };
+function hkWorkoutKcal(h){ return h && Array.isArray(h.workouts) ? h.workouts.reduce((s, w) => s + (w.kcal || 0), 0) : 0; }
+function hkWorkoutSteps(h){
+  if(!h || !Array.isArray(h.workouts)) return 0;
+  const n = h.workouts.reduce((s, w) => s + (typeof w.steps === 'number' ? w.steps : (HK_CADENCE[w.name] || 0) * (w.min || 0)), 0);
+  return Math.min(n, h.steps || 0);
+}
 function burnParts(iso, bmrOverride){
   // a finished day keeps the resting burn it had (syncDerivedBurns locks it); learning passes its own
   const e0 = entries[iso];
@@ -6611,15 +6622,20 @@ function burnParts(iso, bmrOverride){
   const dg = digestionFor(iso);
   const noHealth = def.apple && !h;
   const raw = { rest: bmr * frac };
-  let workoutList = [];
+  let workoutList = [], woSteps = 0;
   def.parts.forEach(k => {
     if(k === 'rest' || k === 'digest') return;
     if(k === 'steps' || k === 'watch'){
       if(noHealth){ raw.living = bmr * LIVING_MULT * frac; return; }   // no Health data that day: estimate everyday movement
-      if(k === 'steps') raw.steps = walkKcal(h.steps || 0);
+      if(k === 'steps'){ woSteps = path === 'wearable' ? hkWorkoutSteps(h) : 0; raw.steps = walkKcal(Math.max(0, (h.steps || 0) - woSteps)); }
       else raw.watch = h.active || 0;
     }
-    else if(k === 'active') raw.active = h ? (h.active || 0) : 0;
+    // A watch or ring other than Apple Watch: some write only workouts to Apple Health (WHOOP), others
+    // all-day active energy that already includes walking (Oura, Garmin). One rule covers both without
+    // naming brands: steps taken during those workouts are left to the workouts (above), and active energy
+    // is the larger of the workouts and the all-day total minus the steps line. Workouts-only: the workouts.
+    // All-day: the watch's total, with walking counted once.
+    else if(k === 'active'){ const H = h ? (h.active || 0) : 0; raw.active = Math.max(0, hkWorkoutKcal(h), H - (raw.steps || 0)); }
     else if(k === 'living') raw.living = bmr * LIVING_MULT * frac;
     else if(k === 'workouts'){
       workoutList = dayWorkouts(iso).map(w => Object.assign({}, w, workoutKcal(w, noHealth ? 'manual' : path)));   // no steps that day → nothing to take off
@@ -6639,7 +6655,7 @@ function burnParts(iso, bmrOverride){
   const L = bmrLearnState();
   return { bmr: Math.round(bmr), bmrBase: Math.round(locked ? bmr - (e0.restAdj || 0) : (bmrBase() || bmr)), bmrAdj: bmrOverride != null ? 0 : locked ? (e0.restAdj || 0) : bmrAdj(), learn: L, locked,
     path, kind: def.apple && h ? 'apple' : 'estimate', noHealth, parts, calc, workouts: workoutList, legacyActivity: !workoutList.length && e.activity && e.activity !== 'sedentary' ? e.activity : null,
-    frac, isToday, health: h, digestion: dg, src: def.apple && h ? 'apple' : 'activity', manual, kept, keptFrom: e.keptFrom || 'WHOOP', total: manual ? e.burned : calc };
+    frac, isToday, health: h, woSteps, digestion: dg, src: def.apple && h ? 'apple' : 'activity', manual, kept, keptFrom: e.keptFrom || 'WHOOP', total: manual ? e.burned : calc };
 }
 function estimatedBurn(iso){ const p = burnParts(iso); return p ? p.calc : null; }
 

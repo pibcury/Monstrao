@@ -6635,7 +6635,10 @@ function burnParts(iso, bmrOverride){
     // naming brands: steps taken during those workouts are left to the workouts (above), and active energy
     // is the larger of the workouts and the all-day total minus the steps line. Workouts-only: the workouts.
     // All-day: the watch's total, with walking counted once.
-    else if(k === 'active'){ const H = h ? (h.active || 0) : 0; raw.active = Math.max(0, hkWorkoutKcal(h), H - (raw.steps || 0)); }
+    // Only when the day carries the watch's workout list (the iPhone app sends it, even when empty): without
+    // it Fera can't tell the two kinds apart, so the active energy stands as it is (as days from the old
+    // Shortcut always have).
+    else if(k === 'active'){ const H = h ? (h.active || 0) : 0; raw.active = h && Array.isArray(h.workouts) ? Math.max(0, hkWorkoutKcal(h), H - (raw.steps || 0)) : H; }
     else if(k === 'living') raw.living = bmr * LIVING_MULT * frac;
     else if(k === 'workouts'){
       workoutList = dayWorkouts(iso).map(w => Object.assign({}, w, workoutKcal(w, noHealth ? 'manual' : path)));   // no steps that day → nothing to take off

@@ -4963,8 +4963,9 @@ const AH_SRC = () => `<span class="bc-ah">${AH_ICON}Apple Health</span>`;
 // How it's worked out lives behind the "?" next to the name (burnPartTip).
 function burnPartSub(p, q){
   switch(q.key){
+    case 'rest': return p.isToday ? `${Math.round(p.frac * 100)}% of the day` : '';
     case 'living': return p.noHealth ? 'No Apple Health data for this day' : '';
-    case 'steps': return p.health && typeof p.health.steps === 'number' ? AH_SRC() : `${AH_SRC()} · no step count for this day`;
+    case 'steps': return p.health && typeof p.health.steps === 'number' ? `${fmtN(p.health.steps)} steps · ${AH_SRC()}` : `${AH_SRC()} · no step count for this day`;
     case 'watch': case 'active': return AH_SRC();
     case 'workouts': return p.workouts.length ? `${p.workouts.length} logged` : (p.legacyActivity ? `${DAY_ACTIVITY[p.legacyActivity].label} day (older activity tag)` : 'Nothing logged yet');
     case 'digest': return p.digestion && p.digestion.how === 'none' ? 'Nothing eaten logged yet' : '';

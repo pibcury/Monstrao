@@ -2377,8 +2377,10 @@
   .rc-seg i{flex:1;height:3px;border-radius:2px;background:rgba(244,245,250,.18);overflow:hidden;}
   .rc-seg i b{display:block;height:100%;width:0;background:#fff;transition:width .35s ease;}
   .rc-seg i.done b{width:100%;}
-  .rc-x{width:36px;height:36px;border-radius:50%;border:1px solid rgba(244,245,250,.28);background:rgba(244,245,250,.16);color:#fff;font-size:15px;font-weight:700;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35);}
-  .rc-x:active{background:rgba(244,245,250,.28);}
+  /* the close button sits in the card's top-right corner, level with the date line */
+  .rc-x{position:absolute;top:12px;right:12px;z-index:2;width:34px;height:34px;border-radius:50%;border:1px solid rgba(244,245,250,.2);background:rgba(244,245,250,.1);color:var(--ink);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .rc-card .rc-k{padding-right:40px;min-height:20px;display:flex;align-items:center;}
+  .rc-x:active{background:rgba(244,245,250,.24);}
   .rc-stage{display:grid;}
   .rc-card{grid-area:1/1;position:relative;overflow:hidden;padding:22px 20px 20px;border-radius:28px;border:1px solid var(--rule);
     background:radial-gradient(120% 70% at 100% 0%,var(--rc-glow),transparent 60%),linear-gradient(180deg,#1B2030,#14171E);box-shadow:0 30px 80px rgba(0,0,0,.5);
@@ -12924,8 +12926,8 @@ function showRecap(cards, opt){
   const el = document.createElement('div');
   el.className = 'rc-scrim';
   el.innerHTML = `<div class="rc-wrap" role="dialog" aria-modal="true" aria-label="Your recap">
-    <div class="rc-top">${cards.length > 1 ? `<div class="rc-seg">${cards.map(() => '<i><b></b></i>').join('')}</div>` : '<div class="rc-seg"></div>'}<button type="button" class="rc-x" data-rc="close" aria-label="Close">✕</button></div>
-    <div class="rc-stage">${cards.join('')}</div>
+    <div class="rc-top">${cards.length > 1 ? `<div class="rc-seg">${cards.map(() => '<i><b></b></i>').join('')}</div>` : '<div class="rc-seg"></div>'}</div>
+    <div class="rc-stage">${cards.map((c) => c.replace('<div class="rc-k">', '<button type="button" class="rc-x" data-rc="close" aria-label="Close">✕</button><div class="rc-k">')).join('')}</div>
     <div class="rc-foot">${cards.length > 1 ? '<span>Tap for next</span>' : '<span>Tap anywhere to close</span>'}</div>
   </div>`;
   document.body.appendChild(el);
